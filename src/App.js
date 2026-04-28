@@ -3,7 +3,6 @@ import { createPortal, flushSync } from "react-dom";
 import { hasSupabaseConfig, supabase } from "./lib/supabase";
 import {
   buildCourseStructurePayload,
-  createCourseStructureHash,
   normalizeCourseName,
   normalizeWhitespace
 } from "./lib/course-utils";
@@ -11,9 +10,7 @@ import {
 const appFont =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
-const STORAGE_KEY = "golf-score-app-courses-v1";
 const THEME_STORAGE_KEY = "golf-score-app-theme-v1";
-const COURSES_MIGRATION_KEY = "golf-score-app-courses-migrated-v1";
 const LAST_LOGIN_EMAIL_STORAGE_KEY = "stablr:lastLoginEmail";
 const MAX_SAVED_ROUNDS = 100;
 const SCREEN_HORIZONTAL_PADDING = "16px";
@@ -62,6 +59,17 @@ function receivedShotsToSymbols(value) {
   return "—";
 }
 
+function createInitialRoundSetup() {
+  return {
+    competitionName: "",
+    totalCompetitionHoles: 18,
+    startHole: 1,
+    selectedRouteId: null,
+    secondaryRouteId: null,
+    selectedCombinationId: null
+  };
+}
+
 function getFriendlyAuthErrorMessage(message) {
   const normalizedMessage = String(message || "").toLowerCase();
 
@@ -85,6 +93,10 @@ function App() {
   const [dialogStep, setDialogStep] = useState(1);
 
   const [courseName, setCourseName] = useState("");
+  const [routeCount, setRouteCount] = useState(null);
+  const [routeDrafts, setRouteDrafts] = useState([]);
+  const [routeName, setRouteName] = useState("");
+  const [currentRouteIndex, setCurrentRouteIndex] = useState(0);
   const [holesCount, setHolesCount] = useState(null);
 
   const [holesData, setHolesData] = useState([]);
@@ -95,11 +107,7 @@ function App() {
 
   const [openedCourse, setOpenedCourse] = useState(null);
   const [showRoundSetup, setShowRoundSetup] = useState(false);
-  const [roundSetup, setRoundSetup] = useState({
-    competitionName: "",
-    totalCompetitionHoles: 18,
-    startHole: 1
-  });
+  const [roundSetup, setRoundSetup] = useState(createInitialRoundSetup);
 
   const [roundScores, setRoundScores] = useState([]);
   const [savedRounds, setSavedRounds] = useState([]);
@@ -425,25 +433,104 @@ function App() {
     if (!supabase) return [];
 
     const { data, error } = await supabase
-      .from("courses")
-      .select("*")
+      .from("clubs")
+      .select("*, course_routes(*, route_holes(*)), route_combinations(*, route_combination_holes(*))")
       .eq("is_active", true)
       .order("created_at", { ascending: false });
 
     if (error) throw error;
 
-    const normalizedCourses = (data || []).map((course) => ({
-      id: course.id,
-      name: course.name,
-      nameNormalized: course.name_normalized,
-      favorite: false,
-      totalPar: course.total_par,
-      holesCount: course.holes_count,
-      holes: Array.isArray(course.holes_json) ? course.holes_json : [],
-      structureHash: course.structure_hash,
-      createdAt: course.created_at,
-      createdBy: course.created_by
-    }));
+    const normalizedCourses = (data || []).map((club) => {
+      const routes = (Array.isArray(club.course_routes) ? club.course_routes : [])
+        .map((route) => {
+          const routeHoles = (Array.isArray(route.route_holes) ? route.route_holes : [])
+            .map((hole) => ({
+              id: hole.id,
+              hole: hole.physical_hole_number,
+              par: hole.par,
+              strokeIndex: hole.stroke_index,
+              displayLabel: hole.display_label
+            }))
+            .sort((left, right) => left.hole - right.hole);
+
+          const computedTotalPar =
+            Number(route.total_par || 0) ||
+            routeHoles.reduce((sum, hole) => sum + Number(hole.par || 0), 0);
+
+          return {
+            id: route.id,
+            name: route.name,
+            holesCount: route.holes_count,
+            totalPar: computedTotalPar,
+            holes: routeHoles,
+            displayOrder: route.display_order
+          };
+        })
+        .sort((left, right) => {
+          const leftOrder = Number.isFinite(left.displayOrder) ? left.displayOrder : 999;
+          const rightOrder = Number.isFinite(right.displayOrder) ? right.displayOrder : 999;
+          if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+          return left.name.localeCompare(right.name, "it");
+        });
+
+      const primaryRoute = routes.length === 1 ? routes[0] : null;
+      const routeCombinations = (Array.isArray(club.route_combinations) ? club.route_combinations : [])
+        .map((combination) => {
+          const combinationHoles = (
+            Array.isArray(combination.route_combination_holes)
+              ? combination.route_combination_holes
+              : []
+          )
+            .map((hole) => ({
+              id: hole.id,
+              roundHoleNumber: hole.round_hole_number,
+              routeId: hole.route_id,
+              routePosition: hole.route_position,
+              physicalHoleNumber: hole.physical_hole_number,
+              par: hole.par,
+              strokeIndex: hole.stroke_index,
+              sourceStrokeIndex: hole.source_stroke_index,
+              displayLabel: hole.display_label
+            }))
+            .sort((left, right) => left.roundHoleNumber - right.roundHoleNumber);
+
+          const frontRoute = routes.find((route) => route.id === combination.front_route_id) || null;
+          const backRoute = routes.find((route) => route.id === combination.back_route_id) || null;
+
+          return {
+            id: combination.id,
+            name: combination.name,
+            frontRouteId: combination.front_route_id,
+            backRouteId: combination.back_route_id,
+            frontRouteName: frontRoute?.name || "Prime nove",
+            backRouteName: backRoute?.name || "Seconde nove",
+            holesCount: combination.holes_count,
+            totalPar:
+              Number(combination.total_par || 0) ||
+              combinationHoles.reduce((sum, hole) => sum + Number(hole.par || 0), 0),
+            holes: combinationHoles
+          };
+        })
+        .sort((left, right) => left.name.localeCompare(right.name, "it"));
+
+      return {
+        id: club.id,
+        name: club.name,
+        nameNormalized: club.name_normalized,
+        favorite: false,
+        totalPar: primaryRoute?.totalPar || null,
+        holesCount: primaryRoute?.holesCount || null,
+        holes: primaryRoute?.holes || [],
+        createdAt: club.created_at,
+        createdBy: club.created_by,
+        city: club.city,
+        country: club.country,
+        routeCount: routes.length,
+        routes,
+        routeCombinations,
+        primaryRouteId: primaryRoute?.id || null
+      };
+    });
 
     setSavedCourses(normalizedCourses);
     return normalizedCourses;
@@ -453,13 +540,13 @@ function App() {
     if (!supabase || !session?.user) return [];
 
     const { data, error } = await supabase
-      .from("favorite_courses")
-      .select("course_id")
+      .from("favorite_clubs")
+      .select("club_id")
       .eq("user_id", session.user.id);
 
     if (error) throw error;
 
-    const ids = (data || []).map((item) => item.course_id);
+    const ids = (data || []).map((item) => item.club_id);
     setFavoriteCourseIds(ids);
     return ids;
   }, [session]);
@@ -479,9 +566,9 @@ function App() {
       id: round.id,
       savedName: round.saved_name,
       competitionName: round.competition_name,
-      courseId: round.course_id,
+      courseId: round.club_id,
       courseName:
-        coursesOverride.find((course) => course.id === round.course_id)?.name || "",
+        coursesOverride.find((course) => course.id === round.club_id)?.name || "",
       createdAt: round.created_at,
       formattedDate: round.formatted_date,
       playerHcp: round.player_hcp,
@@ -537,46 +624,8 @@ function App() {
   }, [session]);
 
   const migrateLocalCoursesIfNeeded = useCallback(async () => {
-    if (!supabase || !session?.user) return;
-
-    const migrationKey = `${COURSES_MIGRATION_KEY}-${session.user.id}`;
-    if (localStorage.getItem(migrationKey)) return;
-
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      const parsed = stored ? JSON.parse(stored) : [];
-      const localCourses = Array.isArray(parsed) ? parsed : [];
-
-      for (const localCourse of localCourses) {
-        const nameNormalized = normalizeCourseName(localCourse.name);
-        const structureHash = createCourseStructureHash(localCourse);
-
-        const { data: existingByName } = await supabase
-          .from("courses")
-          .select("id")
-          .or(`name_normalized.eq.${nameNormalized},structure_hash.eq.${structureHash}`)
-          .limit(1);
-
-        if (existingByName && existingByName.length > 0) continue;
-
-        const structurePayload = buildCourseStructurePayload(localCourse);
-
-        await supabase.from("courses").insert({
-          name: normalizeWhitespace(localCourse.name),
-          name_normalized: nameNormalized,
-          holes_count: structurePayload.holesCount,
-          total_par: structurePayload.totalPar,
-          holes_json: structurePayload.holes,
-          structure_hash: structureHash,
-          created_by: session.user.id
-        });
-      }
-
-      localStorage.setItem(migrationKey, "done");
-    } catch (error) {
-      console.error("Course migration failed", error);
-    }
-  }, [session]);
+    return undefined;
+  }, []);
 
   useEffect(() => {
     if (!sessionUserId) {
@@ -666,10 +715,29 @@ function App() {
 
   const currentHole =
     holesData[currentHoleIndex] || { hole: 1, par: 4, strokeIndex: "" };
+  const currentRouteDraft =
+    routeDrafts[currentRouteIndex] || { name: "Percorso", holesCount: holesCount || 0, holes: holesData };
 
-  const totalPar = useMemo(() => {
-    return holesData.reduce((sum, hole) => sum + Number(hole.par || 0), 0);
-  }, [holesData]);
+  const createRouteHoles = useCallback(
+    (count) =>
+      Array.from({ length: count }, (_, index) => ({
+        hole: index + 1,
+        par: 4,
+        strokeIndex: ""
+      })),
+    []
+  );
+
+  const syncCurrentRouteEditor = useCallback((nextIndex, nextDrafts = routeDrafts) => {
+    const nextRoute = nextDrafts[nextIndex];
+    setCurrentRouteIndex(nextIndex);
+    setRouteName(nextRoute?.name || (routeCount === 1 ? "Percorso" : `Percorso ${nextIndex + 1}`));
+    setHolesCount(nextRoute?.holesCount || null);
+    setHolesData(Array.isArray(nextRoute?.holes) ? nextRoute.holes : []);
+    setCurrentHoleIndex(0);
+    setSelectedStepper("par");
+    setShowStrokeInfo(false);
+  }, [routeCount, routeDrafts]);
 
   const grossTotal = useMemo(() => {
     return roundScores.reduce((sum, score) => sum + Number(score || 0), 0);
@@ -678,6 +746,10 @@ function App() {
   const resetDialogState = () => {
     setDialogStep(1);
     setCourseName("");
+    setRouteCount(null);
+    setRouteDrafts([]);
+    setRouteName("");
+    setCurrentRouteIndex(0);
     setHolesCount(null);
     setHolesData([]);
     setCurrentHoleIndex(0);
@@ -707,27 +779,66 @@ function App() {
   };
 
   const goToIntroStep = () => {
-    if (!holesCount) return;
+    if (!routeCount) return;
 
-    const generatedHoles = Array.from({ length: holesCount }, (_, index) => ({
-      hole: index + 1,
-      par: 4,
-      strokeIndex: ""
+    const drafts = Array.from({ length: routeCount }, (_, index) => ({
+      name: routeCount === 1 ? "Percorso" : `Percorso ${index + 1}`,
+      holesCount: null,
+      holes: []
     }));
 
-    setHolesData(generatedHoles);
-    setCurrentHoleIndex(0);
-    setSelectedStepper("par");
+    setRouteDrafts(drafts);
+    setRouteName(drafts[0].name);
+    setCurrentRouteIndex(0);
+    setHolesCount(null);
+    setHolesData([]);
     setDialogStep(3);
   };
 
-  const startMapping = () => {
+  const saveRouteDetails = () => {
+    if (!holesCount) return;
+
+    const cleanRouteName =
+      normalizeWhitespace(routeName) ||
+      (routeCount === 1 ? "Percorso" : `Percorso ${currentRouteIndex + 1}`);
+    const generatedHoles =
+      holesData.length === holesCount && currentRouteDraft.holesCount === holesCount
+        ? holesData
+        : createRouteHoles(holesCount);
+
+    const nextDrafts = routeDrafts.map((route, index) =>
+      index === currentRouteIndex
+        ? {
+            ...route,
+            name: cleanRouteName,
+            holesCount,
+            holes: generatedHoles
+          }
+        : route
+    );
+
+    setRouteDrafts(nextDrafts);
+
+    if (currentRouteIndex < routeCount - 1) {
+      syncCurrentRouteEditor(currentRouteIndex + 1, nextDrafts);
+      return;
+    }
+
+    syncCurrentRouteEditor(0, nextDrafts);
     setDialogStep(4);
+  };
+
+  const startMapping = () => {
+    setDialogStep(5);
     setSelectedStepper("par");
   };
 
   const goBackToStepTwoFromIntro = () => {
     setDialogStep(2);
+  };
+
+  const goBackToRouteDetails = () => {
+    setDialogStep(3);
   };
 
   const updateCurrentHoleField = (field, value) => {
@@ -737,6 +848,16 @@ function App() {
       [field]: value
     };
     setHolesData(updated);
+    setRouteDrafts((prev) =>
+      prev.map((route, index) =>
+        index === currentRouteIndex
+          ? {
+              ...route,
+              holes: updated
+            }
+          : route
+      )
+    );
   };
 
   const adjustPar = (delta) => {
@@ -809,7 +930,12 @@ function App() {
       setCurrentHoleIndex((prev) => prev + 1);
       setSelectedStepper("par");
     } else {
-      setDialogStep(5);
+      if (currentRouteIndex < routeDrafts.length - 1) {
+        syncCurrentRouteEditor(currentRouteIndex + 1);
+        setDialogStep(4);
+      } else {
+        setDialogStep(6);
+      }
     }
   };
 
@@ -818,13 +944,17 @@ function App() {
       setCurrentHoleIndex((prev) => prev - 1);
       setSelectedStepper("par");
     } else {
-      setDialogStep(3);
+      setDialogStep(4);
     }
   };
 
   const goBackFromSummary = () => {
-    setDialogStep(4);
-    setCurrentHoleIndex(holesData.length - 1);
+    const lastRouteIndex = Math.max(routeDrafts.length - 1, 0);
+    syncCurrentRouteEditor(lastRouteIndex);
+    setCurrentHoleIndex(
+      Math.max((routeDrafts[lastRouteIndex]?.holes || []).length - 1, 0)
+    );
+    setDialogStep(5);
     setSelectedStepper("par");
   };
 
@@ -832,95 +962,120 @@ function App() {
     if (!supabase || !session?.user) return;
 
     const cleanName = normalizeWhitespace(courseName);
-    const structurePayload = buildCourseStructurePayload({
-      holesCount,
-      totalPar,
-      holes: holesData
-    });
     const nameNormalized = normalizeCourseName(cleanName);
-    const structureHash = createCourseStructureHash({
-      holesCount,
-      totalPar,
-      holes: holesData
+    let insertedClubId = null;
+    const normalizedRoutes = routeDrafts.map((route, index) => {
+      const structurePayload = buildCourseStructurePayload({
+        holesCount: route.holesCount,
+        holes: route.holes
+      });
+
+      return {
+        name:
+          normalizeWhitespace(route.name) ||
+          (routeDrafts.length === 1 ? "Percorso" : `Percorso ${index + 1}`),
+        holesCount: structurePayload.holesCount,
+        totalPar: structurePayload.totalPar,
+        holes: structurePayload.holes,
+        displayOrder: index + 1
+      };
     });
 
     setCourseSaveError("");
     setCourseSaveLoading(true);
 
     try {
-      const { data: existingCourses, error: duplicateError } = await supabase
-        .from("courses")
-        .select("id,name,name_normalized,structure_hash")
-        .or(`name_normalized.eq.${nameNormalized},structure_hash.eq.${structureHash}`)
-        .limit(5);
+      const { data: existingClubs, error: duplicateError } = await supabase
+        .from("clubs")
+        .select("id,name,name_normalized")
+        .eq("name_normalized", nameNormalized)
+        .limit(1);
 
       if (duplicateError) throw duplicateError;
 
-      const duplicateByName = (existingCourses || []).find(
+      const duplicateByName = (existingClubs || []).find(
         (course) => course.name_normalized === nameNormalized
       );
       if (duplicateByName) {
-        setCourseSaveError("Esiste già un campo con questo nome.");
+        setCourseSaveError("Esiste già un club con questo nome.");
         setCourseSaveLoading(false);
         return;
       }
 
-      const duplicateByStructure = (existingCourses || []).find(
-        (course) => course.structure_hash === structureHash
-      );
-      if (duplicateByStructure) {
-        setCourseSaveError("Esiste già un campo con questa configurazione.");
-        setCourseSaveLoading(false);
-        return;
-      }
-
-      const { data: insertedCourse, error: insertError } = await supabase
-        .from("courses")
+      const { data: insertedClub, error: insertClubError } = await supabase
+        .from("clubs")
         .insert({
           name: cleanName,
           name_normalized: nameNormalized,
-          holes_count: structurePayload.holesCount,
-          total_par: structurePayload.totalPar,
-          holes_json: structurePayload.holes,
-          structure_hash: structureHash,
           created_by: session.user.id
         })
         .select("*")
         .single();
 
-      if (insertError) {
-        if (String(insertError.message || "").toLowerCase().includes("name_normalized")) {
-          setCourseSaveError("Esiste già un campo con questo nome.");
-        } else if (String(insertError.message || "").toLowerCase().includes("structure_hash")) {
-          setCourseSaveError("Esiste già un campo con questa configurazione.");
-        } else {
-          throw insertError;
+      if (insertClubError) {
+        if (String(insertClubError.message || "").toLowerCase().includes("name_normalized")) {
+          setCourseSaveError("Esiste già un club con questo nome.");
+          setCourseSaveLoading(false);
+          return;
         }
-        setCourseSaveLoading(false);
-        return;
+        throw insertClubError;
       }
 
-      if (insertedCourse) {
-        setSavedCourses((prev) => [
-          {
-            id: insertedCourse.id,
-            name: insertedCourse.name,
-            nameNormalized: insertedCourse.name_normalized,
-            favorite: false,
-            totalPar: insertedCourse.total_par,
-            holesCount: insertedCourse.holes_count,
-            holes: insertedCourse.holes_json || [],
-            structureHash: insertedCourse.structure_hash,
-            createdAt: insertedCourse.created_at,
-            createdBy: insertedCourse.created_by
-          },
-          ...prev
-        ]);
+      insertedClubId = insertedClub.id;
+
+      for (const route of normalizedRoutes) {
+        const { data: insertedRoute, error: insertRouteError } = await supabase
+          .from("course_routes")
+          .insert({
+            club_id: insertedClub.id,
+            name: route.name,
+            holes_count: route.holesCount,
+            total_par: route.totalPar,
+            display_order: route.displayOrder
+          })
+          .select("*")
+          .single();
+
+        if (insertRouteError) {
+          throw insertRouteError;
+        }
+
+        const routeHolesPayload = route.holes.map((hole) => ({
+          route_id: insertedRoute.id,
+          physical_hole_number: hole.hole,
+          par: hole.par,
+          stroke_index: hole.strokeIndex || null,
+          display_label: `Buca ${hole.hole}`
+        }));
+
+        const { error: insertHolesError } = await supabase
+          .from("route_holes")
+          .insert(routeHolesPayload);
+
+        if (insertHolesError) {
+          throw insertHolesError;
+        }
       }
 
+      await loadCourses();
       closeDialog();
     } catch (error) {
-      setCourseSaveError(error.message || "Errore nel salvataggio del campo.");
+      const normalizedError = String(error.message || "").toLowerCase();
+      if (normalizedError.includes("duplicate key value")) {
+        setCourseSaveError("Controlla che ogni percorso abbia un nome e buche valide.");
+      } else if (normalizedError.includes("name_normalized")) {
+        setCourseSaveError("Esiste già un club con questo nome.");
+      } else {
+        setCourseSaveError(error.message || "Errore nel salvataggio del club.");
+      }
+
+      if (insertedClubId) {
+        await supabase.from("clubs").delete().eq("id", insertedClubId);
+      }
+
+      if (String(error.message || "").toLowerCase().includes("name_normalized")) {
+        setCourseSaveError("Esiste già un club con questo nome.");
+      }
     } finally {
       setCourseSaveLoading(false);
     }
@@ -933,21 +1088,89 @@ function App() {
 
     if (isFavorite) {
       await supabase
-        .from("favorite_courses")
+        .from("favorite_clubs")
         .delete()
         .eq("user_id", session.user.id)
-        .eq("course_id", courseId);
+        .eq("club_id", courseId);
       setFavoriteCourseIds((prev) => prev.filter((id) => id !== courseId));
     } else {
-      await supabase.from("favorite_courses").insert({
+      await supabase.from("favorite_clubs").insert({
         user_id: session.user.id,
-        course_id: courseId
+        club_id: courseId
       });
       setFavoriteCourseIds((prev) => [...prev, courseId]);
     }
   };
 
+  const buildRoundChoiceDefaults = useCallback((course, totalCompetitionHoles) => {
+    const routes = Array.isArray(course?.routes) ? course.routes : [];
+    const nineHoleRoutes = routes.filter(
+      (route) => Number(route.holesCount) === 9 && Array.isArray(route.holes) && route.holes.length > 0
+    );
+    const eighteenHoleRoutes = routes.filter(
+      (route) => Number(route.holesCount) === 18 && Array.isArray(route.holes) && route.holes.length > 0
+    );
+    const officialCombinations = Array.isArray(course?.routeCombinations)
+      ? course.routeCombinations.filter((combination) => Array.isArray(combination.holes) && combination.holes.length === 18)
+      : [];
+
+    if (Number(totalCompetitionHoles) === 9) {
+      const preferredRoute = routes[0] || null;
+      return {
+        selectedRouteId: preferredRoute?.id || null,
+        secondaryRouteId: null,
+        selectedCombinationId: null,
+        startHole: 1
+      };
+    }
+
+    if (officialCombinations.length > 0) {
+      const preferredCombination = officialCombinations[0];
+      return {
+        selectedRouteId: preferredCombination.frontRouteId,
+        secondaryRouteId: preferredCombination.backRouteId,
+        selectedCombinationId: preferredCombination.id,
+        startHole: 1
+      };
+    }
+
+    if (eighteenHoleRoutes.length > 0) {
+      return {
+        selectedRouteId: eighteenHoleRoutes[0].id,
+        secondaryRouteId: null,
+        selectedCombinationId: null,
+        startHole: 1
+      };
+    }
+
+    if (nineHoleRoutes.length > 0) {
+      return {
+        selectedRouteId: nineHoleRoutes[0].id,
+        secondaryRouteId: nineHoleRoutes[1]?.id || nineHoleRoutes[0].id,
+        selectedCombinationId: null,
+        startHole: 1
+      };
+    }
+
+    return {
+      selectedRouteId: null,
+      secondaryRouteId: null,
+      selectedCombinationId: null,
+      startHole: 1
+    };
+  }, []);
+
   const prepareRoundSetup = (course) => {
+    const hasPlayableRoutes = Array.isArray(course?.routes) && course.routes.some((route) => route.holes?.length);
+
+    if (!hasPlayableRoutes) {
+      return;
+    }
+    const defaultTotalCompetitionHoles =
+      Array.isArray(course.routes) && course.routes.length === 1 && Number(course.routes[0].holesCount) === 9
+        ? 9
+        : 18;
+
     setOpenedCourse(course);
     setShowRoundSetup(true);
     setActiveSheet(null);
@@ -956,46 +1179,180 @@ function App() {
     setRoundAlreadySaved(false);
     setManualReceivedShots({});
     setRoundSetup({
-      competitionName: "",
-      totalCompetitionHoles: course.holesCount === 18 ? 18 : 18,
-      startHole: 1
+      ...createInitialRoundSetup(),
+      totalCompetitionHoles: defaultTotalCompetitionHoles,
+      ...buildRoundChoiceDefaults(course, defaultTotalCompetitionHoles)
     });
     setRoundScores([]);
   };
 
-  const getCompetitionSequence = (course, totalCompetitionHoles, startHole) => {
-    const courseHoleCount = Number(course.holesCount || 0);
+  const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole) => {
+    const courseHoleCount = Number(route?.holesCount || 0);
     const start = Number(startHole || 1);
 
-    if (!courseHoleCount || !course.holes || course.holes.length === 0) return [];
+    if (!courseHoleCount || !route?.holes || route.holes.length === 0) return [];
 
     return Array.from({ length: totalCompetitionHoles }, (_, index) => {
       const relativeIndex = (start - 1 + index) % courseHoleCount;
-      const baseHole = course.holes[relativeIndex];
+      const baseHole = route.holes[relativeIndex];
       const competitionHoleNumber = index + 1;
       const roundNumber = Math.floor(index / courseHoleCount) + 1;
       const totalRounds = totalCompetitionHoles / courseHoleCount;
 
       return {
         competitionHoleNumber,
+        routeId: route.id,
+        routeName: route.name,
+        routePosition: totalRounds > 1 ? roundNumber : 1,
         courseHoleNumber: baseHole.hole,
+        physicalHoleNumber: baseHole.hole,
         par: baseHole.par,
         strokeIndex: baseHole.strokeIndex,
+        sourceStrokeIndex: baseHole.strokeIndex,
         roundNumber,
-        totalRounds
+        totalRounds,
+        segmentLabel:
+          totalRounds > 1 ? (roundNumber === 1 ? "Prime nove" : "Seconde nove") : route.name
       };
     });
-  };
+  }, []);
+
+  const getAdaptedCombinedStrokeIndex = useCallback((sourceStrokeIndex, routePosition) => {
+    const normalizedIndex = Number(sourceStrokeIndex || 0);
+    if (!normalizedIndex) return null;
+    return (normalizedIndex - 1) * 2 + (routePosition === 1 ? 1 : 2);
+  }, []);
+
+  const usesNineHoleStrokeIndexScale = useCallback((route) => {
+    const routeHoles = Array.isArray(route?.holes) ? route.holes : [];
+    const strokeIndexes = routeHoles
+      .map((hole) => Number(hole.strokeIndex || 0))
+      .filter((value) => value > 0);
+
+    if (strokeIndexes.length === 0) return true;
+
+    return Math.max(...strokeIndexes) <= 9;
+  }, []);
+
+  const buildManualCombinationSequence = useCallback((frontRoute, backRoute) => {
+    const frontHoles = Array.isArray(frontRoute?.holes) ? frontRoute.holes : [];
+    const backHoles = Array.isArray(backRoute?.holes) ? backRoute.holes : [];
+    const shouldAdaptStrokeIndex =
+      usesNineHoleStrokeIndexScale(frontRoute) && usesNineHoleStrokeIndexScale(backRoute);
+
+    if (frontHoles.length === 0 || backHoles.length === 0) return [];
+
+    const frontSequence = frontHoles.map((hole, index) => ({
+      competitionHoleNumber: index + 1,
+      routeId: frontRoute.id,
+      routeName: frontRoute.name,
+      routePosition: 1,
+      courseHoleNumber: hole.hole,
+      physicalHoleNumber: hole.hole,
+      par: hole.par,
+      strokeIndex: shouldAdaptStrokeIndex
+        ? getAdaptedCombinedStrokeIndex(hole.strokeIndex, 1)
+        : hole.strokeIndex,
+      sourceStrokeIndex: hole.strokeIndex,
+      roundNumber: 1,
+      totalRounds: 2,
+      segmentLabel: "Prime nove"
+    }));
+
+    const backSequence = backHoles.map((hole, index) => ({
+      competitionHoleNumber: index + 10,
+      routeId: backRoute.id,
+      routeName: backRoute.name,
+      routePosition: 2,
+      courseHoleNumber: hole.hole,
+      physicalHoleNumber: hole.hole,
+      par: hole.par,
+      strokeIndex: shouldAdaptStrokeIndex
+        ? getAdaptedCombinedStrokeIndex(hole.strokeIndex, 2)
+        : hole.strokeIndex,
+      sourceStrokeIndex: hole.strokeIndex,
+      roundNumber: 2,
+      totalRounds: 2,
+      segmentLabel: "Seconde nove"
+    }));
+
+    return [...frontSequence, ...backSequence];
+  }, [getAdaptedCombinedStrokeIndex, usesNineHoleStrokeIndexScale]);
+
+  const buildOfficialCombinationSequence = useCallback((combination, routes) => {
+    const routeMap = new Map((Array.isArray(routes) ? routes : []).map((route) => [route.id, route]));
+
+    return (Array.isArray(combination?.holes) ? combination.holes : []).map((hole) => {
+      const relatedRoute = routeMap.get(hole.routeId);
+      const routePosition = Number(hole.routePosition || 1);
+
+      return {
+        competitionHoleNumber: hole.roundHoleNumber,
+        routeId: hole.routeId,
+        routeName: relatedRoute?.name || `Percorso ${routePosition}`,
+        routePosition,
+        courseHoleNumber: hole.physicalHoleNumber,
+        physicalHoleNumber: hole.physicalHoleNumber,
+        par: hole.par,
+        strokeIndex: hole.strokeIndex,
+        sourceStrokeIndex: hole.sourceStrokeIndex,
+        roundNumber: routePosition,
+        totalRounds: 2,
+        segmentLabel: routePosition === 1 ? "Prime nove" : "Seconde nove",
+        displayLabel: hole.displayLabel
+      };
+    });
+  }, []);
+
+  const getCompetitionSequence = useCallback((course, setup) => {
+    const routes = Array.isArray(course?.routes) ? course.routes : [];
+    const selectedRoute =
+      routes.find((route) => route.id === setup.selectedRouteId) || routes[0] || null;
+    const secondaryRoute =
+      routes.find((route) => route.id === setup.secondaryRouteId) || null;
+    const officialCombination = (Array.isArray(course?.routeCombinations)
+      ? course.routeCombinations
+      : []
+    ).find((combination) => combination.id === setup.selectedCombinationId);
+
+    if (Number(setup.totalCompetitionHoles) === 18 && officialCombination) {
+      return buildOfficialCombinationSequence(officialCombination, routes);
+    }
+
+    if (
+      Number(setup.totalCompetitionHoles) === 18 &&
+      selectedRoute &&
+      secondaryRoute &&
+      Number(selectedRoute.holesCount) === 9 &&
+      Number(secondaryRoute.holesCount) === 9 &&
+      selectedRoute.id !== secondaryRoute.id
+    ) {
+      return buildManualCombinationSequence(selectedRoute, secondaryRoute);
+    }
+
+    if (!selectedRoute) return [];
+
+    return buildSingleRouteCompetitionSequence(
+      selectedRoute,
+      Number(setup.totalCompetitionHoles),
+      Number(setup.startHole)
+    );
+  }, [
+    buildManualCombinationSequence,
+    buildOfficialCombinationSequence,
+    buildSingleRouteCompetitionSequence
+  ]);
 
   const competitionHoles = useMemo(() => {
     if (!openedCourse) return [];
 
-    return getCompetitionSequence(
-      openedCourse,
-      Number(roundSetup.totalCompetitionHoles),
-      Number(roundSetup.startHole)
-    );
-  }, [openedCourse, roundSetup]);
+    return getCompetitionSequence(openedCourse, roundSetup);
+  }, [openedCourse, roundSetup, getCompetitionSequence]);
+
+  const roundSetupTotalPar = useMemo(
+    () => competitionHoles.reduce((sum, hole) => sum + Number(hole.par || 0), 0),
+    [competitionHoles]
+  );
 
   const startRound = () => {
     const startingScores = competitionHoles.map((hole) => Number(hole.par));
@@ -1014,11 +1371,7 @@ function App() {
     setShowRoundsHistory(false);
     setRoundAlreadySaved(false);
     setManualReceivedShots({});
-    setRoundSetup({
-      competitionName: "",
-      totalCompetitionHoles: 18,
-      startHole: 1
-    });
+    setRoundSetup(createInitialRoundSetup());
   };
 
   const getReceivedShots = useCallback((playerHcp, strokeIndex) => {
@@ -1373,11 +1726,15 @@ function App() {
 
       return getCompetitionSequence(
         relatedCourse,
-        Number(round.totalCompetitionHoles),
-        Number(round.startHole)
+        {
+          ...createInitialRoundSetup(),
+          totalCompetitionHoles: Number(round.totalCompetitionHoles || 18),
+          startHole: Number(round.startHole || 1),
+          selectedRouteId: relatedCourse.primaryRouteId || relatedCourse.routes?.[0]?.id || null
+        }
       );
     },
-    [savedCourses]
+    [savedCourses, getCompetitionSequence]
   );
 
   const getHistoryRoundReceivedShots = useCallback(
@@ -1640,8 +1997,8 @@ function App() {
     setCourseReportSubmitting(true);
     setCourseReportFeedback("");
 
-    const { error } = await supabase.from("course_reports").insert({
-      course_id: courseReportTarget.id,
+    const { error } = await supabase.from("club_reports").insert({
+      club_id: courseReportTarget.id,
       reported_by: session.user.id,
       message: cleanMessage
     });
@@ -3343,7 +3700,9 @@ function App() {
             marginTop: "3px"
           }}
         >
-          {course.holesCount} buche • Par {course.totalPar}
+          {course.routeCount > 1
+            ? `${course.routeCount} percorsi`
+            : `${course.holesCount} buche • Par ${course.totalPar}`}
         </div>
 
         <button
@@ -3382,13 +3741,54 @@ function App() {
   );
 
   if (openedCourse && showRoundSetup) {
-    const allowedCompetitionOptions =
-      openedCourse.holesCount === 18 ? [18, 36, 54] : [9, 18, 27, 36, 45, 54];
-
-    const allowedStartHoles = Array.from(
-      { length: openedCourse.holesCount },
-      (_, index) => index + 1
+    const openedCourseRoutes = Array.isArray(openedCourse.routes) ? openedCourse.routes : [];
+    const openedCourseRouteCombinations = Array.isArray(openedCourse.routeCombinations)
+      ? openedCourse.routeCombinations
+      : [];
+    const nineHoleRoutes = openedCourseRoutes.filter((route) => Number(route.holesCount) === 9);
+    const eighteenHoleRoutes = openedCourseRoutes.filter((route) => Number(route.holesCount) === 18);
+    const canPlayNine = openedCourseRoutes.length > 0;
+    const canPlayEighteen =
+      openedCourseRouteCombinations.length > 0 ||
+      eighteenHoleRoutes.length > 0 ||
+      nineHoleRoutes.length > 0;
+    const allowedCompetitionOptions = [canPlayNine ? 9 : null, canPlayEighteen ? 18 : null].filter(
+      Boolean
     );
+    const selectedPrimaryRoute =
+      openedCourseRoutes.find((route) => route.id === roundSetup.selectedRouteId) || null;
+    const selectedSecondaryRoute =
+      openedCourseRoutes.find((route) => route.id === roundSetup.secondaryRouteId) || null;
+    const selectedOfficialCombination =
+      openedCourseRouteCombinations.find(
+        (combination) => combination.id === roundSetup.selectedCombinationId
+      ) || null;
+    const usingOfficialCombination =
+      Number(roundSetup.totalCompetitionHoles) === 18 && Boolean(selectedOfficialCombination);
+    const usingManualRoutePair =
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      !selectedOfficialCombination &&
+      selectedPrimaryRoute &&
+      selectedSecondaryRoute &&
+      Number(selectedPrimaryRoute.holesCount) === 9 &&
+      Number(selectedSecondaryRoute.holesCount) === 9 &&
+      selectedPrimaryRoute.id !== selectedSecondaryRoute.id;
+    const startHoleRoute = selectedPrimaryRoute;
+    const allowStartHoleSelection =
+      Boolean(startHoleRoute) && !usingOfficialCombination && !usingManualRoutePair;
+    const allowedStartHoles = allowStartHoleSelection
+      ? Array.from({ length: startHoleRoute.holesCount }, (_, index) => index + 1)
+      : [1];
+    const previewSummary = usingOfficialCombination
+      ? `${selectedOfficialCombination.frontRouteName} + ${selectedOfficialCombination.backRouteName}`
+      : usingManualRoutePair
+        ? `${selectedPrimaryRoute.name} + ${selectedSecondaryRoute.name}`
+        : selectedPrimaryRoute
+          ? Number(roundSetup.totalCompetitionHoles) === 18 &&
+            Number(selectedPrimaryRoute.holesCount) === 9
+            ? `${selectedPrimaryRoute.name} ripetuto due volte`
+            : selectedPrimaryRoute.name
+          : "Seleziona un percorso";
 
     return (
       <div
@@ -3452,7 +3852,7 @@ function App() {
               lineHeight: 1.5
             }}
           >
-            Campo da {openedCourse.holesCount} buche
+            Club con {openedCourse.routeCount} {openedCourse.routeCount === 1 ? "percorso" : "percorsi"}
           </div>
 
           <button
@@ -3503,7 +3903,7 @@ function App() {
         <div
           style={{
             ...roundSetupGridStyle,
-            gridTemplateColumns: "repeat(3, 1fr)"
+            gridTemplateColumns: `repeat(${allowedCompetitionOptions.length}, 1fr)`
           }}
         >
           {allowedCompetitionOptions.map((option) => (
@@ -3512,7 +3912,8 @@ function App() {
               onClick={() =>
                 setRoundSetup((prev) => ({
                   ...prev,
-                  totalCompetitionHoles: option
+                  totalCompetitionHoles: option,
+                  ...buildRoundChoiceDefaults(openedCourse, option)
                 }))
               }
               style={setupCardOptionStyle(
@@ -3524,34 +3925,228 @@ function App() {
           ))}
         </div>
 
-        <h2 style={roundSetupSectionTitleStyle}>Buca di partenza</h2>
-        <div
-          style={{
-            ...roundSetupGridStyle,
-            gridTemplateColumns:
-              openedCourse.holesCount === 18 ? "repeat(6, 1fr)" : "repeat(3, 1fr)"
-          }}
-        >
-          {allowedStartHoles.map((holeNumber) => (
+        {Number(roundSetup.totalCompetitionHoles) === 9 && openedCourseRoutes.length > 0 && (
+          <>
+            <h2 style={roundSetupSectionTitleStyle}>Percorso</h2>
             <div
-              key={holeNumber}
-              onClick={() =>
-                setRoundSetup((prev) => ({
-                  ...prev,
-                  startHole: holeNumber
-                }))
-              }
-              style={setupCardOptionStyle(roundSetup.startHole === holeNumber)}
+              style={{
+                ...roundSetupGridStyle,
+                gridTemplateColumns: "1fr"
+              }}
             >
-              {holeNumber}
+              {openedCourseRoutes.map((route) => (
+                <div
+                  key={route.id}
+                  onClick={() =>
+                    setRoundSetup((prev) => ({
+                      ...prev,
+                      selectedRouteId: route.id,
+                      secondaryRouteId: null,
+                      selectedCombinationId: null,
+                      startHole: 1
+                    }))
+                  }
+                  style={setupCardOptionStyle(roundSetup.selectedRouteId === route.id)}
+                >
+                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                    {route.holesCount} buche • Par {route.totalPar}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
+
+        {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && (
+          <>
+            <h2 style={roundSetupSectionTitleStyle}>Percorso da 18</h2>
+            <div
+              style={{
+                ...roundSetupGridStyle,
+                gridTemplateColumns: "1fr"
+              }}
+            >
+              {eighteenHoleRoutes.map((route) => (
+                <div
+                  key={route.id}
+                  onClick={() =>
+                    setRoundSetup((prev) => ({
+                      ...prev,
+                      selectedRouteId: route.id,
+                      secondaryRouteId: null,
+                      selectedCombinationId: null,
+                      startHole: 1
+                    }))
+                  }
+                  style={setupCardOptionStyle(
+                    roundSetup.selectedRouteId === route.id && !roundSetup.selectedCombinationId
+                  )}
+                >
+                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                    18 buche • Par {route.totalPar}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {Number(roundSetup.totalCompetitionHoles) === 18 &&
+          openedCourseRouteCombinations.length > 0 && (
+            <>
+              <h2 style={roundSetupSectionTitleStyle}>Combinazione ufficiale</h2>
+              <div
+                style={{
+                  ...roundSetupGridStyle,
+                  gridTemplateColumns: "1fr"
+                }}
+              >
+                {openedCourseRouteCombinations.map((combination) => (
+                  <div
+                    key={combination.id}
+                    onClick={() =>
+                      setRoundSetup((prev) => ({
+                        ...prev,
+                        selectedRouteId: combination.frontRouteId,
+                        secondaryRouteId: combination.backRouteId,
+                        selectedCombinationId: combination.id,
+                        startHole: 1
+                      }))
+                    }
+                    style={setupCardOptionStyle(
+                      roundSetup.selectedCombinationId === combination.id
+                    )}
+                  >
+                    <div style={{ fontWeight: 700 }}>{combination.name}</div>
+                    <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                      {combination.frontRouteName} • {combination.backRouteName}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+        {Number(roundSetup.totalCompetitionHoles) === 18 && nineHoleRoutes.length > 0 && (
+          <>
+            <h2 style={roundSetupSectionTitleStyle}>Prime nove</h2>
+            <div
+              style={{
+                ...roundSetupGridStyle,
+                gridTemplateColumns: "1fr"
+              }}
+            >
+              {nineHoleRoutes.map((route) => (
+                <div
+                  key={`front-${route.id}`}
+                  onClick={() =>
+                    setRoundSetup((prev) => ({
+                      ...prev,
+                      selectedRouteId: route.id,
+                      selectedCombinationId: null,
+                      startHole: 1
+                    }))
+                  }
+                  style={setupCardOptionStyle(
+                    roundSetup.selectedRouteId === route.id && !roundSetup.selectedCombinationId
+                  )}
+                >
+                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                    9 buche • Par {route.totalPar}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <h2 style={roundSetupSectionTitleStyle}>Seconde nove</h2>
+            <div
+              style={{
+                ...roundSetupGridStyle,
+                gridTemplateColumns: "1fr"
+              }}
+            >
+              {nineHoleRoutes.map((route) => (
+                <div
+                  key={`back-${route.id}`}
+                  onClick={() =>
+                    setRoundSetup((prev) => ({
+                      ...prev,
+                      secondaryRouteId: route.id,
+                      selectedCombinationId: null,
+                      startHole: 1
+                    }))
+                  }
+                  style={setupCardOptionStyle(
+                    roundSetup.secondaryRouteId === route.id && !roundSetup.selectedCombinationId
+                  )}
+                >
+                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                    9 buche • Par {route.totalPar}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div
+              style={{
+                marginTop: "12px",
+                color: colors.subtext,
+                fontSize: "13px",
+                lineHeight: 1.5
+              }}
+            >
+              Lo Stroke Index può variare in base alla combinazione dei percorsi.
+              Fa fede lo scorecard cartaceo ufficiale della gara.
+            </div>
+          </>
+        )}
+
+        {allowStartHoleSelection && (
+          <>
+            <h2 style={roundSetupSectionTitleStyle}>Buca di partenza</h2>
+            <div
+              style={{
+                ...roundSetupGridStyle,
+                gridTemplateColumns:
+                  Number(startHoleRoute?.holesCount) === 18 ? "repeat(6, 1fr)" : "repeat(3, 1fr)"
+              }}
+            >
+              {allowedStartHoles.map((holeNumber) => (
+                <div
+                  key={holeNumber}
+                  onClick={() =>
+                    setRoundSetup((prev) => ({
+                      ...prev,
+                      startHole: holeNumber
+                    }))
+                  }
+                  style={setupCardOptionStyle(roundSetup.startHole === holeNumber)}
+                >
+                  {holeNumber}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
 
         <div style={roundSetupPreviewStyle}>
           <div style={{ color: colors.subtext, fontSize: "13px" }}>Anteprima</div>
           <div style={{ marginTop: "10px", fontSize: "17px", fontWeight: 700 }}>
-            {roundSetup.totalCompetitionHoles} buche • partenza dalla {roundSetup.startHole}
+            {roundSetup.totalCompetitionHoles} buche • {previewSummary}
+          </div>
+          <div
+            style={{
+              marginTop: "8px",
+              color: colors.green,
+              fontSize: "14px",
+              fontWeight: 700
+            }}
+          >
+            Par {roundSetupTotalPar}
           </div>
           <div
             style={{
@@ -3561,8 +4156,9 @@ function App() {
               lineHeight: 1.5
             }}
           >
-            Il sistema calcolerà automaticamente i giri e mostrerà per ogni buca
-            il riferimento reale del campo.
+            {allowStartHoleSelection
+              ? `Partenza dalla buca ${roundSetup.startHole}. Il sistema mostrerà per ogni buca il riferimento reale del percorso.`
+              : `Il sistema costruirà il tuo giro usando il percorso o la combinazione scelta.`}
           </div>
         </div>
 
@@ -4222,7 +4818,7 @@ function App() {
               transform: searchEmptyHintPulse ? "scale(1.04)" : "scale(1)",
               transition: "transform 0.35s ease, box-shadow 0.35s ease"
             }}
-            aria-label="Aggiungi campo"
+            aria-label="Aggiungi club"
           >
             <span style={{ fontSize: "24px", lineHeight: 1, transform: "translateY(-1px)" }}>
               +
@@ -4278,7 +4874,7 @@ function App() {
         </button>
       </div>
 
-      <h2 style={homeSectionTitleStyle}>Preferiti</h2>
+      <h2 style={homeSectionTitleStyle}>Club preferiti</h2>
       <div style={homePrimarySectionCardStyle}>
         {favorites.length === 0 ? (
           <div
@@ -4288,14 +4884,14 @@ function App() {
               padding: `14px ${CARD_ROW_HORIZONTAL_PADDING}`
             }}
           >
-            Nessun preferito salvato. Usa il pulsante + per aggiungere un campo e ritrovarlo subito qui.
+            Non hai ancora club preferiti. Cercane uno oppure aggiungilo con +.
           </div>
         ) : (
           favorites.map((course) => renderCourseRow(course, { showDivider: false }))
         )}
       </div>
 
-      <h2 style={homeSectionTitleStyle}>Cerca un campo</h2>
+      <h2 style={homeSectionTitleStyle}>Cerca un club</h2>
       <div style={homeSectionCardStyle}>
         <div
           style={homeSearchInnerStyle}
@@ -4305,7 +4901,7 @@ function App() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Cerca o aggiungi un campo"
+            placeholder="Cerca o aggiungi un club"
             style={{
               flex: 1,
               background: "transparent",
@@ -4325,11 +4921,11 @@ function App() {
             ) : (
               <div style={homeSearchEmptyStateStyle}>
                 <div style={homeSearchEmptyTextStyle}>
-                  <div>Campo non trovato</div>
+                  <div>Club non trovato</div>
                 </div>
 
                 <button onClick={openDialog} style={homeSearchEmptyCtaStyle}>
-                  Aggiungi campo
+                  Aggiungi club
                 </button>
               </div>
             )}
@@ -4377,7 +4973,7 @@ function App() {
                     fontWeight: 700
                   }}
                 >
-                  Aggiungi campo
+                  Aggiungi club
                 </h3>
 
                 <p
@@ -4389,12 +4985,12 @@ function App() {
                     lineHeight: 1.4
                   }}
                 >
-                  Inserisci il nome del campo.
+                  Inserisci il nome del club.
                 </p>
 
                 <input
                   type="text"
-                  placeholder="Nome campo"
+                  placeholder="Nome club"
                   value={courseName}
                   onChange={(e) => setCourseName(e.target.value)}
                   style={{
@@ -4435,7 +5031,7 @@ function App() {
                     fontWeight: 700
                   }}
                 >
-                  Numero buche
+                  Quanti percorsi ha il club?
                 </h3>
 
                 <p
@@ -4447,8 +5043,136 @@ function App() {
                     lineHeight: 1.4
                   }}
                 >
-                  Seleziona il numero di buche
+                  Per la maggior parte dei club basta 1.
                 </p>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gap: "12px"
+                  }}
+                >
+                  {[1, 2, 3, 4].map((option) => (
+                    <div
+                      key={option}
+                      onClick={() => setRouteCount(option)}
+                      style={{
+                        flex: 1,
+                        padding: "16px",
+                        backgroundColor: colors.inputBg,
+                        border:
+                          routeCount === option
+                            ? `1px solid ${colors.green}`
+                            : `1px solid ${colors.inputBorder}`,
+                        borderRadius: "14px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        cursor: "pointer"
+                      }}
+                    >
+                      <span style={{ fontWeight: 600, fontSize: "16px" }}>{option}</span>
+                      <div
+                        style={{
+                          width: "22px",
+                          height: "22px",
+                          borderRadius: "50%",
+                          border:
+                            routeCount === option
+                              ? `2px solid ${colors.green}`
+                              : `2px solid ${colors.borderStrong}`,
+                          backgroundColor:
+                            routeCount === option ? colors.green : "transparent"
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {routeCount > 1 && (
+                  <p
+                    style={{
+                      color: colors.subtext,
+                      fontSize: "13px",
+                      marginTop: "16px",
+                      marginBottom: 0,
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Se il club usa scorecard ufficiali diverse per le combinazioni dei
+                    percorsi, potrai configurarle dopo la mappatura dei singoli percorsi.
+                  </p>
+                )}
+
+                <button
+                  onClick={goToIntroStep}
+                  disabled={!routeCount}
+                  style={primaryButtonStyle(Boolean(routeCount))}
+                >
+                  Continua
+                </button>
+
+                <button onClick={goBackToStepOne} style={secondaryButtonStyle}>
+                  Indietro
+                </button>
+
+                <button onClick={closeDialog} style={subtleButtonStyle}>
+                  Annulla
+                </button>
+              </>
+            )}
+
+            {dialogStep === 3 && (
+              <>
+                <h3
+                  style={{
+                    marginTop: 0,
+                    marginBottom: "8px",
+                    fontSize: "24px",
+                    fontWeight: 700
+                  }}
+                >
+                  {routeCount === 1
+                    ? "Il tuo percorso"
+                    : `Percorso ${currentRouteIndex + 1} di ${routeCount}`}
+                </h3>
+
+                <p
+                  style={{
+                    color: colors.subtext,
+                    fontSize: "14px",
+                    marginTop: 0,
+                    marginBottom: "20px",
+                    lineHeight: 1.4
+                  }}
+                >
+                  {routeCount === 1
+                    ? "Scegli se il club ha un percorso da 9 o 18 buche."
+                    : "Dai un nome al percorso e scegli quante buche ha."}
+                </p>
+
+                {routeCount > 1 && (
+                  <input
+                    type="text"
+                    placeholder={`Nome percorso ${currentRouteIndex + 1}`}
+                    value={routeName}
+                    onChange={(e) => setRouteName(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "13px 14px",
+                      backgroundColor: colors.inputBg,
+                      border: `1px solid ${colors.inputBorder}`,
+                      borderRadius: "12px",
+                      color: colors.text,
+                      boxSizing: "border-box",
+                      outline: "none",
+                      fontSize: "15px",
+                      fontFamily: appFont,
+                      marginBottom: "16px"
+                    }}
+                  />
+                )}
 
                 <div style={{ display: "flex", gap: "12px" }}>
                   <div
@@ -4468,7 +5192,7 @@ function App() {
                       cursor: "pointer"
                     }}
                   >
-                    <span style={{ fontWeight: 600, fontSize: "16px" }}>9</span>
+                    <span style={{ fontWeight: 600, fontSize: "16px" }}>9 buche</span>
                     <div
                       style={{
                         width: "22px",
@@ -4501,7 +5225,7 @@ function App() {
                       cursor: "pointer"
                     }}
                   >
-                    <span style={{ fontWeight: 600, fontSize: "16px" }}>18</span>
+                    <span style={{ fontWeight: 600, fontSize: "16px" }}>18 buche</span>
                     <div
                       style={{
                         width: "22px",
@@ -4519,14 +5243,19 @@ function App() {
                 </div>
 
                 <button
-                  onClick={goToIntroStep}
-                  disabled={!holesCount}
-                  style={primaryButtonStyle(Boolean(holesCount))}
+                  onClick={saveRouteDetails}
+                  disabled={!holesCount || (routeCount > 1 && routeName.trim() === "")}
+                  style={primaryButtonStyle(
+                    Boolean(holesCount) && (routeCount === 1 || routeName.trim() !== "")
+                  )}
                 >
-                  Continua
+                  {currentRouteIndex === routeCount - 1 ? "Continua" : "Prossimo percorso"}
                 </button>
 
-                <button onClick={goBackToStepOne} style={secondaryButtonStyle}>
+                <button
+                  onClick={currentRouteIndex === 0 ? goBackToStepTwoFromIntro : () => syncCurrentRouteEditor(currentRouteIndex - 1)}
+                  style={secondaryButtonStyle}
+                >
                   Indietro
                 </button>
 
@@ -4536,7 +5265,7 @@ function App() {
               </>
             )}
 
-            {dialogStep === 3 && (
+            {dialogStep === 4 && (
               <>
                 <div
                   style={{
@@ -4564,7 +5293,7 @@ function App() {
                     textAlign: "center"
                   }}
                 >
-                  Bene!
+                  {currentRouteDraft.name}
                 </h3>
 
                 <p
@@ -4577,7 +5306,7 @@ function App() {
                     textAlign: "center"
                   }}
                 >
-                  Ora mappiamo il campo buca per buca.
+                  Ora mappiamo il percorso buca per buca.
                 </p>
 
                 <p
@@ -4590,18 +5319,15 @@ function App() {
                     textAlign: "center"
                   }}
                 >
-                  Alla fine vedrai il riepilogo completo con il Par del campo e
-                  su quali buche riceverai più colpi in base al tuo HCP di gioco.
+                  Alla fine vedrai il riepilogo completo del club e potrai controllare
+                  Par e Stroke Index di ogni percorso.
                 </p>
 
                 <button onClick={startMapping} style={primaryButtonStyle(true)}>
                   Inizia
                 </button>
 
-                <button
-                  onClick={goBackToStepTwoFromIntro}
-                  style={secondaryButtonStyle}
-                >
+                <button onClick={goBackToRouteDetails} style={secondaryButtonStyle}>
                   Indietro
                 </button>
 
@@ -4611,7 +5337,7 @@ function App() {
               </>
             )}
 
-            {dialogStep === 4 && (
+            {dialogStep === 5 && (
               <>
                 <div
                   style={{
@@ -4620,7 +5346,7 @@ function App() {
                     marginBottom: "10px"
                   }}
                 >
-                  Buca {currentHoleIndex + 1} di {holesCount}
+                  {currentRouteDraft.name} · Buca {currentHoleIndex + 1} di {holesCount}
                 </div>
 
                 <div
@@ -4799,7 +5525,9 @@ function App() {
                   style={primaryButtonStyle(currentHoleCompleted)}
                 >
                   {currentHoleIndex === holesCount - 1
-                    ? "Vai al riepilogo"
+                    ? currentRouteIndex === routeCount - 1
+                      ? "Vai al riepilogo"
+                      : "Percorso successivo"
                     : "Avanti"}
                 </button>
 
@@ -4813,7 +5541,7 @@ function App() {
               </>
             )}
 
-            {dialogStep === 5 && (
+            {dialogStep === 6 && (
               <>
                 <h3
                   style={{
@@ -4823,7 +5551,7 @@ function App() {
                     fontWeight: 700
                   }}
                 >
-                  Riepilogo campo
+                  Riepilogo club
                 </h3>
 
                 <p
@@ -4838,103 +5566,107 @@ function App() {
                   Controlla la mappatura completa di {courseName}.
                 </p>
 
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "70px 1fr 1fr",
-                    gap: "10px",
-                    marginBottom: "12px",
-                    fontSize: "13px",
-                    color: colors.subtext,
-                    padding: "0 4px"
-                  }}
-                >
-                  <div>Buca</div>
-                  <div>Par</div>
-                  <div>Stroke Index</div>
-                </div>
+                {routeDrafts.map((route) => {
+                  const routeTotalPar = (route.holes || []).reduce(
+                    (sum, hole) => sum + Number(hole.par || 0),
+                    0
+                  );
 
-                {holesData.map((hole) => (
-                  <div
-                    key={hole.hole}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "70px 1fr 1fr",
-                      gap: "10px",
-                      alignItems: "center",
-                      marginBottom: "10px"
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: "42px",
-                        display: "flex",
-                        alignItems: "center",
-                        paddingLeft: "10px",
-                        borderRadius: "10px",
-                        backgroundColor: colors.inputBg,
-                        border: `1px solid ${colors.inputBorder}`
-                      }}
-                    >
-                      {hole.hole}
+                  return (
+                    <div key={route.name} style={{ marginBottom: "18px" }}>
+                      <div
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: 600,
+                          marginBottom: "10px"
+                        }}
+                      >
+                        {route.name}
+                      </div>
+
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "70px 1fr 1fr",
+                          gap: "10px",
+                          marginBottom: "12px",
+                          fontSize: "13px",
+                          color: colors.subtext,
+                          padding: "0 4px"
+                        }}
+                      >
+                        <div>Buca</div>
+                        <div>Par</div>
+                        <div>Stroke Index</div>
+                      </div>
+
+                      {(route.holes || []).map((hole) => (
+                        <div
+                          key={`${route.name}-${hole.hole}`}
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "70px 1fr 1fr",
+                            gap: "10px",
+                            alignItems: "center",
+                            marginBottom: "10px"
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "42px",
+                              display: "flex",
+                              alignItems: "center",
+                              paddingLeft: "10px",
+                              borderRadius: "10px",
+                              backgroundColor: colors.inputBg,
+                              border: `1px solid ${colors.inputBorder}`
+                            }}
+                          >
+                            {hole.hole}
+                          </div>
+
+                          <div
+                            style={{
+                              height: "42px",
+                              display: "flex",
+                              alignItems: "center",
+                              paddingLeft: "12px",
+                              borderRadius: "10px",
+                              backgroundColor: colors.inputBg,
+                              border: `1px solid ${colors.inputBorder}`
+                            }}
+                          >
+                            {hole.par}
+                          </div>
+
+                          <div
+                            style={{
+                              height: "42px",
+                              display: "flex",
+                              alignItems: "center",
+                              paddingLeft: "12px",
+                              borderRadius: "10px",
+                              backgroundColor: colors.inputBg,
+                              border: `1px solid ${colors.inputBorder}`
+                            }}
+                          >
+                            {hole.strokeIndex}
+                          </div>
+                        </div>
+                      ))}
+
+                      <div
+                        style={{
+                          marginTop: "8px",
+                          color: colors.subtext,
+                          fontSize: "13px"
+                        }}
+                      >
+                        {route.holesCount} buche • Par {routeTotalPar}
+                      </div>
                     </div>
-
-                    <div
-                      style={{
-                        height: "42px",
-                        display: "flex",
-                        alignItems: "center",
-                        paddingLeft: "12px",
-                        borderRadius: "10px",
-                        backgroundColor: colors.inputBg,
-                        border: `1px solid ${colors.inputBorder}`
-                      }}
-                    >
-                      {hole.par}
-                    </div>
-
-                    <div
-                      style={{
-                        height: "42px",
-                        display: "flex",
-                        alignItems: "center",
-                        paddingLeft: "12px",
-                        borderRadius: "10px",
-                        backgroundColor: colors.inputBg,
-                        border: `1px solid ${colors.inputBorder}`
-                      }}
-                    >
-                      {hole.strokeIndex}
-                    </div>
-                  </div>
-                ))}
-
-                <div
-                  style={{
-                    marginTop: "18px",
-                    padding: "14px 16px",
-                    borderRadius: "14px",
-                    backgroundColor: colors.cardSecondary,
-                    border: `1px solid ${colors.border}`,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center"
-                    
-                  }}
-                >
-                  <span style={{ color: colors.text, fontSize: "15px" }}>
-                    Par totale campo
-                  </span>
-                  <span
-                    style={{
-                      color: colors.green,
-                      fontWeight: 700,
-                      fontSize: "18px"
-                    }}
-                  >
-                    {totalPar}
-                  </span>
-                </div>
+                  );
+                })}
 
                 <div
                   style={{
@@ -4944,7 +5676,7 @@ function App() {
                     lineHeight: 1.5
                   }}
                 >
-                  Una volta salvato, il campo resterà nel sistema e potrà essere
+                  Una volta salvato, il club resterà nel sistema e potrà essere
                   richiamato senza rimappatura.
                 </div>
 
@@ -4962,7 +5694,7 @@ function App() {
                 )}
 
                 <button onClick={saveCourse} style={primaryButtonStyle(true)}>
-                  {courseSaveLoading ? "Salvataggio in corso..." : "Salva campo"}
+                  {courseSaveLoading ? "Salvataggio in corso..." : "Salva club"}
                 </button>
 
                 <button onClick={goBackFromSummary} style={secondaryButtonStyle}>
