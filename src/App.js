@@ -2947,7 +2947,7 @@ function App() {
             fontWeight: 700
           }}
         >
-          Segnala anomalia
+          Invia segnalazione
         </div>
         <div
           style={{
@@ -3669,6 +3669,56 @@ function App() {
       : "0 6px 16px rgba(0, 0, 0, 0.24)"
   });
 
+  const reportActionButtonStyle = {
+    width: "40px",
+    height: "40px",
+    borderRadius: "14px",
+    border: `1.5px solid ${colors.greenBorder}`,
+    backgroundColor: isLight ? "#F4FFF8" : colors.card,
+    color: colors.green,
+    cursor: "pointer",
+    fontFamily: appFont,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    lineHeight: 1,
+    boxSizing: "border-box",
+    boxShadow: isLight
+      ? "0 4px 12px rgba(17, 24, 39, 0.04)"
+      : "0 6px 16px rgba(0, 0, 0, 0.18)"
+  };
+
+  const renderReportIcon = (size = 18) => (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 2.5L19 5.3V11.3C19 16.2 15.8 20.7 12 22C8.2 20.7 5 16.2 5 11.3V5.3L12 2.5Z"
+        fill="currentColor"
+        opacity="0.18"
+      />
+      <path
+        d="M12 2.5L19 5.3V11.3C19 16.2 15.8 20.7 12 22C8.2 20.7 5 16.2 5 11.3V5.3L12 2.5Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.3 11.9L11.1 13.7L14.8 10"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
   const headerTitleTextStyle = {
     fontSize: "17px",
     fontWeight: 700,
@@ -3931,37 +3981,21 @@ function App() {
             : `${course.holesCount} buche • Par ${course.totalPar}`}
         </div>
 
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            openCourseReport(course);
-          }}
-          style={{
-            marginTop: "8px",
-            border: "none",
-            background: "transparent",
-            color: colors.subtext,
-            fontSize: "12px",
-            padding: 0,
-            cursor: "pointer",
-            fontFamily: appFont
-          }}
-        >
-          Segnala anomalia
-        </button>
       </div>
 
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          toggleFavorite(course.id);
-        }}
-        style={cardFavoriteIconStyle(course.favorite)}
-        title="Preferito"
-      >
-        <span style={{ fontSize: "17px", lineHeight: 1, transform: "translateY(-1px)" }}>
-          ⛳️
-        </span>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFavorite(course.id);
+          }}
+          style={cardFavoriteIconStyle(course.favorite)}
+          title="Preferito"
+        >
+          <span style={{ fontSize: "17px", lineHeight: 1, transform: "translateY(-1px)" }}>
+            ⛳️
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -4117,8 +4151,24 @@ function App() {
         </div>
 
         <div style={roundSetupTopCardStyle}>
-          <div style={{ fontSize: "25px", fontWeight: 700 }}>
-            {openedCourse.name}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              gap: "12px"
+            }}
+          >
+            <div style={{ fontSize: "25px", fontWeight: 700, minWidth: 0 }}>{openedCourse.name}</div>
+
+            <button
+              onClick={() => openCourseReport(openedCourse)}
+              style={{ ...reportActionButtonStyle, flexShrink: 0 }}
+              title="Invia segnalazione"
+              aria-label={`Invia segnalazione per ${openedCourse.name}`}
+            >
+              {renderReportIcon(18)}
+            </button>
           </div>
 
           <div
@@ -4131,22 +4181,6 @@ function App() {
           >
             Club con {openedCourse.routeCount} {openedCourse.routeCount === 1 ? "percorso" : "percorsi"}
           </div>
-
-          <button
-            onClick={() => openCourseReport(openedCourse)}
-            style={{
-              marginTop: "12px",
-              border: "none",
-              background: "transparent",
-              color: colors.subtext,
-              fontSize: "12px",
-              padding: 0,
-              cursor: "pointer",
-              fontFamily: appFont
-            }}
-          >
-            Segnala anomalia
-          </button>
         </div>
 
         <h2 style={roundSetupSectionTitleStyle}>Nome del giro</h2>
@@ -4186,7 +4220,7 @@ function App() {
             lineHeight: 1.5
           }}
         >
-          Scegli quante buche vuoi giocare oggi.
+          Scegli quante buche vuoi giocare.
         </div>
         <div
           style={{
@@ -4303,7 +4337,7 @@ function App() {
                   lineHeight: 1.5
                 }}
               >
-                Se disponibili, sono il modo piu' rapido e preciso per iniziare.
+                Se disponibili sono il modo piu' rapido e preciso per iniziare.
               </div>
               {showOfficialCombinationList && (
                 <div
@@ -4385,16 +4419,10 @@ function App() {
               style={{
                 marginTop: "14px",
                 display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                gap: "12px"
+                justifyContent: "flex-end",
+                alignItems: "center"
               }}
             >
-              <div style={{ color: colors.subtext, fontSize: "13px", lineHeight: 1.5 }}>
-                {showManualCombinationBuilder
-                  ? "Stai costruendo il tuo giro."
-                  : "Vuoi un giro diverso?"}
-              </div>
               <button
                 onClick={() => {
                   setShowManualCombinationBuilder((prev) => !prev);
@@ -4429,7 +4457,7 @@ function App() {
           nineHoleRoutes.length > 0 &&
           (showManualCombinationBuilder || openedCourseRouteCombinations.length === 0) && (
           <>
-            <h2 style={roundSetupSectionTitleStyle}>2. Prime nove</h2>
+            <h2 style={roundSetupSectionTitleStyle}>Prime nove</h2>
             <div
               style={{
                 marginTop: "-4px",
@@ -4482,7 +4510,7 @@ function App() {
               ))}
             </div>
 
-            <h2 style={roundSetupSectionTitleStyle}>3. Seconde nove</h2>
+            <h2 style={roundSetupSectionTitleStyle}>Seconde nove</h2>
             <div
               style={{
                 ...roundSetupGridStyle,
@@ -4691,7 +4719,7 @@ function App() {
 
         {allowStartHoleSelection && (
           <>
-            <h2 style={roundSetupSectionTitleStyle}>Buca di partenza</h2>
+            <h2 style={roundSetupSectionTitleStyle}>Da dove parti?</h2>
             <div
               style={{
                 marginTop: "-4px",
@@ -4701,7 +4729,7 @@ function App() {
                 lineHeight: 1.5
               }}
             >
-              Se giochi in shotgun, scegli da quale buca vuoi iniziare.
+              Se giochi in shotgun scegli da quale buca iniziare.
             </div>
             <div
               style={{
@@ -4730,6 +4758,19 @@ function App() {
 
         <div style={roundSetupPreviewStyle}>
           <div style={{ color: colors.subtext, fontSize: "13px" }}>Il tuo giro e' pronto</div>
+          {sanitizeRoundName(roundSetup.competitionName) && (
+            <div
+              style={{
+                marginTop: "8px",
+                color: colors.green,
+                fontSize: "13px",
+                fontWeight: 700,
+                lineHeight: 1.5
+              }}
+            >
+              {sanitizeRoundName(roundSetup.competitionName)}
+            </div>
+          )}
           <div style={{ marginTop: "10px", fontSize: "17px", fontWeight: 700 }}>
             {roundSetup.totalCompetitionHoles} buche • {previewSummary}
           </div>
@@ -4912,21 +4953,6 @@ function App() {
             </span>
           </div>
 
-          <button
-            onClick={() => openCourseReport(openedCourse)}
-            style={{
-              marginTop: "12px",
-              border: "none",
-              background: "transparent",
-              color: colors.subtext,
-              fontSize: "12px",
-              padding: 0,
-              cursor: "pointer",
-              fontFamily: appFont
-            }}
-          >
-            Segnala anomalia
-          </button>
         </div>
 
         <div
