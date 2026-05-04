@@ -103,18 +103,41 @@ function getTeeDisplayName(tee) {
   return getTeeColor(tee.teeColor || "").label || "Tee";
 }
 
-function getTeeDescriptor(tee) {
-  const gender = String(tee?.gender || "").trim().toLowerCase();
+function getTeeSortOrder(tee) {
+  const normalized = String(
+    tee?.teeName || tee?.name || tee?.teeColor || ""
+  )
+    .trim()
+    .toLowerCase();
 
-  if (gender === "men" || gender === "male" || gender === "uomini") {
-    return "Tee standard uomini";
-  }
+  const teeOrder = [
+    ["bianco", "white"],
+    ["giallo", "yellow"],
+    ["verde", "green"],
+    ["blu", "blue"],
+    ["arancio", "orange"],
+    ["rosso", "red"]
+  ];
 
-  if (gender === "women" || gender === "female" || gender === "donne") {
-    return "Tee standard donne";
-  }
+  const matchedIndex = teeOrder.findIndex((aliases) =>
+    aliases.some((alias) => normalized.includes(alias))
+  );
 
-  return "";
+  return matchedIndex === -1 ? 99 : matchedIndex;
+}
+
+function getDefaultTeeId(tees) {
+  const teeList = Array.isArray(tees) ? tees : [];
+  if (!teeList.length) return null;
+
+  const preferredYellow = teeList.find((tee) => {
+    const normalized = String(tee?.teeName || tee?.name || tee?.teeColor || "")
+      .trim()
+      .toLowerCase();
+    return normalized.includes("giallo") || normalized.includes("yellow");
+  });
+
+  return preferredYellow?.id || teeList[0]?.id || null;
 }
 
 const COLOR_INFO_BY_KEY = {
@@ -230,7 +253,9 @@ function App() {
   const [showManualCombinationBuilder, setShowManualCombinationBuilder] = useState(false);
   const [showOfficialCombinationOptions, setShowOfficialCombinationOptions] = useState(false);
   const [showRouteOptions, setShowRouteOptions] = useState(false);
+  const [showOtherEighteenRouteOptions, setShowOtherEighteenRouteOptions] = useState(false);
   const [showTeeOptions, setShowTeeOptions] = useState(false);
+  const [startHolePage, setStartHolePage] = useState(0);
 
   const [roundScores, setRoundScores] = useState([]);
   const [savedRounds, setSavedRounds] = useState([]);
@@ -615,6 +640,7 @@ function App() {
             totalPar: computedTotalPar,
             holes: routeHoles,
             displayOrder: route.display_order,
+            sourcePayload: route.source_payload || null,
             tees: (routeTeesByRouteId.get(route.id) || [])
               .filter((tee) => tee.is_active !== false)
               .map((tee) => ({
@@ -626,9 +652,12 @@ function App() {
                 slopeRating: tee.slope_rating,
                 parTotal: tee.par_total
               }))
-              .sort((left, right) =>
-                getTeeDisplayName(left).localeCompare(getTeeDisplayName(right), "it")
-              )
+              .sort((left, right) => {
+                const leftOrder = getTeeSortOrder(left);
+                const rightOrder = getTeeSortOrder(right);
+                if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+                return getTeeDisplayName(left).localeCompare(getTeeDisplayName(right), "it");
+              })
           };
         })
         .sort((left, right) => {
@@ -685,9 +714,12 @@ function App() {
                 slopeRating: tee.slope_rating,
                 parTotal: tee.par_total
               }))
-              .sort((left, right) =>
-                getTeeDisplayName(left).localeCompare(getTeeDisplayName(right), "it")
-              )
+              .sort((left, right) => {
+                const leftOrder = getTeeSortOrder(left);
+                const rightOrder = getTeeSortOrder(right);
+                if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+                return getTeeDisplayName(left).localeCompare(getTeeDisplayName(right), "it");
+              })
           };
         })
         .sort((left, right) => left.name.localeCompare(right.name, "it"));
@@ -704,7 +736,7 @@ function App() {
         createdBy: club.created_by,
         city: club.city,
         country: club.country,
-        routeCount: routes.length,
+        routeCount: routes.filter((route) => Number(route.holesCount) === 9).length || routes.length,
         routes,
         routeCombinations,
         primaryRouteId: primaryRoute?.id || null
@@ -1283,9 +1315,17 @@ function App() {
 
   const buildRoundChoiceDefaults = useCallback((course, totalCompetitionHoles) => {
     const routes = Array.isArray(course?.routes) ? course.routes : [];
-    const nineHoleRoutes = routes.filter(
-      (route) => Number(route.holesCount) === 9 && Array.isArray(route.holes) && route.holes.length > 0
-    );
+    const nineHoleRoutes = [...routes]
+      .filter(
+        (route) => Number(route.holesCount) === 9 && Array.isArray(route.holes) && route.holes.length > 0
+      )
+      .sort((a, b) => {
+        const priority = { "Blu": 0, "Bianco": 1, "Rosso": 2 };
+        const aPriority = Object.prototype.hasOwnProperty.call(priority, a.name) ? priority[a.name] : 99;
+        const bPriority = Object.prototype.hasOwnProperty.call(priority, b.name) ? priority[b.name] : 99;
+        if (aPriority !== bPriority) return aPriority - bPriority;
+        return String(a.name || "").localeCompare(String(b.name || ""), "it");
+      });
     const eighteenHoleRoutes = routes.filter(
       (route) => Number(route.holesCount) === 18 && Array.isArray(route.holes) && route.holes.length > 0
     );
@@ -1299,7 +1339,7 @@ function App() {
         selectedRouteId: preferredRoute?.id || null,
         secondaryRouteId: null,
         selectedCombinationId: null,
-        selectedRouteTeeId: preferredRoute?.tees?.[0]?.id || null,
+        selectedRouteTeeId: getDefaultTeeId(preferredRoute?.tees),
         selectedCombinationTeeId: null,
         startHole: 1
       };
@@ -1312,7 +1352,7 @@ function App() {
         secondaryRouteId: preferredCombination.backRouteId,
         selectedCombinationId: preferredCombination.id,
         selectedRouteTeeId: null,
-        selectedCombinationTeeId: preferredCombination.tees?.[0]?.id || null,
+        selectedCombinationTeeId: getDefaultTeeId(preferredCombination.tees),
         startHole: 1
       };
     }
@@ -1323,7 +1363,7 @@ function App() {
         selectedRouteId: preferredRoute.id,
         secondaryRouteId: null,
         selectedCombinationId: null,
-        selectedRouteTeeId: preferredRoute.tees?.[0]?.id || null,
+        selectedRouteTeeId: getDefaultTeeId(preferredRoute.tees),
         selectedCombinationTeeId: null,
         startHole: 1
       };
@@ -1335,7 +1375,7 @@ function App() {
         selectedRouteId: preferredRoute.id,
         secondaryRouteId: nineHoleRoutes[1]?.id || nineHoleRoutes[0].id,
         selectedCombinationId: null,
-        selectedRouteTeeId: preferredRoute.tees?.[0]?.id || null,
+        selectedRouteTeeId: getDefaultTeeId(preferredRoute.tees),
         selectedCombinationTeeId: null,
         startHole: 1
       };
@@ -1444,6 +1484,53 @@ function App() {
     roundSetup.selectedCombinationTeeId,
     findOfficialCombinationByRoutes
   ]);
+
+  useEffect(() => {
+    if (!showRoundSetup) return;
+
+    const routeId = roundSetup.selectedRouteId;
+    const combinationId = roundSetup.selectedCombinationId;
+
+    if (combinationId) {
+      const selectedCombination = (openedCourse?.routeCombinations || []).find(
+        (combination) => combination.id === combinationId
+      );
+      const firstTeeId = selectedCombination?.tees?.[0]?.id || null;
+
+      if (firstTeeId && !roundSetup.selectedCombinationTeeId) {
+        setRoundSetup((prev) => ({
+          ...prev,
+          selectedCombinationTeeId: firstTeeId
+        }));
+      }
+      return;
+    }
+
+    if (routeId) {
+      const selectedRoute = (openedCourse?.routes || []).find((route) => route.id === routeId);
+      const firstTeeId = selectedRoute?.tees?.[0]?.id || null;
+
+      if (firstTeeId && !roundSetup.selectedRouteTeeId) {
+        setRoundSetup((prev) => ({
+          ...prev,
+          selectedRouteTeeId: firstTeeId
+        }));
+      }
+    }
+  }, [
+    showRoundSetup,
+    openedCourse,
+    roundSetup.selectedRouteId,
+    roundSetup.selectedCombinationId,
+    roundSetup.selectedRouteTeeId,
+    roundSetup.selectedCombinationTeeId
+  ]);
+
+  useEffect(() => {
+    if (!showRoundSetup) return;
+    const nextPage = Math.max(0, Math.floor((Number(roundSetup.startHole || 1) - 1) / 3));
+    setStartHolePage(nextPage);
+  }, [showRoundSetup, roundSetup.startHole, roundSetup.totalCompetitionHoles]);
 
   const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole) => {
     const courseHoleCount = Number(route?.holesCount || 0);
@@ -3712,9 +3799,9 @@ function App() {
   });
 
   const reportActionButtonStyle = {
-    width: "40px",
-    height: "40px",
-    borderRadius: "14px",
+    width: "36px",
+    height: "36px",
+    borderRadius: "12px",
     border: `1.5px solid ${colors.greenBorder}`,
     backgroundColor: isLight ? "#F4FFF8" : colors.card,
     color: colors.green,
@@ -4121,7 +4208,22 @@ function App() {
         if (aPriority !== bPriority) return aPriority - bPriority;
         return String(a.name || "").localeCompare(String(b.name || ""), "it");
       });
-    const eighteenHoleRoutes = openedCourseRoutes.filter((route) => Number(route.holesCount) === 18);
+    const eighteenHoleRoutes = [...openedCourseRoutes]
+      .filter((route) => Number(route.holesCount) === 18)
+      .sort((a, b) => {
+        const getRoutePriority = (name) => {
+          const normalizedName = String(name || "").toLowerCase();
+          if (normalizedName.includes("blu") || normalizedName.includes("blue")) return 0;
+          if (normalizedName.includes("bianco") || normalizedName.includes("white")) return 1;
+          if (normalizedName.includes("rosso") || normalizedName.includes("red")) return 2;
+          return 99;
+        };
+
+        const aPriority = getRoutePriority(a.name);
+        const bPriority = getRoutePriority(b.name);
+        if (aPriority !== bPriority) return aPriority - bPriority;
+        return String(a.name || "").localeCompare(String(b.name || ""), "it");
+      });
     const canPlayNine = openedCourseRoutes.length > 0;
     const canPlayEighteen =
       openedCourseRouteCombinations.length > 0 ||
@@ -4163,6 +4265,12 @@ function App() {
     const allowedStartHoles = allowStartHoleSelection
       ? Array.from({ length: startHoleRangeCount }, (_, index) => index + 1)
       : [1];
+    const startHolePages = [];
+    for (let index = 0; index < allowedStartHoles.length; index += 3) {
+      startHolePages.push(allowedStartHoles.slice(index, index + 3));
+    }
+    const maxStartHolePage = Math.max(0, startHolePages.length - 1);
+    const visibleStartHolePage = Math.min(startHolePage, maxStartHolePage);
     const previewSummary = usingOfficialCombination
       ? `${matchedOfficialCombination.frontRouteName} + ${matchedOfficialCombination.backRouteName}`
       : usingManualRoutePair
@@ -4204,7 +4312,7 @@ function App() {
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       openedCourseRouteCombinations.length > 0 &&
       !showManualCombinationBuilder &&
-      (!matchedOfficialCombination || showOfficialCombinationOptions);
+      showOfficialCombinationOptions;
     const showSelectedOfficialCombinationCard =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       Boolean(matchedOfficialCombination) &&
@@ -4216,11 +4324,24 @@ function App() {
       !showRouteOptions &&
       (
         Number(roundSetup.totalCompetitionHoles) === 9 ||
-        (Number(roundSetup.totalCompetitionHoles) === 18 && !showManualCombinationBuilder)
+        (Number(roundSetup.totalCompetitionHoles) === 18 &&
+          !showManualCombinationBuilder &&
+          !showOtherEighteenRouteOptions)
       );
     const showSelectedTeeCard = Boolean(selectedTee) && teeOptions.length > 0 && !showTeeOptions;
     const showTeeCardOptions = teeOptions.length > 1 && (!selectedTee || showTeeOptions);
     const canStartRound = Boolean(roundSetup.totalCompetitionHoles) && competitionHoles.length > 0;
+    const hasStructuredEighteenOptions =
+      openedCourseRouteCombinations.length > 0 || eighteenHoleRoutes.length > 0;
+    const showManualBuilderToggle =
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      nineHoleRoutes.length > 1 &&
+      hasStructuredEighteenOptions &&
+      openedCourseRouteCombinations.length === 0;
+    const showManualBuilderDirectly =
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      nineHoleRoutes.length > 0 &&
+      !hasStructuredEighteenOptions;
     return (
       <div
         style={{
@@ -4287,7 +4408,7 @@ function App() {
               title="Invia segnalazione"
               aria-label={`Invia segnalazione per ${openedCourse.name}`}
             >
-              {renderReportIcon(18)}
+              {renderReportIcon(16)}
             </button>
           </div>
 
@@ -4361,6 +4482,7 @@ function App() {
                 setShowManualCombinationBuilder(false);
                 setShowOfficialCombinationOptions(false);
                 setShowRouteOptions(false);
+                setShowOtherEighteenRouteOptions(false);
                 setShowTeeOptions(false);
                 setRoundSetup((prev) => ({
                   ...prev,
@@ -4379,30 +4501,56 @@ function App() {
 
         {Number(roundSetup.totalCompetitionHoles) === 9 && nineHoleRoutes.length > 0 && (
           <>
-            <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
+            <div
+              style={{
+                ...roundSetupSectionTitleStyle,
+                display: "flex",
+                alignItems: "center",
+                gap: "10px"
+              }}
+            >
+              <button
+                onClick={() => setShowRouteOptions((prev) => !prev)}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  color: colors.green,
+                  fontSize: "18px",
+                  fontWeight: 800,
+                  padding: 0,
+                  cursor: "pointer",
+                  fontFamily: appFont,
+                  lineHeight: 1,
+                  flexShrink: 0
+                }}
+                aria-label={showRouteOptions ? "Chiudi percorsi" : "Apri percorsi"}
+              >
+                {showRouteOptions ? "▴" : "▾"}
+              </button>
+              <span>Scegli il percorso</span>
+            </div>
             {showSelectedRouteCard ? (
-              <div style={roundSetupInputCardStyle}>
-                <div style={{ fontSize: "16px", fontWeight: 700, lineHeight: 1.4 }}>
-                  {selectedPrimaryRoute.name} · {selectedPrimaryRoute.holesCount} buche · Par {selectedPrimaryRoute.totalPar}
-                </div>
-                <button
-                  onClick={() => setShowRouteOptions(true)}
+              <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
+                <div
                   style={{
-                    marginTop: "8px",
-                    border: "none",
-                    background: "transparent",
-                    color: colors.green,
-                    fontSize: "12px",
+                    fontSize: "16px",
                     fontWeight: 700,
-                    padding: 0,
-                    cursor: "pointer",
-                    fontFamily: appFont
+                    lineHeight: 1.4,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px"
                   }}
                 >
-                  Cambia
-                </button>
+                  {getRouteColor(selectedPrimaryRoute.name)
+                    ? renderColorDot(getRouteColor(selectedPrimaryRoute.name), 10)
+                    : null}
+                  <span>
+                    {selectedPrimaryRoute.name} · {selectedPrimaryRoute.holesCount} buche · Par{" "}
+                    {selectedPrimaryRoute.totalPar}
+                  </span>
+                </div>
               </div>
-            ) : (
+            ) : showRouteOptions || !selectedPrimaryRoute ? (
               <div
                 style={{
                   ...roundSetupGridStyle,
@@ -4418,7 +4566,7 @@ function App() {
                         selectedRouteId: route.id,
                         secondaryRouteId: null,
                         selectedCombinationId: null,
-                        selectedRouteTeeId: route.tees?.[0]?.id || null,
+                        selectedRouteTeeId: getDefaultTeeId(route.tees),
                         selectedCombinationTeeId: null,
                         startHole: 1
                       }));
@@ -4437,11 +4585,11 @@ function App() {
                   </div>
                 ))}
               </div>
-            )}
+            ) : null}
           </>
         )}
 
-        {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && (
+        {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && !showManualCombinationBuilder && (
           <>
             {!openedCourseRouteCombinations.length && (
               <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
@@ -4450,10 +4598,42 @@ function App() {
         )}
 
         {Number(roundSetup.totalCompetitionHoles) === 18 &&
-          openedCourseRouteCombinations.length > 0 && (
+          openedCourseRouteCombinations.length > 0 &&
+          !showManualCombinationBuilder && (
             <>
               <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
-              <h2 style={roundSetupSectionTitleStyle}>Giri ufficiali</h2>
+              <div
+                style={{
+                  ...roundSetupSectionTitleStyle,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px"
+                }}
+              >
+                <button
+                  onClick={() => setShowOfficialCombinationOptions((prev) => !prev)}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    color: colors.green,
+                    fontSize: "18px",
+                    fontWeight: 800,
+                    padding: 0,
+                    cursor: "pointer",
+                    fontFamily: appFont,
+                    lineHeight: 1,
+                    flexShrink: 0
+                  }}
+                  aria-label={
+                    showOfficialCombinationOptions
+                      ? "Chiudi giri ufficiali"
+                      : "Apri giri ufficiali"
+                  }
+                >
+                  {showOfficialCombinationOptions ? "▴" : "▾"}
+                </button>
+                <span>Giri ufficiali</span>
+              </div>
               <div
                 style={{
                   marginTop: "-4px",
@@ -4479,6 +4659,7 @@ function App() {
                         setShowManualCombinationBuilder(false);
                         setShowOfficialCombinationOptions(false);
                         setShowRouteOptions(false);
+                        setShowOtherEighteenRouteOptions(false);
                         setShowTeeOptions(false);
                         setRoundSetup((prev) => ({
                           ...prev,
@@ -4486,7 +4667,7 @@ function App() {
                           secondaryRouteId: combination.backRouteId,
                           selectedCombinationId: combination.id,
                           selectedRouteTeeId: null,
-                          selectedCombinationTeeId: combination.tees?.[0]?.id || null,
+                          selectedCombinationTeeId: getDefaultTeeId(combination.tees),
                           startHole: 1
                         }));
                       }}
@@ -4509,7 +4690,7 @@ function App() {
               )}
 
               {showSelectedOfficialCombinationCard && (
-                <div style={roundSetupInputCardStyle}>
+                <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
                   <div
                     style={{
                       fontSize: "16px",
@@ -4520,58 +4701,81 @@ function App() {
                     {matchedOfficialCombination.name} · {matchedOfficialCombination.holesCount} buche · Par{" "}
                     {matchedOfficialCombination.totalPar}
                   </div>
-                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                    {matchedOfficialCombination.frontRouteName} • {matchedOfficialCombination.backRouteName}
-                  </div>
-                  <button
-                    onClick={() => setShowOfficialCombinationOptions(true)}
+                  <div
                     style={{
-                      marginTop: "8px",
-                      border: "none",
-                      background: "transparent",
-                      color: colors.green,
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      padding: 0,
-                      cursor: "pointer",
-                      fontFamily: appFont
+                      marginTop: "6px",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: colors.subtext
                     }}
                   >
-                    Cambia
-                  </button>
+                    {getRouteColor(matchedOfficialCombination.frontRouteName)
+                      ? renderColorDot(getRouteColor(matchedOfficialCombination.frontRouteName), 9)
+                      : null}
+                    {getRouteColor(matchedOfficialCombination.backRouteName)
+                      ? renderColorDot(getRouteColor(matchedOfficialCombination.backRouteName), 9)
+                      : null}
+                  </div>
                 </div>
               )}
             </>
           )}
 
-        {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && (
+        {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && !showManualCombinationBuilder && (
           <>
             {openedCourseRouteCombinations.length > 0 && (
-              <h2 style={{ ...roundSetupSectionTitleStyle, marginTop: "18px" }}>Altri percorsi</h2>
-            )}
-            {showSelectedRouteCard ? (
-              <div style={roundSetupInputCardStyle}>
-                <div style={{ fontSize: "16px", fontWeight: 700, lineHeight: 1.4 }}>
-                  {selectedPrimaryRoute.name} · 18 buche · Par {selectedPrimaryRoute.totalPar}
-                </div>
+              <div
+                style={{
+                  ...roundSetupSectionTitleStyle,
+                  marginTop: "18px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px"
+                }}
+              >
                 <button
-                  onClick={() => setShowRouteOptions(true)}
+                  onClick={() => setShowOtherEighteenRouteOptions((prev) => !prev)}
                   style={{
-                    marginTop: "8px",
                     border: "none",
                     background: "transparent",
                     color: colors.green,
-                    fontSize: "12px",
-                    fontWeight: 700,
+                    fontSize: "18px",
+                    fontWeight: 800,
                     padding: 0,
                     cursor: "pointer",
-                    fontFamily: appFont
+                    fontFamily: appFont,
+                    lineHeight: 1,
+                    flexShrink: 0
+                  }}
+                  aria-label={showOtherEighteenRouteOptions ? "Chiudi altri percorsi" : "Apri altri percorsi"}
+                >
+                  {showOtherEighteenRouteOptions ? "▴" : "▾"}
+                </button>
+                <span>Altri percorsi</span>
+              </div>
+            )}
+            {showSelectedRouteCard ? (
+              <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
+                <div
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 700,
+                    lineHeight: 1.4,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px"
                   }}
                 >
-                  Cambia
-                </button>
+                  {getRouteColor(selectedPrimaryRoute.name)
+                    ? renderColorDot(getRouteColor(selectedPrimaryRoute.name), 10)
+                    : null}
+                  <span>
+                    {selectedPrimaryRoute.name} · 18 buche · Par {selectedPrimaryRoute.totalPar}
+                  </span>
+                </div>
               </div>
-            ) : (
+            ) : (showOtherEighteenRouteOptions || !openedCourseRouteCombinations.length) ? (
               <div
                 style={{
                   ...roundSetupGridStyle,
@@ -4584,12 +4788,13 @@ function App() {
                     onClick={() => {
                       setShowManualCombinationBuilder(false);
                       setShowOfficialCombinationOptions(false);
+                      setShowOtherEighteenRouteOptions(false);
                       setRoundSetup((prev) => ({
                         ...prev,
                         selectedRouteId: route.id,
                         secondaryRouteId: null,
                         selectedCombinationId: null,
-                        selectedRouteTeeId: route.tees?.[0]?.id || null,
+                        selectedRouteTeeId: getDefaultTeeId(route.tees),
                         selectedCombinationTeeId: null,
                         startHole: 1
                       }));
@@ -4610,13 +4815,11 @@ function App() {
                   </div>
                 ))}
               </div>
-            )}
+            ) : null}
           </>
         )}
 
-        {Number(roundSetup.totalCompetitionHoles) === 18 &&
-          openedCourseRouteCombinations.length > 0 &&
-          nineHoleRoutes.length > 1 && (
+        {showManualBuilderToggle && (
             <div
               style={{
                 marginTop: "14px",
@@ -4630,11 +4833,12 @@ function App() {
                   setShowManualCombinationBuilder((prev) => !prev);
                   if (!showManualCombinationBuilder) {
                     setShowOfficialCombinationOptions(false);
+                    setShowRouteOptions(false);
                     setRoundSetup((prev) => ({
                       ...prev,
                       selectedCombinationId: null,
                       selectedCombinationTeeId: null,
-                      selectedRouteTeeId: selectedPrimaryRoute?.tees?.[0]?.id || null
+                      selectedRouteTeeId: getDefaultTeeId(selectedPrimaryRoute?.tees)
                     }));
                   }
                 }}
@@ -4650,14 +4854,14 @@ function App() {
                   whiteSpace: "nowrap"
                 }}
               >
-                {showManualCombinationBuilder ? "Torna ai giri ufficiali" : "Oppure costruisci il tuo giro"}
+                {showManualCombinationBuilder ? "Torna ai percorsi" : "Oppure costruisci manualmente il tuo giro"}
               </button>
             </div>
           )}
 
         {Number(roundSetup.totalCompetitionHoles) === 18 &&
           nineHoleRoutes.length > 0 &&
-          (showManualCombinationBuilder || openedCourseRouteCombinations.length === 0) && (
+          (showManualCombinationBuilder || showManualBuilderDirectly) && (
           <>
             <h2 style={roundSetupSectionTitleStyle}>Prime nove</h2>
             <div
@@ -4778,7 +4982,34 @@ function App() {
 
         {teeOptions.length > 0 && (
           <>
-            <h2 style={roundSetupSectionTitleStyle}>Scegli il tee</h2>
+            <div
+              style={{
+                ...roundSetupSectionTitleStyle,
+                display: "flex",
+                alignItems: "center",
+                gap: "10px"
+              }}
+            >
+              <button
+                onClick={() => setShowTeeOptions((prev) => !prev)}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  color: colors.green,
+                  fontSize: "18px",
+                  fontWeight: 800,
+                  padding: 0,
+                  cursor: "pointer",
+                  fontFamily: appFont,
+                  lineHeight: 1,
+                  flexShrink: 0
+                }}
+                aria-label={showTeeOptions ? "Chiudi tee" : "Apri tee"}
+              >
+                {showTeeOptions ? "▴" : "▾"}
+              </button>
+              <span>Scegli il tee</span>
+            </div>
             <div
               style={{
                 marginTop: "-4px",
@@ -4791,7 +5022,7 @@ function App() {
               Useremo i dati FIG/WHS disponibili per calcolare l'handicap di gioco.
             </div>
             {showSelectedTeeCard && (
-              <div style={roundSetupInputCardStyle}>
+              <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
                 <div
                   style={{
                     fontSize: "16px",
@@ -4817,29 +5048,6 @@ function App() {
                       .join(" · ")}
                   </span>
                 </div>
-                {getTeeDescriptor(selectedTee) && (
-                  <div style={{ marginTop: "4px", fontSize: "12px", color: colors.subtext }}>
-                    {getTeeDescriptor(selectedTee)}
-                  </div>
-                )}
-                {teeOptions.length > 1 && (
-                  <button
-                    onClick={() => setShowTeeOptions(true)}
-                    style={{
-                      marginTop: "8px",
-                      border: "none",
-                      background: "transparent",
-                      color: colors.green,
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      padding: 0,
-                      cursor: "pointer",
-                      fontFamily: appFont
-                    }}
-                  >
-                    Cambia
-                  </button>
-                )}
               </div>
             )}
 
@@ -4847,7 +5055,8 @@ function App() {
               <div
                 style={{
                   ...roundSetupGridStyle,
-                  gridTemplateColumns: "1fr"
+                  gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                  gap: "10px"
                 }}
               >
                 {teeOptions.map((tee) => {
@@ -4868,7 +5077,15 @@ function App() {
                         }));
                         setShowTeeOptions(false);
                       }}
-                      style={setupCardOptionStyle(isSelected)}
+                      style={{
+                        ...setupCardOptionStyle(isSelected),
+                        minHeight: "96px",
+                        padding: "14px 12px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
                     >
                       <div
                         style={{
@@ -4894,11 +5111,6 @@ function App() {
                           .filter(Boolean)
                           .join(" • ")}
                       </div>
-                      {getTeeDescriptor(tee) && (
-                        <div style={{ marginTop: "4px", fontSize: "12px", color: colors.subtext }}>
-                          {getTeeDescriptor(tee)}
-                        </div>
-                      )}
                     </div>
                   );
                 })}
@@ -4922,35 +5134,97 @@ function App() {
             >
               Se giochi in shotgun scegli da quale buca iniziare.
             </div>
-            <div
-              style={{
-                ...roundSetupGridStyle,
-                gridTemplateColumns:
-                  Number(startHoleRangeCount) === 18 ? "repeat(6, 1fr)" : "repeat(3, 1fr)",
-                gap: "8px"
-              }}
-            >
-              {allowedStartHoles.map((holeNumber) => (
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <button
+                onClick={() => setStartHolePage((prev) => Math.max(0, prev - 1))}
+                disabled={visibleStartHolePage === 0}
+                style={{
+                  width: "34px",
+                  height: "34px",
+                  borderRadius: "10px",
+                  border: `1px solid ${colors.border}`,
+                  backgroundColor: colors.card,
+                  color: visibleStartHolePage === 0 ? colors.borderStrong : colors.green,
+                  cursor: visibleStartHolePage === 0 ? "not-allowed" : "pointer",
+                  fontFamily: appFont,
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  flexShrink: 0
+                }}
+                aria-label="Pagina precedente buca di partenza"
+              >
+                ‹
+              </button>
+
+              <div style={{ flex: 1, overflow: "hidden" }}>
                 <div
-                  key={holeNumber}
-                  onClick={() =>
-                    setRoundSetup((prev) => ({
-                      ...prev,
-                      startHole: holeNumber
-                    }))
-                  }
                   style={{
-                    ...setupCardOptionStyle(roundSetup.startHole === holeNumber),
-                    padding: "12px 10px",
-                    minHeight: "42px",
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
+                    width: `${startHolePages.length * 100}%`,
+                    transform: `translateX(-${visibleStartHolePage * (100 / startHolePages.length)}%)`,
+                    transition: "transform 0.25s ease"
                   }}
                 >
-                  {holeNumber}
+                  {startHolePages.map((page, pageIndex) => (
+                    <div
+                      key={`start-hole-page-${pageIndex}`}
+                      style={{
+                        width: `${100 / startHolePages.length}%`,
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                        gap: "8px",
+                        padding: "0 1px",
+                        boxSizing: "border-box"
+                      }}
+                    >
+                      {page.map((holeNumber) => (
+                        <div
+                          key={holeNumber}
+                          onClick={() =>
+                            setRoundSetup((prev) => ({
+                              ...prev,
+                              startHole: holeNumber
+                            }))
+                          }
+                          style={{
+                            ...setupCardOptionStyle(roundSetup.startHole === holeNumber),
+                            padding: "12px 10px",
+                            minHeight: "42px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                          }}
+                        >
+                          {holeNumber}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              <button
+                onClick={() => setStartHolePage((prev) => Math.min(maxStartHolePage, prev + 1))}
+                disabled={visibleStartHolePage === maxStartHolePage}
+                style={{
+                  width: "34px",
+                  height: "34px",
+                  borderRadius: "10px",
+                  border: `1px solid ${colors.border}`,
+                  backgroundColor: colors.card,
+                  color:
+                    visibleStartHolePage === maxStartHolePage ? colors.borderStrong : colors.green,
+                  cursor:
+                    visibleStartHolePage === maxStartHolePage ? "not-allowed" : "pointer",
+                  fontFamily: appFont,
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  flexShrink: 0
+                }}
+                aria-label="Pagina successiva buca di partenza"
+              >
+                ›
+              </button>
             </div>
           </>
         )}
