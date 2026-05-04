@@ -93,24 +93,14 @@ function getFriendlyAuthErrorMessage(message) {
 function getTeeDisplayName(tee) {
   if (!tee) return "";
   const rawName = String(tee.teeName || tee.name || "").trim();
-  const rawColor = String(tee.teeColor || "").trim().toLowerCase();
-  const italianColorMap = {
-    black: "Nero",
-    white: "Bianco",
-    yellow: "Giallo",
-    green: "Verde",
-    blue: "Blu",
-    red: "Rosso",
-    orange: "Arancio"
-  };
 
   if (rawName) {
-    const lowered = rawName.toLowerCase();
-    if (italianColorMap[lowered]) return italianColorMap[lowered];
+    const teeColorInfo = getTeeColor(rawName);
+    if (teeColorInfo?.label) return teeColorInfo.label;
     return rawName;
   }
 
-  return italianColorMap[rawColor] || "Tee";
+  return getTeeColor(tee.teeColor || "").label || "Tee";
 }
 
 function getTeeDescriptor(tee) {
@@ -125,6 +115,63 @@ function getTeeDescriptor(tee) {
   }
 
   return "";
+}
+
+const COLOR_INFO_BY_KEY = {
+  nero: { label: "Nero", dotColor: "#2C2C2C" },
+  bianco: { label: "Bianco", dotColor: "#F1F1F1", borderColor: "#CFCFCF" },
+  giallo: { label: "Giallo", dotColor: "#EAB308" },
+  verde: { label: "Verde", dotColor: "#16A34A" },
+  blu: { label: "Blu", dotColor: "#2563EB" },
+  rosso: { label: "Rosso", dotColor: "#DC2626" },
+  arancio: { label: "Arancio", dotColor: "#F97316" }
+};
+
+const COLOR_ALIASES = {
+  black: "nero",
+  nero: "nero",
+  white: "bianco",
+  bianco: "bianco",
+  yellow: "giallo",
+  giallo: "giallo",
+  green: "verde",
+  verde: "verde",
+  blue: "blu",
+  blu: "blu",
+  red: "rosso",
+  rosso: "rosso",
+  orange: "arancio",
+  arancio: "arancio"
+};
+
+function findColorKey(value) {
+  const normalized = String(value || "")
+    .trim()
+    .toLowerCase();
+
+  if (!normalized) return null;
+  if (COLOR_ALIASES[normalized]) return COLOR_ALIASES[normalized];
+
+  const tokens = normalized.split(/[^a-zA-ZÀ-ÿ]+/).filter(Boolean);
+  return tokens.map((token) => COLOR_ALIASES[token]).find(Boolean) || null;
+}
+
+function getTeeColor(teeName) {
+  const colorKey = findColorKey(teeName);
+  if (!colorKey) {
+    return {
+      label: typeof teeName === "string" && teeName.trim() ? teeName.trim() : "Tee",
+      dotColor: "#9CA3AF",
+      borderColor: null
+    };
+  }
+
+  return COLOR_INFO_BY_KEY[colorKey];
+}
+
+function getRouteColor(routeName) {
+  const colorKey = findColorKey(routeName);
+  return colorKey ? COLOR_INFO_BY_KEY[colorKey] : null;
 }
 
 function rotateCompetitionSequence(sequence, startHole) {
@@ -3941,6 +3988,58 @@ function App() {
       : "none"
   });
 
+  const renderColorDot = (colorInfo, size = 9) => (
+    <span
+      aria-hidden="true"
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        minWidth: `${size}px`,
+        borderRadius: "999px",
+        backgroundColor: colorInfo?.dotColor || colors.borderStrong,
+        border: colorInfo?.borderColor ? `1px solid ${colorInfo.borderColor}` : "none",
+        display: "inline-block",
+        boxSizing: "border-box"
+      }}
+    />
+  );
+
+  const renderRouteLabel = (routeName, { muted = false } = {}) => {
+    const colorInfo = getRouteColor(routeName);
+
+    return (
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "6px",
+          color: muted ? colors.subtext : colors.text
+        }}
+      >
+        {colorInfo && renderColorDot(colorInfo)}
+        <span>{routeName}</span>
+      </span>
+    );
+  };
+
+  const renderRoutePair = (frontRouteName, backRouteName, { muted = false } = {}) => (
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "center",
+        columnGap: "10px",
+        rowGap: "6px",
+        color: muted ? colors.subtext : colors.text
+      }}
+    >
+      {renderRouteLabel(frontRouteName, { muted })}
+      <span style={{ color: colors.subtext }}>·</span>
+      {renderRouteLabel(backRouteName, { muted })}
+    </div>
+  );
+
   const renderCourseRow = (course, { showDivider = true } = {}) => (
     <div
       key={course.id}
@@ -4276,7 +4375,18 @@ function App() {
                   }}
                   style={setupCardOptionStyle(roundSetup.selectedRouteId === route.id)}
                 >
-                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div
+                    style={{
+                      fontWeight: 700,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      justifyContent: "center"
+                    }}
+                  >
+                    {getRouteColor(route.name) && renderColorDot(getRouteColor(route.name))}
+                    {route.name}
+                  </div>
                   <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                     {route.holesCount} buche • Par {route.totalPar}
                   </div>
@@ -4314,7 +4424,18 @@ function App() {
                     roundSetup.selectedRouteId === route.id && !roundSetup.selectedCombinationId
                   )}
                 >
-                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div
+                    style={{
+                      fontWeight: 700,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      justifyContent: "center"
+                    }}
+                  >
+                    {getRouteColor(route.name) && renderColorDot(getRouteColor(route.name))}
+                    {route.name}
+                  </div>
                   <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                     18 buche • Par {route.totalPar}
                   </div>
@@ -4368,8 +4489,10 @@ function App() {
                       )}
                     >
                       <div style={{ fontWeight: 700 }}>{combination.name}</div>
-                      <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                        {combination.frontRouteName} • {combination.backRouteName}
+                      <div style={{ marginTop: "6px", fontSize: "13px", color: colors.subtext }}>
+                        {renderRoutePair(combination.frontRouteName, combination.backRouteName, {
+                          muted: true
+                        })}
                       </div>
                       <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                         {combination.holesCount} buche · Par {combination.totalPar}
@@ -4385,8 +4508,12 @@ function App() {
                   <div style={{ marginTop: "6px", fontSize: "18px", fontWeight: 700 }}>
                     {matchedOfficialCombination.name}
                   </div>
-                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                    {matchedOfficialCombination.frontRouteName} • {matchedOfficialCombination.backRouteName}
+                  <div style={{ marginTop: "6px", fontSize: "13px", color: colors.subtext }}>
+                    {renderRoutePair(
+                      matchedOfficialCombination.frontRouteName,
+                      matchedOfficialCombination.backRouteName,
+                      { muted: true }
+                    )}
                   </div>
                   <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                     {matchedOfficialCombination.holesCount} buche · Par {matchedOfficialCombination.totalPar}
@@ -4502,7 +4629,18 @@ function App() {
                     roundSetup.selectedRouteId === route.id && !roundSetup.selectedCombinationId
                   )}
                 >
-                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div
+                    style={{
+                      fontWeight: 700,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      justifyContent: "center"
+                    }}
+                  >
+                    {getRouteColor(route.name) && renderColorDot(getRouteColor(route.name))}
+                    {route.name}
+                  </div>
                   <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                     9 buche • Par {route.totalPar}
                   </div>
@@ -4546,7 +4684,18 @@ function App() {
                     roundSetup.secondaryRouteId === route.id && !roundSetup.selectedCombinationId
                   )}
                 >
-                  <div style={{ fontWeight: 700 }}>{route.name}</div>
+                  <div
+                    style={{
+                      fontWeight: 700,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      justifyContent: "center"
+                    }}
+                  >
+                    {getRouteColor(route.name) && renderColorDot(getRouteColor(route.name))}
+                    {route.name}
+                  </div>
                   <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                     9 buche • Par {route.totalPar}
                   </div>
@@ -4585,7 +4734,17 @@ function App() {
             {showSelectedTeeCard && (
               <div style={roundSetupInputCardStyle}>
                 <div style={{ fontSize: "12px", color: colors.subtext }}>Selezionato</div>
-                <div style={{ marginTop: "6px", fontSize: "18px", fontWeight: 700 }}>
+                <div
+                  style={{
+                    marginTop: "6px",
+                    fontSize: "18px",
+                    fontWeight: 700,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px"
+                  }}
+                >
+                  {renderColorDot(getTeeColor(getTeeDisplayName(selectedTee)), 10)}
                   {getTeeDisplayName(selectedTee)}
                 </div>
                 <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
@@ -4653,7 +4812,18 @@ function App() {
                       }}
                       style={setupCardOptionStyle(isSelected)}
                     >
-                      <div style={{ fontWeight: 700 }}>{getTeeDisplayName(tee)}</div>
+                      <div
+                        style={{
+                          fontWeight: 700,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "8px",
+                          justifyContent: "center"
+                        }}
+                      >
+                        {renderColorDot(getTeeColor(getTeeDisplayName(tee)), 10)}
+                        {getTeeDisplayName(tee)}
+                      </div>
                       <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                         {[
                           Number.isFinite(Number(tee.courseRating))
@@ -4705,7 +4875,18 @@ function App() {
                         backgroundColor: colors.card
                       }}
                     >
-                      <div style={{ fontWeight: 700 }}>{teeName}</div>
+                      <div
+                        style={{
+                          fontWeight: 700,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "8px",
+                          justifyContent: "center"
+                        }}
+                      >
+                        {renderColorDot(getTeeColor(teeName), 10)}
+                        {teeName}
+                      </div>
                       <div style={{ marginTop: "4px", fontSize: "12px", color: colors.subtext }}>
                         Presto disponibile
                       </div>
@@ -4774,6 +4955,25 @@ function App() {
           <div style={{ marginTop: "10px", fontSize: "17px", fontWeight: 700 }}>
             {roundSetup.totalCompetitionHoles} buche • {previewSummary}
           </div>
+          {(usingOfficialCombination || usingManualRoutePair) && (
+            <div
+              style={{
+                marginTop: "8px",
+                fontSize: "13px",
+                color: colors.subtext
+              }}
+            >
+              {renderRoutePair(
+                usingOfficialCombination
+                  ? matchedOfficialCombination.frontRouteName
+                  : selectedPrimaryRoute.name,
+                usingOfficialCombination
+                  ? matchedOfficialCombination.backRouteName
+                  : selectedSecondaryRoute.name,
+                { muted: true }
+              )}
+            </div>
+          )}
           <div
             style={{
               marginTop: "8px",
@@ -4790,16 +4990,22 @@ function App() {
                 marginTop: "8px",
                 color: colors.subtext,
                 fontSize: "13px",
-                lineHeight: 1.5
+                lineHeight: 1.5,
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "6px"
               }}
             >
-              Tee {getTeeDisplayName(selectedTee)}
-              {Number.isFinite(Number(selectedTee.courseRating))
-                ? ` · CR ${Number(selectedTee.courseRating).toFixed(1)}`
-                : ""}
-              {Number.isFinite(Number(selectedTee.slopeRating))
-                ? ` · Slope ${Number(selectedTee.slopeRating)}`
-                : ""}
+              <span>Tee</span>
+              {renderColorDot(getTeeColor(getTeeDisplayName(selectedTee)), 9)}
+              <span>{getTeeDisplayName(selectedTee)}</span>
+              {Number.isFinite(Number(selectedTee.courseRating)) && (
+                <span>· CR {Number(selectedTee.courseRating).toFixed(1)}</span>
+              )}
+              {Number.isFinite(Number(selectedTee.slopeRating)) && (
+                <span>· Slope {Number(selectedTee.slopeRating)}</span>
+              )}
             </div>
           )}
           <div
