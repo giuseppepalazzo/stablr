@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "source": {
     "system": "fig",
-    "scraped_at": "2026-04-29T10:30:00Z",
+    "scraped_at": "2026-05-04T16:00:00Z",
     "club_external_id": "fig-parco-medici",
-    "notes": "Example normalized payload for a complex curated club"
+    "notes": "Curated normalized payload for Parco De' Medici with all primary routes and official playable combinations"
   },
   "club": {
     "name": "Parco De' Medici",
@@ -14,7 +14,8 @@
     "source_system": "fig",
     "source_external_id": "fig-parco-medici",
     "source_payload": {
-      "kind": "club"
+      "kind": "club",
+      "curated": true
     }
   },
   "routes": [
@@ -22,30 +23,124 @@
       "external_key": "bianco-9",
       "name": "Bianco",
       "holes_count": 9,
-      "total_par": 36,
+      "total_par": 35,
       "display_order": 1,
       "is_active": true,
       "source_system": "fig",
       "source_external_id": "fig-route-bianco-9",
       "source_payload": {
-        "kind": "route"
+        "kind": "route",
+        "family": "base"
       },
       "holes": [
-        { "physical_hole_number": 1, "par": 4, "stroke_index": 3, "display_label": "1" },
-        { "physical_hole_number": 2, "par": 3, "stroke_index": 7, "display_label": "2" },
-        { "physical_hole_number": 3, "par": 5, "stroke_index": 5, "display_label": "3" }
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 11,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        }
       ],
       "tees": [
         {
           "tee_name": "Giallo",
           "tee_color": "yellow",
-          "gender": "mixed",
-          "course_rating": 35.8,
-          "slope_rating": 128,
-          "par_total": 36,
+          "gender": "men",
+          "course_rating": 34.7,
+          "slope_rating": 132,
+          "par_total": 35,
           "is_active": true,
           "source_system": "fig",
-          "source_external_id": "fig-tee-bianco-giallo",
+          "source_external_id": "fig-tee-bianco-yellow",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 33.4,
+          "slope_rating": 129,
+          "par_total": 35,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bianco-green",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.6,
+          "slope_rating": 123,
+          "par_total": 35,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bianco-red",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.1,
+          "slope_rating": 120,
+          "par_total": 35,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bianco-orange",
           "source_payload": {
             "kind": "route_tee"
           }
@@ -56,30 +151,798 @@
       "external_key": "blu-9",
       "name": "Blu",
       "holes_count": 9,
-      "total_par": 35,
+      "total_par": 37,
       "display_order": 2,
       "is_active": true,
       "source_system": "fig",
       "source_external_id": "fig-route-blu-9",
       "source_payload": {
-        "kind": "route"
+        "kind": "route",
+        "family": "base"
       },
       "holes": [
-        { "physical_hole_number": 1, "par": 4, "stroke_index": 2, "display_label": "1" },
-        { "physical_hole_number": 2, "par": 5, "stroke_index": 18, "display_label": "2" },
-        { "physical_hole_number": 3, "par": 3, "stroke_index": 16, "display_label": "3" }
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 18,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 5,
+          "stroke_index": 14,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 12,
+          "display_label": "9"
+        }
       ],
       "tees": [
         {
           "tee_name": "Giallo",
           "tee_color": "yellow",
-          "gender": "mixed",
-          "course_rating": 35.3,
+          "gender": "men",
+          "course_rating": 36.4,
+          "slope_rating": 140,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-yellow",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34.8,
+          "slope_rating": 136,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-green",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.1,
+          "slope_rating": 138,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-red",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35.5,
+          "slope_rating": 135,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-orange",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "rosso-9",
+      "name": "Rosso",
+      "holes_count": 9,
+      "total_par": 35,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-route-rosso-9",
+      "source_payload": {
+        "kind": "route",
+        "family": "base"
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 11,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 13,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 34.2,
           "slope_rating": 124,
           "par_total": 35,
           "is_active": true,
           "source_system": "fig",
-          "source_external_id": "fig-tee-blu-giallo",
+          "source_external_id": "fig-tee-rosso-yellow",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 32.9,
+          "slope_rating": 118,
+          "par_total": 35,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-rosso-green",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.3,
+          "slope_rating": 122,
+          "par_total": 35,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-rosso-red",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 33.9,
+          "slope_rating": 116,
+          "par_total": 35,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-rosso-orange",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "bianco-repeat-18",
+      "name": "9 Buche Bianco 2 Volte",
+      "holes_count": 18,
+      "total_par": 70,
+      "display_order": 4,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-route-bianco-repeat-18",
+      "source_payload": {
+        "kind": "route",
+        "family": "repeat"
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 17,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 14,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 3,
+          "stroke_index": 10,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 5,
+          "stroke_index": 18,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 69.4,
+          "slope_rating": 132,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bianco-repeat-18-yellow",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 66.8,
+          "slope_rating": 129,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bianco-repeat-18-green",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 71.2,
+          "slope_rating": 123,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bianco-repeat-18-red",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 68.2,
+          "slope_rating": 120,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bianco-repeat-18-orange",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "blu-repeat-18",
+      "name": "9 Buche Blu 2 Volte",
+      "holes_count": 18,
+      "total_par": 74,
+      "display_order": 5,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-route-blu-repeat-18",
+      "source_payload": {
+        "kind": "route",
+        "family": "repeat"
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 17,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 5,
+          "stroke_index": 13,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 11,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 18,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 5,
+          "stroke_index": 14,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 5,
+          "stroke_index": 12,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 72.8,
+          "slope_rating": 140,
+          "par_total": 74,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-repeat-18-yellow",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 69.6,
+          "slope_rating": 136,
+          "par_total": 74,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-repeat-18-green",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 74.2,
+          "slope_rating": 138,
+          "par_total": 74,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-repeat-18-red",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 71,
+          "slope_rating": 135,
+          "par_total": 74,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-blu-repeat-18-orange",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "rosso-repeat-18",
+      "name": "Est (Rosso x 2)",
+      "holes_count": 18,
+      "total_par": 70,
+      "display_order": 6,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-route-rosso-repeat-18",
+      "source_payload": {
+        "kind": "route",
+        "family": "repeat"
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 11,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 13,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 18,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 12,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 5,
+          "stroke_index": 14,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 68.4,
+          "slope_rating": 124,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-rosso-repeat-18-yellow",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 65.8,
+          "slope_rating": 118,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-rosso-repeat-18-green",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 70.6,
+          "slope_rating": 122,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-rosso-repeat-18-red",
+          "source_payload": {
+            "kind": "route_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 67.7,
+          "slope_rating": 116,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-rosso-repeat-18-orange",
           "source_payload": {
             "kind": "route_tee"
           }
@@ -94,7 +957,7 @@
       "front_route_external_key": "bianco-9",
       "back_route_external_key": "blu-9",
       "holes_count": 18,
-      "total_par": 71,
+      "total_par": 72,
       "is_active": true,
       "source_system": "fig",
       "source_external_id": "fig-combination-championship-bianco-blu",
@@ -108,7 +971,7 @@
           "route_position": 1,
           "physical_hole_number": 1,
           "par": 4,
-          "stroke_index": 1,
+          "stroke_index": 3,
           "source_stroke_index": 3,
           "display_label": "Bianco 1"
         },
@@ -118,9 +981,79 @@
           "route_position": 1,
           "physical_hole_number": 2,
           "par": 3,
-          "stroke_index": 13,
+          "stroke_index": 7,
           "source_stroke_index": 7,
           "display_label": "Bianco 2"
+        },
+        {
+          "round_hole_number": 3,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 5,
+          "source_stroke_index": 5,
+          "display_label": "Bianco 3"
+        },
+        {
+          "round_hole_number": 4,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 15,
+          "source_stroke_index": 15,
+          "display_label": "Bianco 4"
+        },
+        {
+          "round_hole_number": 5,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 13,
+          "source_stroke_index": 13,
+          "display_label": "Bianco 5"
+        },
+        {
+          "round_hole_number": 6,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "source_stroke_index": 11,
+          "display_label": "Bianco 6"
+        },
+        {
+          "round_hole_number": 7,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 9,
+          "source_stroke_index": 9,
+          "display_label": "Bianco 7"
+        },
+        {
+          "round_hole_number": 8,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 17,
+          "source_stroke_index": 17,
+          "display_label": "Bianco 8"
+        },
+        {
+          "round_hole_number": 9,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "source_stroke_index": 1,
+          "display_label": "Bianco 9"
         },
         {
           "round_hole_number": 10,
@@ -128,22 +1061,172 @@
           "route_position": 2,
           "physical_hole_number": 1,
           "par": 4,
+          "stroke_index": 10,
+          "source_stroke_index": 10,
+          "display_label": "Blu 1"
+        },
+        {
+          "round_hole_number": 11,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 18,
+          "source_stroke_index": 18,
+          "display_label": "Blu 2"
+        },
+        {
+          "round_hole_number": 12,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 16,
+          "source_stroke_index": 16,
+          "display_label": "Blu 3"
+        },
+        {
+          "round_hole_number": 13,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 4,
+          "par": 4,
           "stroke_index": 2,
           "source_stroke_index": 2,
-          "display_label": "Blu 1"
+          "display_label": "Blu 4"
+        },
+        {
+          "round_hole_number": 14,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 5,
+          "par": 5,
+          "stroke_index": 14,
+          "source_stroke_index": 14,
+          "display_label": "Blu 5"
+        },
+        {
+          "round_hole_number": 15,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 6,
+          "source_stroke_index": 6,
+          "display_label": "Blu 6"
+        },
+        {
+          "round_hole_number": 16,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 8,
+          "source_stroke_index": 8,
+          "display_label": "Blu 7"
+        },
+        {
+          "round_hole_number": 17,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 4,
+          "source_stroke_index": 4,
+          "display_label": "Blu 8"
+        },
+        {
+          "round_hole_number": 18,
+          "route_external_key": "blu-9",
+          "route_position": 2,
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 12,
+          "source_stroke_index": 12,
+          "display_label": "Blu 9"
         }
       ],
       "tees": [
         {
-          "tee_name": "Giallo",
-          "tee_color": "yellow",
-          "gender": "mixed",
-          "course_rating": 71.1,
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 73,
           "slope_rating": 136,
-          "par_total": 71,
+          "par_total": 72,
           "is_active": true,
           "source_system": "fig",
-          "source_external_id": "fig-combination-tee-championship-bianco-blu-giallo",
+          "source_external_id": "fig-combination-tee-championship-bianco-blu-white",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 71.1,
+          "slope_rating": 136,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-bianco-blu-yellow",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 68.2,
+          "slope_rating": 129,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-bianco-blu-green",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "women",
+          "course_rating": 74.7,
+          "slope_rating": 137,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-bianco-blu-blue",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 72.7,
+          "slope_rating": 130,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-bianco-blu-red",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 69.6,
+          "slope_rating": 123,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-bianco-blu-orange",
           "source_payload": {
             "kind": "combination_tee"
           }
@@ -156,7 +1239,7 @@
       "front_route_external_key": "blu-9",
       "back_route_external_key": "bianco-9",
       "holes_count": 18,
-      "total_par": 71,
+      "total_par": 72,
       "is_active": true,
       "source_system": "fig",
       "source_external_id": "fig-combination-championship-inverse-blu-bianco",
@@ -170,9 +1253,89 @@
           "route_position": 1,
           "physical_hole_number": 1,
           "par": 4,
-          "stroke_index": 1,
-          "source_stroke_index": 2,
+          "stroke_index": 9,
+          "source_stroke_index": 9,
           "display_label": "Blu 1"
+        },
+        {
+          "round_hole_number": 2,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 17,
+          "source_stroke_index": 17,
+          "display_label": "Blu 2"
+        },
+        {
+          "round_hole_number": 3,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 15,
+          "source_stroke_index": 15,
+          "display_label": "Blu 3"
+        },
+        {
+          "round_hole_number": 4,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "source_stroke_index": 1,
+          "display_label": "Blu 4"
+        },
+        {
+          "round_hole_number": 5,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 5,
+          "par": 5,
+          "stroke_index": 13,
+          "source_stroke_index": 13,
+          "display_label": "Blu 5"
+        },
+        {
+          "round_hole_number": 6,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 5,
+          "source_stroke_index": 5,
+          "display_label": "Blu 6"
+        },
+        {
+          "round_hole_number": 7,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 7,
+          "source_stroke_index": 7,
+          "display_label": "Blu 7"
+        },
+        {
+          "round_hole_number": 8,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 3,
+          "source_stroke_index": 3,
+          "display_label": "Blu 8"
+        },
+        {
+          "round_hole_number": 9,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 11,
+          "source_stroke_index": 11,
+          "display_label": "Blu 9"
         },
         {
           "round_hole_number": 10,
@@ -180,22 +1343,680 @@
           "route_position": 2,
           "physical_hole_number": 1,
           "par": 4,
-          "stroke_index": 2,
-          "source_stroke_index": 3,
+          "stroke_index": 4,
+          "source_stroke_index": 4,
           "display_label": "Bianco 1"
+        },
+        {
+          "round_hole_number": 11,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 8,
+          "source_stroke_index": 8,
+          "display_label": "Bianco 2"
+        },
+        {
+          "round_hole_number": 12,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 6,
+          "source_stroke_index": 6,
+          "display_label": "Bianco 3"
+        },
+        {
+          "round_hole_number": 13,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 16,
+          "source_stroke_index": 16,
+          "display_label": "Bianco 4"
+        },
+        {
+          "round_hole_number": 14,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 14,
+          "source_stroke_index": 14,
+          "display_label": "Bianco 5"
+        },
+        {
+          "round_hole_number": 15,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 12,
+          "source_stroke_index": 12,
+          "display_label": "Bianco 6"
+        },
+        {
+          "round_hole_number": 16,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 10,
+          "source_stroke_index": 10,
+          "display_label": "Bianco 7"
+        },
+        {
+          "round_hole_number": 17,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 18,
+          "source_stroke_index": 18,
+          "display_label": "Bianco 8"
+        },
+        {
+          "round_hole_number": 18,
+          "route_external_key": "bianco-9",
+          "route_position": 2,
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 2,
+          "source_stroke_index": 2,
+          "display_label": "Bianco 9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 73,
+          "slope_rating": 136,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-inverse-blu-bianco-white",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 71.1,
+          "slope_rating": 136,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-inverse-blu-bianco-yellow",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 68.2,
+          "slope_rating": 129,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-inverse-blu-bianco-green",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "women",
+          "course_rating": 74.7,
+          "slope_rating": 137,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-inverse-blu-bianco-blue",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 72.7,
+          "slope_rating": 130,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-inverse-blu-bianco-red",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 69.6,
+          "slope_rating": 123,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-championship-inverse-blu-bianco-orange",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "king-blu-rosso",
+      "name": "King Blu/Rosso",
+      "front_route_external_key": "blu-9",
+      "back_route_external_key": "rosso-9",
+      "holes_count": 18,
+      "total_par": 72,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-combination-king-blu-rosso",
+      "source_payload": {
+        "kind": "combination"
+      },
+      "holes": [
+        {
+          "round_hole_number": 1,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 9,
+          "source_stroke_index": 9,
+          "display_label": "Blu 1"
+        },
+        {
+          "round_hole_number": 2,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 17,
+          "source_stroke_index": 17,
+          "display_label": "Blu 2"
+        },
+        {
+          "round_hole_number": 3,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 15,
+          "source_stroke_index": 15,
+          "display_label": "Blu 3"
+        },
+        {
+          "round_hole_number": 4,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "source_stroke_index": 1,
+          "display_label": "Blu 4"
+        },
+        {
+          "round_hole_number": 5,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 5,
+          "par": 5,
+          "stroke_index": 13,
+          "source_stroke_index": 13,
+          "display_label": "Blu 5"
+        },
+        {
+          "round_hole_number": 6,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 5,
+          "source_stroke_index": 5,
+          "display_label": "Blu 6"
+        },
+        {
+          "round_hole_number": 7,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 7,
+          "source_stroke_index": 7,
+          "display_label": "Blu 7"
+        },
+        {
+          "round_hole_number": 8,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 3,
+          "source_stroke_index": 3,
+          "display_label": "Blu 8"
+        },
+        {
+          "round_hole_number": 9,
+          "route_external_key": "blu-9",
+          "route_position": 1,
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 11,
+          "source_stroke_index": 11,
+          "display_label": "Blu 9"
+        },
+        {
+          "round_hole_number": 10,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 8,
+          "source_stroke_index": 8,
+          "display_label": "Rosso 1"
+        },
+        {
+          "round_hole_number": 11,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 16,
+          "source_stroke_index": 16,
+          "display_label": "Rosso 2"
+        },
+        {
+          "round_hole_number": 12,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 18,
+          "source_stroke_index": 18,
+          "display_label": "Rosso 3"
+        },
+        {
+          "round_hole_number": 13,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 2,
+          "source_stroke_index": 2,
+          "display_label": "Rosso 4"
+        },
+        {
+          "round_hole_number": 14,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 12,
+          "source_stroke_index": 12,
+          "display_label": "Rosso 5"
+        },
+        {
+          "round_hole_number": 15,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 14,
+          "source_stroke_index": 14,
+          "display_label": "Rosso 6"
+        },
+        {
+          "round_hole_number": 16,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 10,
+          "source_stroke_index": 10,
+          "display_label": "Rosso 7"
+        },
+        {
+          "round_hole_number": 17,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 6,
+          "source_stroke_index": 6,
+          "display_label": "Rosso 8"
+        },
+        {
+          "round_hole_number": 18,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 4,
+          "source_stroke_index": 4,
+          "display_label": "Rosso 9"
         }
       ],
       "tees": [
         {
           "tee_name": "Giallo",
           "tee_color": "yellow",
-          "gender": "mixed",
-          "course_rating": 71.1,
-          "slope_rating": 136,
-          "par_total": 71,
+          "gender": "men",
+          "course_rating": 70.6,
+          "slope_rating": 132,
+          "par_total": 72,
           "is_active": true,
           "source_system": "fig",
-          "source_external_id": "fig-combination-tee-championship-inverse-blu-bianco-giallo",
+          "source_external_id": "fig-combination-tee-king-blu-rosso-yellow",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 67.7,
+          "slope_rating": 127,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-king-blu-rosso-green",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 72.4,
+          "slope_rating": 130,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-king-blu-rosso-red",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 69.4,
+          "slope_rating": 125,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-king-blu-rosso-orange",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "queen-bianco-rosso",
+      "name": "Queen Bianco/Rosso",
+      "front_route_external_key": "bianco-9",
+      "back_route_external_key": "rosso-9",
+      "holes_count": 18,
+      "total_par": 70,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-combination-queen-bianco-rosso",
+      "source_payload": {
+        "kind": "combination"
+      },
+      "holes": [
+        {
+          "round_hole_number": 1,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 3,
+          "source_stroke_index": 3,
+          "display_label": "Bianco 1"
+        },
+        {
+          "round_hole_number": 2,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 7,
+          "source_stroke_index": 7,
+          "display_label": "Bianco 2"
+        },
+        {
+          "round_hole_number": 3,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 5,
+          "source_stroke_index": 5,
+          "display_label": "Bianco 3"
+        },
+        {
+          "round_hole_number": 4,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 15,
+          "source_stroke_index": 15,
+          "display_label": "Bianco 4"
+        },
+        {
+          "round_hole_number": 5,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 13,
+          "source_stroke_index": 13,
+          "display_label": "Bianco 5"
+        },
+        {
+          "round_hole_number": 6,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "source_stroke_index": 11,
+          "display_label": "Bianco 6"
+        },
+        {
+          "round_hole_number": 7,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 9,
+          "source_stroke_index": 9,
+          "display_label": "Bianco 7"
+        },
+        {
+          "round_hole_number": 8,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 17,
+          "source_stroke_index": 17,
+          "display_label": "Bianco 8"
+        },
+        {
+          "round_hole_number": 9,
+          "route_external_key": "bianco-9",
+          "route_position": 1,
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "source_stroke_index": 1,
+          "display_label": "Bianco 9"
+        },
+        {
+          "round_hole_number": 10,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 8,
+          "source_stroke_index": 8,
+          "display_label": "Rosso 1"
+        },
+        {
+          "round_hole_number": 11,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 16,
+          "source_stroke_index": 16,
+          "display_label": "Rosso 2"
+        },
+        {
+          "round_hole_number": 12,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 18,
+          "source_stroke_index": 18,
+          "display_label": "Rosso 3"
+        },
+        {
+          "round_hole_number": 13,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 2,
+          "source_stroke_index": 2,
+          "display_label": "Rosso 4"
+        },
+        {
+          "round_hole_number": 14,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 12,
+          "source_stroke_index": 12,
+          "display_label": "Rosso 5"
+        },
+        {
+          "round_hole_number": 15,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 14,
+          "source_stroke_index": 14,
+          "display_label": "Rosso 6"
+        },
+        {
+          "round_hole_number": 16,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 10,
+          "source_stroke_index": 10,
+          "display_label": "Rosso 7"
+        },
+        {
+          "round_hole_number": 17,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 6,
+          "source_stroke_index": 6,
+          "display_label": "Rosso 8"
+        },
+        {
+          "round_hole_number": 18,
+          "route_external_key": "rosso-9",
+          "route_position": 2,
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 4,
+          "source_stroke_index": 4,
+          "display_label": "Rosso 9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 68.9,
+          "slope_rating": 128,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-queen-bianco-rosso-yellow",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 66.3,
+          "slope_rating": 124,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-queen-bianco-rosso-green",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 70.9,
+          "slope_rating": 123,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-queen-bianco-rosso-red",
+          "source_payload": {
+            "kind": "combination_tee"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 68,
+          "slope_rating": 118,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-combination-tee-queen-bianco-rosso-orange",
           "source_payload": {
             "kind": "combination_tee"
           }
