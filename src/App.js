@@ -1346,7 +1346,16 @@ function App() {
     }
 
     if (officialCombinations.length > 0) {
-      const preferredCombination = officialCombinations[0];
+      const preferredCombination =
+        officialCombinations.find(
+          (combination) => {
+            const normalizedName = String(combination.name || "").trim().toLowerCase();
+            return (
+              normalizedName === "championship bianco/blu" ||
+              normalizedName.includes("championship bianco/blu")
+            );
+          }
+        ) || officialCombinations[0];
       return {
         selectedRouteId: preferredCombination.frontRouteId,
         secondaryRouteId: preferredCombination.backRouteId,
@@ -1426,6 +1435,14 @@ function App() {
     if (!hasPlayableRoutes) {
       return;
     }
+    const hasOfficialCombinations = Array.isArray(course?.routeCombinations) && course.routeCombinations.length > 0;
+    const hasEighteenHoleRoutes = Array.isArray(course?.routes)
+      && course.routes.some((route) => Number(route.holesCount) === 18 && route.holes?.length);
+    const hasNineHoleRoutes = Array.isArray(course?.routes)
+      && course.routes.some((route) => Number(route.holesCount) === 9 && route.holes?.length);
+    const defaultCompetitionHoles =
+      hasOfficialCombinations || hasEighteenHoleRoutes || hasNineHoleRoutes ? 18 : 9;
+
     setOpenedCourse(course);
     setShowRoundSetup(true);
     setActiveSheet(null);
@@ -1438,7 +1455,9 @@ function App() {
     setRoundAlreadySaved(false);
     setManualReceivedShots({});
     setRoundSetup({
-      ...createInitialRoundSetup()
+      ...createInitialRoundSetup(),
+      totalCompetitionHoles: defaultCompetitionHoles,
+      ...buildRoundChoiceDefaults(course, defaultCompetitionHoles)
     });
     setRoundScores([]);
   };
@@ -3799,9 +3818,9 @@ function App() {
   });
 
   const reportActionButtonStyle = {
-    width: "36px",
-    height: "36px",
-    borderRadius: "12px",
+    width: "32px",
+    height: "32px",
+    borderRadius: "10px",
     border: `1.5px solid ${colors.greenBorder}`,
     backgroundColor: isLight ? "#F4FFF8" : colors.card,
     color: colors.green,
@@ -4408,7 +4427,7 @@ function App() {
               title="Invia segnalazione"
               aria-label={`Invia segnalazione per ${openedCourse.name}`}
             >
-              {renderReportIcon(16)}
+              {renderReportIcon(14)}
             </button>
           </div>
 
@@ -4515,7 +4534,7 @@ function App() {
                   border: "none",
                   background: "transparent",
                   color: colors.green,
-                  fontSize: "18px",
+                  fontSize: "20px",
                   fontWeight: 800,
                   padding: 0,
                   cursor: "pointer",
@@ -4616,7 +4635,7 @@ function App() {
                     border: "none",
                     background: "transparent",
                     color: colors.green,
-                    fontSize: "18px",
+                    fontSize: "20px",
                     fontWeight: 800,
                     padding: 0,
                     cursor: "pointer",
@@ -4740,7 +4759,7 @@ function App() {
                     border: "none",
                     background: "transparent",
                     color: colors.green,
-                    fontSize: "18px",
+                    fontSize: "20px",
                     fontWeight: 800,
                     padding: 0,
                     cursor: "pointer",
@@ -4752,7 +4771,7 @@ function App() {
                 >
                   {showOtherEighteenRouteOptions ? "▴" : "▾"}
                 </button>
-                <span>Altri percorsi</span>
+                <span>Altre opzioni di gioco</span>
               </div>
             )}
             {showSelectedRouteCard ? (
@@ -4996,7 +5015,7 @@ function App() {
                   border: "none",
                   background: "transparent",
                   color: colors.green,
-                  fontSize: "18px",
+                  fontSize: "20px",
                   fontWeight: 800,
                   padding: 0,
                   cursor: "pointer",
