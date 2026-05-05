@@ -334,8 +334,15 @@ function App() {
   const [authMessage, setAuthMessage] = useState("");
   const [courseSaveError, setCourseSaveError] = useState("");
   const [courseSaveLoading, setCourseSaveLoading] = useState(false);
+  const [courseSaveSuccessMessage, setCourseSaveSuccessMessage] = useState("");
   const [clubRequestSubmitting, setClubRequestSubmitting] = useState(false);
   const [clubRequestFeedback, setClubRequestFeedback] = useState("");
+  const [showCommunityHandicapEditor, setShowCommunityHandicapEditor] = useState(false);
+  const [communityTeeName, setCommunityTeeName] = useState("Giallo");
+  const [communityCourseRating, setCommunityCourseRating] = useState("");
+  const [communitySlopeRating, setCommunitySlopeRating] = useState("");
+  const [communityHandicapSaving, setCommunityHandicapSaving] = useState(false);
+  const [communityHandicapFeedback, setCommunityHandicapFeedback] = useState("");
   const [courseReportTarget, setCourseReportTarget] = useState(null);
   const [courseReportMessage, setCourseReportMessage] = useState("");
   const [courseReportSubmitting, setCourseReportSubmitting] = useState(false);
@@ -1012,8 +1019,15 @@ function App() {
     setSelectedStepper("par");
     setCourseSaveError("");
     setCourseSaveLoading(false);
+    setCourseSaveSuccessMessage("");
     setClubRequestSubmitting(false);
     setClubRequestFeedback("");
+    setShowCommunityHandicapEditor(false);
+    setCommunityTeeName("Giallo");
+    setCommunityCourseRating("");
+    setCommunitySlopeRating("");
+    setCommunityHandicapSaving(false);
+    setCommunityHandicapFeedback("");
   };
 
   const openDialog = () => {
@@ -1032,6 +1046,39 @@ function App() {
     setClubCreationMode("multiple");
     setDialogStep(7);
     setShowDialog(true);
+  };
+
+  const updateSummaryHoleField = (routeIndex, holeIndex, field, value) => {
+    setRouteDrafts((prev) =>
+      prev.map((route, currentRouteIndex) => {
+        if (currentRouteIndex !== routeIndex) return route;
+
+        const nextHoles = (route.holes || []).map((hole, currentHoleIdx) => {
+          if (currentHoleIdx !== holeIndex) return hole;
+
+          if (field === "par") {
+            const numericValue = Math.max(3, Math.min(6, Number(value || 4)));
+            return { ...hole, par: numericValue };
+          }
+
+          if (field === "strokeIndex") {
+            const parsedValue = String(value).trim() === "" ? "" : Number(value);
+            if (parsedValue === "") return { ...hole, strokeIndex: "" };
+            return {
+              ...hole,
+              strokeIndex: Math.max(1, Math.min(18, Number.isFinite(parsedValue) ? parsedValue : 1))
+            };
+          }
+
+          return hole;
+        });
+
+        return {
+          ...route,
+          holes: nextHoles
+        };
+      })
+    );
   };
 
   const goToStepTwo = () => {
@@ -1329,7 +1376,8 @@ function App() {
       }
 
       await loadCourses();
-      closeDialog();
+      setCourseSaveSuccessMessage("Campo salvato");
+      setDialogStep(8);
     } catch (error) {
       const normalizedError = String(error.message || "").toLowerCase();
       if (normalizedError.includes("duplicate key value")) {
@@ -1350,6 +1398,68 @@ function App() {
     } finally {
       setCourseSaveLoading(false);
     }
+  };
+
+  const saveCommunityHandicapData = async (route, totalParOverride = null) => {
+    if (!supabase || !openedCourse || !route) return;
+
+    const numericCourseRating = Number(communityCourseRating);
+    const numericSlopeRating = Number(communitySlopeRating);
+
+    if (!communityTeeName.trim()) {
+      setCommunityHandicapFeedback("Seleziona un tee.");
+      return;
+    }
+
+    if (!Number.isFinite(numericCourseRating) || !Number.isFinite(numericSlopeRating)) {
+      setCommunityHandicapFeedback("Inserisci Course Rating e Slope Rating validi.");
+      return;
+    }
+
+    setCommunityHandicapSaving(true);
+    setCommunityHandicapFeedback("");
+
+    const teeInfo = getTeeColor(communityTeeName);
+    const parTotalForTee = Number(totalParOverride || route.totalPar || 0) || null;
+
+    const { data: savedTee, error: teeSaveError } = await supabase
+      .from("route_tees")
+      .upsert(
+        {
+          route_id: route.id,
+          tee_name: teeInfo.label,
+          tee_color: teeInfo.label,
+          course_rating: numericCourseRating,
+          slope_rating: Math.round(numericSlopeRating),
+          par_total: parTotalForTee,
+          is_active: true
+        },
+        { onConflict: "route_id,tee_name" }
+      )
+      .select("*")
+      .single();
+
+    if (teeSaveError) {
+      setCommunityHandicapFeedback(teeSaveError.message || "Errore nel salvataggio dei dati handicap.");
+      setCommunityHandicapSaving(false);
+      return;
+    }
+
+    const refreshedCourses = await loadCourses();
+    const refreshedCourse = refreshedCourses.find((course) => course.id === openedCourse.id) || null;
+
+    if (refreshedCourse) {
+      setOpenedCourse(refreshedCourse);
+    }
+
+    setRoundSetup((prev) => ({
+      ...prev,
+      selectedRouteTeeId: savedTee.id
+    }));
+    setShowCommunityHandicapEditor(false);
+    setShowTeeOptions(false);
+    setCommunityHandicapSaving(false);
+    setCommunityHandicapFeedback("");
   };
 
   const submitClubRequest = async (clubNameOverride = "") => {
@@ -1616,10 +1726,18 @@ function App() {
     const hasOfficialCombinations = Array.isArray(course?.routeCombinations) && course.routeCombinations.length > 0;
     const hasEighteenHoleRoutes = Array.isArray(course?.routes)
       && course.routes.some((route) => Number(route.holesCount) === 18 && route.holes?.length);
-    const hasNineHoleRoutes = Array.isArray(course?.routes)
-      && course.routes.some((route) => Number(route.holesCount) === 9 && route.holes?.length);
+    const nineHoleRoutes = Array.isArray(course?.routes)
+      ? course.routes.filter((route) => Number(route.holesCount) === 9 && route.holes?.length)
+      : [];
+    const hasNineHoleRoutes = nineHoleRoutes.length > 0;
     const defaultCompetitionHoles =
-      hasOfficialCombinations || hasEighteenHoleRoutes || hasNineHoleRoutes ? 18 : 9;
+      hasOfficialCombinations || hasEighteenHoleRoutes
+        ? 18
+        : nineHoleRoutes.length === 1
+          ? 9
+          : hasNineHoleRoutes
+            ? 18
+            : 9;
 
     setOpenedCourse(course);
     setShowRoundSetup(true);
@@ -1741,6 +1859,14 @@ function App() {
       const competitionHoleNumber = index + 1;
       const roundNumber = Math.floor(index / courseHoleCount) + 1;
       const totalRounds = totalCompetitionHoles / courseHoleCount;
+      const sourceStrokeIndex = Number(baseHole.strokeIndex || 0) || null;
+      const repeatedSingleNineStrokeIndex =
+        totalRounds === 2 &&
+        courseHoleCount === 9 &&
+        roundNumber === 2 &&
+        sourceStrokeIndex !== null
+          ? Math.min(18, sourceStrokeIndex + 1)
+          : sourceStrokeIndex;
 
       return {
         competitionHoleNumber,
@@ -1750,8 +1876,8 @@ function App() {
         courseHoleNumber: baseHole.hole,
         physicalHoleNumber: baseHole.hole,
         par: baseHole.par,
-        strokeIndex: baseHole.strokeIndex,
-        sourceStrokeIndex: baseHole.strokeIndex,
+        strokeIndex: repeatedSingleNineStrokeIndex,
+        sourceStrokeIndex,
         roundNumber,
         totalRounds,
         segmentLabel:
@@ -1906,6 +2032,58 @@ function App() {
     [competitionHoles]
   );
 
+  const effectivePlayingHandicap = useMemo(() => {
+    const numericHandicapIndex = Number(userProfile.hcp);
+    if (!Number.isFinite(numericHandicapIndex)) return 0;
+
+    const roundedIndex = Math.round(numericHandicapIndex);
+    if (!openedCourse) return roundedIndex;
+
+    const routes = Array.isArray(openedCourse.routes) ? openedCourse.routes : [];
+    const routeCombinations = Array.isArray(openedCourse.routeCombinations)
+      ? openedCourse.routeCombinations
+      : [];
+    const selectedRoute =
+      routes.find((route) => route.id === roundSetup.selectedRouteId) || null;
+    const selectedSecondaryRoute =
+      routes.find((route) => route.id === roundSetup.secondaryRouteId) || null;
+    const selectedCombination =
+      routeCombinations.find((combination) => combination.id === roundSetup.selectedCombinationId) ||
+      findOfficialCombinationByRoutes(openedCourse, selectedRoute, selectedSecondaryRoute);
+
+    const teeOptions = selectedCombination
+      ? selectedCombination.tees || []
+      : selectedRoute?.tees || [];
+    const selectedTee = selectedCombination
+      ? teeOptions.find((tee) => tee.id === roundSetup.selectedCombinationTeeId) || teeOptions[0] || null
+      : teeOptions.find((tee) => tee.id === roundSetup.selectedRouteTeeId) || teeOptions[0] || null;
+
+    if (!selectedTee) return roundedIndex;
+
+    const shouldUseRoundParTotal =
+      !selectedCombination &&
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      Number(selectedRoute?.holesCount) === 9;
+    const selectedTeeParTotal = shouldUseRoundParTotal
+      ? roundSetupTotalPar
+      : Number(selectedTee.parTotal || roundSetupTotalPar || 0);
+
+    const computedHandicap = calculatePlayingHandicap(
+      numericHandicapIndex,
+      selectedTee.courseRating,
+      selectedTee.slopeRating,
+      selectedTeeParTotal
+    );
+
+    return computedHandicap ?? roundedIndex;
+  }, [
+    openedCourse,
+    roundSetup,
+    roundSetupTotalPar,
+    userProfile.hcp,
+    findOfficialCombinationByRoutes
+  ]);
+
   const startRound = () => {
     const startingScores = competitionHoles.map((hole) => Number(hole.par));
     setRoundScores(startingScores);
@@ -2017,7 +2195,7 @@ function App() {
     return competitionHoles.reduce((sum, hole, index) => {
       const receivedShots = getEffectiveReceivedShots(
         index,
-        userProfile.hcp,
+        effectivePlayingHandicap,
         hole.strokeIndex
       );
       const points = getStablefordPoints(
@@ -2030,7 +2208,7 @@ function App() {
   }, [
     competitionHoles,
     roundScores,
-    userProfile.hcp,
+    effectivePlayingHandicap,
     getEffectiveReceivedShots,
     getStablefordPoints
   ]);
@@ -2041,14 +2219,14 @@ function App() {
     return competitionHoles.reduce((sum, hole, index) => {
       const receivedShots = getEffectiveReceivedShots(
         index,
-        userProfile.hcp,
+        effectivePlayingHandicap,
         hole.strokeIndex
       );
       const strokes = Number(roundScores[index] || 0);
       if (!strokes) return sum;
       return sum + (strokes - receivedShots);
     }, 0);
-  }, [competitionHoles, roundScores, userProfile.hcp, getEffectiveReceivedShots]);
+  }, [competitionHoles, roundScores, effectivePlayingHandicap, getEffectiveReceivedShots]);
 
   const estimatedHcpAfterRound = useMemo(() => {
     if (!competitionHoles.length || stablefordTotal === 0) return userProfile.hcp;
@@ -2193,7 +2371,7 @@ function App() {
         manual_received_shots: manualReceivedShots,
         total_competition_holes: roundSetup.totalCompetitionHoles,
         start_hole: roundSetup.startHole,
-        player_hcp: userProfile.hcp
+        player_hcp: effectivePlayingHandicap
       })
       .select("*")
       .single();
@@ -4581,8 +4759,14 @@ function App() {
       Number(selectedPrimaryRoute.holesCount) === 9 &&
       Number(selectedSecondaryRoute.holesCount) === 9 &&
       selectedPrimaryRoute.id !== selectedSecondaryRoute.id;
+    const usingRepeatedSingleNineRoute =
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      !matchedOfficialCombination &&
+      selectedPrimaryRoute &&
+      Number(selectedPrimaryRoute.holesCount) === 9 &&
+      selectedPrimaryRoute.id === selectedSecondaryRoute?.id;
     const startHoleRangeCount =
-      Number(roundSetup.totalCompetitionHoles) === 18 && (usingOfficialCombination || usingManualRoutePair)
+      Number(roundSetup.totalCompetitionHoles) === 18 && (usingOfficialCombination || usingManualRoutePair || usingRepeatedSingleNineRoute)
         ? 18
         : Number(selectedPrimaryRoute?.holesCount || 0);
     const allowStartHoleSelection = startHoleRangeCount > 0;
@@ -4616,7 +4800,12 @@ function App() {
     const selectedTee = usingOfficialCombination
       ? teeOptions.find((tee) => tee.id === roundSetup.selectedCombinationTeeId) || teeOptions[0] || null
       : teeOptions.find((tee) => tee.id === roundSetup.selectedRouteTeeId) || teeOptions[0] || null;
-    const selectedTeeParTotal = Number(selectedTee?.parTotal || roundSetupTotalPar || 0);
+    const selectedTeeParTotal =
+      !usingOfficialCombination &&
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      Number(selectedPrimaryRoute?.holesCount) === 9
+        ? Number(roundSetupTotalPar || 0)
+        : Number(selectedTee?.parTotal || roundSetupTotalPar || 0);
     const previewPlayingHandicap = selectedTee
       ? calculatePlayingHandicap(
           userProfile.hcp,
@@ -4625,13 +4814,39 @@ function App() {
           selectedTeeParTotal
         )
       : null;
-    const roundedHandicapIndex = Number.isFinite(Number(userProfile.hcp))
-      ? Math.round(Number(userProfile.hcp))
+    const numericHandicapIndex = Number(userProfile.hcp);
+    const hasNumericHandicapIndex = Number.isFinite(numericHandicapIndex);
+    const roundedHandicapIndex = hasNumericHandicapIndex
+      ? Math.round(numericHandicapIndex)
       : null;
     const playingHandicapDifference =
       previewPlayingHandicap !== null && roundedHandicapIndex !== null
         ? previewPlayingHandicap - roundedHandicapIndex
         : null;
+    const hasComputedPlayingHandicap = previewPlayingHandicap !== null;
+    const highlightPlayingHandicap =
+      hasComputedPlayingHandicap && playingHandicapDifference !== null && playingHandicapDifference !== 0;
+    const fallbackDisplayedHandicap = hasNumericHandicapIndex
+      ? numericHandicapIndex.toFixed(1)
+      : null;
+    const hasValidWhsTeeData = teeOptions.some(
+      (tee) =>
+        Number.isFinite(Number(tee?.courseRating)) &&
+        Number.isFinite(Number(tee?.slopeRating))
+    );
+    const shouldShowCommunityHandicapPrompt =
+      openedCourse.dataStatus === "community" &&
+      openedCourse.playable !== false &&
+      Boolean(selectedPrimaryRoute) &&
+      !usingOfficialCombination &&
+      !hasValidWhsTeeData;
+    const roundSetupTopSubtitle =
+      Number(openedCourse.routeCount || 0) > 1
+        ? `${openedCourse.routeCount} percorsi`
+        : Number.isFinite(Number(openedCourse.holesCount)) &&
+            Number.isFinite(Number(openedCourse.totalPar))
+          ? `${openedCourse.holesCount} buche • Par ${openedCourse.totalPar}`
+          : "";
     const showOfficialCombinationList =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       openedCourseRouteCombinations.length > 0 &&
@@ -4664,8 +4879,16 @@ function App() {
       openedCourseRouteCombinations.length === 0;
     const showManualBuilderDirectly =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
-      nineHoleRoutes.length > 0 &&
+      nineHoleRoutes.length > 1 &&
       !hasStructuredEighteenOptions;
+    const showRepeatedSingleNineRouteCard =
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      !usingOfficialCombination &&
+      !showManualCombinationBuilder &&
+      !openedCourseRouteCombinations.length &&
+      !eighteenHoleRoutes.length &&
+      nineHoleRoutes.length === 1 &&
+      Boolean(selectedPrimaryRoute);
     if (!openedCourse.playable) {
       return (
         <div
@@ -4863,7 +5086,7 @@ function App() {
               lineHeight: 1.5
             }}
           >
-            Club in fase di configurazione
+            {roundSetupTopSubtitle}
           </div>
         </div>
 
@@ -5037,6 +5260,31 @@ function App() {
             {!openedCourseRouteCombinations.length && (
               <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
             )}
+          </>
+        )}
+
+        {showRepeatedSingleNineRouteCard && (
+          <>
+            <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
+            <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
+              <div
+                style={{
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  lineHeight: 1.4,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px"
+                }}
+              >
+                {getRouteColor(selectedPrimaryRoute.name)
+                  ? renderColorDot(getRouteColor(selectedPrimaryRoute.name), 10)
+                  : null}
+                <span>
+                  {selectedPrimaryRoute.name} · 18 buche · Par {(Number(selectedPrimaryRoute.totalPar) || 0) * 2}
+                </span>
+              </div>
+            </div>
           </>
         )}
 
@@ -5680,7 +5928,7 @@ function App() {
           <div
             style={{
               marginTop: "6px",
-              color: colors.green,
+              color: colors.text,
               fontSize: "14px",
               fontWeight: 700
             }}
@@ -5720,12 +5968,28 @@ function App() {
             }}
           >
             <div>
-              <strong>Handicap Index:</strong> {Number(userProfile.hcp).toFixed(1)}
+              <strong>HCP Index:</strong> {hasNumericHandicapIndex ? numericHandicapIndex.toFixed(1) : "--"}
             </div>
-            {previewPlayingHandicap !== null && (
-              <div style={{ marginTop: "3px", color: colors.green, fontWeight: 700 }}>
-                <strong>Handicap di gioco:</strong> {previewPlayingHandicap}
+            {hasComputedPlayingHandicap && (
+              <div
+                style={{
+                  marginTop: "3px",
+                  color: highlightPlayingHandicap ? colors.green : colors.text,
+                  fontWeight: 700
+                }}
+              >
+                <strong>HCP di gioco:</strong> {previewPlayingHandicap}
               </div>
+            )}
+            {!hasComputedPlayingHandicap && fallbackDisplayedHandicap && (
+              <>
+                <div style={{ marginTop: "3px", color: colors.green, fontWeight: 700 }}>
+                  <strong>HCP di gioco:</strong> {fallbackDisplayedHandicap}
+                </div>
+                <div style={{ marginTop: "3px", color: colors.subtext, fontSize: "13px" }}>
+                  L&apos;handicap di gioco puo&apos; variare in base a CR, Slope e tee di partenza
+                </div>
+              </>
             )}
             {playingHandicapDifference !== null && (
               <div style={{ marginTop: "3px", color: colors.subtext, fontSize: "13px" }}>
@@ -5743,10 +6007,36 @@ function App() {
             }}
           >
             {allowStartHoleSelection
-              ? `Partenza dalla buca ${roundSetup.startHole}.`
+              ? `Partenza dalla buca ${roundSetup.startHole}`
               : `Tutto pronto per iniziare.`}
           </div>
         </div>
+        )}
+
+        {shouldShowCommunityHandicapPrompt && (
+          <div style={{ marginTop: "12px", marginBottom: "8px" }}>
+            <button
+              onClick={() => {
+                setCommunityTeeName("Giallo");
+                setCommunityCourseRating("");
+                setCommunitySlopeRating("");
+                setCommunityHandicapFeedback("");
+                setShowCommunityHandicapEditor(true);
+              }}
+              style={{
+                border: "none",
+                background: "transparent",
+                color: colors.green,
+                fontSize: "14px",
+                fontWeight: 700,
+                padding: 0,
+                cursor: "pointer",
+                fontFamily: appFont
+              }}
+            >
+              Aggiungi dati handicap
+            </button>
+          </div>
         )}
 
         <div
@@ -5765,6 +6055,190 @@ function App() {
             Inizia il giro
           </button>
         </div>
+
+        {showCommunityHandicapEditor && (
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              backgroundColor: colors.overlay,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "20px",
+              zIndex: 80
+            }}
+            onClick={() => {
+              setShowCommunityHandicapEditor(false);
+              setCommunityHandicapFeedback("");
+            }}
+          >
+            <div
+              onClick={(event) => event.stopPropagation()}
+              style={{
+                width: "100%",
+                maxWidth: "420px",
+                backgroundColor: colors.card,
+                border: `1px solid ${colors.border}`,
+                borderRadius: "22px",
+                padding: "18px",
+                boxSizing: "border-box"
+              }}
+            >
+              <h3
+                style={{
+                  marginTop: 0,
+                  marginBottom: "8px",
+                  fontSize: "24px",
+                  fontWeight: 700
+                }}
+              >
+                Aggiungi dati handicap
+              </h3>
+
+              <div
+                style={{
+                  marginTop: 0,
+                  marginBottom: "14px",
+                  color: colors.subtext,
+                  fontSize: "13px",
+                  lineHeight: 1.5
+                }}
+              >
+                Puoi trovarli sulla scorecard del campo o sul sito FIG.
+              </div>
+
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "14px",
+                  color: colors.subtext,
+                  marginBottom: "8px"
+                }}
+              >
+                Tee
+              </label>
+              <select
+                value={communityTeeName}
+                onChange={(event) => setCommunityTeeName(event.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "13px 14px",
+                  backgroundColor: colors.inputBg,
+                  border: `1px solid ${colors.inputBorder}`,
+                  borderRadius: "12px",
+                  color: colors.text,
+                  boxSizing: "border-box",
+                  outline: "none",
+                  fontSize: "15px",
+                  fontFamily: appFont,
+                  marginBottom: "14px"
+                }}
+              >
+                {["Bianco", "Giallo", "Verde", "Blu", "Arancio", "Rosso"].map((teeLabel) => (
+                  <option key={teeLabel} value={teeLabel}>
+                    {teeLabel}
+                  </option>
+                ))}
+              </select>
+
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "14px",
+                  color: colors.subtext,
+                  marginBottom: "8px"
+                }}
+              >
+                Course Rating
+              </label>
+              <input
+                type="number"
+                inputMode="decimal"
+                step="0.1"
+                value={communityCourseRating}
+                onChange={(event) => setCommunityCourseRating(event.target.value)}
+                placeholder="Es. 71.1"
+                style={{
+                  width: "100%",
+                  padding: "13px 14px",
+                  backgroundColor: colors.inputBg,
+                  border: `1px solid ${colors.inputBorder}`,
+                  borderRadius: "12px",
+                  color: colors.text,
+                  boxSizing: "border-box",
+                  outline: "none",
+                  fontSize: "15px",
+                  fontFamily: appFont,
+                  marginBottom: "14px"
+                }}
+              />
+
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "14px",
+                  color: colors.subtext,
+                  marginBottom: "8px"
+                }}
+              >
+                Slope Rating
+              </label>
+              <input
+                type="number"
+                inputMode="numeric"
+                value={communitySlopeRating}
+                onChange={(event) => setCommunitySlopeRating(event.target.value)}
+                placeholder="Es. 136"
+                style={{
+                  width: "100%",
+                  padding: "13px 14px",
+                  backgroundColor: colors.inputBg,
+                  border: `1px solid ${colors.inputBorder}`,
+                  borderRadius: "12px",
+                  color: colors.text,
+                  boxSizing: "border-box",
+                  outline: "none",
+                  fontSize: "15px",
+                  fontFamily: appFont
+                }}
+              />
+
+              {communityHandicapFeedback && (
+                <div
+                  style={{
+                    marginTop: "12px",
+                    color: communityHandicapFeedback.toLowerCase().includes("errore")
+                      ? "#d64545"
+                      : colors.subtext,
+                    fontSize: "13px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  {communityHandicapFeedback}
+                </div>
+              )}
+
+              <button
+                onClick={() => saveCommunityHandicapData(selectedPrimaryRoute, selectedPrimaryRoute?.totalPar)}
+                disabled={communityHandicapSaving}
+                style={primaryButtonStyle(!communityHandicapSaving)}
+              >
+                {communityHandicapSaving ? "Salvataggio in corso..." : "Salva dati handicap"}
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowCommunityHandicapEditor(false);
+                  setCommunityHandicapFeedback("");
+                }}
+                style={secondaryButtonStyle}
+              >
+                Annulla
+              </button>
+            </div>
+          </div>
+        )}
 
         {overlayPortal}
       </div>
@@ -5933,12 +6407,12 @@ function App() {
         {competitionHoles.length > 0 ? (
           competitionHoles.map((hole, index) => {
             const automaticReceivedShots = getAutomaticReceivedShots(
-              userProfile.hcp,
+              effectivePlayingHandicap,
               hole.strokeIndex
             );
             const effectiveReceivedShots = getEffectiveReceivedShots(
               index,
-              userProfile.hcp,
+              effectivePlayingHandicap,
               hole.strokeIndex
             );
             const isManual = manualReceivedShots[index] !== undefined;
@@ -7237,7 +7711,18 @@ function App() {
                   Controlla la mappatura completa di {courseName}.
                 </p>
 
-                {routeDrafts.map((route) => {
+                <div
+                  style={{
+                    marginBottom: "16px",
+                    color: colors.subtext,
+                    fontSize: "13px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  Puoi modificare solo Par e Stroke Index prima di salvare.
+                </div>
+
+                {routeDrafts.map((route, routeIndex) => {
                   const routeTotalPar = (route.holes || []).reduce(
                     (sum, hole) => sum + Number(hole.par || 0),
                     0
@@ -7271,7 +7756,7 @@ function App() {
                         <div>Stroke Index</div>
                       </div>
 
-                      {(route.holes || []).map((hole) => (
+                      {(route.holes || []).map((hole, holeIndex) => (
                         <div
                           key={`${route.name}-${hole.hole}`}
                           style={{
@@ -7299,29 +7784,63 @@ function App() {
                           <div
                             style={{
                               height: "42px",
-                              display: "flex",
-                              alignItems: "center",
-                              paddingLeft: "12px",
                               borderRadius: "10px",
                               backgroundColor: colors.inputBg,
-                              border: `1px solid ${colors.inputBorder}`
+                              border: `1px solid ${colors.inputBorder}`,
+                              overflow: "hidden"
                             }}
                           >
-                            {hole.par}
+                            <input
+                              type="number"
+                              min="3"
+                              max="6"
+                              value={hole.par}
+                              onChange={(event) =>
+                                updateSummaryHoleField(routeIndex, holeIndex, "par", event.target.value)
+                              }
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                border: "none",
+                                backgroundColor: "transparent",
+                                color: colors.text,
+                                padding: "0 12px",
+                                fontSize: "15px",
+                                fontFamily: appFont,
+                                outline: "none"
+                              }}
+                            />
                           </div>
 
                           <div
                             style={{
                               height: "42px",
-                              display: "flex",
-                              alignItems: "center",
-                              paddingLeft: "12px",
                               borderRadius: "10px",
                               backgroundColor: colors.inputBg,
-                              border: `1px solid ${colors.inputBorder}`
+                              border: `1px solid ${colors.inputBorder}`,
+                              overflow: "hidden"
                             }}
                           >
-                            {hole.strokeIndex}
+                            <input
+                              type="number"
+                              min="1"
+                              max="18"
+                              value={hole.strokeIndex}
+                              onChange={(event) =>
+                                updateSummaryHoleField(routeIndex, holeIndex, "strokeIndex", event.target.value)
+                              }
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                border: "none",
+                                backgroundColor: "transparent",
+                                color: colors.text,
+                                padding: "0 12px",
+                                fontSize: "15px",
+                                fontFamily: appFont,
+                                outline: "none"
+                              }}
+                            />
                           </div>
                         </div>
                       ))}
@@ -7347,8 +7866,7 @@ function App() {
                     lineHeight: 1.5
                   }}
                 >
-                  Una volta salvato, il club resterà nel sistema e potrà essere
-                  richiamato senza rimappatura.
+                  Una volta salvato, il club resterà nel sistema e potrà essere richiamato senza rimappatura.
                 </div>
 
                 {courseSaveError && (
@@ -7374,6 +7892,50 @@ function App() {
 
                 <button onClick={closeDialog} style={subtleButtonStyle}>
                   Annulla
+                </button>
+              </>
+            )}
+
+            {dialogStep === 8 && (
+              <>
+                <h3
+                  style={{
+                    marginTop: 0,
+                    marginBottom: "8px",
+                    fontSize: "24px",
+                    fontWeight: 700
+                  }}
+                >
+                  Campo salvato
+                </h3>
+
+                <p
+                  style={{
+                    color: colors.subtext,
+                    fontSize: "14px",
+                    marginTop: 0,
+                    marginBottom: "18px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  Puoi segnalare eventuali errori
+                </p>
+
+                {courseSaveSuccessMessage && (
+                  <div
+                    style={{
+                      marginBottom: "16px",
+                      color: colors.green,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {courseSaveSuccessMessage}
+                  </div>
+                )}
+
+                <button onClick={closeDialog} style={primaryButtonStyle(true)}>
+                  Chiudi
                 </button>
               </>
             )}
