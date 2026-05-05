@@ -73,6 +73,10 @@ create table public.clubs (
   city text,
   country text,
   created_by uuid not null references auth.users(id) on delete restrict,
+  data_status text not null default 'community' check (data_status in ('verified', 'community', 'needs_review')),
+  source_type text not null default 'user' check (source_type in ('stablr', 'user', 'fig_import')),
+  is_complex boolean not null default false,
+  playable boolean not null default true,
   is_active boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -184,8 +188,22 @@ create table public.club_reports (
   created_at timestamptz not null default now()
 );
 
+create table public.club_requests (
+  id uuid primary key default gen_random_uuid(),
+  club_name text not null,
+  club_id uuid references public.clubs(id) on delete set null,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  user_email text,
+  status text not null default 'requested' check (status in ('requested', 'in_review', 'configured', 'rejected')),
+  created_at timestamptz not null default now()
+);
+
 create index clubs_name_normalized_idx on public.clubs(name_normalized);
 create index clubs_created_by_idx on public.clubs(created_by);
+create index clubs_data_status_idx on public.clubs(data_status);
+create index clubs_source_type_idx on public.clubs(source_type);
+create index clubs_is_complex_idx on public.clubs(is_complex);
+create index clubs_playable_idx on public.clubs(playable);
 create index course_routes_club_id_idx on public.course_routes(club_id);
 create index route_holes_route_id_idx on public.route_holes(route_id);
 create index route_combinations_club_id_idx on public.route_combinations(club_id);
@@ -205,6 +223,9 @@ create index favorite_clubs_user_id_idx on public.favorite_clubs(user_id);
 create index favorite_clubs_club_id_idx on public.favorite_clubs(club_id);
 create index club_reports_club_id_idx on public.club_reports(club_id);
 create index club_reports_reported_by_idx on public.club_reports(reported_by);
+create index club_requests_user_id_idx on public.club_requests(user_id);
+create index club_requests_status_idx on public.club_requests(status);
+create index club_requests_club_id_idx on public.club_requests(club_id);
 
 alter table public.route_holes
   add constraint route_holes_route_id_physical_hole_number_key
@@ -262,6 +283,7 @@ alter table public.rounds enable row level security;
 alter table public.round_holes enable row level security;
 alter table public.favorite_clubs enable row level security;
 alter table public.club_reports enable row level security;
+alter table public.club_requests enable row level security;
 
 drop policy if exists "profiles_select_self_or_admin" on public.profiles;
 create policy "profiles_select_self_or_admin"
@@ -509,5 +531,30 @@ with check (public.is_admin());
 drop policy if exists "club_reports_delete_admin" on public.club_reports;
 create policy "club_reports_delete_admin"
 on public.club_reports
+for delete
+using (public.is_admin());
+
+drop policy if exists "club_requests_select_own_or_admin" on public.club_requests;
+create policy "club_requests_select_own_or_admin"
+on public.club_requests
+for select
+using (user_id = auth.uid() or public.is_admin());
+
+drop policy if exists "club_requests_insert_own" on public.club_requests;
+create policy "club_requests_insert_own"
+on public.club_requests
+for insert
+with check (user_id = auth.uid());
+
+drop policy if exists "club_requests_update_admin" on public.club_requests;
+create policy "club_requests_update_admin"
+on public.club_requests
+for update
+using (public.is_admin())
+with check (public.is_admin());
+
+drop policy if exists "club_requests_delete_admin" on public.club_requests;
+create policy "club_requests_delete_admin"
+on public.club_requests
 for delete
 using (public.is_admin());

@@ -287,6 +287,10 @@ const payload = {
     name_normalized: "parco de medici",
     city: "Roma",
     country: "Italia",
+    data_status: "verified",
+    source_type: "stablr",
+    is_complex: true,
+    playable: true,
     source_system: "fig",
     source_external_id: "fig-parco-medici",
     source_payload: {

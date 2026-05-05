@@ -72,6 +72,40 @@ function createInitialRoundSetup() {
   };
 }
 
+function getClubStatusMeta(club) {
+  const normalizedStatus = String(club?.dataStatus || "").trim().toLowerCase();
+  const normalizedSourceType = String(club?.sourceType || "").trim().toLowerCase();
+  const curatedByStablr =
+    normalizedSourceType === "stablr" ||
+    normalizedStatus === "verified" ||
+    Boolean(club?.sourcePayload?.curated);
+
+  if (curatedByStablr) {
+    return {
+      label: "Verificato",
+      description: "Verificato: Dati verificati da Stablr",
+      icon: "verified",
+      accent: "verified"
+    };
+  }
+
+  if (normalizedStatus === "needs_review") {
+    return {
+      label: "In arrivo",
+      description: "In arrivo: In revisione",
+      icon: "review",
+      accent: "review"
+    };
+  }
+
+  return {
+    label: "Community",
+    description: "Community: Aggiunto da un utente",
+    icon: "community",
+    accent: "community"
+  };
+}
+
 function getFriendlyAuthErrorMessage(message) {
   const normalizedMessage = String(message || "").toLowerCase();
 
@@ -235,6 +269,7 @@ function App() {
   const [dialogStep, setDialogStep] = useState(1);
 
   const [courseName, setCourseName] = useState("");
+  const [clubCreationMode, setClubCreationMode] = useState(null);
   const [routeCount, setRouteCount] = useState(null);
   const [routeDrafts, setRouteDrafts] = useState([]);
   const [routeName, setRouteName] = useState("");
@@ -299,6 +334,8 @@ function App() {
   const [authMessage, setAuthMessage] = useState("");
   const [courseSaveError, setCourseSaveError] = useState("");
   const [courseSaveLoading, setCourseSaveLoading] = useState(false);
+  const [clubRequestSubmitting, setClubRequestSubmitting] = useState(false);
+  const [clubRequestFeedback, setClubRequestFeedback] = useState("");
   const [courseReportTarget, setCourseReportTarget] = useState(null);
   const [courseReportMessage, setCourseReportMessage] = useState("");
   const [courseReportSubmitting, setCourseReportSubmitting] = useState(false);
@@ -729,6 +766,11 @@ function App() {
         id: club.id,
         name: club.name,
         nameNormalized: club.name_normalized,
+        dataStatus: club.data_status || "community",
+        sourceType: club.source_type || "user",
+        isComplex: Boolean(club.is_complex),
+        playable: club.playable !== false,
+        sourcePayload: club.source_payload || null,
         favorite: false,
         totalPar: primaryRoute?.totalPar || null,
         holesCount: primaryRoute?.holesCount || null,
@@ -958,6 +1000,7 @@ function App() {
   const resetDialogState = () => {
     setDialogStep(1);
     setCourseName("");
+    setClubCreationMode(null);
     setRouteCount(null);
     setRouteDrafts([]);
     setRouteName("");
@@ -969,6 +1012,8 @@ function App() {
     setSelectedStepper("par");
     setCourseSaveError("");
     setCourseSaveLoading(false);
+    setClubRequestSubmitting(false);
+    setClubRequestFeedback("");
   };
 
   const openDialog = () => {
@@ -981,6 +1026,14 @@ function App() {
     resetDialogState();
   };
 
+  const openComplexClubRequestDialog = (club) => {
+    resetDialogState();
+    setCourseName(club.name || "");
+    setClubCreationMode("multiple");
+    setDialogStep(7);
+    setShowDialog(true);
+  };
+
   const goToStepTwo = () => {
     if (courseName.trim() === "") return;
     setDialogStep(2);
@@ -991,14 +1044,16 @@ function App() {
   };
 
   const goToIntroStep = () => {
-    if (!routeCount) return;
+    if (clubCreationMode !== "single") return;
 
-    const drafts = Array.from({ length: routeCount }, (_, index) => ({
-      name: routeCount === 1 ? "Percorso" : `Percorso ${index + 1}`,
+    const nextRouteCount = 1;
+    const drafts = Array.from({ length: nextRouteCount }, (_, index) => ({
+      name: "Percorso",
       holesCount: null,
       holes: []
     }));
 
+    setRouteCount(nextRouteCount);
     setRouteDrafts(drafts);
     setRouteName(drafts[0].name);
     setCurrentRouteIndex(0);
@@ -1219,7 +1274,11 @@ function App() {
         .insert({
           name: cleanName,
           name_normalized: nameNormalized,
-          created_by: session.user.id
+          created_by: session.user.id,
+          data_status: "community",
+          source_type: "user",
+          is_complex: false,
+          playable: true
         })
         .select("*")
         .single();
@@ -1291,6 +1350,124 @@ function App() {
     } finally {
       setCourseSaveLoading(false);
     }
+  };
+
+  const submitClubRequest = async (clubNameOverride = "") => {
+    if (!supabase || !session?.user) return;
+
+    const cleanName = normalizeWhitespace(clubNameOverride || courseName);
+    const normalizedName = normalizeCourseName(cleanName);
+    if (!cleanName) {
+      setClubRequestFeedback("Inserisci il nome del club.");
+      return;
+    }
+
+    setClubRequestSubmitting(true);
+    setClubRequestFeedback("");
+
+    const { data: existingClub, error: existingClubError } = await supabase
+      .from("clubs")
+      .select("*")
+      .eq("name_normalized", normalizedName)
+      .limit(1)
+      .maybeSingle();
+
+    if (existingClubError) {
+      setClubRequestFeedback(existingClubError.message || "Errore nell'invio della richiesta.");
+      setClubRequestSubmitting(false);
+      return;
+    }
+
+    let requestedClubId = existingClub?.id || null;
+
+    if (!existingClub) {
+      const { data: insertedClub, error: insertClubError } = await supabase
+        .from("clubs")
+        .insert({
+          name: cleanName,
+          name_normalized: normalizedName,
+          created_by: session.user.id,
+          data_status: "needs_review",
+          source_type: "user",
+          is_complex: true,
+          playable: false
+        })
+        .select("*")
+        .single();
+
+      if (insertClubError) {
+        setClubRequestFeedback(insertClubError.message || "Errore nell'invio della richiesta.");
+        setClubRequestSubmitting(false);
+        return;
+      }
+
+      requestedClubId = insertedClub.id;
+    } else if (
+      existingClub.playable !== false ||
+      existingClub.data_status !== "needs_review" ||
+      existingClub.is_complex !== true
+    ) {
+      const { error: updateClubError } = await supabase
+        .from("clubs")
+        .update({
+          data_status: "needs_review",
+          source_type: existingClub.source_type || "user",
+          is_complex: true,
+          playable: false
+        })
+        .eq("id", existingClub.id);
+
+      if (updateClubError) {
+        setClubRequestFeedback(updateClubError.message || "Errore nell'invio della richiesta.");
+        setClubRequestSubmitting(false);
+        return;
+      }
+    }
+
+    const existingRequestQuery = requestedClubId
+      ? supabase
+          .from("club_requests")
+          .select("*")
+          .eq("club_id", requestedClubId)
+          .limit(1)
+      : supabase
+          .from("club_requests")
+          .select("*")
+          .eq("club_name", cleanName)
+          .limit(1);
+
+    const { data: existingRequest, error: existingRequestError } = await existingRequestQuery.maybeSingle();
+
+    if (existingRequestError) {
+      setClubRequestFeedback(existingRequestError.message || "Errore nell'invio della richiesta.");
+      setClubRequestSubmitting(false);
+      return;
+    }
+
+    if (existingRequest) {
+      setClubRequestFeedback("Questo club è già in verifica da parte di Stablr.");
+      setClubRequestSubmitting(false);
+      await loadCourses();
+      return;
+    }
+
+    const { error } = await supabase.from("club_requests").insert({
+      club_name: cleanName,
+      club_id: requestedClubId,
+      user_id: session.user.id,
+      user_email: session.user.email || null,
+      status: "requested"
+    });
+
+    if (error) {
+      setClubRequestFeedback(error.message || "Errore nell'invio della richiesta.");
+      setClubRequestSubmitting(false);
+      return;
+    }
+
+    setClubRequestSubmitting(false);
+    setClubRequestFeedback("Richiesta inviata. Ti avviseremo via email quando il club sarà pronto.");
+    await loadCourses();
   };
 
   const toggleFavorite = async (courseId) => {
@@ -4155,10 +4332,106 @@ function App() {
     textAlign: "left"
   };
 
+  const getClubStatusPillStyle = (accent) => {
+    if (accent === "verified") {
+      return {
+        color: "#16A34A",
+        backgroundColor: "#ECFDF5",
+        border: "1px solid rgba(22, 163, 74, 0.18)"
+      };
+    }
+
+    if (accent === "review") {
+      return {
+        color: "#F59E0B",
+        backgroundColor: "#FFFBEB",
+        border: "1px solid rgba(245, 158, 11, 0.18)"
+      };
+    }
+
+    return {
+      color: "#60A5FA",
+      backgroundColor: "#F5F9FF",
+      border: "1px solid rgba(59, 130, 246, 0.18)"
+    };
+  };
+
+  const renderClubStatusIcon = (icon, color, size = 13) => {
+    if (icon === "verified") {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 22C17.523 22 22 17.523 22 12S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"
+            stroke={color}
+            strokeWidth="2"
+          />
+          <path
+            d="m8 12.5 2.5 2.5L16.5 9"
+            stroke={color}
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    }
+
+    if (icon === "review") {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 22C17.523 22 22 17.523 22 12S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"
+            stroke={color}
+            strokeWidth="2"
+          />
+          <path
+            d="M12 7.5V12.5"
+            stroke={color}
+            strokeWidth="2.3"
+            strokeLinecap="round"
+          />
+          <circle cx="12" cy="16.4" r="1.1" fill={color} />
+        </svg>
+      );
+    }
+
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M18 20v-1.1c0-1.9-1.1-3.5-2.8-4.3"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 20v-1.4c0-2.5 2-4.6 4.6-4.6h2.8c2.6 0 4.6 2.1 4.6 4.6V20"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="10" cy="8" r="4" stroke={color} strokeWidth="2" />
+        <path
+          d="M18 5.8a3.2 3.2 0 0 1 0 6.4"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  };
+
   const renderCourseRow = (course, { showDivider = true } = {}) => (
     <div
       key={course.id}
-      onClick={() => prepareRoundSetup(course)}
+      onClick={() => {
+        if (!course.playable) {
+          openComplexClubRequestDialog(course);
+          return;
+        }
+        prepareRoundSetup(course);
+      }}
       onMouseDown={() => setActiveCourseCardId(course.id)}
       onMouseUp={() => setActiveCourseCardId(null)}
       onMouseLeave={() => setActiveCourseCardId(null)}
@@ -4182,7 +4455,34 @@ function App() {
       }}
     >
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: "16px", fontWeight: 500 }}>{course.name}</div>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          <div style={{ fontSize: "16px", fontWeight: 500 }}>{course.name}</div>
+          {(() => {
+            const statusMeta = getClubStatusMeta(course);
+            const pillStyle = getClubStatusPillStyle(statusMeta.accent);
+
+            return (
+              <div
+                title={statusMeta.description}
+                aria-label={statusMeta.description}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "24px",
+                  height: "24px",
+                  borderRadius: "999px",
+                  lineHeight: 1,
+                  marginLeft: "2px",
+                  verticalAlign: "middle",
+                  ...pillStyle
+                }}
+              >
+                {renderClubStatusIcon(statusMeta.icon, pillStyle.color, 13)}
+              </div>
+            );
+          })()}
+        </div>
         <div
           style={{
             color: colors.subtext,
@@ -4190,9 +4490,13 @@ function App() {
             marginTop: "3px"
           }}
         >
-          {course.routeCount > 1
-            ? `${course.routeCount} percorsi`
-            : `${course.holesCount} buche • Par ${course.totalPar}`}
+          {!course.playable
+            ? "Club in fase di configurazione"
+            : course.routeCount > 1
+              ? `${course.routeCount} percorsi`
+              : Number.isFinite(Number(course.holesCount)) && Number.isFinite(Number(course.totalPar))
+                ? `${course.holesCount} buche • Par ${course.totalPar}`
+                : ""}
         </div>
 
       </div>
@@ -4362,6 +4666,123 @@ function App() {
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       nineHoleRoutes.length > 0 &&
       !hasStructuredEighteenOptions;
+    if (!openedCourse.playable) {
+      return (
+        <div
+          style={{
+            backgroundColor: colors.bg,
+            color: colors.text,
+            minHeight: "100vh",
+            padding: `20px ${SCREEN_HORIZONTAL_PADDING}`,
+            boxSizing: "border-box",
+            fontFamily: appFont
+          }}
+        >
+          {topSafeAreaBackdrop}
+
+          <div style={centeredHeaderStyle}>
+            <div style={headerLeftButtonWrapStyle}>
+              <button
+                onClick={closeCourse}
+                style={headerCircleButtonStyle()}
+                aria-label="Torna indietro"
+              >
+                <span
+                  style={{ fontSize: "21px", lineHeight: 1, transform: "translateX(-1px)" }}
+                >
+                  ←
+                </span>
+              </button>
+            </div>
+
+            <div style={headerTitleTextStyle}>Imposta il giro</div>
+
+            <div style={headerRightButtonWrapStyle}>
+              <button
+                onClick={() => {
+                  setSheetClosing(false);
+                  setActiveSheet("menu");
+                }}
+                style={headerCircleButtonStyle({ fontSize: "18px" })}
+                title="Apri menu"
+                aria-label="Apri menu"
+              >
+                <span
+                  style={{ fontSize: "18px", lineHeight: 1, transform: "translateY(-1px)" }}
+                >
+                  ≡
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div style={roundSetupTopCardStyle}>
+            <div style={{ fontSize: "25px", fontWeight: 700, minWidth: 0 }}>{openedCourse.name}</div>
+            <div
+              style={{
+                marginTop: "10px",
+                color: colors.subtext,
+                fontSize: "14px",
+                lineHeight: 1.5
+              }}
+            >
+              Club con {openedCourse.routeCount} {openedCourse.routeCount === 1 ? "percorso" : "percorsi"}
+            </div>
+          </div>
+
+          <div style={roundSetupPreviewStyle}>
+            <div style={{ fontSize: "22px", fontWeight: 700, marginBottom: "8px" }}>
+              Richiedi questo club
+            </div>
+            <div
+              style={{
+                color: colors.subtext,
+                fontSize: "14px",
+                lineHeight: 1.6
+              }}
+            >
+              Questo club ha più percorsi o combinazioni ufficiali.
+              <br />
+              Per garantirti dati corretti, lo configuriamo noi.
+            </div>
+            <div
+              style={{
+                marginTop: "14px",
+                color: colors.subtext,
+                fontSize: "13px",
+                lineHeight: 1.6
+              }}
+            >
+              Non trovi un club con più percorsi o combinazioni ufficiali? Richiedilo e ti
+              avviseremo via email quando sarà pronto.
+            </div>
+            {clubRequestFeedback && (
+              <div
+                style={{
+                  marginTop: "12px",
+                  color: clubRequestFeedback.toLowerCase().includes("errore")
+                    ? "#d64545"
+                    : colors.green,
+                  fontSize: "13px",
+                  lineHeight: 1.5
+                }}
+              >
+                {clubRequestFeedback}
+              </div>
+            )}
+            <button
+              onClick={() => submitClubRequest(openedCourse.name)}
+              disabled={clubRequestSubmitting}
+              style={primaryButtonStyle(!clubRequestSubmitting)}
+            >
+              {clubRequestSubmitting ? "Invio in corso..." : "Richiedi questo club"}
+            </button>
+          </div>
+
+          {overlayPortal}
+        </div>
+      );
+    }
     return (
       <div
         style={{
@@ -4422,14 +4843,16 @@ function App() {
           >
             <div style={{ fontSize: "25px", fontWeight: 700, minWidth: 0 }}>{openedCourse.name}</div>
 
-            <button
-              onClick={() => openCourseReport(openedCourse)}
-              style={{ ...reportActionButtonStyle, flexShrink: 0 }}
-              title="Invia segnalazione"
-              aria-label={`Invia segnalazione per ${openedCourse.name}`}
-            >
-              {renderReportIcon(14)}
-            </button>
+            {openedCourse.playable && (
+              <button
+                onClick={() => openCourseReport(openedCourse)}
+                style={{ ...reportActionButtonStyle, flexShrink: 0 }}
+                title="Invia segnalazione"
+                aria-label={`Invia segnalazione per ${openedCourse.name}`}
+              >
+                {renderReportIcon(14)}
+              </button>
+            )}
           </div>
 
           <div
@@ -4440,7 +4863,7 @@ function App() {
               lineHeight: 1.5
             }}
           >
-            Club con {openedCourse.routeCount} {openedCourse.routeCount === 1 ? "percorso" : "percorsi"}
+            Club in fase di configurazione
           </div>
         </div>
 
@@ -6205,26 +6628,37 @@ function App() {
                     lineHeight: 1.4
                   }}
                 >
-                  Per la maggior parte dei club basta 1.
+                  Scegli il tipo di club che vuoi aggiungere.
                 </p>
 
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gridTemplateColumns: "1fr",
                     gap: "12px"
                   }}
                 >
-                  {[1, 2, 3, 4].map((option) => (
+                  {[
+                    {
+                      id: "single",
+                      title: "1 percorso",
+                      description: "Apri il builder manuale per mappare il club."
+                    },
+                    {
+                      id: "multiple",
+                      title: "Più percorsi",
+                      description: "Per i club complessi configuriamo noi i dati ufficiali."
+                    }
+                  ].map((option) => (
                     <div
-                      key={option}
-                      onClick={() => setRouteCount(option)}
+                      key={option.id}
+                      onClick={() => setClubCreationMode(option.id)}
                       style={{
                         flex: 1,
                         padding: "16px",
                         backgroundColor: colors.inputBg,
                         border:
-                          routeCount === option
+                          clubCreationMode === option.id
                             ? `1px solid ${colors.green}`
                             : `1px solid ${colors.inputBorder}`,
                         borderRadius: "14px",
@@ -6234,48 +6668,123 @@ function App() {
                         cursor: "pointer"
                       }}
                     >
-                      <span style={{ fontWeight: 600, fontSize: "16px" }}>{option}</span>
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: "16px" }}>{option.title}</div>
+                        <div
+                          style={{
+                            marginTop: "4px",
+                            color: colors.subtext,
+                            fontSize: "13px",
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {option.description}
+                        </div>
+                      </div>
                       <div
                         style={{
                           width: "22px",
                           height: "22px",
                           borderRadius: "50%",
                           border:
-                            routeCount === option
+                            clubCreationMode === option.id
                               ? `2px solid ${colors.green}`
                               : `2px solid ${colors.borderStrong}`,
                           backgroundColor:
-                            routeCount === option ? colors.green : "transparent"
+                            clubCreationMode === option.id ? colors.green : "transparent"
                         }}
                       />
                     </div>
                   ))}
                 </div>
 
-                {routeCount > 1 && (
-                  <p
-                    style={{
-                      color: colors.subtext,
-                      fontSize: "13px",
-                      marginTop: "16px",
-                      marginBottom: 0,
-                      lineHeight: 1.5
-                    }}
-                  >
-                    Se il club usa scorecard ufficiali diverse per le combinazioni dei
-                    percorsi, potrai configurarle dopo la mappatura dei singoli percorsi.
-                  </p>
-                )}
-
                 <button
-                  onClick={goToIntroStep}
-                  disabled={!routeCount}
-                  style={primaryButtonStyle(Boolean(routeCount))}
+                  onClick={() => {
+                    if (clubCreationMode === "single") {
+                      goToIntroStep();
+                    } else if (clubCreationMode === "multiple") {
+                      setDialogStep(7);
+                    }
+                  }}
+                  disabled={!clubCreationMode}
+                  style={primaryButtonStyle(Boolean(clubCreationMode))}
                 >
                   Continua
                 </button>
 
                 <button onClick={goBackToStepOne} style={secondaryButtonStyle}>
+                  Indietro
+                </button>
+
+                <button onClick={closeDialog} style={subtleButtonStyle}>
+                  Annulla
+                </button>
+              </>
+            )}
+
+            {dialogStep === 7 && (
+              <>
+                <h3
+                  style={{
+                    marginTop: 0,
+                    marginBottom: "8px",
+                    fontSize: "24px",
+                    fontWeight: 700
+                  }}
+                >
+                  Richiedi questo club
+                </h3>
+
+                <p
+                  style={{
+                    color: colors.text,
+                    fontSize: "15px",
+                    marginTop: 0,
+                    marginBottom: "14px",
+                    lineHeight: 1.6
+                  }}
+                >
+                  Questo club ha più percorsi o combinazioni ufficiali.
+                  <br />
+                  Per garantirti dati corretti, lo configuriamo noi.
+                </p>
+
+                <p
+                  style={{
+                    color: colors.subtext,
+                    fontSize: "14px",
+                    marginTop: 0,
+                    marginBottom: "18px",
+                    lineHeight: 1.6
+                  }}
+                >
+                  Non trovi un club con più percorsi o combinazioni ufficiali? Richiedilo e ti avviseremo via email quando sarà pronto.
+                </p>
+
+                {clubRequestFeedback && (
+                  <div
+                    style={{
+                      marginBottom: "14px",
+                      color: clubRequestFeedback.toLowerCase().includes("errore")
+                        ? "#d64545"
+                        : colors.green,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {clubRequestFeedback}
+                  </div>
+                )}
+
+                <button
+                  onClick={() => submitClubRequest()}
+                  disabled={clubRequestSubmitting}
+                  style={primaryButtonStyle(!clubRequestSubmitting)}
+                >
+                  {clubRequestSubmitting ? "Invio in corso..." : "Richiedi questo club"}
+                </button>
+
+                <button onClick={() => setDialogStep(2)} style={secondaryButtonStyle}>
                   Indietro
                 </button>
 
