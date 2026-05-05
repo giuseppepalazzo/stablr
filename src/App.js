@@ -256,6 +256,7 @@ function App() {
   const [showOtherEighteenRouteOptions, setShowOtherEighteenRouteOptions] = useState(false);
   const [showTeeOptions, setShowTeeOptions] = useState(false);
   const [startHolePage, setStartHolePage] = useState(0);
+  const startHoleSwipeRef = useRef({ x: null, y: null });
 
   const [roundScores, setRoundScores] = useState([]);
   const [savedRounds, setSavedRounds] = useState([]);
@@ -5153,29 +5154,38 @@ function App() {
             >
               Se giochi in shotgun scegli da quale buca iniziare.
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <button
-                onClick={() => setStartHolePage((prev) => Math.max(0, prev - 1))}
-                disabled={visibleStartHolePage === 0}
-                style={{
-                  width: "34px",
-                  height: "34px",
-                  borderRadius: "10px",
-                  border: `1px solid ${colors.border}`,
-                  backgroundColor: colors.card,
-                  color: visibleStartHolePage === 0 ? colors.borderStrong : colors.green,
-                  cursor: visibleStartHolePage === 0 ? "not-allowed" : "pointer",
-                  fontFamily: appFont,
-                  fontSize: "16px",
-                  fontWeight: 700,
-                  flexShrink: 0
-                }}
-                aria-label="Pagina precedente buca di partenza"
-              >
-                ‹
-              </button>
+            <div
+              style={{ overflow: "hidden" }}
+              onTouchStart={(event) => {
+                const touch = event.touches[0];
+                startHoleSwipeRef.current = { x: touch.clientX, y: touch.clientY };
+              }}
+              onTouchEnd={(event) => {
+                const touch = event.changedTouches[0];
+                const startX = startHoleSwipeRef.current.x;
+                const startY = startHoleSwipeRef.current.y;
 
-              <div style={{ flex: 1, overflow: "hidden" }}>
+                if (!Number.isFinite(startX) || !Number.isFinite(startY)) {
+                  startHoleSwipeRef.current = { x: null, y: null };
+                  return;
+                }
+
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+                const horizontalSwipe = Math.abs(deltaX) > 36 && Math.abs(deltaX) > Math.abs(deltaY);
+
+                if (horizontalSwipe) {
+                  if (deltaX < 0) {
+                    setStartHolePage((prev) => Math.min(maxStartHolePage, prev + 1));
+                  } else {
+                    setStartHolePage((prev) => Math.max(0, prev - 1));
+                  }
+                }
+
+                startHoleSwipeRef.current = { x: null, y: null };
+              }}
+            >
+              <div style={{ overflow: "hidden" }}>
                 <div
                   style={{
                     display: "flex",
@@ -5221,29 +5231,6 @@ function App() {
                   ))}
                 </div>
               </div>
-
-              <button
-                onClick={() => setStartHolePage((prev) => Math.min(maxStartHolePage, prev + 1))}
-                disabled={visibleStartHolePage === maxStartHolePage}
-                style={{
-                  width: "34px",
-                  height: "34px",
-                  borderRadius: "10px",
-                  border: `1px solid ${colors.border}`,
-                  backgroundColor: colors.card,
-                  color:
-                    visibleStartHolePage === maxStartHolePage ? colors.borderStrong : colors.green,
-                  cursor:
-                    visibleStartHolePage === maxStartHolePage ? "not-allowed" : "pointer",
-                  fontFamily: appFont,
-                  fontSize: "16px",
-                  fontWeight: 700,
-                  flexShrink: 0
-                }}
-                aria-label="Pagina successiva buca di partenza"
-              >
-                ›
-              </button>
             </div>
           </>
         )}
