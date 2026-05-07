@@ -23,6 +23,7 @@ const HEADER_CIRCLE_RADIUS = "22px";
 const CARD_FAVORITE_SIZE = "40px";
 const CARD_FAVORITE_RADIUS = "20px";
 const SHEET_CLOSE_DURATION = 220;
+const WELCOME_NAME_HOLD_MS = 650;
 
 const stepperButtonStyle = {
   width: "44px",
@@ -332,6 +333,7 @@ function App() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(false);
+  const [profileResolved, setProfileResolved] = useState(false);
   const [appReady, setAppReady] = useState(false);
   const [needsOnboarding, setNeedsOnboarding] = useState(false);
   const [authSubmitting, setAuthSubmitting] = useState(false);
@@ -867,6 +869,7 @@ function App() {
     if (!supabase || !session?.user) return null;
 
     setProfileLoading(true);
+    setProfileResolved(false);
 
     const { data, error } = await supabase
       .from("profiles")
@@ -884,6 +887,7 @@ function App() {
         role: "user"
       });
       setProfileLoading(false);
+      setProfileResolved(true);
       return null;
     }
 
@@ -897,6 +901,7 @@ function App() {
     });
     setNeedsOnboarding(false);
     setProfileLoading(false);
+    setProfileResolved(true);
     return data;
   }, [session]);
 
@@ -908,6 +913,7 @@ function App() {
     if (!sessionUserId) {
       setAppReady(false);
       setNeedsOnboarding(false);
+      setProfileResolved(false);
       setSavedRounds([]);
       setFavoriteCourseIds([]);
       setUserProfile({
@@ -932,6 +938,10 @@ function App() {
           await loadRounds(courses.length ? courses : initialCourses);
         } else {
           setSavedRounds([]);
+        }
+
+        if (profile?.player_name) {
+          await new Promise((resolve) => window.setTimeout(resolve, WELCOME_NAME_HOLD_MS));
         }
 
         if (!cancelled) {
@@ -3971,16 +3981,15 @@ function App() {
   }
 
   if (session && (profileLoading || !appReady) && !needsOnboarding) {
-    const loadingTitle =
-      profileLoading && !normalizedPlayerDisplayName
-        ? "Prepariamo il tuo profilo"
-        : normalizedPlayerDisplayName
-          ? `Bentornato ${normalizedPlayerDisplayName}`
-          : "Bentornato";
-    const loadingSubtitle =
-      profileLoading && !normalizedPlayerDisplayName
-        ? "Tra poco sei pronto a giocare"
-        : "Un attimo e sei in campo";
+    const shouldShowWelcomeBack = profileResolved && !profileLoading;
+    const loadingTitle = shouldShowWelcomeBack
+      ? normalizedPlayerDisplayName
+        ? `Bentornato ${normalizedPlayerDisplayName}`
+        : "Bentornato"
+      : "Prepariamo il tuo profilo";
+    const loadingSubtitle = shouldShowWelcomeBack
+      ? "Un attimo e sei in campo"
+      : "Tra poco sei pronto a giocare";
 
     return (
       <div
