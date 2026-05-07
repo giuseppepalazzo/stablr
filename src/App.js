@@ -3986,10 +3986,10 @@ function App() {
       ? normalizedPlayerDisplayName
         ? `Bentornato ${normalizedPlayerDisplayName}`
         : "Bentornato"
-      : "Prepariamo il tuo profilo";
+      : "Stablr";
     const loadingSubtitle = shouldShowWelcomeBack
       ? "Un attimo e sei in campo"
-      : "Tra poco sei pronto a giocare";
+      : "Un attimo...";
 
     return (
       <div
@@ -4077,7 +4077,7 @@ function App() {
               : "0 18px 36px rgba(0, 0, 0, 0.26)"
           }}
         >
-          <div style={{ fontSize: "28px", fontWeight: 700 }}>Completa il profilo</div>
+          <div style={{ fontSize: "28px", fontWeight: 700 }}>Benvenuto in Stablr</div>
           <div
             style={{
               marginTop: "8px",
@@ -4086,7 +4086,7 @@ function App() {
               lineHeight: 1.5
             }}
           >
-            Inserisci il nome giocatore e il tuo HCP per iniziare.
+            Ti bastano pochi secondi per iniziare
           </div>
 
           <div style={{ marginTop: "22px" }}>
