@@ -51,6 +51,21 @@ function sanitizeRoundName(name) {
   return name.trim().replace(/\s+/g, " ");
 }
 
+function normalizePlayerDisplayName(name) {
+  const normalized = String(name || "")
+    .trim()
+    .replace(/\s+/g, " ");
+
+  if (!normalized) return "";
+
+  return normalized
+    .split(" ")
+    .map((part) =>
+      part ? `${part.charAt(0).toUpperCase()}${part.slice(1).toLowerCase()}` : ""
+    )
+    .join(" ");
+}
+
 function receivedShotsToSymbols(value) {
   if (value === 0) return "—";
   if (value === 1) return "*";
@@ -343,6 +358,7 @@ function App() {
   const [communitySlopeRating, setCommunitySlopeRating] = useState("");
   const [communityHandicapSaving, setCommunityHandicapSaving] = useState(false);
   const [communityHandicapFeedback, setCommunityHandicapFeedback] = useState("");
+  const [showCommunityManualShotsInfo, setShowCommunityManualShotsInfo] = useState(false);
   const [courseReportTarget, setCourseReportTarget] = useState(null);
   const [courseReportMessage, setCourseReportMessage] = useState("");
   const [courseReportSubmitting, setCourseReportSubmitting] = useState(false);
@@ -957,6 +973,10 @@ function App() {
   );
   const showSearchEmptyState =
     searchQuery.trim() !== "" && filteredCourses.length === 0;
+  const normalizedPlayerDisplayName = useMemo(
+    () => normalizePlayerDisplayName(userProfile.playerName),
+    [userProfile.playerName]
+  );
 
   useEffect(() => {
     if (!showSearchEmptyState) {
@@ -3528,6 +3548,53 @@ function App() {
     </div>
   ) : null;
 
+  const communityManualShotsInfoModal = showCommunityManualShotsInfo ? (
+    <div
+      onClick={() => setShowCommunityManualShotsInfo(false)}
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: colors.overlay,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+        boxSizing: "border-box",
+        zIndex: 44
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          backgroundColor: colors.card,
+          padding: "18px",
+          borderRadius: "18px",
+          width: "100%",
+          maxWidth: "340px",
+          border: `1px solid ${colors.border}`,
+          boxSizing: "border-box",
+          fontFamily: appFont
+        }}
+      >
+        <div
+          style={{
+            color: colors.text,
+            fontSize: "14px",
+            lineHeight: 1.6
+          }}
+        >
+          L&apos;HCP di gioco puo&apos; variare in base al tee scelto, al Course Rating e allo Slope.
+          <br />
+          Se qualcosa non torna, puoi correggere i colpi assegnati direttamente nella scorecard.
+        </div>
+
+        <button onClick={() => setShowCommunityManualShotsInfo(false)} style={modalCloseButtonStyle}>
+          Chiudi
+        </button>
+      </div>
+    </div>
+  ) : null;
+
   const overlayPortal =
     typeof document !== "undefined"
       ? createPortal(
@@ -3537,6 +3604,7 @@ function App() {
             {historyRoundDetailModal}
             {hcpEditorModal}
             {courseReportModal}
+            {communityManualShotsInfoModal}
           </>,
           document.body
         )
@@ -3903,6 +3971,17 @@ function App() {
   }
 
   if (session && (profileLoading || !appReady) && !needsOnboarding) {
+    const loadingTitle =
+      profileLoading && !normalizedPlayerDisplayName
+        ? "Prepariamo il tuo profilo"
+        : normalizedPlayerDisplayName
+          ? `Bentornato ${normalizedPlayerDisplayName}`
+          : "Bentornato";
+    const loadingSubtitle =
+      profileLoading && !normalizedPlayerDisplayName
+        ? "Tra poco sei pronto a giocare"
+        : "Un attimo e sei in campo";
+
     return (
       <div
         style={{
@@ -3931,7 +4010,7 @@ function App() {
               : "0 18px 36px rgba(0, 0, 0, 0.26)"
           }}
         >
-          <div style={{ fontSize: "24px", fontWeight: 700 }}>Prepariamo il profilo</div>
+          <div style={{ fontSize: "24px", fontWeight: 700 }}>{loadingTitle}</div>
           <div
             style={{
               marginTop: "8px",
@@ -3940,7 +4019,7 @@ function App() {
               lineHeight: 1.5
             }}
           >
-            Caricamento in corso...
+            {loadingSubtitle}
           </div>
 
           {authError && (
@@ -4477,6 +4556,24 @@ function App() {
         <span>{routeName}</span>
       </span>
     );
+  };
+
+  const getOptionalRouteDisplay = (routeName) => {
+    const normalizedName = String(routeName || "").trim();
+    const repeatedRouteMatch = normalizedName.match(/^9\s+buche\s+(.+?)\s+2\s+volte$/i);
+
+    if (repeatedRouteMatch) {
+      const repeatedRouteName = normalizeWhitespace(repeatedRouteMatch[1] || "");
+      return {
+        label: `${repeatedRouteName} x2`,
+        colorInfo: getRouteColor(repeatedRouteName)
+      };
+    }
+
+    return {
+      label: normalizedName,
+      colorInfo: getRouteColor(normalizedName)
+    };
   };
 
   const renderRoutePair = (
@@ -5448,23 +5545,28 @@ function App() {
             )}
             {showSelectedRouteCard ? (
               <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
-                <div
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: 700,
-                    lineHeight: 1.4,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "8px"
-                  }}
-                >
-                  {getRouteColor(selectedPrimaryRoute.name)
-                    ? renderColorDot(getRouteColor(selectedPrimaryRoute.name), 10)
-                    : null}
-                  <span>
-                    {selectedPrimaryRoute.name} · 18 buche · Par {selectedPrimaryRoute.totalPar}
-                  </span>
-                </div>
+                {(() => {
+                  const displayRoute = getOptionalRouteDisplay(selectedPrimaryRoute.name);
+                  return (
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 700,
+                        lineHeight: 1.4,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px"
+                      }}
+                    >
+                      {displayRoute.colorInfo
+                        ? renderColorDot(displayRoute.colorInfo, 10)
+                        : null}
+                      <span>
+                        {displayRoute.label} · 18 buche · Par {selectedPrimaryRoute.totalPar}
+                      </span>
+                    </div>
+                  );
+                })()}
               </div>
             ) : (showOtherEighteenRouteOptions || !openedCourseRouteCombinations.length) ? (
               <div
@@ -5496,10 +5598,15 @@ function App() {
                       roundSetup.selectedRouteId === route.id && !roundSetup.selectedCombinationId
                     )}
                   >
-                    <div style={routeNameBlockStyle}>
-                      {getRouteColor(route.name) ? renderColorDot(getRouteColor(route.name)) : null}
-                      {route.name}
-                    </div>
+                    {(() => {
+                      const displayRoute = getOptionalRouteDisplay(route.name);
+                      return (
+                        <div style={routeNameBlockStyle}>
+                          {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                          {displayRoute.label}
+                        </div>
+                      );
+                    })()}
                     <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
                       18 buche • Par {route.totalPar}
                     </div>
@@ -5973,9 +6080,11 @@ function App() {
             {hasComputedPlayingHandicap && (
               <div
                 style={{
-                  marginTop: "3px",
+                  marginTop: "6px",
                   color: highlightPlayingHandicap ? colors.green : colors.text,
-                  fontWeight: 700
+                  fontWeight: 700,
+                  fontSize: "17px",
+                  lineHeight: 1.4
                 }}
               >
                 <strong>HCP di gioco:</strong> {previewPlayingHandicap}
@@ -5983,13 +6092,67 @@ function App() {
             )}
             {!hasComputedPlayingHandicap && fallbackDisplayedHandicap && (
               <>
-                <div style={{ marginTop: "3px", color: colors.green, fontWeight: 700 }}>
+                <div
+                  style={{
+                    marginTop: "6px",
+                    color: colors.green,
+                    fontWeight: 700,
+                    fontSize: "17px",
+                    lineHeight: 1.4
+                  }}
+                >
                   <strong>HCP di gioco:</strong> {fallbackDisplayedHandicap}
                 </div>
-                <div style={{ marginTop: "3px", color: colors.subtext, fontSize: "13px" }}>
-                  L&apos;handicap di gioco puo&apos; variare in base a CR, Slope e tee di partenza
-                </div>
               </>
+            )}
+            {!hasComputedPlayingHandicap && (
+              <button
+                onClick={() => setShowCommunityManualShotsInfo(true)}
+                style={{
+                  marginTop: "6px",
+                  border: "none",
+                  background: "transparent",
+                  color: colors.subtext,
+                  fontSize: "13px",
+                  lineHeight: 1.5,
+                  padding: 0,
+                  cursor: "pointer",
+                  fontFamily: appFont,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px"
+                }}
+                aria-label="Informazioni HCP dinamico"
+                title="Informazioni HCP dinamico"
+              >
+                <span style={{ fontSize: "11px", lineHeight: 1 }}>ⓘ</span>
+                <span>HCP dinamico</span>
+              </button>
+            )}
+            {!hasComputedPlayingHandicap && shouldShowCommunityHandicapPrompt && (
+              <div style={{ marginTop: "8px" }}>
+                <button
+                  onClick={() => {
+                    setCommunityTeeName("Giallo");
+                    setCommunityCourseRating("");
+                    setCommunitySlopeRating("");
+                    setCommunityHandicapFeedback("");
+                    setShowCommunityHandicapEditor(true);
+                  }}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    color: colors.green,
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    padding: 0,
+                    cursor: "pointer",
+                    fontFamily: appFont
+                  }}
+                >
+                  Aggiungi dati handicap
+                </button>
+              </div>
             )}
             {playingHandicapDifference !== null && (
               <div style={{ marginTop: "3px", color: colors.subtext, fontSize: "13px" }}>
@@ -5998,45 +6161,19 @@ function App() {
               </div>
             )}
           </div>
-          <div
-            style={{
-              marginTop: "8px",
-              color: colors.subtext,
-              fontSize: "13px",
-              lineHeight: 1.5
-            }}
-          >
-            {allowStartHoleSelection
-              ? `Partenza dalla buca ${roundSetup.startHole}`
-              : `Tutto pronto per iniziare.`}
-          </div>
-        </div>
-        )}
-
-        {shouldShowCommunityHandicapPrompt && (
-          <div style={{ marginTop: "12px", marginBottom: "8px" }}>
-            <button
-              onClick={() => {
-                setCommunityTeeName("Giallo");
-                setCommunityCourseRating("");
-                setCommunitySlopeRating("");
-                setCommunityHandicapFeedback("");
-                setShowCommunityHandicapEditor(true);
-              }}
+          {Number(roundSetup.startHole) > 1 && (
+            <div
               style={{
-                border: "none",
-                background: "transparent",
-                color: colors.green,
-                fontSize: "14px",
-                fontWeight: 700,
-                padding: 0,
-                cursor: "pointer",
-                fontFamily: appFont
+                marginTop: "8px",
+                color: colors.subtext,
+                fontSize: "13px",
+                lineHeight: 1.5
               }}
             >
-              Aggiungi dati handicap
-            </button>
-          </div>
+              {`Shotgun · partenza buca ${roundSetup.startHole}`}
+            </div>
+          )}
+        </div>
         )}
 
         <div
