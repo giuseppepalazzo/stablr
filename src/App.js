@@ -107,8 +107,8 @@ function getClubStatusMeta(club) {
 
   if (normalizedStatus === "needs_review") {
     return {
-      label: "In arrivo",
-      description: "In arrivo: In revisione",
+      label: "In revisione",
+      description: "In revisione: Dati in revisione",
       icon: "review",
       accent: "review"
     };
@@ -161,12 +161,13 @@ function getTeeSortOrder(tee) {
     .toLowerCase();
 
   const teeOrder = [
+    ["nero", "black"],
     ["bianco", "white"],
     ["giallo", "yellow"],
     ["verde", "green"],
     ["blu", "blue"],
-    ["arancio", "orange"],
-    ["rosso", "red"]
+    ["rosso", "red"],
+    ["arancio", "orange"]
   ];
 
   const matchedIndex = teeOrder.findIndex((aliases) =>
@@ -176,8 +177,31 @@ function getTeeSortOrder(tee) {
   return matchedIndex === -1 ? 99 : matchedIndex;
 }
 
-function getDefaultTeeId(tees) {
+function getTeeOptionsForHolesCount(tees, preferredHolesCount = null) {
   const teeList = Array.isArray(tees) ? tees : [];
+  const numericPreferredHolesCount = Number(preferredHolesCount);
+
+  if (!Number.isFinite(numericPreferredHolesCount)) {
+    return teeList;
+  }
+
+  const matchedTees = teeList.filter((tee) => Number(tee?.holesCount) === numericPreferredHolesCount);
+  return matchedTees.length ? matchedTees : teeList;
+}
+
+function getExactTeeOptionsForHolesCount(tees, preferredHolesCount = null) {
+  const teeList = Array.isArray(tees) ? tees : [];
+  const numericPreferredHolesCount = Number(preferredHolesCount);
+
+  if (!Number.isFinite(numericPreferredHolesCount)) {
+    return teeList;
+  }
+
+  return teeList.filter((tee) => Number(tee?.holesCount) === numericPreferredHolesCount);
+}
+
+function getDefaultTeeId(tees, preferredHolesCount = null) {
+  const teeList = getTeeOptionsForHolesCount(tees, preferredHolesCount);
   if (!teeList.length) return null;
 
   const preferredYellow = teeList.find((tee) => {
@@ -188,6 +212,97 @@ function getDefaultTeeId(tees) {
   });
 
   return preferredYellow?.id || teeList[0]?.id || null;
+}
+
+function getNextAvailableCommunityTeeName(tees, holesCount, preferredOrder = []) {
+  const existingLabels = new Set(
+    getExactTeeOptionsForHolesCount(tees, holesCount).map((tee) => getTeeDisplayName(tee).trim().toLowerCase())
+  );
+
+  const normalizedOrder = preferredOrder.length
+    ? preferredOrder
+    : ["Giallo", "Verde", "Blu", "Rosso", "Arancio", "Bianco", "Nero"];
+
+  if (!existingLabels.has("giallo") && normalizedOrder.some((label) => label.trim().toLowerCase() === "giallo")) {
+    return "Giallo";
+  }
+
+  return (
+    normalizedOrder.find((label) => !existingLabels.has(label.trim().toLowerCase())) ||
+    normalizedOrder[0] ||
+    "Giallo"
+  );
+}
+
+function buildEstimatedTeeValues(sourceTee, route, targetHolesCount) {
+  const sourceHolesCount = Number(sourceTee?.holesCount || route?.holesCount || 0);
+  const numericTargetHolesCount = Number(targetHolesCount);
+
+  if (!Number.isFinite(sourceHolesCount) || !Number.isFinite(numericTargetHolesCount) || sourceHolesCount <= 0) {
+    return null;
+  }
+
+  const ratio = numericTargetHolesCount / sourceHolesCount;
+  const sourceCourseRating = Number(sourceTee?.courseRating || 0);
+  const sourceSlopeRating = Number(sourceTee?.slopeRating || 0);
+  const sourceParTotal = Number(sourceTee?.parTotal || route?.totalPar || 0);
+
+  return {
+    teeName: getTeeDisplayName(sourceTee),
+    teeColor: getTeeColor(getTeeDisplayName(sourceTee)).label,
+    holesCount: numericTargetHolesCount,
+    courseRating: Number.isFinite(sourceCourseRating)
+      ? Number((sourceCourseRating * ratio).toFixed(1))
+      : null,
+    slopeRating: Number.isFinite(sourceSlopeRating) && sourceSlopeRating > 0
+      ? Math.round(sourceSlopeRating)
+      : null,
+    parTotal: Number.isFinite(sourceParTotal) && sourceParTotal > 0
+      ? Math.round(sourceParTotal * ratio)
+      : null,
+    estimated: true
+  };
+}
+
+function getCommunityDefaultCourseRating(holesCount) {
+  return Number(holesCount) === 18 ? "72.0" : "36.0";
+}
+
+function getCommunityDefaultSlopeRating() {
+  return "113";
+}
+
+function normalizeCommunityCourseRatingInput(value) {
+  return String(value || "")
+    .replace(",", ".")
+    .replace(/[^0-9.]/g, "")
+    .replace(/(\..*)\./g, "$1");
+}
+
+function normalizeCommunitySlopeRatingInput(value) {
+  return String(value || "").replace(/[^0-9]/g, "");
+}
+
+function parseCommunityCourseRatingValue(value) {
+  const normalized = Number.parseFloat(
+    normalizeCommunityCourseRatingInput(value)
+  );
+  return Number.isFinite(normalized) ? normalized : null;
+}
+
+function parseCommunitySlopeRatingValue(value) {
+  const normalized = Number.parseInt(normalizeCommunitySlopeRatingInput(value), 10);
+  return Number.isFinite(normalized) ? normalized : null;
+}
+
+function closeCommunityHandicapEditor({
+  setShowCommunityHandicapEditor,
+  setCommunityHandicapFeedback,
+  setCommunityHandicapNextAction
+}) {
+  setShowCommunityHandicapEditor(false);
+  setCommunityHandicapFeedback("");
+  setCommunityHandicapNextAction(null);
 }
 
 const COLOR_INFO_BY_KEY = {
@@ -356,10 +471,13 @@ function App() {
   const [clubRequestFeedback, setClubRequestFeedback] = useState("");
   const [showCommunityHandicapEditor, setShowCommunityHandicapEditor] = useState(false);
   const [communityTeeName, setCommunityTeeName] = useState("Giallo");
+  const [communityTeeHolesCount, setCommunityTeeHolesCount] = useState(9);
   const [communityCourseRating, setCommunityCourseRating] = useState("");
   const [communitySlopeRating, setCommunitySlopeRating] = useState("");
   const [communityHandicapSaving, setCommunityHandicapSaving] = useState(false);
   const [communityHandicapFeedback, setCommunityHandicapFeedback] = useState("");
+  const [communityHandicapNextAction, setCommunityHandicapNextAction] = useState(null);
+  const [dismissedCommunityTeePlaceholders, setDismissedCommunityTeePlaceholders] = useState({});
   const [showCommunityManualShotsInfo, setShowCommunityManualShotsInfo] = useState(false);
   const [courseReportTarget, setCourseReportTarget] = useState(null);
   const [courseReportMessage, setCourseReportMessage] = useState("");
@@ -711,9 +829,11 @@ function App() {
                 teeName: tee.tee_name,
                 teeColor: tee.tee_color,
                 gender: tee.gender,
+                holesCount: tee.holes_count || route.holes_count || null,
                 courseRating: tee.course_rating,
                 slopeRating: tee.slope_rating,
-                parTotal: tee.par_total
+                parTotal: tee.par_total,
+                estimated: tee.estimated === true
               }))
               .sort((left, right) => {
                 const leftOrder = getTeeSortOrder(left);
@@ -773,9 +893,11 @@ function App() {
                 teeName: tee.tee_name,
                 teeColor: tee.tee_color,
                 gender: tee.gender,
+                holesCount: tee.holes_count || combination.holes_count || null,
                 courseRating: tee.course_rating,
                 slopeRating: tee.slope_rating,
-                parTotal: tee.par_total
+                parTotal: tee.par_total,
+                estimated: tee.estimated === true
               }))
               .sort((left, right) => {
                 const leftOrder = getTeeSortOrder(left);
@@ -1054,10 +1176,12 @@ function App() {
     setClubRequestFeedback("");
     setShowCommunityHandicapEditor(false);
     setCommunityTeeName("Giallo");
+    setCommunityTeeHolesCount(9);
     setCommunityCourseRating("");
     setCommunitySlopeRating("");
     setCommunityHandicapSaving(false);
     setCommunityHandicapFeedback("");
+    setCommunityHandicapNextAction(null);
   };
 
   const openDialog = () => {
@@ -1430,11 +1554,134 @@ function App() {
     }
   };
 
-  const saveCommunityHandicapData = async (route, totalParOverride = null) => {
+  const openCommunityHandicapEditor = useCallback((route, targetHolesCount = null, preferredTeeName = null) => {
+    const defaultHolesCount = Number(targetHolesCount || route?.holesCount || 9);
+    const nextTeeName =
+      preferredTeeName ||
+      getNextAvailableCommunityTeeName(route?.tees, defaultHolesCount);
+
+    setCommunityTeeHolesCount(defaultHolesCount);
+    setCommunityTeeName(nextTeeName);
+    setCommunityCourseRating(getCommunityDefaultCourseRating(defaultHolesCount));
+    setCommunitySlopeRating(getCommunityDefaultSlopeRating());
+    setCommunityHandicapFeedback("");
+    setCommunityHandicapNextAction(null);
+    setShowCommunityHandicapEditor(true);
+  }, []);
+
+  const promoteCommunityClubToReview = useCallback(
+    async (clubId) => {
+      if (!supabase || !clubId) return;
+
+      await supabase
+        .from("clubs")
+        .update({ data_status: "needs_review" })
+        .eq("id", clubId)
+        .eq("data_status", "community");
+    },
+    []
+  );
+
+  const createEstimatedCommunityTees = useCallback(
+    async (route, sourceHolesCount, targetHolesCount) => {
+      if (!supabase || !openedCourse || !route) return null;
+
+      const sourceTees = getTeeOptionsForHolesCount(route.tees, sourceHolesCount).filter(
+        (tee) =>
+          Number.isFinite(Number(tee?.courseRating)) &&
+          Number.isFinite(Number(tee?.slopeRating))
+      );
+
+      if (!sourceTees.length) {
+        setCommunityHandicapFeedback("Aggiungi prima almeno un tee con dati completi.");
+        return null;
+      }
+
+      const targetExistingNames = new Set(
+        getExactTeeOptionsForHolesCount(route.tees, targetHolesCount).map((tee) =>
+          getTeeDisplayName(tee).trim().toLowerCase()
+        )
+      );
+
+      const estimatedPayload = sourceTees
+        .filter((tee) => !targetExistingNames.has(getTeeDisplayName(tee).trim().toLowerCase()))
+        .map((tee) => {
+          const estimatedValues = buildEstimatedTeeValues(tee, route, targetHolesCount);
+          if (!estimatedValues) return null;
+
+          return {
+            route_id: route.id,
+            tee_name: estimatedValues.teeName,
+            tee_color: estimatedValues.teeColor,
+            holes_count: estimatedValues.holesCount,
+            course_rating: estimatedValues.courseRating,
+            slope_rating: estimatedValues.slopeRating,
+            par_total: estimatedValues.parTotal,
+            estimated: true,
+            is_active: true
+          };
+        })
+        .filter(Boolean);
+
+      if (!estimatedPayload.length) {
+        setCommunityHandicapFeedback("I tee stimati per questo giro sono già presenti.");
+        return null;
+      }
+
+      setCommunityHandicapSaving(true);
+      setCommunityHandicapFeedback("");
+
+      const { error: estimatedSaveError } = await supabase
+        .from("route_tees")
+        .upsert(estimatedPayload, { onConflict: "route_id,tee_name,holes_count" });
+
+      if (estimatedSaveError) {
+        setCommunityHandicapFeedback(
+          estimatedSaveError.message || "Errore nel salvataggio della stima automatica."
+        );
+        setCommunityHandicapSaving(false);
+        return null;
+      }
+
+      await promoteCommunityClubToReview(openedCourse.id);
+
+      const refreshedCourses = await loadCourses();
+      const refreshedCourse = refreshedCourses.find((course) => course.id === openedCourse.id) || null;
+
+      if (refreshedCourse) {
+        setOpenedCourse(refreshedCourse);
+        const refreshedRoute =
+          refreshedCourse.routes.find((item) => item.id === route.id) || route;
+        const refreshedTargetTees = getExactTeeOptionsForHolesCount(refreshedRoute.tees, targetHolesCount);
+        const defaultTargetTeeId = getDefaultTeeId(refreshedTargetTees, targetHolesCount);
+
+        setRoundSetup((prev) => ({
+          ...prev,
+          selectedRouteTeeId:
+            Number(prev.totalCompetitionHoles) === Number(targetHolesCount)
+              ? defaultTargetTeeId
+              : prev.selectedRouteTeeId
+        }));
+      }
+
+      setCommunityHandicapSaving(false);
+      setCommunityHandicapFeedback(
+        `HCP stimato da dati ${sourceHolesCount} buche`
+      );
+      setCommunityHandicapNextAction(null);
+      setShowCommunityHandicapEditor(false);
+      setShowTeeOptions(false);
+      return true;
+    },
+    [loadCourses, openedCourse, promoteCommunityClubToReview]
+  );
+
+  const saveCommunityHandicapData = async (route) => {
     if (!supabase || !openedCourse || !route) return;
 
     const numericCourseRating = Number(communityCourseRating);
     const numericSlopeRating = Number(communitySlopeRating);
+    const numericCommunityTeeHolesCount = Number(communityTeeHolesCount || route.holesCount || 9);
 
     if (!communityTeeName.trim()) {
       setCommunityHandicapFeedback("Seleziona un tee.");
@@ -1450,7 +1697,11 @@ function App() {
     setCommunityHandicapFeedback("");
 
     const teeInfo = getTeeColor(communityTeeName);
-    const parTotalForTee = Number(totalParOverride || route.totalPar || 0) || null;
+    const sourceParTotal = Number(route.totalPar || 0) || null;
+    const parMultiplier =
+      Number(route.holesCount) > 0 ? numericCommunityTeeHolesCount / Number(route.holesCount) : 1;
+    const parTotalForTee =
+      sourceParTotal && Number.isFinite(parMultiplier) ? Math.round(sourceParTotal * parMultiplier) : null;
 
     const { data: savedTee, error: teeSaveError } = await supabase
       .from("route_tees")
@@ -1459,12 +1710,14 @@ function App() {
           route_id: route.id,
           tee_name: teeInfo.label,
           tee_color: teeInfo.label,
+          holes_count: numericCommunityTeeHolesCount,
           course_rating: numericCourseRating,
           slope_rating: Math.round(numericSlopeRating),
           par_total: parTotalForTee,
+          estimated: false,
           is_active: true
         },
-        { onConflict: "route_id,tee_name" }
+        { onConflict: "route_id,tee_name,holes_count" }
       )
       .select("*")
       .single();
@@ -1475,21 +1728,54 @@ function App() {
       return;
     }
 
+    await promoteCommunityClubToReview(openedCourse.id);
+
     const refreshedCourses = await loadCourses();
     const refreshedCourse = refreshedCourses.find((course) => course.id === openedCourse.id) || null;
+    const oppositeHolesCount = Number(route.holesCount) === 9 ? 18 : 9;
 
     if (refreshedCourse) {
       setOpenedCourse(refreshedCourse);
+      const refreshedRoute =
+        refreshedCourse.routes.find((item) => item.id === route.id) || route;
+      const currentTargetTees = getExactTeeOptionsForHolesCount(
+        refreshedRoute.tees,
+        numericCommunityTeeHolesCount
+      );
+      const oppositeTargetTees = getExactTeeOptionsForHolesCount(refreshedRoute.tees, oppositeHolesCount);
+      const nextTeeName = getNextAvailableCommunityTeeName(
+        refreshedRoute.tees,
+        numericCommunityTeeHolesCount
+      );
+
+      setRoundSetup((prev) => ({
+        ...prev,
+        selectedRouteTeeId:
+          Number(prev.totalCompetitionHoles) === numericCommunityTeeHolesCount
+            ? savedTee.id
+            : prev.selectedRouteTeeId
+      }));
+
+      setCommunityTeeName(nextTeeName);
+      setCommunityCourseRating(getCommunityDefaultCourseRating(numericCommunityTeeHolesCount));
+      setCommunitySlopeRating(getCommunityDefaultSlopeRating());
+      setCommunityHandicapFeedback("Tee salvato");
+
+      if (!oppositeTargetTees.length) {
+        setCommunityHandicapNextAction({
+          sourceHolesCount: numericCommunityTeeHolesCount,
+          targetHolesCount: oppositeHolesCount
+        });
+      } else {
+        setCommunityHandicapNextAction(null);
+      }
+
+      if (!currentTargetTees.length) {
+        setShowTeeOptions(false);
+      }
     }
 
-    setRoundSetup((prev) => ({
-      ...prev,
-      selectedRouteTeeId: savedTee.id
-    }));
-    setShowCommunityHandicapEditor(false);
-    setShowTeeOptions(false);
     setCommunityHandicapSaving(false);
-    setCommunityHandicapFeedback("");
   };
 
   const submitClubRequest = async (clubNameOverride = "") => {
@@ -1657,7 +1943,7 @@ function App() {
         selectedRouteId: preferredRoute?.id || null,
         secondaryRouteId: null,
         selectedCombinationId: null,
-        selectedRouteTeeId: getDefaultTeeId(preferredRoute?.tees),
+        selectedRouteTeeId: getDefaultTeeId(preferredRoute?.tees, 9),
         selectedCombinationTeeId: null,
         startHole: 1
       };
@@ -1679,7 +1965,7 @@ function App() {
         secondaryRouteId: preferredCombination.backRouteId,
         selectedCombinationId: preferredCombination.id,
         selectedRouteTeeId: null,
-        selectedCombinationTeeId: getDefaultTeeId(preferredCombination.tees),
+        selectedCombinationTeeId: getDefaultTeeId(preferredCombination.tees, 18),
         startHole: 1
       };
     }
@@ -1690,7 +1976,7 @@ function App() {
         selectedRouteId: preferredRoute.id,
         secondaryRouteId: null,
         selectedCombinationId: null,
-        selectedRouteTeeId: getDefaultTeeId(preferredRoute.tees),
+        selectedRouteTeeId: getDefaultTeeId(preferredRoute.tees, 18),
         selectedCombinationTeeId: null,
         startHole: 1
       };
@@ -1702,7 +1988,7 @@ function App() {
         selectedRouteId: preferredRoute.id,
         secondaryRouteId: nineHoleRoutes[1]?.id || nineHoleRoutes[0].id,
         selectedCombinationId: null,
-        selectedRouteTeeId: getDefaultTeeId(preferredRoute.tees),
+        selectedRouteTeeId: getDefaultTeeId(preferredRoute.tees, 18),
         selectedCombinationTeeId: null,
         startHole: 1
       };
@@ -4898,10 +5184,17 @@ function App() {
     const canUseRouteTeeSelection =
       Boolean(selectedPrimaryRoute) &&
       (!usingManualRoutePair || selectedPrimaryRoute.id === selectedSecondaryRoute?.id);
+    const routeTeeHolesCountForCurrentRound =
+      Number(roundSetup.totalCompetitionHoles) === 18 && Number(selectedPrimaryRoute?.holesCount) === 9
+        ? 18
+        : Number(roundSetup.totalCompetitionHoles || selectedPrimaryRoute?.holesCount || 0);
     const teeOptions = usingOfficialCombination
-      ? matchedOfficialCombination?.tees || []
+      ? getTeeOptionsForHolesCount(
+          matchedOfficialCombination?.tees || [],
+          matchedOfficialCombination?.holesCount || 18
+        )
       : canUseRouteTeeSelection
-        ? selectedPrimaryRoute?.tees || []
+        ? getTeeOptionsForHolesCount(selectedPrimaryRoute?.tees || [], routeTeeHolesCountForCurrentRound)
         : [];
     const selectedTee = usingOfficialCombination
       ? teeOptions.find((tee) => tee.id === roundSetup.selectedCombinationTeeId) || teeOptions[0] || null
@@ -4935,17 +5228,43 @@ function App() {
     const fallbackDisplayedHandicap = hasNumericHandicapIndex
       ? numericHandicapIndex.toFixed(1)
       : null;
-    const hasValidWhsTeeData = teeOptions.some(
-      (tee) =>
-        Number.isFinite(Number(tee?.courseRating)) &&
-        Number.isFinite(Number(tee?.slopeRating))
-    );
-    const shouldShowCommunityHandicapPrompt =
-      openedCourse.dataStatus === "community" &&
+    const isCommunityManagedCourse =
+      openedCourse.sourceType === "user" &&
+      openedCourse.isComplex !== true &&
       openedCourse.playable !== false &&
       Boolean(selectedPrimaryRoute) &&
-      !usingOfficialCombination &&
-      !hasValidWhsTeeData;
+      !usingOfficialCombination;
+    const currentCommunityTeeList = isCommunityManagedCourse
+      ? getTeeOptionsForHolesCount(selectedPrimaryRoute?.tees || [], routeTeeHolesCountForCurrentRound)
+      : [];
+    const shouldShowCommunityHandicapPrompt =
+      isCommunityManagedCourse && currentCommunityTeeList.length === 0;
+    const communityTeeSuggestionPool = ["Nero", "Bianco", "Giallo", "Verde", "Blu", "Rosso", "Arancio"];
+    const communityPlaceholderKeyPrefix = `${openedCourse?.id || "club"}:${selectedPrimaryRoute?.id || "route"}:${routeTeeHolesCountForCurrentRound}`;
+    const communityMissingTeePlaceholders = isCommunityManagedCourse
+      ? communityTeeSuggestionPool.filter((teeLabel) => {
+          const alreadyExists = currentCommunityTeeList.some(
+            (tee) => getTeeDisplayName(tee).trim().toLowerCase() === teeLabel.trim().toLowerCase()
+          );
+          if (alreadyExists) return false;
+          return !dismissedCommunityTeePlaceholders[`${communityPlaceholderKeyPrefix}:${teeLabel}`];
+        })
+      : [];
+    const communityEditorTees = selectedPrimaryRoute
+      ? getExactTeeOptionsForHolesCount(selectedPrimaryRoute.tees || [], communityTeeHolesCount)
+      : [];
+    const communityEditorAvailableTeeLabels = ["Nero", "Bianco", "Giallo", "Verde", "Blu", "Rosso", "Arancio"].filter(
+      (teeLabel) =>
+        !communityEditorTees.some(
+          (tee) => getTeeDisplayName(tee).trim().toLowerCase() === teeLabel.trim().toLowerCase()
+        )
+    );
+    const selectedTeeEstimatedSourceLabel =
+      selectedTee?.estimated && Number(selectedTee?.holesCount) === 18 && Number(selectedPrimaryRoute?.holesCount) === 9
+        ? "HCP stimato da dati 9 buche"
+        : selectedTee?.estimated && Number(selectedTee?.holesCount) === 9 && Number(selectedPrimaryRoute?.holesCount) === 18
+          ? "HCP stimato da dati 18 buche"
+          : "";
     const roundSetupTopSubtitle =
       Number(openedCourse.routeCount || 0) > 1
         ? `${openedCourse.routeCount} percorsi`
@@ -5338,7 +5657,7 @@ function App() {
                         selectedRouteId: route.id,
                         secondaryRouteId: null,
                         selectedCombinationId: null,
-                        selectedRouteTeeId: getDefaultTeeId(route.tees),
+                        selectedRouteTeeId: getDefaultTeeId(route.tees, 9),
                         selectedCombinationTeeId: null,
                         startHole: 1
                       }));
@@ -5464,7 +5783,7 @@ function App() {
                           secondaryRouteId: combination.backRouteId,
                           selectedCombinationId: combination.id,
                           selectedRouteTeeId: null,
-                          selectedCombinationTeeId: getDefaultTeeId(combination.tees),
+                          selectedCombinationTeeId: getDefaultTeeId(combination.tees, 18),
                           startHole: 1
                         }));
                       }}
@@ -5596,7 +5915,7 @@ function App() {
                         selectedRouteId: route.id,
                         secondaryRouteId: null,
                         selectedCombinationId: null,
-                        selectedRouteTeeId: getDefaultTeeId(route.tees),
+                        selectedRouteTeeId: getDefaultTeeId(route.tees, 18),
                         selectedCombinationTeeId: null,
                         startHole: 1
                       }));
@@ -5645,7 +5964,7 @@ function App() {
                       ...prev,
                       selectedCombinationId: null,
                       selectedCombinationTeeId: null,
-                      selectedRouteTeeId: getDefaultTeeId(selectedPrimaryRoute?.tees)
+                      selectedRouteTeeId: getDefaultTeeId(selectedPrimaryRoute?.tees, 18)
                     }));
                   }
                 }}
@@ -5787,7 +6106,7 @@ function App() {
           </>
         )}
 
-        {teeOptions.length > 0 && (
+        {(teeOptions.length > 0 || isCommunityManagedCourse) && (
           <>
             <div
               style={{
@@ -5828,7 +6147,7 @@ function App() {
             >
               Useremo i dati FIG/WHS disponibili per calcolare l'handicap di gioco.
             </div>
-            {showSelectedTeeCard && (
+            {!isCommunityManagedCourse && showSelectedTeeCard && (
               <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
                 <div
                   style={{
@@ -5858,7 +6177,7 @@ function App() {
               </div>
             )}
 
-            {showTeeCardOptions && (
+            {!isCommunityManagedCourse && showTeeCardOptions && (
               <div
                 style={{
                   ...roundSetupGridStyle,
@@ -5922,6 +6241,205 @@ function App() {
                   );
                 })}
               </div>
+            )}
+
+            {isCommunityManagedCourse && (
+              <>
+                {selectedTee && !showTeeOptions && (
+                  <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 700,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px"
+                      }}
+                    >
+                      {renderColorDot(getTeeColor(getTeeDisplayName(selectedTee)), 10)}
+                      {getTeeDisplayName(selectedTee)}
+                      <span style={{ color: colors.subtext, fontWeight: 500 }}>·</span>
+                      <span style={{ color: colors.subtext, fontWeight: 500 }}>
+                        {[
+                          Number.isFinite(Number(selectedTee.courseRating))
+                            ? `CR ${Number(selectedTee.courseRating).toFixed(1)}`
+                            : null,
+                          Number.isFinite(Number(selectedTee.slopeRating))
+                            ? `Slope ${Number(selectedTee.slopeRating)}`
+                            : null,
+                          selectedTee.estimated ? "Stima" : null
+                        ]
+                          .filter(Boolean)
+                          .join(" · ")}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {(showTeeOptions || !selectedTee) && (
+                  <>
+                    <div
+                      style={{
+                        ...roundSetupGridStyle,
+                        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                        gap: "10px"
+                      }}
+                    >
+                      {currentCommunityTeeList.map((tee) => {
+                        const isSelected = usingOfficialCombination
+                          ? roundSetup.selectedCombinationTeeId === tee.id
+                          : roundSetup.selectedRouteTeeId === tee.id;
+
+                        return (
+                          <div
+                            key={tee.id}
+                            onClick={() => {
+                              setRoundSetup((prev) => ({
+                                ...prev,
+                                selectedRouteTeeId: usingOfficialCombination ? prev.selectedRouteTeeId : tee.id,
+                                selectedCombinationTeeId: usingOfficialCombination
+                                  ? tee.id
+                                  : prev.selectedCombinationTeeId
+                              }));
+                              setShowTeeOptions(false);
+                            }}
+                            style={{
+                              ...setupCardOptionStyle(isSelected),
+                              minHeight: "92px",
+                              padding: "14px 12px",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center"
+                            }}
+                          >
+                            <div
+                              style={{
+                                fontWeight: 700,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "8px"
+                              }}
+                            >
+                              {renderColorDot(getTeeColor(getTeeDisplayName(tee)), 10)}
+                              {getTeeDisplayName(tee)}
+                            </div>
+                            <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                              {[
+                                Number.isFinite(Number(tee.courseRating))
+                                  ? `CR ${Number(tee.courseRating).toFixed(1)}`
+                                  : null,
+                                Number.isFinite(Number(tee.slopeRating))
+                                  ? `Slope ${Number(tee.slopeRating)}`
+                                  : null,
+                                tee.estimated ? "Stima" : null
+                              ]
+                                .filter(Boolean)
+                                .join(" • ")}
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      {communityMissingTeePlaceholders.map((teeLabel) => (
+                        <div
+                          key={`${communityPlaceholderKeyPrefix}:${teeLabel}`}
+                          style={{
+                            ...roundSetupInputCardStyle,
+                            minHeight: "92px",
+                            padding: "14px 12px",
+                            position: "relative",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center"
+                          }}
+                        >
+                          <button
+                            onClick={() =>
+                              setDismissedCommunityTeePlaceholders((prev) => ({
+                                ...prev,
+                                [`${communityPlaceholderKeyPrefix}:${teeLabel}`]: true
+                              }))
+                            }
+                            style={{
+                              position: "absolute",
+                              top: "10px",
+                              right: "10px",
+                              border: "none",
+                              background: "transparent",
+                              color: colors.subtext,
+                              cursor: "pointer",
+                              padding: 0,
+                              fontSize: "14px",
+                              lineHeight: 1,
+                              fontFamily: appFont
+                            }}
+                            aria-label={`Nascondi ${teeLabel}`}
+                            title={`Nascondi ${teeLabel}`}
+                          >
+                            ×
+                          </button>
+                          <div
+                            style={{
+                              fontWeight: 700,
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "8px"
+                            }}
+                          >
+                            {renderColorDot(getTeeColor(teeLabel), 10)}
+                            {teeLabel}
+                          </div>
+                          <button
+                            onClick={() =>
+                              openCommunityHandicapEditor(
+                                selectedPrimaryRoute,
+                                routeTeeHolesCountForCurrentRound,
+                                teeLabel
+                              )
+                            }
+                            style={{
+                              marginTop: "8px",
+                              border: "none",
+                              background: "transparent",
+                              color: colors.green,
+                              fontSize: "13px",
+                              fontWeight: 700,
+                              padding: 0,
+                              cursor: "pointer",
+                              fontFamily: appFont,
+                              textAlign: "left"
+                            }}
+                          >
+                            Compila
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() =>
+                        openCommunityHandicapEditor(
+                          selectedPrimaryRoute,
+                          routeTeeHolesCountForCurrentRound
+                        )
+                      }
+                      style={{
+                        marginTop: "10px",
+                        border: "none",
+                        background: "transparent",
+                        color: colors.green,
+                        fontSize: "14px",
+                        fontWeight: 700,
+                        padding: 0,
+                        cursor: "pointer",
+                        fontFamily: appFont
+                      }}
+                    >
+                      + Aggiungi un altro tee
+                    </button>
+                  </>
+                )}
+              </>
             )}
 
           </>
@@ -6066,13 +6584,25 @@ function App() {
             >
               <span>Tee</span>
               {renderColorDot(getTeeColor(getTeeDisplayName(selectedTee)), 11)}
-              <span>{getTeeDisplayName(selectedTee)}</span>
-              {Number.isFinite(Number(selectedTee.courseRating)) && (
-                <span>· CR {Number(selectedTee.courseRating).toFixed(1)}</span>
+                <span>{getTeeDisplayName(selectedTee)}</span>
+                {Number.isFinite(Number(selectedTee.courseRating)) && (
+                  <span>· CR {Number(selectedTee.courseRating).toFixed(1)}</span>
               )}
               {Number.isFinite(Number(selectedTee.slopeRating)) && (
                 <span>· Slope {Number(selectedTee.slopeRating)}</span>
-              )}
+                )}
+              </div>
+            )}
+          {selectedTeeEstimatedSourceLabel && (
+            <div
+              style={{
+                marginTop: "6px",
+                color: colors.subtext,
+                fontSize: "13px",
+                lineHeight: 1.5
+              }}
+            >
+              {selectedTeeEstimatedSourceLabel}
             </div>
           )}
           <div
@@ -6141,13 +6671,7 @@ function App() {
             {!hasComputedPlayingHandicap && shouldShowCommunityHandicapPrompt && (
               <div style={{ marginTop: "8px" }}>
                 <button
-                  onClick={() => {
-                    setCommunityTeeName("Giallo");
-                    setCommunityCourseRating("");
-                    setCommunitySlopeRating("");
-                    setCommunityHandicapFeedback("");
-                    setShowCommunityHandicapEditor(true);
-                  }}
+                  onClick={() => openCommunityHandicapEditor(selectedPrimaryRoute, routeTeeHolesCountForCurrentRound)}
                   style={{
                     border: "none",
                     background: "transparent",
@@ -6214,12 +6738,26 @@ function App() {
               padding: "20px",
               zIndex: 80
             }}
-            onClick={() => {
-              setShowCommunityHandicapEditor(false);
-              setCommunityHandicapFeedback("");
+            onMouseDown={(event) => {
+              if (event.target !== event.currentTarget) return;
+              closeCommunityHandicapEditor({
+                setShowCommunityHandicapEditor,
+                setCommunityHandicapFeedback,
+                setCommunityHandicapNextAction
+              });
+            }}
+            onClick={(event) => {
+              if (event.target !== event.currentTarget) return;
+              closeCommunityHandicapEditor({
+                setShowCommunityHandicapEditor,
+                setCommunityHandicapFeedback,
+                setCommunityHandicapNextAction
+              });
             }}
           >
             <div
+              onMouseDown={(event) => event.stopPropagation()}
+              onTouchStart={(event) => event.stopPropagation()}
               onClick={(event) => event.stopPropagation()}
               style={{
                 width: "100%",
@@ -6229,8 +6767,8 @@ function App() {
                 borderRadius: "22px",
                 padding: "18px",
                 boxSizing: "border-box"
-              }}
-            >
+                }}
+              >
               <h3
                 style={{
                   marginTop: 0,
@@ -6254,101 +6792,424 @@ function App() {
                 Puoi trovarli sulla scorecard del campo o sul sito FIG.
               </div>
 
-              <label
+              <div
                 style={{
-                  display: "block",
-                  fontSize: "14px",
-                  color: colors.subtext,
-                  marginBottom: "8px"
-                }}
-              >
-                Tee
-              </label>
-              <select
-                value={communityTeeName}
-                onChange={(event) => setCommunityTeeName(event.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "13px 14px",
-                  backgroundColor: colors.inputBg,
-                  border: `1px solid ${colors.inputBorder}`,
-                  borderRadius: "12px",
-                  color: colors.text,
-                  boxSizing: "border-box",
-                  outline: "none",
-                  fontSize: "15px",
-                  fontFamily: appFont,
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                  gap: "8px",
                   marginBottom: "14px"
                 }}
               >
-                {["Bianco", "Giallo", "Verde", "Blu", "Arancio", "Rosso"].map((teeLabel) => (
-                  <option key={teeLabel} value={teeLabel}>
-                    {teeLabel}
-                  </option>
+                {[selectedPrimaryRoute?.holesCount || 9, Number(selectedPrimaryRoute?.holesCount) === 9 ? 18 : 9].map((holesCountOption) => (
+                  <button
+                    key={`community-holes-count-${holesCountOption}`}
+                    onClick={() => {
+                      setCommunityTeeHolesCount(Number(holesCountOption));
+                      setCommunityTeeName(
+                        getNextAvailableCommunityTeeName(selectedPrimaryRoute?.tees, Number(holesCountOption))
+                      );
+                      setCommunityCourseRating(
+                        getCommunityDefaultCourseRating(Number(holesCountOption))
+                      );
+                      setCommunitySlopeRating(getCommunityDefaultSlopeRating());
+                      setCommunityHandicapFeedback("");
+                    }}
+                    style={{
+                      ...setupCardOptionStyle(Number(communityTeeHolesCount) === Number(holesCountOption)),
+                      minHeight: "44px",
+                      padding: "10px 12px"
+                    }}
+                  >
+                    {holesCountOption} buche
+                  </button>
                 ))}
-              </select>
+              </div>
 
-              <label
-                style={{
-                  display: "block",
-                  fontSize: "14px",
-                  color: colors.subtext,
-                  marginBottom: "8px"
-                }}
-              >
-                Course Rating
-              </label>
-              <input
-                type="number"
-                inputMode="decimal"
-                step="0.1"
-                value={communityCourseRating}
-                onChange={(event) => setCommunityCourseRating(event.target.value)}
-                placeholder="Es. 71.1"
-                style={{
-                  width: "100%",
-                  padding: "13px 14px",
-                  backgroundColor: colors.inputBg,
-                  border: `1px solid ${colors.inputBorder}`,
-                  borderRadius: "12px",
-                  color: colors.text,
-                  boxSizing: "border-box",
-                  outline: "none",
-                  fontSize: "15px",
-                  fontFamily: appFont,
-                  marginBottom: "14px"
-                }}
-              />
+              {communityEditorTees.length > 0 && (
+                <div style={{ marginBottom: "14px" }}>
+                  <div
+                    style={{
+                      marginBottom: "8px",
+                      color: colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Tee già inseriti
+                  </div>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                      gap: "8px"
+                    }}
+                  >
+                    {communityEditorTees.map((tee) => (
+                      <div
+                        key={tee.id}
+                        style={{
+                          border: `1px solid ${colors.border}`,
+                          borderRadius: "14px",
+                          padding: "10px 12px",
+                          backgroundColor: colors.card
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "8px",
+                            fontSize: "14px",
+                            fontWeight: 700
+                          }}
+                        >
+                          {renderColorDot(getTeeColor(getTeeDisplayName(tee)), 10)}
+                          <span>{getTeeDisplayName(tee)}</span>
+                        </div>
+                        <div
+                          style={{
+                            marginTop: "4px",
+                            color: colors.subtext,
+                            fontSize: "12px",
+                            lineHeight: 1.4
+                          }}
+                        >
+                          {[
+                            Number.isFinite(Number(tee.courseRating))
+                              ? `CR ${Number(tee.courseRating).toFixed(1)}`
+                              : null,
+                            Number.isFinite(Number(tee.slopeRating))
+                              ? `Slope ${Number(tee.slopeRating)}`
+                              : null,
+                            tee.estimated ? "Stima" : null
+                          ]
+                            .filter(Boolean)
+                            .join(" • ")}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-              <label
-                style={{
-                  display: "block",
-                  fontSize: "14px",
-                  color: colors.subtext,
-                  marginBottom: "8px"
-                }}
-              >
-                Slope Rating
-              </label>
-              <input
-                type="number"
-                inputMode="numeric"
-                value={communitySlopeRating}
-                onChange={(event) => setCommunitySlopeRating(event.target.value)}
-                placeholder="Es. 136"
-                style={{
-                  width: "100%",
-                  padding: "13px 14px",
-                  backgroundColor: colors.inputBg,
-                  border: `1px solid ${colors.inputBorder}`,
-                  borderRadius: "12px",
-                  color: colors.text,
-                  boxSizing: "border-box",
-                  outline: "none",
-                  fontSize: "15px",
-                  fontFamily: appFont
-                }}
-              />
+              {communityEditorAvailableTeeLabels.length > 0 ? (
+                <>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "14px",
+                      color: colors.subtext,
+                      marginBottom: "8px"
+                    }}
+                  >
+                    Tee
+                  </label>
+                  <div
+                    style={{
+                      marginTop: "-2px",
+                      marginBottom: "8px",
+                      color: colors.subtext,
+                      fontSize: "12px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Aggiungi solo i tee che trovi davvero sulla scorecard del campo
+                  </div>
+                  <div style={{ position: "relative", marginBottom: "14px" }}>
+                    <select
+                      value={communityTeeName}
+                      onChange={(event) => setCommunityTeeName(event.target.value)}
+                      style={{
+                        width: "100%",
+                        padding: "13px 42px 13px 14px",
+                        backgroundColor: colors.inputBg,
+                        border: `1px solid ${colors.inputBorder}`,
+                        borderRadius: "12px",
+                        color: colors.text,
+                        boxSizing: "border-box",
+                        outline: "none",
+                        fontSize: "15px",
+                        fontFamily: appFont,
+                        appearance: "none",
+                        WebkitAppearance: "none",
+                        MozAppearance: "none"
+                      }}
+                    >
+                      {communityEditorAvailableTeeLabels.map((teeLabel) => (
+                        <option key={teeLabel} value={teeLabel}>
+                          {teeLabel}
+                        </option>
+                      ))}
+                    </select>
+                    <span
+                      style={{
+                        position: "absolute",
+                        right: "14px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        color: colors.subtext,
+                        fontSize: "14px",
+                        pointerEvents: "none",
+                        lineHeight: 1
+                      }}
+                    >
+                      ▾
+                    </span>
+                  </div>
+
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "14px",
+                      color: colors.subtext,
+                      marginBottom: "8px"
+                    }}
+                  >
+                    Course Rating
+                  </label>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "44px minmax(0, 1fr) 44px",
+                      gap: "8px",
+                      marginBottom: "14px",
+                      alignItems: "stretch"
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = parseCommunityCourseRatingValue(communityCourseRating);
+                        const next = current === null ? 0 : Math.max(0, current - 0.1);
+                        setCommunityCourseRating(next.toFixed(1));
+                      }}
+                      style={{
+                        border: `1px solid ${colors.inputBorder}`,
+                        borderRadius: "12px",
+                        backgroundColor: colors.inputBg,
+                        color: colors.text,
+                        fontSize: "20px",
+                        cursor: "pointer",
+                        fontFamily: appFont
+                      }}
+                    >
+                      −
+                    </button>
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      value={communityCourseRating}
+                      onChange={(event) =>
+                        setCommunityCourseRating(
+                          normalizeCommunityCourseRatingInput(event.target.value)
+                        )
+                      }
+                      placeholder="Es. 71.1"
+                      style={{
+                        width: "100%",
+                        padding: "13px 14px",
+                        backgroundColor: colors.inputBg,
+                        border: `1px solid ${colors.inputBorder}`,
+                        borderRadius: "12px",
+                        color: colors.text,
+                        boxSizing: "border-box",
+                        outline: "none",
+                        fontSize: "15px",
+                        fontFamily: appFont
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = parseCommunityCourseRatingValue(communityCourseRating);
+                        const next = current === null ? 0.1 : current + 0.1;
+                        setCommunityCourseRating(next.toFixed(1));
+                      }}
+                      style={{
+                        border: `1px solid ${colors.inputBorder}`,
+                        borderRadius: "12px",
+                        backgroundColor: colors.inputBg,
+                        color: colors.text,
+                        fontSize: "20px",
+                        cursor: "pointer",
+                        fontFamily: appFont
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "14px",
+                      color: colors.subtext,
+                      marginBottom: "8px"
+                    }}
+                  >
+                    Slope Rating
+                  </label>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "44px minmax(0, 1fr) 44px",
+                      gap: "8px",
+                      alignItems: "stretch"
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = parseCommunitySlopeRatingValue(communitySlopeRating);
+                        const next = current === null ? 55 : Math.max(55, current - 1);
+                        setCommunitySlopeRating(String(next));
+                      }}
+                      style={{
+                        border: `1px solid ${colors.inputBorder}`,
+                        borderRadius: "12px",
+                        backgroundColor: colors.inputBg,
+                        color: colors.text,
+                        fontSize: "20px",
+                        cursor: "pointer",
+                        fontFamily: appFont
+                      }}
+                    >
+                      −
+                    </button>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={communitySlopeRating}
+                      onChange={(event) =>
+                        setCommunitySlopeRating(
+                          normalizeCommunitySlopeRatingInput(event.target.value)
+                        )
+                      }
+                      placeholder="Es. 136"
+                      style={{
+                        width: "100%",
+                        padding: "13px 14px",
+                        backgroundColor: colors.inputBg,
+                        border: `1px solid ${colors.inputBorder}`,
+                        borderRadius: "12px",
+                        color: colors.text,
+                        boxSizing: "border-box",
+                        outline: "none",
+                        fontSize: "15px",
+                        fontFamily: appFont
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = parseCommunitySlopeRatingValue(communitySlopeRating);
+                        const next = current === null ? 56 : Math.min(155, current + 1);
+                        setCommunitySlopeRating(String(next));
+                      }}
+                      style={{
+                        border: `1px solid ${colors.inputBorder}`,
+                        borderRadius: "12px",
+                        backgroundColor: colors.inputBg,
+                        color: colors.text,
+                        fontSize: "20px",
+                        cursor: "pointer",
+                        fontFamily: appFont
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <button
+                    onClick={() => saveCommunityHandicapData(selectedPrimaryRoute)}
+                    disabled={communityHandicapSaving}
+                    style={primaryButtonStyle(!communityHandicapSaving)}
+                  >
+                    {communityHandicapSaving ? "Salvataggio in corso..." : "Salva dati handicap"}
+                  </button>
+                </>
+              ) : (
+                <div
+                  style={{
+                    marginBottom: "14px",
+                    color: colors.subtext,
+                    fontSize: "13px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  Hai già inserito tutti i tee disponibili per questo giro. Per correggere un dato usa Segnala anomalia.
+                </div>
+              )}
+
+              {communityHandicapNextAction && (
+                <div
+                  style={{
+                    marginTop: "14px",
+                    padding: "12px",
+                    borderRadius: "16px",
+                    border: `1px solid ${colors.border}`,
+                    backgroundColor: colors.card
+                  }}
+                >
+                  <div style={{ fontWeight: 700, fontSize: "14px" }}>
+                    {`Vuoi aggiungere anche i dati ${communityHandicapNextAction.targetHolesCount} buche?`}
+                  </div>
+                  <div
+                    style={{
+                      marginTop: "6px",
+                      color: colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Se preferisci, Stablr può creare una stima automatica partendo dai dati già inseriti.
+                  </div>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr",
+                      gap: "8px",
+                      marginTop: "10px"
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setCommunityTeeHolesCount(communityHandicapNextAction.targetHolesCount);
+                        setCommunityTeeName(
+                          getNextAvailableCommunityTeeName(
+                            selectedPrimaryRoute?.tees,
+                            communityHandicapNextAction.targetHolesCount
+                          )
+                        );
+                        setCommunityCourseRating(
+                          getCommunityDefaultCourseRating(
+                            communityHandicapNextAction.targetHolesCount
+                          )
+                        );
+                        setCommunitySlopeRating(getCommunityDefaultSlopeRating());
+                        setCommunityHandicapFeedback("");
+                        setCommunityHandicapNextAction(null);
+                      }}
+                      style={secondaryButtonStyle}
+                    >
+                      {`Aggiungi dati ${communityHandicapNextAction.targetHolesCount}`}
+                    </button>
+                    <button
+                      onClick={() =>
+                        createEstimatedCommunityTees(
+                          selectedPrimaryRoute,
+                          communityHandicapNextAction.sourceHolesCount,
+                          communityHandicapNextAction.targetHolesCount
+                        )
+                      }
+                      disabled={communityHandicapSaving}
+                      style={primaryButtonStyle(!communityHandicapSaving)}
+                    >
+                      Usa stima automatica Stablr
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {communityHandicapFeedback && (
                 <div
@@ -6366,21 +7227,16 @@ function App() {
               )}
 
               <button
-                onClick={() => saveCommunityHandicapData(selectedPrimaryRoute, selectedPrimaryRoute?.totalPar)}
-                disabled={communityHandicapSaving}
-                style={primaryButtonStyle(!communityHandicapSaving)}
-              >
-                {communityHandicapSaving ? "Salvataggio in corso..." : "Salva dati handicap"}
-              </button>
-
-              <button
                 onClick={() => {
-                  setShowCommunityHandicapEditor(false);
-                  setCommunityHandicapFeedback("");
+                  closeCommunityHandicapEditor({
+                    setShowCommunityHandicapEditor,
+                    setCommunityHandicapFeedback,
+                    setCommunityHandicapNextAction
+                  });
                 }}
                 style={secondaryButtonStyle}
               >
-                Annulla
+                Chiudi
               </button>
             </div>
           </div>

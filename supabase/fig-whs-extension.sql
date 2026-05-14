@@ -49,9 +49,11 @@ create table if not exists public.route_tees (
   tee_name text not null,
   tee_color text,
   gender text,
+  holes_count integer check (holes_count in (9, 18)),
   course_rating numeric,
   slope_rating integer,
   par_total integer,
+  estimated boolean not null default false,
   source_system text,
   source_external_id text,
   source_payload jsonb,
@@ -69,9 +71,11 @@ create table if not exists public.combination_tees (
   tee_name text not null,
   tee_color text,
   gender text,
+  holes_count integer check (holes_count in (9, 18)),
   course_rating numeric,
   slope_rating integer,
   par_total integer,
+  estimated boolean not null default false,
   source_system text,
   source_external_id text,
   source_payload jsonb,
@@ -83,11 +87,13 @@ create table if not exists public.combination_tees (
   )
 );
 
-create unique index if not exists route_tees_route_id_tee_name_key
-  on public.route_tees(route_id, tee_name);
+drop index if exists route_tees_route_id_tee_name_key;
+create unique index if not exists route_tees_route_id_tee_name_holes_count_key
+  on public.route_tees(route_id, tee_name, holes_count);
 
-create unique index if not exists combination_tees_route_combination_id_tee_name_key
-  on public.combination_tees(route_combination_id, tee_name);
+drop index if exists combination_tees_route_combination_id_tee_name_key;
+create unique index if not exists combination_tees_route_combination_id_tee_name_holes_count_key
+  on public.combination_tees(route_combination_id, tee_name, holes_count);
 
 create unique index if not exists route_tees_source_system_source_external_id_key
   on public.route_tees(source_system, source_external_id)
