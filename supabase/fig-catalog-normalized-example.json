@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0",
+  "import_batch": {
+    "source_system": "fig",
+    "source_url": "https://www.federgolf.it/attivita-agonistica/servizi-online/tabella-slope-course-rating/",
+    "source_version": "2026-05-16",
+    "scraped_at": "2026-05-16T08:30:00Z",
+    "notes": "Example FIG catalog payload for one complex Italian club",
+    "raw_payload": {
+      "kind": "fig_catalog_batch"
+    }
+  },
+  "clubs": [
+    {
+      "source_external_id": "fig-club-parco-de-medici",
+      "name": "PARCO DE' MEDICI",
+      "name_normalized": "parco de medici",
+      "city": "Roma",
+      "region": "Lazio",
+      "country": "Italia",
+      "is_active": true,
+      "source_payload": {
+        "kind": "club"
+      },
+      "playable_courses": [
+        {
+          "source_external_id": "fig-course-parco-medici-9-buche-blu",
+          "name": "9 Buche Blu",
+          "name_normalized": "9 buche blu",
+          "holes_count": 9,
+          "total_par": 37,
+          "course_type": "single_9",
+          "route_family": "base",
+          "display_order": 1,
+          "course_composition": {
+            "kind": "single",
+            "base_routes": ["Blu"]
+          },
+          "is_active": true,
+          "source_payload": {
+            "kind": "playable_course"
+          },
+          "tees": [
+            {
+              "source_external_id": "fig-tee-parco-medici-9-buche-blu-giallo-men",
+              "tee_name": "Giallo",
+              "tee_color": "yellow",
+              "gender": "men",
+              "course_rating": 36.4,
+              "slope_rating": 140,
+              "par_total": 37,
+              "tee_order": 3,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            },
+            {
+              "source_external_id": "fig-tee-parco-medici-9-buche-blu-verde-men",
+              "tee_name": "Verde",
+              "tee_color": "green",
+              "gender": "men",
+              "course_rating": 34.8,
+              "slope_rating": 136,
+              "par_total": 37,
+              "tee_order": 4,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            }
+          ]
+        },
+        {
+          "source_external_id": "fig-course-parco-medici-9-buche-blu-2-volte",
+          "name": "9 Buche Blu 2 Volte",
+          "name_normalized": "9 buche blu 2 volte",
+          "holes_count": 18,
+          "total_par": 74,
+          "course_type": "repeat_9",
+          "route_family": "optional",
+          "display_order": 20,
+          "course_composition": {
+            "kind": "repeat",
+            "base_routes": ["Blu"],
+            "repeat_count": 2
+          },
+          "is_active": true,
+          "source_payload": {
+            "kind": "playable_course"
+          },
+          "tees": [
+            {
+              "source_external_id": "fig-tee-parco-medici-9-buche-blu-2-volte-giallo-men",
+              "tee_name": "Giallo",
+              "tee_color": "yellow",
+              "gender": "men",
+              "course_rating": 72.8,
+              "slope_rating": 140,
+              "par_total": 74,
+              "tee_order": 3,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            }
+          ]
+        },
+        {
+          "source_external_id": "fig-course-parco-medici-championship-bianco-blu",
+          "name": "Championship Bianco/Blu",
+          "name_normalized": "championship bianco blu",
+          "holes_count": 18,
+          "total_par": 72,
+          "course_type": "combination_18",
+          "route_family": "official",
+          "display_order": 10,
+          "course_composition": {
+            "kind": "combination",
+            "base_routes": ["Bianco", "Blu"],
+            "front_route_name": "Bianco",
+            "back_route_name": "Blu"
+          },
+          "is_active": true,
+          "source_payload": {
+            "kind": "playable_course"
+          },
+          "tees": [
+            {
+              "source_external_id": "fig-tee-parco-medici-championship-bianco-blu-giallo-men",
+              "tee_name": "Giallo",
+              "tee_color": "yellow",
+              "gender": "men",
+              "course_rating": 71.1,
+              "slope_rating": 136,
+              "par_total": 72,
+              "tee_order": 3,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            },
+            {
+              "source_external_id": "fig-tee-parco-medici-championship-bianco-blu-verde-men",
+              "tee_name": "Verde",
+              "tee_color": "green",
+              "gender": "men",
+              "course_rating": 68.2,
+              "slope_rating": 129,
+              "par_total": 72,
+              "tee_order": 4,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            },
+            {
+              "source_external_id": "fig-tee-parco-medici-championship-bianco-blu-blu-men",
+              "tee_name": "Blu",
+              "tee_color": "blue",
+              "gender": "men",
+              "course_rating": 74.7,
+              "slope_rating": 137,
+              "par_total": 72,
+              "tee_order": 5,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            },
+            {
+              "source_external_id": "fig-tee-parco-medici-championship-bianco-blu-rosso-women",
+              "tee_name": "Rosso",
+              "tee_color": "red",
+              "gender": "women",
+              "course_rating": 72.7,
+              "slope_rating": 130,
+              "par_total": 72,
+              "tee_order": 6,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            },
+            {
+              "source_external_id": "fig-tee-parco-medici-championship-bianco-blu-arancio-women",
+              "tee_name": "Arancio",
+              "tee_color": "orange",
+              "gender": "women",
+              "course_rating": 69.6,
+              "slope_rating": 123,
+              "par_total": 72,
+              "tee_order": 7,
+              "is_active": true,
+              "source_payload": {
+                "kind": "tee"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

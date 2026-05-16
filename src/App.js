@@ -12,6 +12,8 @@ const appFont =
 
 const THEME_STORAGE_KEY = "golf-score-app-theme-v1";
 const LAST_LOGIN_EMAIL_STORAGE_KEY = "stablr:lastLoginEmail";
+const DISMISSED_COMMUNITY_TEE_PLACEHOLDERS_STORAGE_KEY =
+  "stablr:dismissedCommunityTeePlaceholders:v1";
 const MAX_SAVED_ROUNDS = 100;
 const SCREEN_HORIZONTAL_PADDING = "16px";
 const CARD_ROW_HORIZONTAL_PADDING = "12px";
@@ -395,11 +397,97 @@ function calculatePlayingHandicap(handicapIndex, courseRating, slopeRating, parT
   return Math.round((numericHandicapIndex * numericSlopeRating) / 113 + (numericCourseRating - numericParTotal));
 }
 
+function getFigCourseCompositionKind(course) {
+  return String(course?.course_composition?.kind || "").trim().toLowerCase();
+}
+
+function isSimpleFigPlayableCourse(course) {
+  const normalizedType = String(course?.course_type || "").trim().toLowerCase();
+  if (["single_9", "single_18"].includes(normalizedType)) return true;
+  if (normalizedType === "other_18" && getFigCourseCompositionKind(course) === "single") {
+    return true;
+  }
+  return false;
+}
+
+function isComplexFigPlayableCourse(course) {
+  const normalizedType = String(course?.course_type || "").trim().toLowerCase();
+  if (["repeat_9", "combination_18"].includes(normalizedType)) return true;
+  if (normalizedType === "other_18" && getFigCourseCompositionKind(course) !== "single") {
+    return true;
+  }
+  return false;
+}
+
+function isGenericFigNineCourseName(name) {
+  return normalizeCourseName(name) === "9 buche";
+}
+
+function isGenericFigEighteenCourseName(name) {
+  return normalizeCourseName(name) === "18 buche";
+}
+
+function sortFigPlayableCourses(left, right) {
+  const leftOrder = Number.isFinite(Number(left?.display_order)) ? Number(left.display_order) : 999;
+  const rightOrder = Number.isFinite(Number(right?.display_order)) ? Number(right.display_order) : 999;
+  if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+  return String(left?.name || "").localeCompare(String(right?.name || ""), "it");
+}
+
+function normalizeFigMatchName(value) {
+  return String(value || "")
+    .replace(/&#039;/gi, "'")
+    .replace(/&#39;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&amp;/gi, "&")
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/['’]/g, " ")
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function getFigDisplayName(value) {
+  return normalizeWhitespace(
+    String(value || "")
+      .replace(/&#039;/gi, "'")
+      .replace(/&#39;/gi, "'")
+      .replace(/&quot;/gi, '"')
+      .replace(/&amp;/gi, "&")
+  );
+}
+
+function scoreFigClubNameMatch(inputName, candidateName) {
+  const input = normalizeFigMatchName(inputName);
+  const candidate = normalizeFigMatchName(candidateName);
+  if (!input || !candidate) return 0;
+  if (input === candidate) return 100;
+  if (candidate.startsWith(input) || input.startsWith(candidate)) return 92;
+  if (candidate.includes(input) || input.includes(candidate)) return 84;
+
+  const inputTokens = input.split(" ").filter(Boolean);
+  const candidateTokens = candidate.split(" ").filter(Boolean);
+  const sharedTokens = inputTokens.filter((token) => candidateTokens.includes(token));
+
+  if (!sharedTokens.length) return 0;
+
+  const coverage = sharedTokens.length / Math.max(inputTokens.length, candidateTokens.length);
+  return Math.round(coverage * 75);
+}
+
 function App() {
   const [showDialog, setShowDialog] = useState(false);
   const [dialogStep, setDialogStep] = useState(1);
 
   const [courseName, setCourseName] = useState("");
+  const [figMatchedClub, setFigMatchedClub] = useState(null);
+  const [figMatchLoading, setFigMatchLoading] = useState(false);
+  const [figMatchFeedback, setFigMatchFeedback] = useState("");
+  const [figClubSuggestions, setFigClubSuggestions] = useState([]);
+  const [figClubSuggestionsLoading, setFigClubSuggestionsLoading] = useState(false);
   const [clubCreationMode, setClubCreationMode] = useState(null);
   const [routeCount, setRouteCount] = useState(null);
   const [routeDrafts, setRouteDrafts] = useState([]);
@@ -435,6 +523,8 @@ function App() {
   const [hcpDraft, setHcpDraft] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchFigSuggestions, setSearchFigSuggestions] = useState([]);
+  const [searchFigSuggestionsLoading, setSearchFigSuggestionsLoading] = useState(false);
   const [activeCourseCardId, setActiveCourseCardId] = useState(null);
   const [searchEmptyHintPulse, setSearchEmptyHintPulse] = useState(false);
   const [hcpHighlightActive, setHcpHighlightActive] = useState(false);
@@ -477,7 +567,16 @@ function App() {
   const [communityHandicapSaving, setCommunityHandicapSaving] = useState(false);
   const [communityHandicapFeedback, setCommunityHandicapFeedback] = useState("");
   const [communityHandicapNextAction, setCommunityHandicapNextAction] = useState(null);
-  const [dismissedCommunityTeePlaceholders, setDismissedCommunityTeePlaceholders] = useState({});
+  const [dismissedCommunityTeePlaceholders, setDismissedCommunityTeePlaceholders] = useState(() => {
+    try {
+      const saved = localStorage.getItem(DISMISSED_COMMUNITY_TEE_PLACEHOLDERS_STORAGE_KEY);
+      if (!saved) return {};
+      const parsed = JSON.parse(saved);
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (error) {
+      return {};
+    }
+  });
   const [showCommunityManualShotsInfo, setShowCommunityManualShotsInfo] = useState(false);
   const [courseReportTarget, setCourseReportTarget] = useState(null);
   const [courseReportMessage, setCourseReportMessage] = useState("");
@@ -700,6 +799,15 @@ function App() {
   useEffect(() => {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        DISMISSED_COMMUNITY_TEE_PLACEHOLDERS_STORAGE_KEY,
+        JSON.stringify(dismissedCommunityTeePlaceholders)
+      );
+    } catch (error) {}
+  }, [dismissedCommunityTeePlaceholders]);
 
   useEffect(() => {
     try {
@@ -1126,10 +1234,180 @@ function App() {
     };
   }, [showSearchEmptyState]);
 
+  useEffect(() => {
+    if (!supabase) {
+      setSearchFigSuggestions([]);
+      setSearchFigSuggestionsLoading(false);
+      return undefined;
+    }
+
+    const normalizedQuery = normalizeFigMatchName(searchQuery);
+    if (normalizedQuery.length < 2 || filteredCourses.length > 0) {
+      setSearchFigSuggestions([]);
+      setSearchFigSuggestionsLoading(false);
+      return undefined;
+    }
+
+    let cancelled = false;
+    setSearchFigSuggestionsLoading(true);
+
+    const timeoutId = window.setTimeout(async () => {
+      try {
+        const searchTerms = Array.from(
+          new Set(
+            [
+              normalizedQuery,
+              ...normalizedQuery.split(" ").filter((token) => token.length >= 3)
+            ].filter(Boolean)
+          )
+        );
+
+        const candidateMap = new Map();
+
+        for (const term of searchTerms) {
+          const { data: candidateBatch, error: candidateBatchError } = await supabase
+            .from("fig_clubs")
+            .select("id,name,name_normalized,city,region,country")
+            .ilike("name_normalized", `%${term}%`)
+            .eq("is_active", true)
+            .limit(8);
+
+          if (candidateBatchError) throw candidateBatchError;
+
+          (candidateBatch || []).forEach((candidate) => {
+            candidateMap.set(candidate.id, candidate);
+          });
+        }
+
+        const rankedSuggestions = Array.from(candidateMap.values())
+          .map((candidate) => ({
+            ...candidate,
+            displayName: getFigDisplayName(candidate.name),
+            score: scoreFigClubNameMatch(normalizedQuery, candidate.name_normalized || candidate.name)
+          }))
+          .filter((candidate) => candidate.score >= 50)
+          .sort((left, right) => {
+            if (right.score !== left.score) return right.score - left.score;
+            return left.displayName.localeCompare(right.displayName, "it");
+          });
+
+        const dedupedSuggestions = [];
+        const seenSuggestionKeys = new Set();
+
+        rankedSuggestions.forEach((candidate) => {
+          const suggestionKey = normalizeFigMatchName(candidate.displayName);
+          if (!suggestionKey || seenSuggestionKeys.has(suggestionKey)) return;
+          seenSuggestionKeys.add(suggestionKey);
+          dedupedSuggestions.push(candidate);
+        });
+
+        if (!cancelled) {
+          setSearchFigSuggestions(dedupedSuggestions.slice(0, 4));
+          setSearchFigSuggestionsLoading(false);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setSearchFigSuggestions([]);
+          setSearchFigSuggestionsLoading(false);
+        }
+      }
+    }, 220);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [filteredCourses.length, searchQuery]);
+
   const currentHole =
     holesData[currentHoleIndex] || { hole: 1, par: 4, strokeIndex: "" };
   const currentRouteDraft =
     routeDrafts[currentRouteIndex] || { name: "Percorso", holesCount: holesCount || 0, holes: holesData };
+
+  useEffect(() => {
+    if (!showDialog || dialogStep !== 1 || !supabase) {
+      setFigClubSuggestions([]);
+      setFigClubSuggestionsLoading(false);
+      return undefined;
+    }
+
+    const normalizedQuery = normalizeFigMatchName(courseName);
+    if (normalizedQuery.length < 2) {
+      setFigClubSuggestions([]);
+      setFigClubSuggestionsLoading(false);
+      return undefined;
+    }
+
+    let cancelled = false;
+    setFigClubSuggestionsLoading(true);
+
+    const timeoutId = window.setTimeout(async () => {
+      try {
+        const searchTerms = Array.from(
+          new Set(
+            [
+              normalizedQuery,
+              ...normalizedQuery.split(" ").filter((token) => token.length >= 3)
+            ].filter(Boolean)
+          )
+        );
+
+        const candidateMap = new Map();
+
+        for (const term of searchTerms) {
+          const { data: candidateBatch, error: candidateBatchError } = await supabase
+            .from("fig_clubs")
+            .select("id,name,name_normalized,city,region,country")
+            .ilike("name_normalized", `%${term}%`)
+            .eq("is_active", true)
+            .limit(8);
+
+          if (candidateBatchError) throw candidateBatchError;
+
+          (candidateBatch || []).forEach((candidate) => {
+            candidateMap.set(candidate.id, candidate);
+          });
+        }
+
+        const rankedSuggestions = Array.from(candidateMap.values())
+          .map((candidate) => ({
+            ...candidate,
+            displayName: getFigDisplayName(candidate.name),
+            score: scoreFigClubNameMatch(normalizedQuery, candidate.name_normalized || candidate.name)
+          }))
+          .filter((candidate) => candidate.score >= 50)
+          .sort((left, right) => {
+            if (right.score !== left.score) return right.score - left.score;
+            return left.displayName.localeCompare(right.displayName, "it");
+          });
+
+        const dedupedSuggestions = [];
+        const seenSuggestionKeys = new Set();
+
+        rankedSuggestions.forEach((candidate) => {
+          const suggestionKey = normalizeFigMatchName(candidate.displayName);
+          if (!suggestionKey || seenSuggestionKeys.has(suggestionKey)) return;
+          seenSuggestionKeys.add(suggestionKey);
+          dedupedSuggestions.push(candidate);
+        });
+
+        if (!cancelled) {
+          setFigClubSuggestions(dedupedSuggestions.slice(0, 4));
+          setFigClubSuggestionsLoading(false);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setFigClubSuggestions([]);
+          setFigClubSuggestionsLoading(false);
+        }
+      }
+    }, 220);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [courseName, dialogStep, showDialog]);
 
   const createRouteHoles = useCallback(
     (count) =>
@@ -1159,6 +1437,11 @@ function App() {
   const resetDialogState = () => {
     setDialogStep(1);
     setCourseName("");
+    setFigMatchedClub(null);
+    setFigMatchLoading(false);
+    setFigMatchFeedback("");
+    setFigClubSuggestions([]);
+    setFigClubSuggestionsLoading(false);
     setClubCreationMode(null);
     setRouteCount(null);
     setRouteDrafts([]);
@@ -1186,6 +1469,13 @@ function App() {
 
   const openDialog = () => {
     resetDialogState();
+    setShowDialog(true);
+  };
+
+  const openDialogWithPrefilledClubName = (clubName, feedback = "") => {
+    resetDialogState();
+    setCourseName(normalizeWhitespace(clubName));
+    setFigMatchFeedback(feedback);
     setShowDialog(true);
   };
 
@@ -1235,12 +1525,260 @@ function App() {
     );
   };
 
-  const goToStepTwo = () => {
+  const findStrongFigClubMatch = useCallback(async (clubName) => {
+    if (!supabase) return null;
+
+    const cleanName = normalizeWhitespace(clubName);
+    const normalizedName = normalizeFigMatchName(cleanName);
+    if (!normalizedName) return null;
+
+    const { data: exactFigClub, error: figClubError } = await supabase
+      .from("fig_clubs")
+      .select("*")
+      .eq("name_normalized", normalizedName)
+      .eq("is_active", true)
+      .maybeSingle();
+
+    if (figClubError) throw figClubError;
+    let figClub = exactFigClub;
+
+    if (!figClub) {
+      const searchTerms = Array.from(
+        new Set(
+          [
+            normalizedName,
+            ...normalizedName
+              .split(" ")
+              .filter((token) => token.length >= 4)
+          ].filter(Boolean)
+        )
+      );
+
+      const candidateMap = new Map();
+
+      for (const term of searchTerms) {
+        const { data: candidateBatch, error: candidateBatchError } = await supabase
+          .from("fig_clubs")
+          .select("*")
+          .ilike("name_normalized", `%${term}%`)
+          .eq("is_active", true)
+          .limit(10);
+
+        if (candidateBatchError) throw candidateBatchError;
+
+        (candidateBatch || []).forEach((candidate) => {
+          candidateMap.set(candidate.id, candidate);
+        });
+      }
+
+      const rankedCandidates = Array.from(candidateMap.values())
+        .map((candidate) => ({
+          candidate,
+          score: scoreFigClubNameMatch(normalizedName, candidate.name_normalized || candidate.name)
+        }))
+        .filter((entry) => entry.score > 0)
+        .sort((left, right) => right.score - left.score);
+
+      const bestCandidate = rankedCandidates[0] || null;
+      const secondBestCandidate = rankedCandidates[1] || null;
+      const bestIsDominant =
+        bestCandidate &&
+        bestCandidate.score >= 84 &&
+        (!secondBestCandidate || bestCandidate.score - secondBestCandidate.score >= 8);
+
+      figClub = bestIsDominant ? bestCandidate.candidate : null;
+    }
+
+    if (!figClub) return null;
+
+    const { data: figPlayableCourses, error: figPlayableCoursesError } = await supabase
+      .from("fig_playable_courses")
+      .select("*")
+      .eq("fig_club_id", figClub.id)
+      .eq("is_active", true)
+      .order("display_order", { ascending: true });
+
+    if (figPlayableCoursesError) throw figPlayableCoursesError;
+
+    const playableCourses = Array.isArray(figPlayableCourses) ? figPlayableCourses : [];
+
+    let figCourseTees = [];
+    if (playableCourses.length) {
+      const { data: fetchedFigCourseTees, error: figCourseTeesError } = await supabase
+        .from("fig_course_tees")
+        .select("*")
+        .in(
+          "fig_playable_course_id",
+          playableCourses.map((course) => course.id)
+        )
+        .eq("is_active", true);
+
+      if (figCourseTeesError) throw figCourseTeesError;
+      figCourseTees = fetchedFigCourseTees || [];
+    }
+
+    const teesByPlayableCourseId = new Map();
+    figCourseTees.forEach((tee) => {
+      const current = teesByPlayableCourseId.get(tee.fig_playable_course_id) || [];
+      current.push(tee);
+      teesByPlayableCourseId.set(tee.fig_playable_course_id, current);
+    });
+
+    const normalizedPlayableCourses = playableCourses
+      .map((course) => ({
+        ...course,
+        tees: (teesByPlayableCourseId.get(course.id) || [])
+          .map((tee) => ({
+            id: tee.id,
+            teeName: tee.tee_name,
+            teeColor: tee.tee_color || getTeeColor(tee.tee_name).label,
+            gender: tee.gender || "",
+            holesCount: Number(course.holes_count) || null,
+            courseRating: tee.course_rating,
+            slopeRating: tee.slope_rating,
+            parTotal: tee.par_total,
+            estimated: false
+          }))
+          .sort((left, right) => {
+            const leftOrder = getTeeSortOrder(left);
+            const rightOrder = getTeeSortOrder(right);
+            if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+            return getTeeDisplayName(left).localeCompare(getTeeDisplayName(right), "it");
+          })
+      }))
+      .sort(sortFigPlayableCourses);
+
+    const hasComplexCourses = normalizedPlayableCourses.some((course) =>
+      isComplexFigPlayableCourse(course)
+    );
+
+    return {
+      club: figClub,
+      playableCourses: normalizedPlayableCourses,
+      isComplex: hasComplexCourses
+    };
+  }, []);
+
+  const buildRouteDraftsFromFigMatch = useCallback(
+    (matchedClub) => {
+      const simplePlayableCourses = (matchedClub?.playableCourses || [])
+        .filter((course) => isSimpleFigPlayableCourse(course))
+        .sort(sortFigPlayableCourses);
+
+      const genericNineCourse = simplePlayableCourses.find(
+        (course) =>
+          Number(course.holes_count) === 9 &&
+          isGenericFigNineCourseName(course.name) &&
+          getFigCourseCompositionKind(course) === "single"
+      );
+      const genericEighteenCourse = simplePlayableCourses.find(
+        (course) =>
+          Number(course.holes_count) === 18 &&
+          isGenericFigEighteenCourseName(course.name) &&
+          getFigCourseCompositionKind(course) === "single"
+      );
+
+      const shouldCollapseSingleNineAndEighteen =
+        Boolean(genericNineCourse) &&
+        Boolean(genericEighteenCourse) &&
+        simplePlayableCourses.length === 2;
+
+      if (shouldCollapseSingleNineAndEighteen) {
+        return [
+          {
+            name: "Percorso",
+            holesCount: 9,
+            totalPar: Number(genericNineCourse.total_par || 0) || null,
+            holes: createRouteHoles(9),
+            figPlayableCourseId: genericNineCourse.id,
+            figSecondaryPlayableCourseId: genericEighteenCourse.id,
+            figCourseType: genericNineCourse.course_type,
+            figRouteFamily: genericNineCourse.route_family,
+            figTees: [
+              ...(Array.isArray(genericNineCourse.tees) ? genericNineCourse.tees : []),
+              ...(Array.isArray(genericEighteenCourse.tees) ? genericEighteenCourse.tees : [])
+            ]
+          }
+        ];
+      }
+
+      return simplePlayableCourses.map((course) => ({
+        name:
+          simplePlayableCourses.length === 1 &&
+          (isGenericFigNineCourseName(course.name) || isGenericFigEighteenCourseName(course.name))
+            ? "Percorso"
+            : normalizeWhitespace(course.name) || "Percorso",
+        holesCount: Number(course.holes_count) || 9,
+        totalPar: Number(course.total_par || 0) || null,
+        holes: createRouteHoles(Number(course.holes_count) || 9),
+        figPlayableCourseId: course.id,
+        figSecondaryPlayableCourseId: null,
+        figCourseType: course.course_type,
+        figRouteFamily: course.route_family,
+        figTees: Array.isArray(course.tees) ? course.tees : []
+      }));
+    },
+    [createRouteHoles]
+  );
+
+  const goToStepTwo = async () => {
     if (courseName.trim() === "") return;
-    setDialogStep(2);
+
+    setFigMatchLoading(true);
+    setFigMatchFeedback("");
+
+    try {
+      const matchedClub = await findStrongFigClubMatch(courseName);
+
+      if (!matchedClub) {
+        setFigMatchedClub(null);
+        setDialogStep(2);
+        return;
+      }
+
+      setFigMatchedClub(matchedClub);
+
+      if (matchedClub.isComplex) {
+        setClubCreationMode("multiple");
+        setFigMatchFeedback("Abbiamo trovato questo club nel catalogo FIG. Lo configuriamo noi.");
+        setDialogStep(7);
+        return;
+      }
+
+      const prefilledRouteDrafts = buildRouteDraftsFromFigMatch(matchedClub);
+
+      if (!prefilledRouteDrafts.length) {
+        setFigMatchedClub(null);
+        setDialogStep(2);
+        return;
+      }
+
+      setRouteCount(prefilledRouteDrafts.length);
+      setRouteDrafts(prefilledRouteDrafts);
+      setClubCreationMode("single");
+      setRouteName(prefilledRouteDrafts[0].name);
+      setCurrentRouteIndex(0);
+      setHolesCount(prefilledRouteDrafts[0].holesCount);
+      setHolesData(prefilledRouteDrafts[0].holes);
+      setCurrentHoleIndex(0);
+      setSelectedStepper("par");
+      setShowStrokeInfo(false);
+      setFigMatchFeedback(
+        "Abbiamo trovato questo club nel catalogo FIG. Mappiamo solo le buche del percorso."
+      );
+      setDialogStep(4);
+    } catch (error) {
+      setFigMatchedClub(null);
+      setFigMatchFeedback(error.message || "Errore nel controllo del catalogo FIG.");
+      setDialogStep(2);
+    } finally {
+      setFigMatchLoading(false);
+    }
   };
 
   const goBackToStepOne = () => {
+    setFigMatchedClub(null);
+    setFigMatchFeedback("");
     setDialogStep(1);
   };
 
@@ -1306,6 +1844,10 @@ function App() {
   };
 
   const goBackToRouteDetails = () => {
+    if (figMatchedClub?.club?.id && clubCreationMode === "single") {
+      setDialogStep(1);
+      return;
+    }
     setDialogStep(3);
   };
 
@@ -1445,7 +1987,12 @@ function App() {
         holesCount: structurePayload.holesCount,
         totalPar: structurePayload.totalPar,
         holes: structurePayload.holes,
-        displayOrder: index + 1
+        displayOrder: index + 1,
+        figPlayableCourseId: route.figPlayableCourseId || null,
+        figSecondaryPlayableCourseId: route.figSecondaryPlayableCourseId || null,
+        figCourseType: route.figCourseType || null,
+        figRouteFamily: route.figRouteFamily || null,
+        figTees: Array.isArray(route.figTees) ? route.figTees : []
       };
     });
 
@@ -1479,7 +2026,21 @@ function App() {
           data_status: "community",
           source_type: "user",
           is_complex: false,
-          playable: true
+          playable: true,
+          fig_club_id: figMatchedClub?.club?.id || null,
+          fig_match_status: figMatchedClub?.club?.id ? "matched" : "unmatched",
+          fig_match_confidence: figMatchedClub?.club?.id ? 1 : null,
+          fig_match_notes: figMatchedClub?.club?.id ? "Club creato da match forte catalogo FIG." : null,
+          fig_matched_at: figMatchedClub?.club?.id ? new Date().toISOString() : null,
+          city: figMatchedClub?.club?.city || null,
+          country: figMatchedClub?.club?.country || null,
+          source_payload: figMatchedClub?.club?.id
+            ? {
+                kind: "fig_match",
+                figClubName: figMatchedClub.club.name,
+                figClubId: figMatchedClub.club.id
+              }
+            : {}
         })
         .select("*")
         .single();
@@ -1503,7 +2064,16 @@ function App() {
             name: route.name,
             holes_count: route.holesCount,
             total_par: route.totalPar,
-            display_order: route.displayOrder
+            display_order: route.displayOrder,
+            source_payload: route.figPlayableCourseId
+              ? {
+                  kind: "fig_playable_course_match",
+                  figPlayableCourseId: route.figPlayableCourseId,
+                  figSecondaryPlayableCourseId: route.figSecondaryPlayableCourseId || null,
+                  figCourseType: route.figCourseType,
+                  figRouteFamily: route.figRouteFamily
+                }
+              : {}
           })
           .select("*")
           .single();
@@ -1526,6 +2096,29 @@ function App() {
 
         if (insertHolesError) {
           throw insertHolesError;
+        }
+
+        if (route.figTees.length) {
+          const routeTeesPayload = route.figTees.map((tee) => ({
+            route_id: insertedRoute.id,
+            tee_name: getTeeDisplayName(tee),
+            tee_color: getTeeColor(getTeeDisplayName(tee)).label,
+            gender: tee.gender || "",
+            holes_count: Number(tee.holesCount || route.holesCount) || null,
+            course_rating: tee.courseRating,
+            slope_rating: tee.slopeRating,
+            par_total: tee.parTotal,
+            estimated: false,
+            is_active: true
+          }));
+
+          const { error: insertRouteTeesError } = await supabase
+            .from("route_tees")
+            .insert(routeTeesPayload);
+
+          if (insertRouteTeesError) {
+            throw insertRouteTeesError;
+          }
         }
       }
 
@@ -7980,15 +8573,101 @@ function App() {
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => renderCourseRow(course))
             ) : (
-              <div style={homeSearchEmptyStateStyle}>
-                <div style={homeSearchEmptyTextStyle}>
-                  <div>Club non trovato</div>
-                </div>
+              <>
+                {searchFigSuggestionsLoading && (
+                  <div
+                    style={{
+                      color: colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5,
+                      padding: "4px 2px 12px 2px"
+                    }}
+                  >
+                    Cerco nel catalogo FIG...
+                  </div>
+                )}
 
-                <button onClick={openDialog} style={homeSearchEmptyCtaStyle}>
-                  Aggiungi club
-                </button>
-              </div>
+                {!searchFigSuggestionsLoading && searchFigSuggestions.length > 0 ? (
+                  <div
+                    style={{
+                      display: "grid",
+                      gap: "10px"
+                    }}
+                  >
+                    <div
+                      style={{
+                        color: colors.subtext,
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        letterSpacing: "0.02em",
+                        textTransform: "uppercase"
+                      }}
+                    >
+                      Suggerimenti FIG
+                    </div>
+
+                    {searchFigSuggestions.map((suggestion) => (
+                      <button
+                        key={suggestion.id}
+                        type="button"
+                        onClick={() =>
+                          openDialogWithPrefilledClubName(
+                            suggestion.displayName || suggestion.name,
+                            "Nome ufficiale trovato nel catalogo FIG."
+                          )
+                        }
+                        style={{
+                          width: "100%",
+                          textAlign: "left",
+                          padding: "14px 16px",
+                          backgroundColor: colors.cardSecondary,
+                          border: `1px solid ${colors.border}`,
+                          borderRadius: "14px",
+                          color: colors.text,
+                          cursor: "pointer",
+                          fontFamily: appFont
+                        }}
+                      >
+                        <div style={{ fontSize: "15px", fontWeight: 600 }}>
+                          {suggestion.displayName || suggestion.name}
+                        </div>
+                        {(suggestion.city || suggestion.region) && (
+                          <div
+                            style={{
+                              marginTop: "4px",
+                              color: colors.subtext,
+                              fontSize: "12px",
+                              lineHeight: 1.4
+                            }}
+                          >
+                            {[suggestion.city, suggestion.region].filter(Boolean).join(" · ")}
+                          </div>
+                        )}
+                      </button>
+                    ))}
+
+                    <button
+                      onClick={() => openDialogWithPrefilledClubName(searchQuery)}
+                      style={homeSearchEmptyCtaStyle}
+                    >
+                      Aggiungi questo club
+                    </button>
+                  </div>
+                ) : (
+                  <div style={homeSearchEmptyStateStyle}>
+                    <div style={homeSearchEmptyTextStyle}>
+                      <div>Club non trovato</div>
+                    </div>
+
+                    <button
+                      onClick={() => openDialogWithPrefilledClubName(searchQuery)}
+                      style={homeSearchEmptyCtaStyle}
+                    >
+                      Aggiungi club
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}
@@ -8053,7 +8732,11 @@ function App() {
                   type="text"
                   placeholder="Nome club"
                   value={courseName}
-                  onChange={(e) => setCourseName(e.target.value)}
+                  onChange={(e) => {
+                    setCourseName(e.target.value);
+                    setFigMatchedClub(null);
+                    setFigMatchFeedback("");
+                  }}
                   style={{
                     width: "100%",
                     padding: "13px 14px",
@@ -8068,12 +8751,103 @@ function App() {
                   }}
                 />
 
+                {figClubSuggestionsLoading && (
+                  <div
+                    style={{
+                      marginTop: "12px",
+                      color: colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Cerco nel catalogo FIG...
+                  </div>
+                )}
+
+                {!figClubSuggestionsLoading && figClubSuggestions.length > 0 && (
+                  <div style={{ marginTop: "12px" }}>
+                    <div
+                      style={{
+                        color: colors.subtext,
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        letterSpacing: "0.02em",
+                        textTransform: "uppercase",
+                        marginBottom: "8px"
+                      }}
+                    >
+                      Suggerimenti FIG
+                    </div>
+
+                    <div
+                      style={{
+                        display: "grid",
+                        gap: "8px"
+                      }}
+                    >
+                      {figClubSuggestions.map((suggestion) => (
+                        <button
+                          key={suggestion.id}
+                          type="button"
+                          onClick={() => {
+                            setCourseName(suggestion.displayName || suggestion.name);
+                            setFigMatchFeedback("Nome ufficiale trovato nel catalogo FIG.");
+                            setFigClubSuggestions([]);
+                          }}
+                          style={{
+                            width: "100%",
+                            textAlign: "left",
+                            padding: "12px 14px",
+                            backgroundColor: colors.cardSecondary,
+                            border: `1px solid ${colors.border}`,
+                            borderRadius: "12px",
+                            color: colors.text,
+                            cursor: "pointer",
+                            fontFamily: appFont
+                          }}
+                        >
+                          <div style={{ fontSize: "14px", fontWeight: 600 }}>
+                            {suggestion.displayName || suggestion.name}
+                          </div>
+                          {(suggestion.city || suggestion.region) && (
+                            <div
+                              style={{
+                                marginTop: "4px",
+                                color: colors.subtext,
+                                fontSize: "12px",
+                                lineHeight: 1.4
+                              }}
+                            >
+                              {[suggestion.city, suggestion.region].filter(Boolean).join(" · ")}
+                            </div>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {figMatchFeedback && (
+                  <div
+                    style={{
+                      marginTop: "12px",
+                      color: figMatchFeedback.toLowerCase().includes("errore")
+                        ? "#d64545"
+                        : colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {figMatchFeedback}
+                  </div>
+                )}
+
                 <button
                   onClick={goToStepTwo}
-                  disabled={courseName.trim() === ""}
-                  style={primaryButtonStyle(courseName.trim() !== "")}
+                  disabled={courseName.trim() === "" || figMatchLoading}
+                  style={primaryButtonStyle(courseName.trim() !== "" && !figMatchLoading)}
                 >
-                  Continua
+                  {figMatchLoading ? "Controllo in corso..." : "Continua"}
                 </button>
 
                 <button onClick={closeDialog} style={secondaryButtonStyle}>
@@ -8106,6 +8880,21 @@ function App() {
                 >
                   Scegli il tipo di club che vuoi aggiungere.
                 </p>
+
+                {figMatchFeedback && (
+                  <div
+                    style={{
+                      marginBottom: "16px",
+                      color: figMatchFeedback.toLowerCase().includes("errore")
+                        ? "#d64545"
+                        : colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {figMatchFeedback}
+                  </div>
+                )}
 
                 <div
                   style={{
@@ -8225,6 +9014,23 @@ function App() {
                   Per garantirti dati corretti, lo configuriamo noi.
                 </p>
 
+                {figMatchedClub?.club?.id && (
+                  <div
+                    style={{
+                      marginBottom: "14px",
+                      padding: "12px 14px",
+                      backgroundColor: colors.cardSecondary,
+                      border: `1px solid ${colors.border}`,
+                      borderRadius: "12px",
+                      color: colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Abbiamo già trovato questo club nel catalogo FIG: {figMatchedClub.club.name}
+                  </div>
+                )}
+
                 <p
                   style={{
                     color: colors.subtext,
@@ -8260,7 +9066,10 @@ function App() {
                   {clubRequestSubmitting ? "Invio in corso..." : "Richiedi questo club"}
                 </button>
 
-                <button onClick={() => setDialogStep(2)} style={secondaryButtonStyle}>
+                <button
+                  onClick={() => setDialogStep(figMatchedClub?.club?.id ? 1 : 2)}
+                  style={secondaryButtonStyle}
+                >
                   Indietro
                 </button>
 

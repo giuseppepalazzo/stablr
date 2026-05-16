@@ -19,7 +19,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "fig:validate": "node scripts/fig/validate-normalized.mjs",
-    "fig:seed": "node scripts/fig/seed-normalized.mjs"
+    "fig:seed": "node scripts/fig/seed-normalized.mjs",
+    "fig:scrape-raw": "node scripts/fig/fig-scrape-raw.mjs",
+    "fig:normalize-catalog": "node scripts/fig/fig-normalize-catalog.mjs",
+    "fig:seed-catalog": "node scripts/fig/seed-fig-catalog.mjs",
+    "fig:auto-match": "node scripts/fig/auto-match-fig-clubs.mjs"
   },
   "eslintConfig": {
     "extends": [
