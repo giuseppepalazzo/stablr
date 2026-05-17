@@ -26,6 +26,9 @@ const CARD_FAVORITE_SIZE = "40px";
 const CARD_FAVORITE_RADIUS = "20px";
 const SHEET_CLOSE_DURATION = 220;
 const WELCOME_NAME_HOLD_MS = 650;
+const SCORECARD_UPLOAD_BUCKET = "scorecard-submissions";
+const SCORECARD_FILE_ACCEPT =
+  ".heic,.HEIC,.heif,.HEIF,.jpg,.jpeg,.png,.pdf,image/heic,image/heif,image/jpeg,image/png,application/pdf";
 
 const stepperButtonStyle = {
   width: "44px",
@@ -427,6 +430,52 @@ function isGenericFigEighteenCourseName(name) {
   return normalizeCourseName(name) === "18 buche";
 }
 
+function getFigCompletionUnitTitle(routeDraft) {
+  if (!routeDraft) return "Percorso";
+
+  if (routeDraft.name === "Percorso" && Number(routeDraft.holesCount) === 9) {
+    return "9 buche";
+  }
+
+  if (routeDraft.name === "Percorso" && Number(routeDraft.holesCount) === 18) {
+    return "18 buche";
+  }
+
+  return normalizeWhitespace(routeDraft.name) || "Percorso";
+}
+
+function getFigCompletionUnitStateMeta(unitState, isUploader) {
+  switch (unitState) {
+    case "draft_private":
+      return {
+        label: isUploader ? "Bozza privata" : "In lavorazione",
+        description: isUploader
+          ? "Puoi continuare da dove avevi lasciato."
+          : "Un altro utente sta completando questo percorso.",
+        cta: isUploader ? "Continua bozza" : "Aggiungi foto di supporto"
+      };
+    case "in_review":
+      return {
+        label: "In revisione",
+        description: "Stablr sta verificando i dati del percorso.",
+        cta: "Aggiungi foto di supporto"
+      };
+    case "published":
+      return {
+        label: "Pronto",
+        description: "Questo percorso risulta gia' pubblicato.",
+        cta: "Usa percorso ufficiale"
+      };
+    case "missing":
+    default:
+      return {
+        label: "Da completare",
+        description: "Mappiamo le buche del percorso ufficiale FIG.",
+        cta: "Compila"
+      };
+  }
+}
+
 function sortFigPlayableCourses(left, right) {
   const leftOrder = Number.isFinite(Number(left?.display_order)) ? Number(left.display_order) : 999;
   const rightOrder = Number.isFinite(Number(right?.display_order)) ? Number(right.display_order) : 999;
@@ -488,6 +537,10 @@ function App() {
   const [figMatchFeedback, setFigMatchFeedback] = useState("");
   const [figClubSuggestions, setFigClubSuggestions] = useState([]);
   const [figClubSuggestionsLoading, setFigClubSuggestionsLoading] = useState(false);
+  const [figCompletionUnits, setFigCompletionUnits] = useState([]);
+  const [scorecardUploadContext, setScorecardUploadContext] = useState(null);
+  const [scorecardUploadLoading, setScorecardUploadLoading] = useState(false);
+  const [scorecardUploadStatusByCourseId, setScorecardUploadStatusByCourseId] = useState({});
   const [clubCreationMode, setClubCreationMode] = useState(null);
   const [routeCount, setRouteCount] = useState(null);
   const [routeDrafts, setRouteDrafts] = useState([]);
@@ -511,6 +564,8 @@ function App() {
   const [showTeeOptions, setShowTeeOptions] = useState(false);
   const [startHolePage, setStartHolePage] = useState(0);
   const startHoleSwipeRef = useRef({ x: null, y: null });
+  const scorecardFileInputRef = useRef(null);
+  const scorecardCameraInputRef = useRef(null);
 
   const [roundScores, setRoundScores] = useState([]);
   const [savedRounds, setSavedRounds] = useState([]);
@@ -1442,6 +1497,10 @@ function App() {
     setFigMatchFeedback("");
     setFigClubSuggestions([]);
     setFigClubSuggestionsLoading(false);
+    setFigCompletionUnits([]);
+    setScorecardUploadContext(null);
+    setScorecardUploadLoading(false);
+    setScorecardUploadStatusByCourseId({});
     setClubCreationMode(null);
     setRouteCount(null);
     setRouteDrafts([]);
@@ -1721,14 +1780,353 @@ function App() {
     [createRouteHoles]
   );
 
-  const goToStepTwo = async () => {
-    if (courseName.trim() === "") return;
+  const fetchFigCompletionUnits = useCallback(
+    async (matchedClub) => {
+      const routeDraftUnits = buildRouteDraftsFromFigMatch(matchedClub).map((routeDraft, index) => ({
+        id: `${routeDraft.figPlayableCourseId || "manual"}:${routeDraft.figSecondaryPlayableCourseId || "none"}:${index}`,
+        title: getFigCompletionUnitTitle(routeDraft),
+        routeDraft,
+        figPlayableCourseIds: [
+          routeDraft.figPlayableCourseId,
+          routeDraft.figSecondaryPlayableCourseId
+        ].filter(Boolean)
+      }));
 
+      if (!supabase || !routeDraftUnits.length) {
+        return routeDraftUnits.map((unit) => ({
+          ...unit,
+          state: "missing",
+          isUploader: false
+        }));
+      }
+
+      const figPlayableCourseIds = Array.from(
+        new Set(routeDraftUnits.flatMap((unit) => unit.figPlayableCourseIds))
+      );
+
+      if (!figPlayableCourseIds.length) {
+        return routeDraftUnits.map((unit) => ({
+          ...unit,
+          state: "missing",
+          isUploader: false
+        }));
+      }
+
+      const [{ data: versionsData, error: versionsError }, { data: submissionsData, error: submissionsError }] =
+        await Promise.all([
+          supabase
+            .from("scorecard_versions")
+            .select("fig_playable_course_id,status,club_id")
+            .in("fig_playable_course_id", figPlayableCourseIds)
+            .eq("status", "published"),
+          supabase
+            .from("scorecard_submissions")
+            .select("id,fig_playable_course_id,submitted_by,review_status")
+            .in("fig_playable_course_id", figPlayableCourseIds)
+            .in("review_status", ["draft_private", "in_review"])
+        ]);
+
+      if (versionsError) throw versionsError;
+      if (submissionsError) throw submissionsError;
+
+      const publishedCourseIds = new Set((versionsData || []).map((entry) => entry.fig_playable_course_id));
+      const activeSubmissionsByCourseId = new Map(
+        (submissionsData || []).map((entry) => [entry.fig_playable_course_id, entry])
+      );
+
+      return routeDraftUnits.map((unit) => {
+        const published = unit.figPlayableCourseIds.some((id) => publishedCourseIds.has(id));
+        if (published) {
+          return {
+            ...unit,
+            state: "published",
+            isUploader: false,
+            submissionId: null
+          };
+        }
+
+        const activeSubmission = unit.figPlayableCourseIds
+          .map((id) => activeSubmissionsByCourseId.get(id))
+          .find(Boolean);
+
+        if (!activeSubmission) {
+          return {
+            ...unit,
+            state: "missing",
+            isUploader: false,
+            submissionId: null
+          };
+        }
+
+        const isUploader = activeSubmission.submitted_by === session?.user?.id;
+
+        if (activeSubmission.review_status === "draft_private") {
+          return {
+            ...unit,
+            state: "draft_private",
+            isUploader,
+            submissionId: activeSubmission.id
+          };
+        }
+
+        return {
+          ...unit,
+          state: "in_review",
+          isUploader,
+          submissionId: activeSubmission.id
+        };
+      });
+    },
+    [buildRouteDraftsFromFigMatch, session?.user?.id]
+  );
+
+  const openFigCompletionUnit = useCallback(
+    (unit) => {
+      if (!unit?.routeDraft) return;
+
+      const routeDraft = unit.routeDraft;
+      setRouteCount(1);
+      setRouteDrafts([routeDraft]);
+      setRouteName(routeDraft.name);
+      setCurrentRouteIndex(0);
+      setHolesCount(routeDraft.holesCount);
+      setHolesData(routeDraft.holes);
+      setCurrentHoleIndex(0);
+      setSelectedStepper("par");
+      setShowStrokeInfo(false);
+      setClubCreationMode("single");
+      setDialogStep(4);
+    },
+    []
+  );
+
+  const openScorecardPicker = useCallback((context, pickerMode = "library") => {
+    setScorecardUploadContext(context);
+    const inputRef =
+      pickerMode === "camera" ? scorecardCameraInputRef.current : scorecardFileInputRef.current;
+    if (inputRef) {
+      inputRef.value = "";
+      inputRef.click();
+    }
+  }, []);
+
+  const createOrReuseScorecardSubmission = useCallback(
+    async (context) => {
+      if (!supabase || !session?.user?.id) {
+        throw new Error("Serve una sessione attiva per caricare la scorecard.");
+      }
+
+      if (context?.submissionId) {
+        return {
+          submissionId: context.submissionId,
+          createdNewSubmission: false
+        };
+      }
+
+      const payload = {
+        club_id: context.clubId || null,
+        fig_club_id: context.figClubId,
+        fig_playable_course_id: context.figPlayableCourseId,
+        submitted_by: session.user.id,
+        submission_type: "photo",
+        review_status: "draft_private",
+        source_type: "photo_upload",
+        notes: context.notes || null,
+        submitted_payload: {
+          clubName: context.clubName || null,
+          courseName: context.courseName || null,
+          origin: context.origin || "dialog_add_club"
+        }
+      };
+
+      const { data: insertedSubmission, error: insertSubmissionError } = await supabase
+        .from("scorecard_submissions")
+        .insert(payload)
+        .select("id")
+        .single();
+
+      if (!insertSubmissionError && insertedSubmission?.id) {
+        return {
+          submissionId: insertedSubmission.id,
+          createdNewSubmission: true
+        };
+      }
+
+      const errorMessage = String(insertSubmissionError?.message || "").toLowerCase();
+      const maybeUniqueConflict =
+        insertSubmissionError?.code === "23505" ||
+        errorMessage.includes("duplicate") ||
+        errorMessage.includes("unique");
+
+      if (!maybeUniqueConflict) {
+        throw insertSubmissionError;
+      }
+
+      const { data: existingSubmission, error: existingSubmissionError } = await supabase
+        .from("scorecard_submissions")
+        .select("id")
+        .eq("fig_playable_course_id", context.figPlayableCourseId)
+        .in("review_status", ["draft_private", "in_review"])
+        .limit(1)
+        .maybeSingle();
+
+      if (existingSubmissionError) throw existingSubmissionError;
+      if (!existingSubmission?.id) throw insertSubmissionError;
+      return {
+        submissionId: existingSubmission.id,
+        createdNewSubmission: false
+      };
+    },
+    [session?.user?.id]
+  );
+
+  const handleScorecardFilesSelected = useCallback(
+    async (event) => {
+      const files = Array.from(event.target?.files || []);
+      if (!files.length || !scorecardUploadContext) return;
+      if (!supabase || !session?.user?.id) {
+        setFigMatchFeedback("Serve una sessione attiva per caricare la scorecard.");
+        return;
+      }
+
+      const targetCourseId = scorecardUploadContext.figPlayableCourseId;
+      setScorecardUploadLoading(true);
+      setScorecardUploadStatusByCourseId((prev) => ({
+        ...prev,
+        [targetCourseId]: {
+          tone: "loading",
+          message: "Caricamento in corso..."
+        }
+      }));
+      let createdNewSubmission = false;
+      let createdSubmissionId = null;
+      let uploadedStoragePaths = [];
+
+      try {
+        const {
+          submissionId,
+          createdNewSubmission: didCreateNewSubmission
+        } = await createOrReuseScorecardSubmission(scorecardUploadContext);
+        createdNewSubmission = didCreateNewSubmission;
+        createdSubmissionId = submissionId;
+        const uploadedImageRows = [];
+
+        for (let index = 0; index < files.length; index += 1) {
+          const file = files[index];
+          const safeFileName = String(file.name || `scorecard-${index + 1}.jpg`)
+            .trim()
+            .replace(/[^a-zA-Z0-9._-]+/g, "-");
+          const storagePath = `${session.user.id}/${submissionId}/${Date.now()}-${index + 1}-${safeFileName}`;
+
+          const { error: uploadError } = await supabase.storage
+            .from(SCORECARD_UPLOAD_BUCKET)
+            .upload(storagePath, file, {
+              upsert: false
+            });
+
+          if (uploadError) {
+            throw uploadError;
+          }
+
+          uploadedStoragePaths.push(storagePath);
+
+          uploadedImageRows.push({
+            submission_id: submissionId,
+            uploaded_by: session.user.id,
+            storage_path: storagePath,
+            image_order: index + 1,
+            image_kind: "scorecard"
+          });
+        }
+
+        if (uploadedImageRows.length) {
+          const { error: insertImagesError } = await supabase
+            .from("scorecard_submission_images")
+            .insert(uploadedImageRows);
+
+          if (insertImagesError) throw insertImagesError;
+        }
+
+        const successMessage =
+          files.length > 1
+            ? `${files.length} file caricati. Li useremo per completare questo percorso.`
+            : "Scorecard caricata. La useremo per completare questo percorso.";
+        setScorecardUploadStatusByCourseId((prev) => ({
+          ...prev,
+          [targetCourseId]: {
+            tone: "success",
+            message: successMessage
+          }
+        }));
+
+        if (scorecardUploadContext.origin === "complex_request") {
+          setClubRequestFeedback("");
+        } else {
+          setFigMatchFeedback("");
+        }
+
+        if (figMatchedClub?.club?.id) {
+          const refreshedUnits = await fetchFigCompletionUnits(figMatchedClub);
+          setFigCompletionUnits(refreshedUnits);
+        }
+      } catch (error) {
+        const normalizedErrorMessage = String(error?.message || "").toLowerCase();
+
+        if (uploadedStoragePaths.length) {
+          try {
+            await supabase.storage.from(SCORECARD_UPLOAD_BUCKET).remove(uploadedStoragePaths);
+          } catch (cleanupStorageError) {}
+        }
+
+        if (createdNewSubmission && createdSubmissionId) {
+          try {
+            await supabase.from("scorecard_submissions").delete().eq("id", createdSubmissionId);
+          } catch (cleanupSubmissionError) {}
+        }
+
+        const userMessage =
+          normalizedErrorMessage.includes("bucket") ||
+          normalizedErrorMessage.includes("storage") ||
+          normalizedErrorMessage.includes("row-level security")
+            ? "Stiamo ancora preparando il caricamento scorecard. Tra poco sara' disponibile."
+            : "Qualcosa non e' andato come previsto. Riprova tra poco.";
+        setScorecardUploadStatusByCourseId((prev) => ({
+          ...prev,
+          [targetCourseId]: {
+            tone: "error",
+            message: userMessage
+          }
+        }));
+
+        if (scorecardUploadContext.origin === "complex_request") {
+          setClubRequestFeedback(userMessage);
+        } else {
+          setFigMatchFeedback(userMessage);
+        }
+      } finally {
+        setScorecardUploadLoading(false);
+        setScorecardUploadContext(null);
+      }
+    },
+    [
+      createOrReuseScorecardSubmission,
+      fetchFigCompletionUnits,
+      figMatchedClub,
+      scorecardUploadContext,
+      session?.user?.id
+    ]
+  );
+
+  const startFigMatchFlow = useCallback(async (clubNameInput) => {
+    const normalizedClubName = normalizeWhitespace(clubNameInput);
+    if (!normalizedClubName) return;
+
+    setCourseName(normalizedClubName);
     setFigMatchLoading(true);
     setFigMatchFeedback("");
 
     try {
-      const matchedClub = await findStrongFigClubMatch(courseName);
+      const matchedClub = await findStrongFigClubMatch(normalizedClubName);
 
       if (!matchedClub) {
         setFigMatchedClub(null);
@@ -1753,20 +2151,16 @@ function App() {
         return;
       }
 
+      const completionUnits = await fetchFigCompletionUnits(matchedClub);
+
       setRouteCount(prefilledRouteDrafts.length);
       setRouteDrafts(prefilledRouteDrafts);
+      setFigCompletionUnits(completionUnits);
       setClubCreationMode("single");
-      setRouteName(prefilledRouteDrafts[0].name);
-      setCurrentRouteIndex(0);
-      setHolesCount(prefilledRouteDrafts[0].holesCount);
-      setHolesData(prefilledRouteDrafts[0].holes);
-      setCurrentHoleIndex(0);
-      setSelectedStepper("par");
-      setShowStrokeInfo(false);
       setFigMatchFeedback(
         "Abbiamo trovato questo club nel catalogo FIG. Mappiamo solo le buche del percorso."
       );
-      setDialogStep(4);
+      setDialogStep(9);
     } catch (error) {
       setFigMatchedClub(null);
       setFigMatchFeedback(error.message || "Errore nel controllo del catalogo FIG.");
@@ -1774,10 +2168,25 @@ function App() {
     } finally {
       setFigMatchLoading(false);
     }
+  }, [buildRouteDraftsFromFigMatch, fetchFigCompletionUnits, findStrongFigClubMatch]);
+
+  const goToStepTwo = async () => {
+    if (courseName.trim() === "") return;
+    await startFigMatchFlow(courseName);
+  };
+
+  const openDialogFromFigSuggestion = async (clubName, feedback = "") => {
+    resetDialogState();
+    const normalizedClubName = normalizeWhitespace(clubName);
+    setCourseName(normalizedClubName);
+    setFigMatchFeedback(feedback);
+    setShowDialog(true);
+    await startFigMatchFlow(normalizedClubName);
   };
 
   const goBackToStepOne = () => {
     setFigMatchedClub(null);
+    setFigCompletionUnits([]);
     setFigMatchFeedback("");
     setDialogStep(1);
   };
@@ -1845,7 +2254,7 @@ function App() {
 
   const goBackToRouteDetails = () => {
     if (figMatchedClub?.club?.id && clubCreationMode === "single") {
-      setDialogStep(1);
+      setDialogStep(9);
       return;
     }
     setDialogStep(3);
@@ -8611,7 +9020,7 @@ function App() {
                         key={suggestion.id}
                         type="button"
                         onClick={() =>
-                          openDialogWithPrefilledClubName(
+                          openDialogFromFigSuggestion(
                             suggestion.displayName || suggestion.name,
                             "Nome ufficiale trovato nel catalogo FIG."
                           )
@@ -8987,6 +9396,287 @@ function App() {
               </>
             )}
 
+            {dialogStep === 9 && (
+              <>
+                <h3
+                  style={{
+                    marginTop: 0,
+                    marginBottom: "8px",
+                    fontSize: "24px",
+                    fontWeight: 700
+                  }}
+                >
+                  Percorsi ufficiali FIG
+                </h3>
+
+                <p
+                  style={{
+                    color: colors.subtext,
+                    fontSize: "14px",
+                    marginTop: 0,
+                    marginBottom: "18px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  Per questo club usiamo solo i percorsi ufficiali presenti nel catalogo FIG.
+                </p>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gap: "12px",
+                    marginBottom: "18px"
+                  }}
+                >
+                  {figCompletionUnits.map((unit) => {
+                    const stateMeta = getFigCompletionUnitStateMeta(unit.state, unit.isUploader);
+                    const canOpenMapping = unit.state === "missing" || (unit.state === "draft_private" && unit.isUploader);
+                    const photoActionLabel =
+                      unit.state === "draft_private" && !unit.isUploader
+                        ? "Aggiungi foto di supporto"
+                        : unit.state === "in_review"
+                          ? "Aggiungi foto di supporto"
+                          : "Carica scorecard";
+                    const uploadStatus = scorecardUploadStatusByCourseId[unit.routeDraft?.figPlayableCourseId];
+
+                    return (
+                      <div
+                        key={unit.id}
+                        style={{
+                          backgroundColor: colors.inputBg,
+                          border: `1px solid ${colors.inputBorder}`,
+                          borderRadius: "14px",
+                          padding: "14px"
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "flex-start",
+                            gap: "12px"
+                          }}
+                        >
+                          <div>
+                            <div style={{ fontSize: "16px", fontWeight: 700 }}>
+                              {unit.title}
+                            </div>
+                            <div
+                              style={{
+                                marginTop: "4px",
+                                color: colors.subtext,
+                                fontSize: "13px",
+                                lineHeight: 1.4
+                              }}
+                            >
+                              {[
+                                Number(unit.routeDraft?.holesCount) === 9 ? "9 buche" : "18 buche",
+                                Number.isFinite(Number(unit.routeDraft?.totalPar))
+                                  ? `Par ${unit.routeDraft.totalPar}`
+                                  : null
+                              ]
+                                .filter(Boolean)
+                                .join(" • ")}
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              padding: "6px 10px",
+                              borderRadius: "999px",
+                              border: `1px solid ${colors.border}`,
+                              fontSize: "12px",
+                              fontWeight: 600,
+                              whiteSpace: "nowrap",
+                              color:
+                                unit.state === "missing"
+                                  ? colors.subtext
+                                  : unit.state === "published"
+                                    ? colors.green
+                                    : colors.text,
+                              backgroundColor:
+                                unit.state === "published" ? colors.greenDark : colors.cardSecondary
+                            }}
+                          >
+                            {stateMeta.label}
+                          </div>
+                        </div>
+
+                        <div
+                          style={{
+                            marginTop: "10px",
+                            color: colors.subtext,
+                            fontSize: "13px",
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {stateMeta.description}
+                        </div>
+
+                        <div
+                          style={{
+                            display: "grid",
+                            gap: "10px",
+                            marginTop: "14px"
+                          }}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (canOpenMapping) {
+                                openFigCompletionUnit(unit);
+                                return;
+                              }
+
+                              setFigMatchFeedback(
+                                unit.state === "published"
+                                  ? "Questo percorso risulta gia' pubblicato nel layer Stablr."
+                                  : "Questo percorso e' gia' in lavorazione."
+                              );
+                            }}
+                            style={
+                              canOpenMapping
+                                ? {
+                                    ...primaryButtonStyle(true),
+                                    marginBottom: 0
+                                  }
+                                : {
+                                    ...secondaryButtonStyle,
+                                    marginBottom: 0,
+                                    opacity: 0.8
+                                  }
+                            }
+                          >
+                            {canOpenMapping ? stateMeta.cta : stateMeta.label}
+                          </button>
+
+                          {unit.state !== "published" && (
+                            <div
+                              style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr 44px",
+                                gap: "10px"
+                              }}
+                            >
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  openScorecardPicker({
+                                    origin: "fig_unit",
+                                    figClubId: figMatchedClub?.club?.id,
+                                    figPlayableCourseId: unit.routeDraft?.figPlayableCourseId,
+                                    clubName: figMatchedClub?.club?.name,
+                                    courseName: unit.title,
+                                    submissionId: unit.submissionId || null,
+                                    notes:
+                                      unit.state === "missing"
+                                        ? "Upload scorecard da percorso FIG non ancora mappato."
+                                        : "Foto di supporto aggiunta a submission esistente."
+                                  })
+                                }
+                                disabled={scorecardUploadLoading}
+                                style={{
+                                  ...secondaryButtonStyle,
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  gap: "8px",
+                                  padding: "10px 12px",
+                                  fontSize: "13px",
+                                  marginBottom: 0
+                                }}
+                              >
+                                {scorecardUploadLoading && scorecardUploadContext?.figPlayableCourseId === unit.routeDraft?.figPlayableCourseId
+                                  ? "Caricamento..."
+                                  : photoActionLabel}
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  openScorecardPicker(
+                                    {
+                                      origin: "fig_unit",
+                                      figClubId: figMatchedClub?.club?.id,
+                                      figPlayableCourseId: unit.routeDraft?.figPlayableCourseId,
+                                      clubName: figMatchedClub?.club?.name,
+                                      courseName: unit.title,
+                                      submissionId: unit.submissionId || null,
+                                      notes:
+                                        unit.state === "missing"
+                                          ? "Upload scorecard da percorso FIG non ancora mappato."
+                                          : "Foto di supporto aggiunta a submission esistente."
+                                    },
+                                    "camera"
+                                  )
+                                }
+                                disabled={scorecardUploadLoading}
+                                style={{
+                                  ...secondaryButtonStyle,
+                                  marginBottom: 0,
+                                  padding: 0,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontSize: "18px"
+                                }}
+                                aria-label="Scatta foto"
+                                title="Scatta foto"
+                              >
+                                <span aria-hidden="true">📷</span>
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {uploadStatus && (
+                          <div
+                            style={{
+                              marginTop: "10px",
+                              color:
+                                uploadStatus.tone === "success"
+                                  ? colors.green
+                                  : uploadStatus.tone === "error"
+                                    ? "#d64545"
+                                    : colors.subtext,
+                              fontSize: "12px",
+                              lineHeight: 1.5
+                            }}
+                          >
+                            {uploadStatus.message}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {figMatchFeedback && (
+                  <div
+                    style={{
+                      marginBottom: "14px",
+                      color: figMatchFeedback.toLowerCase().includes("errore")
+                        ? "#d64545"
+                        : colors.subtext,
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {figMatchFeedback}
+                  </div>
+                )}
+
+                <button onClick={goBackToStepOne} style={secondaryButtonStyle}>
+                  Indietro
+                </button>
+
+                <button onClick={closeDialog} style={subtleButtonStyle}>
+                  Annulla
+                </button>
+
+              </>
+            )}
+
             {dialogStep === 7 && (
               <>
                 <h3
@@ -9013,6 +9703,131 @@ function App() {
                   <br />
                   Per garantirti dati corretti, lo configuriamo noi.
                 </p>
+
+                {figMatchedClub?.playableCourses?.length > 0 && (
+                  <div
+                    style={{
+                      display: "grid",
+                      gap: "10px",
+                      marginBottom: "14px"
+                    }}
+                  >
+                    {figMatchedClub.playableCourses.map((course) => (
+                      <div
+                        key={course.id}
+                        style={{
+                          padding: "12px 14px",
+                          backgroundColor: colors.cardSecondary,
+                          border: `1px solid ${colors.border}`,
+                          borderRadius: "12px"
+                        }}
+                      >
+                        <div style={{ fontSize: "14px", fontWeight: 600, color: colors.text }}>
+                          {getFigDisplayName(course.name) || "Percorso ufficiale"}
+                        </div>
+                        <div
+                          style={{
+                            marginTop: "4px",
+                            color: colors.subtext,
+                            fontSize: "12px",
+                            lineHeight: 1.4
+                          }}
+                        >
+                          {[`${course.holes_count} buche`, course.total_par ? `Par ${course.total_par}` : null]
+                            .filter(Boolean)
+                            .join(" • ")}
+                        </div>
+
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 44px",
+                            gap: "10px",
+                            marginTop: "12px"
+                          }}
+                        >
+                          <button
+                            type="button"
+                            onClick={() =>
+                              openScorecardPicker({
+                                origin: "complex_request",
+                                figClubId: figMatchedClub?.club?.id,
+                                figPlayableCourseId: course.id,
+                                clubName: figMatchedClub?.club?.name,
+                                courseName: getFigDisplayName(course.name) || "Percorso ufficiale",
+                                notes: "Upload scorecard da club complesso FIG."
+                              })
+                            }
+                            disabled={scorecardUploadLoading}
+                            style={{
+                              ...secondaryButtonStyle,
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: "8px",
+                              padding: "10px 12px",
+                              fontSize: "13px",
+                              marginBottom: 0
+                            }}
+                          >
+                            {scorecardUploadLoading && scorecardUploadContext?.figPlayableCourseId === course.id
+                              ? "Caricamento..."
+                              : "Carica scorecard"}
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() =>
+                              openScorecardPicker(
+                                {
+                                  origin: "complex_request",
+                                  figClubId: figMatchedClub?.club?.id,
+                                  figPlayableCourseId: course.id,
+                                  clubName: figMatchedClub?.club?.name,
+                                  courseName: getFigDisplayName(course.name) || "Percorso ufficiale",
+                                  notes: "Upload scorecard da club complesso FIG."
+                                },
+                                "camera"
+                              )
+                            }
+                            disabled={scorecardUploadLoading}
+                            style={{
+                              ...secondaryButtonStyle,
+                              marginBottom: 0,
+                              padding: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "18px"
+                            }}
+                            aria-label="Scatta foto"
+                            title="Scatta foto"
+                          >
+                            <span aria-hidden="true">📷</span>
+                          </button>
+                        </div>
+
+                        {scorecardUploadStatusByCourseId[course.id] && (
+                          <div
+                            style={{
+                              marginTop: "10px",
+                              color:
+                                scorecardUploadStatusByCourseId[course.id].tone === "success"
+                                  ? colors.green
+                                  : scorecardUploadStatusByCourseId[course.id].tone === "error"
+                                    ? "#d64545"
+                                    : colors.subtext,
+                              fontSize: "12px",
+                              lineHeight: 1.5
+                            }}
+                          >
+                            {scorecardUploadStatusByCourseId[course.id].message}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {figMatchedClub?.club?.id && (
                   <div
@@ -9750,6 +10565,24 @@ function App() {
                 </button>
               </>
             )}
+
+            <input
+              ref={scorecardFileInputRef}
+              type="file"
+              accept={SCORECARD_FILE_ACCEPT}
+              multiple
+              onChange={handleScorecardFilesSelected}
+              style={{ display: "none" }}
+            />
+
+            <input
+              ref={scorecardCameraInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onChange={handleScorecardFilesSelected}
+              style={{ display: "none" }}
+            />
           </div>
         </div>
       )}
