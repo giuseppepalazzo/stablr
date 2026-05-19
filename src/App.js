@@ -962,14 +962,14 @@ function App() {
     if (!showDialog || dialogStep !== 1) return undefined;
 
     const timeoutId = window.setTimeout(() => {
-      if (courseNameInputRef.current) {
+      if (courseNameInputRef.current && !officialClubNameLocked) {
         courseNameInputRef.current.focus();
         courseNameInputRef.current.select();
       }
     }, 40);
 
     return () => window.clearTimeout(timeoutId);
-  }, [dialogStep, showDialog]);
+  }, [dialogStep, officialClubNameLocked, showDialog]);
 
   const loadFigMatchedClubById = useCallback(async (figClubId) => {
     if (!supabase || !figClubId) return null;
@@ -1329,6 +1329,18 @@ function App() {
       return normalizePlaceholderClubRecord(placeholderClub);
     },
     [normalizePlaceholderClubRecord, savedCourses]
+  );
+
+  const findExistingLocalCourseByFigClubId = useCallback(
+    (figClubId) => {
+      if (!figClubId) return null;
+      return (
+        savedCourses.find(
+          (course) => String(course.figClubId || "").trim() === String(figClubId || "").trim()
+        ) || null
+      );
+    },
+    [savedCourses]
   );
 
   const findExistingPublicPlaceholdersByFigClubIds = useCallback(
@@ -1927,7 +1939,7 @@ function App() {
     resetHomeSearchState();
   }, [resetDialogState, resetHomeSearchState]);
 
-  const openComplexClubRequestDialog = async (club) => {
+  async function openComplexClubRequestDialog(club) {
     resetDialogState();
     setCourseName(club.name || "");
 
@@ -1965,7 +1977,7 @@ function App() {
 
     setDialogStep(7);
     setShowDialog(true);
-  };
+  }
 
   const updateSummaryHoleField = (routeIndex, holeIndex, field, value) => {
     setRouteDrafts((prev) =>
@@ -2835,7 +2847,54 @@ function App() {
     ]
   );
 
-  const startFigMatchFlow = useCallback(async (clubNameInput) => {
+  async function openCourseFromSearch(course) {
+    if (course?.playable) {
+      const hasPlayableRoutes = Array.isArray(course?.routes) && course.routes.some((route) => route.holes?.length);
+
+      if (!hasPlayableRoutes) {
+        return;
+      }
+      const hasOfficialCombinations = Array.isArray(course?.routeCombinations) && course.routeCombinations.length > 0;
+      const hasEighteenHoleRoutes = Array.isArray(course?.routes)
+        && course.routes.some((route) => Number(route.holesCount) === 18 && route.holes?.length);
+      const nineHoleRoutes = Array.isArray(course?.routes)
+        ? course.routes.filter((route) => Number(route.holesCount) === 9 && route.holes?.length)
+        : [];
+      const hasNineHoleRoutes = nineHoleRoutes.length > 0;
+      const defaultCompetitionHoles =
+        hasOfficialCombinations || hasEighteenHoleRoutes
+          ? 18
+          : nineHoleRoutes.length === 1
+            ? 9
+            : hasNineHoleRoutes
+              ? 18
+              : 9;
+
+      setOpenedCourse(course);
+      setShowRoundSetup(true);
+      setActiveSheet(null);
+      setSheetClosing(false);
+      setShowRoundsHistory(false);
+      setShowManualCombinationBuilder(false);
+      setShowOfficialCombinationOptions(false);
+      setShowRouteOptions(false);
+      setShowTeeOptions(false);
+      setRoundAlreadySaved(false);
+      setManualReceivedShots({});
+      resetHomeSearchState();
+      setRoundSetup({
+        ...createInitialRoundSetup(),
+        totalCompetitionHoles: defaultCompetitionHoles,
+        ...buildRoundChoiceDefaults(course, defaultCompetitionHoles)
+      });
+      setRoundScores([]);
+      return;
+    }
+
+    openComplexClubRequestDialog(course);
+  }
+
+  async function startFigMatchFlow(clubNameInput) {
     const normalizedClubName = normalizeWhitespace(clubNameInput);
     if (!normalizedClubName) return;
 
@@ -2850,6 +2909,17 @@ function App() {
         setOfficialClubNameLocked(false);
         setFigMatchedClub(null);
         setDialogStep(2);
+        return;
+      }
+
+      const existingLocalCourse = matchedClub?.club?.id
+        ? findExistingLocalCourseByFigClubId(matchedClub.club.id)
+        : null;
+
+      if (existingLocalCourse) {
+        setShowDialog(false);
+        resetDialogState();
+        openCourseFromSearch(existingLocalCourse);
         return;
       }
 
@@ -2902,13 +2972,7 @@ function App() {
     } finally {
       setFigMatchLoading(false);
     }
-  }, [
-    buildRouteDraftsFromFigMatch,
-    fetchComplexFigCourseUnits,
-    fetchFigCompletionUnits,
-    findExistingPublicPlaceholderByFigClubId,
-    findStrongFigClubMatch
-  ]);
+  }
 
   const goToStepTwo = async () => {
     if (courseName.trim() === "") return;
@@ -3997,15 +4061,6 @@ function App() {
     });
     setRoundScores([]);
   }, [buildRoundChoiceDefaults, resetHomeSearchState]);
-
-  const openCourseFromSearch = async (course) => {
-    if (course?.playable) {
-      prepareRoundSetup(course);
-      return;
-    }
-
-    openComplexClubRequestDialog(course);
-  };
 
   const openPrivateRoundSetupForComplexClub = useCallback(
     async (clubLike, { closeCurrentDialog = false } = {}) => {
@@ -10259,6 +10314,7 @@ function App() {
                           type="button"
                           onClick={() => {
                             setCourseName(suggestion.displayName || suggestion.name);
+                            setOfficialClubNameLocked(true);
                             setFigMatchFeedback("Nome ufficiale trovato nel catalogo FIG.");
                             setFigClubSuggestions([]);
                           }}
