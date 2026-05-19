@@ -764,6 +764,14 @@ function App() {
     [isLight]
   );
 
+  const supportsFinePointer = useMemo(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return false;
+    }
+
+    return window.matchMedia("(pointer: fine)").matches;
+  }, []);
+
   const themedStepperButtonStyle = useMemo(
     () => ({
       ...stepperButtonStyle,
@@ -8636,6 +8644,49 @@ function App() {
                 </div>
               </div>
             </div>
+            {supportsFinePointer && startHolePages.length > 1 && (
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "10px"
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setStartHolePage((prev) => Math.max(0, prev - 1))}
+                  disabled={visibleStartHolePage === 0}
+                  style={{
+                    ...secondaryButtonStyle,
+                    marginTop: 0,
+                    width: "auto",
+                    minWidth: "96px",
+                    opacity: visibleStartHolePage === 0 ? 0.5 : 1,
+                    cursor: visibleStartHolePage === 0 ? "not-allowed" : "pointer"
+                  }}
+                >
+                  ←
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setStartHolePage((prev) => Math.min(maxStartHolePage, prev + 1))}
+                  disabled={visibleStartHolePage === maxStartHolePage}
+                  style={{
+                    ...secondaryButtonStyle,
+                    marginTop: 0,
+                    width: "auto",
+                    minWidth: "96px",
+                    opacity: visibleStartHolePage === maxStartHolePage ? 0.5 : 1,
+                    cursor: visibleStartHolePage === maxStartHolePage ? "not-allowed" : "pointer"
+                  }}
+                >
+                  →
+                </button>
+              </div>
+            )}
           </>
         )}
 
