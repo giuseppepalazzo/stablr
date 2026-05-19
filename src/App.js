@@ -583,11 +583,32 @@ function matchesClubSearchQuery(query, candidateName) {
   return normalizedCandidate.includes(normalizedQuery);
 }
 
+function buildPlaceholderSourcePayloadWithPrivateReviewCourse(
+  sourcePayload,
+  figPlayableCourseId
+) {
+  const nextCourseId = String(figPlayableCourseId || "").trim();
+  const existingCourseIds = Array.isArray(sourcePayload?.privateReviewPlayableCourseIds)
+    ? sourcePayload.privateReviewPlayableCourseIds
+        .map((value) => String(value || "").trim())
+        .filter(Boolean)
+    : [];
+
+  return {
+    ...(sourcePayload || {}),
+    privatePreview: true,
+    privateReviewPlayableCourseIds: nextCourseId
+      ? Array.from(new Set([...existingCourseIds, nextCourseId]))
+      : existingCourseIds
+  };
+}
+
 function App() {
   const [showDialog, setShowDialog] = useState(false);
   const [dialogStep, setDialogStep] = useState(1);
 
   const [courseName, setCourseName] = useState("");
+  const [officialClubNameLocked, setOfficialClubNameLocked] = useState(false);
   const [figMatchedClub, setFigMatchedClub] = useState(null);
   const [figMatchLoading, setFigMatchLoading] = useState(false);
   const [figMatchFeedback, setFigMatchFeedback] = useState("");
@@ -638,6 +659,7 @@ function App() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFigSuggestions, setSearchFigSuggestions] = useState([]);
+  const [searchPublicPlaceholderCourses, setSearchPublicPlaceholderCourses] = useState([]);
   const [searchFigSuggestionsLoading, setSearchFigSuggestionsLoading] = useState(false);
   const [activeCourseCardId, setActiveCourseCardId] = useState(null);
   const [searchEmptyHintPulse, setSearchEmptyHintPulse] = useState(false);
@@ -751,6 +773,8 @@ function App() {
     }),
     [colors]
   );
+
+  const mobileInputFontSize = "16px";
 
   const modalCloseButtonStyle = useMemo(
     () => ({
@@ -1251,6 +1275,160 @@ function App() {
     return normalizedCourses;
   }, []);
 
+  const normalizePlaceholderClubRecord = useCallback((club) => {
+    if (!club?.id) return null;
+
+    return {
+      id: club.id,
+      name: club.name,
+      nameNormalized: club.name_normalized,
+      figClubId: club.fig_club_id || club.source_payload?.figClubId || null,
+      dataStatus: club.data_status || "community",
+      sourceType: club.source_type || "user",
+      isComplex: Boolean(club.is_complex),
+      clubTaxonomy: club.club_taxonomy || null,
+      playable: club.playable !== false,
+      sourcePayload: club.source_payload || null,
+      favorite: false,
+      totalPar: null,
+      holesCount: null,
+      holes: [],
+      createdAt: club.created_at,
+      createdBy: club.created_by,
+      city: club.city,
+      country: club.country,
+      routeCount: 0,
+      routes: [],
+      routeCombinations: [],
+      primaryRouteId: null
+    };
+  }, []);
+
+  const findExistingPublicPlaceholderByFigClubId = useCallback(
+    async (figClubId) => {
+      if (!supabase || !figClubId) return null;
+
+      const localMatch = savedCourses.find(
+        (course) =>
+          String(course.figClubId || "").trim() === String(figClubId || "").trim() &&
+          course.playable === false &&
+          course.clubTaxonomy === "complex_official"
+      );
+      if (localMatch) return localMatch;
+
+      const { data: placeholderClub, error: placeholderClubError } = await supabase
+        .from("clubs")
+        .select("*")
+        .eq("fig_club_id", figClubId)
+        .eq("is_active", true)
+        .eq("playable", false)
+        .limit(1)
+        .maybeSingle();
+
+      if (placeholderClubError) throw placeholderClubError;
+      return normalizePlaceholderClubRecord(placeholderClub);
+    },
+    [normalizePlaceholderClubRecord, savedCourses]
+  );
+
+  const findExistingPublicPlaceholdersByFigClubIds = useCallback(
+    async (figClubIds = []) => {
+      if (!supabase) return [];
+
+      const normalizedIds = Array.from(
+        new Set(
+          (Array.isArray(figClubIds) ? figClubIds : [])
+            .map((value) => String(value || "").trim())
+            .filter(Boolean)
+        )
+      );
+
+      if (!normalizedIds.length) return [];
+
+      const localMatches = savedCourses.filter(
+        (course) =>
+          course.playable === false &&
+          course.clubTaxonomy === "complex_official" &&
+          normalizedIds.includes(String(course.figClubId || "").trim())
+      );
+
+      const missingIds = normalizedIds.filter(
+        (figClubId) =>
+          !localMatches.some(
+            (course) => String(course.figClubId || "").trim() === String(figClubId || "").trim()
+          )
+      );
+
+      if (!missingIds.length) return localMatches;
+
+      const { data: placeholderClubs, error: placeholderClubsError } = await supabase
+        .from("clubs")
+        .select("*")
+        .in("fig_club_id", missingIds)
+        .eq("is_active", true)
+        .eq("playable", false);
+
+      if (placeholderClubsError) throw placeholderClubsError;
+
+      return [
+        ...localMatches,
+        ...(placeholderClubs || []).map((club) => normalizePlaceholderClubRecord(club)).filter(Boolean)
+      ];
+    },
+    [normalizePlaceholderClubRecord, savedCourses]
+  );
+
+  const ensureComplexClubPlaceholder = useCallback(
+    async ({ figClubId, clubName, city, country }) => {
+      if (!supabase || !session?.user?.id || !figClubId) return null;
+
+      const { data: existingPlaceholder, error: existingPlaceholderError } = await supabase
+        .from("clubs")
+        .select("*")
+        .eq("fig_club_id", figClubId)
+        .eq("is_active", true)
+        .limit(1)
+        .maybeSingle();
+
+      if (existingPlaceholderError) throw existingPlaceholderError;
+      if (existingPlaceholder?.id) return existingPlaceholder;
+
+      const normalizedClubName = normalizeWhitespace(clubName || "");
+
+      const { data: insertedPlaceholder, error: insertPlaceholderError } = await supabase
+        .from("clubs")
+        .insert({
+          name: normalizedClubName,
+          name_normalized: normalizeCourseName(normalizedClubName),
+          created_by: session.user.id,
+          data_status: "needs_review",
+          source_type: "user",
+          is_complex: true,
+          playable: false,
+          fig_club_id: figClubId,
+          fig_match_status: "matched",
+          fig_match_confidence: 1,
+          fig_match_notes: "Club complesso FIG in revisione con bozza privata.",
+          fig_matched_at: new Date().toISOString(),
+          city: city || null,
+          country: country || null,
+          club_taxonomy: "complex_official",
+          source_payload: {
+            kind: "fig_match",
+            figClubId,
+            figClubName: normalizedClubName,
+            privatePreview: true
+          }
+        })
+        .select("*")
+        .single();
+
+      if (insertPlaceholderError) throw insertPlaceholderError;
+      return insertedPlaceholder;
+    },
+    [session?.user?.id]
+  );
+
   const loadFavorites = useCallback(async () => {
     if (!supabase || !session?.user) return [];
 
@@ -1352,6 +1530,9 @@ function App() {
       setProfileResolved(false);
       setSavedRounds([]);
       setFavoriteCourseIds([]);
+      setSearchQuery("");
+      setSearchFigSuggestions([]);
+      setSearchFigSuggestionsLoading(false);
       setUserProfile({
         playerName: "",
         hcp: 36,
@@ -1430,8 +1611,11 @@ function App() {
         return left.name.localeCompare(right.name, "it");
       });
   }, [coursesWithFavorites, searchQuery]);
+  const resolvedSearchCourses = filteredCourses.length
+    ? filteredCourses
+    : searchPublicPlaceholderCourses;
   const showSearchEmptyState =
-    searchQuery.trim() !== "" && filteredCourses.length === 0;
+    searchQuery.trim() !== "" && resolvedSearchCourses.length === 0;
   const normalizedPlayerDisplayName = useMemo(
     () => normalizePlayerDisplayName(userProfile.playerName),
     [userProfile.playerName]
@@ -1456,6 +1640,7 @@ function App() {
   useEffect(() => {
     if (!supabase) {
       setSearchFigSuggestions([]);
+      setSearchPublicPlaceholderCourses([]);
       setSearchFigSuggestionsLoading(false);
       return undefined;
     }
@@ -1463,6 +1648,7 @@ function App() {
     const normalizedQuery = normalizeFigMatchName(searchQuery);
     if (normalizedQuery.length < 1) {
       setSearchFigSuggestions([]);
+      setSearchPublicPlaceholderCourses([]);
       setSearchFigSuggestionsLoading(false);
       return undefined;
     }
@@ -1530,12 +1716,17 @@ function App() {
         });
 
         if (!cancelled) {
+          const placeholderCourses = await findExistingPublicPlaceholdersByFigClubIds(
+            dedupedSuggestions.map((candidate) => candidate.id)
+          );
           setSearchFigSuggestions(dedupedSuggestions.slice(0, 4));
+          setSearchPublicPlaceholderCourses(placeholderCourses);
           setSearchFigSuggestionsLoading(false);
         }
       } catch (error) {
         if (!cancelled) {
           setSearchFigSuggestions([]);
+          setSearchPublicPlaceholderCourses([]);
           setSearchFigSuggestionsLoading(false);
         }
       }
@@ -1545,7 +1736,7 @@ function App() {
       cancelled = true;
       window.clearTimeout(timeoutId);
     };
-  }, [searchQuery]);
+  }, [findExistingPublicPlaceholdersByFigClubIds, searchQuery]);
 
   const currentHole =
     holesData[currentHoleIndex] || { hole: 1, par: 4, strokeIndex: "" };
@@ -1671,9 +1862,10 @@ function App() {
     return roundScores.reduce((sum, score) => sum + Number(score || 0), 0);
   }, [roundScores]);
 
-  const resetDialogState = () => {
+  const resetDialogState = useCallback(() => {
     setDialogStep(1);
     setCourseName("");
+    setOfficialClubNameLocked(false);
     setFigMatchedClub(null);
     setFigMatchLoading(false);
     setFigMatchFeedback("");
@@ -1708,12 +1900,19 @@ function App() {
     setCommunityHandicapSaving(false);
     setCommunityHandicapFeedback("");
     setCommunityHandicapNextAction(null);
-  };
+  }, []);
 
   const openDialog = () => {
     resetDialogState();
     setShowDialog(true);
   };
+
+  const resetHomeSearchState = useCallback(() => {
+    setSearchQuery("");
+    setSearchFigSuggestions([]);
+    setSearchPublicPlaceholderCourses([]);
+    setSearchFigSuggestionsLoading(false);
+  }, []);
 
   const openDialogWithPrefilledClubName = (clubName, feedback = "") => {
     resetDialogState();
@@ -1722,25 +1921,37 @@ function App() {
     setShowDialog(true);
   };
 
-  const closeDialog = () => {
+  const closeDialog = useCallback(() => {
     setShowDialog(false);
     resetDialogState();
-  };
+    resetHomeSearchState();
+  }, [resetDialogState, resetHomeSearchState]);
 
   const openComplexClubRequestDialog = async (club) => {
     resetDialogState();
     setCourseName(club.name || "");
-    setClubCreationMode("multiple");
 
     const persistedFigClubId =
       club?.figClubId || club?.sourcePayload?.figClubId || club?.sourcePayload?.fig_club_id || null;
+    setOfficialClubNameLocked(Boolean(persistedFigClubId));
+    setClubCreationMode("multiple");
 
     if (persistedFigClubId) {
       try {
         const hydratedFigClub = await loadFigMatchedClubById(persistedFigClubId);
-        setFigMatchedClub(hydratedFigClub);
-        if (hydratedFigClub?.isComplex) {
-          const complexUnits = await fetchComplexFigCourseUnits(hydratedFigClub);
+        const publicPlaceholderCourse =
+          club?.clubTaxonomy === "complex_official" && club?.playable === false
+            ? club
+            : await findExistingPublicPlaceholderByFigClubId(persistedFigClubId);
+        const hydratedFigClubWithPlaceholder = publicPlaceholderCourse
+          ? {
+              ...hydratedFigClub,
+              publicPlaceholderCourse
+            }
+          : hydratedFigClub;
+        setFigMatchedClub(hydratedFigClubWithPlaceholder);
+        if (hydratedFigClubWithPlaceholder?.isComplex) {
+          const complexUnits = await fetchComplexFigCourseUnits(hydratedFigClubWithPlaceholder);
           setComplexFigCourseUnits(complexUnits);
         }
       } catch (error) {
@@ -2038,7 +2249,6 @@ function App() {
       const activeSubmissionsByCourseId = new Map(
         (submissionsData || []).map((entry) => [entry.fig_playable_course_id, entry])
       );
-
       return routeDraftUnits.map((unit) => {
         const published = unit.figPlayableCourseIds.some((id) => publishedCourseIds.has(id));
         if (published) {
@@ -2127,6 +2337,13 @@ function App() {
       const activeSubmissionsByCourseId = new Map(
         (submissionsData || []).map((entry) => [entry.fig_playable_course_id, entry])
       );
+      const publicInReviewCourseIds = new Set(
+        Array.isArray(matchedClub?.publicPlaceholderCourse?.sourcePayload?.privateReviewPlayableCourseIds)
+          ? matchedClub.publicPlaceholderCourse.sourcePayload.privateReviewPlayableCourseIds.map((value) =>
+              String(value || "").trim()
+            )
+          : []
+      );
 
       return playableCourses.map((course) => {
         if (publishedCourseIds.has(course.id)) {
@@ -2146,7 +2363,7 @@ function App() {
             id: course.id,
             course,
             title: getFigDisplayName(course.name) || "Percorso ufficiale",
-            state: "missing",
+            state: publicInReviewCourseIds.has(String(course.id || "").trim()) ? "in_review" : "missing",
             isUploader: false,
             submissionId: null
           };
@@ -2392,7 +2609,8 @@ function App() {
         const isValidExistingContextSubmission =
           existingContextSubmission &&
           existingContextSubmission.submitted_by === session.user.id &&
-          Number(existingContextSubmission.fig_playable_course_id) === Number(context.figPlayableCourseId) &&
+          String(existingContextSubmission.fig_playable_course_id || "").trim() ===
+            String(context.figPlayableCourseId || "").trim() &&
           (
             context.origin === "complex_private_mapping"
               ? existingContextSubmission.review_status === "draft_private"
@@ -2629,15 +2847,27 @@ function App() {
       const matchedClub = await findStrongFigClubMatch(normalizedClubName);
 
       if (!matchedClub) {
+        setOfficialClubNameLocked(false);
         setFigMatchedClub(null);
         setDialogStep(2);
         return;
       }
 
-      setFigMatchedClub(matchedClub);
+      setOfficialClubNameLocked(true);
+      const publicPlaceholderCourse = matchedClub?.club?.id
+        ? await findExistingPublicPlaceholderByFigClubId(matchedClub.club.id)
+        : null;
+      const matchedClubWithPlaceholder = publicPlaceholderCourse
+        ? {
+            ...matchedClub,
+            publicPlaceholderCourse
+          }
+        : matchedClub;
 
-      if (matchedClub.isComplex) {
-        const complexUnits = await fetchComplexFigCourseUnits(matchedClub);
+      setFigMatchedClub(matchedClubWithPlaceholder);
+
+      if (matchedClubWithPlaceholder.isComplex) {
+        const complexUnits = await fetchComplexFigCourseUnits(matchedClubWithPlaceholder);
         setClubCreationMode("multiple");
         setFigMatchFeedback("Abbiamo trovato questo club nel catalogo FIG. Lo configuriamo noi.");
         setComplexFigCourseUnits(complexUnits);
@@ -2648,6 +2878,7 @@ function App() {
       const prefilledRouteDrafts = buildRouteDraftsFromFigMatch(matchedClub);
 
       if (!prefilledRouteDrafts.length) {
+        setOfficialClubNameLocked(false);
         setFigMatchedClub(null);
         setDialogStep(2);
         return;
@@ -2664,13 +2895,20 @@ function App() {
       );
       setDialogStep(9);
     } catch (error) {
+      setOfficialClubNameLocked(false);
       setFigMatchedClub(null);
       setFigMatchFeedback(error.message || "Errore nel controllo del catalogo FIG.");
       setDialogStep(2);
     } finally {
       setFigMatchLoading(false);
     }
-  }, [buildRouteDraftsFromFigMatch, fetchComplexFigCourseUnits, fetchFigCompletionUnits, findStrongFigClubMatch]);
+  }, [
+    buildRouteDraftsFromFigMatch,
+    fetchComplexFigCourseUnits,
+    fetchFigCompletionUnits,
+    findExistingPublicPlaceholderByFigClubId,
+    findStrongFigClubMatch
+  ]);
 
   const goToStepTwo = async () => {
     if (courseName.trim() === "") return;
@@ -2690,7 +2928,9 @@ function App() {
     setFigMatchedClub(null);
     setFigCompletionUnits([]);
     setComplexFigCourseUnits([]);
-    setFigMatchFeedback("");
+    setFigMatchFeedback(
+      officialClubNameLocked ? "Per questo club usiamo il nome ufficiale del catalogo FIG." : ""
+    );
     setDialogStep(1);
   };
 
@@ -2959,11 +3199,18 @@ function App() {
           throw new Error("Percorso FIG privato non disponibile.");
         }
 
+        const placeholderClub = await ensureComplexClubPlaceholder({
+          figClubId: privateDraftContext.figClubId,
+          clubName: privateDraftContext.clubName || cleanName,
+          city: figMatchedClub?.club?.city || null,
+          country: figMatchedClub?.club?.country || null
+        });
+
         const {
           submissionId,
           createdNewSubmission
         } = await createOrReuseScorecardSubmission({
-          clubId: privateDraftContext.clubId || null,
+          clubId: privateDraftContext.clubId || placeholderClub?.id || null,
           figClubId: privateDraftContext.figClubId,
           figPlayableCourseId: privateDraftContext.figPlayableCourseId,
           submissionId: privateDraftContext.submissionId || null,
@@ -3011,10 +3258,29 @@ function App() {
           }
         }
 
+        if (placeholderClub?.id) {
+          const nextSourcePayload = buildPlaceholderSourcePayloadWithPrivateReviewCourse(
+            placeholderClub.source_payload,
+            privateDraftContext.figPlayableCourseId
+          );
+
+          const { error: updatePlaceholderError } = await supabase
+            .from("clubs")
+            .update({
+              data_status: "needs_review",
+              playable: false,
+              source_payload: nextSourcePayload
+            })
+            .eq("id", placeholderClub.id);
+
+          if (updatePlaceholderError) throw updatePlaceholderError;
+        }
+
         setPrivateDraftContext((prev) =>
           prev
             ? {
                 ...prev,
+                clubId: prev.clubId || placeholderClub?.id || null,
                 submissionId
               }
             : prev
@@ -3024,6 +3290,8 @@ function App() {
           const refreshedComplexUnits = await fetchComplexFigCourseUnits(figMatchedClub);
           setComplexFigCourseUnits(refreshedComplexUnits);
         }
+
+        await loadCourses();
 
         setCourseSaveSuccessMessage("Bozza privata salvata");
         setClubRequestFeedback("");
@@ -3688,7 +3956,7 @@ function App() {
     );
   }, []);
 
-  const prepareRoundSetup = (course) => {
+  const prepareRoundSetup = useCallback((course) => {
     const hasPlayableRoutes = Array.isArray(course?.routes) && course.routes.some((route) => route.holes?.length);
 
     if (!hasPlayableRoutes) {
@@ -3721,13 +3989,14 @@ function App() {
     setShowTeeOptions(false);
     setRoundAlreadySaved(false);
     setManualReceivedShots({});
+    resetHomeSearchState();
     setRoundSetup({
       ...createInitialRoundSetup(),
       totalCompetitionHoles: defaultCompetitionHoles,
       ...buildRoundChoiceDefaults(course, defaultCompetitionHoles)
     });
     setRoundScores([]);
-  };
+  }, [buildRoundChoiceDefaults, resetHomeSearchState]);
 
   const openCourseFromSearch = async (course) => {
     if (course?.playable) {
@@ -3735,24 +4004,80 @@ function App() {
       return;
     }
 
-    if (
-      session?.user?.id &&
-      course?.clubTaxonomy === "complex_official" &&
-      course?.figClubId
-    ) {
-      try {
-        const privatePlayableCourse = await loadPrivatePlayableCourseForClub(course);
-        if (privatePlayableCourse) {
-          prepareRoundSetup(privatePlayableCourse);
-          return;
-        }
-      } catch (error) {
-        console.error("Unable to load private playable course", error);
-      }
-    }
-
     openComplexClubRequestDialog(course);
   };
+
+  const openPrivateRoundSetupForComplexClub = useCallback(
+    async (clubLike, { closeCurrentDialog = false } = {}) => {
+      if (!clubLike?.figClubId) {
+        setFigMatchFeedback("Non siamo riusciti a trovare il club FIG da usare per il giro provvisorio.");
+        return;
+      }
+
+      try {
+        const privatePlayableCourse = await loadPrivatePlayableCourseForClub(clubLike);
+        if (!privatePlayableCourse) {
+          setFigMatchFeedback(
+            "La tua bozza privata non e' ancora pronta per impostare il giro provvisorio."
+          );
+          return;
+        }
+
+        if (closeCurrentDialog) {
+          closeDialog();
+        }
+
+        prepareRoundSetup(privatePlayableCourse);
+      } catch (error) {
+        console.error("Unable to open private round setup", error);
+        setFigMatchFeedback(
+          error?.message || "Non siamo riusciti ad aprire il giro provvisorio. Riprova."
+        );
+      }
+    },
+    [closeDialog, loadPrivatePlayableCourseForClub, prepareRoundSetup]
+  );
+
+  const openPrivateDraftRoundSetupFromDialog = useCallback(async () => {
+    if (!privateDraftContext?.figClubId) return;
+
+    try {
+      const placeholderCourse =
+        savedCourses.find((course) => course.id === privateDraftContext.clubId) ||
+        savedCourses.find(
+          (course) =>
+            String(course.figClubId || "").trim() ===
+              String(privateDraftContext.figClubId || "").trim() &&
+            course.playable === false
+        ) ||
+        (await findExistingPublicPlaceholderByFigClubId(privateDraftContext.figClubId));
+
+      if (!placeholderCourse) {
+        setCourseSaveError("Non siamo riusciti a trovare il club provvisorio da usare per il giro.");
+        return;
+      }
+
+      const privatePlayableCourse = await loadPrivatePlayableCourseForClub(placeholderCourse);
+      if (!privatePlayableCourse) {
+        setCourseSaveError("La bozza privata non e' ancora pronta per impostare il giro.");
+        return;
+      }
+
+      closeDialog();
+      prepareRoundSetup(privatePlayableCourse);
+    } catch (error) {
+      setCourseSaveError(
+        error?.message || "Non siamo riusciti ad aprire il giro provvisorio. Riprova."
+      );
+    }
+  }, [
+    closeDialog,
+    findExistingPublicPlaceholderByFigClubId,
+    loadPrivatePlayableCourseForClub,
+    prepareRoundSetup,
+    privateDraftContext,
+    savedCourses
+  ]);
 
   useEffect(() => {
     if (!showRoundSetup || !openedCourse || Number(roundSetup.totalCompetitionHoles) !== 18) {
@@ -4093,6 +4418,7 @@ function App() {
     setShowRoundSetup(false);
     setActiveSheet(null);
     setSheetClosing(false);
+    resetHomeSearchState();
     setRoundScores([]);
     setShowRoundsHistory(false);
     setRoundAlreadySaved(false);
@@ -5475,7 +5801,7 @@ function App() {
             color: colors.text,
             boxSizing: "border-box",
             outline: "none",
-            fontSize: "15px",
+            fontSize: mobileInputFontSize,
             fontFamily: appFont,
             resize: "vertical"
           }}
@@ -5779,7 +6105,7 @@ function App() {
                     color: colors.text,
                     boxSizing: "border-box",
                     outline: "none",
-                    fontSize: "15px",
+                    fontSize: mobileInputFontSize,
                     fontFamily: appFont
                   }}
                 />
@@ -5807,7 +6133,7 @@ function App() {
                     color: colors.text,
                     boxSizing: "border-box",
                     outline: "none",
-                    fontSize: "15px",
+                    fontSize: mobileInputFontSize,
                     fontFamily: appFont
                   }}
                 />
@@ -6077,7 +6403,7 @@ function App() {
                 color: colors.text,
                 boxSizing: "border-box",
                 outline: "none",
-                fontSize: "15px",
+                fontSize: mobileInputFontSize,
                 fontFamily: appFont
               }}
             />
@@ -6105,7 +6431,7 @@ function App() {
                 color: colors.text,
                 boxSizing: "border-box",
                 outline: "none",
-                fontSize: "15px",
+                fontSize: mobileInputFontSize,
                 fontFamily: appFont
               }}
             />
@@ -7260,7 +7586,7 @@ function App() {
               color: colors.text,
               boxSizing: "border-box",
               outline: "none",
-              fontSize: "15px",
+              fontSize: mobileInputFontSize,
               fontFamily: appFont
             }}
           />
@@ -8646,7 +8972,7 @@ function App() {
                         color: colors.text,
                         boxSizing: "border-box",
                         outline: "none",
-                        fontSize: "15px",
+                        fontSize: mobileInputFontSize,
                         fontFamily: appFont,
                         appearance: "none",
                         WebkitAppearance: "none",
@@ -8732,7 +9058,7 @@ function App() {
                         color: colors.text,
                         boxSizing: "border-box",
                         outline: "none",
-                        fontSize: "15px",
+                        fontSize: mobileInputFontSize,
                         fontFamily: appFont
                       }}
                     />
@@ -8813,7 +9139,7 @@ function App() {
                         color: colors.text,
                         boxSizing: "border-box",
                         outline: "none",
-                        fontSize: "15px",
+                        fontSize: mobileInputFontSize,
                         fontFamily: appFont
                       }}
                     />
@@ -9687,7 +10013,7 @@ function App() {
               border: "none",
               outline: "none",
               color: colors.text,
-              fontSize: "15px",
+              fontSize: mobileInputFontSize,
               fontFamily: appFont
             }}
           />
@@ -9695,8 +10021,8 @@ function App() {
 
         {searchQuery.trim() !== "" && (
           <div style={{ marginTop: "12px" }}>
-            {filteredCourses.length > 0 ? (
-              filteredCourses.map((course) => renderCourseRow(course))
+            {resolvedSearchCourses.length > 0 ? (
+              resolvedSearchCourses.map((course) => renderCourseRow(course))
             ) : (
               <>
                 {searchFigSuggestionsLoading && (
@@ -9858,7 +10184,9 @@ function App() {
                   type="text"
                   placeholder="Nome club"
                   value={courseName}
+                  readOnly={officialClubNameLocked}
                   onChange={(e) => {
+                    if (officialClubNameLocked) return;
                     setCourseName(e.target.value);
                     setFigMatchedClub(null);
                     setFigMatchFeedback("");
@@ -9870,12 +10198,26 @@ function App() {
                     border: `1px solid ${colors.inputBorder}`,
                     borderRadius: "12px",
                     color: colors.text,
+                    opacity: officialClubNameLocked ? 0.78 : 1,
                     boxSizing: "border-box",
                     outline: "none",
-                    fontSize: "15px",
+                    fontSize: mobileInputFontSize,
                     fontFamily: appFont
                   }}
                 />
+
+                {officialClubNameLocked && (
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      color: colors.subtext,
+                      fontSize: "12px",
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Per questo club usiamo il nome ufficiale FIG e non puo' essere modificato.
+                  </div>
+                )}
 
                 {figClubSuggestionsLoading && (
                   <div
@@ -10456,8 +10798,9 @@ function App() {
                     {complexFigCourseUnits.map((unit) => {
                       const course = unit.course;
                       const stateMeta = getFigCompletionUnitStateMeta(unit.state, unit.isUploader);
-                      const canOpenPrivateDraft =
+                      const canContinueEditing =
                         unit.state === "missing" || (unit.state === "draft_private" && unit.isUploader);
+                      const canOpenPrivateRound = unit.state === "draft_private" && unit.isUploader;
 
                       return (
                       <div
@@ -10521,29 +10864,56 @@ function App() {
                             : stateMeta.label}
                         </div>
 
-                        {canOpenPrivateDraft && (
+                        {canOpenPrivateRound && (
                           <button
                             type="button"
-                            onClick={() => openComplexFigPrivateDraft(unit)}
+                            onClick={() =>
+                              openPrivateRoundSetupForComplexClub(
+                                figMatchedClub?.publicPlaceholderCourse || {
+                                  name: figMatchedClub?.club?.name || courseName,
+                                  figClubId: figMatchedClub?.club?.id
+                                },
+                                { closeCurrentDialog: true }
+                              )
+                            }
                             style={{
                               ...primaryButtonStyle(true),
                               marginBottom: 0
                             }}
                           >
-                            {unit.state === "draft_private" && unit.isUploader
-                              ? "Continua bozza privata"
-                              : "Compila provvisoriamente"}
+                            Imposta il giro provvisorio
                           </button>
                         )}
 
                         <div
                           style={{
                             display: "grid",
-                            gridTemplateColumns: "1fr 44px",
                             gap: "10px",
                             marginTop: "12px"
                           }}
                         >
+                          {canContinueEditing && (
+                            <button
+                              type="button"
+                              onClick={() => openComplexFigPrivateDraft(unit)}
+                              style={{
+                                ...(canOpenPrivateRound ? secondaryButtonStyle : primaryButtonStyle(true)),
+                                marginBottom: 0
+                              }}
+                            >
+                              {unit.state === "draft_private" && unit.isUploader
+                                ? "Continua editing"
+                                : "Compila provvisoriamente"}
+                            </button>
+                          )}
+
+                          <div
+                            style={{
+                              display: "grid",
+                              gridTemplateColumns: "1fr 44px",
+                              gap: "10px"
+                            }}
+                          >
                           <button
                             type="button"
                             onClick={() =>
@@ -10603,6 +10973,7 @@ function App() {
                           >
                             <span aria-hidden="true">📷</span>
                           </button>
+                          </div>
                         </div>
 
                         {scorecardUploadStatusByCourseId[course.id] && (
@@ -10736,7 +11107,7 @@ function App() {
                       color: colors.text,
                       boxSizing: "border-box",
                       outline: "none",
-                      fontSize: "15px",
+                      fontSize: mobileInputFontSize,
                       fontFamily: appFont,
                       marginBottom: "16px"
                     }}
@@ -11280,7 +11651,7 @@ function App() {
                                 backgroundColor: "transparent",
                                 color: colors.text,
                                 padding: "0 12px",
-                                fontSize: "15px",
+                                fontSize: mobileInputFontSize,
                                 fontFamily: appFont,
                                 outline: "none"
                               }}
@@ -11311,7 +11682,7 @@ function App() {
                                 backgroundColor: "transparent",
                                 color: colors.text,
                                 padding: "0 12px",
-                                fontSize: "15px",
+                                fontSize: mobileInputFontSize,
                                 fontFamily: appFont,
                                 outline: "none"
                               }}
@@ -11419,7 +11790,23 @@ function App() {
                   </div>
                 )}
 
-                <button onClick={closeDialog} style={primaryButtonStyle(true)}>
+                {privateDraftContext?.mode === "complex_private" && (
+                  <button
+                    onClick={openPrivateDraftRoundSetupFromDialog}
+                    style={primaryButtonStyle(true)}
+                  >
+                    Imposta il giro provvisorio
+                  </button>
+                )}
+
+                <button
+                  onClick={closeDialog}
+                  style={
+                    privateDraftContext?.mode === "complex_private"
+                      ? secondaryButtonStyle
+                      : primaryButtonStyle(true)
+                  }
+                >
                   Chiudi
                 </button>
               </>
