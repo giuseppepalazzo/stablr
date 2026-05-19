@@ -476,6 +476,30 @@ function getFigCompletionUnitStateMeta(unitState, isUploader) {
   }
 }
 
+function buildPrivateRouteDraftFromFigCourse(course) {
+  const holesCount = Number(course?.holes_count || 9) || 9;
+  return {
+    name:
+      holesCount === 9 && isGenericFigNineCourseName(course?.name)
+        ? "9 buche"
+        : holesCount === 18 && isGenericFigEighteenCourseName(course?.name)
+          ? "18 buche"
+          : getFigDisplayName(course?.name) || "Percorso",
+    holesCount,
+    totalPar: Number(course?.total_par || 0) || null,
+    holes: Array.from({ length: holesCount }, (_, index) => ({
+      hole: index + 1,
+      par: 4,
+      strokeIndex: ""
+    })),
+    figPlayableCourseId: course?.id || null,
+    figSecondaryPlayableCourseId: null,
+    figCourseType: course?.course_type || null,
+    figRouteFamily: course?.route_family || null,
+    figTees: Array.isArray(course?.tees) ? course.tees : []
+  };
+}
+
 function sortFigPlayableCourses(left, right) {
   const leftOrder = Number.isFinite(Number(left?.display_order)) ? Number(left.display_order) : 999;
   const rightOrder = Number.isFinite(Number(right?.display_order)) ? Number(right.display_order) : 999;
@@ -514,6 +538,8 @@ function scoreFigClubNameMatch(inputName, candidateName) {
   const candidate = normalizeFigMatchName(candidateName);
   if (!input || !candidate) return 0;
   if (input === candidate) return 100;
+  if (candidate.startsWith(input)) return 96;
+  if (candidate.split(" ").some((token) => token.startsWith(input))) return 90;
   if (candidate.startsWith(input) || input.startsWith(candidate)) return 92;
   if (candidate.includes(input) || input.includes(candidate)) return 84;
 
@@ -527,6 +553,36 @@ function scoreFigClubNameMatch(inputName, candidateName) {
   return Math.round(coverage * 75);
 }
 
+function shouldKeepFigSuggestionForQuery(query, candidateName) {
+  const normalizedQuery = normalizeFigMatchName(query);
+  const normalizedCandidate = normalizeFigMatchName(candidateName);
+  if (!normalizedQuery || !normalizedCandidate) return false;
+
+  if (normalizedQuery.length <= 2) {
+    return (
+      normalizedCandidate.startsWith(normalizedQuery) ||
+      normalizedCandidate.split(" ").some((token) => token.startsWith(normalizedQuery))
+    );
+  }
+
+  return normalizedCandidate.includes(normalizedQuery);
+}
+
+function matchesClubSearchQuery(query, candidateName) {
+  const normalizedQuery = normalizeFigMatchName(query);
+  const normalizedCandidate = normalizeFigMatchName(candidateName);
+  if (!normalizedQuery || !normalizedCandidate) return false;
+
+  if (normalizedQuery.length <= 2) {
+    return (
+      normalizedCandidate.startsWith(normalizedQuery) ||
+      normalizedCandidate.split(" ").some((token) => token.startsWith(normalizedQuery))
+    );
+  }
+
+  return normalizedCandidate.includes(normalizedQuery);
+}
+
 function App() {
   const [showDialog, setShowDialog] = useState(false);
   const [dialogStep, setDialogStep] = useState(1);
@@ -538,6 +594,7 @@ function App() {
   const [figClubSuggestions, setFigClubSuggestions] = useState([]);
   const [figClubSuggestionsLoading, setFigClubSuggestionsLoading] = useState(false);
   const [figCompletionUnits, setFigCompletionUnits] = useState([]);
+  const [complexFigCourseUnits, setComplexFigCourseUnits] = useState([]);
   const [scorecardUploadContext, setScorecardUploadContext] = useState(null);
   const [scorecardUploadLoading, setScorecardUploadLoading] = useState(false);
   const [scorecardUploadStatusByCourseId, setScorecardUploadStatusByCourseId] = useState({});
@@ -553,6 +610,7 @@ function App() {
 
   const [showStrokeInfo, setShowStrokeInfo] = useState(false);
   const [selectedStepper, setSelectedStepper] = useState("par");
+  const [privateDraftContext, setPrivateDraftContext] = useState(null);
 
   const [openedCourse, setOpenedCourse] = useState(null);
   const [showRoundSetup, setShowRoundSetup] = useState(false);
@@ -566,6 +624,7 @@ function App() {
   const startHoleSwipeRef = useRef({ x: null, y: null });
   const scorecardFileInputRef = useRef(null);
   const scorecardCameraInputRef = useRef(null);
+  const courseNameInputRef = useRef(null);
 
   const [roundScores, setRoundScores] = useState([]);
   const [savedRounds, setSavedRounds] = useState([]);
@@ -876,6 +935,96 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!showDialog || dialogStep !== 1) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      if (courseNameInputRef.current) {
+        courseNameInputRef.current.focus();
+        courseNameInputRef.current.select();
+      }
+    }, 40);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [dialogStep, showDialog]);
+
+  const loadFigMatchedClubById = useCallback(async (figClubId) => {
+    if (!supabase || !figClubId) return null;
+
+    const { data: figClub, error: figClubError } = await supabase
+      .from("fig_clubs")
+      .select("*")
+      .eq("id", figClubId)
+      .eq("is_active", true)
+      .maybeSingle();
+
+    if (figClubError) throw figClubError;
+    if (!figClub) return null;
+
+    const { data: figPlayableCourses, error: figPlayableCoursesError } = await supabase
+      .from("fig_playable_courses")
+      .select("*")
+      .eq("fig_club_id", figClub.id)
+      .eq("is_active", true)
+      .order("display_order", { ascending: true });
+
+    if (figPlayableCoursesError) throw figPlayableCoursesError;
+
+    const playableCourses = Array.isArray(figPlayableCourses) ? figPlayableCourses : [];
+    let figCourseTees = [];
+
+    if (playableCourses.length) {
+      const { data: fetchedFigCourseTees, error: figCourseTeesError } = await supabase
+        .from("fig_course_tees")
+        .select("*")
+        .in(
+          "fig_playable_course_id",
+          playableCourses.map((course) => course.id)
+        )
+        .eq("is_active", true);
+
+      if (figCourseTeesError) throw figCourseTeesError;
+      figCourseTees = fetchedFigCourseTees || [];
+    }
+
+    const teesByPlayableCourseId = new Map();
+    figCourseTees.forEach((tee) => {
+      const current = teesByPlayableCourseId.get(tee.fig_playable_course_id) || [];
+      current.push(tee);
+      teesByPlayableCourseId.set(tee.fig_playable_course_id, current);
+    });
+
+    const normalizedPlayableCourses = playableCourses
+      .map((course) => ({
+        ...course,
+        tees: (teesByPlayableCourseId.get(course.id) || [])
+          .map((tee) => ({
+            id: tee.id,
+            teeName: tee.tee_name,
+            teeColor: tee.tee_color || getTeeColor(tee.tee_name).label,
+            gender: tee.gender || "",
+            holesCount: Number(course.holes_count) || null,
+            courseRating: tee.course_rating,
+            slopeRating: tee.slope_rating,
+            parTotal: tee.par_total,
+            estimated: false
+          }))
+          .sort((left, right) => {
+            const leftOrder = getTeeSortOrder(left);
+            const rightOrder = getTeeSortOrder(right);
+            if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+            return getTeeDisplayName(left).localeCompare(getTeeDisplayName(right), "it");
+          })
+      }))
+      .sort(sortFigPlayableCourses);
+
+    return {
+      club: figClub,
+      playableCourses: normalizedPlayableCourses,
+      isComplex: normalizedPlayableCourses.some((course) => isComplexFigPlayableCourse(course))
+    };
+  }, []);
+
+  useEffect(() => {
     if (otpCooldownSeconds <= 0) return undefined;
 
     const timeoutId = window.setTimeout(() => {
@@ -1076,9 +1225,11 @@ function App() {
         id: club.id,
         name: club.name,
         nameNormalized: club.name_normalized,
+        figClubId: club.fig_club_id || club.source_payload?.figClubId || null,
         dataStatus: club.data_status || "community",
         sourceType: club.source_type || "user",
         isComplex: Boolean(club.is_complex),
+        clubTaxonomy: club.club_taxonomy || null,
         playable: club.playable !== false,
         sourcePayload: club.source_payload || null,
         favorite: false,
@@ -1263,9 +1414,22 @@ function App() {
 
   const favorites = coursesWithFavorites.filter((course) => course.favorite);
 
-  const filteredCourses = coursesWithFavorites.filter((course) =>
-    course.name.toLowerCase().includes(searchQuery.trim().toLowerCase())
-  );
+  const filteredCourses = useMemo(() => {
+    const trimmedQuery = searchQuery.trim();
+    if (!trimmedQuery) return coursesWithFavorites;
+
+    return coursesWithFavorites
+      .filter((course) => matchesClubSearchQuery(trimmedQuery, course.name))
+      .sort((left, right) => {
+        const normalizedQuery = normalizeFigMatchName(trimmedQuery);
+        const leftName = normalizeFigMatchName(left.name);
+        const rightName = normalizeFigMatchName(right.name);
+        const leftStarts = leftName.startsWith(normalizedQuery) ? 1 : 0;
+        const rightStarts = rightName.startsWith(normalizedQuery) ? 1 : 0;
+        if (leftStarts !== rightStarts) return rightStarts - leftStarts;
+        return left.name.localeCompare(right.name, "it");
+      });
+  }, [coursesWithFavorites, searchQuery]);
   const showSearchEmptyState =
     searchQuery.trim() !== "" && filteredCourses.length === 0;
   const normalizedPlayerDisplayName = useMemo(
@@ -1297,7 +1461,7 @@ function App() {
     }
 
     const normalizedQuery = normalizeFigMatchName(searchQuery);
-    if (normalizedQuery.length < 2 || filteredCourses.length > 0) {
+    if (normalizedQuery.length < 1) {
       setSearchFigSuggestions([]);
       setSearchFigSuggestionsLoading(false);
       return undefined;
@@ -1320,12 +1484,17 @@ function App() {
         const candidateMap = new Map();
 
         for (const term of searchTerms) {
-          const { data: candidateBatch, error: candidateBatchError } = await supabase
+          const shouldUsePrefixOnly = normalizedQuery.length <= 2;
+
+          const query = supabase
             .from("fig_clubs")
             .select("id,name,name_normalized,city,region,country")
-            .ilike("name_normalized", `%${term}%`)
             .eq("is_active", true)
             .limit(8);
+
+          const { data: candidateBatch, error: candidateBatchError } = shouldUsePrefixOnly
+            ? await query.ilike("name_normalized", `${term}%`)
+            : await query.ilike("name_normalized", `%${term}%`);
 
           if (candidateBatchError) throw candidateBatchError;
 
@@ -1340,7 +1509,11 @@ function App() {
             displayName: getFigDisplayName(candidate.name),
             score: scoreFigClubNameMatch(normalizedQuery, candidate.name_normalized || candidate.name)
           }))
-          .filter((candidate) => candidate.score >= 50)
+          .filter(
+            (candidate) =>
+              candidate.score >= 50 &&
+              shouldKeepFigSuggestionForQuery(normalizedQuery, candidate.name_normalized || candidate.displayName)
+          )
           .sort((left, right) => {
             if (right.score !== left.score) return right.score - left.score;
             return left.displayName.localeCompare(right.displayName, "it");
@@ -1372,7 +1545,7 @@ function App() {
       cancelled = true;
       window.clearTimeout(timeoutId);
     };
-  }, [filteredCourses.length, searchQuery]);
+  }, [searchQuery]);
 
   const currentHole =
     holesData[currentHoleIndex] || { hole: 1, par: 4, strokeIndex: "" };
@@ -1387,7 +1560,7 @@ function App() {
     }
 
     const normalizedQuery = normalizeFigMatchName(courseName);
-    if (normalizedQuery.length < 2) {
+    if (normalizedQuery.length < 1) {
       setFigClubSuggestions([]);
       setFigClubSuggestionsLoading(false);
       return undefined;
@@ -1410,12 +1583,17 @@ function App() {
         const candidateMap = new Map();
 
         for (const term of searchTerms) {
-          const { data: candidateBatch, error: candidateBatchError } = await supabase
+          const shouldUsePrefixOnly = normalizedQuery.length <= 2;
+
+          const query = supabase
             .from("fig_clubs")
             .select("id,name,name_normalized,city,region,country")
-            .ilike("name_normalized", `%${term}%`)
             .eq("is_active", true)
             .limit(8);
+
+          const { data: candidateBatch, error: candidateBatchError } = shouldUsePrefixOnly
+            ? await query.ilike("name_normalized", `${term}%`)
+            : await query.ilike("name_normalized", `%${term}%`);
 
           if (candidateBatchError) throw candidateBatchError;
 
@@ -1430,7 +1608,11 @@ function App() {
             displayName: getFigDisplayName(candidate.name),
             score: scoreFigClubNameMatch(normalizedQuery, candidate.name_normalized || candidate.name)
           }))
-          .filter((candidate) => candidate.score >= 50)
+          .filter(
+            (candidate) =>
+              candidate.score >= 50 &&
+              shouldKeepFigSuggestionForQuery(normalizedQuery, candidate.name_normalized || candidate.displayName)
+          )
           .sort((left, right) => {
             if (right.score !== left.score) return right.score - left.score;
             return left.displayName.localeCompare(right.displayName, "it");
@@ -1498,6 +1680,7 @@ function App() {
     setFigClubSuggestions([]);
     setFigClubSuggestionsLoading(false);
     setFigCompletionUnits([]);
+    setComplexFigCourseUnits([]);
     setScorecardUploadContext(null);
     setScorecardUploadLoading(false);
     setScorecardUploadStatusByCourseId({});
@@ -1511,6 +1694,7 @@ function App() {
     setCurrentHoleIndex(0);
     setShowStrokeInfo(false);
     setSelectedStepper("par");
+    setPrivateDraftContext(null);
     setCourseSaveError("");
     setCourseSaveLoading(false);
     setCourseSaveSuccessMessage("");
@@ -1543,10 +1727,31 @@ function App() {
     resetDialogState();
   };
 
-  const openComplexClubRequestDialog = (club) => {
+  const openComplexClubRequestDialog = async (club) => {
     resetDialogState();
     setCourseName(club.name || "");
     setClubCreationMode("multiple");
+
+    const persistedFigClubId =
+      club?.figClubId || club?.sourcePayload?.figClubId || club?.sourcePayload?.fig_club_id || null;
+
+    if (persistedFigClubId) {
+      try {
+        const hydratedFigClub = await loadFigMatchedClubById(persistedFigClubId);
+        setFigMatchedClub(hydratedFigClub);
+        if (hydratedFigClub?.isComplex) {
+          const complexUnits = await fetchComplexFigCourseUnits(hydratedFigClub);
+          setComplexFigCourseUnits(complexUnits);
+        }
+      } catch (error) {
+        setFigMatchedClub(null);
+        setComplexFigCourseUnits([]);
+      }
+    } else {
+      setFigMatchedClub(null);
+      setComplexFigCourseUnits([]);
+    }
+
     setDialogStep(7);
     setShowDialog(true);
   };
@@ -1880,6 +2085,200 @@ function App() {
     [buildRouteDraftsFromFigMatch, session?.user?.id]
   );
 
+  const fetchComplexFigCourseUnits = useCallback(
+    async (matchedClub) => {
+      const playableCourses = Array.isArray(matchedClub?.playableCourses)
+        ? matchedClub.playableCourses
+        : [];
+
+      if (!playableCourses.length) return [];
+
+      const figPlayableCourseIds = playableCourses.map((course) => course.id).filter(Boolean);
+
+      if (!supabase) {
+        return playableCourses.map((course) => ({
+          id: course.id,
+          course,
+          title: getFigDisplayName(course.name) || "Percorso ufficiale",
+          state: "missing",
+          isUploader: false,
+          submissionId: null
+        }));
+      }
+
+      const [{ data: versionsData, error: versionsError }, { data: submissionsData, error: submissionsError }] =
+        await Promise.all([
+          supabase
+            .from("scorecard_versions")
+            .select("fig_playable_course_id,status")
+            .in("fig_playable_course_id", figPlayableCourseIds)
+            .eq("status", "published"),
+          supabase
+            .from("scorecard_submissions")
+            .select("id,fig_playable_course_id,submitted_by,review_status")
+            .in("fig_playable_course_id", figPlayableCourseIds)
+            .in("review_status", ["draft_private", "in_review"])
+        ]);
+
+      if (versionsError) throw versionsError;
+      if (submissionsError) throw submissionsError;
+
+      const publishedCourseIds = new Set((versionsData || []).map((entry) => entry.fig_playable_course_id));
+      const activeSubmissionsByCourseId = new Map(
+        (submissionsData || []).map((entry) => [entry.fig_playable_course_id, entry])
+      );
+
+      return playableCourses.map((course) => {
+        if (publishedCourseIds.has(course.id)) {
+          return {
+            id: course.id,
+            course,
+            title: getFigDisplayName(course.name) || "Percorso ufficiale",
+            state: "published",
+            isUploader: false,
+            submissionId: null
+          };
+        }
+
+        const activeSubmission = activeSubmissionsByCourseId.get(course.id);
+        if (!activeSubmission) {
+          return {
+            id: course.id,
+            course,
+            title: getFigDisplayName(course.name) || "Percorso ufficiale",
+            state: "missing",
+            isUploader: false,
+            submissionId: null
+          };
+        }
+
+        const isUploader = activeSubmission.submitted_by === session?.user?.id;
+        return {
+          id: course.id,
+          course,
+          title: getFigDisplayName(course.name) || "Percorso ufficiale",
+          state: activeSubmission.review_status === "draft_private" ? "draft_private" : "in_review",
+          isUploader,
+          submissionId: activeSubmission.id
+        };
+      });
+    },
+    [session?.user?.id]
+  );
+
+  const loadPrivatePlayableCourseForClub = useCallback(
+    async (course) => {
+      if (!supabase || !session?.user?.id || !course?.figClubId) return null;
+
+      const figMatched = await loadFigMatchedClubById(course.figClubId);
+      if (!figMatched?.playableCourses?.length) return null;
+
+      const { data: draftSubmissions, error: draftSubmissionsError } = await supabase
+        .from("scorecard_submissions")
+        .select("*")
+        .eq("fig_club_id", course.figClubId)
+        .eq("submitted_by", session.user.id)
+        .eq("review_status", "draft_private")
+        .order("created_at", { ascending: false });
+
+      if (draftSubmissionsError) throw draftSubmissionsError;
+      if (!Array.isArray(draftSubmissions) || !draftSubmissions.length) return null;
+
+      const { data: extractedHoles, error: extractedHolesError } = await supabase
+        .from("scorecard_extracted_holes")
+        .select("*")
+        .in(
+          "submission_id",
+          draftSubmissions.map((submission) => submission.id)
+        )
+        .order("hole_number", { ascending: true });
+
+      if (extractedHolesError) throw extractedHolesError;
+
+      const holesBySubmissionId = new Map();
+      (extractedHoles || []).forEach((hole) => {
+        const current = holesBySubmissionId.get(hole.submission_id) || [];
+        current.push(hole);
+        holesBySubmissionId.set(hole.submission_id, current);
+      });
+
+      const figCourseById = new Map(
+        figMatched.playableCourses.map((figCourse) => [figCourse.id, figCourse])
+      );
+
+      const privateRoutes = draftSubmissions
+        .map((submission) => {
+          const figCourse = figCourseById.get(submission.fig_playable_course_id);
+          if (!figCourse) return null;
+
+          const routeHoles = (holesBySubmissionId.get(submission.id) || [])
+            .map((hole) => ({
+              id: `private-hole:${submission.id}:${hole.hole_number}`,
+              hole: Number(hole.hole_number),
+              par: Number(hole.par || 0) || 4,
+              strokeIndex:
+                hole.stroke_index === null || typeof hole.stroke_index === "undefined"
+                  ? ""
+                  : Number(hole.stroke_index),
+              displayLabel: hole.display_label || String(hole.hole_number)
+            }))
+            .sort((left, right) => left.hole - right.hole);
+
+          const requiredHolesCount = Number(figCourse.holesCount || figCourse.holes_count || 0) || 0;
+          if (!requiredHolesCount || routeHoles.length !== requiredHolesCount) {
+            return null;
+          }
+
+          return {
+            id: `private-route:${submission.id}`,
+            name: getFigDisplayName(figCourse.name) || "Percorso ufficiale",
+            holesCount: requiredHolesCount,
+            totalPar:
+              Number(figCourse.totalPar || figCourse.total_par || 0) ||
+              routeHoles.reduce((sum, hole) => sum + Number(hole.par || 0), 0),
+            holes: routeHoles,
+            displayOrder: Number(figCourse.displayOrder || figCourse.display_order || 999),
+            sourcePayload: {
+              privateSubmissionId: submission.id,
+              figPlayableCourseId: figCourse.id,
+              privatePreview: true
+            },
+            tees: Array.isArray(figCourse.tees) ? figCourse.tees : []
+          };
+        })
+        .filter(Boolean)
+        .sort((left, right) => {
+          const leftOrder = Number.isFinite(Number(left.displayOrder)) ? Number(left.displayOrder) : 999;
+          const rightOrder = Number.isFinite(Number(right.displayOrder)) ? Number(right.displayOrder) : 999;
+          if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+          return String(left.name || "").localeCompare(String(right.name || ""), "it");
+        });
+
+      if (!privateRoutes.length) return null;
+
+      const primaryRoute = privateRoutes[0];
+
+      return {
+        ...course,
+        playable: true,
+        dataStatus: "needs_review",
+        sourceType: "user",
+        isComplex: true,
+        clubTaxonomy: course.clubTaxonomy || "complex_official",
+        privatePreview: true,
+        privatePreviewOwnerId: session.user.id,
+        totalPar: primaryRoute.totalPar,
+        holesCount: primaryRoute.holesCount,
+        holes: primaryRoute.holes,
+        routeCount: privateRoutes.length,
+        routes: privateRoutes,
+        routeCombinations: [],
+        primaryRouteId: primaryRoute.id
+      };
+    },
+    [loadFigMatchedClubById, session?.user?.id]
+  );
+
   const openFigCompletionUnit = useCallback(
     (unit) => {
       if (!unit?.routeDraft) return;
@@ -1900,6 +2299,71 @@ function App() {
     []
   );
 
+  const openComplexFigPrivateDraft = useCallback(
+    async (unit) => {
+      if (!unit?.course) return;
+
+      const routeDraft = buildPrivateRouteDraftFromFigCourse(unit.course);
+      let draftHoles = routeDraft.holes;
+
+      if (unit.submissionId && unit.state === "draft_private" && unit.isUploader && supabase) {
+        const { data: extractedHoles, error: extractedHolesError } = await supabase
+          .from("scorecard_extracted_holes")
+          .select("*")
+          .eq("submission_id", unit.submissionId)
+          .order("hole_number", { ascending: true });
+
+        if (extractedHolesError) throw extractedHolesError;
+
+        if (Array.isArray(extractedHoles) && extractedHoles.length) {
+          draftHoles = createRouteHoles(routeDraft.holesCount).map((hole) => {
+            const extractedHole = extractedHoles.find(
+              (entry) => Number(entry.hole_number) === Number(hole.hole)
+            );
+
+            return extractedHole
+              ? {
+                  ...hole,
+                  par: Number(extractedHole.par || hole.par) || hole.par,
+                  strokeIndex:
+                    extractedHole.stroke_index === null || typeof extractedHole.stroke_index === "undefined"
+                      ? ""
+                      : Number(extractedHole.stroke_index)
+                }
+              : hole;
+          });
+        }
+      }
+
+      const draftRoute = {
+        ...routeDraft,
+        holes: draftHoles
+      };
+
+      setPrivateDraftContext({
+        mode: "complex_private",
+        figClubId: figMatchedClub?.club?.id || null,
+        figPlayableCourseId: unit.course.id,
+        submissionId: unit.submissionId || null,
+        clubId: null,
+        courseName: getFigDisplayName(unit.course.name) || "Percorso ufficiale",
+        clubName: figMatchedClub?.club?.name || courseName || ""
+      });
+      setClubCreationMode("private_preview");
+      setRouteCount(1);
+      setRouteDrafts([draftRoute]);
+      setRouteName(draftRoute.name);
+      setCurrentRouteIndex(0);
+      setHolesCount(draftRoute.holesCount);
+      setHolesData(draftRoute.holes);
+      setCurrentHoleIndex(0);
+      setSelectedStepper("par");
+      setShowStrokeInfo(false);
+      setDialogStep(4);
+    },
+    [courseName, createRouteHoles, figMatchedClub]
+  );
+
   const openScorecardPicker = useCallback((context, pickerMode = "library") => {
     setScorecardUploadContext(context);
     const inputRef =
@@ -1917,10 +2381,30 @@ function App() {
       }
 
       if (context?.submissionId) {
-        return {
-          submissionId: context.submissionId,
-          createdNewSubmission: false
-        };
+        const { data: existingContextSubmission, error: existingContextSubmissionError } = await supabase
+          .from("scorecard_submissions")
+          .select("id,submitted_by,review_status,fig_playable_course_id")
+          .eq("id", context.submissionId)
+          .maybeSingle();
+
+        if (existingContextSubmissionError) throw existingContextSubmissionError;
+
+        const isValidExistingContextSubmission =
+          existingContextSubmission &&
+          existingContextSubmission.submitted_by === session.user.id &&
+          Number(existingContextSubmission.fig_playable_course_id) === Number(context.figPlayableCourseId) &&
+          (
+            context.origin === "complex_private_mapping"
+              ? existingContextSubmission.review_status === "draft_private"
+              : ["draft_private", "in_review"].includes(existingContextSubmission.review_status)
+          );
+
+        if (isValidExistingContextSubmission) {
+          return {
+            submissionId: context.submissionId,
+            createdNewSubmission: false
+          };
+        }
       }
 
       const payload = {
@@ -1928,9 +2412,13 @@ function App() {
         fig_club_id: context.figClubId,
         fig_playable_course_id: context.figPlayableCourseId,
         submitted_by: session.user.id,
-        submission_type: "photo",
+        submission_type:
+          context.submissionType ||
+          (context.origin === "complex_private_mapping" ? "manual" : "photo"),
         review_status: "draft_private",
-        source_type: "photo_upload",
+        source_type:
+          context.sourceType ||
+          (context.origin === "complex_private_mapping" ? "community" : "photo_upload"),
         notes: context.notes || null,
         submitted_payload: {
           clubName: context.clubName || null,
@@ -1962,13 +2450,25 @@ function App() {
         throw insertSubmissionError;
       }
 
-      const { data: existingSubmission, error: existingSubmissionError } = await supabase
+      let existingSubmissionQuery = supabase
         .from("scorecard_submissions")
         .select("id")
         .eq("fig_playable_course_id", context.figPlayableCourseId)
-        .in("review_status", ["draft_private", "in_review"])
-        .limit(1)
-        .maybeSingle();
+        .limit(1);
+
+      if (context.origin === "complex_private_mapping") {
+        existingSubmissionQuery = existingSubmissionQuery
+          .eq("submitted_by", session.user.id)
+          .eq("review_status", "draft_private");
+      } else {
+        existingSubmissionQuery = existingSubmissionQuery.in("review_status", [
+          "draft_private",
+          "in_review"
+        ]);
+      }
+
+      const { data: existingSubmission, error: existingSubmissionError } =
+        await existingSubmissionQuery.maybeSingle();
 
       if (existingSubmissionError) throw existingSubmissionError;
       if (!existingSubmission?.id) throw insertSubmissionError;
@@ -2137,8 +2637,10 @@ function App() {
       setFigMatchedClub(matchedClub);
 
       if (matchedClub.isComplex) {
+        const complexUnits = await fetchComplexFigCourseUnits(matchedClub);
         setClubCreationMode("multiple");
         setFigMatchFeedback("Abbiamo trovato questo club nel catalogo FIG. Lo configuriamo noi.");
+        setComplexFigCourseUnits(complexUnits);
         setDialogStep(7);
         return;
       }
@@ -2168,7 +2670,7 @@ function App() {
     } finally {
       setFigMatchLoading(false);
     }
-  }, [buildRouteDraftsFromFigMatch, fetchFigCompletionUnits, findStrongFigClubMatch]);
+  }, [buildRouteDraftsFromFigMatch, fetchComplexFigCourseUnits, fetchFigCompletionUnits, findStrongFigClubMatch]);
 
   const goToStepTwo = async () => {
     if (courseName.trim() === "") return;
@@ -2187,6 +2689,7 @@ function App() {
   const goBackToStepOne = () => {
     setFigMatchedClub(null);
     setFigCompletionUnits([]);
+    setComplexFigCourseUnits([]);
     setFigMatchFeedback("");
     setDialogStep(1);
   };
@@ -2253,6 +2756,10 @@ function App() {
   };
 
   const goBackToRouteDetails = () => {
+    if (privateDraftContext?.mode === "complex_private" || clubCreationMode === "private_preview") {
+      setDialogStep(7);
+      return;
+    }
     if (figMatchedClub?.club?.id && clubCreationMode === "single") {
       setDialogStep(9);
       return;
@@ -2340,7 +2847,8 @@ function App() {
   };
 
   const currentHoleCompleted =
-    currentHole.par !== "" && currentHole.strokeIndex !== "";
+    currentHole.par !== "" &&
+    (privateDraftContext?.mode === "complex_private" || currentHole.strokeIndex !== "");
 
   const nextHole = () => {
     if (!currentHoleCompleted) return;
@@ -2377,6 +2885,33 @@ function App() {
     setSelectedStepper("par");
   };
 
+  const getFigParMismatchWarnings = useCallback((routes) => {
+    return (Array.isArray(routes) ? routes : [])
+      .map((route) => {
+        const expectedPar = Number(route?.totalPar || 0) || null;
+        const actualPar = (route?.holes || []).reduce(
+          (sum, hole) => sum + Number(hole?.par || 0),
+          0
+        );
+
+        if (!route?.figPlayableCourseId || !expectedPar || !actualPar || expectedPar === actualPar) {
+          return null;
+        }
+
+        return {
+          routeName: route.name || "Percorso",
+          expectedPar,
+          actualPar
+        };
+      })
+      .filter(Boolean);
+  }, []);
+
+  const figParMismatchWarnings = useMemo(
+    () => getFigParMismatchWarnings(routeDrafts),
+    [getFigParMismatchWarnings, routeDrafts]
+  );
+
   const saveCourse = async () => {
     if (!supabase || !session?.user) return;
 
@@ -2409,6 +2944,93 @@ function App() {
     setCourseSaveLoading(true);
 
     try {
+      if (privateDraftContext?.mode !== "complex_private" && figParMismatchWarnings.length > 0) {
+        const firstMismatch = figParMismatchWarnings[0];
+        setCourseSaveError(
+          `La somma dei Par inseriti per ${firstMismatch.routeName} non coincide con il Par ufficiale FIG (${firstMismatch.actualPar}/${firstMismatch.expectedPar}).`
+        );
+        setCourseSaveLoading(false);
+        return;
+      }
+
+      if (privateDraftContext?.mode === "complex_private") {
+        const privateRoute = normalizedRoutes[0] || null;
+        if (!privateRoute?.figPlayableCourseId) {
+          throw new Error("Percorso FIG privato non disponibile.");
+        }
+
+        const {
+          submissionId,
+          createdNewSubmission
+        } = await createOrReuseScorecardSubmission({
+          clubId: privateDraftContext.clubId || null,
+          figClubId: privateDraftContext.figClubId,
+          figPlayableCourseId: privateDraftContext.figPlayableCourseId,
+          submissionId: privateDraftContext.submissionId || null,
+          clubName: privateDraftContext.clubName || cleanName,
+          courseName: privateDraftContext.courseName || privateRoute.name,
+          origin: "complex_private_mapping",
+          notes: "Bozza privata da club complesso FIG."
+        });
+
+        const extractedPayload = (privateRoute.holes || []).map((hole) => ({
+          submission_id: submissionId,
+          hole_number: Number(hole.hole),
+          par: Number(hole.par || 0) || null,
+          stroke_index:
+            hole.strokeIndex === "" || hole.strokeIndex === null || typeof hole.strokeIndex === "undefined"
+              ? null
+              : Number(hole.strokeIndex),
+          display_label: `Buca ${hole.hole}`,
+          confidence: null,
+          raw_extraction: {
+            source: "manual_private_mapping"
+          }
+        }));
+
+        if (createdNewSubmission && extractedPayload.length) {
+          const { error: insertExtractedError } = await supabase
+            .from("scorecard_extracted_holes")
+            .insert(extractedPayload);
+
+          if (insertExtractedError) throw insertExtractedError;
+        } else {
+          const { error: deleteExistingExtractedError } = await supabase
+            .from("scorecard_extracted_holes")
+            .delete()
+            .eq("submission_id", submissionId);
+
+          if (deleteExistingExtractedError) throw deleteExistingExtractedError;
+
+          if (extractedPayload.length) {
+            const { error: insertExtractedError } = await supabase
+              .from("scorecard_extracted_holes")
+              .insert(extractedPayload);
+
+            if (insertExtractedError) throw insertExtractedError;
+          }
+        }
+
+        setPrivateDraftContext((prev) =>
+          prev
+            ? {
+                ...prev,
+                submissionId
+              }
+            : prev
+        );
+
+        if (figMatchedClub?.isComplex) {
+          const refreshedComplexUnits = await fetchComplexFigCourseUnits(figMatchedClub);
+          setComplexFigCourseUnits(refreshedComplexUnits);
+        }
+
+        setCourseSaveSuccessMessage("Bozza privata salvata");
+        setClubRequestFeedback("");
+        setDialogStep(8);
+        return;
+      }
+
       const { data: existingClubs, error: duplicateError } = await supabase
         .from("clubs")
         .select("id,name,name_normalized")
@@ -2807,6 +3429,15 @@ function App() {
     }
 
     let requestedClubId = existingClub?.id || null;
+    const requestedFigClubId = figMatchedClub?.club?.id || existingClub?.fig_club_id || null;
+    const requestedClubSourcePayload =
+      requestedFigClubId
+        ? {
+            ...(existingClub?.source_payload || {}),
+            figClubName: figMatchedClub?.club?.name || existingClub?.source_payload?.figClubName || cleanName,
+            figClubId: requestedFigClubId
+          }
+        : existingClub?.source_payload || null;
 
     if (!existingClub) {
       const { data: insertedClub, error: insertClubError } = await supabase
@@ -2818,7 +3449,16 @@ function App() {
           data_status: "needs_review",
           source_type: "user",
           is_complex: true,
-          playable: false
+          playable: false,
+          fig_club_id: requestedFigClubId,
+          fig_match_status: requestedFigClubId ? "matched" : "unmatched",
+          fig_match_confidence: requestedFigClubId ? 1 : null,
+          fig_match_notes: requestedFigClubId ? "Club complesso richiesto da match FIG." : null,
+          fig_matched_at: requestedFigClubId ? new Date().toISOString() : null,
+          club_taxonomy: requestedFigClubId ? "complex_official" : null,
+          city: figMatchedClub?.club?.city || null,
+          country: figMatchedClub?.club?.country || null,
+          source_payload: requestedClubSourcePayload
         })
         .select("*")
         .single();
@@ -2841,7 +3481,20 @@ function App() {
           data_status: "needs_review",
           source_type: existingClub.source_type || "user",
           is_complex: true,
-          playable: false
+          playable: false,
+          fig_club_id: requestedFigClubId,
+          fig_match_status: requestedFigClubId ? "matched" : existingClub.fig_match_status || "unmatched",
+          fig_match_confidence: requestedFigClubId ? 1 : existingClub.fig_match_confidence || null,
+          fig_match_notes: requestedFigClubId
+            ? "Club complesso richiesto da match FIG."
+            : existingClub.fig_match_notes || null,
+          fig_matched_at: requestedFigClubId
+            ? existingClub.fig_matched_at || new Date().toISOString()
+            : existingClub.fig_matched_at || null,
+          club_taxonomy: requestedFigClubId ? "complex_official" : existingClub.club_taxonomy || null,
+          city: existingClub.city || figMatchedClub?.club?.city || null,
+          country: existingClub.country || figMatchedClub?.club?.country || null,
+          source_payload: requestedClubSourcePayload
         })
         .eq("id", existingClub.id);
 
@@ -3074,6 +3727,31 @@ function App() {
       ...buildRoundChoiceDefaults(course, defaultCompetitionHoles)
     });
     setRoundScores([]);
+  };
+
+  const openCourseFromSearch = async (course) => {
+    if (course?.playable) {
+      prepareRoundSetup(course);
+      return;
+    }
+
+    if (
+      session?.user?.id &&
+      course?.clubTaxonomy === "complex_official" &&
+      course?.figClubId
+    ) {
+      try {
+        const privatePlayableCourse = await loadPrivatePlayableCourseForClub(course);
+        if (privatePlayableCourse) {
+          prepareRoundSetup(privatePlayableCourse);
+          return;
+        }
+      } catch (error) {
+        console.error("Unable to load private playable course", error);
+      }
+    }
+
+    openComplexClubRequestDialog(course);
   };
 
   useEffect(() => {
@@ -5998,11 +6676,7 @@ function App() {
     <div
       key={course.id}
       onClick={() => {
-        if (!course.playable) {
-          openComplexClubRequestDialog(course);
-          return;
-        }
-        prepareRoundSetup(course);
+        openCourseFromSearch(course);
       }}
       onMouseDown={() => setActiveCourseCardId(course.id)}
       onMouseUp={() => setActiveCourseCardId(null)}
@@ -6367,7 +7041,27 @@ function App() {
           </div>
 
           <div style={roundSetupTopCardStyle}>
-            <div style={{ fontSize: "25px", fontWeight: 700, minWidth: 0 }}>{openedCourse.name}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+              <div style={{ fontSize: "25px", fontWeight: 700, minWidth: 0 }}>{openedCourse.name}</div>
+              {openedCourse.privatePreview && (
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "6px 10px",
+                    borderRadius: "999px",
+                    backgroundColor: colors.greenDark,
+                    border: `1px solid ${colors.greenBorder}`,
+                    color: colors.green,
+                    fontSize: "12px",
+                    fontWeight: 600
+                  }}
+                >
+                  Privato · in verifica
+                </div>
+              )}
+            </div>
             <div
               style={{
                 marginTop: "10px",
@@ -6376,8 +7070,30 @@ function App() {
                 lineHeight: 1.5
               }}
             >
-              Club con {openedCourse.routeCount} {openedCourse.routeCount === 1 ? "percorso" : "percorsi"}
+              {openedCourse.privatePreview
+                ? `Bozza privata su ${openedCourse.routeCount} ${openedCourse.routeCount === 1 ? "percorso ufficiale" : "percorsi ufficiali"} FIG`
+                : `Club con ${openedCourse.routeCount} ${openedCourse.routeCount === 1 ? "percorso" : "percorsi"}`}
             </div>
+            {openedCourse.privatePreview &&
+              openedCourseRoutes.some((route) =>
+                (route.holes || []).some(
+                  (hole) =>
+                    hole.strokeIndex === null ||
+                    hole.strokeIndex === undefined ||
+                    String(hole.strokeIndex).trim() === ""
+                )
+              ) && (
+                <div
+                  style={{
+                    marginTop: "12px",
+                    color: colors.subtext,
+                    fontSize: "13px",
+                    lineHeight: 1.6
+                  }}
+                >
+                  Manca ancora lo Stroke Index ufficiale. Puoi giocare il giro in privato ma i risultati netti potrebbero non essere accurati.
+                </div>
+              )}
           </div>
 
           <div style={roundSetupPreviewStyle}>
@@ -9138,6 +9854,7 @@ function App() {
                 </p>
 
                 <input
+                  ref={courseNameInputRef}
                   type="text"
                   placeholder="Nome club"
                   value={courseName}
@@ -9419,6 +10136,18 @@ function App() {
                   }}
                 >
                   Per questo club usiamo solo i percorsi ufficiali presenti nel catalogo FIG.
+                </p>
+
+                <p
+                  style={{
+                    color: colors.subtext,
+                    fontSize: "13px",
+                    marginTop: 0,
+                    marginBottom: "18px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  Hai la scorecard? Caricala: ci aiutera' a configurare il club prima e meglio.
                 </p>
 
                 <div
@@ -9704,7 +10433,19 @@ function App() {
                   Per garantirti dati corretti, lo configuriamo noi.
                 </p>
 
-                {figMatchedClub?.playableCourses?.length > 0 && (
+                <p
+                  style={{
+                    color: colors.subtext,
+                    fontSize: "13px",
+                    marginTop: 0,
+                    marginBottom: "14px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  Hai la scorecard? Caricala: ci aiutera' a configurare il club prima e meglio.
+                </p>
+
+                {complexFigCourseUnits.length > 0 && (
                   <div
                     style={{
                       display: "grid",
@@ -9712,9 +10453,15 @@ function App() {
                       marginBottom: "14px"
                     }}
                   >
-                    {figMatchedClub.playableCourses.map((course) => (
+                    {complexFigCourseUnits.map((unit) => {
+                      const course = unit.course;
+                      const stateMeta = getFigCompletionUnitStateMeta(unit.state, unit.isUploader);
+                      const canOpenPrivateDraft =
+                        unit.state === "missing" || (unit.state === "draft_private" && unit.isUploader);
+
+                      return (
                       <div
-                        key={course.id}
+                        key={unit.id}
                         style={{
                           padding: "12px 14px",
                           backgroundColor: colors.cardSecondary,
@@ -9737,6 +10484,57 @@ function App() {
                             .filter(Boolean)
                             .join(" • ")}
                         </div>
+
+                        <div
+                          style={{
+                            marginTop: "8px",
+                            color: colors.subtext,
+                            fontSize: "12px",
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {stateMeta.description}
+                        </div>
+
+                        <div
+                          style={{
+                            marginTop: "8px",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            padding: "6px 10px",
+                            borderRadius: "999px",
+                            border: `1px solid ${colors.border}`,
+                            fontSize: "12px",
+                            fontWeight: 600,
+                            color:
+                              unit.state === "published"
+                                ? colors.green
+                                : unit.state === "missing"
+                                  ? colors.subtext
+                                  : colors.text,
+                            backgroundColor:
+                              unit.state === "published" ? colors.greenDark : colors.inputBg
+                          }}
+                        >
+                          {unit.isUploader && unit.state === "draft_private"
+                            ? "Privato · in verifica"
+                            : stateMeta.label}
+                        </div>
+
+                        {canOpenPrivateDraft && (
+                          <button
+                            type="button"
+                            onClick={() => openComplexFigPrivateDraft(unit)}
+                            style={{
+                              ...primaryButtonStyle(true),
+                              marginBottom: 0
+                            }}
+                          >
+                            {unit.state === "draft_private" && unit.isUploader
+                              ? "Continua bozza privata"
+                              : "Compila provvisoriamente"}
+                          </button>
+                        )}
 
                         <div
                           style={{
@@ -9825,7 +10623,7 @@ function App() {
                           </div>
                         )}
                       </div>
-                    ))}
+                    )})}
                   </div>
                 )}
 
@@ -10160,7 +10958,9 @@ function App() {
                     lineHeight: 1.5
                   }}
                 >
-                  Inserisci il Par e lo Stroke Index.
+                  {privateDraftContext?.mode === "complex_private"
+                    ? "Inserisci il Par. Se non conosci ancora lo Stroke Index puoi aggiungerlo più tardi."
+                    : "Inserisci il Par e lo Stroke Index."}
                 </p>
 
                 <div
@@ -10334,7 +11134,9 @@ function App() {
                     lineHeight: 1.5
                   }}
                 >
-                  Controlla la mappatura completa di {courseName}.
+                  {privateDraftContext?.mode === "complex_private"
+                    ? `Controlla la bozza privata di ${courseName}.`
+                    : `Controlla la mappatura completa di ${courseName}.`}
                 </p>
 
                 <div
@@ -10345,8 +11147,55 @@ function App() {
                     lineHeight: 1.5
                   }}
                 >
-                  Puoi modificare solo Par e Stroke Index prima di salvare.
+                  {privateDraftContext?.mode === "complex_private"
+                    ? "Puoi modificare Par e Stroke Index prima di salvare la bozza privata."
+                    : "Puoi modificare solo Par e Stroke Index prima di salvare."}
                 </div>
+
+                {privateDraftContext?.mode === "complex_private" &&
+                  routeDrafts.some((route) =>
+                    (route.holes || []).some(
+                      (hole) =>
+                        hole.strokeIndex === null ||
+                        hole.strokeIndex === undefined ||
+                        String(hole.strokeIndex).trim() === ""
+                    )
+                  ) && (
+                    <div
+                      style={{
+                        marginBottom: "16px",
+                        padding: "14px",
+                        backgroundColor: colors.cardSecondary,
+                        border: `1px solid ${colors.border}`,
+                        borderRadius: "12px",
+                        color: colors.subtext,
+                        fontSize: "13px",
+                        lineHeight: 1.5
+                      }}
+                    >
+                      Manca ancora lo Stroke Index ufficiale. Puoi giocare il giro in
+                      privato ma i risultati netti potrebbero non essere accurati.
+                    </div>
+                  )}
+
+                {figParMismatchWarnings.length > 0 && (
+                  <div
+                    style={{
+                      marginBottom: "16px",
+                      padding: "14px",
+                      backgroundColor: colors.cardSecondary,
+                      border: `1px solid ${colors.border}`,
+                      borderRadius: "12px",
+                      color: privateDraftContext?.mode === "complex_private" ? colors.subtext : "#d64545",
+                      fontSize: "13px",
+                      lineHeight: 1.5
+                    }}
+                    >
+                    {privateDraftContext?.mode === "complex_private"
+                      ? `La somma dei Par inseriti non coincide ancora con il Par ufficiale FIG. Se puoi, controlla il percorso e correggilo direttamente nel riepilogo. Puoi comunque continuare con la bozza privata e Stablr lo verificherà.`
+                      : `La somma dei Par inseriti non coincide con il Par ufficiale FIG. Puoi correggerla direttamente nel riepilogo prima di salvare.`}
+                  </div>
+                )}
 
                 {routeDrafts.map((route, routeIndex) => {
                   const routeTotalPar = (route.holes || []).reduce(
@@ -10492,7 +11341,9 @@ function App() {
                     lineHeight: 1.5
                   }}
                 >
-                  Una volta salvato, il club resterà nel sistema e potrà essere richiamato senza rimappatura.
+                  {privateDraftContext?.mode === "complex_private"
+                    ? "Una volta salvata, la bozza resterà privata e potrai riprenderla senza rimappare il percorso."
+                    : "Una volta salvato, il club resterà nel sistema e potrà essere richiamato senza rimappatura."}
                 </div>
 
                 {courseSaveError && (
@@ -10509,7 +11360,11 @@ function App() {
                 )}
 
                 <button onClick={saveCourse} style={primaryButtonStyle(true)}>
-                  {courseSaveLoading ? "Salvataggio in corso..." : "Salva club"}
+                  {courseSaveLoading
+                    ? "Salvataggio in corso..."
+                    : privateDraftContext?.mode === "complex_private"
+                      ? "Salva bozza privata"
+                      : "Salva club"}
                 </button>
 
                 <button onClick={goBackFromSummary} style={secondaryButtonStyle}>
@@ -10532,7 +11387,9 @@ function App() {
                     fontWeight: 700
                   }}
                 >
-                  Campo salvato
+                  {privateDraftContext?.mode === "complex_private"
+                    ? "Bozza privata salvata"
+                    : "Campo salvato"}
                 </h3>
 
                 <p
@@ -10544,7 +11401,9 @@ function App() {
                     lineHeight: 1.5
                   }}
                 >
-                  Puoi segnalare eventuali errori
+                  {privateDraftContext?.mode === "complex_private"
+                    ? "La tua bozza resta privata e in verifica finché Stablr non completa la configurazione."
+                    : "Puoi segnalare eventuali errori"}
                 </p>
 
                 {courseSaveSuccessMessage && (

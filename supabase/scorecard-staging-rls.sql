@@ -123,7 +123,7 @@ with check (
     from public.scorecard_submissions submission
     where submission.id = scorecard_extracted_holes.submission_id
       and submission.submitted_by = auth.uid()
-      and submission.review_status = 'draft_private'
+      and submission.review_status in ('draft_private', 'in_review', 'rejected')
   )
 );
 
@@ -138,7 +138,7 @@ using (
     from public.scorecard_submissions submission
     where submission.id = scorecard_extracted_holes.submission_id
       and submission.submitted_by = auth.uid()
-      and submission.review_status = 'draft_private'
+      and submission.review_status in ('draft_private', 'in_review', 'rejected')
   )
 )
 with check (
@@ -148,7 +148,7 @@ with check (
     from public.scorecard_submissions submission
     where submission.id = scorecard_extracted_holes.submission_id
       and submission.submitted_by = auth.uid()
-      and submission.review_status = 'draft_private'
+      and submission.review_status in ('draft_private', 'in_review', 'rejected')
   )
 );
 
@@ -163,7 +163,7 @@ using (
     from public.scorecard_submissions submission
     where submission.id = scorecard_extracted_holes.submission_id
       and submission.submitted_by = auth.uid()
-      and submission.review_status = 'draft_private'
+      and submission.review_status in ('draft_private', 'in_review', 'rejected')
   )
 );
 

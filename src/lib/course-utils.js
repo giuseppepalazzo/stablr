@@ -14,7 +14,12 @@ export function sanitizeHolesForStructure(holes) {
   return (Array.isArray(holes) ? holes : []).map((hole, index) => ({
     hole: Number(hole?.hole || index + 1),
     par: Number(hole?.par || 0),
-    strokeIndex: Number(hole?.strokeIndex || 0)
+    strokeIndex:
+      hole?.strokeIndex === "" ||
+      hole?.strokeIndex === null ||
+      typeof hole?.strokeIndex === "undefined"
+        ? null
+        : Number(hole.strokeIndex)
   }));
 }
 
