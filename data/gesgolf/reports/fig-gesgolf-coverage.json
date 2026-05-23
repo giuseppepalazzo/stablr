@@ -1,0 +1,2913 @@
+{
+  "generated_at": "2026-05-23T15:47:46.818Z",
+  "source": {
+    "fig_catalog_path": "/Users/giuseppepalazzo/golf-score-app/data/fig/normalized/fig-catalog-normalized.json",
+    "gesgolf_clubs_index_url": "https://www.gesgolf.it/golfonline/clubs/index.aspx"
+  },
+  "summary": {
+    "total_fig_clubs": 220,
+    "present_in_gesgolf_strong": 184,
+    "possible_match_below_threshold": 0,
+    "not_found_or_weak_match": 36,
+    "strong_threshold": 90
+  },
+  "results": [
+    {
+      "fig_club": "Acaya",
+      "fig_name_normalized": "acaya",
+      "queries": [
+        "acaya"
+      ],
+      "match": {
+        "circolo_id": "792",
+        "name": "ACAYA",
+        "score": 100,
+        "query": "acaya"
+      }
+    },
+    {
+      "fig_club": "Acquabona",
+      "fig_name_normalized": "acquabona",
+      "queries": [
+        "acquabona"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Albisola",
+      "fig_name_normalized": "albisola",
+      "queries": [
+        "albisola"
+      ],
+      "match": {
+        "circolo_id": "746",
+        "name": "ALBISOLA",
+        "score": 100,
+        "query": "albisola"
+      }
+    },
+    {
+      "fig_club": "Alpino",
+      "fig_name_normalized": "alpino",
+      "queries": [
+        "alpino"
+      ],
+      "match": {
+        "circolo_id": "39",
+        "name": "ALPINO",
+        "score": 100,
+        "query": "alpino"
+      }
+    },
+    {
+      "fig_club": "Alta Badia",
+      "fig_name_normalized": "alta badia",
+      "queries": [
+        "alta badia",
+        "badia",
+        "alta"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Ambrosiano",
+      "fig_name_normalized": "ambrosiano",
+      "queries": [
+        "ambrosiano"
+      ],
+      "match": {
+        "circolo_id": "699",
+        "name": "AMBROSIANO",
+        "score": 100,
+        "query": "ambrosiano"
+      }
+    },
+    {
+      "fig_club": "Antognolla",
+      "fig_name_normalized": "antognolla",
+      "queries": [
+        "antognolla"
+      ],
+      "match": {
+        "circolo_id": "644",
+        "name": "ANTOGNOLLA",
+        "score": 100,
+        "query": "antognolla"
+      }
+    },
+    {
+      "fig_club": "Aosta Arsanieres",
+      "fig_name_normalized": "aosta arsanieres",
+      "queries": [
+        "aosta arsanieres",
+        "arsanieres",
+        "aosta"
+      ],
+      "match": {
+        "circolo_id": "105",
+        "name": "AOSTA ARSANIERES",
+        "score": 100,
+        "query": "aosta arsanieres"
+      }
+    },
+    {
+      "fig_club": "Aosta Brissogne",
+      "fig_name_normalized": "aosta brissogne",
+      "queries": [
+        "aosta brissogne",
+        "brissogne",
+        "aosta"
+      ],
+      "match": {
+        "circolo_id": "819",
+        "name": "AOSTA BRISSOGNE",
+        "score": 100,
+        "query": "aosta brissogne"
+      }
+    },
+    {
+      "fig_club": "Appiano - Golf & Country",
+      "fig_name_normalized": "appiano golf country",
+      "queries": [
+        "appiano",
+        "appiano golf country"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Archi Claudio",
+      "fig_name_normalized": "archi claudio",
+      "queries": [
+        "archi claudio",
+        "claudio",
+        "archi"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Arenzano Pineta",
+      "fig_name_normalized": "arenzano pineta",
+      "queries": [
+        "arenzano pineta",
+        "pineta",
+        "arenzano"
+      ],
+      "match": {
+        "circolo_id": "794",
+        "name": "ARENZANO PINETA",
+        "score": 100,
+        "query": "pineta"
+      }
+    },
+    {
+      "fig_club": "Argenta",
+      "fig_name_normalized": "argenta",
+      "queries": [
+        "argenta"
+      ],
+      "match": {
+        "circolo_id": "135",
+        "name": "ARGENTA",
+        "score": 100,
+        "query": "argenta"
+      }
+    },
+    {
+      "fig_club": "Argentario",
+      "fig_name_normalized": "argentario",
+      "queries": [
+        "argentario"
+      ],
+      "match": {
+        "circolo_id": "365",
+        "name": "ARGENTARIO",
+        "score": 100,
+        "query": "argentario"
+      }
+    },
+    {
+      "fig_club": "Arona",
+      "fig_name_normalized": "arona",
+      "queries": [
+        "arona"
+      ],
+      "match": {
+        "circolo_id": "289",
+        "name": "ARONA",
+        "score": 100,
+        "query": "arona"
+      }
+    },
+    {
+      "fig_club": "Arzaga",
+      "fig_name_normalized": "arzaga",
+      "queries": [
+        "arzaga"
+      ],
+      "match": {
+        "circolo_id": "744",
+        "name": "ARZAGA",
+        "score": 100,
+        "query": "arzaga"
+      }
+    },
+    {
+      "fig_club": "Asiago",
+      "fig_name_normalized": "asiago",
+      "queries": [
+        "asiago"
+      ],
+      "match": {
+        "circolo_id": "3",
+        "name": "ASIAGO",
+        "score": 100,
+        "query": "asiago"
+      }
+    },
+    {
+      "fig_club": "Asolo",
+      "fig_name_normalized": "asolo",
+      "queries": [
+        "asolo"
+      ],
+      "match": {
+        "circolo_id": "219",
+        "name": "ASOLO",
+        "score": 100,
+        "query": "asolo"
+      }
+    },
+    {
+      "fig_club": "Bagnaia",
+      "fig_name_normalized": "bagnaia",
+      "queries": [
+        "bagnaia"
+      ],
+      "match": {
+        "circolo_id": "504",
+        "name": "BAGNAIA",
+        "score": 100,
+        "query": "bagnaia"
+      }
+    },
+    {
+      "fig_club": "Barialto Golf",
+      "fig_name_normalized": "barialto golf",
+      "queries": [
+        "barialto",
+        "barialto golf"
+      ],
+      "match": {
+        "circolo_id": "808",
+        "name": "BARIALTO GOLF",
+        "score": 100,
+        "query": "barialto"
+      }
+    },
+    {
+      "fig_club": "Barlassina",
+      "fig_name_normalized": "barlassina",
+      "queries": [
+        "barlassina"
+      ],
+      "match": {
+        "circolo_id": "669",
+        "name": "BARLASSINA",
+        "score": 100,
+        "query": "barlassina"
+      }
+    },
+    {
+      "fig_club": "Bellosguardo",
+      "fig_name_normalized": "bellosguardo",
+      "queries": [
+        "bellosguardo"
+      ],
+      "match": {
+        "circolo_id": "343",
+        "name": "BELLOSGUARDO",
+        "score": 100,
+        "query": "bellosguardo"
+      }
+    },
+    {
+      "fig_club": "Bergamo Albenza",
+      "fig_name_normalized": "bergamo albenza",
+      "queries": [
+        "bergamo albenza",
+        "albenza",
+        "bergamo"
+      ],
+      "match": {
+        "circolo_id": "742",
+        "name": "COLLI BERGAMO",
+        "score": 38,
+        "query": "bergamo"
+      }
+    },
+    {
+      "fig_club": "Biella Betulle",
+      "fig_name_normalized": "biella betulle",
+      "queries": [
+        "biella betulle",
+        "betulle",
+        "biella"
+      ],
+      "match": {
+        "circolo_id": "6",
+        "name": "BIELLA BETULLE",
+        "score": 100,
+        "query": "betulle"
+      }
+    },
+    {
+      "fig_club": "Bogliaco",
+      "fig_name_normalized": "bogliaco",
+      "queries": [
+        "bogliaco"
+      ],
+      "match": {
+        "circolo_id": "7",
+        "name": "BOGLIACO",
+        "score": 100,
+        "query": "bogliaco"
+      }
+    },
+    {
+      "fig_club": "Bogogno",
+      "fig_name_normalized": "bogogno",
+      "queries": [
+        "bogogno"
+      ],
+      "match": {
+        "circolo_id": "659",
+        "name": "BOGOGNO",
+        "score": 100,
+        "query": "bogogno"
+      }
+    },
+    {
+      "fig_club": "Bollina",
+      "fig_name_normalized": "bollina",
+      "queries": [
+        "bollina"
+      ],
+      "match": {
+        "circolo_id": "840",
+        "name": "BOLLINA",
+        "score": 100,
+        "query": "bollina"
+      }
+    },
+    {
+      "fig_club": "Bologna",
+      "fig_name_normalized": "bologna",
+      "queries": [
+        "bologna"
+      ],
+      "match": {
+        "circolo_id": "8",
+        "name": "BOLOGNA",
+        "score": 100,
+        "query": "bologna"
+      }
+    },
+    {
+      "fig_club": "Borgo Camuzzago",
+      "fig_name_normalized": "borgo camuzzago",
+      "queries": [
+        "borgo camuzzago",
+        "camuzzago",
+        "borgo"
+      ],
+      "match": {
+        "circolo_id": "434",
+        "name": "BORGO CAMUZZAGO",
+        "score": 100,
+        "query": "borgo camuzzago"
+      }
+    },
+    {
+      "fig_club": "Bormio Ssd",
+      "fig_name_normalized": "bormio ssd",
+      "queries": [
+        "bormio",
+        "bormio ssd"
+      ],
+      "match": {
+        "circolo_id": "825",
+        "name": "BORMIO SSD",
+        "score": 100,
+        "query": "bormio"
+      }
+    },
+    {
+      "fig_club": "Botanic Sa Cuba",
+      "fig_name_normalized": "botanic sa cuba",
+      "queries": [
+        "botanic sa",
+        "cuba",
+        "botanic",
+        "botanic sa cuba"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Boves",
+      "fig_name_normalized": "boves",
+      "queries": [
+        "boves"
+      ],
+      "match": {
+        "circolo_id": "660",
+        "name": "BOVES",
+        "score": 100,
+        "query": "boves"
+      }
+    },
+    {
+      "fig_club": "Brianza",
+      "fig_name_normalized": "brianza",
+      "queries": [
+        "brianza"
+      ],
+      "match": {
+        "circolo_id": "117",
+        "name": "BRIANZA",
+        "score": 100,
+        "query": "brianza"
+      }
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "fig_name_normalized": "ca amata",
+      "queries": [
+        "ca amata",
+        "amata",
+        "ca"
+      ],
+      "match": {
+        "circolo_id": "144",
+        "name": "CA' AMATA",
+        "score": 100,
+        "query": "amata"
+      }
+    },
+    {
+      "fig_club": "Ca' Nave Ssd",
+      "fig_name_normalized": "ca nave ssd",
+      "queries": [
+        "ca nave",
+        "nave",
+        "ca",
+        "ca nave ssd"
+      ],
+      "match": {
+        "circolo_id": "852",
+        "name": "CA' NAVE SSD",
+        "score": 100,
+        "query": "nave"
+      }
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "fig_name_normalized": "ca ulivi",
+      "queries": [
+        "ca ulivi",
+        "ulivi",
+        "ca"
+      ],
+      "match": {
+        "circolo_id": "92",
+        "name": "CA' ULIVI",
+        "score": 100,
+        "query": "ulivi"
+      }
+    },
+    {
+      "fig_club": "Campodoglio",
+      "fig_name_normalized": "campodoglio",
+      "queries": [
+        "campodoglio"
+      ],
+      "match": {
+        "circolo_id": "701",
+        "name": "CAMPODOGLIO",
+        "score": 100,
+        "query": "campodoglio"
+      }
+    },
+    {
+      "fig_club": "Cansiglio",
+      "fig_name_normalized": "cansiglio",
+      "queries": [
+        "cansiglio"
+      ],
+      "match": {
+        "circolo_id": "9",
+        "name": "CANSIGLIO",
+        "score": 100,
+        "query": "cansiglio"
+      }
+    },
+    {
+      "fig_club": "Caorle",
+      "fig_name_normalized": "caorle",
+      "queries": [
+        "caorle"
+      ],
+      "match": {
+        "circolo_id": "481",
+        "name": "CAORLE",
+        "score": 100,
+        "query": "caorle"
+      }
+    },
+    {
+      "fig_club": "Carimate",
+      "fig_name_normalized": "carimate",
+      "queries": [
+        "carimate"
+      ],
+      "match": {
+        "circolo_id": "11",
+        "name": "CARIMATE",
+        "score": 100,
+        "query": "carimate"
+      }
+    },
+    {
+      "fig_club": "Casalunga",
+      "fig_name_normalized": "casalunga",
+      "queries": [
+        "casalunga"
+      ],
+      "match": {
+        "circolo_id": "172",
+        "name": "CASALUNGA",
+        "score": 100,
+        "query": "casalunga"
+      }
+    },
+    {
+      "fig_club": "Casentino",
+      "fig_name_normalized": "casentino",
+      "queries": [
+        "casentino"
+      ],
+      "match": {
+        "circolo_id": "85",
+        "name": "CASENTINO",
+        "score": 100,
+        "query": "casentino"
+      }
+    },
+    {
+      "fig_club": "Castelconturbia",
+      "fig_name_normalized": "castelconturbia",
+      "queries": [
+        "castelconturbia"
+      ],
+      "match": {
+        "circolo_id": "68",
+        "name": "CASTELCONTURBIA",
+        "score": 100,
+        "query": "castelconturbia"
+      }
+    },
+    {
+      "fig_club": "Castelfalfi",
+      "fig_name_normalized": "castelfalfi",
+      "queries": [
+        "castelfalfi"
+      ],
+      "match": {
+        "circolo_id": "678",
+        "name": "CASTELFALFI",
+        "score": 100,
+        "query": "castelfalfi"
+      }
+    },
+    {
+      "fig_club": "Castelgandolfo",
+      "fig_name_normalized": "castelgandolfo",
+      "queries": [
+        "castelgandolfo"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Castellaro",
+      "fig_name_normalized": "castellaro",
+      "queries": [
+        "castellaro"
+      ],
+      "match": {
+        "circolo_id": "634",
+        "name": "CASTELLARO",
+        "score": 100,
+        "query": "castellaro"
+      }
+    },
+    {
+      "fig_club": "Castello Spessa",
+      "fig_name_normalized": "castello spessa",
+      "queries": [
+        "castello spessa",
+        "spessa",
+        "castello"
+      ],
+      "match": {
+        "circolo_id": "80",
+        "name": "CASTELLO SPESSA",
+        "score": 100,
+        "query": "spessa"
+      }
+    },
+    {
+      "fig_club": "Cavaglia'",
+      "fig_name_normalized": "cavaglia",
+      "queries": [
+        "cavaglia"
+      ],
+      "match": {
+        "circolo_id": "681",
+        "name": "CAVAGLIA'",
+        "score": 100,
+        "query": "cavaglia"
+      }
+    },
+    {
+      "fig_club": "Cerreto Miglianico",
+      "fig_name_normalized": "cerreto miglianico",
+      "queries": [
+        "cerreto miglianico",
+        "miglianico",
+        "cerreto"
+      ],
+      "match": {
+        "circolo_id": "838",
+        "name": "CERRETO MIGLIANICO",
+        "score": 100,
+        "query": "miglianico"
+      }
+    },
+    {
+      "fig_club": "Cervia",
+      "fig_name_normalized": "cervia",
+      "queries": [
+        "cervia"
+      ],
+      "match": {
+        "circolo_id": "74",
+        "name": "CERVIA",
+        "score": 100,
+        "query": "cervia"
+      }
+    },
+    {
+      "fig_club": "Cervino",
+      "fig_name_normalized": "cervino",
+      "queries": [
+        "cervino"
+      ],
+      "match": {
+        "circolo_id": "508",
+        "name": "CERVINO",
+        "score": 100,
+        "query": "cervino"
+      }
+    },
+    {
+      "fig_club": "Cherasco",
+      "fig_name_normalized": "cherasco",
+      "queries": [
+        "cherasco"
+      ],
+      "match": {
+        "circolo_id": "59",
+        "name": "CHERASCO",
+        "score": 100,
+        "query": "cherasco"
+      }
+    },
+    {
+      "fig_club": "Ciliegi",
+      "fig_name_normalized": "ciliegi",
+      "queries": [
+        "ciliegi"
+      ],
+      "match": {
+        "circolo_id": "209",
+        "name": "CILIEGI",
+        "score": 100,
+        "query": "ciliegi"
+      }
+    },
+    {
+      "fig_club": "Citta' D'Asti",
+      "fig_name_normalized": "citta d asti",
+      "queries": [
+        "citta asti",
+        "asti",
+        "citta",
+        "citta d asti"
+      ],
+      "match": {
+        "circolo_id": "336",
+        "name": "CITTA' D'ASTI",
+        "score": 100,
+        "query": "asti"
+      }
+    },
+    {
+      "fig_club": "Claviere",
+      "fig_name_normalized": "claviere",
+      "queries": [
+        "claviere"
+      ],
+      "match": {
+        "circolo_id": "13",
+        "name": "CLAVIERE",
+        "score": 100,
+        "query": "claviere"
+      }
+    },
+    {
+      "fig_club": "Colli Bergamo",
+      "fig_name_normalized": "colli bergamo",
+      "queries": [
+        "colli bergamo",
+        "bergamo",
+        "colli"
+      ],
+      "match": {
+        "circolo_id": "742",
+        "name": "COLLI BERGAMO",
+        "score": 100,
+        "query": "bergamo"
+      }
+    },
+    {
+      "fig_club": "Colli Berici",
+      "fig_name_normalized": "colli berici",
+      "queries": [
+        "colli berici",
+        "berici",
+        "colli"
+      ],
+      "match": {
+        "circolo_id": "90",
+        "name": "COLLI BERICI",
+        "score": 100,
+        "query": "colli berici"
+      }
+    },
+    {
+      "fig_club": "Colline Gavi",
+      "fig_name_normalized": "colline gavi",
+      "queries": [
+        "colline gavi",
+        "gavi",
+        "colline"
+      ],
+      "match": {
+        "circolo_id": "732",
+        "name": "COLLINE GAVI",
+        "score": 100,
+        "query": "gavi"
+      }
+    },
+    {
+      "fig_club": "Colombaro",
+      "fig_name_normalized": "colombaro",
+      "queries": [
+        "colombaro"
+      ],
+      "match": {
+        "circolo_id": "308",
+        "name": "COLOMBARO",
+        "score": 100,
+        "query": "colombaro"
+      }
+    },
+    {
+      "fig_club": "Colombera Asd",
+      "fig_name_normalized": "colombera asd",
+      "queries": [
+        "colombera",
+        "colombera asd"
+      ],
+      "match": {
+        "circolo_id": "824",
+        "name": "COLOMBERA ASD",
+        "score": 100,
+        "query": "colombera"
+      }
+    },
+    {
+      "fig_club": "Conero",
+      "fig_name_normalized": "conero",
+      "queries": [
+        "conero"
+      ],
+      "match": {
+        "circolo_id": "460",
+        "name": "CONERO",
+        "score": 100,
+        "query": "conero"
+      }
+    },
+    {
+      "fig_club": "Continental Verbania",
+      "fig_name_normalized": "continental verbania",
+      "queries": [
+        "continental verbania",
+        "verbania",
+        "continental"
+      ],
+      "match": {
+        "circolo_id": "741",
+        "name": "CONTINENTAL VERBANIA",
+        "score": 100,
+        "query": "continental verbania"
+      }
+    },
+    {
+      "fig_club": "Cortina Ssd",
+      "fig_name_normalized": "cortina ssd",
+      "queries": [
+        "cortina",
+        "cortina ssd"
+      ],
+      "match": {
+        "circolo_id": "845",
+        "name": "CORTINA SSD",
+        "score": 100,
+        "query": "cortina"
+      }
+    },
+    {
+      "fig_club": "Cosmopolitan",
+      "fig_name_normalized": "cosmopolitan",
+      "queries": [
+        "cosmopolitan"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Courmayeur",
+      "fig_name_normalized": "courmayeur",
+      "queries": [
+        "courmayeur"
+      ],
+      "match": {
+        "circolo_id": "14",
+        "name": "COURMAYEUR",
+        "score": 100,
+        "query": "courmayeur"
+      }
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "fig_name_normalized": "croara ssd",
+      "queries": [
+        "croara",
+        "croara ssd"
+      ],
+      "match": {
+        "circolo_id": "855",
+        "name": "CROARA SSD",
+        "score": 100,
+        "query": "croara"
+      }
+    },
+    {
+      "fig_club": "Cus Ferrara",
+      "fig_name_normalized": "cus ferrara",
+      "queries": [
+        "cus ferrara",
+        "ferrara",
+        "cus"
+      ],
+      "match": {
+        "circolo_id": "133",
+        "name": "CUS FERRARA",
+        "score": 100,
+        "query": "ferrara"
+      }
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "fig_name_normalized": "des iles borromees",
+      "queries": [
+        "des iles",
+        "borromees",
+        "des",
+        "des iles borromees"
+      ],
+      "match": {
+        "circolo_id": "480",
+        "name": "DES ILES BORROMEES",
+        "score": 100,
+        "query": "des iles"
+      }
+    },
+    {
+      "fig_club": "Dolomiti",
+      "fig_name_normalized": "dolomiti",
+      "queries": [
+        "dolomiti"
+      ],
+      "match": {
+        "circolo_id": "140",
+        "name": "DOLOMITI",
+        "score": 100,
+        "query": "dolomiti"
+      }
+    },
+    {
+      "fig_club": "Druento",
+      "fig_name_normalized": "druento",
+      "queries": [
+        "druento"
+      ],
+      "match": {
+        "circolo_id": "340",
+        "name": "DRUENTO",
+        "score": 100,
+        "query": "druento"
+      }
+    },
+    {
+      "fig_club": "Ducato",
+      "fig_name_normalized": "ducato",
+      "queries": [
+        "ducato"
+      ],
+      "match": {
+        "circolo_id": "700",
+        "name": "DUCATO",
+        "score": 100,
+        "query": "ducato"
+      }
+    },
+    {
+      "fig_club": "Faenza Cicogne",
+      "fig_name_normalized": "faenza cicogne",
+      "queries": [
+        "faenza cicogne",
+        "cicogne",
+        "faenza"
+      ],
+      "match": {
+        "circolo_id": "166",
+        "name": "FAENZA CICOGNE",
+        "score": 100,
+        "query": "cicogne"
+      }
+    },
+    {
+      "fig_club": "Fioranello",
+      "fig_name_normalized": "fioranello",
+      "queries": [
+        "fioranello"
+      ],
+      "match": {
+        "circolo_id": "745",
+        "name": "FIORANELLO",
+        "score": 100,
+        "query": "fioranello"
+      }
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "fig_name_normalized": "firenze ugolino",
+      "queries": [
+        "firenze ugolino",
+        "ugolino",
+        "firenze"
+      ],
+      "match": {
+        "circolo_id": "15",
+        "name": "FIRENZE UGOLINO",
+        "score": 100,
+        "query": "ugolino"
+      }
+    },
+    {
+      "fig_club": "Fiuggi 1928",
+      "fig_name_normalized": "fiuggi 1928",
+      "queries": [
+        "fiuggi 1928",
+        "1928",
+        "fiuggi"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Florinas",
+      "fig_name_normalized": "florinas",
+      "queries": [
+        "florinas"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Folgaria",
+      "fig_name_normalized": "folgaria",
+      "queries": [
+        "folgaria"
+      ],
+      "match": {
+        "circolo_id": "79",
+        "name": "FOLGARIA",
+        "score": 100,
+        "query": "folgaria"
+      }
+    },
+    {
+      "fig_club": "Fonti",
+      "fig_name_normalized": "fonti",
+      "queries": [
+        "fonti"
+      ],
+      "match": {
+        "circolo_id": "285",
+        "name": "FONTI",
+        "score": 100,
+        "query": "fonti"
+      }
+    },
+    {
+      "fig_club": "Forte Marmi",
+      "fig_name_normalized": "forte marmi",
+      "queries": [
+        "forte marmi",
+        "marmi",
+        "forte"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Franciacorta",
+      "fig_name_normalized": "franciacorta",
+      "queries": [
+        "franciacorta"
+      ],
+      "match": {
+        "circolo_id": "69",
+        "name": "FRANCIACORTA",
+        "score": 100,
+        "query": "franciacorta"
+      }
+    },
+    {
+      "fig_club": "Frassanelle",
+      "fig_name_normalized": "frassanelle",
+      "queries": [
+        "frassanelle"
+      ],
+      "match": {
+        "circolo_id": "88",
+        "name": "FRASSANELLE",
+        "score": 100,
+        "query": "frassanelle"
+      }
+    },
+    {
+      "fig_club": "Fronde",
+      "fig_name_normalized": "fronde",
+      "queries": [
+        "fronde"
+      ],
+      "match": {
+        "circolo_id": "23",
+        "name": "FRONDE",
+        "score": 100,
+        "query": "fronde"
+      }
+    },
+    {
+      "fig_club": "Gardagolf",
+      "fig_name_normalized": "gardagolf",
+      "queries": [
+        "gardagolf"
+      ],
+      "match": {
+        "circolo_id": "67",
+        "name": "GARDAGOLF",
+        "score": 100,
+        "query": "gardagolf"
+      }
+    },
+    {
+      "fig_club": "Garlenda",
+      "fig_name_normalized": "garlenda",
+      "queries": [
+        "garlenda"
+      ],
+      "match": {
+        "circolo_id": "17",
+        "name": "GARLENDA",
+        "score": 100,
+        "query": "garlenda"
+      }
+    },
+    {
+      "fig_club": "Ggz - Zerman",
+      "fig_name_normalized": "ggz zerman",
+      "queries": [
+        "ggz zerman",
+        "zerman",
+        "ggz"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Girasoli",
+      "fig_name_normalized": "girasoli",
+      "queries": [
+        "girasoli"
+      ],
+      "match": {
+        "circolo_id": "161",
+        "name": "GIRASOLI",
+        "score": 100,
+        "query": "girasoli"
+      }
+    },
+    {
+      "fig_club": "Globale Jesolo",
+      "fig_name_normalized": "globale jesolo",
+      "queries": [
+        "globale jesolo",
+        "jesolo",
+        "globale"
+      ],
+      "match": {
+        "circolo_id": "823",
+        "name": "GLOBALE JESOLO",
+        "score": 100,
+        "query": "globale jesolo"
+      }
+    },
+    {
+      "fig_club": "Grado",
+      "fig_name_normalized": "grado",
+      "queries": [
+        "grado"
+      ],
+      "match": {
+        "circolo_id": "238",
+        "name": "GRADO",
+        "score": 100,
+        "query": "grado"
+      }
+    },
+    {
+      "fig_club": "Green Club Lainate",
+      "fig_name_normalized": "green club lainate",
+      "queries": [
+        "green lainate",
+        "lainate",
+        "green",
+        "green club lainate"
+      ],
+      "match": {
+        "circolo_id": "102",
+        "name": "GREEN CLUB LAINATE",
+        "score": 100,
+        "query": "lainate"
+      }
+    },
+    {
+      "fig_club": "Gressoney",
+      "fig_name_normalized": "gressoney",
+      "queries": [
+        "gressoney"
+      ],
+      "match": {
+        "circolo_id": "715",
+        "name": "GRESSONEY",
+        "score": 100,
+        "query": "gressoney"
+      }
+    },
+    {
+      "fig_club": "Hermitage",
+      "fig_name_normalized": "hermitage",
+      "queries": [
+        "hermitage"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Is Arenas",
+      "fig_name_normalized": "is arenas",
+      "queries": [
+        "is arenas",
+        "arenas",
+        "is"
+      ],
+      "match": {
+        "circolo_id": "283",
+        "name": "IS ARENAS",
+        "score": 100,
+        "query": "is arenas"
+      }
+    },
+    {
+      "fig_club": "Is Molas Ssd",
+      "fig_name_normalized": "is molas ssd",
+      "queries": [
+        "is molas",
+        "molas",
+        "is",
+        "is molas ssd"
+      ],
+      "match": {
+        "circolo_id": "814",
+        "name": "IS MOLAS SSD",
+        "score": 100,
+        "query": "is molas"
+      }
+    },
+    {
+      "fig_club": "Laghi",
+      "fig_name_normalized": "laghi",
+      "queries": [
+        "laghi"
+      ],
+      "match": {
+        "circolo_id": "777",
+        "name": "LAGHI",
+        "score": 100,
+        "query": "laghi"
+      }
+    },
+    {
+      "fig_club": "Lamborghini",
+      "fig_name_normalized": "lamborghini",
+      "queries": [
+        "lamborghini"
+      ],
+      "match": {
+        "circolo_id": "155",
+        "name": "LAMBORGHINI",
+        "score": 100,
+        "query": "lamborghini"
+      }
+    },
+    {
+      "fig_club": "Lana",
+      "fig_name_normalized": "lana",
+      "queries": [
+        "lana"
+      ],
+      "match": {
+        "circolo_id": "256",
+        "name": "LANA",
+        "score": 100,
+        "query": "lana"
+      }
+    },
+    {
+      "fig_club": "Lanzo",
+      "fig_name_normalized": "lanzo",
+      "queries": [
+        "lanzo"
+      ],
+      "match": {
+        "circolo_id": "19",
+        "name": "LANZO",
+        "score": 100,
+        "query": "lanzo"
+      }
+    },
+    {
+      "fig_club": "Lauri",
+      "fig_name_normalized": "lauri",
+      "queries": [
+        "lauri"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Lecco",
+      "fig_name_normalized": "lecco",
+      "queries": [
+        "lecco"
+      ],
+      "match": {
+        "circolo_id": "56",
+        "name": "LECCO",
+        "score": 100,
+        "query": "lecco"
+      }
+    },
+    {
+      "fig_club": "Lignano Ssd",
+      "fig_name_normalized": "lignano ssd",
+      "queries": [
+        "lignano",
+        "lignano ssd"
+      ],
+      "match": {
+        "circolo_id": "841",
+        "name": "LIGNANO SSD",
+        "score": 100,
+        "query": "lignano"
+      }
+    },
+    {
+      "fig_club": "Livorno",
+      "fig_name_normalized": "livorno",
+      "queries": [
+        "livorno"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Madonna Campiglio",
+      "fig_name_normalized": "madonna campiglio",
+      "queries": [
+        "madonna campiglio",
+        "campiglio",
+        "madonna"
+      ],
+      "match": {
+        "circolo_id": "10",
+        "name": "MADONNA CAMPIGLIO",
+        "score": 100,
+        "query": "campiglio"
+      }
+    },
+    {
+      "fig_club": "Mantova",
+      "fig_name_normalized": "mantova",
+      "queries": [
+        "mantova"
+      ],
+      "match": {
+        "circolo_id": "720",
+        "name": "MANTOVA",
+        "score": 100,
+        "query": "mantova"
+      }
+    },
+    {
+      "fig_club": "Marco Simone",
+      "fig_name_normalized": "marco simone",
+      "queries": [
+        "marco simone",
+        "simone",
+        "marco"
+      ],
+      "match": {
+        "circolo_id": "621",
+        "name": "MARCO SIMONE",
+        "score": 100,
+        "query": "marco simone"
+      }
+    },
+    {
+      "fig_club": "Mare Di Roma",
+      "fig_name_normalized": "mare di roma",
+      "queries": [
+        "mare di",
+        "roma",
+        "mare",
+        "mare di roma"
+      ],
+      "match": {
+        "circolo_id": "783",
+        "name": "PARCO ROMA",
+        "score": 25,
+        "query": "roma"
+      }
+    },
+    {
+      "fig_club": "Margara",
+      "fig_name_normalized": "margara",
+      "queries": [
+        "margara"
+      ],
+      "match": {
+        "circolo_id": "50",
+        "name": "MARGARA",
+        "score": 100,
+        "query": "margara"
+      }
+    },
+    {
+      "fig_club": "Margherita",
+      "fig_name_normalized": "margherita",
+      "queries": [
+        "margherita"
+      ],
+      "match": {
+        "circolo_id": "91",
+        "name": "MARGHERITA",
+        "score": 100,
+        "query": "margherita"
+      }
+    },
+    {
+      "fig_club": "Marigola",
+      "fig_name_normalized": "marigola",
+      "queries": [
+        "marigola"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Marina Velka",
+      "fig_name_normalized": "marina velka",
+      "queries": [
+        "marina velka",
+        "velka",
+        "marina"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Menaggio",
+      "fig_name_normalized": "menaggio",
+      "queries": [
+        "menaggio"
+      ],
+      "match": {
+        "circolo_id": "25",
+        "name": "MENAGGIO",
+        "score": 100,
+        "query": "menaggio"
+      }
+    },
+    {
+      "fig_club": "Metaponto",
+      "fig_name_normalized": "metaponto",
+      "queries": [
+        "metaponto"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Milano",
+      "fig_name_normalized": "milano",
+      "queries": [
+        "milano"
+      ],
+      "match": {
+        "circolo_id": "26",
+        "name": "MILANO",
+        "score": 100,
+        "query": "milano"
+      }
+    },
+    {
+      "fig_club": "Mirabella",
+      "fig_name_normalized": "mirabella",
+      "queries": [
+        "mirabella"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Mirasole",
+      "fig_name_normalized": "mirasole",
+      "queries": [
+        "mirasole"
+      ],
+      "match": {
+        "circolo_id": "198",
+        "name": "MIRASOLE",
+        "score": 100,
+        "query": "mirasole"
+      }
+    },
+    {
+      "fig_club": "Modena",
+      "fig_name_normalized": "modena",
+      "queries": [
+        "modena"
+      ],
+      "match": {
+        "circolo_id": "71",
+        "name": "MODENA",
+        "score": 100,
+        "query": "modena"
+      }
+    },
+    {
+      "fig_club": "Molinetto",
+      "fig_name_normalized": "molinetto",
+      "queries": [
+        "molinetto"
+      ],
+      "match": {
+        "circolo_id": "60",
+        "name": "MOLINETTO",
+        "score": 100,
+        "query": "molinetto"
+      }
+    },
+    {
+      "fig_club": "Molino Pero",
+      "fig_name_normalized": "molino pero",
+      "queries": [
+        "molino pero",
+        "pero",
+        "molino"
+      ],
+      "match": {
+        "circolo_id": "483",
+        "name": "MOLINO PERO",
+        "score": 100,
+        "query": "pero"
+      }
+    },
+    {
+      "fig_club": "Moncalieri",
+      "fig_name_normalized": "moncalieri",
+      "queries": [
+        "moncalieri"
+      ],
+      "match": {
+        "circolo_id": "465",
+        "name": "MONCALIERI",
+        "score": 100,
+        "query": "moncalieri"
+      }
+    },
+    {
+      "fig_club": "Monferrato",
+      "fig_name_normalized": "monferrato",
+      "queries": [
+        "monferrato"
+      ],
+      "match": {
+        "circolo_id": "670",
+        "name": "MONFERRATO",
+        "score": 100,
+        "query": "monferrato"
+      }
+    },
+    {
+      "fig_club": "Montebelluna",
+      "fig_name_normalized": "montebelluna",
+      "queries": [
+        "montebelluna"
+      ],
+      "match": {
+        "circolo_id": "307",
+        "name": "MONTEBELLUNA",
+        "score": 100,
+        "query": "montebelluna"
+      }
+    },
+    {
+      "fig_club": "Montecatini Terme Ssd",
+      "fig_name_normalized": "montecatini terme ssd",
+      "queries": [
+        "montecatini terme",
+        "terme",
+        "montecatini",
+        "montecatini terme ssd"
+      ],
+      "match": {
+        "circolo_id": "860",
+        "name": "MONTECATINI TERME SSD",
+        "score": 100,
+        "query": "montecatini terme"
+      }
+    },
+    {
+      "fig_club": "Montecchia Golf",
+      "fig_name_normalized": "montecchia golf",
+      "queries": [
+        "montecchia",
+        "montecchia golf"
+      ],
+      "match": {
+        "circolo_id": "831",
+        "name": "MONTECCHIA GOLF",
+        "score": 100,
+        "query": "montecchia"
+      }
+    },
+    {
+      "fig_club": "Montelupo",
+      "fig_name_normalized": "montelupo",
+      "queries": [
+        "montelupo"
+      ],
+      "match": {
+        "circolo_id": "638",
+        "name": "MONTELUPO",
+        "score": 100,
+        "query": "montelupo"
+      }
+    },
+    {
+      "fig_club": "Monteveglio Asd",
+      "fig_name_normalized": "monteveglio asd",
+      "queries": [
+        "monteveglio",
+        "monteveglio asd"
+      ],
+      "match": {
+        "circolo_id": "832",
+        "name": "MONTEVEGLIO ASD",
+        "score": 100,
+        "query": "monteveglio"
+      }
+    },
+    {
+      "fig_club": "Monticello",
+      "fig_name_normalized": "monticello",
+      "queries": [
+        "monticello"
+      ],
+      "match": {
+        "circolo_id": "27",
+        "name": "MONTICELLO",
+        "score": 100,
+        "query": "monticello"
+      }
+    },
+    {
+      "fig_club": "Mulino Cerrione",
+      "fig_name_normalized": "mulino cerrione",
+      "queries": [
+        "mulino cerrione",
+        "cerrione",
+        "mulino"
+      ],
+      "match": {
+        "circolo_id": "734",
+        "name": "MULINO CERRIONE",
+        "score": 100,
+        "query": "mulino cerrione"
+      }
+    },
+    {
+      "fig_club": "Musella",
+      "fig_name_normalized": "musella",
+      "queries": [
+        "musella"
+      ],
+      "match": {
+        "circolo_id": "674",
+        "name": "MUSELLA",
+        "score": 100,
+        "query": "musella"
+      }
+    },
+    {
+      "fig_club": "Napoli",
+      "fig_name_normalized": "napoli",
+      "queries": [
+        "napoli"
+      ],
+      "match": {
+        "circolo_id": "61",
+        "name": "NAPOLI",
+        "score": 100,
+        "query": "napoli"
+      }
+    },
+    {
+      "fig_club": "Nazionale",
+      "fig_name_normalized": "nazionale",
+      "queries": [
+        "nazionale"
+      ],
+      "match": {
+        "circolo_id": "601",
+        "name": "NAZIONALE",
+        "score": 100,
+        "query": "nazionale"
+      }
+    },
+    {
+      "fig_club": "Oasi Di Magliano-Fiordalisi",
+      "fig_name_normalized": "oasi di magliano fiordalisi",
+      "queries": [
+        "oasi di",
+        "fiordalisi",
+        "oasi",
+        "oasi di magliano fiordalisi"
+      ],
+      "match": {
+        "circolo_id": "791",
+        "name": "OASI DI MAGLIANO-FIORDALISI",
+        "score": 100,
+        "query": "oasi di"
+      }
+    },
+    {
+      "fig_club": "Olgiata",
+      "fig_name_normalized": "olgiata",
+      "queries": [
+        "olgiata"
+      ],
+      "match": {
+        "circolo_id": "28",
+        "name": "OLGIATA",
+        "score": 100,
+        "query": "olgiata"
+      }
+    },
+    {
+      "fig_club": "Padova",
+      "fig_name_normalized": "padova",
+      "queries": [
+        "padova"
+      ],
+      "match": {
+        "circolo_id": "29",
+        "name": "PADOVA",
+        "score": 100,
+        "query": "padova"
+      }
+    },
+    {
+      "fig_club": "Palermo",
+      "fig_name_normalized": "palermo",
+      "queries": [
+        "palermo"
+      ],
+      "match": {
+        "circolo_id": "769",
+        "name": "PALERMO",
+        "score": 100,
+        "query": "palermo"
+      }
+    },
+    {
+      "fig_club": "Panorama Golf",
+      "fig_name_normalized": "panorama golf",
+      "queries": [
+        "panorama",
+        "panorama golf"
+      ],
+      "match": {
+        "circolo_id": "765",
+        "name": "PANORAMA GOLF",
+        "score": 100,
+        "query": "panorama"
+      }
+    },
+    {
+      "fig_club": "Paradiso",
+      "fig_name_normalized": "paradiso",
+      "queries": [
+        "paradiso"
+      ],
+      "match": {
+        "circolo_id": "357",
+        "name": "PARADISO",
+        "score": 100,
+        "query": "paradiso"
+      }
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "fig_name_normalized": "parco de medici",
+      "queries": [
+        "parco de",
+        "medici",
+        "parco",
+        "parco de medici"
+      ],
+      "match": {
+        "circolo_id": "112",
+        "name": "PARCO DE' MEDICI",
+        "score": 100,
+        "query": "parco de"
+      }
+    },
+    {
+      "fig_club": "Parco Firenze",
+      "fig_name_normalized": "parco firenze",
+      "queries": [
+        "parco firenze",
+        "firenze",
+        "parco"
+      ],
+      "match": {
+        "circolo_id": "300",
+        "name": "PARCO FIRENZE",
+        "score": 100,
+        "query": "firenze"
+      }
+    },
+    {
+      "fig_club": "Parco Roma",
+      "fig_name_normalized": "parco roma",
+      "queries": [
+        "parco roma",
+        "roma",
+        "parco"
+      ],
+      "match": {
+        "circolo_id": "783",
+        "name": "PARCO ROMA",
+        "score": 100,
+        "query": "roma"
+      }
+    },
+    {
+      "fig_club": "Passiria Merano",
+      "fig_name_normalized": "passiria merano",
+      "queries": [
+        "passiria merano",
+        "merano",
+        "passiria"
+      ],
+      "match": {
+        "circolo_id": "689",
+        "name": "PASSIRIA MERANO",
+        "score": 100,
+        "query": "merano"
+      }
+    },
+    {
+      "fig_club": "Pavoniere",
+      "fig_name_normalized": "pavoniere",
+      "queries": [
+        "pavoniere"
+      ],
+      "match": {
+        "circolo_id": "703",
+        "name": "PAVONIERE",
+        "score": 100,
+        "query": "pavoniere"
+      }
+    },
+    {
+      "fig_club": "Perugia",
+      "fig_name_normalized": "perugia",
+      "queries": [
+        "perugia"
+      ],
+      "match": {
+        "circolo_id": "30",
+        "name": "PERUGIA",
+        "score": 100,
+        "query": "perugia"
+      }
+    },
+    {
+      "fig_club": "Petersberg",
+      "fig_name_normalized": "petersberg",
+      "queries": [
+        "petersberg"
+      ],
+      "match": {
+        "circolo_id": "97",
+        "name": "PETERSBERG",
+        "score": 100,
+        "query": "petersberg"
+      }
+    },
+    {
+      "fig_club": "Pevero",
+      "fig_name_normalized": "pevero",
+      "queries": [
+        "pevero"
+      ],
+      "match": {
+        "circolo_id": "31",
+        "name": "PEVERO",
+        "score": 100,
+        "query": "pevero"
+      }
+    },
+    {
+      "fig_club": "Piandisole 2025",
+      "fig_name_normalized": "piandisole 2025",
+      "queries": [
+        "piandisole 2025",
+        "2025",
+        "piandisole"
+      ],
+      "match": {
+        "circolo_id": "849",
+        "name": "PIANDISOLE 2025",
+        "score": 100,
+        "query": "piandisole 2025"
+      }
+    },
+    {
+      "fig_club": "Pinerolo - Pragelato",
+      "fig_name_normalized": "pinerolo pragelato",
+      "queries": [
+        "pinerolo pragelato",
+        "pragelato",
+        "pinerolo"
+      ],
+      "match": {
+        "circolo_id": "410",
+        "name": "PINEROLO - PRAGELATO",
+        "score": 100,
+        "query": "pinerolo"
+      }
+    },
+    {
+      "fig_club": "Pinetina",
+      "fig_name_normalized": "pinetina",
+      "queries": [
+        "pinetina"
+      ],
+      "match": {
+        "circolo_id": "20",
+        "name": "PINETINA",
+        "score": 100,
+        "query": "pinetina"
+      }
+    },
+    {
+      "fig_club": "Poggio Medici",
+      "fig_name_normalized": "poggio medici",
+      "queries": [
+        "poggio medici",
+        "medici",
+        "poggio"
+      ],
+      "match": {
+        "circolo_id": "153",
+        "name": "POGGIO MEDICI",
+        "score": 100,
+        "query": "medici"
+      }
+    },
+    {
+      "fig_club": "Ponte Legno",
+      "fig_name_normalized": "ponte legno",
+      "queries": [
+        "ponte legno",
+        "legno",
+        "ponte"
+      ],
+      "match": {
+        "circolo_id": "64",
+        "name": "PONTE LEGNO",
+        "score": 100,
+        "query": "legno"
+      }
+    },
+    {
+      "fig_club": "Pordenone",
+      "fig_name_normalized": "pordenone",
+      "queries": [
+        "pordenone"
+      ],
+      "match": {
+        "circolo_id": "86",
+        "name": "PORDENONE",
+        "score": 100,
+        "query": "pordenone"
+      }
+    },
+    {
+      "fig_club": "Primule",
+      "fig_name_normalized": "primule",
+      "queries": [
+        "primule"
+      ],
+      "match": {
+        "circolo_id": "405",
+        "name": "PRIMULE",
+        "score": 100,
+        "query": "primule"
+      }
+    },
+    {
+      "fig_club": "Punta Ala",
+      "fig_name_normalized": "punta ala",
+      "queries": [
+        "punta ala",
+        "ala",
+        "punta"
+      ],
+      "match": {
+        "circolo_id": "129",
+        "name": "PUNTALDIA",
+        "score": 0,
+        "query": "punta"
+      }
+    },
+    {
+      "fig_club": "Puntaldia",
+      "fig_name_normalized": "puntaldia",
+      "queries": [
+        "puntaldia"
+      ],
+      "match": {
+        "circolo_id": "129",
+        "name": "PUNTALDIA",
+        "score": 100,
+        "query": "puntaldia"
+      }
+    },
+    {
+      "fig_club": "Pustertal",
+      "fig_name_normalized": "pustertal",
+      "queries": [
+        "pustertal"
+      ],
+      "match": {
+        "circolo_id": "756",
+        "name": "PUSTERTAL",
+        "score": 100,
+        "query": "pustertal"
+      }
+    },
+    {
+      "fig_club": "Rapallo",
+      "fig_name_normalized": "rapallo",
+      "queries": [
+        "rapallo"
+      ],
+      "match": {
+        "circolo_id": "34",
+        "name": "RAPALLO",
+        "score": 100,
+        "query": "rapallo"
+      }
+    },
+    {
+      "fig_club": "Rendena",
+      "fig_name_normalized": "rendena",
+      "queries": [
+        "rendena"
+      ],
+      "match": {
+        "circolo_id": "170",
+        "name": "RENDENA",
+        "score": 100,
+        "query": "rendena"
+      }
+    },
+    {
+      "fig_club": "Rieti",
+      "fig_name_normalized": "rieti",
+      "queries": [
+        "rieti"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Rimini Verucchio",
+      "fig_name_normalized": "rimini verucchio",
+      "queries": [
+        "rimini verucchio",
+        "verucchio",
+        "rimini"
+      ],
+      "match": {
+        "circolo_id": "723",
+        "name": "RIMINI VERUCCHIO",
+        "score": 100,
+        "query": "rimini verucchio"
+      }
+    },
+    {
+      "fig_club": "Riva Toscana",
+      "fig_name_normalized": "riva toscana",
+      "queries": [
+        "riva toscana",
+        "toscana",
+        "riva"
+      ],
+      "match": {
+        "circolo_id": "816",
+        "name": "RIVA TOSCANA",
+        "score": 100,
+        "query": "riva toscana"
+      }
+    },
+    {
+      "fig_club": "Riviera Golf",
+      "fig_name_normalized": "riviera golf",
+      "queries": [
+        "riviera",
+        "riviera golf"
+      ],
+      "match": {
+        "circolo_id": "776",
+        "name": "RIVIERA GOLF",
+        "score": 100,
+        "query": "riviera"
+      }
+    },
+    {
+      "fig_club": "Robinie",
+      "fig_name_normalized": "robinie",
+      "queries": [
+        "robinie"
+      ],
+      "match": {
+        "circolo_id": "182",
+        "name": "ROBINIE",
+        "score": 100,
+        "query": "robinie"
+      }
+    },
+    {
+      "fig_club": "Roma Acquasanta",
+      "fig_name_normalized": "roma acquasanta",
+      "queries": [
+        "roma acquasanta",
+        "acquasanta",
+        "roma"
+      ],
+      "match": {
+        "circolo_id": "36",
+        "name": "ROMA ACQUASANTA",
+        "score": 100,
+        "query": "roma acquasanta"
+      }
+    },
+    {
+      "fig_club": "Roncegno",
+      "fig_name_normalized": "roncegno",
+      "queries": [
+        "roncegno"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Rossera",
+      "fig_name_normalized": "rossera",
+      "queries": [
+        "rossera"
+      ],
+      "match": {
+        "circolo_id": "698",
+        "name": "ROSSERA",
+        "score": 100,
+        "query": "rossera"
+      }
+    },
+    {
+      "fig_club": "Rovedine",
+      "fig_name_normalized": "rovedine",
+      "queries": [
+        "rovedine"
+      ],
+      "match": {
+        "circolo_id": "57",
+        "name": "ROVEDINE",
+        "score": 100,
+        "query": "rovedine"
+      }
+    },
+    {
+      "fig_club": "Rovigolf",
+      "fig_name_normalized": "rovigolf",
+      "queries": [
+        "rovigolf"
+      ],
+      "match": {
+        "circolo_id": "784",
+        "name": "ROVIGOLF",
+        "score": 100,
+        "query": "rovigolf"
+      }
+    },
+    {
+      "fig_club": "Royal Park Roveri",
+      "fig_name_normalized": "royal park roveri",
+      "queries": [
+        "royal park",
+        "roveri",
+        "royal",
+        "royal park roveri"
+      ],
+      "match": {
+        "circolo_id": "384",
+        "name": "ROYAL PARK ROVERI",
+        "score": 100,
+        "query": "royal park"
+      }
+    },
+    {
+      "fig_club": "Salerno",
+      "fig_name_normalized": "salerno",
+      "queries": [
+        "salerno"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Salice Terme",
+      "fig_name_normalized": "salice terme",
+      "queries": [
+        "salice terme",
+        "terme",
+        "salice"
+      ],
+      "match": {
+        "circolo_id": "672",
+        "name": "SALICE TERME",
+        "score": 100,
+        "query": "salice terme"
+      }
+    },
+    {
+      "fig_club": "Salici 2.0",
+      "fig_name_normalized": "salici 2 0",
+      "queries": [
+        "salici",
+        "salici 2 0"
+      ],
+      "match": {
+        "circolo_id": "802",
+        "name": "SALICI 2.0",
+        "score": 100,
+        "query": "salici"
+      }
+    },
+    {
+      "fig_club": "Salsomaggiore Terme",
+      "fig_name_normalized": "salsomaggiore terme",
+      "queries": [
+        "salsomaggiore terme",
+        "terme",
+        "salsomaggiore"
+      ],
+      "match": {
+        "circolo_id": "762",
+        "name": "SALSOMAGGIORE TERME",
+        "score": 100,
+        "query": "salsomaggiore terme"
+      }
+    },
+    {
+      "fig_club": "Saluzzo",
+      "fig_name_normalized": "saluzzo",
+      "queries": [
+        "saluzzo"
+      ],
+      "match": {
+        "circolo_id": "706",
+        "name": "SALUZZO",
+        "score": 100,
+        "query": "saluzzo"
+      }
+    },
+    {
+      "fig_club": "San Domenico - Egnazia",
+      "fig_name_normalized": "san domenico egnazia",
+      "queries": [
+        "san domenico",
+        "egnazia",
+        "san",
+        "san domenico egnazia"
+      ],
+      "match": {
+        "circolo_id": "785",
+        "name": "SAN DOMENICO - EGNAZIA",
+        "score": 100,
+        "query": "egnazia"
+      }
+    },
+    {
+      "fig_club": "San Donato",
+      "fig_name_normalized": "san donato",
+      "queries": [
+        "san donato",
+        "donato",
+        "san"
+      ],
+      "match": {
+        "circolo_id": "789",
+        "name": "SAN VALENTINO",
+        "score": 38,
+        "query": "san"
+      }
+    },
+    {
+      "fig_club": "San Giovanni Ssd",
+      "fig_name_normalized": "san giovanni ssd",
+      "queries": [
+        "san giovanni",
+        "giovanni",
+        "san",
+        "san giovanni ssd"
+      ],
+      "match": {
+        "circolo_id": "800",
+        "name": "SAN GIOVANNI SSD",
+        "score": 100,
+        "query": "san giovanni"
+      }
+    },
+    {
+      "fig_club": "San Michele",
+      "fig_name_normalized": "san michele",
+      "queries": [
+        "san michele",
+        "michele",
+        "san"
+      ],
+      "match": {
+        "circolo_id": "789",
+        "name": "SAN VALENTINO",
+        "score": 38,
+        "query": "san"
+      }
+    },
+    {
+      "fig_club": "San Valentino",
+      "fig_name_normalized": "san valentino",
+      "queries": [
+        "san valentino",
+        "valentino",
+        "san"
+      ],
+      "match": {
+        "circolo_id": "789",
+        "name": "SAN VALENTINO",
+        "score": 100,
+        "query": "san valentino"
+      }
+    },
+    {
+      "fig_club": "San Vigilio",
+      "fig_name_normalized": "san vigilio",
+      "queries": [
+        "san vigilio",
+        "vigilio",
+        "san"
+      ],
+      "match": {
+        "circolo_id": "441",
+        "name": "SAN VIGILIO",
+        "score": 100,
+        "query": "san vigilio"
+      }
+    },
+    {
+      "fig_club": "San Vito",
+      "fig_name_normalized": "san vito",
+      "queries": [
+        "san vito",
+        "vito",
+        "san"
+      ],
+      "match": {
+        "circolo_id": "348",
+        "name": "SAN VITO",
+        "score": 100,
+        "query": "san vito"
+      }
+    },
+    {
+      "fig_club": "Sanremo Ulivi",
+      "fig_name_normalized": "sanremo ulivi",
+      "queries": [
+        "sanremo ulivi",
+        "ulivi",
+        "sanremo"
+      ],
+      "match": {
+        "circolo_id": "37",
+        "name": "SANREMO ULIVI",
+        "score": 100,
+        "query": "ulivi"
+      }
+    },
+    {
+      "fig_club": "Santa Maria Maggiore",
+      "fig_name_normalized": "santa maria maggiore",
+      "queries": [
+        "santa maria",
+        "maggiore",
+        "santa",
+        "santa maria maggiore"
+      ],
+      "match": {
+        "circolo_id": "663",
+        "name": "SANTA MARIA MAGGIORE",
+        "score": 100,
+        "query": "santa maria"
+      }
+    },
+    {
+      "fig_club": "Santo Stefano Golf",
+      "fig_name_normalized": "santo stefano golf",
+      "queries": [
+        "santo stefano",
+        "stefano",
+        "santo",
+        "santo stefano golf"
+      ],
+      "match": {
+        "circolo_id": "828",
+        "name": "SANTO STEFANO GOLF",
+        "score": 100,
+        "query": "santo stefano"
+      }
+    },
+    {
+      "fig_club": "Sappada",
+      "fig_name_normalized": "sappada",
+      "queries": [
+        "sappada"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Saturnia",
+      "fig_name_normalized": "saturnia",
+      "queries": [
+        "saturnia"
+      ],
+      "match": {
+        "circolo_id": "412",
+        "name": "SATURNIA",
+        "score": 100,
+        "query": "saturnia"
+      }
+    },
+    {
+      "fig_club": "Serra",
+      "fig_name_normalized": "serra",
+      "queries": [
+        "serra"
+      ],
+      "match": {
+        "circolo_id": "22",
+        "name": "SERRA",
+        "score": 100,
+        "query": "serra"
+      }
+    },
+    {
+      "fig_club": "Sestrieres",
+      "fig_name_normalized": "sestrieres",
+      "queries": [
+        "sestrieres"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Sicilia'S Picciolo",
+      "fig_name_normalized": "sicilia s picciolo",
+      "queries": [
+        "sicilia picciolo",
+        "picciolo",
+        "sicilia",
+        "sicilia s picciolo"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "St. Anna",
+      "fig_name_normalized": "st anna",
+      "queries": [
+        "st anna",
+        "anna",
+        "st"
+      ],
+      "match": {
+        "circolo_id": "310",
+        "name": "ST. ANNA",
+        "score": 100,
+        "query": "anna"
+      }
+    },
+    {
+      "fig_club": "St. Vigil Seis",
+      "fig_name_normalized": "st vigil seis",
+      "queries": [
+        "st vigil",
+        "seis",
+        "st",
+        "st vigil seis"
+      ],
+      "match": {
+        "circolo_id": "655",
+        "name": "ST. VIGIL SEIS",
+        "score": 100,
+        "query": "seis"
+      }
+    },
+    {
+      "fig_club": "Stupinigi",
+      "fig_name_normalized": "stupinigi",
+      "queries": [
+        "stupinigi"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Tanka Villasimius",
+      "fig_name_normalized": "tanka villasimius",
+      "queries": [
+        "tanka villasimius",
+        "villasimius",
+        "tanka"
+      ],
+      "match": {
+        "circolo_id": "751",
+        "name": "TANKA VILLASIMIUS",
+        "score": 100,
+        "query": "villasimius"
+      }
+    },
+    {
+      "fig_club": "Tarvisio",
+      "fig_name_normalized": "tarvisio",
+      "queries": [
+        "tarvisio"
+      ],
+      "match": {
+        "circolo_id": "749",
+        "name": "TARVISIO",
+        "score": 100,
+        "query": "tarvisio"
+      }
+    },
+    {
+      "fig_club": "Tauriana",
+      "fig_name_normalized": "tauriana",
+      "queries": [
+        "tauriana"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Terre Consoli",
+      "fig_name_normalized": "terre consoli",
+      "queries": [
+        "terre consoli",
+        "consoli",
+        "terre"
+      ],
+      "match": {
+        "circolo_id": "499",
+        "name": "TERRE CONSOLI",
+        "score": 100,
+        "query": "consoli"
+      }
+    },
+    {
+      "fig_club": "Terre Di Canossa",
+      "fig_name_normalized": "terre di canossa",
+      "queries": [
+        "terre di",
+        "canossa",
+        "terre",
+        "terre di canossa"
+      ],
+      "match": {
+        "circolo_id": "839",
+        "name": "TERRE DI CANOSSA",
+        "score": 100,
+        "query": "terre di"
+      }
+    },
+    {
+      "fig_club": "Tesino",
+      "fig_name_normalized": "tesino",
+      "queries": [
+        "tesino"
+      ],
+      "match": {
+        "circolo_id": "226",
+        "name": "TESINO",
+        "score": 100,
+        "query": "tesino"
+      }
+    },
+    {
+      "fig_club": "Tirrenia",
+      "fig_name_normalized": "tirrenia",
+      "queries": [
+        "tirrenia"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Tolcinasco",
+      "fig_name_normalized": "tolcinasco",
+      "queries": [
+        "tolcinasco"
+      ],
+      "match": {
+        "circolo_id": "829",
+        "name": "TOLCINASCO",
+        "score": 100,
+        "query": "tolcinasco"
+      }
+    },
+    {
+      "fig_club": "Torino",
+      "fig_name_normalized": "torino",
+      "queries": [
+        "torino"
+      ],
+      "match": {
+        "circolo_id": "42",
+        "name": "TORINO",
+        "score": 100,
+        "query": "torino"
+      }
+    },
+    {
+      "fig_club": "Torrazzo - Cremona",
+      "fig_name_normalized": "torrazzo cremona",
+      "queries": [
+        "torrazzo cremona",
+        "cremona",
+        "torrazzo"
+      ],
+      "match": {
+        "circolo_id": "150",
+        "name": "TORRAZZO - CREMONA",
+        "score": 100,
+        "query": "cremona"
+      }
+    },
+    {
+      "fig_club": "Torre Ronchi",
+      "fig_name_normalized": "torre ronchi",
+      "queries": [
+        "torre ronchi",
+        "ronchi",
+        "torre"
+      ],
+      "match": {
+        "circolo_id": "435",
+        "name": "TORRE RONCHI",
+        "score": 100,
+        "query": "ronchi"
+      }
+    },
+    {
+      "fig_club": "Torrenova Ssd",
+      "fig_name_normalized": "torrenova ssd",
+      "queries": [
+        "torrenova",
+        "torrenova ssd"
+      ],
+      "match": {
+        "circolo_id": "842",
+        "name": "TORRENOVA SSD",
+        "score": 100,
+        "query": "torrenova"
+      }
+    },
+    {
+      "fig_club": "Toscana",
+      "fig_name_normalized": "toscana",
+      "queries": [
+        "toscana"
+      ],
+      "match": {
+        "circolo_id": "291",
+        "name": "TOSCANA",
+        "score": 100,
+        "query": "toscana"
+      }
+    },
+    {
+      "fig_club": "Trieste",
+      "fig_name_normalized": "trieste",
+      "queries": [
+        "trieste"
+      ],
+      "match": {
+        "circolo_id": "43",
+        "name": "TRIESTE",
+        "score": 100,
+        "query": "trieste"
+      }
+    },
+    {
+      "fig_club": "Udine",
+      "fig_name_normalized": "udine",
+      "queries": [
+        "udine"
+      ],
+      "match": {
+        "circolo_id": "44",
+        "name": "UDINE",
+        "score": 100,
+        "query": "udine"
+      }
+    },
+    {
+      "fig_club": "Valdichiana",
+      "fig_name_normalized": "valdichiana",
+      "queries": [
+        "valdichiana"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Valpescara",
+      "fig_name_normalized": "valpescara",
+      "queries": [
+        "valpescara"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Valtellina",
+      "fig_name_normalized": "valtellina",
+      "queries": [
+        "valtellina"
+      ],
+      "match": {
+        "circolo_id": "834",
+        "name": "VALTELLINA",
+        "score": 100,
+        "query": "valtellina"
+      }
+    },
+    {
+      "fig_club": "Varese",
+      "fig_name_normalized": "varese",
+      "queries": [
+        "varese"
+      ],
+      "match": {
+        "circolo_id": "45",
+        "name": "VARESE",
+        "score": 100,
+        "query": "varese"
+      }
+    },
+    {
+      "fig_club": "Venezia",
+      "fig_name_normalized": "venezia",
+      "queries": [
+        "venezia"
+      ],
+      "match": {
+        "circolo_id": "46",
+        "name": "VENEZIA",
+        "score": 100,
+        "query": "venezia"
+      }
+    },
+    {
+      "fig_club": "Verdura",
+      "fig_name_normalized": "verdura",
+      "queries": [
+        "verdura"
+      ],
+      "match": null
+    },
+    {
+      "fig_club": "Verona",
+      "fig_name_normalized": "verona",
+      "queries": [
+        "verona"
+      ],
+      "match": {
+        "circolo_id": "47",
+        "name": "VERONA",
+        "score": 100,
+        "query": "verona"
+      }
+    },
+    {
+      "fig_club": "Vicenza",
+      "fig_name_normalized": "vicenza",
+      "queries": [
+        "vicenza"
+      ],
+      "match": {
+        "circolo_id": "447",
+        "name": "VICENZA",
+        "score": 100,
+        "query": "vicenza"
+      }
+    },
+    {
+      "fig_club": "Vigevano G.C. Ssd",
+      "fig_name_normalized": "vigevano g c ssd",
+      "queries": [
+        "vigevano",
+        "vigevano g c ssd"
+      ],
+      "match": {
+        "circolo_id": "847",
+        "name": "VIGEVANO G.C. SSD",
+        "score": 100,
+        "query": "vigevano"
+      }
+    },
+    {
+      "fig_club": "Vigne",
+      "fig_name_normalized": "vigne",
+      "queries": [
+        "vigne"
+      ],
+      "match": {
+        "circolo_id": "673",
+        "name": "VIGNE",
+        "score": 100,
+        "query": "vigne"
+      }
+    },
+    {
+      "fig_club": "Villa Carolina Ssd",
+      "fig_name_normalized": "villa carolina ssd",
+      "queries": [
+        "villa carolina",
+        "carolina",
+        "villa",
+        "villa carolina ssd"
+      ],
+      "match": {
+        "circolo_id": "833",
+        "name": "VILLA CAROLINA SSD",
+        "score": 100,
+        "query": "villa carolina"
+      }
+    },
+    {
+      "fig_club": "Villa Condulmer",
+      "fig_name_normalized": "villa condulmer",
+      "queries": [
+        "villa condulmer",
+        "condulmer",
+        "villa"
+      ],
+      "match": {
+        "circolo_id": "49",
+        "name": "VILLA CONDULMER",
+        "score": 100,
+        "query": "villa condulmer"
+      }
+    },
+    {
+      "fig_club": "Villa D'Este",
+      "fig_name_normalized": "villa d este",
+      "queries": [
+        "villa este",
+        "este",
+        "villa",
+        "villa d este"
+      ],
+      "match": {
+        "circolo_id": "48",
+        "name": "VILLA D'ESTE",
+        "score": 100,
+        "query": "este"
+      }
+    },
+    {
+      "fig_club": "Villa Giusti",
+      "fig_name_normalized": "villa giusti",
+      "queries": [
+        "villa giusti",
+        "giusti",
+        "villa"
+      ],
+      "match": {
+        "circolo_id": "49",
+        "name": "VILLA CONDULMER",
+        "score": 38,
+        "query": "villa"
+      }
+    },
+    {
+      "fig_club": "Villa Paradiso Ssd",
+      "fig_name_normalized": "villa paradiso ssd",
+      "queries": [
+        "villa paradiso",
+        "paradiso",
+        "villa",
+        "villa paradiso ssd"
+      ],
+      "match": {
+        "circolo_id": "798",
+        "name": "VILLA PARADISO SSD",
+        "score": 100,
+        "query": "villa paradiso"
+      }
+    },
+    {
+      "fig_club": "Zoate",
+      "fig_name_normalized": "zoate",
+      "queries": [
+        "zoate"
+      ],
+      "match": {
+        "circolo_id": "63",
+        "name": "ZOATE",
+        "score": 100,
+        "query": "zoate"
+      }
+    }
+  ]
+}

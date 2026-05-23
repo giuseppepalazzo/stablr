@@ -1,0 +1,455 @@
+{
+  "generated_at": "2026-05-23T16:00:54.263Z",
+  "source": {
+    "fig_catalog_path": "/Users/giuseppepalazzo/golf-score-app/data/fig/normalized/fig-catalog-normalized.json",
+    "gesgolf_clubs_index_url": "https://www.gesgolf.it/golfonline/clubs/index.aspx",
+    "first_sweep_coverage_path": "/Users/giuseppepalazzo/golf-score-app/data/gesgolf/reports/fig-gesgolf-coverage.json"
+  },
+  "summary": {
+    "total_missing_from_first_sweep": 36,
+    "no_public_results": 30,
+    "weak_candidates_only": 6
+  },
+  "results": [
+    {
+      "fig_club": "Acquabona",
+      "queries": [
+        "acquabona"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Alta Badia",
+      "queries": [
+        "alta badia",
+        "badia",
+        "alta"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Appiano - Golf & Country",
+      "queries": [
+        "appiano",
+        "appiano golf country"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Archi Claudio",
+      "queries": [
+        "archi claudio",
+        "claudio",
+        "archi"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Bergamo Albenza",
+      "queries": [
+        "bergamo albenza",
+        "albenza",
+        "bergamo"
+      ],
+      "review_status": "weak_candidates_only",
+      "top_candidates": [
+        {
+          "circolo_id": "742",
+          "name": "COLLI BERGAMO",
+          "score": 38,
+          "query": "bergamo"
+        }
+      ]
+    },
+    {
+      "fig_club": "Botanic Sa Cuba",
+      "queries": [
+        "botanic sa",
+        "cuba",
+        "botanic",
+        "botanic sa cuba"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Castelgandolfo",
+      "queries": [
+        "castelgandolfo"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Cosmopolitan",
+      "queries": [
+        "cosmopolitan"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Fiuggi 1928",
+      "queries": [
+        "fiuggi 1928",
+        "1928",
+        "fiuggi"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Florinas",
+      "queries": [
+        "florinas"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Forte Marmi",
+      "queries": [
+        "forte marmi",
+        "marmi",
+        "forte"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Ggz - Zerman",
+      "queries": [
+        "ggz zerman",
+        "zerman",
+        "ggz"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Hermitage",
+      "queries": [
+        "hermitage"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Lauri",
+      "queries": [
+        "lauri"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Livorno",
+      "queries": [
+        "livorno"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Mare Di Roma",
+      "queries": [
+        "mare di",
+        "roma",
+        "mare",
+        "mare di roma"
+      ],
+      "review_status": "weak_candidates_only",
+      "top_candidates": [
+        {
+          "circolo_id": "783",
+          "name": "PARCO ROMA",
+          "score": 25,
+          "query": "roma"
+        },
+        {
+          "circolo_id": "36",
+          "name": "ROMA ACQUASANTA",
+          "score": 25,
+          "query": "roma"
+        }
+      ]
+    },
+    {
+      "fig_club": "Marigola",
+      "queries": [
+        "marigola"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Marina Velka",
+      "queries": [
+        "marina velka",
+        "velka",
+        "marina"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Metaponto",
+      "queries": [
+        "metaponto"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Mirabella",
+      "queries": [
+        "mirabella"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Punta Ala",
+      "queries": [
+        "punta ala",
+        "ala",
+        "punta"
+      ],
+      "review_status": "weak_candidates_only",
+      "top_candidates": [
+        {
+          "circolo_id": "129",
+          "name": "PUNTALDIA",
+          "score": 0,
+          "query": "punta"
+        }
+      ]
+    },
+    {
+      "fig_club": "Rieti",
+      "queries": [
+        "rieti"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Roncegno",
+      "queries": [
+        "roncegno"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Salerno",
+      "queries": [
+        "salerno"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "San Donato",
+      "queries": [
+        "san donato",
+        "donato",
+        "san"
+      ],
+      "review_status": "weak_candidates_only",
+      "top_candidates": [
+        {
+          "circolo_id": "789",
+          "name": "SAN VALENTINO",
+          "score": 38,
+          "query": "san"
+        },
+        {
+          "circolo_id": "441",
+          "name": "SAN VIGILIO",
+          "score": 38,
+          "query": "san"
+        },
+        {
+          "circolo_id": "348",
+          "name": "SAN VITO",
+          "score": 38,
+          "query": "san"
+        },
+        {
+          "circolo_id": "800",
+          "name": "SAN GIOVANNI SSD",
+          "score": 25,
+          "query": "san"
+        },
+        {
+          "circolo_id": "105",
+          "name": "AOSTA ARSANIERES",
+          "score": 0,
+          "query": "san"
+        }
+      ]
+    },
+    {
+      "fig_club": "San Michele",
+      "queries": [
+        "san michele",
+        "michele",
+        "san"
+      ],
+      "review_status": "weak_candidates_only",
+      "top_candidates": [
+        {
+          "circolo_id": "789",
+          "name": "SAN VALENTINO",
+          "score": 38,
+          "query": "san"
+        },
+        {
+          "circolo_id": "441",
+          "name": "SAN VIGILIO",
+          "score": 38,
+          "query": "san"
+        },
+        {
+          "circolo_id": "348",
+          "name": "SAN VITO",
+          "score": 38,
+          "query": "san"
+        },
+        {
+          "circolo_id": "800",
+          "name": "SAN GIOVANNI SSD",
+          "score": 25,
+          "query": "san"
+        },
+        {
+          "circolo_id": "105",
+          "name": "AOSTA ARSANIERES",
+          "score": 0,
+          "query": "san"
+        }
+      ]
+    },
+    {
+      "fig_club": "Sappada",
+      "queries": [
+        "sappada"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Sestrieres",
+      "queries": [
+        "sestrieres"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Sicilia'S Picciolo",
+      "queries": [
+        "sicilia picciolo",
+        "picciolo",
+        "sicilia",
+        "sicilia s picciolo"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Stupinigi",
+      "queries": [
+        "stupinigi"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Tauriana",
+      "queries": [
+        "tauriana"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Tirrenia",
+      "queries": [
+        "tirrenia"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Valdichiana",
+      "queries": [
+        "valdichiana"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Valpescara",
+      "queries": [
+        "valpescara"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Verdura",
+      "queries": [
+        "verdura"
+      ],
+      "review_status": "no_public_results",
+      "top_candidates": []
+    },
+    {
+      "fig_club": "Villa Giusti",
+      "queries": [
+        "villa giusti",
+        "giusti",
+        "villa"
+      ],
+      "review_status": "weak_candidates_only",
+      "top_candidates": [
+        {
+          "circolo_id": "49",
+          "name": "VILLA CONDULMER",
+          "score": 38,
+          "query": "villa"
+        },
+        {
+          "circolo_id": "833",
+          "name": "VILLA CAROLINA SSD",
+          "score": 25,
+          "query": "villa"
+        },
+        {
+          "circolo_id": "48",
+          "name": "VILLA D'ESTE",
+          "score": 25,
+          "query": "villa"
+        },
+        {
+          "circolo_id": "798",
+          "name": "VILLA PARADISO SSD",
+          "score": 25,
+          "query": "villa"
+        },
+        {
+          "circolo_id": "751",
+          "name": "TANKA VILLASIMIUS",
+          "score": 0,
+          "query": "villa"
+        }
+      ]
+    }
+  ]
+}

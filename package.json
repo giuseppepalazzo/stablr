@@ -23,7 +23,9 @@
     "fig:scrape-raw": "node scripts/fig/fig-scrape-raw.mjs",
     "fig:normalize-catalog": "node scripts/fig/fig-normalize-catalog.mjs",
     "fig:seed-catalog": "node scripts/fig/seed-fig-catalog.mjs",
-    "fig:auto-match": "node scripts/fig/auto-match-fig-clubs.mjs"
+    "fig:auto-match": "node scripts/fig/auto-match-fig-clubs.mjs",
+    "gesgolf:check-fig-coverage": "node scripts/gesgolf/check-fig-coverage.mjs",
+    "gesgolf:review-missing-coverage": "node scripts/gesgolf/review-missing-coverage.mjs"
   },
   "eslintConfig": {
     "extends": [
