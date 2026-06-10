@@ -25,7 +25,12 @@
     "fig:seed-catalog": "node scripts/fig/seed-fig-catalog.mjs",
     "fig:auto-match": "node scripts/fig/auto-match-fig-clubs.mjs",
     "gesgolf:check-fig-coverage": "node scripts/gesgolf/check-fig-coverage.mjs",
-    "gesgolf:review-missing-coverage": "node scripts/gesgolf/review-missing-coverage.mjs"
+    "gesgolf:review-missing-coverage": "node scripts/gesgolf/review-missing-coverage.mjs",
+    "gesgolf:scrape-club": "node scripts/gesgolf/scrape-club-percorsi.mjs",
+    "gesgolf:report-parco-mismatch": "node scripts/gesgolf/report-parco-medici-mismatch.mjs",
+    "gesgolf:scrape-covered": "node scripts/gesgolf/scrape-covered-clubs.mjs",
+    "gesgolf:build-route-mapping-template": "node scripts/gesgolf/build-route-mapping-template.mjs",
+    "gesgolf:build-import-candidates": "node scripts/gesgolf/build-import-candidates.mjs"
   },
   "eslintConfig": {
     "extends": [

@@ -1,0 +1,39 @@
+fig_club,gesgolf_club,circolo_id,match_score,scrape_status,playable_courses,warning_courses,failed_courses,output,action
+Acaya,ACAYA,792,100,warning,4,2,0,data/gesgolf/normalized/acaya/circolo-792.json,scraped
+Acquabona,,,,,,,,,skip_not_strong
+Alta Badia,,,,,,,,,skip_not_strong
+Appiano - Golf & Country,,,,,,,,,skip_not_strong
+Archi Claudio,,,,,,,,,skip_not_strong
+Bergamo Albenza,COLLI BERGAMO,742,,,,,,,skip_not_strong
+Botanic Sa Cuba,,,,,,,,,skip_not_strong
+Castelgandolfo,,,,,,,,,skip_not_strong
+Cosmopolitan,,,,,,,,,skip_not_strong
+Fiuggi 1928,,,,,,,,,skip_not_strong
+Florinas,,,,,,,,,skip_not_strong
+Forte Marmi,,,,,,,,,skip_not_strong
+Ggz - Zerman,,,,,,,,,skip_not_strong
+Hermitage,,,,,,,,,skip_not_strong
+Lauri,,,,,,,,,skip_not_strong
+Livorno,,,,,,,,,skip_not_strong
+Mare Di Roma,PARCO ROMA,783,,,,,,,skip_not_strong
+Marigola,,,,,,,,,skip_not_strong
+Marina Velka,,,,,,,,,skip_not_strong
+Metaponto,,,,,,,,,skip_not_strong
+Mirabella,,,,,,,,,skip_not_strong
+Parco De' Medici,PARCO DE' MEDICI,112,,,,,,,skip_protected
+Punta Ala,PUNTALDIA,129,,,,,,,skip_not_strong
+Rieti,,,,,,,,,skip_not_strong
+Roncegno,,,,,,,,,skip_not_strong
+Salerno,,,,,,,,,skip_not_strong
+San Donato,SAN VALENTINO,789,,,,,,,skip_not_strong
+San Michele,SAN VALENTINO,789,,,,,,,skip_not_strong
+Sappada,,,,,,,,,skip_not_strong
+Sestrieres,,,,,,,,,skip_not_strong
+Sicilia'S Picciolo,,,,,,,,,skip_not_strong
+Stupinigi,,,,,,,,,skip_not_strong
+Tauriana,,,,,,,,,skip_not_strong
+Tirrenia,,,,,,,,,skip_not_strong
+Valdichiana,,,,,,,,,skip_not_strong
+Valpescara,,,,,,,,,skip_not_strong
+Verdura,,,,,,,,,skip_not_strong
+Villa Giusti,VILLA CONDULMER,49,,,,,,,skip_not_strong

@@ -1,0 +1,966 @@
+{
+  "generated_at": "2026-06-10T11:44:23.921Z",
+  "source": {
+    "batch_report": "/Users/giuseppepalazzo/golf-score-app/data/gesgolf/reports/gesgolf-scrape-batch.json",
+    "fig_catalog": "/Users/giuseppepalazzo/golf-score-app/data/fig/normalized/fig-catalog-normalized.json"
+  },
+  "protected_clubs": [
+    "mare di roma",
+    "parco de medici"
+  ],
+  "rows": [
+    {
+      "fig_club": "Acaya",
+      "gesgolf_club": "ACAYA",
+      "circolo_id": "792",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "2010 NON VALIDO",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Par 71",
+      "suggested_fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Par 71",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 72",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-72",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-acaya-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "fig_club": "Acaya",
+      "gesgolf_club": "ACAYA",
+      "circolo_id": "792",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "2010 1-9 VALIDO",
+      "ges_holes_count": 18,
+      "ges_total_par": 36,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18",
+      "suggested_fig_course_name": "18 Buche Par 71",
+      "suggested_fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_holes_count",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Par 71",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 72",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-72",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-acaya-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Acaya",
+      "gesgolf_club": "ACAYA",
+      "circolo_id": "792",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "2010 S.9 VALIDO",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18",
+      "suggested_fig_course_name": "18 Buche Par 71",
+      "suggested_fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_holes_count",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Par 71",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 72",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-72",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove Par 35",
+          "fig_source_external_id": "fig-course-acaya-seconde-nove-par-35",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Acaya",
+      "gesgolf_club": "ACAYA",
+      "circolo_id": "792",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "2009 VALIDO",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Par 71",
+      "suggested_fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Par 71",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 72",
+          "fig_source_external_id": "fig-course-acaya-18-buche-par-72",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-acaya-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "W-BL",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Championship Bianco/Blu",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-championship-bianco-blu",
+      "suggested_relation": "combination_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "Blu/Bianco (Champ.Invertito)",
+          "fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Championship Bianco/Blu",
+          "fig_source_external_id": "fig-course-parco-de-medici-championship-bianco-blu",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "King Blu/Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-king-blu-rosso",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "BL-R",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "King Blu/Rosso",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-king-blu-rosso",
+      "suggested_relation": "combination_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "Blu/Bianco (Champ.Invertito)",
+          "fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Championship Bianco/Blu",
+          "fig_source_external_id": "fig-course-parco-de-medici-championship-bianco-blu",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "King Blu/Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-king-blu-rosso",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "W-R",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Queen Bianco/Rosso",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-queen-bianco-rosso",
+      "suggested_relation": "combination_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "Est (Rosso x 2)",
+          "fig_source_external_id": "fig-course-parco-de-medici-est-rosso-x-2",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "repeat_9",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Queen Bianco/Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-queen-bianco-rosso",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Bianco 2 Volte",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco-2-volte",
+          "fig_holes_count": 9,
+          "fig_total_par": 70,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "R-R",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Est (Rosso x 2)",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-est-rosso-x-2",
+      "suggested_relation": "repeat_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "Est (Rosso x 2)",
+          "fig_source_external_id": "fig-course-parco-de-medici-est-rosso-x-2",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "repeat_9",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Queen Bianco/Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-queen-bianco-rosso",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Bianco 2 Volte",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco-2-volte",
+          "fig_holes_count": 9,
+          "fig_total_par": 70,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "Red",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Bianco",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Bianco",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 buche Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-rosso",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Blu/Bianco (Champ.Invertito)",
+          "fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "Est V-A",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Blu/Bianco (Champ. Invertito)",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+      "suggested_relation": "alias_candidate",
+      "suggested_confidence": "benchmark_manual_review",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "Blu/Bianco (Champ.Invertito)",
+          "fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Championship Bianco/Blu",
+          "fig_source_external_id": "fig-course-parco-de-medici-championship-bianco-blu",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "King Blu/Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-king-blu-rosso",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "BL-W",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Blu/Bianco (Champ. Invertito)",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+      "suggested_relation": "combination_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "Blu/Bianco (Champ.Invertito)",
+          "fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Championship Bianco/Blu",
+          "fig_source_external_id": "fig-course-parco-de-medici-championship-bianco-blu",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "King Blu/Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-king-blu-rosso",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "9 Buche Bianco",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Bianco",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Bianco",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "9 buche Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-rosso",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9|buche"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Bianco 2 Volte",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco-2-volte",
+          "fig_holes_count": 9,
+          "fig_total_par": 70,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "9 Buche Blu",
+      "ges_holes_count": 9,
+      "ges_total_par": 37,
+      "ges_playable_kind": "base_9",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Blu",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-9-buche-blu",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Blu",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-blu",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Blu 2 Volte",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-blu-2-volte",
+          "fig_holes_count": 9,
+          "fig_total_par": 74,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Bianco",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "BIANCO X 2",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "repeat_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Bianco 2 Volte",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco-2-volte",
+      "suggested_relation": "repeat_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "Est (Rosso x 2)",
+          "fig_source_external_id": "fig-course-parco-de-medici-est-rosso-x-2",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "repeat_9",
+          "fig_route_family": "optional",
+          "score": 62,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:x|2",
+            "repeat_hint"
+          ]
+        },
+        {
+          "fig_course_name": "Queen Bianco/Rosso",
+          "fig_source_external_id": "fig-course-parco-de-medici-queen-bianco-rosso",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:bianco"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Bianco 2 Volte",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-bianco-2-volte",
+          "fig_holes_count": 9,
+          "fig_total_par": 70,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 42,
+          "reasons": [
+            "same_total_par",
+            "shared_tokens:bianco|2",
+            "repeat_hint"
+          ]
+        }
+      ]
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "protected_live": "yes",
+      "scrape_status": "protected_reference",
+      "ges_route_name": "BLU X2",
+      "ges_holes_count": 18,
+      "ges_total_par": 74,
+      "ges_playable_kind": "repeat_18",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Blu 2 Volte",
+      "suggested_fig_source_external_id": "fig-course-parco-de-medici-9-buche-blu-2-volte",
+      "suggested_relation": "repeat_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "protected_reference",
+      "notes": "protected_club_no_live_upsert",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Blu 2 Volte",
+          "fig_source_external_id": "fig-course-parco-de-medici-9-buche-blu-2-volte",
+          "fig_holes_count": 9,
+          "fig_total_par": 74,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 36,
+          "reasons": [
+            "same_total_par",
+            "shared_tokens:blu",
+            "repeat_hint"
+          ]
+        },
+        {
+          "fig_course_name": "Est (Rosso x 2)",
+          "fig_source_external_id": "fig-course-parco-de-medici-est-rosso-x-2",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "repeat_9",
+          "fig_route_family": "optional",
+          "score": 30,
+          "reasons": [
+            "same_holes_count",
+            "repeat_hint"
+          ]
+        },
+        {
+          "fig_course_name": "Blu/Bianco (Champ.Invertito)",
+          "fig_source_external_id": "fig-course-parco-de-medici-blu-bianco-champ-invertito",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "combination_18",
+          "fig_route_family": "official",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:blu"
+          ]
+        }
+      ]
+    }
+  ]
+}

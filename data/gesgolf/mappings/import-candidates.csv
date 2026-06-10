@@ -1,0 +1,16 @@
+fig_club,gesgolf_club,circolo_id,ges_route_name,suggested_fig_course_name,suggested_fig_source_external_id,suggested_relation,suggested_confidence,ges_route_status,ges_route_anomalies,protected_live,import_bucket,import_reason
+Acaya,ACAYA,792,2010 NON VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
+Acaya,ACAYA,792,2010 1-9 VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Acaya,ACAYA,792,2010 S.9 VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Acaya,ACAYA,792,2009 VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
+Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,R-R,Est (Rosso x 2),fig-course-parco-de-medici-est-rosso-x-2,repeat_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,Red,9 Buche Bianco,fig-course-parco-de-medici-9-buche-bianco,playable_course,low,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,Est V-A,Blu/Bianco (Champ. Invertito),fig-course-parco-de-medici-blu-bianco-champ-invertito,alias_candidate,benchmark_manual_review,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,BL-W,Blu/Bianco (Champ. Invertito),fig-course-parco-de-medici-blu-bianco-champ-invertito,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,9 Buche Bianco,9 Buche Bianco,fig-course-parco-de-medici-9-buche-bianco,base_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,9 Buche Blu,9 Buche Blu,fig-course-parco-de-medici-9-buche-blu,base_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,BIANCO X 2,9 Buche Bianco 2 Volte,fig-course-parco-de-medici-9-buche-bianco-2-volte,repeat_route,benchmark_manual,,,yes,protected_reference,protected_club
+Parco De' Medici,PARCO DE' MEDICI,112,BLU X2,9 Buche Blu 2 Volte,fig-course-parco-de-medici-9-buche-blu-2-volte,repeat_route,benchmark_manual,,,yes,protected_reference,protected_club

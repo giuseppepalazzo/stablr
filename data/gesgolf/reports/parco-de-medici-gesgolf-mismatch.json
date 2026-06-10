@@ -1,0 +1,424 @@
+{
+  "generated_at": "2026-06-10T11:04:27.204Z",
+  "benchmark_only": true,
+  "protected_live_clubs": [
+    "Mare di Roma",
+    "Parco de' Medici"
+  ],
+  "club": {
+    "fig_name": "Parco De' Medici",
+    "ges_name": "ASD GOLF CLUB PARCO DE' MEDICI",
+    "fig_name_normalized": "parco de medici",
+    "ges_name_normalized": "asd golf club parco de medici",
+    "normalized_match": true
+  },
+  "inventory": {
+    "fig_total_units": 10,
+    "ges_total_units": 11,
+    "mapped_units": 10,
+    "fig_not_mapped": [
+      "Rosso"
+    ],
+    "ges_not_mapped": [
+      "Red"
+    ]
+  },
+  "failed_routes": [
+    {
+      "percorso_id": "2514",
+      "name": "INTERNAZIONALI",
+      "error": "GesGolf HTTP 500 for circolo 112 / percorso 2514"
+    }
+  ],
+  "ges_anomalies": [
+    {
+      "name": "Red",
+      "percorso_id": "433",
+      "notes": [
+        "18 buche dichiarate ma seconda meta' vuota o azzerata",
+        "par totale anomalo per un 18 buche",
+        "stroke index assente o azzerato su molte buche"
+      ]
+    }
+  ],
+  "route_reports": [
+    {
+      "ges": "9 Buche Bianco",
+      "fig": "Bianco",
+      "relation": "direct_route",
+      "status": "par_ok_si_diff",
+      "fig_holes_count": 9,
+      "ges_holes_count": 9,
+      "fig_total_par": 35,
+      "ges_total_par": 35,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": false,
+        "differences": [
+          {
+            "sequence": 3,
+            "type": "stroke_index",
+            "fig": 9,
+            "ges": 5
+          },
+          {
+            "sequence": 4,
+            "type": "stroke_index",
+            "fig": 17,
+            "ges": 15
+          },
+          {
+            "sequence": 5,
+            "type": "stroke_index",
+            "fig": 5,
+            "ges": 13
+          },
+          {
+            "sequence": 6,
+            "type": "stroke_index",
+            "fig": 13,
+            "ges": 11
+          },
+          {
+            "sequence": 7,
+            "type": "stroke_index",
+            "fig": 11,
+            "ges": 9
+          },
+          {
+            "sequence": 8,
+            "type": "stroke_index",
+            "fig": 15,
+            "ges": 17
+          }
+        ]
+      },
+      "tee_comparison": {
+        "shared_tees": 4,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "9 Buche Blu",
+      "fig": "Blu",
+      "relation": "direct_route",
+      "status": "par_ok_si_diff",
+      "fig_holes_count": 9,
+      "ges_holes_count": 9,
+      "fig_total_par": 37,
+      "ges_total_par": 37,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": false,
+        "differences": [
+          {
+            "sequence": 1,
+            "type": "stroke_index",
+            "fig": 2,
+            "ges": 9
+          },
+          {
+            "sequence": 2,
+            "type": "stroke_index",
+            "fig": 18,
+            "ges": 17
+          },
+          {
+            "sequence": 3,
+            "type": "stroke_index",
+            "fig": 16,
+            "ges": 15
+          },
+          {
+            "sequence": 4,
+            "type": "stroke_index",
+            "fig": 4,
+            "ges": 1
+          },
+          {
+            "sequence": 5,
+            "type": "stroke_index",
+            "fig": 14,
+            "ges": 13
+          },
+          {
+            "sequence": 6,
+            "type": "stroke_index",
+            "fig": 6,
+            "ges": 5
+          },
+          {
+            "sequence": 7,
+            "type": "stroke_index",
+            "fig": 8,
+            "ges": 7
+          },
+          {
+            "sequence": 8,
+            "type": "stroke_index",
+            "fig": 10,
+            "ges": 3
+          },
+          {
+            "sequence": 9,
+            "type": "stroke_index",
+            "fig": 12,
+            "ges": 11
+          }
+        ]
+      },
+      "tee_comparison": {
+        "shared_tees": 4,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "BIANCO X 2",
+      "fig": "9 Buche Bianco 2 Volte",
+      "relation": "repeat_route",
+      "status": "match",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 70,
+      "ges_total_par": 70,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": true,
+        "differences": []
+      },
+      "tee_comparison": {
+        "shared_tees": 4,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "BLU X2",
+      "fig": "9 Buche Blu 2 Volte",
+      "relation": "repeat_route",
+      "status": "match",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 74,
+      "ges_total_par": 74,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": true,
+        "differences": []
+      },
+      "tee_comparison": {
+        "shared_tees": 4,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "R-R",
+      "fig": "Est (Rosso x 2)",
+      "relation": "repeat_route",
+      "status": "match",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 70,
+      "ges_total_par": 70,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": true,
+        "differences": []
+      },
+      "tee_comparison": {
+        "shared_tees": 4,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "W-BL",
+      "fig": "Championship Bianco/Blu",
+      "relation": "combination",
+      "status": "par_ok_si_diff",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 72,
+      "ges_total_par": 72,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": false,
+        "differences": [
+          {
+            "sequence": 10,
+            "type": "stroke_index",
+            "fig": 10,
+            "ges": 4
+          },
+          {
+            "sequence": 11,
+            "type": "stroke_index",
+            "fig": 18,
+            "ges": 8
+          },
+          {
+            "sequence": 12,
+            "type": "stroke_index",
+            "fig": 16,
+            "ges": 6
+          },
+          {
+            "sequence": 13,
+            "type": "stroke_index",
+            "fig": 2,
+            "ges": 16
+          },
+          {
+            "sequence": 15,
+            "type": "stroke_index",
+            "fig": 6,
+            "ges": 12
+          },
+          {
+            "sequence": 16,
+            "type": "stroke_index",
+            "fig": 8,
+            "ges": 10
+          },
+          {
+            "sequence": 17,
+            "type": "stroke_index",
+            "fig": 4,
+            "ges": 18
+          },
+          {
+            "sequence": 18,
+            "type": "stroke_index",
+            "fig": 12,
+            "ges": 2
+          }
+        ]
+      },
+      "tee_comparison": {
+        "shared_tees": 6,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "BL-W",
+      "fig": "Blu/Bianco (Champ. Invertito)",
+      "relation": "combination",
+      "status": "match",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 72,
+      "ges_total_par": 72,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": true,
+        "differences": []
+      },
+      "tee_comparison": {
+        "shared_tees": 6,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "BL-R",
+      "fig": "King Blu/Rosso",
+      "relation": "combination",
+      "status": "match",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 72,
+      "ges_total_par": 72,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": true,
+        "differences": []
+      },
+      "tee_comparison": {
+        "shared_tees": 4,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "W-R",
+      "fig": "Queen Bianco/Rosso",
+      "relation": "combination",
+      "status": "par_ok_si_diff",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 70,
+      "ges_total_par": 70,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": false,
+        "differences": [
+          {
+            "sequence": 3,
+            "type": "stroke_index",
+            "fig": 5,
+            "ges": 9
+          },
+          {
+            "sequence": 4,
+            "type": "stroke_index",
+            "fig": 15,
+            "ges": 17
+          },
+          {
+            "sequence": 5,
+            "type": "stroke_index",
+            "fig": 13,
+            "ges": 5
+          },
+          {
+            "sequence": 6,
+            "type": "stroke_index",
+            "fig": 11,
+            "ges": 13
+          },
+          {
+            "sequence": 7,
+            "type": "stroke_index",
+            "fig": 9,
+            "ges": 11
+          },
+          {
+            "sequence": 8,
+            "type": "stroke_index",
+            "fig": 17,
+            "ges": 15
+          }
+        ]
+      },
+      "tee_comparison": {
+        "shared_tees": 4,
+        "exact_match": true,
+        "differences": []
+      }
+    },
+    {
+      "ges": "Est V-A",
+      "fig": "Blu/Bianco (Champ. Invertito)",
+      "relation": "alias_candidate",
+      "status": "match",
+      "fig_holes_count": 18,
+      "ges_holes_count": 18,
+      "fig_total_par": 72,
+      "ges_total_par": 72,
+      "hole_comparison": {
+        "par_match": true,
+        "stroke_index_match": true,
+        "differences": []
+      },
+      "tee_comparison": {
+        "shared_tees": 6,
+        "exact_match": true,
+        "differences": []
+      }
+    }
+  ]
+}

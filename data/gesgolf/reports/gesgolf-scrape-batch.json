@@ -1,0 +1,259 @@
+{
+  "generated_at": "2026-06-10T11:18:00.643Z",
+  "source": {
+    "coverage_path": "/Users/giuseppepalazzo/golf-score-app/data/gesgolf/reports/fig-gesgolf-coverage.json",
+    "fig_catalog_path": "/Users/giuseppepalazzo/golf-score-app/data/fig/normalized/fig-catalog-normalized.json"
+  },
+  "protected_clubs": [
+    "mare di roma",
+    "parco de medici"
+  ],
+  "summary": {
+    "total_coverage_rows": 220,
+    "eligible_rows": 183,
+    "protected_skipped": 1,
+    "weak_skipped": 36,
+    "processed_now": 1,
+    "scraped_safe": 0,
+    "scraped_warning": 1,
+    "scraped_error": 0
+  },
+  "skipped": [
+    {
+      "fig_club": "Acquabona",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Alta Badia",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Appiano - Golf & Country",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Archi Claudio",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Bergamo Albenza",
+      "gesgolf_club": "COLLI BERGAMO",
+      "circolo_id": "742",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Botanic Sa Cuba",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Castelgandolfo",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Cosmopolitan",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Fiuggi 1928",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Florinas",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Forte Marmi",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Ggz - Zerman",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Hermitage",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Lauri",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Livorno",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Mare Di Roma",
+      "gesgolf_club": "PARCO ROMA",
+      "circolo_id": "783",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Marigola",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Marina Velka",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Metaponto",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Mirabella",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Parco De' Medici",
+      "gesgolf_club": "PARCO DE' MEDICI",
+      "circolo_id": "112",
+      "action": "skip_protected"
+    },
+    {
+      "fig_club": "Punta Ala",
+      "gesgolf_club": "PUNTALDIA",
+      "circolo_id": "129",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Rieti",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Roncegno",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Salerno",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "San Donato",
+      "gesgolf_club": "SAN VALENTINO",
+      "circolo_id": "789",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "San Michele",
+      "gesgolf_club": "SAN VALENTINO",
+      "circolo_id": "789",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Sappada",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Sestrieres",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Sicilia'S Picciolo",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Stupinigi",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Tauriana",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Tirrenia",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Valdichiana",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Valpescara",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Verdura",
+      "gesgolf_club": "",
+      "circolo_id": "",
+      "action": "skip_not_strong"
+    },
+    {
+      "fig_club": "Villa Giusti",
+      "gesgolf_club": "VILLA CONDULMER",
+      "circolo_id": "49",
+      "action": "skip_not_strong"
+    }
+  ],
+  "results": [
+    {
+      "fig_club": "Acaya",
+      "gesgolf_club": "ACAYA",
+      "circolo_id": "792",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 4,
+      "warning_courses": 2,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/acaya/circolo-792.json",
+      "action": "scraped"
+    }
+  ]
+}

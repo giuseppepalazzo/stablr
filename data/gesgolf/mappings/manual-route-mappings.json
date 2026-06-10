@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "notes": "Manual benchmark overrides for verified route mappings. These do not trigger live DB writes by themselves.",
+  "clubs": [
+    {
+      "circolo_id": "112",
+      "fig_club": "Parco De' Medici",
+      "routes": [
+        {
+          "ges_route_name": "W-BL",
+          "fig_course_name": "Championship Bianco/Blu",
+          "relation": "combination_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "BL-W",
+          "fig_course_name": "Blu/Bianco (Champ. Invertito)",
+          "relation": "combination_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "BL-R",
+          "fig_course_name": "King Blu/Rosso",
+          "relation": "combination_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "W-R",
+          "fig_course_name": "Queen Bianco/Rosso",
+          "relation": "combination_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "R-R",
+          "fig_course_name": "Est (Rosso x 2)",
+          "relation": "repeat_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "9 Buche Bianco",
+          "fig_course_name": "9 Buche Bianco",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "9 Buche Blu",
+          "fig_course_name": "9 Buche Blu",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "BIANCO X 2",
+          "fig_course_name": "9 Buche Bianco 2 Volte",
+          "relation": "repeat_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "BLU X2",
+          "fig_course_name": "9 Buche Blu 2 Volte",
+          "relation": "repeat_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "Est V-A",
+          "fig_course_name": "Blu/Bianco (Champ. Invertito)",
+          "relation": "alias_candidate",
+          "confidence": "benchmark_manual_review"
+        }
+      ]
+    }
+  ]
+}
