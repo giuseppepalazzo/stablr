@@ -1,5 +1,31 @@
 # Getting Started with Create React App
 
+## Supabase Keep-Alive
+
+This repository includes a lightweight GitHub Actions workflow at
+[`/.github/workflows/supabase-keep-alive.yml`](/Users/giuseppepalazzo/golf-score-app/.github/workflows/supabase-keep-alive.yml)
+to generate minimal read-only activity against Supabase on Free plan projects.
+
+What it does:
+- runs on a schedule, roughly every 5 days
+- performs a read-only `GET` request against `fig_clubs?select=id&limit=1`
+- writes clear logs:
+  - `Supabase keep-alive ok`
+  - or the failing HTTP status
+
+Required GitHub Secrets:
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+
+How to disable it:
+- disable the workflow in GitHub Actions
+- or remove the `schedule` block from the workflow file
+
+Note:
+- this is a best-effort keep-alive only
+- it does not create or modify app data
+- it is not a guaranteed substitute for upgrading the Supabase organization plan
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

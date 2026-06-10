@@ -1,0 +1,46 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    # Best-effort keep-alive roughly every 5 days.
+    - cron: "17 5 */5 * *"
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Ping Supabase read-only endpoint
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SUPABASE_URL:-}" ] || [ -z "${SUPABASE_ANON_KEY:-}" ]; then
+            echo "Missing required secrets: SUPABASE_URL and/or SUPABASE_ANON_KEY"
+            exit 1
+          fi
+
+          ENDPOINT="${SUPABASE_URL%/}/rest/v1/fig_clubs?select=id&limit=1"
+          echo "Calling ${ENDPOINT}"
+
+          HTTP_CODE=$(curl --silent --show-error \
+            --output /tmp/supabase-keep-alive-response.json \
+            --write-out "%{http_code}" \
+            --header "apikey: ${SUPABASE_ANON_KEY}" \
+            --header "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            --header "Accept: application/json" \
+            "${ENDPOINT}")
+
+          if [ "${HTTP_CODE}" = "200" ]; then
+            echo "Supabase keep-alive ok"
+            cat /tmp/supabase-keep-alive-response.json
+            exit 0
+          fi
+
+          echo "Supabase keep-alive failed with HTTP ${HTTP_CODE}"
+          cat /tmp/supabase-keep-alive-response.json || true
+          exit 1
