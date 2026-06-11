@@ -85,12 +85,49 @@ function createInitialRoundSetup() {
     competitionName: "",
     totalCompetitionHoles: null,
     startHole: 1,
+    selectionMode: null,
     selectedRouteId: null,
     secondaryRouteId: null,
     selectedCombinationId: null,
     selectedRouteTeeId: null,
     selectedCombinationTeeId: null
   };
+}
+
+function getRoundSelectionMode({
+  totalCompetitionHoles,
+  selectedRoute,
+  secondaryRoute,
+  selectedCombinationId
+}) {
+  if (Number(totalCompetitionHoles) === 9) {
+    return selectedRoute ? "single_route_9" : null;
+  }
+
+  if (Number(totalCompetitionHoles) !== 18) {
+    return null;
+  }
+
+  if (selectedCombinationId) {
+    return "official_combination_18";
+  }
+
+  if (Number(selectedRoute?.holesCount) === 18) {
+    return "single_route_18";
+  }
+
+  if (
+    Number(selectedRoute?.holesCount) === 9 &&
+    Number(secondaryRoute?.holesCount) === 9 &&
+    selectedRoute?.id &&
+    secondaryRoute?.id
+  ) {
+    return selectedRoute.id === secondaryRoute.id
+      ? "repeated_single_9_18"
+      : "manual_combination_18";
+  }
+
+  return null;
 }
 
 function getClubStatusMeta(club) {
@@ -3975,6 +4012,7 @@ function App() {
     if (Number(totalCompetitionHoles) === 9) {
       const preferredRoute = nineHoleRoutes[0] || null;
       return {
+        selectionMode: preferredRoute ? "single_route_9" : null,
         selectedRouteId: preferredRoute?.id || null,
         secondaryRouteId: null,
         selectedCombinationId: null,
@@ -3996,6 +4034,7 @@ function App() {
           }
         ) || officialCombinations[0];
       return {
+        selectionMode: "official_combination_18",
         selectedRouteId: preferredCombination.frontRouteId,
         secondaryRouteId: preferredCombination.backRouteId,
         selectedCombinationId: preferredCombination.id,
@@ -4008,6 +4047,7 @@ function App() {
     if (eighteenHoleRoutes.length > 0) {
       const preferredRoute = eighteenHoleRoutes[0];
       return {
+        selectionMode: "single_route_18",
         selectedRouteId: preferredRoute.id,
         secondaryRouteId: null,
         selectedCombinationId: null,
@@ -4020,6 +4060,7 @@ function App() {
     if (nineHoleRoutes.length > 0) {
       const preferredRoute = nineHoleRoutes[0];
       return {
+        selectionMode: "repeated_single_9_18",
         selectedRouteId: preferredRoute.id,
         secondaryRouteId: nineHoleRoutes[1]?.id || nineHoleRoutes[0].id,
         selectedCombinationId: null,
@@ -4030,6 +4071,7 @@ function App() {
     }
 
     return {
+      selectionMode: null,
       selectedRouteId: null,
       secondaryRouteId: null,
       selectedCombinationId: null,
@@ -4197,6 +4239,7 @@ function App() {
     if (matchingCombination && roundSetup.selectedCombinationId !== matchingCombination.id) {
       setRoundSetup((prev) => ({
         ...prev,
+        selectionMode: "official_combination_18",
         selectedCombinationId: matchingCombination.id,
         selectedRouteTeeId: null,
         selectedCombinationTeeId:
@@ -4210,6 +4253,14 @@ function App() {
     if (!matchingCombination && roundSetup.selectedCombinationId) {
       setRoundSetup((prev) => ({
         ...prev,
+        selectionMode: getRoundSelectionMode({
+          totalCompetitionHoles: 18,
+          selectedRoute:
+            openedCourse?.routes?.find((route) => route.id === prev.selectedRouteId) || null,
+          secondaryRoute:
+            openedCourse?.routes?.find((route) => route.id === prev.secondaryRouteId) || null,
+          selectedCombinationId: null
+        }),
         selectedCombinationId: null,
         selectedCombinationTeeId: null
       }));
@@ -4428,26 +4479,62 @@ function App() {
     const officialCombination =
       routeCombinations.find((combination) => combination.id === setup.selectedCombinationId) ||
       findOfficialCombinationByRoutes(course, selectedRoute, secondaryRoute);
+    const selectionMode =
+      setup.selectionMode ||
+      getRoundSelectionMode({
+        totalCompetitionHoles: setup.totalCompetitionHoles,
+        selectedRoute,
+        secondaryRoute,
+        selectedCombinationId: setup.selectedCombinationId
+      });
 
     if (Number(setup.totalCompetitionHoles) === 18 && officialCombination) {
-      return rotateCompetitionSequence(
-        buildOfficialCombinationSequence(officialCombination, routes),
-        Number(setup.startHole || 1)
-      );
+      if (selectionMode === "official_combination_18") {
+        return rotateCompetitionSequence(
+          buildOfficialCombinationSequence(officialCombination, routes),
+          Number(setup.startHole || 1)
+        );
+      }
     }
 
-    if (
-      Number(setup.totalCompetitionHoles) === 18 &&
-      selectedRoute &&
-      secondaryRoute &&
-      Number(selectedRoute.holesCount) === 9 &&
-      Number(secondaryRoute.holesCount) === 9 &&
-      selectedRoute.id !== secondaryRoute.id
-    ) {
-      return rotateCompetitionSequence(
-        buildManualCombinationSequence(selectedRoute, secondaryRoute),
-        Number(setup.startHole || 1)
-      );
+    if (Number(setup.totalCompetitionHoles) === 18) {
+      if (
+        selectionMode === "manual_combination_18" &&
+        selectedRoute &&
+        secondaryRoute &&
+        Number(selectedRoute.holesCount) === 9 &&
+        Number(secondaryRoute.holesCount) === 9 &&
+        selectedRoute.id !== secondaryRoute.id
+      ) {
+        return rotateCompetitionSequence(
+          buildManualCombinationSequence(selectedRoute, secondaryRoute),
+          Number(setup.startHole || 1)
+        );
+      }
+
+      if (
+        selectionMode === "single_route_18" &&
+        selectedRoute &&
+        Number(selectedRoute.holesCount) === 18
+      ) {
+        return buildSingleRouteCompetitionSequence(
+          selectedRoute,
+          Number(setup.totalCompetitionHoles),
+          Number(setup.startHole)
+        );
+      }
+
+      if (
+        selectionMode === "repeated_single_9_18" &&
+        selectedRoute &&
+        Number(selectedRoute.holesCount) === 9
+      ) {
+        return buildSingleRouteCompetitionSequence(
+          selectedRoute,
+          Number(setup.totalCompetitionHoles),
+          Number(setup.startHole)
+        );
+      }
     }
 
     if (!selectedRoute) return [];
@@ -7184,15 +7271,8 @@ function App() {
             marginTop: "3px"
           }}
         >
-          {!course.playable
-            ? "Club in fase di configurazione"
-            : course.routeCount > 1
-              ? `${course.routeCount} percorsi`
-              : Number.isFinite(Number(course.holesCount)) && Number.isFinite(Number(course.totalPar))
-                ? `${course.holesCount} buche • Par ${course.totalPar}`
-                : ""}
+          Percorsi ufficiali FIG
         </div>
-
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
@@ -7265,11 +7345,21 @@ function App() {
         selectedPrimaryRoute,
         selectedSecondaryRoute
       );
+    const effectiveSelectionMode =
+      roundSetup.selectionMode ||
+      getRoundSelectionMode({
+        totalCompetitionHoles: roundSetup.totalCompetitionHoles,
+        selectedRoute: selectedPrimaryRoute,
+        secondaryRoute: selectedSecondaryRoute,
+        selectedCombinationId: roundSetup.selectedCombinationId
+      });
     const usingOfficialCombination =
-      Number(roundSetup.totalCompetitionHoles) === 18 && Boolean(matchedOfficialCombination);
+      Number(roundSetup.totalCompetitionHoles) === 18 &&
+      effectiveSelectionMode === "official_combination_18" &&
+      Boolean(matchedOfficialCombination);
     const usingManualRoutePair =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
-      !matchedOfficialCombination &&
+      effectiveSelectionMode === "manual_combination_18" &&
       selectedPrimaryRoute &&
       selectedSecondaryRoute &&
       Number(selectedPrimaryRoute.holesCount) === 9 &&
@@ -7277,7 +7367,7 @@ function App() {
       selectedPrimaryRoute.id !== selectedSecondaryRoute.id;
     const usingRepeatedSingleNineRoute =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
-      !matchedOfficialCombination &&
+      effectiveSelectionMode === "repeated_single_9_18" &&
       selectedPrimaryRoute &&
       Number(selectedPrimaryRoute.holesCount) === 9 &&
       selectedPrimaryRoute.id === selectedSecondaryRoute?.id;
@@ -7820,6 +7910,7 @@ function App() {
                     onClick={() => {
                       setRoundSetup((prev) => ({
                         ...prev,
+                        selectionMode: "single_route_9",
                         selectedRouteId: route.id,
                         secondaryRouteId: null,
                         selectedCombinationId: null,
@@ -7945,6 +8036,7 @@ function App() {
                         setShowTeeOptions(false);
                         setRoundSetup((prev) => ({
                           ...prev,
+                          selectionMode: "official_combination_18",
                           selectedRouteId: combination.frontRouteId,
                           secondaryRouteId: combination.backRouteId,
                           selectedCombinationId: combination.id,
@@ -8078,6 +8170,7 @@ function App() {
                       setShowOtherEighteenRouteOptions(false);
                       setRoundSetup((prev) => ({
                         ...prev,
+                        selectionMode: "single_route_18",
                         selectedRouteId: route.id,
                         secondaryRouteId: null,
                         selectedCombinationId: null,
@@ -8176,18 +8269,27 @@ function App() {
               {nineHoleRoutes.map((route) => (
                 <div
                   key={`front-${route.id}`}
-                  onClick={() => {
+                    onClick={() => {
                       setShowManualCombinationBuilder(true);
                       setShowTeeOptions(false);
                       setRoundSetup((prev) => {
+                        const secondaryRoute =
+                          openedCourse?.routes?.find((item) => item.id === prev.secondaryRouteId) || null;
                         const matchingCombination = findOfficialCombinationByRoutes(
                           openedCourse,
                           route,
-                          openedCourse?.routes?.find((item) => item.id === prev.secondaryRouteId) || null
+                          secondaryRoute
                         );
+                        const nextSelectionMode = getRoundSelectionMode({
+                          totalCompetitionHoles: 18,
+                          selectedRoute: route,
+                          secondaryRoute,
+                          selectedCombinationId: matchingCombination?.id || null
+                        });
 
                         return {
                           ...prev,
+                          selectionMode: nextSelectionMode,
                           selectedRouteId: route.id,
                           selectedCombinationId: matchingCombination?.id || null,
                           selectedRouteTeeId: matchingCombination ? null : route.tees?.[0]?.id || null,
@@ -8221,18 +8323,27 @@ function App() {
               {nineHoleRoutes.map((route) => (
                 <div
                   key={`back-${route.id}`}
-                  onClick={() => {
+                    onClick={() => {
                       setShowManualCombinationBuilder(true);
                       setShowTeeOptions(false);
                       setRoundSetup((prev) => {
+                        const selectedPrimaryRoute =
+                          openedCourse?.routes?.find((item) => item.id === prev.selectedRouteId) || null;
                         const matchingCombination = findOfficialCombinationByRoutes(
                           openedCourse,
-                          openedCourse?.routes?.find((item) => item.id === prev.selectedRouteId) || null,
+                          selectedPrimaryRoute,
                           route
                         );
+                        const nextSelectionMode = getRoundSelectionMode({
+                          totalCompetitionHoles: 18,
+                          selectedRoute: selectedPrimaryRoute,
+                          secondaryRoute: route,
+                          selectedCombinationId: matchingCombination?.id || null
+                        });
 
                         return {
                           ...prev,
+                          selectionMode: nextSelectionMode,
                           secondaryRouteId: route.id,
                           selectedCombinationId: matchingCombination?.id || null,
                           selectedRouteTeeId: matchingCombination
