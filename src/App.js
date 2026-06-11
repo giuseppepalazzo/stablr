@@ -182,6 +182,45 @@ function getTeeSortOrder(tee) {
   return matchedIndex === -1 ? 99 : matchedIndex;
 }
 
+function inferPhysicalCourseHoleCount(course) {
+  const explicitValue = Number(
+    course?.sourcePayload?.physical_hole_count ||
+      course?.source_payload?.physical_hole_count ||
+      0
+  );
+
+  if (explicitValue === 9 || explicitValue === 18) {
+    return explicitValue;
+  }
+
+  const routes = Array.isArray(course?.routes) ? course.routes : [];
+  const routeCombinations = Array.isArray(course?.routeCombinations) ? course.routeCombinations : [];
+  const nineHoleRoutes = routes.filter(
+    (route) => Number(route?.holesCount) === 9 && Array.isArray(route?.holes) && route.holes.length > 0
+  );
+  const eighteenHoleRoutes = routes.filter(
+    (route) => Number(route?.holesCount) === 18 && Array.isArray(route?.holes) && route.holes.length > 0
+  );
+
+  const likelyOfficialEighteenVariants =
+    eighteenHoleRoutes.length > 0 &&
+    eighteenHoleRoutes.every((route) => /^18\s+buche/i.test(String(route?.name || "").trim()));
+
+  if (nineHoleRoutes.length > 0 && routeCombinations.length === 0 && likelyOfficialEighteenVariants) {
+    return 9;
+  }
+
+  if (eighteenHoleRoutes.length > 0 && nineHoleRoutes.length === 0) {
+    return 18;
+  }
+
+  return null;
+}
+
+function shouldDefaultRoundToNineHoles(course) {
+  return inferPhysicalCourseHoleCount(course) === 9;
+}
+
 function getTeeOptionsForHolesCount(tees, preferredHolesCount = null) {
   const teeList = Array.isArray(tees) ? tees : [];
   const numericPreferredHolesCount = Number(preferredHolesCount);
@@ -2869,8 +2908,9 @@ function App() {
         ? course.routes.filter((route) => Number(route.holesCount) === 9 && route.holes?.length)
         : [];
       const hasNineHoleRoutes = nineHoleRoutes.length > 0;
-      const defaultCompetitionHoles =
-        hasOfficialCombinations || hasEighteenHoleRoutes
+      const defaultCompetitionHoles = shouldDefaultRoundToNineHoles(course)
+        ? 9
+        : hasOfficialCombinations || hasEighteenHoleRoutes
           ? 18
           : nineHoleRoutes.length === 1
             ? 9
@@ -4041,8 +4081,9 @@ function App() {
       ? course.routes.filter((route) => Number(route.holesCount) === 9 && route.holes?.length)
       : [];
     const hasNineHoleRoutes = nineHoleRoutes.length > 0;
-    const defaultCompetitionHoles =
-      hasOfficialCombinations || hasEighteenHoleRoutes
+    const defaultCompetitionHoles = shouldDefaultRoundToNineHoles(course)
+      ? 9
+      : hasOfficialCombinations || hasEighteenHoleRoutes
         ? 18
         : nineHoleRoutes.length === 1
           ? 9
@@ -4224,6 +4265,24 @@ function App() {
     roundSetup.selectedRouteTeeId,
     roundSetup.selectedCombinationTeeId
   ]);
+
+  useEffect(() => {
+    if (!showRoundSetup || !openedCourse?.id) return;
+    if (!shouldDefaultRoundToNineHoles(openedCourse)) return;
+
+    setRoundSetup((prev) => {
+      if (Number(prev.totalCompetitionHoles) === 9 && prev.selectedRouteId) {
+        return prev;
+      }
+
+      return {
+        ...createInitialRoundSetup(),
+        totalCompetitionHoles: 9,
+        ...buildRoundChoiceDefaults(openedCourse, 9),
+        competitionName: prev.competitionName || ""
+      };
+    });
+  }, [showRoundSetup, openedCourse?.id, openedCourse, buildRoundChoiceDefaults]);
 
   useEffect(() => {
     if (!showRoundSetup) return;

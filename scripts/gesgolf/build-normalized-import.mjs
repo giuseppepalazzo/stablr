@@ -198,6 +198,8 @@ async function main() {
         ...(figClub.source_payload || {}),
         official_catalog: "fig",
         hole_by_hole_source: "gesgolf",
+        physical_hole_count: 9,
+        import_profile: "physical_9_with_official_18_variants",
         gesgolf: {
           circolo_id: clubSummary.circolo_id,
           gesgolf_club: clubSummary.gesgolf_club
