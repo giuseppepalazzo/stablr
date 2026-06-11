@@ -47,6 +47,76 @@ function assert(condition, message) {
   }
 }
 
+function arraysEqual(left = [], right = []) {
+  return (
+    Array.isArray(left) &&
+    Array.isArray(right) &&
+    left.length === right.length &&
+    left.every((value, index) => value === right[index])
+  );
+}
+
+function hasCompressedNineHoleStrokeIndexes(holes = []) {
+  if (!Array.isArray(holes) || holes.length !== 9) {
+    return false;
+  }
+
+  const indexes = holes.map((hole) => hole.hcp);
+  return indexes.every((value) => Number.isInteger(value) && value >= 1 && value <= 9);
+}
+
+function findOfficialNineHoleStrokeIndexSegment(gesRoute, gesPlayableCourses) {
+  if (!hasCompressedNineHoleStrokeIndexes(gesRoute.holes)) {
+    return null;
+  }
+
+  const routePars = gesRoute.holes.map((hole) => hole.par);
+
+  const matchingOfficial18 = (gesPlayableCourses || []).find((candidate) => {
+    if (candidate.holes_count !== 18 || !Array.isArray(candidate.holes) || candidate.holes.length !== 18) {
+      return false;
+    }
+
+    const frontNinePars = candidate.holes.slice(0, 9).map((hole) => hole.par);
+    const backNinePars = candidate.holes.slice(9, 18).map((hole) => hole.par);
+
+    return arraysEqual(frontNinePars, routePars) || arraysEqual(backNinePars, routePars);
+  });
+
+  if (!matchingOfficial18) {
+    return null;
+  }
+
+  const frontNineHoles = matchingOfficial18.holes.slice(0, 9);
+  const backNineHoles = matchingOfficial18.holes.slice(9, 18);
+  const frontNinePars = frontNineHoles.map((hole) => hole.par);
+  const backNinePars = backNineHoles.map((hole) => hole.par);
+
+  if (arraysEqual(frontNinePars, routePars)) {
+    return frontNineHoles.map((hole) => hole.hcp);
+  }
+
+  if (arraysEqual(backNinePars, routePars)) {
+    return backNineHoles.map((hole) => hole.hcp);
+  }
+
+  return null;
+}
+
+function buildRouteHoles(gesRoute, gesPlayableCourses, importProfile) {
+  const officialNineHoleIndexes =
+    importProfile === "physical_9_with_official_18_variants"
+      ? findOfficialNineHoleStrokeIndexSegment(gesRoute, gesPlayableCourses)
+      : null;
+
+  return gesRoute.holes.map((hole, index) => ({
+    physical_hole_number: hole.hole_number,
+    par: hole.par,
+    stroke_index: officialNineHoleIndexes?.[index] ?? hole.hcp,
+    display_label: String(hole.hole_number)
+  }));
+}
+
 async function findGesGolfNormalizedPath(figClubName, circoloId) {
   const expectedPath = path.join(
     GESGOLF_NORMALIZED_DIR,
@@ -70,7 +140,7 @@ async function findGesGolfNormalizedPath(figClubName, circoloId) {
   throw new Error(`File GesGolf normalizzato non trovato per ${figClubName} (${circoloId}).`);
 }
 
-function buildRoutePayload(routeCandidate, gesRoute, figCourse) {
+function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCourses, importProfile) {
   return {
     external_key: figCourse.source_external_id,
     name: figCourse.name,
@@ -92,12 +162,7 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse) {
         percorso_id: gesRoute.percorso_id
       }
     },
-    holes: gesRoute.holes.map((hole) => ({
-      physical_hole_number: hole.hole_number,
-      par: hole.par,
-      stroke_index: hole.hcp,
-      display_label: String(hole.hole_number)
-    })),
+    holes: buildRouteHoles(gesRoute, gesPlayableCourses, importProfile),
     tees: (figCourse.tees || []).map((tee) => ({
       tee_name: tee.tee_name,
       tee_color: tee.tee_color || null,
@@ -150,6 +215,7 @@ async function main() {
   const figCourseMap = new Map(
     (figClub.playable_courses || []).map((course) => [course.source_external_id, course])
   );
+  const importProfile = "physical_9_with_official_18_variants";
 
   const routes = routeCandidates
     .map((candidate) => {
@@ -170,7 +236,13 @@ async function main() {
         `Percorso GesGolf non trovato nel file normalizzato: ${candidate.ges_route_name}`
       );
 
-      return buildRoutePayload(candidate, gesRoute, figCourse);
+      return buildRoutePayload(
+        candidate,
+        gesRoute,
+        figCourse,
+        gesNormalized.playable_courses || [],
+        importProfile
+      );
     })
     .sort((left, right) => (left.display_order ?? 999) - (right.display_order ?? 999));
 
@@ -199,7 +271,7 @@ async function main() {
         official_catalog: "fig",
         hole_by_hole_source: "gesgolf",
         physical_hole_count: 9,
-        import_profile: "physical_9_with_official_18_variants",
+        import_profile: importProfile,
         gesgolf: {
           circolo_id: clubSummary.circolo_id,
           gesgolf_club: clubSummary.gesgolf_club
