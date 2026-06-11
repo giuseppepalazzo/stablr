@@ -1,5 +1,10 @@
 fig_club,gesgolf_club,circolo_id,match_score,scrape_status,playable_courses,warning_courses,failed_courses,output,action
 Acaya,ACAYA,792,100,warning,4,2,0,data/gesgolf/normalized/acaya/circolo-792.json,scraped
+Albisola,ALBISOLA,746,100,safe,5,0,0,data/gesgolf/normalized/albisola/circolo-746.json,scraped
+Alpino,ALPINO,39,100,warning,2,1,0,data/gesgolf/normalized/alpino/circolo-39.json,scraped
+Ambrosiano,AMBROSIANO,699,100,safe,3,0,0,data/gesgolf/normalized/ambrosiano/circolo-699.json,scraped
+Antognolla,ANTOGNOLLA,644,100,safe,3,0,0,data/gesgolf/normalized/antognolla/circolo-644.json,scraped
+Aosta Arsanieres,AOSTA ARSANIERES,105,100,warning,4,1,0,data/gesgolf/normalized/aosta-arsanieres/circolo-105.json,scraped
 Acquabona,,,,,,,,,skip_not_strong
 Alta Badia,,,,,,,,,skip_not_strong
 Appiano - Golf & Country,,,,,,,,,skip_not_strong

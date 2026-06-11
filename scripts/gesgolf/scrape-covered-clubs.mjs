@@ -35,6 +35,7 @@ async function main() {
   const limit = Number(getArgValue("--limit", "0"));
   const offset = Number(getArgValue("--offset", "0"));
   const delayMs = Number(getArgValue("--delay-ms", "150"));
+  const append = getArgValue("--append", "true") !== "false";
 
   const coverageRaw = await writeThenReadJson(COVERAGE_PATH);
   const rows = coverageRaw.results || [];
@@ -44,6 +45,9 @@ async function main() {
     .map((entry) => entry.row);
 
   const slice = limit > 0 ? eligible.slice(offset, offset + limit) : eligible.slice(offset);
+  const existingPayload = append ? await safeReadJson(jsonOut) : null;
+  const existingResults = Array.isArray(existingPayload?.results) ? existingPayload.results : [];
+  const existingByClub = new Map(existingResults.map((row) => [`${row.fig_club}::${row.circolo_id}`, row]));
   const results = [];
   const skipped = rows
     .map((row) => ({ row, action: classifyCoverageRow(row, strongThreshold) }))
@@ -102,15 +106,24 @@ async function main() {
     }
   }
 
+  results.forEach((row) => {
+    existingByClub.set(`${row.fig_club}::${row.circolo_id}`, row);
+  });
+
+  const mergedResults = [...existingByClub.values()].sort(
+    (left, right) => left.fig_club.localeCompare(right.fig_club, "it")
+  );
+
   const summary = {
     total_coverage_rows: rows.length,
     eligible_rows: eligible.length,
     protected_skipped: skipped.filter((row) => row.action === "skip_protected").length,
     weak_skipped: skipped.filter((row) => row.action === "skip_not_strong").length,
     processed_now: slice.length,
-    scraped_safe: results.filter((row) => row.scrape_status === "safe").length,
-    scraped_warning: results.filter((row) => row.scrape_status === "warning").length,
-    scraped_error: results.filter((row) => row.scrape_status === "error").length
+    processed_total: mergedResults.length,
+    scraped_safe: mergedResults.filter((row) => row.scrape_status === "safe").length,
+    scraped_warning: mergedResults.filter((row) => row.scrape_status === "warning").length,
+    scraped_error: mergedResults.filter((row) => row.scrape_status === "error").length
   };
 
   const payload = {
@@ -122,13 +135,13 @@ async function main() {
     protected_clubs: [...PROTECTED_CLUBS],
     summary,
     skipped,
-    results
+    results: mergedResults
   };
 
   await mkdir(path.dirname(jsonOut), { recursive: true });
   await mkdir(path.dirname(csvOut), { recursive: true });
   await writeFile(jsonOut, `${JSON.stringify(payload, null, 2)}\n`, "utf-8");
-  await writeFile(csvOut, buildCsv([...results, ...skipped]), "utf-8");
+  await writeFile(csvOut, buildCsv([...mergedResults, ...skipped]), "utf-8");
 
   console.log(JSON.stringify({ summary, jsonOut, csvOut }, null, 2));
 }
@@ -136,6 +149,14 @@ async function main() {
 async function writeThenReadJson(filePath) {
   const text = await import("node:fs/promises").then((fs) => fs.readFile(filePath, "utf-8"));
   return JSON.parse(text);
+}
+
+async function safeReadJson(filePath) {
+  try {
+    return await writeThenReadJson(filePath);
+  } catch (error) {
+    return null;
+  }
 }
 
 main().catch((error) => {

@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-06-10T11:46:34.241Z",
+  "generated_at": "2026-06-11T12:38:03.485Z",
   "source": {
     "mapping_template": "/Users/giuseppepalazzo/golf-score-app/data/gesgolf/mappings/route-mapping-template.json"
   },
   "summary": {
-    "total_routes": 15,
-    "import_ready_routes": 0,
-    "needs_review_routes": 4,
+    "total_routes": 32,
+    "import_ready_routes": 6,
+    "needs_review_routes": 15,
     "protected_reference_routes": 11,
-    "total_clubs": 2,
-    "import_ready_clubs": 0,
-    "needs_review_clubs": 1,
+    "total_clubs": 7,
+    "import_ready_clubs": 1,
+    "needs_review_clubs": 5,
     "protected_reference_clubs": 1
   },
   "clubs": [
@@ -22,6 +22,61 @@
       "total_routes": 4,
       "import_ready_routes": 0,
       "review_routes": 4,
+      "protected_routes": 0,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Albisola",
+      "gesgolf_club": "ALBISOLA",
+      "circolo_id": "746",
+      "protected_live": "no",
+      "total_routes": 5,
+      "import_ready_routes": 5,
+      "review_routes": 0,
+      "protected_routes": 0,
+      "club_status": "import_ready"
+    },
+    {
+      "fig_club": "Alpino",
+      "gesgolf_club": "ALPINO",
+      "circolo_id": "39",
+      "protected_live": "no",
+      "total_routes": 2,
+      "import_ready_routes": 0,
+      "review_routes": 2,
+      "protected_routes": 0,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Ambrosiano",
+      "gesgolf_club": "AMBROSIANO",
+      "circolo_id": "699",
+      "protected_live": "no",
+      "total_routes": 3,
+      "import_ready_routes": 0,
+      "review_routes": 3,
+      "protected_routes": 0,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Antognolla",
+      "gesgolf_club": "ANTOGNOLLA",
+      "circolo_id": "644",
+      "protected_live": "no",
+      "total_routes": 3,
+      "import_ready_routes": 0,
+      "review_routes": 3,
+      "protected_routes": 0,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Aosta Arsanieres",
+      "gesgolf_club": "AOSTA ARSANIERES",
+      "circolo_id": "105",
+      "protected_live": "no",
+      "total_routes": 4,
+      "import_ready_routes": 1,
+      "review_routes": 3,
       "protected_routes": 0,
       "club_status": "needs_review"
     },
@@ -291,6 +346,1046 @@
       ],
       "import_bucket": "needs_review",
       "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Albisola",
+      "gesgolf_club": "ALBISOLA",
+      "circolo_id": "746",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 buche PAR 64",
+      "ges_holes_count": 18,
+      "ges_total_par": 64,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche par 64",
+      "suggested_fig_source_external_id": "fig-course-albisola-18-buche-par-64",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche par 64",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-64",
+          "fig_holes_count": 18,
+          "fig_total_par": 64,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche par 65",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-65",
+          "fig_holes_count": 18,
+          "fig_total_par": 65,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche|par"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche par 66",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-66",
+          "fig_holes_count": 18,
+          "fig_total_par": 66,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche|par"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Albisola",
+      "gesgolf_club": "ALBISOLA",
+      "circolo_id": "746",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "9 Buche par 32",
+      "ges_holes_count": 9,
+      "ges_total_par": 32,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche par 32",
+      "suggested_fig_source_external_id": "fig-course-albisola-9-buche-par-32",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche par 32",
+          "fig_source_external_id": "fig-course-albisola-9-buche-par-32",
+          "fig_holes_count": 9,
+          "fig_total_par": 32,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "9 buche par 33",
+          "fig_source_external_id": "fig-course-albisola-9-buche-par-33",
+          "fig_holes_count": 9,
+          "fig_total_par": 33,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche|par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche par 64",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-64",
+          "fig_holes_count": 18,
+          "fig_total_par": 64,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 12,
+          "reasons": [
+            "shared_tokens:buche|par"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Albisola",
+      "gesgolf_club": "ALBISOLA",
+      "circolo_id": "746",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 Buche PAR 65",
+      "ges_holes_count": 18,
+      "ges_total_par": 65,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 buche par 65",
+      "suggested_fig_source_external_id": "fig-course-albisola-18-buche-par-65",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 buche par 65",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-65",
+          "fig_holes_count": 18,
+          "fig_total_par": 65,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche par 64",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-64",
+          "fig_holes_count": 18,
+          "fig_total_par": 64,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche|par"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche par 66",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-66",
+          "fig_holes_count": 18,
+          "fig_total_par": 66,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche|par"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Albisola",
+      "gesgolf_club": "ALBISOLA",
+      "circolo_id": "746",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 Buche PAR 66",
+      "ges_holes_count": 18,
+      "ges_total_par": 66,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 buche par 66",
+      "suggested_fig_source_external_id": "fig-course-albisola-18-buche-par-66",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 buche par 66",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-66",
+          "fig_holes_count": 18,
+          "fig_total_par": 66,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche par 64",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-64",
+          "fig_holes_count": 18,
+          "fig_total_par": 64,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche|par"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche par 65",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-65",
+          "fig_holes_count": 18,
+          "fig_total_par": 65,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche|par"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Albisola",
+      "gesgolf_club": "ALBISOLA",
+      "circolo_id": "746",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "9 buche par 33",
+      "ges_holes_count": 9,
+      "ges_total_par": 33,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 buche par 33",
+      "suggested_fig_source_external_id": "fig-course-albisola-9-buche-par-33",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 buche par 33",
+          "fig_source_external_id": "fig-course-albisola-9-buche-par-33",
+          "fig_holes_count": 9,
+          "fig_total_par": 33,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche par 32",
+          "fig_source_external_id": "fig-course-albisola-9-buche-par-32",
+          "fig_holes_count": 9,
+          "fig_total_par": 32,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche|par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche par 64",
+          "fig_source_external_id": "fig-course-albisola-18-buche-par-64",
+          "fig_holes_count": 18,
+          "fig_total_par": 64,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 12,
+          "reasons": [
+            "shared_tokens:buche|par"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Alpino",
+      "gesgolf_club": "ALPINO",
+      "circolo_id": "39",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "DE BLANC",
+      "ges_holes_count": 18,
+      "ges_total_par": 69,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-alpino-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-alpino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 69,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-alpino-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Alpino",
+      "gesgolf_club": "ALPINO",
+      "circolo_id": "39",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "LE NOVE",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-alpino-prime-nove",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 26,
+      "suggested_reasons": "same_total_par|shared_tokens:nove",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-alpino-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-alpino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 69,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Ambrosiano",
+      "gesgolf_club": "AMBROSIANO",
+      "circolo_id": "699",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Ambro 1",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ambrosiano-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ambrosiano-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ambrosiano-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ambrosiano-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ambrosiano",
+      "gesgolf_club": "AMBROSIANO",
+      "circolo_id": "699",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "1&#176; nove",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-ambrosiano-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:nove",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ambrosiano-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ambrosiano-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ambrosiano-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ambrosiano",
+      "gesgolf_club": "AMBROSIANO",
+      "circolo_id": "699",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "2&#176; nove",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-ambrosiano-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:nove",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ambrosiano-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ambrosiano-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ambrosiano-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Antognolla",
+      "gesgolf_club": "ANTOGNOLLA",
+      "circolo_id": "644",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Championship",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 buche",
+      "suggested_fig_source_external_id": "fig-course-antognolla-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 buche",
+          "fig_source_external_id": "fig-course-antognolla-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Misto",
+          "fig_source_external_id": "fig-course-antognolla-9-buche-misto",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-antognolla-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Antognolla",
+      "gesgolf_club": "ANTOGNOLLA",
+      "circolo_id": "644",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "first 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-antognolla-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-antognolla-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Misto",
+          "fig_source_external_id": "fig-course-antognolla-9-buche-misto",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-antognolla-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Antognolla",
+      "gesgolf_club": "ANTOGNOLLA",
+      "circolo_id": "644",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "second 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Misto",
+      "suggested_fig_source_external_id": "fig-course-antognolla-9-buche-misto",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:9",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Misto",
+          "fig_source_external_id": "fig-course-antognolla-9-buche-misto",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-antognolla-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-antognolla-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Aosta Arsanieres",
+      "gesgolf_club": "AOSTA ARSANIERES",
+      "circolo_id": "105",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "OLD C.",
+      "ges_holes_count": 18,
+      "ges_total_par": 62,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Aosta Arsanieres",
+      "gesgolf_club": "AOSTA ARSANIERES",
+      "circolo_id": "105",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PR NOVE",
+      "ges_holes_count": 18,
+      "ges_total_par": 31,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_holes_count",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Aosta Arsanieres",
+      "gesgolf_club": "AOSTA ARSANIERES",
+      "circolo_id": "105",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "Aosta 18 buche",
+      "ges_holes_count": 18,
+      "ges_total_par": 62,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Aosta Arsanieres",
+      "gesgolf_club": "AOSTA ARSANIERES",
+      "circolo_id": "105",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "9 buche",
+      "ges_holes_count": 9,
+      "ges_total_par": 31,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche",
+      "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-9-buche",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:buche"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Parco De' Medici",

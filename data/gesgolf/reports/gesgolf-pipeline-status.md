@@ -87,25 +87,42 @@ Script:
 ## Risultato dell'ultimo test reale
 
 Club processati nel batch reale:
-- 1 club non protetto: `Acaya`
+- 6 club non protetti:
+  - `Acaya`
+  - `Albisola`
+  - `Alpino`
+  - `Ambrosiano`
+  - `Antognolla`
+  - `Aosta Arsanieres`
 
-Esito:
-- `Acaya` = `needs_review`
-- `Parco De' Medici` = `protected_reference`
+Esito batch:
+- `safe`: 3 club
+- `warning`: 3 club
+- `error`: 0 club
 
 Import summary attuale:
-- route totali valutate: 15
-- `import_ready`: 0
-- `needs_review`: 4
+- route totali valutate: 32
+- `import_ready`: 6
+- `needs_review`: 15
 - `protected_reference`: 11
 
-Questo e' coerente con l'obiettivo: la pipeline e' prudente e non promuove dati dubbi.
+Primo club gia' interamente `import_ready`:
+- `Albisola`
+
+Altri club ancora da review:
+- `Acaya`
+- `Alpino`
+- `Ambrosiano`
+- `Antognolla`
+- `Aosta Arsanieres`
+
+Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anche a far emergere i primi candidati realmente importabili.
 
 ## Cosa manca per chiudere davvero la task
 
-1. Eseguire il batch su piu' club forti GesGolf.
-2. Popolare il mapping template su un primo gruppo reale di club puliti.
-3. Verificare quando emergono i primi `import_ready`.
+1. Eseguire il batch su un altro gruppo di club forti GesGolf.
+2. Validare manualmente i primi `import_ready`, partendo da `Albisola`.
+3. Rifinire i mapping a bassa confidenza per club come `Ambrosiano`, `Antognolla`, `Aosta Arsanieres`.
 4. Solo dopo, preparare il layer successivo per export/import controllato verso Supabase.
 
 ## Comandi utili

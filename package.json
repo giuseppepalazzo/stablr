@@ -30,7 +30,8 @@
     "gesgolf:report-parco-mismatch": "node scripts/gesgolf/report-parco-medici-mismatch.mjs",
     "gesgolf:scrape-covered": "node scripts/gesgolf/scrape-covered-clubs.mjs",
     "gesgolf:build-route-mapping-template": "node scripts/gesgolf/build-route-mapping-template.mjs",
-    "gesgolf:build-import-candidates": "node scripts/gesgolf/build-import-candidates.mjs"
+    "gesgolf:build-import-candidates": "node scripts/gesgolf/build-import-candidates.mjs",
+    "gesgolf:build-normalized-import": "node scripts/gesgolf/build-normalized-import.mjs"
   },
   "eslintConfig": {
     "extends": [

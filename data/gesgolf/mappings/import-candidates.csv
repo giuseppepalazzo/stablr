@@ -3,6 +3,23 @@ Acaya,ACAYA,792,2010 NON VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71
 Acaya,ACAYA,792,2010 1-9 VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
 Acaya,ACAYA,792,2010 S.9 VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
 Acaya,ACAYA,792,2009 VALIDO,18 Buche Par 71,fig-course-acaya-18-buche-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
+Albisola,ALBISOLA,746,18 buche PAR 64,18 Buche par 64,fig-course-albisola-18-buche-par-64,playable_course,high,safe,,no,import_ready,all_checks_passed
+Albisola,ALBISOLA,746,9 Buche par 32,9 Buche par 32,fig-course-albisola-9-buche-par-32,base_route,high,safe,,no,import_ready,all_checks_passed
+Albisola,ALBISOLA,746,18 Buche PAR 65,18 buche par 65,fig-course-albisola-18-buche-par-65,playable_course,high,safe,,no,import_ready,all_checks_passed
+Albisola,ALBISOLA,746,18 Buche PAR 66,18 buche par 66,fig-course-albisola-18-buche-par-66,playable_course,high,safe,,no,import_ready,all_checks_passed
+Albisola,ALBISOLA,746,9 buche par 33,9 buche par 33,fig-course-albisola-9-buche-par-33,base_route,high,safe,,no,import_ready,all_checks_passed
+Alpino,ALPINO,39,DE BLANC,18 Buche,fig-course-alpino-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Alpino,ALPINO,39,LE NOVE,Prime Nove,fig-course-alpino-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Ambrosiano,AMBROSIANO,699,Ambro 1,18 Buche,fig-course-ambrosiano-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ambrosiano,AMBROSIANO,699,1&#176; nove,Prime Nove,fig-course-ambrosiano-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Ambrosiano,AMBROSIANO,699,2&#176; nove,Prime Nove,fig-course-ambrosiano-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Antognolla,ANTOGNOLLA,644,Championship,18 buche,fig-course-antognolla-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Antognolla,ANTOGNOLLA,644,first 9,Prime Nove,fig-course-antognolla-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Antognolla,ANTOGNOLLA,644,second 9,9 Buche Misto,fig-course-antognolla-9-buche-misto,base_route,low,safe,,no,needs_review,confidence_too_low
+Aosta Arsanieres,AOSTA ARSANIERES,105,OLD C.,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Aosta Arsanieres,AOSTA ARSANIERES,105,PR NOVE,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Aosta Arsanieres,AOSTA ARSANIERES,105,Aosta 18 buche,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Aosta Arsanieres,AOSTA ARSANIERES,105,9 buche,9 Buche,fig-course-aosta-arsanieres-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club

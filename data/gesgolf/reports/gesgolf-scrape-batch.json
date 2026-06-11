@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T11:18:00.643Z",
+  "generated_at": "2026-06-11T12:37:00.300Z",
   "source": {
     "coverage_path": "/Users/giuseppepalazzo/golf-score-app/data/gesgolf/reports/fig-gesgolf-coverage.json",
     "fig_catalog_path": "/Users/giuseppepalazzo/golf-score-app/data/fig/normalized/fig-catalog-normalized.json"
@@ -13,9 +13,10 @@
     "eligible_rows": 183,
     "protected_skipped": 1,
     "weak_skipped": 36,
-    "processed_now": 1,
-    "scraped_safe": 0,
-    "scraped_warning": 1,
+    "processed_now": 5,
+    "processed_total": 6,
+    "scraped_safe": 3,
+    "scraped_warning": 3,
     "scraped_error": 0
   },
   "skipped": [
@@ -253,6 +254,66 @@
       "warning_courses": 2,
       "failed_courses": 0,
       "output": "data/gesgolf/normalized/acaya/circolo-792.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Albisola",
+      "gesgolf_club": "ALBISOLA",
+      "circolo_id": "746",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 5,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/albisola/circolo-746.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Alpino",
+      "gesgolf_club": "ALPINO",
+      "circolo_id": "39",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 2,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/alpino/circolo-39.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Ambrosiano",
+      "gesgolf_club": "AMBROSIANO",
+      "circolo_id": "699",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 3,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/ambrosiano/circolo-699.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Antognolla",
+      "gesgolf_club": "ANTOGNOLLA",
+      "circolo_id": "644",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 3,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/antognolla/circolo-644.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Aosta Arsanieres",
+      "gesgolf_club": "AOSTA ARSANIERES",
+      "circolo_id": "105",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 4,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/aosta-arsanieres/circolo-105.json",
       "action": "scraped"
     }
   ]
