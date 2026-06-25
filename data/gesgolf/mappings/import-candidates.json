@@ -1,16 +1,17 @@
 {
-  "generated_at": "2026-06-11T12:38:03.485Z",
+  "generated_at": "2026-06-25T06:38:59.891Z",
   "source": {
-    "mapping_template": "/Users/giuseppepalazzo/golf-score-app/data/gesgolf/mappings/route-mapping-template.json"
+    "mapping_template": "/Users/giuseppepalazzo/Stablr/data/gesgolf/mappings/route-mapping-template.json"
   },
   "summary": {
     "total_routes": 32,
-    "import_ready_routes": 6,
-    "needs_review_routes": 15,
+    "import_ready_routes": 7,
+    "needs_review_routes": 12,
     "protected_reference_routes": 11,
+    "excluded_reference_routes": 2,
     "total_clubs": 7,
-    "import_ready_clubs": 1,
-    "needs_review_clubs": 5,
+    "import_ready_clubs": 2,
+    "needs_review_clubs": 4,
     "protected_reference_clubs": 1
   },
   "clubs": [
@@ -23,6 +24,8 @@
       "import_ready_routes": 0,
       "review_routes": 4,
       "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 4,
       "club_status": "needs_review"
     },
     {
@@ -34,6 +37,8 @@
       "import_ready_routes": 5,
       "review_routes": 0,
       "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 5,
       "club_status": "import_ready"
     },
     {
@@ -45,6 +50,8 @@
       "import_ready_routes": 0,
       "review_routes": 2,
       "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 2,
       "club_status": "needs_review"
     },
     {
@@ -56,6 +63,8 @@
       "import_ready_routes": 0,
       "review_routes": 3,
       "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 3,
       "club_status": "needs_review"
     },
     {
@@ -67,6 +76,8 @@
       "import_ready_routes": 0,
       "review_routes": 3,
       "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 3,
       "club_status": "needs_review"
     },
     {
@@ -75,10 +86,12 @@
       "circolo_id": "105",
       "protected_live": "no",
       "total_routes": 4,
-      "import_ready_routes": 1,
-      "review_routes": 3,
+      "import_ready_routes": 2,
+      "review_routes": 0,
       "protected_routes": 0,
-      "club_status": "needs_review"
+      "excluded_routes": 2,
+      "import_required_routes": 2,
+      "club_status": "import_ready"
     },
     {
       "fig_club": "Parco De' Medici",
@@ -89,6 +102,8 @@
       "import_ready_routes": 0,
       "review_routes": 0,
       "protected_routes": 11,
+      "excluded_routes": 0,
+      "import_required_routes": 0,
       "club_status": "protected_reference"
     }
   ],
@@ -1188,12 +1203,12 @@
       "ges_playable_kind": "official_18",
       "ges_route_status": "safe",
       "ges_route_anomalies": "",
-      "suggested_fig_course_name": "18 Buche",
-      "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
-      "suggested_relation": "playable_course",
-      "suggested_confidence": "low",
-      "suggested_score": 40,
-      "suggested_reasons": "same_holes_count|same_total_par",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -1224,8 +1239,8 @@
           "reasons": []
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
     },
     {
       "fig_club": "Aosta Arsanieres",
@@ -1239,12 +1254,12 @@
       "ges_playable_kind": "official_18",
       "ges_route_status": "warning",
       "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
-      "suggested_fig_course_name": "18 Buche",
-      "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
-      "suggested_relation": "playable_course",
-      "suggested_confidence": "low",
-      "suggested_score": 20,
-      "suggested_reasons": "same_holes_count",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -1276,8 +1291,8 @@
           ]
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "ges_route_warning"
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
     },
     {
       "fig_club": "Aosta Arsanieres",
@@ -1294,9 +1309,9 @@
       "suggested_fig_course_name": "18 Buche",
       "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-18-buche",
       "suggested_relation": "playable_course",
-      "suggested_confidence": "medium",
-      "suggested_score": 68,
-      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -1330,8 +1345,8 @@
           ]
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Aosta Arsanieres",
@@ -1348,13 +1363,13 @@
       "suggested_fig_course_name": "9 Buche",
       "suggested_fig_source_external_id": "fig-course-aosta-arsanieres-9-buche",
       "suggested_relation": "base_route",
-      "suggested_confidence": "high",
-      "suggested_score": 85,
-      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
-      "final_status": "candidate_safe",
+      "final_status": "needs_review",
       "notes": "",
       "top_candidates": [
         {

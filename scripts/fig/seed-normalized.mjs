@@ -1,10 +1,61 @@
-import { createClient } from "@supabase/supabase-js";
+import { PostgrestClient } from "@supabase/postgrest-js";
+import fs from "node:fs";
+import path from "node:path";
 import {
   getRequiredEnv,
   loadNormalizedJson,
+  projectRoot,
   summarizePayload,
   validateNormalizedPayload
 } from "./shared.mjs";
+
+function loadSeedEnvFile() {
+  const envPath = path.join(projectRoot, ".env.seed.local");
+  if (!fs.existsSync(envPath)) return;
+
+  const lines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) continue;
+
+    const separatorIndex = trimmed.indexOf("=");
+    const key = trimmed.slice(0, separatorIndex).trim();
+    let value = trimmed.slice(separatorIndex + 1).trim();
+
+    if (
+      (value.startsWith("'") && value.endsWith("'")) ||
+      (value.startsWith("\"") && value.endsWith("\""))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    if (key && !process.env[key]) {
+      process.env[key] = value;
+    }
+  }
+}
+
+function normalizeSupabaseRestUrl(supabaseUrl) {
+  return supabaseUrl
+    .trim()
+    .replace(/\/rest\/v1\/?$/, "")
+    .replace(/\/$/, "")
+    .concat("/rest/v1");
+}
+
+function createSeedDatabaseClient(supabaseUrl, apiKey) {
+  const headers = {
+    apikey: apiKey
+  };
+
+  if (!apiKey.startsWith("sb_secret_") && !apiKey.startsWith("sb_publishable_")) {
+    headers.Authorization = `Bearer ${apiKey}`;
+  }
+
+  return new PostgrestClient(normalizeSupabaseRestUrl(supabaseUrl), {
+    headers
+  });
+}
 
 function uniqueBy(items, getKey) {
   const map = new Map();
@@ -253,6 +304,8 @@ async function replaceCombinationTees(supabase, combinationId, tees) {
 }
 
 async function main() {
+  loadSeedEnvFile();
+
   const inputPath = process.argv[2];
 
   if (!inputPath) {
@@ -266,12 +319,7 @@ async function main() {
   const supabaseServiceRoleKey = getRequiredEnv("SUPABASE_SERVICE_ROLE_KEY");
   const createdBy = getRequiredEnv("STABLR_CREATED_BY_USER_ID");
 
-  const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false
-    }
-  });
+  const supabase = createSeedDatabaseClient(supabaseUrl, supabaseServiceRoleKey);
 
   const club = await upsertClub(supabase, data.club, createdBy);
 

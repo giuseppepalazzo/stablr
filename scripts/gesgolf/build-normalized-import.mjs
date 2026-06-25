@@ -201,8 +201,8 @@ async function main() {
   );
   assert(routeCandidates.length > 0, `Nessuna route import_ready trovata per ${clubName}.`);
   assert(
-    routeCandidates.length === clubSummary.total_routes,
-    `${clubName} non ha ancora tutte le route pronte (${routeCandidates.length}/${clubSummary.total_routes}).`
+    routeCandidates.length === clubSummary.import_required_routes,
+    `${clubName} non ha ancora tutte le route richieste pronte (${routeCandidates.length}/${clubSummary.import_required_routes}).`
   );
 
   const figClub = (figCatalog.clubs || []).find((club) => club.name === clubName);
@@ -210,7 +210,6 @@ async function main() {
 
   const normalizedPath = await findGesGolfNormalizedPath(clubName, clubSummary.circolo_id);
   const gesNormalized = await readJson(normalizedPath);
-  assert(gesNormalized.scrape_status === "safe", `${clubName} non ha scrape_status safe.`);
 
   const figCourseMap = new Map(
     (figClub.playable_courses || []).map((course) => [course.source_external_id, course])
@@ -234,6 +233,10 @@ async function main() {
       assert(
         gesRoute,
         `Percorso GesGolf non trovato nel file normalizzato: ${candidate.ges_route_name}`
+      );
+      assert(
+        gesRoute.status === "safe",
+        `Percorso GesGolf non sicuro per ${candidate.ges_route_name}: ${gesRoute.status}.`
       );
 
       return buildRoutePayload(

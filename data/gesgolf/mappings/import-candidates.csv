@@ -16,10 +16,10 @@ Ambrosiano,AMBROSIANO,699,2&#176; nove,Prime Nove,fig-course-ambrosiano-prime-no
 Antognolla,ANTOGNOLLA,644,Championship,18 buche,fig-course-antognolla-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
 Antognolla,ANTOGNOLLA,644,first 9,Prime Nove,fig-course-antognolla-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
 Antognolla,ANTOGNOLLA,644,second 9,9 Buche Misto,fig-course-antognolla-9-buche-misto,base_route,low,safe,,no,needs_review,confidence_too_low
-Aosta Arsanieres,AOSTA ARSANIERES,105,OLD C.,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
-Aosta Arsanieres,AOSTA ARSANIERES,105,PR NOVE,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
-Aosta Arsanieres,AOSTA ARSANIERES,105,Aosta 18 buche,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
-Aosta Arsanieres,AOSTA ARSANIERES,105,9 buche,9 Buche,fig-course-aosta-arsanieres-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Aosta Arsanieres,AOSTA ARSANIERES,105,OLD C.,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Aosta Arsanieres,AOSTA ARSANIERES,105,PR NOVE,,,exclude_route,benchmark_manual,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,excluded_reference,manual_route_excluded
+Aosta Arsanieres,AOSTA ARSANIERES,105,Aosta 18 buche,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Aosta Arsanieres,AOSTA ARSANIERES,105,9 buche,9 Buche,fig-course-aosta-arsanieres-9-buche,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club

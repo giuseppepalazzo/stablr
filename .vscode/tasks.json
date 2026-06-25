@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Stablr: seed Aosta Arsanieres",
+      "type": "npm",
+      "script": "fig:seed:aosta",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Stablr: validate Aosta import",
+      "type": "shell",
+      "command": "npm run fig:validate -- data/gesgolf/imports/aosta-arsanieres-normalized.json",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

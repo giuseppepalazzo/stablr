@@ -71,6 +71,10 @@ async function main() {
       const manual = manualIndex.get(manualKey) || null;
       const confidence = manual?.confidence || summarizeMappingConfidence(best?.score || 0);
       const manualCourse = manual ? findFigCourseByName(figCourses, manual.fig_course_name) : null;
+      const suggestedFigCourseName = manual ? manual.fig_course_name : (best?.fig_course_name || "");
+      const suggestedFigSourceExternalId = manual
+        ? (manualCourse?.source_external_id || "")
+        : (best?.fig_source_external_id || "");
       const row = {
         fig_club: batchRow.fig_club,
         gesgolf_club: batchRow.gesgolf_club,
@@ -83,10 +87,8 @@ async function main() {
         ges_playable_kind: gesRoute.playable_kind,
         ges_route_status: gesRoute.status,
         ges_route_anomalies: (gesRoute.anomalies || []).join("|"),
-        suggested_fig_course_name: manual?.fig_course_name || best?.fig_course_name || "",
-        suggested_fig_source_external_id: manual
-          ? (manualCourse?.source_external_id || "")
-          : (best?.fig_source_external_id || ""),
+        suggested_fig_course_name: suggestedFigCourseName,
+        suggested_fig_source_external_id: suggestedFigSourceExternalId,
         suggested_relation: manual?.relation || buildSuggestedRelation(gesRoute, best),
         suggested_confidence: confidence,
         suggested_score: manual ? "manual" : (best?.score ?? ""),

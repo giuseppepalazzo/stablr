@@ -76,6 +76,9 @@ Pronto:
 - `import_ready`
 - `needs_review`
 - `protected_reference`
+- `excluded_reference`
+
+`excluded_reference` serve per tenere traccia di percorsi GesGolf presenti nello scrape ma non da importare, per esempio alias duplicati o percorsi con meta' vuota/azzerata. La route esclusa resta documentata nel mapping, ma non blocca il club se tutte le route richieste per FIG sono pronte.
 
 File:
 - `data/gesgolf/mappings/import-candidates.json`
@@ -102,27 +105,36 @@ Esito batch:
 
 Import summary attuale:
 - route totali valutate: 32
-- `import_ready`: 6
-- `needs_review`: 15
+- `import_ready`: 7
+- `needs_review`: 12
 - `protected_reference`: 11
+- `excluded_reference`: 2
 
-Primo club gia' interamente `import_ready`:
+Club gia' interamente `import_ready`:
 - `Albisola`
+- `Aosta Arsanieres`
+
+Secondo caso validato:
+- `Aosta Arsanieres`
+  - importa `18 Buche` da `Aosta 18 buche`
+  - importa `9 Buche` da `9 buche`
+  - esclude `OLD C.` come alias 18 duplicato
+  - esclude `PR NOVE` per anomalia GesGolf: 18 dichiarate con seconda meta' vuota/azzerata
+  - conferma la regola Stroke Index per club fisico 9 + 18 ufficiale: il 9 buche eredita il segmento del 18 ufficiale, non i compressi 1-9
 
 Altri club ancora da review:
 - `Acaya`
 - `Alpino`
 - `Ambrosiano`
 - `Antognolla`
-- `Aosta Arsanieres`
 
 Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anche a far emergere i primi candidati realmente importabili.
 
 ## Cosa manca per chiudere davvero la task
 
 1. Eseguire il batch su un altro gruppo di club forti GesGolf.
-2. Validare manualmente i primi `import_ready`, partendo da `Albisola`.
-3. Rifinire i mapping a bassa confidenza per club come `Ambrosiano`, `Antognolla`, `Aosta Arsanieres`.
+2. Validare manualmente i primi `import_ready`, partendo da `Albisola` e `Aosta Arsanieres`.
+3. Rifinire i mapping a bassa confidenza per club come `Ambrosiano` e `Antognolla`.
 4. Solo dopo, preparare il layer successivo per export/import controllato verso Supabase.
 
 ## Comandi utili

@@ -23,6 +23,13 @@ function classifyRow(row) {
     };
   }
 
+  if (row.suggested_relation === "exclude_route") {
+    return {
+      bucket: "excluded_reference",
+      reason: row.notes || "manual_route_excluded"
+    };
+  }
+
   if (!row.suggested_fig_course_name || !row.suggested_fig_source_external_id) {
     return {
       bucket: "needs_review",
@@ -78,7 +85,8 @@ function summarizeByClub(rows) {
         total_routes: 0,
         import_ready_routes: 0,
         review_routes: 0,
-        protected_routes: 0
+        protected_routes: 0,
+        excluded_routes: 0
       });
     }
 
@@ -87,14 +95,18 @@ function summarizeByClub(rows) {
     if (row.import_bucket === "import_ready") club.import_ready_routes += 1;
     if (row.import_bucket === "needs_review") club.review_routes += 1;
     if (row.import_bucket === "protected_reference") club.protected_routes += 1;
+    if (row.import_bucket === "excluded_reference") club.excluded_routes += 1;
   }
 
   return [...byClub.values()].map((club) => ({
     ...club,
+    import_required_routes: club.total_routes - club.excluded_routes - club.protected_routes,
     club_status:
       club.protected_routes === club.total_routes
         ? "protected_reference"
-        : club.review_routes === 0 && club.import_ready_routes > 0
+        : club.review_routes === 0 &&
+            club.import_ready_routes > 0 &&
+            club.import_ready_routes === club.total_routes - club.excluded_routes
           ? "import_ready"
           : "needs_review"
   }));
@@ -123,6 +135,7 @@ async function main() {
       import_ready_routes: routeRows.filter((row) => row.import_bucket === "import_ready").length,
       needs_review_routes: routeRows.filter((row) => row.import_bucket === "needs_review").length,
       protected_reference_routes: routeRows.filter((row) => row.import_bucket === "protected_reference").length,
+      excluded_reference_routes: routeRows.filter((row) => row.import_bucket === "excluded_reference").length,
       total_clubs: clubSummary.length,
       import_ready_clubs: clubSummary.filter((club) => club.club_status === "import_ready").length,
       needs_review_clubs: clubSummary.filter((club) => club.club_status === "needs_review").length,

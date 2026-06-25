@@ -67,6 +67,36 @@
           "confidence": "benchmark_manual_review"
         }
       ]
+    },
+    {
+      "circolo_id": "105",
+      "fig_club": "Aosta Arsanieres",
+      "routes": [
+        {
+          "ges_route_name": "Aosta 18 buche",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "9 buche",
+          "fig_course_name": "9 Buche",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "OLD C.",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "PR NOVE",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
     }
   ]
 }
