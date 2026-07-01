@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-06-25T06:38:59.891Z",
+  "generated_at": "2026-07-01T15:44:06.901Z",
   "source": {
     "mapping_template": "/Users/giuseppepalazzo/Stablr/data/gesgolf/mappings/route-mapping-template.json"
   },
   "summary": {
     "total_routes": 32,
-    "import_ready_routes": 7,
-    "needs_review_routes": 12,
+    "import_ready_routes": 13,
+    "needs_review_routes": 6,
     "protected_reference_routes": 11,
     "excluded_reference_routes": 2,
     "total_clubs": 7,
-    "import_ready_clubs": 2,
-    "needs_review_clubs": 4,
+    "import_ready_clubs": 4,
+    "needs_review_clubs": 2,
     "protected_reference_clubs": 1
   },
   "clubs": [
@@ -60,12 +60,12 @@
       "circolo_id": "699",
       "protected_live": "no",
       "total_routes": 3,
-      "import_ready_routes": 0,
-      "review_routes": 3,
+      "import_ready_routes": 3,
+      "review_routes": 0,
       "protected_routes": 0,
       "excluded_routes": 0,
       "import_required_routes": 3,
-      "club_status": "needs_review"
+      "club_status": "import_ready"
     },
     {
       "fig_club": "Antognolla",
@@ -73,12 +73,12 @@
       "circolo_id": "644",
       "protected_live": "no",
       "total_routes": 3,
-      "import_ready_routes": 0,
-      "review_routes": 3,
+      "import_ready_routes": 3,
+      "review_routes": 0,
       "protected_routes": 0,
       "excluded_routes": 0,
       "import_required_routes": 3,
-      "club_status": "needs_review"
+      "club_status": "import_ready"
     },
     {
       "fig_club": "Aosta Arsanieres",
@@ -819,9 +819,9 @@
       "suggested_fig_course_name": "18 Buche",
       "suggested_fig_source_external_id": "fig-course-ambrosiano-18-buche",
       "suggested_relation": "playable_course",
-      "suggested_confidence": "low",
-      "suggested_score": 40,
-      "suggested_reasons": "same_holes_count|same_total_par",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -862,8 +862,8 @@
           "reasons": []
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Ambrosiano",
@@ -880,9 +880,9 @@
       "suggested_fig_course_name": "Prime Nove",
       "suggested_fig_source_external_id": "fig-course-ambrosiano-prime-nove",
       "suggested_relation": "base_route",
-      "suggested_confidence": "low",
-      "suggested_score": 46,
-      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:nove",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -928,8 +928,8 @@
           "reasons": []
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Ambrosiano",
@@ -943,12 +943,12 @@
       "ges_playable_kind": "base_9",
       "ges_route_status": "safe",
       "ges_route_anomalies": "",
-      "suggested_fig_course_name": "Prime Nove",
-      "suggested_fig_source_external_id": "fig-course-ambrosiano-prime-nove",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-ambrosiano-seconde-nove",
       "suggested_relation": "base_route",
-      "suggested_confidence": "low",
-      "suggested_score": 46,
-      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:nove",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -994,8 +994,8 @@
           "reasons": []
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Antognolla",
@@ -1012,9 +1012,9 @@
       "suggested_fig_course_name": "18 buche",
       "suggested_fig_source_external_id": "fig-course-antognolla-18-buche",
       "suggested_relation": "playable_course",
-      "suggested_confidence": "low",
-      "suggested_score": 40,
-      "suggested_reasons": "same_holes_count|same_total_par",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -1055,8 +1055,8 @@
           "reasons": []
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Antognolla",
@@ -1073,9 +1073,9 @@
       "suggested_fig_course_name": "Prime Nove",
       "suggested_fig_source_external_id": "fig-course-antognolla-prime-nove",
       "suggested_relation": "base_route",
-      "suggested_confidence": "low",
-      "suggested_score": 40,
-      "suggested_reasons": "same_holes_count|same_total_par",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -1121,8 +1121,8 @@
           ]
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Antognolla",
@@ -1136,12 +1136,12 @@
       "ges_playable_kind": "base_9",
       "ges_route_status": "safe",
       "ges_route_anomalies": "",
-      "suggested_fig_course_name": "9 Buche Misto",
-      "suggested_fig_source_external_id": "fig-course-antognolla-9-buche-misto",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-antognolla-seconde-nove",
       "suggested_relation": "base_route",
-      "suggested_confidence": "low",
-      "suggested_score": 46,
-      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:9",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
       "final_fig_course_name": "",
       "final_fig_source_external_id": "",
       "final_relation": "",
@@ -1188,8 +1188,8 @@
           ]
         }
       ],
-      "import_bucket": "needs_review",
-      "import_reason": "confidence_too_low"
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
     },
     {
       "fig_club": "Aosta Arsanieres",

@@ -11,6 +11,11 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - Mare di Roma
   - Parco De' Medici
 - Parco De' Medici resta benchmark di confronto, non fonte da sovrascrivere.
+- Prima di convalidare un nuovo campo per il DB live, usare un controllo a tre livelli:
+  1. FIG come catalogo ufficiale per club, percorsi, Course Rating e Slope.
+  2. GesGolf come fonte strutturata per buche, par e Stroke Index.
+  3. Sito ufficiale del club, quando disponibile, per confermare descrizione campo e/o scorecard prima della scrittura controllata su Supabase.
+- Se il sito ufficiale non e' disponibile o non espone dati sufficienti, il club resta da review manuale.
 
 ## Stato attuale
 
@@ -105,14 +110,16 @@ Esito batch:
 
 Import summary attuale:
 - route totali valutate: 32
-- `import_ready`: 7
-- `needs_review`: 12
+- `import_ready`: 13
+- `needs_review`: 6
 - `protected_reference`: 11
 - `excluded_reference`: 2
 
 Club gia' interamente `import_ready`:
 - `Albisola`
 - `Aosta Arsanieres`
+- `Ambrosiano`
+- `Antognolla` *(giocabile in revisione / arancio, non verde)*
 
 Secondo caso validato:
 - `Aosta Arsanieres`
@@ -122,19 +129,38 @@ Secondo caso validato:
   - esclude `PR NOVE` per anomalia GesGolf: 18 dichiarate con seconda meta' vuota/azzerata
   - conferma la regola Stroke Index per club fisico 9 + 18 ufficiale: il 9 buche eredita il segmento del 18 ufficiale, non i compressi 1-9
 
+Terzo caso validato:
+- `Ambrosiano`
+  - importa `18 Buche` da `Ambro 1`
+  - importa `Prime Nove` da `1&#176; nove`
+  - importa `Seconde Nove` da `2&#176; nove`
+  - il sito ufficiale conferma un percorso 18 buche PAR 72 e una scorecard buca-per-buca coerente con GesGolf:
+    - `https://golfclubambrosiano.com/percorso/`
+    - `https://golfclubambrosiano.com/wp-content/uploads/2023/11/Scorecard.pdf`
+  - anche i 9 buche ereditano i segmenti corretti del 18 ufficiale, non SI compressi 1-9
+
+Quarto caso importabile con cautela:
+- `Antognolla`
+  - importa `18 buche` da `Championship`
+  - importa `Prime Nove` da `first 9`
+  - importa `Seconde Nove` da `second 9`
+  - FIG e GesGolf sono coerenti su 18 buche PAR 71
+  - il sito ufficiale conferma un percorso a 18 buche, ma non e' stata trovata una scorecard ufficiale buca-per-buca:
+    - `https://www.antognolla.com/it/golf`
+  - viene scritto come `data_status: needs_review`, quindi giocabile ma non verificato verde
+  - `9 Buche Misto` resta fuori da questo import finche' non c'e' evidenza ufficiale sufficiente
+
 Altri club ancora da review:
 - `Acaya`
 - `Alpino`
-- `Ambrosiano`
-- `Antognolla`
 
 Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anche a far emergere i primi candidati realmente importabili.
 
 ## Cosa manca per chiudere davvero la task
 
 1. Eseguire il batch su un altro gruppo di club forti GesGolf.
-2. Validare manualmente i primi `import_ready`, partendo da `Albisola` e `Aosta Arsanieres`.
-3. Rifinire i mapping a bassa confidenza per club come `Ambrosiano` e `Antognolla`.
+2. Validare manualmente i primi `import_ready`, partendo da `Albisola`, `Aosta Arsanieres`, `Ambrosiano` e `Antognolla`.
+3. Rifinire i mapping a bassa confidenza per club come `Acaya` e `Alpino`.
 4. Solo dopo, preparare il layer successivo per export/import controllato verso Supabase.
 
 ## Comandi utili

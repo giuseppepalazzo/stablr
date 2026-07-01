@@ -97,6 +97,54 @@
           "confidence": "benchmark_manual"
         }
       ]
+    },
+    {
+      "circolo_id": "699",
+      "fig_club": "Ambrosiano",
+      "routes": [
+        {
+          "ges_route_name": "Ambro 1",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "1&#176; nove",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "2&#176; nove",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "644",
+      "fig_club": "Antognolla",
+      "routes": [
+        {
+          "ges_route_name": "Championship",
+          "fig_course_name": "18 buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "first 9",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "second 9",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
     }
   ]
 }
