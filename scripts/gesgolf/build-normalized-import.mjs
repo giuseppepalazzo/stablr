@@ -251,7 +251,17 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCours
 
 async function main() {
   const clubName = getArgValue("--club");
+  const dataStatus = getArgValue("--data-status", "verified");
+  const verificationStatus = getArgValue(
+    "--verification-status",
+    dataStatus === "verified" ? "verified" : "playable_review"
+  );
+  const verificationNotes = getArgValue("--verification-notes", "");
   assert(clubName, "Uso: node scripts/gesgolf/build-normalized-import.mjs --club \"Albisola\"");
+  assert(
+    ["verified", "community", "needs_review"].includes(dataStatus),
+    "--data-status deve essere uno tra verified, community, needs_review."
+  );
 
   const importCandidates = await readJson(IMPORT_CANDIDATES_PATH);
   const figCatalog = await readJson(FIG_CATALOG_PATH);
@@ -329,7 +339,7 @@ async function main() {
       name_normalized: figClub.name_normalized,
       city: figClub.city || null,
       country: figClub.country || "Italia",
-      data_status: "verified",
+      data_status: dataStatus,
       source_type: "fig_import",
       is_complex: false,
       playable: true,
@@ -340,6 +350,8 @@ async function main() {
         ...(figClub.source_payload || {}),
         official_catalog: "fig",
         hole_by_hole_source: "gesgolf",
+        verification_status: verificationStatus,
+        ...(verificationNotes ? { verification_notes: verificationNotes } : {}),
         physical_hole_count: physicalHoleCount,
         import_profile: importProfile,
         gesgolf: {

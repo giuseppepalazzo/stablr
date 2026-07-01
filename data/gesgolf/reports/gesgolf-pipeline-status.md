@@ -113,9 +113,9 @@ Esito batch:
 - `error`: 0 club
 
 Import summary attuale:
-- route totali valutate: 32
-- `import_ready`: 13
-- `needs_review`: 6
+- route totali valutate: 132
+- `import_ready`: 37
+- `needs_review`: 82
 - `protected_reference`: 11
 - `excluded_reference`: 2
 
@@ -124,6 +124,12 @@ Club gia' interamente `import_ready`:
 - `Aosta Arsanieres`
 - `Ambrosiano`
 - `Antognolla` *(giocabile in revisione / arancio, non verde)*
+- `Aosta Brissogne` *(giocabile in revisione / arancio, non verde)*
+- `Arenzano Pineta` *(giocabile in revisione / arancio, non verde)*
+- `Bagnaia` *(giocabile in revisione / arancio, non verde)*
+- `Barlassina` *(giocabile in revisione / arancio, non verde)*
+- `Bogliaco` *(giocabile in revisione / arancio, non verde)*
+- `Bollina` *(giocabile in revisione / arancio, non verde)*
 
 Secondo caso validato:
 - `Aosta Arsanieres`
@@ -156,9 +162,70 @@ Quarto caso importabile con cautela:
   - viene scritto come `data_status: needs_review`, quindi giocabile ma non verificato verde
   - `9 Buche Misto` resta fuori da questo import finche' non c'e' evidenza ufficiale sufficiente
 
+Primo grab batch semplice:
+- Sono stati processati altri 10 club con match FIG/GesGolf forte:
+  - `Aosta Brissogne`
+  - `Arenzano Pineta`
+  - `Argenta`
+  - `Argentario`
+  - `Arona`
+  - `Arzaga`
+  - `Asiago`
+  - `Asolo`
+  - `Bagnaia`
+  - `Barialto Golf`
+- `Aosta Brissogne` e' risultato interamente importabile:
+  - importa `18 Buche` da `18 BUCHE`
+  - importa `9 Buche` da `9 BUCHE`
+  - viene scritto come `data_status: needs_review`, quindi giocabile ma non verificato verde
+  - classificato come campo fisico 9 buche con 18 ufficiale derivato: `physical_hole_count: 9`
+- Gli altri club del batch restano in review per bassa confidenza del mapping o warning GesGolf.
+
+Secondo grab batch semplice:
+- Sono stati processati altri 10 club con match FIG/GesGolf forte:
+  - `Barlassina`
+  - `Bellosguardo`
+  - `Biella Betulle`
+  - `Bogliaco`
+  - `Bogogno`
+  - `Bollina`
+  - `Bologna`
+  - `Borgo Camuzzago`
+  - `Bormio Ssd`
+  - `Boves`
+- Sono stati sbloccati e scritti come `data_status: needs_review`:
+  - `Arenzano Pineta` *(dal batch precedente, mapping manuale semplice completato)*
+  - `Barlassina`
+  - `Bagnaia` *(dal batch precedente, mapping manuale semplice completato)*
+  - `Bogliaco`
+  - `Bollina`
+- Restano in review i casi con duplicati, provvisori, percorsi multipli o route extra non chiarite:
+  - `Bellosguardo`
+  - `Biella Betulle`
+  - `Bogogno`
+  - `Bologna`
+  - `Borgo Camuzzago`
+  - `Bormio Ssd`
+  - `Boves`
+
 Altri club ancora da review:
 - `Acaya`
 - `Alpino`
+- `Arenzano Pineta`
+- `Argenta`
+- `Argentario`
+- `Arona`
+- `Arzaga`
+- `Asiago`
+- `Asolo`
+- `Barialto Golf`
+- `Bellosguardo`
+- `Biella Betulle`
+- `Bogogno`
+- `Bologna`
+- `Borgo Camuzzago`
+- `Bormio Ssd`
+- `Boves`
 
 Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anche a far emergere i primi candidati realmente importabili.
 

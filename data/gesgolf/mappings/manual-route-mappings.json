@@ -145,6 +145,90 @@
           "confidence": "benchmark_manual"
         }
       ]
+    },
+    {
+      "circolo_id": "794",
+      "fig_club": "Arenzano Pineta",
+      "routes": [
+        {
+          "ges_route_name": "9 Buche",
+          "fig_course_name": "Nove Buche",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "669",
+      "fig_club": "Barlassina",
+      "routes": [
+        {
+          "ges_route_name": "Prime 9 buche",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "Seconde 9 buche",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "504",
+      "fig_club": "Bagnaia",
+      "routes": [
+        {
+          "ges_route_name": "BAGNAIA",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "7",
+      "fig_club": "Bogliaco",
+      "routes": [
+        {
+          "ges_route_name": "NORMALE",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "NORMALE Prime 9",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "NORMALE Seco. 9",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "840",
+      "fig_club": "Bollina",
+      "routes": [
+        {
+          "ges_route_name": "NORMALE",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "Percorso 9buche",
+          "fig_course_name": "9 Buche",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
     }
   ]
 }

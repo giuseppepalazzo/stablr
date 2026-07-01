@@ -20,6 +20,106 @@ Aosta Arsanieres,AOSTA ARSANIERES,105,OLD C.,,,exclude_route,benchmark_manual,sa
 Aosta Arsanieres,AOSTA ARSANIERES,105,PR NOVE,,,exclude_route,benchmark_manual,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,excluded_reference,manual_route_excluded
 Aosta Arsanieres,AOSTA ARSANIERES,105,Aosta 18 buche,18 Buche,fig-course-aosta-arsanieres-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
 Aosta Arsanieres,AOSTA ARSANIERES,105,9 buche,9 Buche,fig-course-aosta-arsanieres-9-buche,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Aosta Brissogne,AOSTA BRISSOGNE,819,18 BUCHE,18 Buche,fig-course-aosta-brissogne-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Aosta Brissogne,AOSTA BRISSOGNE,819,9 BUCHE,9 Buche,fig-course-aosta-brissogne-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Arenzano Pineta,ARENZANO PINETA,794,9 Buche,Nove Buche,fig-course-arenzano-pineta-nove-buche,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Arenzano Pineta,ARENZANO PINETA,794,18 buche,18 Buche,fig-course-arenzano-pineta-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Argenta,ARGENTA,135,Arg-EGA,18 Buche,fig-course-argenta-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Argenta,ARGENTA,135,Arg. 1-9,18 Buche,fig-course-argenta-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Argenta,ARGENTA,135,Arg10-18,18 Buche,fig-course-argenta-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Argentario,ARGENTARIO,365,AGC,18 Buche,fig-course-argentario-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Argentario,ARGENTARIO,365,OUT 9,18 Buche,fig-course-argentario-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Argentario,ARGENTARIO,365,IN 9,18 Buche,fig-course-argentario-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Argentario,ARGENTARIO,365,AGC_new_rating,18 Buche,fig-course-argentario-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Argentario,ARGENTARIO,365,BMW LIO,18 Buche,fig-course-argentario-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Arona,ARONA,289,misto giallo/bi,18 buche,fig-course-arona-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Arona,ARONA,289,misto gb,18 buche,fig-course-arona-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Arona,ARONA,289,18 buche,18 buche,fig-course-arona-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Arona,ARONA,289,9 buche,Prime Nove,fig-course-arona-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Arzaga,ARZAGA,744,G.Player,Gary P. 1-9,fig-course-arzaga-gary-p-1-9,base_route,low,safe,,no,needs_review,confidence_too_low
+Arzaga,ARZAGA,744,JNII1-18,Gary Player,fig-course-arzaga-gary-player,playable_course,low,safe,,no,needs_review,confidence_too_low
+Arzaga,ARZAGA,744,GP+JNII1,Gary Player,fig-course-arzaga-gary-player,playable_course,low,safe,,no,needs_review,confidence_too_low
+Arzaga,ARZAGA,744,JNII1-9,Gary P. 1-9,fig-course-arzaga-gary-p-1-9,base_route,low,safe,,no,needs_review,confidence_too_low
+Arzaga,ARZAGA,744,GP+JNII2,Gary Player,fig-course-arzaga-gary-player,playable_course,low,safe,,no,needs_review,confidence_too_low
+Arzaga,ARZAGA,744,JNII10-18,Jack N. 10-18,fig-course-arzaga-jack-n-10-18,base_route,low,safe,,no,needs_review,confidence_too_low
+Asiago,ASIAGO,3,18 buche,18 Buche,fig-course-asiago-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Asiago,ASIAGO,3,18 buche sole,18 Buche,fig-course-asiago-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asiago,ASIAGO,3,Prime 9,Prime Nove,fig-course-asiago-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Asiago,ASIAGO,3,Seconde 9,Seconde Nove,fig-course-asiago-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Asiago,ASIAGO,3,provv2023,18 Buche,fig-course-asiago-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asiago,ASIAGO,3,18 buche par 70,18 Buche,fig-course-asiago-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asiago,ASIAGO,3,Prime Nove x2,Prime Nove 2 Volte,fig-course-asiago-prime-nove-2-volte,repeat_route,medium,safe,,no,needs_review,confidence_too_low
+Asiago,ASIAGO,3,par 69 prov 25,18 Buche Provvisorio 2025,fig-course-asiago-18-buche-provvisorio-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asiago,ASIAGO,3,18 buche 2025,18 Buche 2025,fig-course-asiago-18-buche-2025,playable_course,high,safe,,no,import_ready,all_checks_passed
+Asolo,ASOLO,219,ASOLO 2 R/G,Giallo-Giallo,fig-course-asolo-giallo-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,ASOLO 3 R/V,Giallo-Giallo,fig-course-asolo-giallo-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,ASOLO 4 V/G,Giallo-Giallo,fig-course-asolo-giallo-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,Asolo 5 NO,Giallo-Giallo,fig-course-asolo-giallo-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,ASOLO 6 V/R,Giallo-Giallo,fig-course-asolo-giallo-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,ASOLO 1 G/V,Giallo-Giallo,fig-course-asolo-giallo-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,ASOLO 7 G/R,Giallo-Giallo,fig-course-asolo-giallo-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,ROSSO 9 BUCHE,Percorso Rosso 9 buche,fig-course-asolo-percorso-rosso-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,GIALLO 9 BUCHE,Percorso Giallo 9 buche,fig-course-asolo-percorso-giallo-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,VERDE 9 BUCHE,Percorso Verde 9 buche,fig-course-asolo-percorso-verde-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,ROCCA ASOLO 70,Trofeo Rocca d&#39;Asolo 2024,fig-course-asolo-trofeo-rocca-d-asolo-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,GIALLO VERDE 70,Giallo-Verde Provvisorio 2024 Par 70,fig-course-asolo-giallo-verde-provvisorio-2024-par-70,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,R-G PROVVISORIO,Rosso-Giallo Provvisorio 2025,fig-course-asolo-rosso-giallo-provvisorio-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Asolo,ASOLO,219,R-V PROVVISORIO,Rosso-Giallo Provvisorio 2025,fig-course-asolo-rosso-giallo-provvisorio-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Bagnaia,BAGNAIA,504,BAGNAIA,18 Buche,fig-course-bagnaia-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Bagnaia,BAGNAIA,504,Prime nove,Prime Nove,fig-course-bagnaia-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Bagnaia,BAGNAIA,504,Seconde nove,Seconde Nove,fig-course-bagnaia-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Barialto Golf,BARIALTO GOLF,808,perc. 1,18 Buche,fig-course-barialto-golf-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Barialto Golf,BARIALTO GOLF,808,prime 9,Prime Nove,fig-course-barialto-golf-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Barialto Golf,BARIALTO GOLF,808,seconde 9,Seconde Nove,fig-course-barialto-golf-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Barlassina,BARLASSINA,669,Campionato,Campionato,fig-course-barlassina-campionato,playable_course,high,safe,,no,import_ready,all_checks_passed
+Barlassina,BARLASSINA,669,Prime 9 buche,Prime Nove,fig-course-barlassina-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Barlassina,BARLASSINA,669,Seconde 9 buche,Seconde Nove,fig-course-barlassina-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Bellosguardo,BELLOSGUARDO,343,LEONARDO 73,Monnalisa New 2023,fig-course-bellosguardo-monnalisa-new-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Bellosguardo,BELLOSGUARDO,343,MONNALISA 37,Monnalisa New 2023,fig-course-bellosguardo-monnalisa-new-2023,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Bellosguardo,BELLOSGUARDO,343,GIOCONDA,Monnalisa New 2023,fig-course-bellosguardo-monnalisa-new-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Bellosguardo,BELLOSGUARDO,343,MONNALISA 71,Monnalisa New 2023,fig-course-bellosguardo-monnalisa-new-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Bellosguardo,BELLOSGUARDO,343,MONNALISA 70,Monnalisa New 2023,fig-course-bellosguardo-monnalisa-new-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Bellosguardo,BELLOSGUARDO,343,Prime 9 New,Monnalisa New Prime Nove 2023,fig-course-bellosguardo-monnalisa-new-prime-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Bellosguardo,BELLOSGUARDO,343,PRIME 9 2023,Monnalisa New Prime Nove 2023,fig-course-bellosguardo-monnalisa-new-prime-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Bellosguardo,BELLOSGUARDO,343,SECONDE 9 2023,Monnalisa New Seconde Nove 2023,fig-course-bellosguardo-monnalisa-new-seconde-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Bellosguardo,BELLOSGUARDO,343,MONNALISA 2023,Monnalisa New 2023,fig-course-bellosguardo-monnalisa-new-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Biella Betulle,BIELLA BETULLE,6,18 buche 2018,18 buche 2018,fig-course-biella-betulle-18-buche-2018,playable_course,high,safe,,no,import_ready,all_checks_passed
+Biella Betulle,BIELLA BETULLE,6,prime 9 b. 2018,prime 9,fig-course-biella-betulle-prime-9,base_route,medium,safe,,no,needs_review,confidence_too_low
+Bogliaco,BOGLIACO,7,NORMALE,18 Buche,fig-course-bogliaco-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Bogliaco,BOGLIACO,7,NORMALE Prime 9,Prime Nove,fig-course-bogliaco-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Bogliaco,BOGLIACO,7,NORMALE Seco. 9,Seconde Nove,fig-course-bogliaco-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Bogogno,BOGOGNO,659,CONTE,del Conte,fig-course-bogogno-del-conte,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Bogogno,BOGOGNO,659,BONORA,Bonora,fig-course-bogogno-bonora,playable_course,high,safe,,no,import_ready,all_checks_passed
+Bogogno,BOGOGNO,659,DEL CONTE 1-9,1&#176; Nove - Conte,fig-course-bogogno-1-176-nove-conte,base_route,low,safe,,no,needs_review,confidence_too_low
+Bogogno,BOGOGNO,659,DEL CONTE 10-18,1&#176; Nove - Conte,fig-course-bogogno-1-176-nove-conte,base_route,low,safe,,no,needs_review,confidence_too_low
+Bogogno,BOGOGNO,659,BONORA 1-9,1&#176; Nove - Conte,fig-course-bogogno-1-176-nove-conte,base_route,low,safe,,no,needs_review,confidence_too_low
+Bogogno,BOGOGNO,659,BONORA 10-18,Prime Nove - Bonora,fig-course-bogogno-prime-nove-bonora,base_route,low,safe,,no,needs_review,confidence_too_low
+Bollina,BOLLINA,840,NORMALE,18 Buche,fig-course-bollina-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Bollina,BOLLINA,840,Percorso 9buche,9 Buche,fig-course-bollina-9-buche,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Bologna,BOLOGNA,8,1&#176; NOVE,Prime Nove,fig-course-bologna-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Bologna,BOLOGNA,8,PAR 71 CAMPIONA,PAR 71 CAMPIONATO,fig-course-bologna-par-71-campionato,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Bologna,BOLOGNA,8,sec9 buche 2019,seconde nove par 35,fig-course-bologna-seconde-nove-par-35,base_route,low,safe,,no,needs_review,confidence_too_low
+Bologna,BOLOGNA,8,Par 71,par 71.,fig-course-bologna-par-71,playable_course,high,safe,,no,import_ready,all_checks_passed
+Bologna,BOLOGNA,8,Par 72,18 Buche,fig-course-bologna-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Borgo Camuzzago,BORGO CAMUZZAGO,434,Camuzzago 18,18 Buche par54,fig-course-borgo-camuzzago-18-buche-par54,playable_course,low,safe,,no,needs_review,confidence_too_low
+Borgo Camuzzago,BORGO CAMUZZAGO,434,Camuzzago 9,18 buche,fig-course-borgo-camuzzago-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Borgo Camuzzago,BORGO CAMUZZAGO,434,CamuzzagoPar32,9 buche,fig-course-borgo-camuzzago-9-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Borgo Camuzzago,BORGO CAMUZZAGO,434,Camuzza18Par64,18 buche,fig-course-borgo-camuzzago-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Borgo Camuzzago,BORGO CAMUZZAGO,434,CamuzzaIron1,18 buche,fig-course-borgo-camuzzago-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Borgo Camuzzago,BORGO CAMUZZAGO,434,CamuzzaIron2,18 buche,fig-course-borgo-camuzzago-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Borgo Camuzzago,BORGO CAMUZZAGO,434,CamuzzaIron3,18 buche,fig-course-borgo-camuzzago-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Bormio Ssd,BORMIO SSD,825,BORMIO,18 Buche,fig-course-bormio-ssd-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Bormio Ssd,BORMIO SSD,825,Bormio9,9 Buche,fig-course-bormio-ssd-9-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Bormio Ssd,BORMIO SSD,825,BormioP-9,9 buche Par 31,fig-course-bormio-ssd-9-buche-par-31,base_route,low,safe,,no,needs_review,confidence_too_low
+Bormio Ssd,BORMIO SSD,825,BormioP-18,18 buche Par 62,fig-course-bormio-ssd-18-buche-par-62,playable_course,low,safe,,no,needs_review,confidence_too_low
+Boves,BOVES,660,Prime Nove,Prime Nove,fig-course-boves-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Boves,BOVES,660,18 Buche,18 Buche,fig-course-boves-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Boves,BOVES,660,Prime nove 18,18 Buche,fig-course-boves-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Boves,BOVES,660,Seconde Nove,Seconde Nove,fig-course-boves-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Boves,BOVES,660,Seconde nove 18,18 Buche,fig-course-boves-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Boves,BOVES,660,18 buche a tre,18 Buche,fig-course-boves-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Boves,BOVES,660,9 + 9 misto,18 Buche,fig-course-boves-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Boves,BOVES,660,Provvisiorio 18,18 Buche,fig-course-boves-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
