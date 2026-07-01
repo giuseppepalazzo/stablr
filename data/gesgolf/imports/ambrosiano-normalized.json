@@ -29,8 +29,8 @@
         "course_url": "https://golfclubambrosiano.com/percorso/",
         "scorecard_url": "https://golfclubambrosiano.com/wp-content/uploads/2023/11/Scorecard.pdf"
       },
-      "physical_hole_count": 9,
-      "import_profile": "physical_9_with_official_18_variants",
+      "physical_hole_count": 18,
+      "import_profile": "physical_18_with_official_9_segments",
       "gesgolf": {
         "circolo_id": "699",
         "gesgolf_club": "AMBROSIANO"

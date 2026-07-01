@@ -16,6 +16,10 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   2. GesGolf come fonte strutturata per buche, par e Stroke Index.
   3. Sito ufficiale del club, quando disponibile, per confermare descrizione campo e/o scorecard prima della scrittura controllata su Supabase.
 - Se il sito ufficiale non e' disponibile o non espone dati sufficienti, il club resta da review manuale.
+- Regola default giro:
+  - club fisico 9 buche con 18 ufficiale derivato, ad esempio Albisola/Aosta/Mare di Roma: default 9 buche;
+  - club fisico 18 buche con Prime Nove/Seconde Nove, ad esempio Ambrosiano/Antognolla: default 18 buche;
+  - club complesso o con piu' percorsi/combinazioni ufficiali da 9 buche, ad esempio Parco De' Medici: default 18 buche.
 
 ## Stato attuale
 
@@ -134,6 +138,7 @@ Terzo caso validato:
   - importa `18 Buche` da `Ambro 1`
   - importa `Prime Nove` da `1&#176; nove`
   - importa `Seconde Nove` da `2&#176; nove`
+  - classificato come campo fisico 18 buche: `physical_hole_count: 18`
   - il sito ufficiale conferma un percorso 18 buche PAR 72 e una scorecard buca-per-buca coerente con GesGolf:
     - `https://golfclubambrosiano.com/percorso/`
     - `https://golfclubambrosiano.com/wp-content/uploads/2023/11/Scorecard.pdf`
@@ -144,6 +149,7 @@ Quarto caso importabile con cautela:
   - importa `18 buche` da `Championship`
   - importa `Prime Nove` da `first 9`
   - importa `Seconde Nove` da `second 9`
+  - classificato come campo fisico 18 buche: `physical_hole_count: 18`
   - FIG e GesGolf sono coerenti su 18 buche PAR 71
   - il sito ufficiale conferma un percorso a 18 buche, ma non e' stata trovata una scorecard ufficiale buca-per-buca:
     - `https://www.antognolla.com/it/golf`

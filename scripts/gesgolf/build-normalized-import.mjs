@@ -103,11 +103,11 @@ function findOfficialNineHoleStrokeIndexSegment(gesRoute, gesPlayableCourses) {
   return null;
 }
 
-function buildRouteHoles(gesRoute, gesPlayableCourses, importProfile) {
-  const officialNineHoleIndexes =
-    importProfile === "physical_9_with_official_18_variants"
-      ? findOfficialNineHoleStrokeIndexSegment(gesRoute, gesPlayableCourses)
-      : null;
+function buildRouteHoles(gesRoute, gesPlayableCourses) {
+  const officialNineHoleIndexes = findOfficialNineHoleStrokeIndexSegment(
+    gesRoute,
+    gesPlayableCourses
+  );
 
   return gesRoute.holes.map((hole, index) => ({
     physical_hole_number: hole.hole_number,
@@ -115,6 +115,74 @@ function buildRouteHoles(gesRoute, gesPlayableCourses, importProfile) {
     stroke_index: officialNineHoleIndexes?.[index] ?? hole.hcp,
     display_label: String(hole.hole_number)
   }));
+}
+
+function normalizeRouteName(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/&#176;|°/g, " ")
+    .replace(/['’]/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function isPrimeNineName(value) {
+  const normalized = normalizeRouteName(value);
+  return (
+    normalized.includes("prime nove") ||
+    normalized.includes("prima nove") ||
+    normalized.includes("first 9") ||
+    normalized.includes("1 nove") ||
+    normalized.includes("1 9")
+  );
+}
+
+function isSecondNineName(value) {
+  const normalized = normalizeRouteName(value);
+  return (
+    normalized.includes("seconde nove") ||
+    normalized.includes("seconda nove") ||
+    normalized.includes("second 9") ||
+    normalized.includes("2 nove") ||
+    normalized.includes("2 9")
+  );
+}
+
+function inferImportProfile(routeCandidates, figClub) {
+  const hasOfficialEighteen = routeCandidates.some(
+    (candidate) => Number(candidate.ges_holes_count) === 18
+  );
+  const nineHoleCandidates = routeCandidates.filter(
+    (candidate) => Number(candidate.ges_holes_count) === 9
+  );
+
+  const routeNames = [
+    ...routeCandidates.map((candidate) => candidate.ges_route_name),
+    ...(figClub.playable_courses || []).map((course) => course.name)
+  ];
+
+  const hasPrimeAndSecondNines =
+    routeNames.some((name) => isPrimeNineName(name)) &&
+    routeNames.some((name) => isSecondNineName(name));
+
+  if (hasOfficialEighteen && hasPrimeAndSecondNines) {
+    return {
+      physicalHoleCount: 18,
+      importProfile: "physical_18_with_official_9_segments"
+    };
+  }
+
+  if (hasOfficialEighteen && nineHoleCandidates.length > 0) {
+    return {
+      physicalHoleCount: 9,
+      importProfile: "physical_9_with_official_18_variants"
+    };
+  }
+
+  return {
+    physicalHoleCount: hasOfficialEighteen ? 18 : 9,
+    importProfile: hasOfficialEighteen ? "physical_18" : "physical_9"
+  };
 }
 
 async function findGesGolfNormalizedPath(figClubName, circoloId) {
@@ -140,7 +208,7 @@ async function findGesGolfNormalizedPath(figClubName, circoloId) {
   throw new Error(`File GesGolf normalizzato non trovato per ${figClubName} (${circoloId}).`);
 }
 
-function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCourses, importProfile) {
+function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCourses) {
   return {
     external_key: figCourse.source_external_id,
     name: figCourse.name,
@@ -162,7 +230,7 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCours
         percorso_id: gesRoute.percorso_id
       }
     },
-    holes: buildRouteHoles(gesRoute, gesPlayableCourses, importProfile),
+    holes: buildRouteHoles(gesRoute, gesPlayableCourses),
     tees: (figCourse.tees || []).map((tee) => ({
       tee_name: tee.tee_name,
       tee_color: tee.tee_color || null,
@@ -214,7 +282,7 @@ async function main() {
   const figCourseMap = new Map(
     (figClub.playable_courses || []).map((course) => [course.source_external_id, course])
   );
-  const importProfile = "physical_9_with_official_18_variants";
+  const { physicalHoleCount, importProfile } = inferImportProfile(routeCandidates, figClub);
 
   const routes = routeCandidates
     .map((candidate) => {
@@ -243,8 +311,7 @@ async function main() {
         candidate,
         gesRoute,
         figCourse,
-        gesNormalized.playable_courses || [],
-        importProfile
+        gesNormalized.playable_courses || []
       );
     })
     .sort((left, right) => (left.display_order ?? 999) - (right.display_order ?? 999));
@@ -273,7 +340,7 @@ async function main() {
         ...(figClub.source_payload || {}),
         official_catalog: "fig",
         hole_by_hole_source: "gesgolf",
-        physical_hole_count: 9,
+        physical_hole_count: physicalHoleCount,
         import_profile: importProfile,
         gesgolf: {
           circolo_id: clubSummary.circolo_id,

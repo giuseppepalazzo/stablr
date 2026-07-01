@@ -238,6 +238,29 @@ function inferPhysicalCourseHoleCount(course) {
   const eighteenHoleRoutes = routes.filter(
     (route) => Number(route?.holesCount) === 18 && Array.isArray(route?.holes) && route.holes.length > 0
   );
+  const normalizeRouteNameForHoleInference = (value) =>
+    String(value || "")
+      .toLowerCase()
+      .replace(/&#176;|°/g, " ")
+      .replace(/['’]/g, " ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  const hasPrimeNine = nineHoleRoutes.some((route) => {
+    const normalizedName = normalizeRouteNameForHoleInference(route?.name);
+    return normalizedName.includes("prime nove") || normalizedName.includes("prima nove");
+  });
+  const hasSecondNine = nineHoleRoutes.some((route) => {
+    const normalizedName = normalizeRouteNameForHoleInference(route?.name);
+    return normalizedName.includes("seconde nove") || normalizedName.includes("seconda nove");
+  });
+
+  if (course?.isComplex || routeCombinations.length > 0) {
+    return 18;
+  }
+
+  if (eighteenHoleRoutes.length > 0 && hasPrimeNine && hasSecondNine) {
+    return 18;
+  }
 
   const likelyOfficialEighteenVariants =
     eighteenHoleRoutes.length > 0 &&
