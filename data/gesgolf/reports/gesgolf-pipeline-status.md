@@ -236,6 +236,55 @@ Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anc
 3. Rifinire i mapping a bassa confidenza per club come `Acaya` e `Alpino`.
 4. Solo dopo, preparare il layer successivo per export/import controllato verso Supabase.
 
+## Segnaposto operativo
+
+Ultimo punto raggiunto:
+- batch forti GesGolf processati fino a `Boves`;
+- club FIG/GesGolf forti processati totali: 26;
+- ultimo batch eseguito:
+  - `Barlassina`
+  - `Bellosguardo`
+  - `Biella Betulle`
+  - `Bogliaco`
+  - `Bogogno`
+  - `Bollina`
+  - `Bologna`
+  - `Borgo Camuzzago`
+  - `Bormio Ssd`
+  - `Boves`
+- ultimo club scritto su Supabase: `Bollina`;
+- ultimi club sbloccati e scritti come arancio / `needs_review`:
+  - `Aosta Brissogne`
+  - `Arenzano Pineta`
+  - `Bagnaia`
+  - `Barlassina`
+  - `Bogliaco`
+  - `Bollina`
+
+Ripartenza prossima sessione:
+- continuare con il prossimo blocco di 10 club fortemente matchati FIG/GesGolf dopo `Boves`;
+- usare lo stesso metodo:
+  1. scrape batch GesGolf;
+  2. rigenera route mapping;
+  3. rigenera import candidates;
+  4. sblocca solo mapping semplici e leggibili;
+  5. genera import arancio con `--data-status needs_review --verification-status playable_review`;
+  6. valida JSON;
+  7. seed Supabase;
+  8. verifica DB.
+
+Regola di ritmo:
+- ogni 2/3 batch:
+  - fare commit e push;
+  - fare test frontend locale;
+  - verificare almeno:
+    - ricerca club;
+    - badge verde/arancio;
+    - default 9 vs 18 in `Imposta giro`;
+    - avvio giro su un club fisico 9;
+    - avvio giro su un club fisico 18;
+    - avvio giro su un club complesso/multi-percorso quando disponibile.
+
 ## Comandi utili
 
 ```bash
