@@ -120,6 +120,63 @@ Boves,BOVES,660,Seconde nove 18,18 Buche,fig-course-boves-18-buche,playable_cour
 Boves,BOVES,660,18 buche a tre,18 Buche,fig-course-boves-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
 Boves,BOVES,660,9 + 9 misto,18 Buche,fig-course-boves-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
 Boves,BOVES,660,Provvisiorio 18,18 Buche,fig-course-boves-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Brianza,BRIANZA,117,Gare,18 Buche,fig-course-brianza-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Brianza,BRIANZA,117,Prime 9,Prime Nove,fig-course-brianza-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Brianza,BRIANZA,117,Seconde 9,Seconde Nove,fig-course-brianza-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Brianza,BRIANZA,117,CAMPIONATO NAZI,18 Buche,fig-course-brianza-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ca' Amata,CA' AMATA,144,18 Buche,18 Buche,fig-course-ca-amata-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Ca' Amata,CA' AMATA,144,SECONDE 9 BUCHE,18 Buche,fig-course-ca-amata-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Ca' Amata,CA' AMATA,144,PRIME 9 BUCHE,18 Buche,fig-course-ca-amata-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Ca' Amata,CA' AMATA,144,18 buche 2025,18 Buche,fig-course-ca-amata-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Ca' Amata,CA' AMATA,144,9 buche 2025,Prime Nove Provvisorio 2025,fig-course-ca-amata-prime-nove-provvisorio-2025,base_route,low,safe,,no,needs_review,confidence_too_low
+Ca' Nave Ssd,CA' NAVE SSD,852,CAMPIONATO,18 Buche,fig-course-ca-nave-ssd-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ca' Nave Ssd,CA' NAVE SSD,852,CHAMPION,18 Buche,fig-course-ca-nave-ssd-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ca' Nave Ssd,CA' NAVE SSD,852,Prime 9 buche,Prime Nove,fig-course-ca-nave-ssd-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Ca' Nave Ssd,CA' NAVE SSD,852,Seconde 9 buche,Seconde Nove,fig-course-ca-nave-ssd-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Ca' Ulivi,CA' ULIVI,92,champion,18 Buche,fig-course-ca-ulivi-18-buche,playable_course,low,warning,second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Ca' Ulivi,CA' ULIVI,92,Champion,18 Buche,fig-course-ca-ulivi-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ca' Ulivi,CA' ULIVI,92,new6.050,18 Buche,fig-course-ca-ulivi-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ca' Ulivi,CA' ULIVI,92,MIRA18 b,Mirabello,fig-course-ca-ulivi-mirabello,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ca' Ulivi,CA' ULIVI,92,Mirab 9 bucheok,Mirabello 9 B.,fig-course-ca-ulivi-mirabello-9-b,base_route,low,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,9 Buche Old 24,9 Buche Old 2024,fig-course-campodoglio-9-buche-old-2024,base_route,medium,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,18 Buche Old 24,18 Buche Old 2024,fig-course-campodoglio-18-buche-old-2024,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,9 Buche New 24,9 Buche New 2024,fig-course-campodoglio-9-buche-new-2024,base_route,medium,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,18 Buche New 24,18 Buche New 2024,fig-course-campodoglio-18-buche-new-2024,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,9 Buche Easy,9 Buche Easy 2024,fig-course-campodoglio-9-buche-easy-2024,base_route,medium,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,18 Buche Easy,18 Buche Easy 2024,fig-course-campodoglio-18-buche-easy-2024,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,9 Buche Mixed,9 Buche Mixed 2024,fig-course-campodoglio-9-buche-mixed-2024,base_route,medium,safe,,no,needs_review,confidence_too_low
+Campodoglio,CAMPODOGLIO,701,18 Buche Mixed,18 Buche Mixed 2024,fig-course-campodoglio-18-buche-mixed-2024,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Cansiglio,CANSIGLIO,9,Prime nove,Prime Nove,fig-course-cansiglio-prime-nove,playable_course,medium,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Cansiglio,CANSIGLIO,9,18 buche,18 Buche,fig-course-cansiglio-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Cansiglio,CANSIGLIO,9,Seconde nove,Seconde Nove,fig-course-cansiglio-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Caorle,CAORLE,481,PdTorri,18 Buche,fig-course-caorle-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Caorle,CAORLE,481,PRIME 9,Prime Nove,fig-course-caorle-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Caorle,CAORLE,481,SECONDE 9 BUCHE,Seconde Nove,fig-course-caorle-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Carimate,CARIMATE,11,18 BUCHE,18 Buche,fig-course-carimate-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Carimate,CARIMATE,11,PRIME NOVE,Prime Nove,fig-course-carimate-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Carimate,CARIMATE,11,SECONDE NOVE,Seconde Nove,fig-course-carimate-seconde-nove,playable_course,medium,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Casalunga,CASALUNGA,172,AUGUSTA,18 Buche,fig-course-casalunga-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,tucson,18 Buche,fig-course-casalunga-18-buche,playable_course,low,warning,,no,needs_review,ges_route_warning
+Casalunga,CASALUNGA,172,OPEN,18 Buche,fig-course-casalunga-18-buche,playable_course,low,warning,,no,needs_review,ges_route_warning
+Casalunga,CASALUNGA,172,Tiger,18 Buche,fig-course-casalunga-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,ASCONA,18 Buche,fig-course-casalunga-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Casalunga,CASALUNGA,172,STORM 9,9 Buche New Storm 2025,fig-course-casalunga-9-buche-new-storm-2025,base_route,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,STORM 18,18 Buche New Storm 2025,fig-course-casalunga-18-buche-new-storm-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,STORM 3 18 b.,18 Buche IDICE 2025,fig-course-casalunga-18-buche-idice-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,STORM 3 9 b.,9 Buche IDICE 2025,fig-course-casalunga-9-buche-idice-2025,base_route,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,STORM 3 18b 70,18 Buche New Storm 2025,fig-course-casalunga-18-buche-new-storm-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,STORM 3 9b 35,9 Buche New Storm 2025,fig-course-casalunga-9-buche-new-storm-2025,base_route,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,18b.STORM 2023D,18 Buche Storm 2023 D,fig-course-casalunga-18-buche-storm-2023-d,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,9b.STORM 2023D,9 Buche Storm 2023 D,fig-course-casalunga-9-buche-storm-2023-d,base_route,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,9b storm 2025,9 Buche New Storm 2025,fig-course-casalunga-9-buche-new-storm-2025,base_route,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,18b storm 2025,18 Buche New Storm 2025,fig-course-casalunga-18-buche-new-storm-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,18 Buche IDICE,18 Buche IDICE 2025,fig-course-casalunga-18-buche-idice-2025,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Casalunga,CASALUNGA,172,9 Buche IDICE,9 Buche IDICE 2025,fig-course-casalunga-9-buche-idice-2025,base_route,medium,safe,,no,needs_review,confidence_too_low
+Casentino,CASENTINO,85,PALAZZO,18 Buche,fig-course-casentino-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Casentino,CASENTINO,85,CASENTINO,Nove Buche,fig-course-casentino-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Casentino,CASENTINO,85,TINZINOSA,Tinzinosa,fig-course-casentino-tinzinosa,playable_course,high,safe,,no,import_ready,all_checks_passed
+Casentino,CASENTINO,85,PANORAMA,Tinzinosa prime nove (Panorama),fig-course-casentino-tinzinosa-prime-nove-panorama,base_route,medium,safe,,no,needs_review,confidence_too_low
+Casentino,CASENTINO,85,TINZINOSA 2017,Tinzinosa 2017,fig-course-casentino-tinzinosa-2017,playable_course,high,warning,many_zero_stroke_indexes,no,needs_review,ges_route_warning
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club

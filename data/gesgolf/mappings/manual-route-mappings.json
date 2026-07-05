@@ -229,6 +229,30 @@
           "confidence": "benchmark_manual"
         }
       ]
+    },
+    {
+      "circolo_id": "481",
+      "fig_club": "Caorle",
+      "routes": [
+        {
+          "ges_route_name": "PdTorri",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "PRIME 9",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "SECONDE 9 BUCHE",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
     }
   ]
 }

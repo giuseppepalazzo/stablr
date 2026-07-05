@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T16:49:50.148Z",
+  "generated_at": "2026-07-05T14:56:32.433Z",
   "source": {
     "coverage_path": "/Users/giuseppepalazzo/Stablr/data/gesgolf/reports/fig-gesgolf-coverage.json",
     "fig_catalog_path": "/Users/giuseppepalazzo/Stablr/data/fig/normalized/fig-catalog-normalized.json"
@@ -14,9 +14,9 @@
     "protected_skipped": 1,
     "weak_skipped": 36,
     "processed_now": 10,
-    "processed_total": 26,
-    "scraped_safe": 16,
-    "scraped_warning": 10,
+    "processed_total": 36,
+    "scraped_safe": 20,
+    "scraped_warning": 16,
     "scraped_error": 0
   },
   "skipped": [
@@ -554,6 +554,126 @@
       "warning_courses": 0,
       "failed_courses": 0,
       "output": "data/gesgolf/normalized/boves/circolo-660.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Brianza",
+      "gesgolf_club": "BRIANZA",
+      "circolo_id": "117",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 4,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/brianza/circolo-117.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "gesgolf_club": "CA' AMATA",
+      "circolo_id": "144",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 5,
+      "warning_courses": 2,
+      "failed_courses": 1,
+      "output": "data/gesgolf/normalized/ca-amata/circolo-144.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Ca' Nave Ssd",
+      "gesgolf_club": "CA' NAVE SSD",
+      "circolo_id": "852",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 4,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/ca-nave-ssd/circolo-852.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "gesgolf_club": "CA' ULIVI",
+      "circolo_id": "92",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 5,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/ca-ulivi/circolo-92.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 8,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/campodoglio/circolo-701.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Cansiglio",
+      "gesgolf_club": "CANSIGLIO",
+      "circolo_id": "9",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 3,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/cansiglio/circolo-9.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Caorle",
+      "gesgolf_club": "CAORLE",
+      "circolo_id": "481",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 3,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/caorle/circolo-481.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Carimate",
+      "gesgolf_club": "CARIMATE",
+      "circolo_id": "11",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 3,
+      "warning_courses": 2,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/carimate/circolo-11.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 17,
+      "warning_courses": 3,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/casalunga/circolo-172.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Casentino",
+      "gesgolf_club": "CASENTINO",
+      "circolo_id": "85",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 5,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/casentino/circolo-85.json",
       "action": "scraped"
     }
   ]

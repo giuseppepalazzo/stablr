@@ -113,9 +113,9 @@ Esito batch:
 - `error`: 0 club
 
 Import summary attuale:
-- route totali valutate: 132
-- `import_ready`: 37
-- `needs_review`: 82
+- route totali valutate: 189
+- `import_ready`: 45
+- `needs_review`: 131
 - `protected_reference`: 11
 - `excluded_reference`: 2
 
@@ -130,6 +130,7 @@ Club gia' interamente `import_ready`:
 - `Barlassina` *(giocabile in revisione / arancio, non verde)*
 - `Bogliaco` *(giocabile in revisione / arancio, non verde)*
 - `Bollina` *(giocabile in revisione / arancio, non verde)*
+- `Caorle` *(giocabile in revisione / arancio, non verde)*
 
 Secondo caso validato:
 - `Aosta Arsanieres`
@@ -193,6 +194,22 @@ Secondo grab batch semplice:
   - `Borgo Camuzzago`
   - `Bormio Ssd`
   - `Boves`
+
+Terzo grab batch semplice:
+- Sono stati processati altri 10 club con match FIG/GesGolf forte:
+  - `Brianza`
+  - `Ca' Amata`
+  - `Ca' Nave Ssd`
+  - `Ca' Ulivi`
+  - `Campodoglio`
+  - `Cansiglio`
+  - `Caorle`
+  - `Carimate`
+  - `Casalunga`
+  - `Casentino`
+- E' stato sbloccato e scritto come `data_status: needs_review`:
+  - `Caorle`
+- Gli altri club restano in review per duplicati/eventi, provvisori, warning GesGolf o troppi percorsi non chiariti.
 - Sono stati sbloccati e scritti come `data_status: needs_review`:
   - `Arenzano Pineta` *(dal batch precedente, mapping manuale semplice completato)*
   - `Barlassina`
@@ -226,6 +243,15 @@ Altri club ancora da review:
 - `Borgo Camuzzago`
 - `Bormio Ssd`
 - `Boves`
+- `Brianza`
+- `Ca' Amata`
+- `Ca' Nave Ssd`
+- `Ca' Ulivi`
+- `Campodoglio`
+- `Cansiglio`
+- `Carimate`
+- `Casalunga`
+- `Casentino`
 
 Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anche a far emergere i primi candidati realmente importabili.
 
@@ -239,25 +265,22 @@ Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anc
 ## Segnaposto operativo
 
 Ultimo punto raggiunto:
-- batch forti GesGolf processati fino a `Boves`;
-- club FIG/GesGolf forti processati totali: 26;
+- batch forti GesGolf processati fino a `Casentino`;
+- club FIG/GesGolf forti processati totali: 36;
 - ultimo batch eseguito:
-  - `Barlassina`
-  - `Bellosguardo`
-  - `Biella Betulle`
-  - `Bogliaco`
-  - `Bogogno`
-  - `Bollina`
-  - `Bologna`
-  - `Borgo Camuzzago`
-  - `Bormio Ssd`
-  - `Boves`
-- ultimo club scritto su Supabase: `Bollina`;
+  - `Brianza`
+  - `Ca' Amata`
+  - `Ca' Nave Ssd`
+  - `Ca' Ulivi`
+  - `Campodoglio`
+  - `Cansiglio`
+  - `Caorle`
+  - `Carimate`
+  - `Casalunga`
+  - `Casentino`
+- ultimo club scritto su Supabase: `Caorle`;
 - ultimi club sbloccati e scritti come arancio / `needs_review`:
-  - `Aosta Brissogne`
-  - `Arenzano Pineta`
-  - `Bagnaia`
-  - `Barlassina`
+  - `Caorle`
   - `Bogliaco`
   - `Bollina`
 

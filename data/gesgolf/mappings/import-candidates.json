@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-07-01T16:51:01.447Z",
+  "generated_at": "2026-07-05T14:57:20.222Z",
   "source": {
     "mapping_template": "/Users/giuseppepalazzo/Stablr/data/gesgolf/mappings/route-mapping-template.json"
   },
   "summary": {
-    "total_routes": 132,
-    "import_ready_routes": 37,
-    "needs_review_routes": 82,
+    "total_routes": 189,
+    "import_ready_routes": 45,
+    "needs_review_routes": 131,
     "protected_reference_routes": 11,
     "excluded_reference_routes": 2,
-    "total_clubs": 27,
-    "import_ready_clubs": 10,
-    "needs_review_clubs": 16,
+    "total_clubs": 37,
+    "import_ready_clubs": 11,
+    "needs_review_clubs": 25,
     "protected_reference_clubs": 1
   },
   "clubs": [
@@ -351,6 +351,136 @@
       "protected_routes": 0,
       "excluded_routes": 0,
       "import_required_routes": 8,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Brianza",
+      "gesgolf_club": "BRIANZA",
+      "circolo_id": "117",
+      "protected_live": "no",
+      "total_routes": 4,
+      "import_ready_routes": 0,
+      "review_routes": 4,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 4,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "gesgolf_club": "CA' AMATA",
+      "circolo_id": "144",
+      "protected_live": "no",
+      "total_routes": 5,
+      "import_ready_routes": 1,
+      "review_routes": 4,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 5,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Ca' Nave Ssd",
+      "gesgolf_club": "CA' NAVE SSD",
+      "circolo_id": "852",
+      "protected_live": "no",
+      "total_routes": 4,
+      "import_ready_routes": 0,
+      "review_routes": 4,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 4,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "gesgolf_club": "CA' ULIVI",
+      "circolo_id": "92",
+      "protected_live": "no",
+      "total_routes": 5,
+      "import_ready_routes": 0,
+      "review_routes": 5,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 5,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "total_routes": 8,
+      "import_ready_routes": 0,
+      "review_routes": 8,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 8,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Cansiglio",
+      "gesgolf_club": "CANSIGLIO",
+      "circolo_id": "9",
+      "protected_live": "no",
+      "total_routes": 3,
+      "import_ready_routes": 2,
+      "review_routes": 1,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 3,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Caorle",
+      "gesgolf_club": "CAORLE",
+      "circolo_id": "481",
+      "protected_live": "no",
+      "total_routes": 3,
+      "import_ready_routes": 3,
+      "review_routes": 0,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 3,
+      "club_status": "import_ready"
+    },
+    {
+      "fig_club": "Carimate",
+      "gesgolf_club": "CARIMATE",
+      "circolo_id": "11",
+      "protected_live": "no",
+      "total_routes": 3,
+      "import_ready_routes": 1,
+      "review_routes": 2,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 3,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "total_routes": 17,
+      "import_ready_routes": 0,
+      "review_routes": 17,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 17,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Casentino",
+      "gesgolf_club": "CASENTINO",
+      "circolo_id": "85",
+      "protected_live": "no",
+      "total_routes": 5,
+      "import_ready_routes": 1,
+      "review_routes": 4,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 5,
       "club_status": "needs_review"
     },
     {
@@ -8109,6 +8239,3760 @@
       ],
       "import_bucket": "needs_review",
       "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Brianza",
+      "gesgolf_club": "BRIANZA",
+      "circolo_id": "117",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Gare",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-brianza-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-brianza-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-brianza-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-brianza-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Brianza",
+      "gesgolf_club": "BRIANZA",
+      "circolo_id": "117",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Prime 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-brianza-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:prime",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-brianza-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:prime"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-brianza-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-brianza-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Brianza",
+      "gesgolf_club": "BRIANZA",
+      "circolo_id": "117",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Seconde 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 37,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-brianza-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:seconde",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-brianza-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-brianza-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-brianza-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Brianza",
+      "gesgolf_club": "BRIANZA",
+      "circolo_id": "117",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "CAMPIONATO NAZI",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-brianza-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-brianza-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-brianza-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-brianza-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "gesgolf_club": "CA' AMATA",
+      "circolo_id": "144",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "18 Buche",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-amata-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Provvisorio 2025",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche-provvisorio-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ca-amata-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "gesgolf_club": "CA' AMATA",
+      "circolo_id": "144",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "SECONDE 9 BUCHE",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-amata-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 26,
+      "suggested_reasons": "same_holes_count|shared_tokens:buche",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:buche"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Provvisorio 2025",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche-provvisorio-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:buche"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ca-amata-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "gesgolf_club": "CA' AMATA",
+      "circolo_id": "144",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PRIME 9 BUCHE",
+      "ges_holes_count": 18,
+      "ges_total_par": 36,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-amata-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 26,
+      "suggested_reasons": "same_holes_count|shared_tokens:buche",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:buche"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Provvisorio 2025",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche-provvisorio-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:buche"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ca-amata-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_total_par",
+            "shared_tokens:prime"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "gesgolf_club": "CA' AMATA",
+      "circolo_id": "144",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "18 buche 2025",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-amata-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Provvisorio 2025",
+          "fig_source_external_id": "fig-course-ca-amata-18-buche-provvisorio-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 58,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:18|buche|2025"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove Provvisorio 2025",
+          "fig_source_external_id": "fig-course-ca-amata-prime-nove-provvisorio-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:2025"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Amata",
+      "gesgolf_club": "CA' AMATA",
+      "circolo_id": "144",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "9 buche 2025",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove Provvisorio 2025",
+      "suggested_fig_source_external_id": "fig-course-ca-amata-prime-nove-provvisorio-2025",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:2025",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove Provvisorio 2025",
+          "fig_source_external_id": "fig-course-ca-amata-prime-nove-provvisorio-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:2025"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ca-amata-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ca-amata-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Nave Ssd",
+      "gesgolf_club": "CA' NAVE SSD",
+      "circolo_id": "852",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "CAMPIONATO",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-nave-ssd-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Nave Ssd",
+      "gesgolf_club": "CA' NAVE SSD",
+      "circolo_id": "852",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "CHAMPION",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-nave-ssd-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Nave Ssd",
+      "gesgolf_club": "CA' NAVE SSD",
+      "circolo_id": "852",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Prime 9 buche",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-ca-nave-ssd-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:prime",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:prime"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Nave Ssd",
+      "gesgolf_club": "CA' NAVE SSD",
+      "circolo_id": "852",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Seconde 9 buche",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-ca-nave-ssd-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:seconde",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-nave-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "gesgolf_club": "CA' ULIVI",
+      "circolo_id": "92",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "champion",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Mirabello",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Mirabello 9 B.",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello-9-b",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "gesgolf_club": "CA' ULIVI",
+      "circolo_id": "92",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "Champion",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Mirabello",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Mirabello 9 B.",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello-9-b",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "gesgolf_club": "CA' ULIVI",
+      "circolo_id": "92",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "new6.050",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Mirabello",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Mirabello 9 B.",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello-9-b",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "gesgolf_club": "CA' ULIVI",
+      "circolo_id": "92",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "MIRA18 b",
+      "ges_holes_count": 18,
+      "ges_total_par": 62,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Mirabello",
+      "suggested_fig_source_external_id": "fig-course-ca-ulivi-mirabello",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Mirabello",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Mirabello 9 B.",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello-9-b",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:b"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ca' Ulivi",
+      "gesgolf_club": "CA' ULIVI",
+      "circolo_id": "92",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "Mirab 9 bucheok",
+      "ges_holes_count": 9,
+      "ges_total_par": 31,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Mirabello 9 B.",
+      "suggested_fig_source_external_id": "fig-course-ca-ulivi-mirabello-9-b",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:9",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Mirabello 9 B.",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello-9-b",
+          "fig_holes_count": 9,
+          "fig_total_par": 31,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-ca-ulivi-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Mirabello",
+          "fig_source_external_id": "fig-course-ca-ulivi-mirabello",
+          "fig_holes_count": 18,
+          "fig_total_par": 62,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "9 Buche Old 24",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Old 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-9-buche-old-2024",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 58,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:9|buche|old",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Old 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-old-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 58,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9|buche|old"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-mixed-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9|buche"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-easy-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 Buche Old 24",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Old 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-18-buche-old-2024",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 58,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:18|buche|old",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Old 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-old-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 58,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:18|buche|old"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-easy-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-mixed-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "9 Buche New 24",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche New 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-9-buche-new-2024",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 58,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:9|buche|new",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche New 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-new-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 58,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9|buche|new"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-easy-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9|buche"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-mixed-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 Buche New 24",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche New 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-18-buche-new-2024",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 58,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:18|buche|new",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche New 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-new-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 58,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:18|buche|new"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-easy-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:18|buche"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-mixed-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "9 Buche Easy",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Easy 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-9-buche-easy-2024",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-easy-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche New 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-new-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9|buche"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-mixed-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 Buche Easy",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Easy 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-18-buche-easy-2024",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-easy-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche New 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-new-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:18|buche"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-mixed-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "9 Buche Mixed",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Mixed 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-9-buche-mixed-2024",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-mixed-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Old 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-old-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9|buche"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-9-buche-easy-2024",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Campodoglio",
+      "gesgolf_club": "CAMPODOGLIO",
+      "circolo_id": "701",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 Buche Mixed",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Mixed 2024",
+      "suggested_fig_source_external_id": "fig-course-campodoglio-18-buche-mixed-2024",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Mixed 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-mixed-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Easy 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-easy-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche New 2024",
+          "fig_source_external_id": "fig-course-campodoglio-18-buche-new-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Cansiglio",
+      "gesgolf_club": "CANSIGLIO",
+      "circolo_id": "9",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "Prime nove",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-cansiglio-prime-nove",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 65,
+      "suggested_reasons": "same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-cansiglio-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 65,
+          "reasons": [
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-cansiglio-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-cansiglio-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:nove"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Cansiglio",
+      "gesgolf_club": "CANSIGLIO",
+      "circolo_id": "9",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "18 buche",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-cansiglio-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-cansiglio-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-cansiglio-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-cansiglio-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Cansiglio",
+      "gesgolf_club": "CANSIGLIO",
+      "circolo_id": "9",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "Seconde nove",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-cansiglio-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-cansiglio-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-cansiglio-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-cansiglio-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Caorle",
+      "gesgolf_club": "CAORLE",
+      "circolo_id": "481",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "PdTorri",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-caorle-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-caorle-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-caorle-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-caorle-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Caorle",
+      "gesgolf_club": "CAORLE",
+      "circolo_id": "481",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "PRIME 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-caorle-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-caorle-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:prime"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-caorle-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-caorle-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Caorle",
+      "gesgolf_club": "CAORLE",
+      "circolo_id": "481",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "SECONDE 9 BUCHE",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-caorle-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-caorle-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-caorle-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-caorle-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:buche"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Carimate",
+      "gesgolf_club": "CARIMATE",
+      "circolo_id": "11",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "18 BUCHE",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-carimate-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-carimate-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-carimate-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-carimate-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Carimate",
+      "gesgolf_club": "CARIMATE",
+      "circolo_id": "11",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PRIME NOVE",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-carimate-prime-nove",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 45,
+      "suggested_reasons": "exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-carimate-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 45,
+          "reasons": [
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-carimate-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-carimate-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Carimate",
+      "gesgolf_club": "CARIMATE",
+      "circolo_id": "11",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "SECONDE NOVE",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-carimate-seconde-nove",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 65,
+      "suggested_reasons": "same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-carimate-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 65,
+          "reasons": [
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-carimate-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-carimate-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:nove"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "AUGUSTA",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "tucson",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "OPEN",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "Tiger",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "ASCONA",
+      "ges_holes_count": 18,
+      "ges_total_par": 36,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_holes_count",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "STORM 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 33,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche New Storm 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 32,
+      "suggested_reasons": "same_holes_count|shared_tokens:storm|9",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|9"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-storm-2023-d",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|9"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-casalunga-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "STORM 18",
+      "ges_holes_count": 18,
+      "ges_total_par": 66,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche New Storm 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 32,
+      "suggested_reasons": "same_holes_count|shared_tokens:storm|18",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|18"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|18"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "STORM 3 18 b.",
+      "ges_holes_count": 18,
+      "ges_total_par": 68,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche IDICE 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:18",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:18"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|18"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|18"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "STORM 3 9 b.",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche IDICE 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-9-buche-idice-2025",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:9",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-idice-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:9"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|9"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-storm-2023-d",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm|9"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "STORM 3 18b 70",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche New Storm 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:storm",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:storm"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "STORM 3 9b 35",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche New Storm 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:storm",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:storm"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-storm-2023-d",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-casalunga-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "18b.STORM 2023D",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Storm 2023 D",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:storm",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:storm"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "9b.STORM 2023D",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche Storm 2023 D",
+      "suggested_fig_source_external_id": "fig-course-casalunga-9-buche-storm-2023-d",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:storm",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-storm-2023-d",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:storm"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-casalunga-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "9b storm 2025",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche New Storm 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 52,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:storm|2025",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:storm|2025"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-idice-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:2025"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-storm-2023-d",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "18b storm 2025",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche New Storm 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 52,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:storm|2025",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:storm|2025"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:2025"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Storm 2023 D",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-storm-2023-d",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:storm"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "18 Buche IDICE",
+      "ges_holes_count": 18,
+      "ges_total_par": 68,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche IDICE 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-idice-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casalunga-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-18-buche-new-storm-2025",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casalunga",
+      "gesgolf_club": "CASALUNGA",
+      "circolo_id": "172",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "9 Buche IDICE",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche IDICE 2025",
+      "suggested_fig_source_external_id": "fig-course-casalunga-9-buche-idice-2025",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche IDICE 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-idice-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche",
+          "fig_source_external_id": "fig-course-casalunga-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche New Storm 2025",
+          "fig_source_external_id": "fig-course-casalunga-9-buche-new-storm-2025",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casentino",
+      "gesgolf_club": "CASENTINO",
+      "circolo_id": "85",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PALAZZO",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-casentino-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casentino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Tinzinosa",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Tinzinosa 2017",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa-2017",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casentino",
+      "gesgolf_club": "CASENTINO",
+      "circolo_id": "85",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "CASENTINO",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Nove Buche",
+      "suggested_fig_source_external_id": "fig-course-casentino-nove-buche",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Nove Buche",
+          "fig_source_external_id": "fig-course-casentino-nove-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Tinzinosa prime nove (Panorama)",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa-prime-nove-panorama",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casentino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casentino",
+      "gesgolf_club": "CASENTINO",
+      "circolo_id": "85",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "TINZINOSA",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Tinzinosa",
+      "suggested_fig_source_external_id": "fig-course-casentino-tinzinosa",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Tinzinosa",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Tinzinosa 2017",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa-2017",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casentino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Casentino",
+      "gesgolf_club": "CASENTINO",
+      "circolo_id": "85",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PANORAMA",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Tinzinosa prime nove (Panorama)",
+      "suggested_fig_source_external_id": "fig-course-casentino-tinzinosa-prime-nove-panorama",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Tinzinosa prime nove (Panorama)",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa-prime-nove-panorama",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "Nove Buche",
+          "fig_source_external_id": "fig-course-casentino-nove-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casentino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Casentino",
+      "gesgolf_club": "CASENTINO",
+      "circolo_id": "85",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "TINZINOSA 2017",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "many_zero_stroke_indexes",
+      "suggested_fig_course_name": "Tinzinosa 2017",
+      "suggested_fig_source_external_id": "fig-course-casentino-tinzinosa-2017",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Tinzinosa 2017",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa-2017",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Tinzinosa",
+          "fig_source_external_id": "fig-course-casentino-tinzinosa",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-casentino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
     },
     {
       "fig_club": "Parco De' Medici",
