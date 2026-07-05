@@ -113,11 +113,11 @@ Esito batch:
 - `error`: 0 club
 
 Import summary attuale:
-- route totali valutate: 286
-- `import_ready`: 72
-- `needs_review`: 201
+- route totali valutate: 339
+- `import_ready`: 80
+- `needs_review`: 240
 - `protected_reference`: 11
-- `excluded_reference`: 2
+- `excluded_reference`: 8
 
 Club gia' interamente `import_ready`:
 - `Albisola`
@@ -135,6 +135,7 @@ Club gia' interamente `import_ready`:
 - `Colli Bergamo` *(giocabile in revisione / arancio, non verde)*
 - `Colombaro` *(giocabile in revisione / arancio, non verde)*
 - `Cortina Ssd` *(giocabile in revisione / arancio, non verde)*
+- `Fioranello` *(giocabile in revisione / arancio, non verde)*
 
 Secondo caso validato:
 - `Aosta Arsanieres`
@@ -252,6 +253,25 @@ Quinto grab batch semplice:
   - `Cortina Ssd`
 - `Colline Gavi` e' risultato `import_ready` automatico ma non e' stato scritto perche' e' un caso multi-percorso/complesso, non semplice.
 - Gli altri restano in review per warning, provvisori, duplicati o mapping non sufficientemente chiaro.
+
+Sesto grab batch semplice:
+- Sono stati processati altri 10 club con match FIG/GesGolf forte:
+  - `Courmayeur`
+  - `Croara Ssd`
+  - `Cus Ferrara`
+  - `Des Iles Borromees`
+  - `Dolomiti`
+  - `Druento`
+  - `Ducato`
+  - `Faenza Cicogne`
+  - `Fioranello`
+  - `Firenze Ugolino`
+- E' stato sbloccato e scritto come `data_status: needs_review`:
+  - `Fioranello`
+- `Des Iles Borromees` e' stato fermato dalla validazione:
+  - una route 9 buche aveva uno Stroke Index non valido;
+  - non e' stato scritto su Supabase.
+- Gli altri club restano in review per provvisori, duplicati, warning GesGolf o mapping non sufficientemente chiaro.
 - Sono stati sbloccati e scritti come `data_status: needs_review`:
   - `Arenzano Pineta` *(dal batch precedente, mapping manuale semplice completato)*
   - `Barlassina`
@@ -310,6 +330,15 @@ Altri club ancora da review:
 - `Colombera Asd`
 - `Conero`
 - `Continental Verbania`
+- `Courmayeur`
+- `Croara Ssd`
+- `Cus Ferrara`
+- `Des Iles Borromees`
+- `Dolomiti`
+- `Druento`
+- `Ducato`
+- `Faenza Cicogne`
+- `Firenze Ugolino`
 
 Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anche a far emergere i primi candidati realmente importabili.
 
@@ -323,25 +352,22 @@ Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anc
 ## Segnaposto operativo
 
 Ultimo punto raggiunto:
-- batch forti GesGolf processati fino a `Cortina Ssd`;
-- club FIG/GesGolf forti processati totali: 56;
+- batch forti GesGolf processati fino a `Firenze Ugolino`;
+- club FIG/GesGolf forti processati totali: 66;
 - ultimo batch eseguito:
-  - `Citta' D'Asti`
-  - `Claviere`
-  - `Colli Bergamo`
-  - `Colli Berici`
-  - `Colline Gavi`
-  - `Colombaro`
-  - `Colombera Asd`
-  - `Conero`
-  - `Continental Verbania`
-  - `Cortina Ssd`
-- ultimo club scritto su Supabase: `Cortina Ssd`;
+  - `Courmayeur`
+  - `Croara Ssd`
+  - `Cus Ferrara`
+  - `Des Iles Borromees`
+  - `Dolomiti`
+  - `Druento`
+  - `Ducato`
+  - `Faenza Cicogne`
+  - `Fioranello`
+  - `Firenze Ugolino`
+- ultimo club scritto su Supabase: `Fioranello`;
 - ultimi club sbloccati e scritti come arancio / `needs_review`:
-  - `Citta' D'Asti`
-  - `Colli Bergamo`
-  - `Colombaro`
-  - `Cortina Ssd`
+  - `Fioranello`
   - `Bogliaco`
   - `Bollina`
 

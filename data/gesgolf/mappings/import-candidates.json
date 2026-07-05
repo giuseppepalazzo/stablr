@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-07-05T15:06:34.311Z",
+  "generated_at": "2026-07-05T15:16:56.391Z",
   "source": {
     "mapping_template": "/Users/giuseppepalazzo/Stablr/data/gesgolf/mappings/route-mapping-template.json"
   },
   "summary": {
-    "total_routes": 286,
-    "import_ready_routes": 72,
-    "needs_review_routes": 201,
+    "total_routes": 339,
+    "import_ready_routes": 80,
+    "needs_review_routes": 240,
     "protected_reference_routes": 11,
-    "excluded_reference_routes": 2,
-    "total_clubs": 57,
-    "import_ready_clubs": 16,
-    "needs_review_clubs": 40,
+    "excluded_reference_routes": 8,
+    "total_clubs": 67,
+    "import_ready_clubs": 18,
+    "needs_review_clubs": 48,
     "protected_reference_clubs": 1
   },
   "clubs": [
@@ -742,6 +742,136 @@
       "excluded_routes": 0,
       "import_required_routes": 3,
       "club_status": "import_ready"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "total_routes": 7,
+      "import_ready_routes": 0,
+      "review_routes": 7,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 7,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "gesgolf_club": "CROARA SSD",
+      "circolo_id": "855",
+      "protected_live": "no",
+      "total_routes": 6,
+      "import_ready_routes": 0,
+      "review_routes": 6,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 6,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Cus Ferrara",
+      "gesgolf_club": "CUS FERRARA",
+      "circolo_id": "133",
+      "protected_live": "no",
+      "total_routes": 4,
+      "import_ready_routes": 2,
+      "review_routes": 2,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 4,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "gesgolf_club": "DES ILES BORROMEES",
+      "circolo_id": "480",
+      "protected_live": "no",
+      "total_routes": 6,
+      "import_ready_routes": 3,
+      "review_routes": 0,
+      "protected_routes": 0,
+      "excluded_routes": 3,
+      "import_required_routes": 3,
+      "club_status": "import_ready"
+    },
+    {
+      "fig_club": "Dolomiti",
+      "gesgolf_club": "DOLOMITI",
+      "circolo_id": "140",
+      "protected_live": "no",
+      "total_routes": 4,
+      "import_ready_routes": 0,
+      "review_routes": 4,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 4,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Druento",
+      "gesgolf_club": "DRUENTO",
+      "circolo_id": "340",
+      "protected_live": "no",
+      "total_routes": 4,
+      "import_ready_routes": 0,
+      "review_routes": 4,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 4,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Ducato",
+      "gesgolf_club": "DUCATO",
+      "circolo_id": "700",
+      "protected_live": "no",
+      "total_routes": 6,
+      "import_ready_routes": 0,
+      "review_routes": 6,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 6,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Faenza Cicogne",
+      "gesgolf_club": "FAENZA CICOGNE",
+      "circolo_id": "166",
+      "protected_live": "no",
+      "total_routes": 2,
+      "import_ready_routes": 0,
+      "review_routes": 2,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 2,
+      "club_status": "needs_review"
+    },
+    {
+      "fig_club": "Fioranello",
+      "gesgolf_club": "FIORANELLO",
+      "circolo_id": "745",
+      "protected_live": "no",
+      "total_routes": 6,
+      "import_ready_routes": 3,
+      "review_routes": 0,
+      "protected_routes": 0,
+      "excluded_routes": 3,
+      "import_required_routes": 3,
+      "club_status": "import_ready"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "total_routes": 8,
+      "import_ready_routes": 0,
+      "review_routes": 8,
+      "protected_routes": 0,
+      "excluded_routes": 0,
+      "import_required_routes": 8,
+      "club_status": "needs_review"
     },
     {
       "fig_club": "Parco De' Medici",
@@ -18350,6 +18480,3402 @@
       ],
       "import_bucket": "import_ready",
       "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PRIME 9 PAR 34",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove 2015",
+      "suggested_fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 26,
+      "suggested_reasons": "same_holes_count|shared_tokens:prime",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:prime"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-seconde-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 70 Standard",
+          "fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:par"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "ECLETTICA",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Par 70 Standard",
+      "suggested_fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Par 70 Standard",
+          "fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-seconde-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "GOLF BY NIGHT",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove 2015",
+      "suggested_fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-seconde-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 70 Standard",
+          "fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PAR 70 2026",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Par 70 Standard",
+      "suggested_fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 52,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:par|70",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Par 70 Standard",
+          "fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:par|70"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-seconde-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PRIME NOVE 2026",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove 2015",
+      "suggested_fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 52,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:prime|nove",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 52,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:prime|nove"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-seconde-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 70 Standard",
+          "fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "SEC. NOVE 2026",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove 2015",
+      "suggested_fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:nove",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-seconde-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche Par 70 Standard",
+          "fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Courmayeur",
+      "gesgolf_club": "COURMAYEUR",
+      "circolo_id": "14",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PAR70 MONO 2026",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche Par 70 Standard",
+      "suggested_fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche Par 70 Standard",
+          "fig_source_external_id": "fig-course-courmayeur-18-buche-par-70-standard",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-prime-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove 2015",
+          "fig_source_external_id": "fig-course-courmayeur-seconde-nove-2015",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "gesgolf_club": "CROARA SSD",
+      "circolo_id": "855",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "CROARA 1",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-croara-ssd-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche provv. B-14 par 3",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche-provv-b-14-par-3",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "gesgolf_club": "CROARA SSD",
+      "circolo_id": "855",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "1-9",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "gesgolf_club": "CROARA SSD",
+      "circolo_id": "855",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "10-18",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:18"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "gesgolf_club": "CROARA SSD",
+      "circolo_id": "855",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Family Course",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "gesgolf_club": "CROARA SSD",
+      "circolo_id": "855",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 buche par 72",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-croara-ssd-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche provv. B-14 par 3",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche-provv-b-14-par-3",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 38,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18|buche|par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Croara Ssd",
+      "gesgolf_club": "CROARA SSD",
+      "circolo_id": "855",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18b provv14par3",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 buche provv. B-14 par 3",
+      "suggested_fig_source_external_id": "fig-course-croara-ssd-18-buche-provv-b-14-par-3",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 buche provv. B-14 par 3",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche-provv-b-14-par-3",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-croara-ssd-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-croara-ssd-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Cus Ferrara",
+      "gesgolf_club": "CUS FERRARA",
+      "circolo_id": "133",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "UFFICIAL",
+      "ges_holes_count": 18,
+      "ges_total_par": 68,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-cus-ferrara-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-cus-ferrara-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 68,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche OLD Course",
+          "fig_source_external_id": "fig-course-cus-ferrara-9-buche-old-course",
+          "fig_holes_count": 9,
+          "fig_total_par": 33,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-cus-ferrara-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Cus Ferrara",
+      "gesgolf_club": "CUS FERRARA",
+      "circolo_id": "133",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Old Course",
+      "ges_holes_count": 9,
+      "ges_total_par": 33,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 Buche OLD Course",
+      "suggested_fig_source_external_id": "fig-course-cus-ferrara-9-buche-old-course",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 Buche OLD Course",
+          "fig_source_external_id": "fig-course-cus-ferrara-9-buche-old-course",
+          "fig_holes_count": 9,
+          "fig_total_par": 33,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-cus-ferrara-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-cus-ferrara-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Cus Ferrara",
+      "gesgolf_club": "CUS FERRARA",
+      "circolo_id": "133",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "PRIME NOVE",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-cus-ferrara-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-cus-ferrara-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-cus-ferrara-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche OLD Course",
+          "fig_source_external_id": "fig-course-cus-ferrara-9-buche-old-course",
+          "fig_holes_count": 9,
+          "fig_total_par": 33,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Cus Ferrara",
+      "gesgolf_club": "CUS FERRARA",
+      "circolo_id": "133",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "SECONDE NOVE",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-cus-ferrara-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-cus-ferrara-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-cus-ferrara-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "9 Buche OLD Course",
+          "fig_source_external_id": "fig-course-cus-ferrara-9-buche-old-course",
+          "fig_holes_count": 9,
+          "fig_total_par": 33,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "gesgolf_club": "DES ILES BORROMEES",
+      "circolo_id": "480",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "CAMPIONA",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-18-buche-2023",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-prime-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-seconde-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "gesgolf_club": "DES ILES BORROMEES",
+      "circolo_id": "480",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "PRIME NOVE",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-prime-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:prime"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-seconde-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-18-buche-2023",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "gesgolf_club": "DES ILES BORROMEES",
+      "circolo_id": "480",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "SECONDE NOVE",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-seconde-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Prime 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-prime-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-18-buche-2023",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "gesgolf_club": "DES ILES BORROMEES",
+      "circolo_id": "480",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 BUCHE 2023",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche 2023",
+      "suggested_fig_source_external_id": "fig-course-des-iles-borromees-18-buche-2023",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "high",
+      "suggested_score": 85,
+      "suggested_reasons": "same_holes_count|same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "candidate_safe",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-18-buche-2023",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 85,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "Prime 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-prime-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 12,
+          "reasons": [
+            "shared_tokens:buche|2023"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-seconde-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 12,
+          "reasons": [
+            "shared_tokens:buche|2023"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "gesgolf_club": "DES ILES BORROMEES",
+      "circolo_id": "480",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "PRIME 9 2023",
+      "ges_holes_count": 9,
+      "ges_total_par": 37,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime 9 buche 2023",
+      "suggested_fig_source_external_id": "fig-course-des-iles-borromees-prime-9-buche-2023",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-prime-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 58,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:prime|9|2023"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-seconde-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|2023"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-18-buche-2023",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:2023"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Des Iles Borromees",
+      "gesgolf_club": "DES ILES BORROMEES",
+      "circolo_id": "480",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "SECONDE 9 2023",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde 9 buche 2023",
+      "suggested_fig_source_external_id": "fig-course-des-iles-borromees-seconde-9-buche-2023",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-seconde-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 58,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde|9|2023"
+          ]
+        },
+        {
+          "fig_course_name": "Prime 9 buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-prime-9-buche-2023",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 32,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9|2023"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 2023",
+          "fig_source_external_id": "fig-course-des-iles-borromees-18-buche-2023",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:2023"
+          ]
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Dolomiti",
+      "gesgolf_club": "DOLOMITI",
+      "circolo_id": "140",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "DOLOMITI",
+      "ges_holes_count": 18,
+      "ges_total_par": 73,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-dolomiti-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-dolomiti-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 73,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "2 volte le seconde nove",
+          "fig_source_external_id": "fig-course-dolomiti-2-volte-le-seconde-nove",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "repeat_9",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-dolomiti-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Dolomiti",
+      "gesgolf_club": "DOLOMITI",
+      "circolo_id": "140",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "FRONT 9",
+      "ges_holes_count": 18,
+      "ges_total_par": 37,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-dolomiti-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_holes_count",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-dolomiti-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 73,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "2 volte le seconde nove",
+          "fig_source_external_id": "fig-course-dolomiti-2-volte-le-seconde-nove",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "repeat_9",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-dolomiti-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_total_par"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Dolomiti",
+      "gesgolf_club": "DOLOMITI",
+      "circolo_id": "140",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "BACK 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-dolomiti-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-dolomiti-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-dolomiti-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-dolomiti-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 73,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Dolomiti",
+      "gesgolf_club": "DOLOMITI",
+      "circolo_id": "140",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "2 BACK NINE",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "2 volte le seconde nove",
+      "suggested_fig_source_external_id": "fig-course-dolomiti-2-volte-le-seconde-nove",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:2",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "2 volte le seconde nove",
+          "fig_source_external_id": "fig-course-dolomiti-2-volte-le-seconde-nove",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "repeat_9",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:2"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-dolomiti-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 73,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-dolomiti-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Druento",
+      "gesgolf_club": "DRUENTO",
+      "circolo_id": "340",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "C. Nigra",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 buche 2024",
+      "suggested_fig_source_external_id": "fig-course-druento-18-buche-2024",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 buche 2024",
+          "fig_source_external_id": "fig-course-druento-18-buche-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 buche 2024 par 35",
+          "fig_source_external_id": "fig-course-druento-9-buche-2024-par-35",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "nove buche par 34",
+          "fig_source_external_id": "fig-course-druento-nove-buche-par-34",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Druento",
+      "gesgolf_club": "DRUENTO",
+      "circolo_id": "340",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Merli",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 buche 2024",
+      "suggested_fig_source_external_id": "fig-course-druento-18-buche-2024",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_holes_count",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 buche 2024",
+          "fig_source_external_id": "fig-course-druento-18-buche-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "9 buche 2024 par 35",
+          "fig_source_external_id": "fig-course-druento-9-buche-2024-par-35",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "nove buche par 34",
+          "fig_source_external_id": "fig-course-druento-nove-buche-par-34",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Druento",
+      "gesgolf_club": "DRUENTO",
+      "circolo_id": "340",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Merli HCP",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "9 buche 2024 par 35",
+      "suggested_fig_source_external_id": "fig-course-druento-9-buche-2024-par-35",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 buche 2024 par 35",
+          "fig_source_external_id": "fig-course-druento-9-buche-2024-par-35",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "nove buche par 34",
+          "fig_source_external_id": "fig-course-druento-nove-buche-par-34",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche 2024",
+          "fig_source_external_id": "fig-course-druento-18-buche-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Druento",
+      "gesgolf_club": "DRUENTO",
+      "circolo_id": "340",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "PAVONI",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "nove buche par 34",
+      "suggested_fig_source_external_id": "fig-course-druento-nove-buche-par-34",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "nove buche par 34",
+          "fig_source_external_id": "fig-course-druento-nove-buche-par-34",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 buche 2024 par 35",
+          "fig_source_external_id": "fig-course-druento-9-buche-2024-par-35",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 buche 2024",
+          "fig_source_external_id": "fig-course-druento-18-buche-2024",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ducato",
+      "gesgolf_club": "DUCATO",
+      "circolo_id": "700",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 buche",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "La Rocca 18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ducato-la-rocca-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "La Rocca 18 Buche",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "Parma Golf 18 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 54,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "Parma Golf 9 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 27,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 6,
+          "reasons": [
+            "shared_tokens:buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ducato",
+      "gesgolf_club": "DUCATO",
+      "circolo_id": "700",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Prime Nove",
+      "ges_holes_count": 9,
+      "ges_total_par": 37,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "La Rocca Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-ducato-la-rocca-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "La Rocca Prime Nove",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "La Rocca Seconde Nove",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "Parma Golf 9 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 27,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ducato",
+      "gesgolf_club": "DUCATO",
+      "circolo_id": "700",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Seconde Nove",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "La Rocca Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-ducato-la-rocca-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "La Rocca Seconde Nove",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "La Rocca Prime Nove",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "Parma Golf 9 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 27,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ducato",
+      "gesgolf_club": "DUCATO",
+      "circolo_id": "700",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "PROVV 2025",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "La Rocca 18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ducato-la-rocca-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 20,
+      "suggested_reasons": "same_holes_count",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "La Rocca 18 Buche",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Parma Golf 18 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 54,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "La Rocca Prime Nove",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ducato",
+      "gesgolf_club": "DUCATO",
+      "circolo_id": "700",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Parma Golf 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 27,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Parma Golf 9 Buche",
+      "suggested_fig_source_external_id": "fig-course-ducato-parma-golf-9-buche",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Parma Golf 9 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 27,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "La Rocca Prime Nove",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 37,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "La Rocca Seconde Nove",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Ducato",
+      "gesgolf_club": "DUCATO",
+      "circolo_id": "700",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Parma Golf 18",
+      "ges_holes_count": 18,
+      "ges_total_par": 54,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Parma Golf 18 Buche",
+      "suggested_fig_source_external_id": "fig-course-ducato-parma-golf-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 68,
+      "suggested_reasons": "same_holes_count|same_total_par|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Parma Golf 18 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 54,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "La Rocca 18 Buche",
+          "fig_source_external_id": "fig-course-ducato-la-rocca-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:18"
+          ]
+        },
+        {
+          "fig_course_name": "Parma Golf 9 Buche",
+          "fig_source_external_id": "fig-course-ducato-parma-golf-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 27,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 12,
+          "reasons": [
+            "shared_tokens:parma|golf"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Faenza Cicogne",
+      "gesgolf_club": "FAENZA CICOGNE",
+      "circolo_id": "166",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "G.C.FAEN",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-faenza-cicogne-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-faenza-cicogne-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "9 buche",
+          "fig_source_external_id": "fig-course-faenza-cicogne-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Faenza Cicogne",
+      "gesgolf_club": "FAENZA CICOGNE",
+      "circolo_id": "166",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "9 buche",
+      "ges_holes_count": 18,
+      "ges_total_par": 35,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "9 buche",
+      "suggested_fig_source_external_id": "fig-course-faenza-cicogne-9-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "medium",
+      "suggested_score": 65,
+      "suggested_reasons": "same_total_par|exact_name",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "9 buche",
+          "fig_source_external_id": "fig-course-faenza-cicogne-9-buche",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 65,
+          "reasons": [
+            "same_total_par",
+            "exact_name"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-faenza-cicogne-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:buche"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Fioranello",
+      "gesgolf_club": "FIORANELLO",
+      "circolo_id": "745",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "new course",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-fioranello-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-fioranello-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-fioranello-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-fioranello-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Fioranello",
+      "gesgolf_club": "FIORANELLO",
+      "circolo_id": "745",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Prime 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-fioranello-prime-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-fioranello-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:prime"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-fioranello-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-fioranello-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Fioranello",
+      "gesgolf_club": "FIORANELLO",
+      "circolo_id": "745",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "Seconde 9",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Seconde Nove",
+      "suggested_fig_source_external_id": "fig-course-fioranello-seconde-nove",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-fioranello-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-fioranello-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-fioranello-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "import_ready",
+      "import_reason": "all_checks_passed"
+    },
+    {
+      "fig_club": "Fioranello",
+      "gesgolf_club": "FIORANELLO",
+      "circolo_id": "745",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "18 provvisorio",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-fioranello-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:18"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-fioranello-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-fioranello-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
+    },
+    {
+      "fig_club": "Fioranello",
+      "gesgolf_club": "FIORANELLO",
+      "circolo_id": "745",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "prime nove prov",
+      "ges_holes_count": 9,
+      "ges_total_par": 34,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-fioranello-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 68,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-fioranello-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:nove"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-fioranello-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
+    },
+    {
+      "fig_club": "Fioranello",
+      "gesgolf_club": "FIORANELLO",
+      "circolo_id": "745",
+      "protected_live": "no",
+      "scrape_status": "safe",
+      "ges_route_name": "seconde 9 provv",
+      "ges_holes_count": 9,
+      "ges_total_par": 36,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "",
+      "suggested_fig_source_external_id": "",
+      "suggested_relation": "exclude_route",
+      "suggested_confidence": "benchmark_manual",
+      "suggested_score": "manual",
+      "suggested_reasons": "manual_benchmark_override",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-fioranello-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-fioranello-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 34,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-fioranello-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 0,
+          "reasons": []
+        }
+      ],
+      "import_bucket": "excluded_reference",
+      "import_reason": "manual_route_excluded"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "UGOLINO",
+      "ges_holes_count": 18,
+      "ges_total_par": 72,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-18-buche",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 17 Par 4",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche-17-par-4",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        },
+        {
+          "fig_course_name": "Provvisorio buca 9 Par 3",
+          "fig_source_external_id": "fig-course-firenze-ugolino-provvisorio-buca-9-par-3",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PRIME 9",
+      "ges_holes_count": 18,
+      "ges_total_par": 36,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "Prime Nove",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-prime-nove",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 26,
+      "suggested_reasons": "same_total_par|shared_tokens:prime",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-firenze-ugolino-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_total_par",
+            "shared_tokens:prime"
+          ]
+        },
+        {
+          "fig_course_name": "Provvisorio buca 9 Par 3",
+          "fig_source_external_id": "fig-course-firenze-ugolino-provvisorio-buca-9-par-3",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9"
+          ]
+        },
+        {
+          "fig_course_name": "seconde 9 due volte par 71",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:9"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "SECONDE",
+      "ges_holes_count": 18,
+      "ges_total_par": 36,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "warning",
+      "ges_route_anomalies": "par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes",
+      "suggested_fig_course_name": "seconde 9 due volte par 71",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 48,
+      "suggested_reasons": "same_holes_count|name_contains",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "seconde 9 due volte par 71",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 48,
+          "reasons": [
+            "same_holes_count",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 48,
+          "reasons": [
+            "same_total_par",
+            "name_contains"
+          ]
+        },
+        {
+          "fig_course_name": "seconde 9 par 35",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-par-35",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 28,
+          "reasons": [
+            "name_contains"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "ges_route_warning"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PAR 70",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Provvisorio buca 9 Par 3",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-provvisorio-buca-9-par-3",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Provvisorio buca 9 Par 3",
+          "fig_source_external_id": "fig-course-firenze-ugolino-provvisorio-buca-9-par-3",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 17 Par 4",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche-17-par-4",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:par"
+          ]
+        },
+        {
+          "fig_course_name": "seconde 9 due volte par 71",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:par"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "PROVV PAR 70",
+      "ges_holes_count": 18,
+      "ges_total_par": 70,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "Provvisorio buca 9 Par 3",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-provvisorio-buca-9-par-3",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "Provvisorio buca 9 Par 3",
+          "fig_source_external_id": "fig-course-firenze-ugolino-provvisorio-buca-9-par-3",
+          "fig_holes_count": 18,
+          "fig_total_par": 70,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 17 Par 4",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche-17-par-4",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:par"
+          ]
+        },
+        {
+          "fig_course_name": "seconde 9 due volte par 71",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:par"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "UGOLINO SPECIAL",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "18 Buche 17 Par 4",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-18-buche-17-par-4",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 40,
+      "suggested_reasons": "same_holes_count|same_total_par",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "18 Buche 17 Par 4",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche-17-par-4",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "seconde 9 due volte par 71",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "SECONDE DOUBLES",
+      "ges_holes_count": 18,
+      "ges_total_par": 71,
+      "ges_playable_kind": "official_18",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "seconde 9 due volte par 71",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+      "suggested_relation": "playable_course",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:seconde",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "seconde 9 due volte par 71",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-due-volte-par-71",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche 17 Par 4",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche-17-par-4",
+          "fig_holes_count": 18,
+          "fig_total_par": 71,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 40,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par"
+          ]
+        },
+        {
+          "fig_course_name": "18 Buche",
+          "fig_source_external_id": "fig-course-firenze-ugolino-18-buche",
+          "fig_holes_count": 18,
+          "fig_total_par": 72,
+          "fig_course_type": "other_18",
+          "fig_route_family": "optional",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
+    },
+    {
+      "fig_club": "Firenze Ugolino",
+      "gesgolf_club": "FIRENZE UGOLINO",
+      "circolo_id": "15",
+      "protected_live": "no",
+      "scrape_status": "warning",
+      "ges_route_name": "SECONDE SPECIAL",
+      "ges_holes_count": 9,
+      "ges_total_par": 35,
+      "ges_playable_kind": "base_9",
+      "ges_route_status": "safe",
+      "ges_route_anomalies": "",
+      "suggested_fig_course_name": "seconde 9 par 35",
+      "suggested_fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-par-35",
+      "suggested_relation": "base_route",
+      "suggested_confidence": "low",
+      "suggested_score": 46,
+      "suggested_reasons": "same_holes_count|same_total_par|shared_tokens:seconde",
+      "final_fig_course_name": "",
+      "final_fig_source_external_id": "",
+      "final_relation": "",
+      "final_status": "needs_review",
+      "notes": "",
+      "top_candidates": [
+        {
+          "fig_course_name": "seconde 9 par 35",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-9-par-35",
+          "fig_holes_count": 9,
+          "fig_total_par": 35,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 46,
+          "reasons": [
+            "same_holes_count",
+            "same_total_par",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Seconde Nove",
+          "fig_source_external_id": "fig-course-firenze-ugolino-seconde-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 26,
+          "reasons": [
+            "same_holes_count",
+            "shared_tokens:seconde"
+          ]
+        },
+        {
+          "fig_course_name": "Prime Nove",
+          "fig_source_external_id": "fig-course-firenze-ugolino-prime-nove",
+          "fig_holes_count": 9,
+          "fig_total_par": 36,
+          "fig_course_type": "single_9",
+          "fig_route_family": "base",
+          "score": 20,
+          "reasons": [
+            "same_holes_count"
+          ]
+        }
+      ],
+      "import_bucket": "needs_review",
+      "import_reason": "confidence_too_low"
     },
     {
       "fig_club": "Parco De' Medici",

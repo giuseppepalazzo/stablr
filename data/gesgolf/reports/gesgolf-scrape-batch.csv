@@ -55,6 +55,16 @@ Colombera Asd,COLOMBERA ASD,824,100,safe,4,0,0,data/gesgolf/normalized/colombera
 Conero,CONERO,460,100,safe,4,0,0,data/gesgolf/normalized/conero/circolo-460.json,scraped
 Continental Verbania,CONTINENTAL VERBANIA,741,100,safe,3,0,0,data/gesgolf/normalized/continental-verbania/circolo-741.json,scraped
 Cortina Ssd,CORTINA SSD,845,100,safe,3,0,0,data/gesgolf/normalized/cortina-ssd/circolo-845.json,scraped
+Courmayeur,COURMAYEUR,14,100,warning,7,0,1,data/gesgolf/normalized/courmayeur/circolo-14.json,scraped
+Croara Ssd,CROARA SSD,855,100,safe,6,0,0,data/gesgolf/normalized/croara-ssd/circolo-855.json,scraped
+Cus Ferrara,CUS FERRARA,133,100,safe,4,0,0,data/gesgolf/normalized/cus-ferrara/circolo-133.json,scraped
+Des Iles Borromees,DES ILES BORROMEES,480,100,safe,6,0,0,data/gesgolf/normalized/des-iles-borromees/circolo-480.json,scraped
+Dolomiti,DOLOMITI,140,100,warning,4,1,0,data/gesgolf/normalized/dolomiti/circolo-140.json,scraped
+Druento,DRUENTO,340,100,safe,4,0,0,data/gesgolf/normalized/druento/circolo-340.json,scraped
+Ducato,DUCATO,700,100,safe,6,0,0,data/gesgolf/normalized/ducato/circolo-700.json,scraped
+Faenza Cicogne,FAENZA CICOGNE,166,100,warning,2,1,0,data/gesgolf/normalized/faenza-cicogne/circolo-166.json,scraped
+Fioranello,FIORANELLO,745,100,safe,6,0,0,data/gesgolf/normalized/fioranello/circolo-745.json,scraped
+Firenze Ugolino,FIRENZE UGOLINO,15,100,warning,8,2,0,data/gesgolf/normalized/firenze-ugolino/circolo-15.json,scraped
 Acquabona,,,,,,,,,skip_not_strong
 Alta Badia,,,,,,,,,skip_not_strong
 Appiano - Golf & Country,,,,,,,,,skip_not_strong

@@ -274,6 +274,59 @@ Continental Verbania,CONTINENTAL VERBANIA,741,prov 2026 10-18,provvisorio 2025,f
 Cortina Ssd,CORTINA SSD,845,18 BUCHE,18 Buche,fig-course-cortina-ssd-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
 Cortina Ssd,CORTINA SSD,845,9 BUCHE,9 Buche,fig-course-cortina-ssd-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
 Cortina Ssd,CORTINA SSD,845,18 MISTO,18 Buche Misto,fig-course-cortina-ssd-18-buche-misto,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Courmayeur,COURMAYEUR,14,PRIME 9 PAR 34,Prime Nove 2015,fig-course-courmayeur-prime-nove-2015,base_route,low,safe,,no,needs_review,confidence_too_low
+Courmayeur,COURMAYEUR,14,ECLETTICA,18 Buche Par 70 Standard,fig-course-courmayeur-18-buche-par-70-standard,playable_course,low,safe,,no,needs_review,confidence_too_low
+Courmayeur,COURMAYEUR,14,GOLF BY NIGHT,Prime Nove 2015,fig-course-courmayeur-prime-nove-2015,base_route,low,safe,,no,needs_review,confidence_too_low
+Courmayeur,COURMAYEUR,14,PAR 70 2026,18 Buche Par 70 Standard,fig-course-courmayeur-18-buche-par-70-standard,playable_course,low,safe,,no,needs_review,confidence_too_low
+Courmayeur,COURMAYEUR,14,PRIME NOVE 2026,Prime Nove 2015,fig-course-courmayeur-prime-nove-2015,base_route,low,safe,,no,needs_review,confidence_too_low
+Courmayeur,COURMAYEUR,14,SEC. NOVE 2026,Prime Nove 2015,fig-course-courmayeur-prime-nove-2015,base_route,low,safe,,no,needs_review,confidence_too_low
+Courmayeur,COURMAYEUR,14,PAR70 MONO 2026,18 Buche Par 70 Standard,fig-course-courmayeur-18-buche-par-70-standard,playable_course,low,safe,,no,needs_review,confidence_too_low
+Croara Ssd,CROARA SSD,855,CROARA 1,18 Buche,fig-course-croara-ssd-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Croara Ssd,CROARA SSD,855,1-9,Prime Nove,fig-course-croara-ssd-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Croara Ssd,CROARA SSD,855,10-18,Prime Nove,fig-course-croara-ssd-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Croara Ssd,CROARA SSD,855,Family Course,Prime Nove,fig-course-croara-ssd-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Croara Ssd,CROARA SSD,855,18 buche par 72,18 Buche,fig-course-croara-ssd-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Croara Ssd,CROARA SSD,855,18b provv14par3,18 buche provv. B-14 par 3,fig-course-croara-ssd-18-buche-provv-b-14-par-3,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cus Ferrara,CUS FERRARA,133,UFFICIAL,18 Buche,fig-course-cus-ferrara-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cus Ferrara,CUS FERRARA,133,Old Course,9 Buche OLD Course,fig-course-cus-ferrara-9-buche-old-course,base_route,medium,safe,,no,needs_review,confidence_too_low
+Cus Ferrara,CUS FERRARA,133,PRIME NOVE,Prime Nove,fig-course-cus-ferrara-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Cus Ferrara,CUS FERRARA,133,SECONDE NOVE,Seconde Nove,fig-course-cus-ferrara-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Des Iles Borromees,DES ILES BORROMEES,480,CAMPIONA,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Des Iles Borromees,DES ILES BORROMEES,480,PRIME NOVE,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Des Iles Borromees,DES ILES BORROMEES,480,SECONDE NOVE,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Des Iles Borromees,DES ILES BORROMEES,480,18 BUCHE 2023,18 Buche 2023,fig-course-des-iles-borromees-18-buche-2023,playable_course,high,safe,,no,import_ready,all_checks_passed
+Des Iles Borromees,DES ILES BORROMEES,480,PRIME 9 2023,Prime 9 buche 2023,fig-course-des-iles-borromees-prime-9-buche-2023,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Des Iles Borromees,DES ILES BORROMEES,480,SECONDE 9 2023,Seconde 9 buche 2023,fig-course-des-iles-borromees-seconde-9-buche-2023,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Dolomiti,DOLOMITI,140,DOLOMITI,18 Buche,fig-course-dolomiti-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Dolomiti,DOLOMITI,140,FRONT 9,18 Buche,fig-course-dolomiti-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Dolomiti,DOLOMITI,140,BACK 9,Seconde Nove,fig-course-dolomiti-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Dolomiti,DOLOMITI,140,2 BACK NINE,2 volte le seconde nove,fig-course-dolomiti-2-volte-le-seconde-nove,playable_course,low,safe,,no,needs_review,confidence_too_low
+Druento,DRUENTO,340,C. Nigra,18 buche 2024,fig-course-druento-18-buche-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Druento,DRUENTO,340,Merli,18 buche 2024,fig-course-druento-18-buche-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Druento,DRUENTO,340,Merli HCP,9 buche 2024 par 35,fig-course-druento-9-buche-2024-par-35,base_route,low,safe,,no,needs_review,confidence_too_low
+Druento,DRUENTO,340,PAVONI,nove buche par 34,fig-course-druento-nove-buche-par-34,base_route,low,safe,,no,needs_review,confidence_too_low
+Ducato,DUCATO,700,18 buche,La Rocca 18 Buche,fig-course-ducato-la-rocca-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Ducato,DUCATO,700,Prime Nove,La Rocca Prime Nove,fig-course-ducato-la-rocca-prime-nove,base_route,medium,safe,,no,needs_review,confidence_too_low
+Ducato,DUCATO,700,Seconde Nove,La Rocca Seconde Nove,fig-course-ducato-la-rocca-seconde-nove,base_route,medium,safe,,no,needs_review,confidence_too_low
+Ducato,DUCATO,700,PROVV 2025,La Rocca 18 Buche,fig-course-ducato-la-rocca-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ducato,DUCATO,700,Parma Golf 9,Parma Golf 9 Buche,fig-course-ducato-parma-golf-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Ducato,DUCATO,700,Parma Golf 18,Parma Golf 18 Buche,fig-course-ducato-parma-golf-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Faenza Cicogne,FAENZA CICOGNE,166,G.C.FAEN,18 Buche,fig-course-faenza-cicogne-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Faenza Cicogne,FAENZA CICOGNE,166,9 buche,9 buche,fig-course-faenza-cicogne-9-buche,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Fioranello,FIORANELLO,745,new course,18 Buche,fig-course-fioranello-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Fioranello,FIORANELLO,745,Prime 9,Prime Nove,fig-course-fioranello-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Fioranello,FIORANELLO,745,Seconde 9,Seconde Nove,fig-course-fioranello-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Fioranello,FIORANELLO,745,18 provvisorio,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Fioranello,FIORANELLO,745,prime nove prov,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Fioranello,FIORANELLO,745,seconde 9 provv,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Firenze Ugolino,FIRENZE UGOLINO,15,UGOLINO,18 Buche,fig-course-firenze-ugolino-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Firenze Ugolino,FIRENZE UGOLINO,15,PRIME 9,Prime Nove,fig-course-firenze-ugolino-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Firenze Ugolino,FIRENZE UGOLINO,15,SECONDE,seconde 9 due volte par 71,fig-course-firenze-ugolino-seconde-9-due-volte-par-71,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Firenze Ugolino,FIRENZE UGOLINO,15,PAR 70,Provvisorio buca 9 Par 3,fig-course-firenze-ugolino-provvisorio-buca-9-par-3,playable_course,low,safe,,no,needs_review,confidence_too_low
+Firenze Ugolino,FIRENZE UGOLINO,15,PROVV PAR 70,Provvisorio buca 9 Par 3,fig-course-firenze-ugolino-provvisorio-buca-9-par-3,playable_course,low,safe,,no,needs_review,confidence_too_low
+Firenze Ugolino,FIRENZE UGOLINO,15,UGOLINO SPECIAL,18 Buche 17 Par 4,fig-course-firenze-ugolino-18-buche-17-par-4,playable_course,low,safe,,no,needs_review,confidence_too_low
+Firenze Ugolino,FIRENZE UGOLINO,15,SECONDE DOUBLES,seconde 9 due volte par 71,fig-course-firenze-ugolino-seconde-9-due-volte-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
+Firenze Ugolino,FIRENZE UGOLINO,15,SECONDE SPECIAL,seconde 9 par 35,fig-course-firenze-ugolino-seconde-9-par-35,base_route,low,safe,,no,needs_review,confidence_too_low
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club

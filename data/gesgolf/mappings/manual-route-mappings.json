@@ -301,6 +301,84 @@
           "confidence": "benchmark_manual"
         }
       ]
+    },
+    {
+      "circolo_id": "480",
+      "fig_club": "Des Iles Borromees",
+      "routes": [
+        {
+          "ges_route_name": "PRIME 9 2023",
+          "fig_course_name": "Prime 9 buche 2023",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "SECONDE 9 2023",
+          "fig_course_name": "Seconde 9 buche 2023",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "CAMPIONA",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "PRIME NOVE",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "SECONDE NOVE",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "745",
+      "fig_club": "Fioranello",
+      "routes": [
+        {
+          "ges_route_name": "new course",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "Prime 9",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "Seconde 9",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "18 provvisorio",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "prime nove prov",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "seconde 9 provv",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
     }
   ]
 }
