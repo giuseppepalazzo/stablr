@@ -253,6 +253,54 @@
           "confidence": "benchmark_manual"
         }
       ]
+    },
+    {
+      "circolo_id": "336",
+      "fig_club": "Citta' D'Asti",
+      "routes": [
+        {
+          "ges_route_name": "Asti",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "Asti 9",
+          "fig_course_name": "9 BUCHE",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "308",
+      "fig_club": "Colombaro",
+      "routes": [
+        {
+          "ges_route_name": "Colombaro18",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "Colombaro9",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "845",
+      "fig_club": "Cortina Ssd",
+      "routes": [
+        {
+          "ges_route_name": "18 MISTO",
+          "fig_course_name": "18 Buche Misto",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        }
+      ]
     }
   ]
 }

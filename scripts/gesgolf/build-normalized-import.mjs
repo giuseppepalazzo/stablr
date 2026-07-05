@@ -103,10 +103,21 @@ function findOfficialNineHoleStrokeIndexSegment(gesRoute, gesPlayableCourses) {
   return null;
 }
 
-function buildRouteHoles(gesRoute, gesPlayableCourses) {
+function buildRouteHoles(gesRoute, gesPlayableCourses, importProfile) {
   const officialNineHoleIndexes = findOfficialNineHoleStrokeIndexSegment(
     gesRoute,
     gesPlayableCourses
+  );
+  const requiresOfficialNineHoleSegment =
+    Number(gesRoute.holes_count) === 9 &&
+    hasCompressedNineHoleStrokeIndexes(gesRoute.holes) &&
+    ["physical_9_with_official_18_variants", "physical_18_with_official_9_segments"].includes(
+      importProfile
+    );
+
+  assert(
+    !requiresOfficialNineHoleSegment || officialNineHoleIndexes,
+    `Stroke Index compressi non risolti per ${gesRoute.name}: nessun segmento 18 ufficiale combacia con par buca-per-buca.`
   );
 
   return gesRoute.holes.map((hole, index) => ({
@@ -208,7 +219,7 @@ async function findGesGolfNormalizedPath(figClubName, circoloId) {
   throw new Error(`File GesGolf normalizzato non trovato per ${figClubName} (${circoloId}).`);
 }
 
-function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCourses) {
+function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCourses, importProfile) {
   return {
     external_key: figCourse.source_external_id,
     name: figCourse.name,
@@ -230,7 +241,7 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCours
         percorso_id: gesRoute.percorso_id
       }
     },
-    holes: buildRouteHoles(gesRoute, gesPlayableCourses),
+    holes: buildRouteHoles(gesRoute, gesPlayableCourses, importProfile),
     tees: (figCourse.tees || []).map((tee) => ({
       tee_name: tee.tee_name,
       tee_color: tee.tee_color || null,
@@ -321,7 +332,8 @@ async function main() {
         candidate,
         gesRoute,
         figCourse,
-        gesNormalized.playable_courses || []
+        gesNormalized.playable_courses || [],
+        importProfile
       );
     })
     .sort((left, right) => (left.display_order ?? 999) - (right.display_order ?? 999));

@@ -177,6 +177,103 @@ Casentino,CASENTINO,85,CASENTINO,Nove Buche,fig-course-casentino-nove-buche,base
 Casentino,CASENTINO,85,TINZINOSA,Tinzinosa,fig-course-casentino-tinzinosa,playable_course,high,safe,,no,import_ready,all_checks_passed
 Casentino,CASENTINO,85,PANORAMA,Tinzinosa prime nove (Panorama),fig-course-casentino-tinzinosa-prime-nove-panorama,base_route,medium,safe,,no,needs_review,confidence_too_low
 Casentino,CASENTINO,85,TINZINOSA 2017,Tinzinosa 2017,fig-course-casentino-tinzinosa-2017,playable_course,high,warning,many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Castelconturbia,CASTELCONTURBIA,68,Gial+Azz,Azzurro-Giallo,fig-course-castelconturbia-azzurro-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castelconturbia,CASTELCONTURBIA,68,Azz+Ros,Azzurro-Giallo,fig-course-castelconturbia-azzurro-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castelconturbia,CASTELCONTURBIA,68,Gial+Ros,Azzurro-Giallo,fig-course-castelconturbia-azzurro-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castelconturbia,CASTELCONTURBIA,68,Azz+Gial,Azzurro-Giallo,fig-course-castelconturbia-azzurro-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castelconturbia,CASTELCONTURBIA,68,AZZURRO,9 buche Azzurro,fig-course-castelconturbia-9-buche-azzurro,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Castelconturbia,CASTELCONTURBIA,68,ROSSO,9 buche Rosso,fig-course-castelconturbia-9-buche-rosso,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Castelconturbia,CASTELCONTURBIA,68,GIALLO,9 buche Giallo,fig-course-castelconturbia-9-buche-giallo,base_route,medium,safe,,no,needs_review,confidence_too_low
+Castelconturbia,CASTELCONTURBIA,68,Ros+Azz,Azzurro-Giallo,fig-course-castelconturbia-azzurro-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castelconturbia,CASTELCONTURBIA,68,Ros+Gial,Azzurro-Giallo,fig-course-castelconturbia-azzurro-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castelfalfi,CASTELFALFI,678,MOUNTAIN,Mountain 18 Buche,fig-course-castelfalfi-mountain-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Castelfalfi,CASTELFALFI,678,IN 9 M,Prime Nove Mountain,fig-course-castelfalfi-prime-nove-mountain,base_route,low,safe,,no,needs_review,confidence_too_low
+Castelfalfi,CASTELFALFI,678,OUT 9 B,Prime Nove Mountain,fig-course-castelfalfi-prime-nove-mountain,base_route,low,safe,,no,needs_review,confidence_too_low
+Castelfalfi,CASTELFALFI,678,LAKE COURSE,LAKE 9 Buche,fig-course-castelfalfi-lake-9-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Castelfalfi,CASTELFALFI,678,LAKE+MOUNTAIN S,LAKE + Mountain Seconde Nove,fig-course-castelfalfi-lake-mountain-seconde-nove,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Castelfalfi,CASTELFALFI,678,LAKE+MOUNTAINPN,LAKE + Mountain Prime Nove,fig-course-castelfalfi-lake-mountain-prime-nove,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castelfalfi,CASTELFALFI,678,LAKE + LAKE,LAKE 18 Buche,fig-course-castelfalfi-lake-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castellaro,CASTELLARO,634,DEFINITIVO,18 Buche,fig-course-castellaro-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castellaro,CASTELLARO,634,PERCORSO 9 BUCH,9 Buche,fig-course-castellaro-9-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Castellaro,CASTELLARO,634,NOTTURNA,9 Buche,fig-course-castellaro-9-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Castello Spessa,CASTELLO SPESSA,80,Castello Spessa,18 Buche,fig-course-castello-spessa-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Castello Spessa,CASTELLO SPESSA,80,Prime Nove,Prime Nove,fig-course-castello-spessa-prime-nove,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Castello Spessa,CASTELLO SPESSA,80,Seconde Nove,Seconde Nove,fig-course-castello-spessa-seconde-nove,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Castello Spessa,CASTELLO SPESSA,80,2 volte 1&#176; nove,2 Volte 1&#176;Nove,fig-course-castello-spessa-2-volte-1-176-nove,repeat_route,high,safe,,no,import_ready,all_checks_passed
+Cavaglia',CAVAGLIA',681,18 BUCHE,18 buche,fig-course-cavaglia-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Cavaglia',CAVAGLIA',681,9 BUCHE,9 buche,fig-course-cavaglia-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Cavaglia',CAVAGLIA',681,PRIME NOVE 1-9,9 buche 1-9,fig-course-cavaglia-9-buche-1-9,base_route,low,safe,,no,needs_review,confidence_too_low
+Cerreto Miglianico,CERRETO MIGLIANICO,838,Pescara,18 Buche,fig-course-cerreto-miglianico-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cerreto Miglianico,CERRETO MIGLIANICO,838,prim. 9,Prime Nove,fig-course-cerreto-miglianico-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Cerreto Miglianico,CERRETO MIGLIANICO,838,sec. 9,Prime Nove,fig-course-cerreto-miglianico-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Cerreto Miglianico,CERRETO MIGLIANICO,838,Par 71,Campionati a squadre 2015,fig-course-cerreto-miglianico-campionati-a-squadre-2015,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,RossGiall,Blu-Giallo,fig-course-cervia-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,RossoBlu,Rosso-Blu,fig-course-cervia-rosso-blu,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,BluGiall,Blu-Giallo,fig-course-cervia-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,GialloBlu,Blu-Giallo,fig-course-cervia-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,BluRosso,Rosso-Blu,fig-course-cervia-rosso-blu,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,GialRoss,Blu-Giallo,fig-course-cervia-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,Rosso,9 Buche Rosso,fig-course-cervia-9-buche-rosso,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Cervia,CERVIA,74,Blu,9 Buche Blu,fig-course-cervia-9-buche-blu,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Cervia,CERVIA,74,Giallo,9 buche Giallo,fig-course-cervia-9-buche-giallo,base_route,medium,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,VERDE,9 Buche Verde (Misto),fig-course-cervia-9-buche-verde-misto,base_route,medium,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,9 blu 2024,9 buche Giallo,fig-course-cervia-9-buche-giallo,base_route,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,R B 2024,Blu-Giallo,fig-course-cervia-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervia,CERVIA,74,B G 2024,Blu-Giallo,fig-course-cervia-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervino,CERVINO,508,CERVINO 9,9 Buche Misto,fig-course-cervino-9-buche-misto,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Cervino,CERVINO,508,CERVINO 18,18 Buche,fig-course-cervino-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervino,CERVINO,508,CERVINO 24 9+9,18 Buche Provvisorio 2024,fig-course-cervino-18-buche-provvisorio-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cervino,CERVINO,508,CERVINO 24 9,9 Buche Provvisorio 2024,fig-course-cervino-9-buche-provvisorio-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Cervino,CERVINO,508,CERVINO 18 68,18 Buche Provvisorio 2024 Par 68,fig-course-cervino-18-buche-provvisorio-2024-par-68,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cherasco,CHERASCO,59,Prime Nove,Prime Nove,fig-course-cherasco-prime-nove,playable_course,medium,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Cherasco,CHERASCO,59,Gare,18 Buche,fig-course-cherasco-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cherasco,CHERASCO,59,Seconde Nove,Seconde Nove,fig-course-cherasco-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Cherasco,CHERASCO,59,Prime 9 due Vol,Prime Nove 2 volte,fig-course-cherasco-prime-nove-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Cherasco,CHERASCO,59,Sec. 9 due vol,18 Buche,fig-course-cherasco-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ciliegi,CILIEGI,209,KING,KING,fig-course-ciliegi-king,combination_route,high,safe,,no,import_ready,all_checks_passed
+Ciliegi,CILIEGI,209,CHERRIES,CHERRIES B+V,fig-course-ciliegi-cherries-b-v,playable_course,low,safe,,no,needs_review,confidence_too_low
+Ciliegi,CILIEGI,209,Ci pri9,9 BUCHE,fig-course-ciliegi-9-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Ciliegi,CILIEGI,209,PARAMOUNT B+G,PARAMOUNT B+G,fig-course-ciliegi-paramount-b-g,playable_course,high,safe,,no,import_ready,all_checks_passed
+Ciliegi,CILIEGI,209,CHER 1e9,CHERRIES B+V,fig-course-ciliegi-cherries-b-v,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Ciliegi,CILIEGI,209,CHERRIES B+V,CHERRIES B+V,fig-course-ciliegi-cherries-b-v,playable_course,high,safe,,no,import_ready,all_checks_passed
+Ciliegi,CILIEGI,209,VALLEY G+V,VALLEY G+V,fig-course-ciliegi-valley-g-v,playable_course,high,safe,,no,import_ready,all_checks_passed
+Citta' D'Asti,CITTA' D'ASTI,336,Asti,18 Buche,fig-course-citta-d-asti-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Citta' D'Asti,CITTA' D'ASTI,336,Asti 9,9 BUCHE,fig-course-citta-d-asti-9-buche,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Claviere,CLAVIERE,13,CLAVIERE,18 Buche,fig-course-claviere-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Claviere,CLAVIERE,13,CLA-MON,18 Buche,fig-course-claviere-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Claviere,CLAVIERE,13,MON-CLA,18 Buche,fig-course-claviere-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Claviere,CLAVIERE,13,9 BUCHE,9 Buche,fig-course-claviere-9-buche,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Claviere,CLAVIERE,13,BIS,18 Buche,fig-course-claviere-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Colli Bergamo,COLLI BERGAMO,742,9 BUCHE,9 buche,fig-course-colli-bergamo-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Colli Bergamo,COLLI BERGAMO,742,18 BUCHE,18 buche,fig-course-colli-bergamo-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Colli Berici,COLLI BERICI,90,18 buche,18 Buche,fig-course-colli-berici-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Colli Berici,COLLI BERICI,90,Prime 9,Prime Nove,fig-course-colli-berici-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Colli Berici,COLLI BERICI,90,Seconde 9,Due volte le Seconde Nove,fig-course-colli-berici-due-volte-le-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Colli Berici,COLLI BERICI,90,2 x Seconde 9,prime nove 2 volte,fig-course-colli-berici-prime-nove-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Colli Berici,COLLI BERICI,90,18 Buche 2025,18 Buche,fig-course-colli-berici-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Colli Berici,COLLI BERICI,90,Prime 9 2025,Seconde Nove,fig-course-colli-berici-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Colli Berici,COLLI BERICI,90,2x Prime 9 2025,Due volte le Seconde Nove,fig-course-colli-berici-due-volte-le-seconde-nove,playable_course,low,safe,,no,needs_review,confidence_too_low
+Colline Gavi,COLLINE GAVI,732,GIALLO-BLU,GIALLO BLU,fig-course-colline-gavi-giallo-blu,playable_course,high,safe,,no,import_ready,all_checks_passed
+Colline Gavi,COLLINE GAVI,732,GIALLO,GIALLO,fig-course-colline-gavi-giallo,base_route,high,safe,,no,import_ready,all_checks_passed
+Colline Gavi,COLLINE GAVI,732,BLU,BLU,fig-course-colline-gavi-blu,base_route,high,safe,,no,import_ready,all_checks_passed
+Colline Gavi,COLLINE GAVI,732,GIALLO ROSSO,GIALLO ROSSO,fig-course-colline-gavi-giallo-rosso,playable_course,high,safe,,no,import_ready,all_checks_passed
+Colline Gavi,COLLINE GAVI,732,ROSSO BLU,ROSSO BLU,fig-course-colline-gavi-rosso-blu,playable_course,high,safe,,no,import_ready,all_checks_passed
+Colombaro,COLOMBARO,308,Colombaro18,18 Buche,fig-course-colombaro-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Colombaro,COLOMBARO,308,Colombaro9,Prime Nove,fig-course-colombaro-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Colombera Asd,COLOMBERA ASD,824,18 buche 2024,New Course 2025,fig-course-colombera-asd-new-course-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Colombera Asd,COLOMBERA ASD,824,9 buche 2024,Rosa 2025,fig-course-colombera-asd-rosa-2025,base_route,low,safe,,no,needs_review,confidence_too_low
+Colombera Asd,COLOMBERA ASD,824,New Course 2025,New Course 2025,fig-course-colombera-asd-new-course-2025,playable_course,high,safe,,no,import_ready,all_checks_passed
+Colombera Asd,COLOMBERA ASD,824,Rosa 2025,Rosa 2025,fig-course-colombera-asd-rosa-2025,base_route,high,safe,,no,import_ready,all_checks_passed
+Conero,CONERO,460,CHAMPION,18 Buche,fig-course-conero-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Conero,CONERO,460,PRIME NOVE,Prime Nove,fig-course-conero-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Conero,CONERO,460,SECONDE NOVE,Seconde Nove,fig-course-conero-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Conero,CONERO,460,PROVVISIORIO 21,18 Buche,fig-course-conero-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Continental Verbania,CONTINENTAL VERBANIA,741,18 Resort provv,provvisorio 2025,fig-course-continental-verbania-provvisorio-2025,playable_course,low,safe,,no,needs_review,confidence_too_low
+Continental Verbania,CONTINENTAL VERBANIA,741,provv. 2026 1-9,provvisorio 2025,fig-course-continental-verbania-provvisorio-2025,playable_course,none,safe,,no,needs_review,confidence_too_low
+Continental Verbania,CONTINENTAL VERBANIA,741,prov 2026 10-18,provvisorio 2025,fig-course-continental-verbania-provvisorio-2025,playable_course,none,safe,,no,needs_review,confidence_too_low
+Cortina Ssd,CORTINA SSD,845,18 BUCHE,18 Buche,fig-course-cortina-ssd-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Cortina Ssd,CORTINA SSD,845,9 BUCHE,9 Buche,fig-course-cortina-ssd-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Cortina Ssd,CORTINA SSD,845,18 MISTO,18 Buche Misto,fig-course-cortina-ssd-18-buche-misto,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club

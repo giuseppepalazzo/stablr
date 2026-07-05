@@ -113,9 +113,9 @@ Esito batch:
 - `error`: 0 club
 
 Import summary attuale:
-- route totali valutate: 189
-- `import_ready`: 45
-- `needs_review`: 131
+- route totali valutate: 286
+- `import_ready`: 72
+- `needs_review`: 201
 - `protected_reference`: 11
 - `excluded_reference`: 2
 
@@ -131,6 +131,10 @@ Club gia' interamente `import_ready`:
 - `Bogliaco` *(giocabile in revisione / arancio, non verde)*
 - `Bollina` *(giocabile in revisione / arancio, non verde)*
 - `Caorle` *(giocabile in revisione / arancio, non verde)*
+- `Citta' D'Asti` *(giocabile in revisione / arancio, non verde)*
+- `Colli Bergamo` *(giocabile in revisione / arancio, non verde)*
+- `Colombaro` *(giocabile in revisione / arancio, non verde)*
+- `Cortina Ssd` *(giocabile in revisione / arancio, non verde)*
 
 Secondo caso validato:
 - `Aosta Arsanieres`
@@ -210,6 +214,44 @@ Terzo grab batch semplice:
 - E' stato sbloccato e scritto come `data_status: needs_review`:
   - `Caorle`
 - Gli altri club restano in review per duplicati/eventi, provvisori, warning GesGolf o troppi percorsi non chiariti.
+
+Quarto grab batch semplice:
+- Sono stati processati altri 10 club con match FIG/GesGolf forte:
+  - `Castelconturbia`
+  - `Castelfalfi`
+  - `Castellaro`
+  - `Castello Spessa`
+  - `Cavaglia'`
+  - `Cerreto Miglianico`
+  - `Cervia`
+  - `Cervino`
+  - `Cherasco`
+  - `Ciliegi`
+- Nessun club e' stato scritto su Supabase.
+- `Cavaglia'` sembrava sbloccabile, ma e' stato bloccato dalla guardrail Stroke Index:
+  - una route 9 buche esponeva SI compressi 1-9;
+  - nessun segmento del 18 ufficiale combaciava con il par buca-per-buca;
+  - quindi l'import e' stato annullato e il mapping manuale non e' stato mantenuto.
+
+Quinto grab batch semplice:
+- Sono stati processati altri 10 club con match FIG/GesGolf forte:
+  - `Citta' D'Asti`
+  - `Claviere`
+  - `Colli Bergamo`
+  - `Colli Berici`
+  - `Colline Gavi`
+  - `Colombaro`
+  - `Colombera Asd`
+  - `Conero`
+  - `Continental Verbania`
+  - `Cortina Ssd`
+- Sono stati sbloccati e scritti come `data_status: needs_review`:
+  - `Citta' D'Asti`
+  - `Colli Bergamo`
+  - `Colombaro`
+  - `Cortina Ssd`
+- `Colline Gavi` e' risultato `import_ready` automatico ma non e' stato scritto perche' e' un caso multi-percorso/complesso, non semplice.
+- Gli altri restano in review per warning, provvisori, duplicati o mapping non sufficientemente chiaro.
 - Sono stati sbloccati e scritti come `data_status: needs_review`:
   - `Arenzano Pineta` *(dal batch precedente, mapping manuale semplice completato)*
   - `Barlassina`
@@ -252,6 +294,22 @@ Altri club ancora da review:
 - `Carimate`
 - `Casalunga`
 - `Casentino`
+- `Castelconturbia`
+- `Castelfalfi`
+- `Castellaro`
+- `Castello Spessa`
+- `Cavaglia'`
+- `Cerreto Miglianico`
+- `Cervia`
+- `Cervino`
+- `Cherasco`
+- `Ciliegi`
+- `Claviere`
+- `Colli Berici`
+- `Colline Gavi`
+- `Colombera Asd`
+- `Conero`
+- `Continental Verbania`
 
 Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anche a far emergere i primi candidati realmente importabili.
 
@@ -265,22 +323,25 @@ Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anc
 ## Segnaposto operativo
 
 Ultimo punto raggiunto:
-- batch forti GesGolf processati fino a `Casentino`;
-- club FIG/GesGolf forti processati totali: 36;
+- batch forti GesGolf processati fino a `Cortina Ssd`;
+- club FIG/GesGolf forti processati totali: 56;
 - ultimo batch eseguito:
-  - `Brianza`
-  - `Ca' Amata`
-  - `Ca' Nave Ssd`
-  - `Ca' Ulivi`
-  - `Campodoglio`
-  - `Cansiglio`
-  - `Caorle`
-  - `Carimate`
-  - `Casalunga`
-  - `Casentino`
-- ultimo club scritto su Supabase: `Caorle`;
+  - `Citta' D'Asti`
+  - `Claviere`
+  - `Colli Bergamo`
+  - `Colli Berici`
+  - `Colline Gavi`
+  - `Colombaro`
+  - `Colombera Asd`
+  - `Conero`
+  - `Continental Verbania`
+  - `Cortina Ssd`
+- ultimo club scritto su Supabase: `Cortina Ssd`;
 - ultimi club sbloccati e scritti come arancio / `needs_review`:
-  - `Caorle`
+  - `Citta' D'Asti`
+  - `Colli Bergamo`
+  - `Colombaro`
+  - `Cortina Ssd`
   - `Bogliaco`
   - `Bollina`
 
