@@ -368,11 +368,20 @@ Ultimo punto raggiunto:
 - ultimo club scritto su Supabase: `Fioranello`;
 - ultimi club sbloccati e scritti come arancio / `needs_review`:
   - `Fioranello`
-  - `Bogliaco`
-  - `Bollina`
 
 Ripartenza prossima sessione:
-- continuare con il prossimo blocco di 10 club fortemente matchati FIG/GesGolf dopo `Boves`;
+- continuare con il prossimo blocco di 10 club fortemente matchati FIG/GesGolf dopo `Firenze Ugolino`;
+- prossimo batch previsto:
+  - `Folgaria`
+  - `Fonti`
+  - `Franciacorta`
+  - `Frassanelle`
+  - `Fronde`
+  - `Gardagolf`
+  - `Garlenda`
+  - `Girasoli`
+  - `Globale Jesolo`
+  - `Grado`
 - usare lo stesso metodo:
   1. scrape batch GesGolf;
   2. rigenera route mapping;
