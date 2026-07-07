@@ -2,24 +2,32 @@
 
 ## Scorecard Validation & Certification Pipeline
 
+Versione 2.0
+
 ### Executive Summary
 
 Stablr Course Data Governance definisce il modo in cui Stablr acquisisce, valuta, certifica, pubblica e mantiene nel tempo i dati dei campi da golf italiani.
 
 La Scorecard Validation & Certification Pipeline è una parte di questa governance: il processo con cui i dati buca-per-buca vengono normalizzati, confrontati con evidenze, controllati da guardrail, eventualmente certificati da Stablr e pubblicati nel layer giocabile.
 
-Stablr non vuole essere un semplice aggregatore di scorecard. Vuole diventare la versione più affidabile, tracciabile e giocabile dei campi italiani.
+Stablr non costruisce semplicemente scorecard. Stablr esercita una responsabilità editoriale sui dati che decide di rendere giocabili, visibili e certificati.
+
+Ogni percorso pubblicato rappresenta una responsabilità editoriale di Stablr.
+
+Stablr vuole diventare la versione più affidabile, tracciabile e giocabile dei campi italiani: non perché possiede tutte le fonti, ma perché sa distinguere Source, Evidence, decisione editoriale e storico delle versioni.
 
 Per questo motivo devono restare sempre separati:
 
 - catalogo ufficiale FIG;
-- fonti operative come GesGolf;
-- evidenze raccolte da utenti, club e admin;
+- Source operative come GesGolf;
+- Evidence raccolte da utenti, club e admin;
 - layer certificato Stablr.
 
 Il badge verde non indica semplicemente che un dato arriva da una fonte “buona”. Indica che Stablr ha preso una decisione editoriale esplicita: quel percorso è certificato da Stablr.
 
 Il badge arancio non è solo una fase temporanea prima del verde. È uno stato stabile e legittimo: il percorso è giocabile, i dati sono sufficientemente affidabili, ma Stablr non li ha ancora certificati.
+
+Le Source possono cambiare, le Evidence possono aumentare, la certificazione può evolvere. Il dato rimane sempre legato al percorso FIG.
 
 L’unità minima di governo del dato è sempre:
 
@@ -37,7 +45,7 @@ non il club intero.
 
 Stablr può accelerare la copertura dei club italiani tramite import, automazioni e contributi della community, ma non deve fingere una certezza che non possiede.
 
-È preferibile avere un percorso arancio, giocabile e trasparente, rispetto a un percorso verde certificato senza evidenze sufficienti.
+È preferibile avere un percorso arancio, giocabile e trasparente, rispetto a un percorso verde certificato senza Evidence sufficienti.
 
 ### 1.2 FIG come catalogo ufficiale chiuso
 
@@ -68,7 +76,21 @@ Stablr distingue sempre tra Source ed Evidence.
 
 Una Source può fornire dati. Una Evidence aiuta Stablr a decidere se quei dati sono affidabili, pubblicabili o certificabili.
 
-### 1.4 Nessun aggiornamento live senza controllo
+Questa distinzione deve restare stabile in tutto il prodotto: una fonte non diventa automaticamente una prova sufficiente, e una prova non diventa automaticamente una nuova fonte strutturata.
+
+### 1.4 Data Ownership
+
+Il dato appartiene sempre al percorso FIG.
+
+Le Source possono cambiare. Le Evidence possono aumentare. La certificazione può evolvere. Ma la responsabilità editoriale, lo storico e lo stato pubblicato devono restare agganciati a:
+
+```text
+fig_club + fig_playable_course
+```
+
+Questo evita che import, fotografie o verifiche puntuali creino identità parallele del percorso.
+
+### 1.5 Nessun aggiornamento live senza controllo
 
 Foto, OCR, import GesGolf o contributi utenti non devono mai aggiornare direttamente il database live.
 
@@ -79,7 +101,7 @@ Ogni dato passa da:
 - valutazione;
 - decisione di pubblicazione o certificazione.
 
-### 1.5 Certificazione come decisione editoriale
+### 1.6 Certificazione come decisione editoriale
 
 Il verde è una decisione Stablr.
 
@@ -92,12 +114,14 @@ Questo dato proviene da una fonte nota.
 Significa:
 
 ```text
-Stablr certifica questo percorso come affidabile e giocabile.
+Percorso certificato da Stablr.
 ```
+
+La certificazione non è una proprietà della Source. FIG, GesGolf, una scorecard ufficiale o una mail del club possono contribuire alla decisione, ma non certificano automaticamente il percorso dentro Stablr.
 
 La certificazione deve essere tracciabile, motivata e reversibile tramite versioning.
 
-### 1.6 Arancio come stato stabile
+### 1.7 Arancio come stato stabile
 
 L’arancio non è un “quasi verde”.
 
@@ -105,20 +129,29 @@ Significa:
 
 - percorso giocabile;
 - dati tecnicamente coerenti;
+- affidabile entro i limiti delle Source disponibili;
 - nessun blocco critico;
 - certificazione Stablr non ancora concessa.
 
 Un percorso può restare arancio anche a tempo indeterminato.
 
-### 1.7 Audit completo
+### 1.8 Automation Philosophy
+
+L’automazione accelera il lavoro editoriale, ma non lo sostituisce.
+
+Import, scraping, OCR, matching e Quality Score possono aiutare Stablr ad acquisire, normalizzare, valutare e prioritizzare i percorsi. Nessun algoritmo certifica automaticamente un percorso.
+
+La decisione verde resta sempre umana, motivata e auditabile.
+
+### 1.9 Audit completo
 
 Ogni decisione significativa deve registrare:
 
 - chi ha deciso;
 - quando;
 - su quale percorso FIG;
-- con quali fonti;
-- con quali evidenze;
+- con quali Source;
+- con quali Evidence;
 - con quale motivazione;
 - quale stato precedente è stato sostituito.
 
@@ -129,19 +162,19 @@ Ogni decisione significativa deve registrare:
 Il ciclo di vita del dato segue questo flusso:
 
 ```text
-Acquisizione
+Acquire
 ↓
-Normalizzazione
+Normalize
 ↓
 Guardrail
 ↓
-Valutazione
+Evaluate
 ↓
-Certification Decision
+Certify
 ↓
-Pubblicazione
+Publish
 ↓
-Versioning
+Version
 ↓
 Audit
 ```
@@ -159,7 +192,7 @@ I dati possono arrivare da:
 - comunicazione diretta del club;
 - esperienza sul campo di admin o collaboratori.
 
-L’acquisizione non implica mai pubblicazione.
+Acquire non implica mai Publish.
 
 ### 2.2 Normalizzazione
 
@@ -171,8 +204,8 @@ Ogni dato acquisito viene ricondotto a:
 - par;
 - Stroke Index;
 - eventuale hole mapping;
-- fonte;
-- evidenze collegate;
+- Source;
+- Evidence collegate;
 - anomalie rilevate.
 
 ### 2.3 Guardrail
@@ -196,13 +229,13 @@ Esempi:
 La valutazione combina:
 
 - coerenza tecnica;
-- fonti disponibili;
-- evidenze;
+- Source disponibili;
+- Evidence disponibili;
 - guardrail;
 - note admin;
 - eventuale Quality Score interno.
 
-La valutazione prepara la decisione, ma non la sostituisce.
+Evaluate prepara la decisione, ma non la sostituisce.
 
 ### 2.5 Certification Decision
 
@@ -214,12 +247,14 @@ L’admin decide se:
 - lasciare arancio;
 - bloccare;
 - segnare problema noto;
-- richiedere ulteriori evidenze;
+- richiedere ulteriori Evidence;
 - contattare il club.
+
+Certify è sempre una decisione editoriale. Può essere supportata da automazione, ma non prodotta automaticamente dall’automazione.
 
 ### 2.6 Pubblicazione
 
-La pubblicazione rende un dato disponibile nel layer giocabile.
+Publish rende un dato disponibile nel layer giocabile.
 
 Può avvenire in due forme:
 
@@ -234,13 +269,15 @@ Ogni scorecard certificata o pubblicata deve poter essere sostituita da una nuov
 
 Una versione vecchia diventa superseded.
 
+Una certificazione non scade automaticamente, ma può perdere freschezza nel tempo. La Certification Freshness indica quanto la decisione verde resta attuale rispetto a nuove Source, nuove Evidence o possibili cambiamenti del campo.
+
 ### 2.8 Audit
 
 L’audit conserva:
 
 - decisioni;
 - motivazioni;
-- evidenze usate;
+- Evidence usate;
 - conflitti risolti;
 - versioni precedenti;
 - admin/verificatori coinvolti.
@@ -275,6 +312,10 @@ Percorso certificato da Stablr.
 
 È una decisione editoriale, non una proprietà automatica della fonte.
 
+Non significa semplicemente “verificato”.
+
+Significa che Stablr si assume la responsabilità editoriale di quel percorso pubblicato: dati, mapping, coerenza e motivazione della certificazione sono stati valutati e ritenuti difendibili.
+
 Un percorso verde deve avere:
 
 - dati buca-per-buca completi;
@@ -288,7 +329,7 @@ Copy UX suggerita:
 
 ```text
 Certificato Stablr
-Dati verificati e certificati da Stablr.
+Percorso certificato da Stablr.
 ```
 
 ### 4.2 Arancio — Giocabile, non certificato
@@ -296,7 +337,7 @@ Dati verificati e certificati da Stablr.
 L’arancio significa:
 
 ```text
-Giocabile, dati da confermare.
+Giocabile, non certificato.
 ```
 
 Non è necessariamente temporaneo.
@@ -304,9 +345,12 @@ Non è necessariamente temporaneo.
 Un percorso può restare arancio se:
 
 - i dati sono sufficientemente coerenti;
+- il percorso è affidabile entro i limiti delle Source disponibili;
 - non ci sono blocchi critici;
-- manca una evidenza forte;
+- manca una Evidence forte;
 - Stablr non ha ancora deciso di certificarlo.
+
+L’arancio non è un errore di prodotto. È un modo trasparente per accelerare la copertura mantenendo separata la giocabilità dalla certificazione editoriale.
 
 Copy UX suggerita:
 
@@ -352,6 +396,10 @@ FIG può essere autoritativa su CR/Slope, ma non necessariamente contiene tutte 
 
 GesGolf può essere utile sul buca-per-buca, ma non certifica automaticamente la correttezza Stablr.
 
+Una Source può essere molto utile senza essere certificante. Il valore di una Source dipende dal tipo di dato: FIG governa l’identità ufficiale del percorso, GesGolf può aiutare sul dato operativo, Stablr decide cosa pubblicare e cosa certificare.
+
+Le Source non possiedono lo stato del percorso. Lo stato vive sul percorso FIG governato da Stablr.
+
 ---
 
 ## 6. Evidence Model
@@ -373,6 +421,8 @@ Le evidenze non sono scorecard concorrenti.
 
 Sono elementi che rafforzano o indeboliscono la fiducia nella scorecard corrente.
 
+Una Evidence può confermare un dato proveniente da una Source, contraddirlo o renderlo più forte. Può anche essere parziale: ad esempio una foto può confermare par e Stroke Index ma non le distanze.
+
 | Evidence | Forza indicativa |
 |---|---|
 | PDF ufficiale club aggiornato | alta |
@@ -388,7 +438,7 @@ Sono elementi che rafforzano o indeboliscono la fiducia nella scorecard corrente
 
 La Confidence riguarda l’affidabilità di un singolo dato, non lo stato complessivo del percorso.
 
-In futuro dati diversi potrebbero avere confidence diverse:
+È un principio architetturale futuro: dati diversi della stessa scorecard potrebbero avere confidence diverse.
 
 - Par;
 - Stroke Index;
@@ -409,6 +459,8 @@ La Confidence non decide automaticamente certificazione o pubblicazione.
 
 Serve a supportare admin e futuri strumenti di quality control.
 
+Esempio: il Par potrebbe avere confidence alta perché confermato da più Evidence, mentre lo Stroke Index potrebbe restare medio perché disponibile solo da una Source operativa. La certificazione finale valuta l’insieme, ma non cancella queste differenze interne.
+
 ---
 
 ## 8. Quality Score interno
@@ -417,13 +469,15 @@ Il Quality Score è un indicatore interno, non visibile agli utenti.
 
 Serve a ordinare, filtrare e prioritizzare le decisioni admin.
 
-Non certifica automaticamente.
+Non certifica automaticamente e non deve essere mostrato come badge pubblico.
+
+È un supporto operativo per capire dove intervenire prima, quali percorsi sono più vicini alla certificazione e quali meritano attenzione. La certificazione resta una decisione editoriale umana.
 
 ### Fattori che aumentano il Quality Score
 
 - FIG e GesGolf coerenti;
 - scorecard ufficiale disponibile;
-- più evidenze concordanti;
+- più Evidence concordanti;
 - nessun guardrail;
 - dati completi;
 - verifica admin recente;
@@ -434,9 +488,9 @@ Non certifica automaticamente.
 - route duplicate;
 - dati provvisori;
 - SI compressi non risolti;
-- mismatch tra fonti;
+- mismatch tra Source;
 - foto illeggibili;
-- evidenze vecchie;
+- Evidence vecchie;
 - assenza di scorecard;
 - club complesso.
 
@@ -453,10 +507,10 @@ Mostra prima i percorsi arancio con Quality Score alto: sono i candidati miglior
 | Ruolo | Responsabilità |
 |---|---|
 | Utente | gioca, segnala, carica scorecard |
-| Uploader | crea una bozza o fornisce evidenza |
+| Uploader | crea una bozza o fornisce Evidence |
 | Admin | valuta, certifica, blocca, pubblica |
 | Stablr | definisce criteri, mantiene governance, gestisce qualità |
-| Club/segreteria | può fornire evidenze ufficiali o conferme |
+| Club/segreteria | può fornire Evidence ufficiali o conferme |
 
 ---
 
@@ -482,7 +536,7 @@ Filtri:
 - stato;
 - club;
 - percorso FIG;
-- fonte;
+- Source;
 - evidence type;
 - guardrail;
 - Quality Score;
@@ -497,12 +551,12 @@ Mostra:
 - stato attuale;
 - dati live;
 - dati GesGolf;
-- evidenze;
+- Evidence;
 - anomalie;
 - note;
 - cronologia decisioni.
 
-### 10.4 Confronto evidenze
+### 10.4 Confronto Evidence
 
 Tabella per buca:
 
@@ -535,7 +589,7 @@ Flusso:
 5. Admin confronta:
    - FIG;
    - GesGolf;
-   - eventuali evidenze;
+   - eventuali Evidence;
    - guardrail;
    - Quality Score.
 6. Admin decide:
@@ -551,13 +605,13 @@ Flusso:
 Flusso:
 
 1. Utente carica foto.
-2. Nasce una bozza privata o evidenza collegata.
+2. Nasce una bozza privata o Evidence collegata.
 3. Se l’utente completa/invia, passa a in_review.
 4. Admin confronta foto con:
    - FIG;
    - GesGolf;
    - dati live;
-   - altre evidenze.
+   - altre Evidence.
 5. Admin può:
    - correggere;
    - chiedere supporto;
@@ -579,7 +633,7 @@ La foto non pubblica mai direttamente.
 | percorso provvisorio | review | non certificare automaticamente |
 | par totale incoerente | blocco/review | dipende dalla gravità |
 | club complesso | review | workflow dedicato |
-| fonte divergente | review | confronto evidenze |
+| Source divergente | review | confronto Evidence |
 
 I guardrail non sono un fastidio operativo: sono ciò che permette alla pipeline di scalare senza degradare la qualità.
 
@@ -655,11 +709,13 @@ Un percorso può diventare certificato se:
 - ha par coerenti;
 - ha SI validi e completi;
 - non ha guardrail bloccanti;
-- ha almeno una evidenza forte o più evidenze coerenti;
+- ha almeno una Evidence forte o più Evidence coerenti;
 - l’admin ha registrato una decisione motivata;
 - la versione pubblicata è tracciabile.
 
 Il verde non richiede necessariamente conferma del club, ma richiede una decisione Stablr difendibile.
+
+La certificazione non deriva automaticamente da un punteggio, da una Source o da una singola Evidence. È il risultato di una valutazione editoriale che considera dati, contesto, rischi e responsabilità di pubblicazione.
 
 ---
 
@@ -676,7 +732,9 @@ Ogni decisione deve tracciare:
 - Evidence usate;
 - motivazione;
 - eventuali problemi noti;
-- versione generata o aggiornata.
+- versione generata o aggiornata;
+- livello di Certification Freshness, quando rilevante;
+- nuove Source o Evidence che hanno motivato una rivalutazione.
 
 Esempio:
 
@@ -684,6 +742,8 @@ Esempio:
 Certificato da Giuseppe il 2026-07-05.
 Motivo: FIG + GesGolf coerenti, scorecard ufficiale verificata.
 ```
+
+L’audit deve rendere ricostruibile non solo il dato finale, ma anche perché Stablr ha scelto di pubblicarlo, lasciarlo arancio, certificarlo, bloccarlo o segnalarlo come problema noto.
 
 ---
 
@@ -707,9 +767,26 @@ Non serve nuova versione per:
 
 Le versioni precedenti non si cancellano.
 
+Nel layer live deve esistere una sola versione Published per percorso giocabile. Le versioni precedenti restano storiche e auditabili, ma non competono con la versione corrente usata nel gioco.
+
+### Certification Freshness
+
+La Certification Freshness indica quanto una certificazione resta attuale nel tempo.
+
+Una certificazione verde non scade automaticamente. Tuttavia può diventare meno fresca se:
+
+- passa molto tempo dall’ultima decisione;
+- emergono nuove Evidence;
+- cambia il sito ufficiale del club;
+- GesGolf o FIG mostrano variazioni rilevanti;
+- gli utenti segnalano discrepanze;
+- il club aggiorna scorecard, routing o dati buca.
+
+La freshness non rimuove da sola il verde. Serve a suggerire monitoraggio, rivalutazione o richiesta di conferma.
+
 ---
 
-## 19. Conflitti tra fonti ed evidenze
+## 19. Conflitti tra Source ed Evidence
 
 Priorità indicativa:
 
@@ -720,12 +797,14 @@ Priorità indicativa:
 5. Foto utente.
 6. Segnalazioni community.
 
-Se fonti ed evidenze divergono:
+Se Source ed Evidence divergono:
 
 - non certificare automaticamente;
 - aprire conflict review;
 - documentare la divergenza;
-- scegliere fonte prevalente solo con nota admin.
+- scegliere Source prevalente solo con nota admin.
+
+Quando possibile, la decisione deve indicare se il conflitto riguarda una Source, una Evidence o l’interpretazione Stablr del percorso FIG.
 
 ---
 
@@ -737,8 +816,8 @@ MVP minimo:
 - lista guardrail/bloccati;
 - dettaglio percorso FIG;
 - tabella buche/par/SI;
-- fonti disponibili;
-- evidenze disponibili;
+- Source disponibili;
+- Evidence disponibili;
 - note admin;
 - azioni:
   - certifica;
@@ -752,7 +831,8 @@ Non servono subito:
 - OCR avanzato;
 - workflow email club;
 - dashboard qualità nazionale completa;
-- version diff visuale.
+- version diff visuale;
+- algoritmo automatico di certificazione.
 
 ---
 
@@ -771,7 +851,7 @@ Certification Surface minima:
 Integrazione piena scorecard upload:
 
 - foto;
-- evidenze multiple;
+- Evidence multiple;
 - confronto visuale.
 
 ### Fase 3
@@ -789,7 +869,7 @@ Quality dashboard:
 - copertura nazionale;
 - score medio;
 - percorsi a rischio;
-- certificazioni scadute.
+- certificazioni da rivalutare per freshness.
 
 ### Fase 5
 
@@ -820,4 +900,35 @@ Governance continuativa:
 - [ ] Badge arancio come “Giocabile, non certificato”
 - [ ] Nessun publish automatico da foto/import
 - [ ] Versioning concettualmente supportato
+- [ ] Certification Freshness visibile almeno agli admin
+- [ ] Decisione verde sempre motivata e auditabile
 
+---
+
+## 23. Decision Records
+
+Questa sezione conserva le motivazioni architetturali principali, senza raccontare la storia del progetto.
+
+### 23.1 FIG come catalogo ufficiale
+
+FIG è il riferimento per identità club, percorsi ufficiali, tee, Course Rating e Slope Rating perché rappresenta il catalogo federale. Stablr non deve creare identità parallele quando un percorso FIG esiste.
+
+### 23.2 GesGolf come Source operativa, non certificante
+
+GesGolf è prezioso per il dato buca-per-buca, par, Stroke Index e hole mapping quando disponibile. Tuttavia non certifica automaticamente un percorso Stablr: fornisce una Source operativa da valutare, normalizzare e confrontare con Evidence.
+
+### 23.3 Verde come decisione editoriale
+
+Il badge verde indica “Percorso certificato da Stablr”. Non è una proprietà ereditata da FIG, GesGolf o da una singola Evidence. Serve una decisione editoriale esplicita, motivata e auditabile.
+
+### 23.4 Arancio come stato stabile
+
+L’arancio consente copertura e giocabilità senza simulare una certezza non ancora raggiunta. Può durare indefinitamente se il percorso resta affidabile entro i limiti delle Source disponibili ma non certificato da Stablr.
+
+### 23.5 Una sola versione Published
+
+Per evitare ambiguità nel gioco, ogni percorso deve avere una sola versione Published corrente. Le versioni precedenti restano disponibili per audit, confronto e rollback concettuale, ma non devono competere nel layer live.
+
+### 23.6 Separazione tra staging e live
+
+Lo staging permette ad acquisizioni, import, foto e verifiche di essere valutati prima di incidere sull’esperienza utente. Il live deve contenere solo dati pubblicati tramite decisione controllata.
