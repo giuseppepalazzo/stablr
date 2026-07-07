@@ -196,6 +196,42 @@ function inferImportProfile(routeCandidates, figClub) {
   };
 }
 
+function selectSimplePhysicalNineRouteCandidate(routeCandidates) {
+  const nineHoleCandidates = routeCandidates.filter(
+    (candidate) => Number(candidate.ges_holes_count) === 9
+  );
+
+  assert(
+    nineHoleCandidates.length > 0,
+    "Campo fisico 9 buche senza route GesGolf da 9 buche import_ready."
+  );
+
+  return [...nineHoleCandidates].sort((left, right) => {
+    const leftName = `${left.suggested_fig_name || ""} ${left.ges_route_name || ""}`;
+    const rightName = `${right.suggested_fig_name || ""} ${right.ges_route_name || ""}`;
+    const leftIsGenericNine = !isPrimeNineName(leftName) && !isSecondNineName(leftName);
+    const rightIsGenericNine = !isPrimeNineName(rightName) && !isSecondNineName(rightName);
+
+    if (leftIsGenericNine !== rightIsGenericNine) {
+      return leftIsGenericNine ? -1 : 1;
+    }
+
+    const leftPar = Number(left.ges_total_par || 0);
+    const rightPar = Number(right.ges_total_par || 0);
+    if (leftPar !== rightPar) return leftPar - rightPar;
+
+    return String(left.ges_route_name || "").localeCompare(String(right.ges_route_name || ""), "it");
+  })[0];
+}
+
+function simplifyRouteCandidatesForProduct(routeCandidates, importProfile) {
+  if (importProfile !== "physical_9_with_official_18_variants") {
+    return routeCandidates;
+  }
+
+  return [selectSimplePhysicalNineRouteCandidate(routeCandidates)];
+}
+
 async function findGesGolfNormalizedPath(figClubName, circoloId) {
   const expectedPath = path.join(
     GESGOLF_NORMALIZED_DIR,
@@ -220,9 +256,12 @@ async function findGesGolfNormalizedPath(figClubName, circoloId) {
 }
 
 function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCourses, importProfile) {
+  const isSimplifiedPhysicalNine = importProfile === "physical_9_with_official_18_variants";
+  const displayName = isSimplifiedPhysicalNine ? "9 Buche" : figCourse.name;
+
   return {
     external_key: figCourse.source_external_id,
-    name: figCourse.name,
+    name: displayName,
     holes_count: figCourse.holes_count,
     total_par: figCourse.total_par,
     display_order: figCourse.display_order ?? null,
@@ -233,6 +272,17 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCours
       kind: "route",
       official_catalog: "fig",
       hole_by_hole_source: "gesgolf",
+      ...(displayName !== figCourse.name
+        ? {
+            fig_display_name: figCourse.name,
+            stablr_product_name: displayName
+          }
+        : {}),
+      ...(isSimplifiedPhysicalNine
+        ? {
+            product_simplification: "simple_physical_9_single_playable_route"
+          }
+        : {}),
       gesgolf: {
         circolo_id: routeCandidate.circolo_id,
         gesgolf_club: routeCandidate.gesgolf_club,
@@ -304,8 +354,9 @@ async function main() {
     (figClub.playable_courses || []).map((course) => [course.source_external_id, course])
   );
   const { physicalHoleCount, importProfile } = inferImportProfile(routeCandidates, figClub);
+  const productRouteCandidates = simplifyRouteCandidatesForProduct(routeCandidates, importProfile);
 
-  const routes = routeCandidates
+  const routes = productRouteCandidates
     .map((candidate) => {
       const figCourse = figCourseMap.get(candidate.suggested_fig_source_external_id);
       assert(

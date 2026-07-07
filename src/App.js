@@ -1242,6 +1242,7 @@ function App() {
 
     const normalizedCourses = (data || []).map((club) => {
       const routes = (Array.isArray(club.course_routes) ? club.course_routes : [])
+        .filter((route) => route.is_active !== false)
         .map((route) => {
           const routeHoles = (Array.isArray(route.route_holes) ? route.route_holes : [])
             .map((hole) => ({
@@ -1295,6 +1296,7 @@ function App() {
 
       const primaryRoute = routes.length === 1 ? routes[0] : null;
       const routeCombinations = (Array.isArray(club.route_combinations) ? club.route_combinations : [])
+        .filter((combination) => combination.is_active !== false)
         .map((combination) => {
           const combinationHoles = (
             Array.isArray(combination.route_combination_holes)

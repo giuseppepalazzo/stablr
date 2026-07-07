@@ -303,6 +303,36 @@ async function replaceCombinationTees(supabase, combinationId, tees) {
   if (error) throw error;
 }
 
+async function deactivateStaleFigRoutes(supabase, clubId, activeRouteIds) {
+  let query = supabase
+    .from("course_routes")
+    .update({ is_active: false })
+    .eq("club_id", clubId)
+    .eq("source_system", "fig");
+
+  if (activeRouteIds.length) {
+    query = query.not("id", "in", `(${activeRouteIds.join(",")})`);
+  }
+
+  const { error } = await query;
+  if (error) throw error;
+}
+
+async function deactivateStaleFigCombinations(supabase, clubId, activeCombinationIds) {
+  let query = supabase
+    .from("route_combinations")
+    .update({ is_active: false })
+    .eq("club_id", clubId)
+    .eq("source_system", "fig");
+
+  if (activeCombinationIds.length) {
+    query = query.not("id", "in", `(${activeCombinationIds.join(",")})`);
+  }
+
+  const { error } = await query;
+  if (error) throw error;
+}
+
 async function main() {
   loadSeedEnvFile();
 
@@ -324,16 +354,21 @@ async function main() {
   const club = await upsertClub(supabase, data.club, createdBy);
 
   const routeIdMap = new Map();
+  const activeRouteIds = [];
 
   for (const routePayload of data.routes) {
     const route = await upsertRoute(supabase, club.id, routePayload);
     routeIdMap.set(routePayload.external_key, route.id);
+    activeRouteIds.push(route.id);
     await replaceRouteHoles(supabase, route.id, routePayload.holes || []);
     await replaceRouteTees(supabase, route.id, routePayload.tees || []);
   }
 
+  const activeCombinationIds = [];
+
   for (const combinationPayload of data.route_combinations) {
     const combination = await upsertCombination(supabase, club.id, combinationPayload, routeIdMap);
+    activeCombinationIds.push(combination.id);
     await replaceCombinationHoles(
       supabase,
       combination.id,
@@ -342,6 +377,9 @@ async function main() {
     );
     await replaceCombinationTees(supabase, combination.id, combinationPayload.tees || []);
   }
+
+  await deactivateStaleFigCombinations(supabase, club.id, activeCombinationIds);
+  await deactivateStaleFigRoutes(supabase, club.id, activeRouteIds);
 
   const summary = summarizePayload(data);
   console.log("Seed completato.");

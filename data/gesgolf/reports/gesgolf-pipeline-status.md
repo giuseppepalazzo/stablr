@@ -10,6 +10,7 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
 - Non toccare i club protetti:
   - Mare di Roma
   - Parco De' Medici
+- Regola permanente: Mare di Roma e Parco De' Medici non devono essere toccati automaticamente da batch, seed correttivi o semplificazioni.
 - Parco De' Medici resta benchmark di confronto, non fonte da sovrascrivere.
 - Prima di convalidare un nuovo campo per il DB live, usare un controllo a tre livelli:
   1. FIG come catalogo ufficiale per club, percorsi, Course Rating e Slope.
@@ -18,8 +19,13 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
 - Se il sito ufficiale non e' disponibile o non espone dati sufficienti, il club resta da review manuale.
 - Regola default giro:
   - club fisico 9 buche con 18 ufficiale derivato, ad esempio Albisola/Aosta/Mare di Roma: default 9 buche;
-  - club fisico 18 buche con Prime Nove/Seconde Nove, ad esempio Ambrosiano/Antognolla: default 18 buche;
+  - club fisico 18 buche con Prime Nove/Seconde Nove, ad esempio Ambrosiano/Antognolla/Fioranello: default 18 buche;
   - club complesso o con piu' percorsi/combinazioni ufficiali da 9 buche, ad esempio Parco De' Medici: default 18 buche.
+- Regola di semplificazione prodotto:
+  - i club semplici fisici da 9 buche devono esporre una sola route giocabile `9 Buche`;
+  - eventuali route GesGolf/FIG da 18 buche per club fisici da 9 restano Source tecnica per SI, par e controllo, ma non diventano opzioni giocabili;
+  - i club semplici fisici da 18 buche devono esporre solo `18 Buche`, `Prime Nove` e `Seconde Nove`;
+  - i club complessi multi-percorso restano esclusi da questa semplificazione e saranno trattati con workflow dedicato.
 
 ## Stato attuale
 
@@ -272,6 +278,31 @@ Sesto grab batch semplice:
   - una route 9 buche aveva uno Stroke Index non valido;
   - non e' stato scritto su Supabase.
 - Gli altri club restano in review per provvisori, duplicati, warning GesGolf o mapping non sufficientemente chiaro.
+
+Semplificazione route giocabili:
+- Decisione prodotto: per i club semplici non si espone la complessita' FIG/GesGolf come opzioni giocabili.
+- I club fisici da 9 buche devono avere una sola route attiva `9 Buche`; eventuali 18 ufficiali o varianti `Prime Nove` restano Source tecnica, non opzione giocabile.
+- I club fisici da 18 buche devono avere solo `18 Buche`, `Prime Nove`, `Seconde Nove`.
+- Sono stati rigenerati gli import normalizzati esistenti secondo questa regola.
+- Club fisici da 9 ora normalizzati con una sola route `9 Buche`:
+  - `Albisola`
+  - `Aosta Arsanieres`
+  - `Aosta Brissogne`
+  - `Arenzano Pineta`
+  - `Bollina`
+  - `Citta' D'Asti`
+  - `Colli Bergamo`
+  - `Colombaro`
+  - `Cortina Ssd`
+- Club fisici da 18 ora normalizzati con sole route essenziali:
+  - `Ambrosiano`
+  - `Antognolla`
+  - `Bagnaia`
+  - `Barlassina`
+  - `Bogliaco`
+  - `Caorle`
+  - `Fioranello`
+- Da riallineare su Supabase con seed correttivo: il seed ora disattiva le route FIG stale invece di cancellarle.
 - Sono stati sbloccati e scritti come `data_status: needs_review`:
   - `Arenzano Pineta` *(dal batch precedente, mapping manuale semplice completato)*
   - `Barlassina`
