@@ -7449,16 +7449,38 @@ function App() {
     }
     const maxStartHolePage = Math.max(0, startHolePages.length - 1);
     const visibleStartHolePage = Math.min(startHolePage, maxStartHolePage);
-    const previewSummary = usingOfficialCombination
-      ? `${matchedOfficialCombination.frontRouteName} + ${matchedOfficialCombination.backRouteName}`
-      : usingManualRoutePair
-        ? `${selectedPrimaryRoute.name} + ${selectedSecondaryRoute.name}`
-        : selectedPrimaryRoute
-          ? Number(roundSetup.totalCompetitionHoles) === 18 &&
-            Number(selectedPrimaryRoute.holesCount) === 9
-            ? `${selectedPrimaryRoute.name} ripetuto due volte`
-            : selectedPrimaryRoute.name
-          : "Seleziona un percorso";
+    const previewSummary = (() => {
+      if (usingOfficialCombination) {
+        return `${matchedOfficialCombination.frontRouteName} + ${matchedOfficialCombination.backRouteName}`;
+      }
+
+      if (usingManualRoutePair) {
+        const primaryDisplay = getRoundSetupRouteDisplay(selectedPrimaryRoute, 9);
+        const secondaryDisplay = getRoundSetupRouteDisplay(selectedSecondaryRoute, 9);
+        return `${primaryDisplay.title} + ${secondaryDisplay.title}`;
+      }
+
+      if (!selectedPrimaryRoute) {
+        return "Seleziona un percorso";
+      }
+
+      if (
+        Number(roundSetup.totalCompetitionHoles) === 18 &&
+        Number(selectedPrimaryRoute.holesCount) === 9
+      ) {
+        return "9 buche ripetute due volte";
+      }
+
+      const routeDisplay = getRoundSetupRouteDisplay(
+        selectedPrimaryRoute,
+        roundSetup.totalCompetitionHoles
+      );
+      const genericRoundLabel = `${Number(roundSetup.totalCompetitionHoles)} buche`;
+
+      return normalizeCourseName(routeDisplay.title) === normalizeCourseName(genericRoundLabel)
+        ? ""
+        : routeDisplay.title;
+    })();
     const canUseRouteTeeSelection =
       Boolean(selectedPrimaryRoute) &&
       (!usingManualRoutePair || selectedPrimaryRoute.id === selectedSecondaryRoute?.id);
@@ -8987,7 +9009,8 @@ function App() {
             </div>
           )}
           <div style={{ marginTop: "8px", fontSize: "17px", fontWeight: 700 }}>
-            {roundSetup.totalCompetitionHoles} buche • {previewSummary}
+            {roundSetup.totalCompetitionHoles} buche
+            {previewSummary ? ` • ${previewSummary}` : ""}
           </div>
           <div
             style={{
