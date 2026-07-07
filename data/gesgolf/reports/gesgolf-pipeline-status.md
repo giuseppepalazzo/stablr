@@ -391,6 +391,16 @@ SEGNO1:
 - UI `Scegli il percorso` semplificata: niente label ridondanti tipo `9 Buche · 9 buche · Par`;
 - prossimo lavoro: continuare batch GesGolf dal blocco dopo `Firenze Ugolino`, mantenendo la nuova regola di semplificazione.
 
+SEGNO2:
+- regola UX consolidata anche nel riepilogo giro;
+- se il dettaglio ripete solo il numero buche, non va mostrato:
+  - campo fisico 9, giro 9: `9 buche`;
+  - campo fisico 9, giro 18: `18 buche · 9 buche ripetute due volte`;
+  - campo fisico 18, giro 18: `18 buche`;
+  - campo fisico 18, giro 9: `9 buche · Prime 9` oppure `9 buche · Seconde 9`;
+- questa regola vale per tutti i campi semplici gia' importati e per i prossimi import;
+- prossima task: riprendere l'import dei campi semplici dal batch dopo `Firenze Ugolino`.
+
 Ultimo punto raggiunto:
 - batch forti GesGolf processati fino a `Firenze Ugolino`;
 - club FIG/GesGolf forti processati totali: 66;
