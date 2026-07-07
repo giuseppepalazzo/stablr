@@ -7093,21 +7093,60 @@ function App() {
     );
   };
 
-  const getOptionalRouteDisplay = (routeName) => {
-    const normalizedName = String(routeName || "").trim();
-    const repeatedRouteMatch = normalizedName.match(/^9\s+buche\s+(.+?)\s+2\s+volte$/i);
+  const getRoundSetupRouteDisplay = (
+    route,
+    totalCompetitionHoles,
+    { repeatedSingleNine = false } = {}
+  ) => {
+    const routeName = normalizeWhitespace(route?.name || "");
+    const normalizedName = normalizeCourseName(routeName);
+    const routeHolesCount = Number(route?.holesCount || 0);
+    const totalHoles = Number(totalCompetitionHoles || routeHolesCount || 0);
+    const routePar = Number(route?.totalPar || 0);
+    const totalPar =
+      repeatedSingleNine && routePar
+        ? routePar * 2
+        : routePar || Number(roundSetupTotalPar || 0) || null;
+    const isPrimeNine =
+      normalizedName.includes("prime nove") ||
+      normalizedName.includes("prima nove") ||
+      normalizedName.includes("first 9");
+    const isSecondNine =
+      normalizedName.includes("seconde nove") ||
+      normalizedName.includes("seconda nove") ||
+      normalizedName.includes("second 9");
+    const isGenericNine =
+      normalizedName === "9 buche" ||
+      normalizedName === "nove buche" ||
+      normalizedName.startsWith("9 buche par");
+    const isGenericEighteen =
+      normalizedName === "18 buche" ||
+      normalizedName.startsWith("18 buche par");
+    const isGenericRoute = isGenericNine || isGenericEighteen;
+    const colorInfo = isGenericRoute || isPrimeNine || isSecondNine ? null : getRouteColor(routeName);
 
-    if (repeatedRouteMatch) {
-      const repeatedRouteName = normalizeWhitespace(repeatedRouteMatch[1] || "");
-      return {
-        label: `${repeatedRouteName} x2`,
-        colorInfo: getRouteColor(repeatedRouteName)
-      };
+    let title = routeName || `${totalHoles} buche`;
+    if (repeatedSingleNine) {
+      title = "18 buche";
+    } else if (isPrimeNine) {
+      title = "Prime 9";
+    } else if (isSecondNine) {
+      title = "Seconde 9";
+    } else if (isGenericRoute) {
+      title = `${totalHoles || routeHolesCount} buche`;
     }
 
+    const details = [
+      !repeatedSingleNine && !isGenericRoute && !isPrimeNine && !isSecondNine && totalHoles
+        ? `${totalHoles} buche`
+        : null,
+      totalPar ? `Par ${totalPar}` : null
+    ].filter(Boolean);
+
     return {
-      label: normalizedName,
-      colorInfo: getRouteColor(normalizedName)
+      title,
+      details: details.join(" • "),
+      colorInfo
     };
   };
 
@@ -7903,24 +7942,32 @@ function App() {
             </div>
             {showSelectedRouteCard ? (
               <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
-                <div
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: 700,
-                    lineHeight: 1.4,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "8px"
-                  }}
-                >
-                  {getRouteColor(selectedPrimaryRoute.name)
-                    ? renderColorDot(getRouteColor(selectedPrimaryRoute.name), 10)
-                    : null}
-                  <span>
-                    {selectedPrimaryRoute.name} · {selectedPrimaryRoute.holesCount} buche · Par{" "}
-                    {selectedPrimaryRoute.totalPar}
-                  </span>
-                </div>
+                {(() => {
+                  const displayRoute = getRoundSetupRouteDisplay(
+                    selectedPrimaryRoute,
+                    roundSetup.totalCompetitionHoles
+                  );
+                  return (
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 700,
+                        lineHeight: 1.4,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px"
+                      }}
+                    >
+                      {displayRoute.colorInfo
+                        ? renderColorDot(displayRoute.colorInfo, 10)
+                        : null}
+                      <span>
+                        {displayRoute.title}
+                        {displayRoute.details ? ` · ${displayRoute.details}` : ""}
+                      </span>
+                    </div>
+                  );
+                })()}
               </div>
             ) : showRouteOptions || !selectedPrimaryRoute ? (
               <div
@@ -7948,13 +7995,22 @@ function App() {
                     }}
                     style={setupCardOptionStyle(roundSetup.selectedRouteId === route.id)}
                   >
-                    <div style={routeNameBlockStyle}>
-                      {getRouteColor(route.name) ? renderColorDot(getRouteColor(route.name)) : null}
-                      {route.name}
-                    </div>
-                    <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                      {route.holesCount} buche • Par {route.totalPar}
-                    </div>
+                    {(() => {
+                      const displayRoute = getRoundSetupRouteDisplay(route, 9);
+                      return (
+                        <>
+                          <div style={routeNameBlockStyle}>
+                            {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                            {displayRoute.title}
+                          </div>
+                          {displayRoute.details && (
+                            <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                              {displayRoute.details}
+                            </div>
+                          )}
+                        </>
+                      );
+                    })()}
                   </div>
                 ))}
               </div>
@@ -7974,23 +8030,31 @@ function App() {
           <>
             <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
             <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
-              <div
-                style={{
-                  fontSize: "16px",
-                  fontWeight: 700,
-                  lineHeight: 1.4,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px"
-                }}
-              >
-                {getRouteColor(selectedPrimaryRoute.name)
-                  ? renderColorDot(getRouteColor(selectedPrimaryRoute.name), 10)
-                  : null}
-                <span>
-                  {selectedPrimaryRoute.name} · 18 buche · Par {(Number(selectedPrimaryRoute.totalPar) || 0) * 2}
-                </span>
-              </div>
+              {(() => {
+                const displayRoute = getRoundSetupRouteDisplay(selectedPrimaryRoute, 18, {
+                  repeatedSingleNine: true
+                });
+                return (
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: 700,
+                      lineHeight: 1.4,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px"
+                    }}
+                  >
+                    {displayRoute.colorInfo
+                      ? renderColorDot(displayRoute.colorInfo, 10)
+                      : null}
+                    <span>
+                      {displayRoute.title}
+                      {displayRoute.details ? ` · ${displayRoute.details}` : ""}
+                    </span>
+                  </div>
+                );
+              })()}
             </div>
           </>
         )}
@@ -8157,7 +8221,7 @@ function App() {
             {showSelectedRouteCard ? (
               <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
                 {(() => {
-                  const displayRoute = getOptionalRouteDisplay(selectedPrimaryRoute.name);
+                  const displayRoute = getRoundSetupRouteDisplay(selectedPrimaryRoute, 18);
                   return (
                     <div
                       style={{
@@ -8169,11 +8233,10 @@ function App() {
                         gap: "8px"
                       }}
                     >
-                      {displayRoute.colorInfo
-                        ? renderColorDot(displayRoute.colorInfo, 10)
-                        : null}
+                      {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo, 10) : null}
                       <span>
-                        {displayRoute.label} · 18 buche · Par {selectedPrimaryRoute.totalPar}
+                        {displayRoute.title}
+                        {displayRoute.details ? ` · ${displayRoute.details}` : ""}
                       </span>
                     </div>
                   );
@@ -8211,17 +8274,21 @@ function App() {
                     )}
                   >
                     {(() => {
-                      const displayRoute = getOptionalRouteDisplay(route.name);
+                      const displayRoute = getRoundSetupRouteDisplay(route, 18);
                       return (
-                        <div style={routeNameBlockStyle}>
-                          {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
-                          {displayRoute.label}
-                        </div>
+                        <>
+                          <div style={routeNameBlockStyle}>
+                            {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                            {displayRoute.title}
+                          </div>
+                          {displayRoute.details && (
+                            <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                              {displayRoute.details}
+                            </div>
+                          )}
+                        </>
                       );
                     })()}
-                    <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                      18 buche • Par {route.totalPar}
-                    </div>
                   </div>
                 ))}
               </div>
@@ -8327,13 +8394,22 @@ function App() {
                     roundSetup.selectedRouteId === route.id && !roundSetup.selectedCombinationId
                   )}
                 >
-                  <div style={routeNameBlockStyle}>
-                    {getRouteColor(route.name) ? renderColorDot(getRouteColor(route.name)) : null}
-                    {route.name}
-                  </div>
-                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                    9 buche • Par {route.totalPar}
-                  </div>
+                  {(() => {
+                    const displayRoute = getRoundSetupRouteDisplay(route, 9);
+                    return (
+                      <>
+                        <div style={routeNameBlockStyle}>
+                          {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                          {displayRoute.title}
+                        </div>
+                        {displayRoute.details && (
+                          <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                            {displayRoute.details}
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               ))}
             </div>
@@ -8383,13 +8459,22 @@ function App() {
                     roundSetup.secondaryRouteId === route.id && !roundSetup.selectedCombinationId
                   )}
                 >
-                  <div style={routeNameBlockStyle}>
-                    {getRouteColor(route.name) ? renderColorDot(getRouteColor(route.name)) : null}
-                    {route.name}
-                  </div>
-                  <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                    9 buche • Par {route.totalPar}
-                  </div>
+                  {(() => {
+                    const displayRoute = getRoundSetupRouteDisplay(route, 9);
+                    return (
+                      <>
+                        <div style={routeNameBlockStyle}>
+                          {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                          {displayRoute.title}
+                        </div>
+                        {displayRoute.details && (
+                          <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
+                            {displayRoute.details}
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               ))}
             </div>

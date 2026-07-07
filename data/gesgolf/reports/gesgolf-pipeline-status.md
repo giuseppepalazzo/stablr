@@ -382,6 +382,15 @@ Questo e' coerente con l'obiettivo: la pipeline e' prudente, ma ora comincia anc
 
 ## Segnaposto operativo
 
+SEGNO1:
+- semplificazione campi semplici completata;
+- club fisici da 9 gia' importati riallineati a una sola route giocabile `9 Buche`;
+- club fisici da 18 gia' importati riallineati a `18 Buche`, `Prime Nove`, `Seconde Nove`;
+- seed correttivo eseguito su Supabase con route FIG stale disattivate, non cancellate;
+- Mare di Roma e Parco De' Medici restano protetti e non devono essere toccati automaticamente;
+- UI `Scegli il percorso` semplificata: niente label ridondanti tipo `9 Buche · 9 buche · Par`;
+- prossimo lavoro: continuare batch GesGolf dal blocco dopo `Firenze Ugolino`, mantenendo la nuova regola di semplificazione.
+
 Ultimo punto raggiunto:
 - batch forti GesGolf processati fino a `Firenze Ugolino`;
 - club FIG/GesGolf forti processati totali: 66;
