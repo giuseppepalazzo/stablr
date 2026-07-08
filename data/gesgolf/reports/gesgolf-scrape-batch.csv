@@ -65,6 +65,16 @@ Ducato,DUCATO,700,100,safe,6,0,0,data/gesgolf/normalized/ducato/circolo-700.json
 Faenza Cicogne,FAENZA CICOGNE,166,100,warning,2,1,0,data/gesgolf/normalized/faenza-cicogne/circolo-166.json,scraped
 Fioranello,FIORANELLO,745,100,safe,6,0,0,data/gesgolf/normalized/fioranello/circolo-745.json,scraped
 Firenze Ugolino,FIRENZE UGOLINO,15,100,warning,8,2,0,data/gesgolf/normalized/firenze-ugolino/circolo-15.json,scraped
+Folgaria,FOLGARIA,79,100,warning,12,2,0,data/gesgolf/normalized/folgaria/circolo-79.json,scraped
+Fonti,FONTI,285,100,safe,5,0,0,data/gesgolf/normalized/fonti/circolo-285.json,scraped
+Franciacorta,FRANCIACORTA,69,100,warning,8,3,0,data/gesgolf/normalized/franciacorta/circolo-69.json,scraped
+Frassanelle,FRASSANELLE,88,100,warning,7,3,0,data/gesgolf/normalized/frassanelle/circolo-88.json,scraped
+Fronde,FRONDE,23,100,warning,4,1,0,data/gesgolf/normalized/fronde/circolo-23.json,scraped
+Gardagolf,GARDAGOLF,67,100,warning,6,2,0,data/gesgolf/normalized/gardagolf/circolo-67.json,scraped
+Garlenda,GARLENDA,17,100,safe,7,0,0,data/gesgolf/normalized/garlenda/circolo-17.json,scraped
+Girasoli,GIRASOLI,161,100,warning,8,3,0,data/gesgolf/normalized/girasoli/circolo-161.json,scraped
+Globale Jesolo,GLOBALE JESOLO,823,100,safe,3,0,0,data/gesgolf/normalized/globale-jesolo/circolo-823.json,scraped
+Grado,GRADO,238,100,warning,6,1,0,data/gesgolf/normalized/grado/circolo-238.json,scraped
 Acquabona,,,,,,,,,skip_not_strong
 Alta Badia,,,,,,,,,skip_not_strong
 Appiano - Golf & Country,,,,,,,,,skip_not_strong

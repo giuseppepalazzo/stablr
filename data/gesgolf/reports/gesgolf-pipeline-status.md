@@ -119,9 +119,9 @@ Esito batch:
 - `error`: 0 club
 
 Import summary attuale:
-- route totali valutate: 339
-- `import_ready`: 80
-- `needs_review`: 240
+- route totali valutate: 405
+- `import_ready`: 84
+- `needs_review`: 302
 - `protected_reference`: 11
 - `excluded_reference`: 8
 
@@ -142,6 +142,7 @@ Club gia' interamente `import_ready`:
 - `Colombaro` *(giocabile in revisione / arancio, non verde)*
 - `Cortina Ssd` *(giocabile in revisione / arancio, non verde)*
 - `Fioranello` *(giocabile in revisione / arancio, non verde)*
+- `Globale Jesolo` *(giocabile in revisione / arancio, non verde)*
 
 Secondo caso validato:
 - `Aosta Arsanieres`
@@ -401,27 +402,8 @@ SEGNO2:
 - questa regola vale per tutti i campi semplici gia' importati e per i prossimi import;
 - prossima task: riprendere l'import dei campi semplici dal batch dopo `Firenze Ugolino`.
 
-Ultimo punto raggiunto:
-- batch forti GesGolf processati fino a `Firenze Ugolino`;
-- club FIG/GesGolf forti processati totali: 66;
-- ultimo batch eseguito:
-  - `Courmayeur`
-  - `Croara Ssd`
-  - `Cus Ferrara`
-  - `Des Iles Borromees`
-  - `Dolomiti`
-  - `Druento`
-  - `Ducato`
-  - `Faenza Cicogne`
-  - `Fioranello`
-  - `Firenze Ugolino`
-- ultimo club scritto su Supabase: `Fioranello`;
-- ultimi club sbloccati e scritti come arancio / `needs_review`:
-  - `Fioranello`
-
-Ripartenza prossima sessione:
-- continuare con il prossimo blocco di 10 club fortemente matchati FIG/GesGolf dopo `Firenze Ugolino`;
-- prossimo batch previsto:
+Settimo grab batch semplice:
+- Sono stati processati altri 10 club con match FIG/GesGolf forte:
   - `Folgaria`
   - `Fonti`
   - `Franciacorta`
@@ -432,6 +414,55 @@ Ripartenza prossima sessione:
   - `Girasoli`
   - `Globale Jesolo`
   - `Grado`
+- E' stato sbloccato e scritto come `data_status: needs_review`:
+  - `Globale Jesolo`
+- `Globale Jesolo` e' stato classificato come campo fisico 18 semplice:
+  - route attive: `18 Buche`, `Prime Nove`, `Seconde Nove`;
+  - `physical_hole_count: 18`;
+  - `import_profile: physical_18_with_official_9_segments`;
+  - stato arancio / `playable_review`, non verde.
+- Gli altri club del batch restano in review:
+  - `Folgaria`: troppi percorsi/varianti 2026 e route provvisorie;
+  - `Fonti`: varianti FIG/GesGolf par 71/72 e Prime Nove par 35/36 non ancora risolte;
+  - `Franciacorta`: club multi-percorso/combinazioni;
+  - `Frassanelle`: duplicati/provvisori e seconde nove non pulite;
+  - `Fronde`: manca una Seconde Nove sicura come route 9;
+  - `Gardagolf`: club multi-percorso;
+  - `Garlenda`: molte route duplicate/provvisorie, manca coppia 9 pulita;
+  - `Girasoli`: varianti multiple e warning GesGolf;
+  - `Grado`: duplicati 18 e 9 misto non chiarito.
+
+Ultimo punto raggiunto:
+- batch forti GesGolf processati fino a `Grado`;
+- club FIG/GesGolf forti processati totali: 76;
+- ultimo batch eseguito:
+  - `Folgaria`
+  - `Fonti`
+  - `Franciacorta`
+  - `Frassanelle`
+  - `Fronde`
+  - `Gardagolf`
+  - `Garlenda`
+  - `Girasoli`
+  - `Globale Jesolo`
+  - `Grado`
+- ultimo club scritto su Supabase: `Globale Jesolo`;
+- ultimi club sbloccati e scritti come arancio / `needs_review`:
+  - `Globale Jesolo`
+
+Ripartenza prossima sessione:
+- continuare con il prossimo blocco di 10 club fortemente matchati FIG/GesGolf dopo `Grado`;
+- prossimo batch previsto:
+  - `Green Club Lainate`
+  - `Gressoney`
+  - `Is Arenas`
+  - `Is Molas Ssd`
+  - `Laghi`
+  - `Lamborghini`
+  - `Lana`
+  - `Lanzo`
+  - `Lecco`
+  - `Lignano Ssd`
 - usare lo stesso metodo:
   1. scrape batch GesGolf;
   2. rigenera route mapping;

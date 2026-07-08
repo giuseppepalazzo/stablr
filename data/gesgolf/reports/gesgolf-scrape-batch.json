@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T15:15:23.682Z",
+  "generated_at": "2026-07-08T12:20:21.844Z",
   "source": {
     "coverage_path": "/Users/giuseppepalazzo/Stablr/data/gesgolf/reports/fig-gesgolf-coverage.json",
     "fig_catalog_path": "/Users/giuseppepalazzo/Stablr/data/fig/normalized/fig-catalog-normalized.json"
@@ -14,9 +14,9 @@
     "protected_skipped": 1,
     "weak_skipped": 36,
     "processed_now": 10,
-    "processed_total": 66,
-    "scraped_safe": 38,
-    "scraped_warning": 28,
+    "processed_total": 76,
+    "scraped_safe": 41,
+    "scraped_warning": 35,
     "scraped_error": 0
   },
   "skipped": [
@@ -1034,6 +1034,126 @@
       "warning_courses": 2,
       "failed_courses": 0,
       "output": "data/gesgolf/normalized/firenze-ugolino/circolo-15.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Folgaria",
+      "gesgolf_club": "FOLGARIA",
+      "circolo_id": "79",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 12,
+      "warning_courses": 2,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/folgaria/circolo-79.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Fonti",
+      "gesgolf_club": "FONTI",
+      "circolo_id": "285",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 5,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/fonti/circolo-285.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Franciacorta",
+      "gesgolf_club": "FRANCIACORTA",
+      "circolo_id": "69",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 8,
+      "warning_courses": 3,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/franciacorta/circolo-69.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Frassanelle",
+      "gesgolf_club": "FRASSANELLE",
+      "circolo_id": "88",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 7,
+      "warning_courses": 3,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/frassanelle/circolo-88.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Fronde",
+      "gesgolf_club": "FRONDE",
+      "circolo_id": "23",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 4,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/fronde/circolo-23.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Gardagolf",
+      "gesgolf_club": "GARDAGOLF",
+      "circolo_id": "67",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 6,
+      "warning_courses": 2,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/gardagolf/circolo-67.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Garlenda",
+      "gesgolf_club": "GARLENDA",
+      "circolo_id": "17",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 7,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/garlenda/circolo-17.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Girasoli",
+      "gesgolf_club": "GIRASOLI",
+      "circolo_id": "161",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 8,
+      "warning_courses": 3,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/girasoli/circolo-161.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Globale Jesolo",
+      "gesgolf_club": "GLOBALE JESOLO",
+      "circolo_id": "823",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 3,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/globale-jesolo/circolo-823.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Grado",
+      "gesgolf_club": "GRADO",
+      "circolo_id": "238",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 6,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/grado/circolo-238.json",
       "action": "scraped"
     }
   ]

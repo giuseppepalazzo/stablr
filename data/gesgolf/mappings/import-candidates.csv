@@ -327,6 +327,72 @@ Firenze Ugolino,FIRENZE UGOLINO,15,PROVV PAR 70,Provvisorio buca 9 Par 3,fig-cou
 Firenze Ugolino,FIRENZE UGOLINO,15,UGOLINO SPECIAL,18 Buche 17 Par 4,fig-course-firenze-ugolino-18-buche-17-par-4,playable_course,low,safe,,no,needs_review,confidence_too_low
 Firenze Ugolino,FIRENZE UGOLINO,15,SECONDE DOUBLES,seconde 9 due volte par 71,fig-course-firenze-ugolino-seconde-9-due-volte-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
 Firenze Ugolino,FIRENZE UGOLINO,15,SECONDE SPECIAL,seconde 9 par 35,fig-course-firenze-ugolino-seconde-9-par-35,base_route,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,Standard,18 Buche 2026 - Par 72,fig-course-folgaria-18-buche-2026-par-72,playable_course,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,9 buche Costa,9 Buche Costa 2026,fig-course-folgaria-9-buche-costa-2026,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Folgaria,FOLGARIA,79,9 buche Sommo,9 Buche Sommo 2026,fig-course-folgaria-9-buche-sommo-2026,base_route,medium,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,buche 1-9,18 Buche 2026 - Par 71,fig-course-folgaria-18-buche-2026-par-71,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Folgaria,FOLGARIA,79,18 buche provv,18 Buche 2026 - Par 72,fig-course-folgaria-18-buche-2026-par-72,playable_course,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,18b 2026 p72,18 Buche 2026 - Par 72,fig-course-folgaria-18-buche-2026-par-72,playable_course,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,Front 9 2026,Prime Nove 2026,fig-course-folgaria-prime-nove-2026,base_route,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,Back 9 2026 p37,Seconde Nove 2026 - Par 37,fig-course-folgaria-seconde-nove-2026-par-37,base_route,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,18b 2026 p71,18 Buche 2026 - Par 71,fig-course-folgaria-18-buche-2026-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,Back 9 2026 p36,9 Buche Costa 2026,fig-course-folgaria-9-buche-costa-2026,base_route,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,9b Costa 2026,9 Buche Costa 2026,fig-course-folgaria-9-buche-costa-2026,base_route,low,safe,,no,needs_review,confidence_too_low
+Folgaria,FOLGARIA,79,9b Sommo 2026,9 Buche Sommo 2026,fig-course-folgaria-9-buche-sommo-2026,base_route,low,safe,,no,needs_review,confidence_too_low
+Fonti,FONTI,285,LE FONTI PAR 71,18 Buche Par 71 - 2023,fig-course-fonti-18-buche-par-71-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Fonti,FONTI,285,PRIME 9 PAR 35,Prime Nove Par 35 - 2023,fig-course-fonti-prime-nove-par-35-2023,base_route,medium,safe,,no,needs_review,confidence_too_low
+Fonti,FONTI,285,SECONDE 9 - 36,Seconde Nove Par 36 - 2023,fig-course-fonti-seconde-nove-par-36-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Fonti,FONTI,285,LE FONTI PAR 72,18 Buche Par 72 - 2023,fig-course-fonti-18-buche-par-72-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Fonti,FONTI,285,PRIME 9 PAR 36,Prime Nove Par 36 - 2023,fig-course-fonti-prime-nove-par-36-2023,base_route,medium,safe,,no,needs_review,confidence_too_low
+Franciacorta,FRANCIACORTA,69,BRUT/SAT,BRUT+SATEN,fig-course-franciacorta-brut-saten,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Franciacorta,FRANCIACORTA,69,BRU/ROS,18 Buche Provvisorio 2026 - 6NO-7BisSI,fig-course-franciacorta-18-buche-provvisorio-2026-6no-7bissi,playable_course,low,safe,,no,needs_review,confidence_too_low
+Franciacorta,FRANCIACORTA,69,SAT/ROS,18 Buche Provvisorio 2026 - 6NO-7BisSI,fig-course-franciacorta-18-buche-provvisorio-2026-6no-7bissi,playable_course,low,safe,,no,needs_review,confidence_too_low
+Franciacorta,FRANCIACORTA,69,BRUT,BRUT,fig-course-franciacorta-brut,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Franciacorta,FRANCIACORTA,69,SATEN,SATEN,fig-course-franciacorta-saten,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Franciacorta,FRANCIACORTA,69,ROSE',BRUT+ROSE&#39;,fig-course-franciacorta-brut-rose,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Franciacorta,FRANCIACORTA,69,BRUT/SATEN -2,BRUT+SATEN,fig-course-franciacorta-brut-saten,playable_course,low,safe,,no,needs_review,confidence_too_low
+Franciacorta,FRANCIACORTA,69,CAMP.FEM.MEDAL,18 Buche Provvisorio 2026 - 16NO-7BisSI,fig-course-franciacorta-18-buche-provvisorio-2026-16no-7bissi,playable_course,low,safe,,no,needs_review,confidence_too_low
+Frassanelle,FRASSANELLE,88,CHAMP.,18 Buche,fig-course-frassanelle-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Frassanelle,FRASSANELLE,88,1 buche,18 Buche,fig-course-frassanelle-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Frassanelle,FRASSANELLE,88,2 buche,18 Buche,fig-course-frassanelle-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Frassanelle,FRASSANELLE,88,VERDE-AR,18 Buche,fig-course-frassanelle-18-buche,playable_course,low,warning,second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Frassanelle,FRASSANELLE,88,PROV. 1-9 X2MIS,18 Buche,fig-course-frassanelle-18-buche,repeat_route,low,safe,,no,needs_review,confidence_too_low
+Frassanelle,FRASSANELLE,88,PROV. 1-9 X2,18 Buche,fig-course-frassanelle-18-buche,repeat_route,low,safe,,no,needs_review,confidence_too_low
+Frassanelle,FRASSANELLE,88,Provv. 10-18x2,18 Buche,fig-course-frassanelle-18-buche,repeat_route,low,safe,,no,needs_review,confidence_too_low
+Fronde,FRONDE,23,Ega,18 Buche,fig-course-fronde-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Fronde,FRONDE,23,seconde,Seconde Nove,fig-course-fronde-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Fronde,FRONDE,23,PRIME 9,Prime Nove,fig-course-fronde-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Fronde,FRONDE,23,PERCORSO PROV.,18 Buche,fig-course-fronde-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Gardagolf,GARDAGOLF,67,BIA/ROS,Bianco-Rosso,fig-course-gardagolf-bianco-rosso,playable_course,low,safe,,no,needs_review,confidence_too_low
+Gardagolf,GARDAGOLF,67,ROS/GIAL,Bianco-Giallo,fig-course-gardagolf-bianco-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Gardagolf,GARDAGOLF,67,BIA/GIAL,Bianco-Giallo,fig-course-gardagolf-bianco-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Gardagolf,GARDAGOLF,67,BIA1-9,9 Buche Bianco,fig-course-gardagolf-9-buche-bianco,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Gardagolf,GARDAGOLF,67,GIA/1-9,9 Buche Giallo,fig-course-gardagolf-9-buche-giallo,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Gardagolf,GARDAGOLF,67,ROSSO/1-9,9 Buche Rosso,fig-course-gardagolf-9-buche-rosso,base_route,low,safe,,no,needs_review,confidence_too_low
+Garlenda,GARLENDA,17,GARLENDA,18 Buche,fig-course-garlenda-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Garlenda,GARLENDA,17,CAMPIONATO,18 Buche,fig-course-garlenda-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Garlenda,GARLENDA,17,UOMINI,18 Buche,fig-course-garlenda-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Garlenda,GARLENDA,17,DONNE,18 Buche,fig-course-garlenda-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Garlenda,GARLENDA,17,PRIME NOVE CERT,Prime Nove,fig-course-garlenda-prime-nove,base_route,medium,safe,,no,needs_review,confidence_too_low
+Garlenda,GARLENDA,17,9 B. PROVV 11-1,9 Buche Provvisorio 2024,fig-course-garlenda-9-buche-provvisorio-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Garlenda,GARLENDA,17,PROVV- 2026,18 Buche Provvisorio 2026,fig-course-garlenda-18-buche-provvisorio-2026,playable_course,low,safe,,no,needs_review,confidence_too_low
+Girasoli,GIRASOLI,161,New course,Percorso NEW,fig-course-girasoli-percorso-new,playable_course,low,safe,,no,needs_review,confidence_too_low
+Girasoli,GIRASOLI,161,New red 9,Perc NEW 2&#176;Nove,fig-course-girasoli-perc-new-2-176-nove,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Girasoli,GIRASOLI,161,Blu 9b,2 Volte Seconde Nove,fig-course-girasoli-2-volte-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Girasoli,GIRASOLI,161,New yellow 9,Perc NEW 1&#176;Nove,fig-course-girasoli-perc-new-1-176-nove,base_route,low,warning,,no,needs_review,ges_route_warning
+Girasoli,GIRASOLI,161,THE NEW,Percorso NEW,fig-course-girasoli-percorso-new,playable_course,low,safe,,no,needs_review,confidence_too_low
+Girasoli,GIRASOLI,161,Margherita,2 Volte Seconde Nove,fig-course-girasoli-2-volte-seconde-nove,playable_course,low,safe,,no,needs_review,confidence_too_low
+Girasoli,GIRASOLI,161,BACK,Perc NEW 1&#176;Nove,fig-course-girasoli-perc-new-1-176-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Girasoli,GIRASOLI,161,2 Volte Seconde,2 Volte Seconde Nove,fig-course-girasoli-2-volte-seconde-nove,repeat_route,medium,safe,,no,needs_review,confidence_too_low
+Globale Jesolo,GLOBALE JESOLO,823,18 BUCHE,18 Buche,fig-course-globale-jesolo-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Globale Jesolo,GLOBALE JESOLO,823,PRIME 9 BUCHE,Prime Nove,fig-course-globale-jesolo-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Globale Jesolo,GLOBALE JESOLO,823,2 Nove,Seconde Nove,fig-course-globale-jesolo-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Grado,GRADO,238,CHAMPIONSHIP,18 Buche,fig-course-grado-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Grado,GRADO,238,9 BUCHE,9 Buche misto,fig-course-grado-9-buche-misto,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Grado,GRADO,238,GC GRADO NEW,18 Buche,fig-course-grado-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Grado,GRADO,238,OLD COURSE,18 Buche,fig-course-grado-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Grado,GRADO,238,PRIME 9,prime 9,fig-course-grado-prime-9,base_route,high,safe,,no,import_ready,all_checks_passed
+Grado,GRADO,238,1-6 & 16-18,9 Buche misto,fig-course-grado-9-buche-misto,base_route,low,safe,,no,needs_review,confidence_too_low
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
