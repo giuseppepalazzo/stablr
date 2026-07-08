@@ -21,6 +21,8 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
 - Se FIG + GesGolf + pagina ufficiale del campo combaciano sui dati rilevanti, il club puo' diventare subito `Stablr Approved` dopo il controllo manuale.
 - Se il sito ufficiale non e' disponibile, espone solo informazioni generiche o non conferma dati campo sufficienti, il club resta da review manuale; fonti terze tipo Golfify sono utili come indizio ma non valgono come conferma indipendente se sembrano derivate da GesGolf.
 - Le fonti terze possono contribuire al controllo solo quando espongono una scorecard verificabile come PDF o immagine, da leggere visivamente e incrociare con FIG/GesGolf; una pagina testuale terza senza scorecard visuale resta solo indizio. Esempio valido: scorecard PDF/immagine trovata per il controllo della lettera A / Perugia-Antognolla.
+- Audit retroattivo dei primi club importati:
+  - `data/gesgolf/reports/website-evidence-audit.md`
 - Regola default giro:
   - club fisico 9 buche con 18 ufficiale derivato, ad esempio Albisola/Aosta/Mare di Roma: default 9 buche;
   - club fisico 18 buche con Prime Nove/Seconde Nove, ad esempio Ambrosiano/Antognolla/Fioranello: default 18 buche;
@@ -439,6 +441,41 @@ SEGNO2:
   - campo fisico 18, giro 9: `9 buche · Prime 9` oppure `9 buche · Seconde 9`;
 - questa regola vale per tutti i campi semplici gia' importati e per i prossimi import;
 - prossima task: riprendere l'import dei campi semplici dal batch dopo `Firenze Ugolino`.
+
+SEGNO3:
+- chiarito e reso operativo il terzo livello di controllo: FIG > GesGolf > sito ufficiale/pagina campo;
+- audit retroattivo dei club GesGolf gia' importati salvato in `data/gesgolf/reports/website-evidence-audit.md`;
+- FIG + GesGolf coerenti possono bastare per arancio / `needs_review`, ma non per verde/certificato;
+- website evidence `verified` rilevata per:
+  - `Albisola`
+  - `Ambrosiano`
+  - `Bagnaia`
+- website evidence `structure_verified` rilevata per:
+  - `Antognolla`
+  - `Arenzano Pineta`
+  - `Bogliaco`
+  - `Globale Jesolo`
+- website evidence `partial` rilevata per:
+  - `Bollina`
+  - `Caorle`
+- website evidence `pending` per:
+  - `Aosta Arsanieres`
+  - `Aosta Brissogne`
+  - `Barlassina`
+  - `Citta' D'Asti`
+  - `Colli Bergamo`
+  - `Colombaro`
+  - `Cortina Ssd`
+  - `Fioranello`
+- decisione applicata: `Aosta Arsanieres` riportato a `data_status: needs_review` / arancio per mancanza di Evidence ufficiale forte del terzo livello.
+- aggiornamento Albisola: il sito ufficiale conferma 9 buche, Par 32/33 e doppio giro disponibile; Albisola resta verde/certificato.
+- aggiornamento Aosta Arsanieres: ricerca web piu' ampia senza pagina campo ufficiale o scorecard ufficiale utilizzabile; l'evidenza non-club su Arsanières/Gignod non basta per verde.
+- aggiornamento Bagnaia: sito ufficiale + Course Guide 1-18 considerati Evidence forte; Bagnaia promosso a verde/certificato con decisione editoriale Stablr.
+- audit approfondito 2026-07-08:
+  - `verified` = possibile verde dopo decisione editoriale;
+  - `structure_verified` = arancio robusto, non verde automatico;
+  - `partial` = arancio debole / da completare;
+  - `pending` = serve controllo manuale, mail club o fonte ufficiale alternativa.
 
 Settimo grab batch semplice:
 - Sono stati processati altri 10 club con match FIG/GesGolf forte:

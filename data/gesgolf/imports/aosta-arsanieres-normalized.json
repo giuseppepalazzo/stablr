@@ -30,6 +30,8 @@
         "gesgolf_club": "AOSTA ARSANIERES"
       },
       "verification_notes": "Playable review: FIG confirms the official club/course and CR/Slope; GesGolf provides playable PAR/SI for 9 Buche and 18 Buche. Third-control on official site found 9-hole course description and official Tabella EGA image, but the Tabella EGA is a playing-handicap conversion table and does not expose PAR/SI-HCP buca-per-buca. Keep orange until official scorecard or secretary confirmation.",
+      "website_evidence_status": "partial",
+      "website_evidence_url": "https://golfaosta.com/",
       "official_course_links": [
         "https://golfaosta.com/",
         "https://golfaosta.com/tabella-ega/",

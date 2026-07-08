@@ -25,6 +25,8 @@
       "verification_status": "verified",
       "stablr_approved": true,
       "verification_notes": "Manual Stablr review completed. Official club course guide confirms hole-by-hole par and Stroke Index. FIG official table is retained for CR/Slope.",
+      "website_evidence_status": "verified",
+      "website_evidence_url": "https://www.royalgolflabagnaia.com/",
       "physical_hole_count": 18,
       "import_profile": "physical_18_with_official_9_segments",
       "gesgolf": {
