@@ -133,21 +133,24 @@ function getRoundSelectionMode({
 function getClubStatusMeta(club) {
   const normalizedStatus = String(club?.dataStatus || "").trim().toLowerCase();
   const normalizedSourceType = String(club?.sourceType || "").trim().toLowerCase();
-  const curatedByStablr =
+  const approvedByStablr =
+    club?.sourcePayload?.stablr_approved === true ||
+    String(club?.sourcePayload?.stablr_approved || "").trim().toLowerCase() === "true";
+  const legacyCuratedByStablr =
     normalizedSourceType === "stablr" ||
-    normalizedStatus === "verified" ||
     Boolean(club?.sourcePayload?.curated);
 
-  if (curatedByStablr) {
+  if (approvedByStablr || legacyCuratedByStablr) {
     return {
-      label: "Verificato",
-      description: "Verificato: Dati verificati da Stablr",
-      icon: "verified",
-      accent: "verified"
+      label: "Approved",
+      description: "Approved: dati controllati manualmente da Stablr",
+      icon: "approved",
+      accent: "approved",
+      showLabel: true
     };
   }
 
-  if (normalizedStatus === "needs_review") {
+  if (normalizedStatus === "needs_review" || normalizedStatus === "verified") {
     return {
       label: "In revisione",
       description: "In revisione: Dati in revisione",
@@ -316,6 +319,11 @@ function getDefaultTeeId(tees, preferredHolesCount = null) {
   });
 
   return preferredYellow?.id || teeList[0]?.id || null;
+}
+
+function isDefaultRoundVariant(route, holesCount) {
+  const variantDefault = Number(route?.sourcePayload?.round_variant?.default_for_holes || 0);
+  return variantDefault === Number(holesCount);
 }
 
 function getNextAvailableCommunityTeeName(tees, holesCount, preferredOrder = []) {
@@ -4021,6 +4029,10 @@ function App() {
         (route) => Number(route.holesCount) === 9 && Array.isArray(route.holes) && route.holes.length > 0
       )
       .sort((a, b) => {
+        const aIsDefault = isDefaultRoundVariant(a, 9);
+        const bIsDefault = isDefaultRoundVariant(b, 9);
+        if (aIsDefault !== bIsDefault) return aIsDefault ? -1 : 1;
+
         const priority = { "Blu": 0, "Bianco": 1, "Rosso": 2 };
         const aPriority = Object.prototype.hasOwnProperty.call(priority, a.name) ? priority[a.name] : 99;
         const bPriority = Object.prototype.hasOwnProperty.call(priority, b.name) ? priority[b.name] : 99;
@@ -4070,7 +4082,9 @@ function App() {
     }
 
     if (eighteenHoleRoutes.length > 0) {
-      const preferredRoute = eighteenHoleRoutes[0];
+      const preferredRoute =
+        eighteenHoleRoutes.find((route) => isDefaultRoundVariant(route, 18)) ||
+        eighteenHoleRoutes[0];
       return {
         selectionMode: "single_route_18",
         selectedRouteId: preferredRoute.id,
@@ -7182,7 +7196,7 @@ function App() {
   };
 
   const getClubStatusPillStyle = (accent) => {
-    if (accent === "verified") {
+    if (accent === "approved") {
       return {
         color: "#16A34A",
         backgroundColor: "#ECFDF5",
@@ -7206,7 +7220,7 @@ function App() {
   };
 
   const renderClubStatusIcon = (icon, color, size = 13) => {
-    if (icon === "verified") {
+    if (icon === "approved") {
       return (
         <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
@@ -7314,16 +7328,22 @@ function App() {
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: "24px",
+                  gap: statusMeta.showLabel ? "5px" : 0,
+                  width: statusMeta.showLabel ? "auto" : "24px",
+                  padding: statusMeta.showLabel ? "4px 8px" : 0,
                   height: "24px",
                   borderRadius: "999px",
                   lineHeight: 1,
                   marginLeft: "2px",
                   verticalAlign: "middle",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
                   ...pillStyle
                 }}
               >
                 {renderClubStatusIcon(statusMeta.icon, pillStyle.color, 13)}
+                {statusMeta.showLabel ? <span>{statusMeta.label}</span> : null}
               </div>
             );
           })()}
@@ -7373,6 +7393,10 @@ function App() {
     const eighteenHoleRoutes = [...openedCourseRoutes]
       .filter((route) => Number(route.holesCount) === 18)
       .sort((a, b) => {
+        const aIsDefault = isDefaultRoundVariant(a, 18);
+        const bIsDefault = isDefaultRoundVariant(b, 18);
+        if (aIsDefault !== bIsDefault) return aIsDefault ? -1 : 1;
+
         const getRoutePriority = (name) => {
           const normalizedName = String(name || "").toLowerCase();
           if (normalizedName.includes("blu") || normalizedName.includes("blue")) return 0;
@@ -7595,17 +7619,11 @@ function App() {
     const showSelectedTeeCard = Boolean(selectedTee) && teeOptions.length > 0 && !showTeeOptions;
     const showTeeCardOptions = teeOptions.length > 1 && (!selectedTee || showTeeOptions);
     const canStartRound = Boolean(roundSetup.totalCompetitionHoles) && competitionHoles.length > 0;
-    const hasStructuredEighteenOptions =
-      openedCourseRouteCombinations.length > 0 || eighteenHoleRoutes.length > 0;
-    const showManualBuilderToggle =
-      Number(roundSetup.totalCompetitionHoles) === 18 &&
-      nineHoleRoutes.length > 1 &&
-      hasStructuredEighteenOptions &&
-      openedCourseRouteCombinations.length === 0;
     const showManualBuilderDirectly =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       nineHoleRoutes.length > 1 &&
-      !hasStructuredEighteenOptions;
+      openedCourseRouteCombinations.length === 0 &&
+      eighteenHoleRoutes.length === 0;
     const showRepeatedSingleNineRouteCard =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       !usingOfficialCombination &&
@@ -8317,46 +8335,6 @@ function App() {
             ) : null}
           </>
         )}
-
-        {showManualBuilderToggle && (
-            <div
-              style={{
-                marginTop: "14px",
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center"
-              }}
-            >
-              <button
-                onClick={() => {
-                  setShowManualCombinationBuilder((prev) => !prev);
-                  if (!showManualCombinationBuilder) {
-                    setShowOfficialCombinationOptions(false);
-                    setShowRouteOptions(false);
-                    setRoundSetup((prev) => ({
-                      ...prev,
-                      selectedCombinationId: null,
-                      selectedCombinationTeeId: null,
-                      selectedRouteTeeId: getDefaultTeeId(selectedPrimaryRoute?.tees, 18)
-                    }));
-                  }
-                }}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  color: colors.green,
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  padding: 0,
-                  cursor: "pointer",
-                  fontFamily: appFont,
-                  whiteSpace: "nowrap"
-                }}
-              >
-                {showManualCombinationBuilder ? "Torna ai percorsi" : "Oppure costruisci manualmente il tuo giro"}
-              </button>
-            </div>
-          )}
 
         {Number(roundSetup.totalCompetitionHoles) === 18 &&
           nineHoleRoutes.length > 0 &&
@@ -10785,7 +10763,7 @@ function App() {
                     {
                       id: "single",
                       title: "1 percorso",
-                      description: "Apri il builder manuale per mappare il club."
+                      description: "Completa i dati del percorso."
                     },
                     {
                       id: "multiple",

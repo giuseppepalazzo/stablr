@@ -28,6 +28,12 @@ function getArgValue(flag, fallback = null) {
   return process.argv[index + 1] ?? fallback;
 }
 
+function getBooleanArgValue(flag, fallback = false) {
+  const value = getArgValue(flag, null);
+  if (value === null) return fallback;
+  return ["1", "true", "yes", "si", "sì"].includes(String(value).trim().toLowerCase());
+}
+
 async function readJson(filePath) {
   return JSON.parse(await fs.readFile(filePath, "utf8"));
 }
@@ -224,12 +230,118 @@ function selectSimplePhysicalNineRouteCandidate(routeCandidates) {
   })[0];
 }
 
+function isOfficialEighteenRouteCandidate(candidate) {
+  return (
+    Number(candidate?.ges_holes_count) === 18 &&
+    String(candidate?.ges_playable_kind || "").trim().toLowerCase() === "official_18"
+  );
+}
+
+function getDefaultPhysicalNineOfficialEighteenPar(clubName) {
+  const normalizedClubName = normalizeRouteName(clubName);
+
+  if (normalizedClubName === "albisola") {
+    return 65;
+  }
+
+  return null;
+}
+
+function getDefaultPhysicalNineRoutePar(clubName) {
+  const normalizedClubName = normalizeRouteName(clubName);
+
+  if (normalizedClubName === "albisola") {
+    return 32;
+  }
+
+  return null;
+}
+
+function shouldKeepPhysicalNineRouteVariants(clubName) {
+  const normalizedClubName = normalizeRouteName(clubName);
+  return normalizedClubName === "albisola";
+}
+
+function getPhysicalNineRouteDisplayName(routeCandidate, gesRoute) {
+  if (normalizeRouteName(routeCandidate.fig_club) === "albisola") {
+    return `Prime 9 · Par ${gesRoute.total_par}`;
+  }
+
+  return "9 Buche";
+}
+
+function buildRoundVariantPayload(routeCandidate, gesRoute, importProfile, isDefaultOfficialEighteenVariant) {
+  if (importProfile === "physical_9_with_official_18_variants") {
+    if (Number(gesRoute.holes_count) === 9) {
+      const defaultNineHolePar = getDefaultPhysicalNineRoutePar(routeCandidate.fig_club);
+      const isDefaultNineHoleRoute = Number(gesRoute.total_par) === Number(defaultNineHolePar);
+
+      return {
+        holes_count: 9,
+        default_for_holes: isDefaultNineHoleRoute ? 9 : null,
+        default_source: isDefaultNineHoleRoute ? "official_club_site_and_gesgolf" : "gesgolf",
+        note:
+          "GesGolf is considered a highly reliable operational source for official 9-hole variants on physical 9-hole clubs."
+      };
+    }
+
+    if (Number(gesRoute.holes_count) === 18) {
+      return {
+        holes_count: 18,
+        default_for_holes: isDefaultOfficialEighteenVariant ? 18 : null,
+        default_source: isDefaultOfficialEighteenVariant
+          ? "official_club_site_and_gesgolf"
+          : "gesgolf",
+        note:
+          "GesGolf is considered a highly reliable operational source for official 18-hole variants on physical 9-hole clubs."
+      };
+    }
+  }
+
+  if (importProfile === "physical_18_with_official_9_segments") {
+    if (Number(gesRoute.holes_count) === 18) {
+      return {
+        holes_count: 18,
+        default_for_holes: 18,
+        default_source: "fig_gesgolf_official_site",
+        note: "Default full round for physical 18-hole clubs."
+      };
+    }
+
+    if (Number(gesRoute.holes_count) === 9) {
+      return {
+        holes_count: 9,
+        default_for_holes: isPrimeNineName(gesRoute.name) ? 9 : null,
+        default_source: isPrimeNineName(gesRoute.name) ? "fig_gesgolf_official_site" : "gesgolf",
+        note:
+          "For physical 18-hole clubs, Prime Nove is the default 9-hole option and Seconde Nove remains the secondary option."
+      };
+    }
+  }
+
+  return null;
+}
+
 function simplifyRouteCandidatesForProduct(routeCandidates, importProfile) {
   if (importProfile !== "physical_9_with_official_18_variants") {
     return routeCandidates;
   }
 
-  return [selectSimplePhysicalNineRouteCandidate(routeCandidates)];
+  const defaultNineHoleRoute = selectSimplePhysicalNineRouteCandidate(routeCandidates);
+  const nineHoleRouteVariants = shouldKeepPhysicalNineRouteVariants(defaultNineHoleRoute.fig_club)
+    ? routeCandidates
+        .filter((candidate) => Number(candidate.ges_holes_count) === 9)
+        .sort((left, right) => {
+          const defaultPar = getDefaultPhysicalNineRoutePar(left.fig_club);
+          const leftIsDefault = Number(left.ges_total_par) === Number(defaultPar);
+          const rightIsDefault = Number(right.ges_total_par) === Number(defaultPar);
+          if (leftIsDefault !== rightIsDefault) return leftIsDefault ? -1 : 1;
+          return Number(left.ges_total_par || 0) - Number(right.ges_total_par || 0);
+        })
+    : [defaultNineHoleRoute];
+  const officialEighteenVariants = routeCandidates.filter(isOfficialEighteenRouteCandidate);
+
+  return [...nineHoleRouteVariants, ...officialEighteenVariants];
 }
 
 async function findGesGolfNormalizedPath(figClubName, circoloId) {
@@ -257,14 +369,46 @@ async function findGesGolfNormalizedPath(figClubName, circoloId) {
 
 function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCourses, importProfile) {
   const isSimplifiedPhysicalNine = importProfile === "physical_9_with_official_18_variants";
-  const displayName = isSimplifiedPhysicalNine ? "9 Buche" : figCourse.name;
+  const isPhysicalNineOfficialEighteenVariant =
+    isSimplifiedPhysicalNine && Number(gesRoute.holes_count) === 18;
+  const isPhysicalNineRouteVariant =
+    isSimplifiedPhysicalNine && Number(gesRoute.holes_count) === 9;
+  const defaultNineHolePar = getDefaultPhysicalNineRoutePar(routeCandidate.fig_club);
+  const defaultOfficialEighteenPar = getDefaultPhysicalNineOfficialEighteenPar(
+    routeCandidate.fig_club
+  );
+  const isDefaultNineHoleRoute =
+    isPhysicalNineRouteVariant && Number(gesRoute.total_par) === Number(defaultNineHolePar);
+  const isDefaultOfficialEighteenVariant =
+    isPhysicalNineOfficialEighteenVariant &&
+    Number(gesRoute.total_par) === Number(defaultOfficialEighteenPar);
+  const roundVariantPayload = buildRoundVariantPayload(
+    routeCandidate,
+    gesRoute,
+    importProfile,
+    isDefaultOfficialEighteenVariant
+  );
+  const displayName =
+    isPhysicalNineRouteVariant
+      ? getPhysicalNineRouteDisplayName(routeCandidate, gesRoute)
+      : figCourse.name;
+  const displayOrder =
+    isDefaultNineHoleRoute
+      ? 1
+      : isPhysicalNineRouteVariant
+        ? 10 + Number(gesRoute.total_par || 0)
+      : isDefaultOfficialEighteenVariant
+        ? 2
+        : isPhysicalNineOfficialEighteenVariant
+          ? 20 + Number(gesRoute.total_par || 0)
+          : figCourse.display_order ?? null;
 
   return {
     external_key: figCourse.source_external_id,
     name: displayName,
     holes_count: figCourse.holes_count,
     total_par: figCourse.total_par,
-    display_order: figCourse.display_order ?? null,
+    display_order: displayOrder,
     is_active: figCourse.is_active ?? true,
     source_system: "fig",
     source_external_id: figCourse.source_external_id,
@@ -280,7 +424,16 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCours
         : {}),
       ...(isSimplifiedPhysicalNine
         ? {
-            product_simplification: "simple_physical_9_single_playable_route"
+            product_simplification:
+              Number(gesRoute.holes_count) === 9
+                ? "physical_9_route_variant"
+                : "physical_9_official_18_variant",
+            ...(roundVariantPayload ? { round_variant: roundVariantPayload } : {})
+          }
+        : {}),
+      ...(!isSimplifiedPhysicalNine && roundVariantPayload
+        ? {
+            round_variant: roundVariantPayload
           }
         : {}),
       gesgolf: {
@@ -313,6 +466,7 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCours
 async function main() {
   const clubName = getArgValue("--club");
   const dataStatus = getArgValue("--data-status", "verified");
+  const stablrApproved = getBooleanArgValue("--stablr-approved", false);
   const verificationStatus = getArgValue(
     "--verification-status",
     dataStatus === "verified" ? "verified" : "playable_review"
@@ -414,6 +568,7 @@ async function main() {
         official_catalog: "fig",
         hole_by_hole_source: "gesgolf",
         verification_status: verificationStatus,
+        ...(stablrApproved ? { stablr_approved: true } : {}),
         ...(verificationNotes ? { verification_notes: verificationNotes } : {}),
         physical_hole_count: physicalHoleCount,
         import_profile: importProfile,

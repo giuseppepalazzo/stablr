@@ -21,9 +21,19 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - club fisico 9 buche con 18 ufficiale derivato, ad esempio Albisola/Aosta/Mare di Roma: default 9 buche;
   - club fisico 18 buche con Prime Nove/Seconde Nove, ad esempio Ambrosiano/Antognolla/Fioranello: default 18 buche;
   - club complesso o con piu' percorsi/combinazioni ufficiali da 9 buche, ad esempio Parco De' Medici: default 18 buche.
+- Regola badge:
+  - `Stablr Approved` verde si usa solo per campi controllati manualmente e marcati con `source_payload.stablr_approved: true`;
+  - in UI il badge resta corto: `Approved`; evitare label tipo `Verificato` verde, perche' confonde stato tecnico e controllo manuale;
+  - tassonomia badge card club: `Approved`, `Review`, `Community`;
+  - al momento sono approvati manualmente solo `Albisola` e `Ambrosiano`;
+  - `verified` senza approvazione manuale non deve mostrare il badge verde.
 - Regola di semplificazione prodotto:
-  - i club semplici fisici da 9 buche devono esporre una sola route giocabile `9 Buche`;
-  - eventuali route GesGolf/FIG da 18 buche per club fisici da 9 restano Source tecnica per SI, par e controllo, ma non diventano opzioni giocabili;
+  - i club semplici fisici da 9 buche devono esporre una route 9 default semplice;
+  - se GesGolf/FIG espongono varianti 9 ufficiali coerenti e utili, possono essere mantenute come varianti 9 dedicate; per Albisola la nomenclatura e' `Prime 9 · Par 32` default e `Prime 9 · Par 33` variante;
+  - se FIG/GesGolf espongono varianti ufficiali 18 buche per un club fisico da 9, queste possono diventare opzioni giocabili 18 buche dedicate, non una ripetizione automatica della route 9;
+  - quando il sito ufficiale conferma una variante 18, quella variante diventa default; le altre varianti FIG/GesGolf restano disponibili quando coerenti, perche' GesGolf e' considerata una fonte operativa piu' che attendibile per par e Stroke Index;
+  - se esiste un 18 strutturato, non mostrare in UX la composizione libera del giro; la scelta manuale resta solo fallback tecnico per club senza opzioni 18 ufficiali;
+  - per club fisici da 18 buche con `Prime Nove` e `Seconde Nove`, il default resta `18 Buche`; se l'utente sceglie 9 buche, default `Prime Nove`, con `Seconde Nove` come seconda scelta;
   - i club semplici fisici da 18 buche devono esporre solo `18 Buche`, `Prime Nove` e `Seconde Nove`;
   - i club complessi multi-percorso restano esclusi da questa semplificazione e saranno trattati con workflow dedicato.
 
@@ -282,11 +292,12 @@ Sesto grab batch semplice:
 
 Semplificazione route giocabili:
 - Decisione prodotto: per i club semplici non si espone la complessita' FIG/GesGolf come opzioni giocabili.
-- I club fisici da 9 buche devono avere una sola route attiva `9 Buche`; eventuali 18 ufficiali o varianti `Prime Nove` restano Source tecnica, non opzione giocabile.
+- I club fisici da 9 buche devono avere una sola route base attiva `9 Buche`.
+- Se esistono 18 ufficiali FIG/GesGolf con buca-per-buca completo, possono essere esposti come varianti 18 dedicate: non vanno reinterpretati come 9 buche ripetute.
+- Per `Albisola`, il sito ufficiale conferma campo fisico 9 buche con doppie partenze e default gara 18 buche PAR 65; GesGolf conferma anche varianti PAR 64 e PAR 66, mantenute come opzioni 18 attendibili.
 - I club fisici da 18 buche devono avere solo `18 Buche`, `Prime Nove`, `Seconde Nove`.
 - Sono stati rigenerati gli import normalizzati esistenti secondo questa regola.
-- Club fisici da 9 ora normalizzati con una sola route `9 Buche`:
-  - `Albisola`
+- Club fisici da 9 ora normalizzati con una sola route base `9 Buche`:
   - `Aosta Arsanieres`
   - `Aosta Brissogne`
   - `Arenzano Pineta`
@@ -295,6 +306,8 @@ Semplificazione route giocabili:
   - `Colli Bergamo`
   - `Colombaro`
   - `Cortina Ssd`
+- Club fisici da 9 con route base `9 Buche` e varianti 18 ufficiali dedicate:
+  - `Albisola`: default 9 `Prime 9 · Par 32`; variante 9 `Prime 9 · Par 33`; default 18 PAR 65; varianti 18 PAR 64 e PAR 66 disponibili da GesGolf.
 - Club fisici da 18 ora normalizzati con sole route essenziali:
   - `Ambrosiano`
   - `Antognolla`
