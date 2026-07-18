@@ -7178,6 +7178,10 @@ function App() {
   ) => {
     const routeName = normalizeWhitespace(route?.name || "");
     const normalizedName = normalizeCourseName(routeName);
+    const normalizedTitleTokens = String(routeName || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9à-ÿ]+/g, " ")
+      .trim();
     const routeHolesCount = Number(route?.holesCount || 0);
     const totalHoles = Number(totalCompetitionHoles || routeHolesCount || 0);
     const routePar = Number(route?.totalPar || 0);
@@ -7202,6 +7206,14 @@ function App() {
       normalizedName.startsWith("18 buche par");
     const isGenericRoute = isGenericNine || isGenericEighteen;
     const colorInfo = isGenericRoute || isPrimeNine || isSecondNine ? null : getRouteColor(routeName);
+    const titleAlreadyHasHoles =
+      normalizedTitleTokens.includes("9 buche") ||
+      normalizedTitleTokens.includes("18 buche") ||
+      normalizedTitleTokens.includes("prime 9") ||
+      normalizedTitleTokens.includes("prime nove") ||
+      normalizedTitleTokens.includes("seconde 9") ||
+      normalizedTitleTokens.includes("seconde nove");
+    const titleAlreadyHasPar = /\bpar\s*\d+\b/i.test(routeName);
 
     let title = routeName || `${totalHoles} buche`;
     if (repeatedSingleNine) {
@@ -7210,15 +7222,20 @@ function App() {
       title = "Prime 9";
     } else if (isSecondNine) {
       title = "Seconde 9";
-    } else if (isGenericRoute) {
+    } else if (isGenericRoute && !titleAlreadyHasPar) {
       title = `${totalHoles || routeHolesCount} buche`;
     }
 
     const details = [
-      !repeatedSingleNine && !isGenericRoute && !isPrimeNine && !isSecondNine && totalHoles
+      !repeatedSingleNine &&
+      !isGenericRoute &&
+      !isPrimeNine &&
+      !isSecondNine &&
+      !titleAlreadyHasHoles &&
+      totalHoles
         ? `${totalHoles} buche`
         : null,
-      totalPar ? `Par ${totalPar}` : null
+      totalPar && !titleAlreadyHasPar ? `Par ${totalPar}` : null
     ].filter(Boolean);
 
     return {
@@ -7653,13 +7670,7 @@ function App() {
         : selectedTee?.estimated && Number(selectedTee?.holesCount) === 9 && Number(selectedPrimaryRoute?.holesCount) === 18
           ? "HCP stimato da dati 18 buche"
           : "";
-    const roundSetupTopSubtitle =
-      Number(openedCourse.routeCount || 0) > 1
-        ? `${openedCourse.routeCount} percorsi`
-        : Number.isFinite(Number(openedCourse.holesCount)) &&
-            Number.isFinite(Number(openedCourse.totalPar))
-          ? `${openedCourse.holesCount} buche • Par ${openedCourse.totalPar}`
-          : "";
+    const roundSetupTopSubtitle = getClubCardSubtitle(openedCourse);
     const showOfficialCombinationList =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       openedCourseRouteCombinations.length > 0 &&
