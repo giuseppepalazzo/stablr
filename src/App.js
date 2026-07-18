@@ -7689,8 +7689,7 @@ function App() {
         Number(roundSetup.totalCompetitionHoles) === 9 ||
         (Number(roundSetup.totalCompetitionHoles) === 18 &&
           !showManualCombinationBuilder &&
-          !showOtherEighteenRouteOptions &&
-          (openedCourseRouteCombinations.length > 0 || eighteenHoleRoutes.length <= 1))
+          !showOtherEighteenRouteOptions)
       );
     const showSelectedTeeCard = Boolean(selectedTee) && teeOptions.length > 0 && !showTeeOptions;
     const showTeeCardOptions = teeOptions.length > 1 && (!selectedTee || showTeeOptions);
@@ -8137,7 +8136,34 @@ function App() {
         {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && !showManualCombinationBuilder && (
           <>
             {!openedCourseRouteCombinations.length && (
-              <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
+              <div
+                style={{
+                  ...roundSetupSectionTitleStyle,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px"
+                }}
+              >
+                <button
+                  onClick={() => setShowOtherEighteenRouteOptions((prev) => !prev)}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    color: colors.green,
+                    fontSize: "20px",
+                    fontWeight: 800,
+                    padding: 0,
+                    cursor: "pointer",
+                    fontFamily: appFont,
+                    lineHeight: 1,
+                    flexShrink: 0
+                  }}
+                  aria-label={showOtherEighteenRouteOptions ? "Chiudi percorsi" : "Apri percorsi"}
+                >
+                  {showOtherEighteenRouteOptions ? "▴" : "▾"}
+                </button>
+                <span>Scegli il percorso</span>
+              </div>
             )}
           </>
         )}
