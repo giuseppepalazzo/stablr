@@ -7689,7 +7689,8 @@ function App() {
         Number(roundSetup.totalCompetitionHoles) === 9 ||
         (Number(roundSetup.totalCompetitionHoles) === 18 &&
           !showManualCombinationBuilder &&
-          !showOtherEighteenRouteOptions)
+          !showOtherEighteenRouteOptions &&
+          (openedCourseRouteCombinations.length > 0 || eighteenHoleRoutes.length <= 1))
       );
     const showSelectedTeeCard = Boolean(selectedTee) && teeOptions.length > 0 && !showTeeOptions;
     const showTeeCardOptions = teeOptions.length > 1 && (!selectedTee || showTeeOptions);
