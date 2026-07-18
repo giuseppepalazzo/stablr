@@ -182,7 +182,7 @@
     },
     {
       "external_key": "fig-course-albisola-18-buche-par-65",
-      "name": "18 buche par 65",
+      "name": "18 Buche · Par 65",
       "holes_count": 18,
       "total_par": 65,
       "display_order": 2,
@@ -193,6 +193,8 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "18 buche par 65",
+        "stablr_product_name": "18 Buche · Par 65",
         "product_simplification": "physical_9_official_18_variant",
         "round_variant": {
           "holes_count": 18,
@@ -545,7 +547,7 @@
     },
     {
       "external_key": "fig-course-albisola-18-buche-par-64",
-      "name": "18 Buche par 64",
+      "name": "18 Buche · Par 64",
       "holes_count": 18,
       "total_par": 64,
       "display_order": 84,
@@ -556,6 +558,8 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "18 Buche par 64",
+        "stablr_product_name": "18 Buche · Par 64",
         "product_simplification": "physical_9_official_18_variant",
         "round_variant": {
           "holes_count": 18,
@@ -762,7 +766,7 @@
     },
     {
       "external_key": "fig-course-albisola-18-buche-par-66",
-      "name": "18 buche par 66",
+      "name": "18 Buche · Par 66",
       "holes_count": 18,
       "total_par": 66,
       "display_order": 86,
@@ -773,6 +777,8 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "18 buche par 66",
+        "stablr_product_name": "18 Buche · Par 66",
         "product_simplification": "physical_9_official_18_variant",
         "round_variant": {
           "holes_count": 18,

@@ -46,6 +46,12 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": 18,
+          "default_source": "fig_gesgolf_official_site",
+          "note": "Default full round for physical 18-hole clubs."
+        },
         "gesgolf": {
           "circolo_id": "7",
           "gesgolf_club": "BOGLIACO",
@@ -256,6 +262,12 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": 9,
+          "default_source": "fig_gesgolf_official_site",
+          "note": "For physical 18-hole clubs, Prime Nove is the default 9-hole option and Seconde Nove remains the secondary option."
+        },
         "gesgolf": {
           "circolo_id": "7",
           "gesgolf_club": "BOGLIACO",
@@ -412,6 +424,12 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "gesgolf",
+          "note": "For physical 18-hole clubs, Prime Nove is the default 9-hole option and Seconde Nove remains the secondary option."
+        },
         "gesgolf": {
           "circolo_id": "7",
           "gesgolf_club": "BOGLIACO",

@@ -142,11 +142,11 @@ function getClubStatusMeta(club) {
 
   if (approvedByStablr || legacyCuratedByStablr) {
     return {
-      label: "Approved",
-      description: "Approved: dati controllati manualmente da Stablr",
+      label: "Controllato",
+      description: "Dati controllati manualmente da Stablr",
       icon: "approved",
       accent: "approved",
-      showLabel: true
+      showLabel: false
     };
   }
 
@@ -324,6 +324,55 @@ function getDefaultTeeId(tees, preferredHolesCount = null) {
 function isDefaultRoundVariant(route, holesCount) {
   const variantDefault = Number(route?.sourcePayload?.round_variant?.default_for_holes || 0);
   return variantDefault === Number(holesCount);
+}
+
+function getDefaultRouteForHolesCount(routes, holesCount) {
+  const matchingRoutes = (Array.isArray(routes) ? routes : []).filter(
+    (route) => Number(route?.holesCount) === Number(holesCount)
+  );
+
+  return (
+    matchingRoutes.find((route) => isDefaultRoundVariant(route, holesCount)) ||
+    matchingRoutes[0] ||
+    null
+  );
+}
+
+function getClubCardRouteCount(course) {
+  const routes = Array.isArray(course?.routes) ? course.routes : [];
+  const routeCombinations = Array.isArray(course?.routeCombinations) ? course.routeCombinations : [];
+
+  if (course?.isComplex || routeCombinations.length > 0) {
+    const nineHoleRoutes = routes.filter((route) => Number(route?.holesCount) === 9);
+    return nineHoleRoutes.length || routes.length;
+  }
+
+  return null;
+}
+
+function getClubCardSubtitle(course) {
+  const complexRouteCount = getClubCardRouteCount(course);
+
+  if (complexRouteCount && complexRouteCount > 1) {
+    return `${complexRouteCount} percorsi`;
+  }
+
+  const physicalHoleCount = inferPhysicalCourseHoleCount(course);
+  const routes = Array.isArray(course?.routes) ? course.routes : [];
+  const displayRoute =
+    getDefaultRouteForHolesCount(routes, physicalHoleCount) ||
+    getDefaultRouteForHolesCount(routes, 18) ||
+    getDefaultRouteForHolesCount(routes, 9) ||
+    routes[0] ||
+    null;
+  const holesCount = Number(physicalHoleCount || displayRoute?.holesCount || 0);
+  const totalPar = Number(displayRoute?.totalPar || course?.totalPar || 0);
+
+  if (holesCount && totalPar) {
+    return `${holesCount} buche · Par ${totalPar}`;
+  }
+
+  return "Percorsi ufficiali FIG";
 }
 
 function getNextAvailableCommunityTeeName(tees, holesCount, preferredOrder = []) {
@@ -1302,7 +1351,6 @@ function App() {
           return left.name.localeCompare(right.name, "it");
         });
 
-      const primaryRoute = routes.length === 1 ? routes[0] : null;
       const routeCombinations = (Array.isArray(club.route_combinations) ? club.route_combinations : [])
         .filter((combination) => combination.is_active !== false)
         .map((combination) => {
@@ -1361,6 +1409,18 @@ function App() {
           };
         })
         .sort((left, right) => left.name.localeCompare(right.name, "it"));
+      const physicalHoleCount = inferPhysicalCourseHoleCount({
+        isComplex: Boolean(club.is_complex),
+        sourcePayload: club.source_payload || null,
+        routes,
+        routeCombinations
+      });
+      const primaryRoute =
+        getDefaultRouteForHolesCount(routes, physicalHoleCount) ||
+        getDefaultRouteForHolesCount(routes, 18) ||
+        getDefaultRouteForHolesCount(routes, 9) ||
+        routes[0] ||
+        null;
 
       return {
         id: club.id,
@@ -1381,7 +1441,11 @@ function App() {
         createdBy: club.created_by,
         city: club.city,
         country: club.country,
-        routeCount: routes.filter((route) => Number(route.holesCount) === 9).length || routes.length,
+        routeCount: getClubCardRouteCount({
+          isComplex: Boolean(club.is_complex),
+          routes,
+          routeCombinations
+        }) || routes.length,
         routes,
         routeCombinations,
         primaryRouteId: primaryRoute?.id || null
@@ -7355,7 +7419,7 @@ function App() {
             marginTop: "3px"
           }}
         >
-          Percorsi ufficiali FIG
+          {getClubCardSubtitle(course)}
         </div>
       </div>
 

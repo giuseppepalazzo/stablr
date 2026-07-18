@@ -149,6 +149,8 @@ function isPrimeNineName(value) {
     normalized.includes("prime nove") ||
     normalized.includes("prima nove") ||
     normalized.includes("first 9") ||
+    normalized.includes("prime 9") ||
+    normalized.includes("prima 9") ||
     normalized.includes("1 nove") ||
     normalized.includes("1 9")
   );
@@ -160,6 +162,8 @@ function isSecondNineName(value) {
     normalized.includes("seconde nove") ||
     normalized.includes("seconda nove") ||
     normalized.includes("second 9") ||
+    normalized.includes("seconde 9") ||
+    normalized.includes("seconda 9") ||
     normalized.includes("2 nove") ||
     normalized.includes("2 9")
   );
@@ -262,6 +266,25 @@ function shouldKeepPhysicalNineRouteVariants(clubName) {
   return normalizedClubName === "albisola";
 }
 
+function sortPhysicalNineOfficialEighteenVariants(left, right) {
+  const getPriority = (candidate) => {
+    const normalizedName = normalizeRouteName(candidate?.ges_route_name);
+    if (normalizedName === "18 buche" || normalizedName.includes("18 buche")) return 0;
+    if (normalizedName === "normale" || normalizedName.includes("normale")) return 1;
+    return 2;
+  };
+
+  const leftPriority = getPriority(left);
+  const rightPriority = getPriority(right);
+  if (leftPriority !== rightPriority) return leftPriority - rightPriority;
+
+  const leftPar = Number(left?.ges_total_par || 0);
+  const rightPar = Number(right?.ges_total_par || 0);
+  if (leftPar !== rightPar) return leftPar - rightPar;
+
+  return String(left?.ges_route_name || "").localeCompare(String(right?.ges_route_name || ""), "it");
+}
+
 function getPhysicalNineRouteDisplayName(routeCandidate, gesRoute) {
   if (normalizeRouteName(routeCandidate.fig_club) === "albisola") {
     return `Prime 9 · Par ${gesRoute.total_par}`;
@@ -270,11 +293,43 @@ function getPhysicalNineRouteDisplayName(routeCandidate, gesRoute) {
   return "9 Buche";
 }
 
+function getSimpleRouteDisplayName(routeCandidate, gesRoute, importProfile) {
+  if (importProfile === "physical_9_with_official_18_variants") {
+    if (Number(gesRoute.holes_count) === 9) {
+      return getPhysicalNineRouteDisplayName(routeCandidate, gesRoute);
+    }
+
+    if (normalizeRouteName(routeCandidate.fig_club) === "albisola") {
+      return `18 Buche · Par ${gesRoute.total_par}`;
+    }
+
+    return "18 Buche";
+  }
+
+  if (importProfile === "physical_18_with_official_9_segments") {
+    if (Number(gesRoute.holes_count) === 18) {
+      return "18 Buche";
+    }
+
+    if (isPrimeNineName(gesRoute.name)) {
+      return "Prime Nove";
+    }
+
+    if (isSecondNineName(gesRoute.name)) {
+      return "Seconde Nove";
+    }
+  }
+
+  return null;
+}
+
 function buildRoundVariantPayload(routeCandidate, gesRoute, importProfile, isDefaultOfficialEighteenVariant) {
   if (importProfile === "physical_9_with_official_18_variants") {
     if (Number(gesRoute.holes_count) === 9) {
       const defaultNineHolePar = getDefaultPhysicalNineRoutePar(routeCandidate.fig_club);
-      const isDefaultNineHoleRoute = Number(gesRoute.total_par) === Number(defaultNineHolePar);
+      const isDefaultNineHoleRoute = defaultNineHolePar
+        ? Number(gesRoute.total_par) === Number(defaultNineHolePar)
+        : true;
 
       return {
         holes_count: 9,
@@ -340,8 +395,11 @@ function simplifyRouteCandidatesForProduct(routeCandidates, importProfile) {
         })
     : [defaultNineHoleRoute];
   const officialEighteenVariants = routeCandidates.filter(isOfficialEighteenRouteCandidate);
+  const selectedOfficialEighteenVariants = shouldKeepPhysicalNineRouteVariants(defaultNineHoleRoute.fig_club)
+    ? officialEighteenVariants.sort(sortPhysicalNineOfficialEighteenVariants)
+    : officialEighteenVariants.sort(sortPhysicalNineOfficialEighteenVariants).slice(0, 1);
 
-  return [...nineHoleRouteVariants, ...officialEighteenVariants];
+  return [...nineHoleRouteVariants, ...selectedOfficialEighteenVariants];
 }
 
 async function findGesGolfNormalizedPath(figClubName, circoloId) {
@@ -378,20 +436,22 @@ function buildRoutePayload(routeCandidate, gesRoute, figCourse, gesPlayableCours
     routeCandidate.fig_club
   );
   const isDefaultNineHoleRoute =
-    isPhysicalNineRouteVariant && Number(gesRoute.total_par) === Number(defaultNineHolePar);
+    isPhysicalNineRouteVariant &&
+    (defaultNineHolePar
+      ? Number(gesRoute.total_par) === Number(defaultNineHolePar)
+      : true);
   const isDefaultOfficialEighteenVariant =
     isPhysicalNineOfficialEighteenVariant &&
-    Number(gesRoute.total_par) === Number(defaultOfficialEighteenPar);
+    (defaultOfficialEighteenPar
+      ? Number(gesRoute.total_par) === Number(defaultOfficialEighteenPar)
+      : true);
   const roundVariantPayload = buildRoundVariantPayload(
     routeCandidate,
     gesRoute,
     importProfile,
     isDefaultOfficialEighteenVariant
   );
-  const displayName =
-    isPhysicalNineRouteVariant
-      ? getPhysicalNineRouteDisplayName(routeCandidate, gesRoute)
-      : figCourse.name;
+  const displayName = getSimpleRouteDisplayName(routeCandidate, gesRoute, importProfile) || figCourse.name;
   const displayOrder =
     isDefaultNineHoleRoute
       ? 1
