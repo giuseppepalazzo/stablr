@@ -9935,16 +9935,6 @@ function App() {
               >
                 <div
                   style={{
-                    color: colors.subtext,
-                    fontSize: "13px",
-                    marginBottom: "8px"
-                  }}
-                >
-                  Giro {hole.roundNumber} di {hole.totalRounds}
-                </div>
-
-                <div
-                  style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "flex-start",
