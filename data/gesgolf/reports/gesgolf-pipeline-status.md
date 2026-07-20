@@ -43,6 +43,7 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - in card club mostrare `9 buche · Par X`, `18 buche · Par X`, oppure `N percorsi` per club complessi con piu' percorsi reali.
   - le varianti giocabili di un club semplice, ad esempio le 5 varianti di `Albisola`, non devono mai essere contate come `N percorsi` nella card club: la card descrive il campo fisico, non il numero di opzioni nel setup giro.
   - nelle card percorso del setup giro non duplicare buche/par se il nome li contiene gia': `Prime 9 · Par 32`, non `Prime 9 · Par 32 · 9 buche · Par 32`.
+  - per route 18 ottenute giocando due volte lo stesso percorso 9, usare copy compatta `{Nome percorso} × 2` e dettaglio `18 buche · Par X`, ad esempio `Blu × 2` / `18 buche · Par 74`; evitare `9 Buche Blu 2 Volte`.
   - nel setup giro, se un club semplice ha piu' varianti per la stessa durata, ad esempio `Albisola` con tre varianti 18 buche, mostrare la variante default in forma compressa e aprire le alternative con la freccia `Scegli il percorso`; il default resta evidenziato ma non deve eliminare le alternative.
   - per club complessi come `Parco De' Medici`, le combinazioni 18 e le opzioni 18 ottenute ripetendo una route 9 due volte devono stare nella stessa lista `Scegli il percorso`; la verifica Stablr e' comunicata dal badge/dato di fiducia, non da sezioni separate.
 

@@ -338,6 +338,17 @@ function getDefaultRouteForHolesCount(routes, holesCount) {
   );
 }
 
+function getRepeatedNineRouteLabel(routeName) {
+  const cleanName = normalizeWhitespace(routeName || "");
+  const withoutTwoTimes = cleanName
+    .replace(/^\s*9\s*buche\s+/i, "")
+    .replace(/\s*(?:2\s*volte|x\s*2|×\s*2)\s*$/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return withoutTwoTimes || cleanName || "9 buche";
+}
+
 function getClubCardRouteCount(course) {
   const routes = Array.isArray(course?.routes) ? course.routes : [];
   const routeCombinations = Array.isArray(course?.routeCombinations) ? course.routeCombinations : [];
@@ -7203,6 +7214,17 @@ function App() {
       normalizedName.startsWith("18 buche par");
     const isGenericRoute = isGenericNine || isGenericEighteen;
     const colorInfo = isGenericRoute || isPrimeNine || isSecondNine ? null : getRouteColor(routeName);
+    const repeatedNineRouteLabel =
+      Number(totalCompetitionHoles) === 18 &&
+      routeHolesCount === 18 &&
+      /^9\s*buche\s+/i.test(routeName) &&
+      (
+        /\b2\s*volte\b/i.test(routeName) ||
+        /\bx\s*2\b/i.test(routeName) ||
+        /×\s*2/i.test(routeName)
+      )
+        ? getRepeatedNineRouteLabel(routeName)
+        : null;
     const titleAlreadyHasHoles =
       normalizedTitleTokens.includes("9 buche") ||
       normalizedTitleTokens.includes("18 buche") ||
@@ -7213,8 +7235,10 @@ function App() {
     const titleAlreadyHasPar = /\bpar\s*\d+\b/i.test(routeName);
 
     let title = routeName || `${totalHoles} buche`;
-    if (repeatedSingleNine) {
-      title = "18 buche";
+    if (repeatedNineRouteLabel) {
+      title = `${repeatedNineRouteLabel} × 2`;
+    } else if (repeatedSingleNine) {
+      title = `${getRepeatedNineRouteLabel(routeName)} × 2`;
     } else if (isPrimeNine) {
       title = "Prime 9";
     } else if (isSecondNine) {
@@ -7224,7 +7248,11 @@ function App() {
     }
 
     const details = [
+      (repeatedSingleNine || repeatedNineRouteLabel) && totalHoles
+        ? `${totalHoles} buche`
+        : null,
       !repeatedSingleNine &&
+      !repeatedNineRouteLabel &&
       !isGenericRoute &&
       !isPrimeNine &&
       !isSecondNine &&
