@@ -6884,9 +6884,9 @@ function App() {
     width: "32px",
     height: "32px",
     borderRadius: "10px",
-    border: `1.5px solid ${colors.greenBorder}`,
-    backgroundColor: isLight ? "#F4FFF8" : colors.card,
-    color: colors.green,
+    border: `1.5px solid ${colors.borderStrong}`,
+    backgroundColor: colors.card,
+    color: colors.subtext,
     cursor: "pointer",
     fontFamily: appFont,
     display: "flex",
@@ -6910,18 +6910,13 @@ function App() {
       aria-hidden="true"
     >
       <path
-        d="M12 2.5L19 5.3V11.3C19 16.2 15.8 20.7 12 22C8.2 20.7 5 16.2 5 11.3V5.3L12 2.5Z"
-        fill="currentColor"
-        opacity="0.18"
-      />
-      <path
-        d="M12 2.5L19 5.3V11.3C19 16.2 15.8 20.7 12 22C8.2 20.7 5 16.2 5 11.3V5.3L12 2.5Z"
+        d="M6 21V4.8"
         stroke="currentColor"
         strokeWidth="1.8"
-        strokeLinejoin="round"
+        strokeLinecap="round"
       />
       <path
-        d="M9.3 11.9L11.1 13.7L14.8 10"
+        d="M6 5.2H17.5L15.7 9.1L17.5 13H6"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
