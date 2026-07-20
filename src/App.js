@@ -340,6 +340,13 @@ function getDefaultRouteForHolesCount(routes, holesCount) {
 
 function getRepeatedNineRouteLabel(routeName) {
   const cleanName = normalizeWhitespace(routeName || "");
+  const iconicRepeatedMatch = cleanName.match(/^(.+?)\s*\(([^()]+?)\s*(?:x|×)\s*2\)$/i);
+  if (iconicRepeatedMatch) {
+    const iconicName = normalizeWhitespace(iconicRepeatedMatch[1]);
+    const routeLabel = normalizeWhitespace(iconicRepeatedMatch[2]);
+    return [iconicName, routeLabel].filter(Boolean).join(" · ") || cleanName || "9 buche";
+  }
+
   const withoutTwoTimes = cleanName
     .replace(/^\s*9\s*buche\s+/i, "")
     .replace(/\s*(?:2\s*volte|x\s*2|×\s*2)\s*$/i, "")
@@ -7217,7 +7224,10 @@ function App() {
     const repeatedNineRouteLabel =
       Number(totalCompetitionHoles) === 18 &&
       routeHolesCount === 18 &&
-      /^9\s*buche\s+/i.test(routeName) &&
+      (
+        /^9\s*buche\s+/i.test(routeName) ||
+        /^.+?\s*\([^()]+?\s*(?:x|×)\s*2\)$/i.test(routeName)
+      ) &&
       (
         /\b2\s*volte\b/i.test(routeName) ||
         /\bx\s*2\b/i.test(routeName) ||
