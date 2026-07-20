@@ -41,6 +41,9 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - usare nomi GesGolf/FIG specifici solo se sono davvero iconici e distintivi per distinguere percorsi diversi, soprattutto nei club complessi o multi-percorso;
   - nei club complessi usare i nomi reali/distintivi adottati dal club, senza normalizzare forzatamente in colori o pattern generici: colori, punti cardinali, nomi propri o label storiche vanno mantenuti quando aiutano il giocatore a riconoscere il percorso;
   - esempi da evitare nei club semplici: `Ambro 1`, `Campionato`, `Normale`, se non indicano una scelta realmente distinta per il giocatore;
+  - nelle label della pagina `Imposta giro`, per tutti i club semplici importati o futuri, mostrare sempre una scelta funzionale e completa su una riga: `9 Buche · Par X`, `18 Buche · Par X`, `Prime 9 · Par X`, `Seconde 9 · Par X`; non mostrare nomi tecnici o interni come `Percorso`, `Percorso × 2`, `Mare 2 volte` o simili;
+  - per i club semplici fisici da 9 buche, il fatto che il 18 sia ottenuto giocando due volte il 9 e' una logica interna: in UX si mostra `18 Buche · Par X`, salvo eccezioni esplicite come varianti ufficiali con par diversi;
+  - per i club semplici fisici da 18 buche, la scelta 18 si mostra come `18 Buche · Par X`; le scelte 9 si mostrano come `Prime 9 · Par X` e `Seconde 9 · Par X`;
   - in card club mostrare `9 buche · Par X`, `18 buche · Par X`, oppure `N percorsi` per club complessi con piu' percorsi reali.
   - le varianti giocabili di un club semplice, ad esempio le 5 varianti di `Albisola`, non devono mai essere contate come `N percorsi` nella card club: la card descrive il campo fisico, non il numero di opzioni nel setup giro.
   - nelle card percorso del setup giro non duplicare buche/par se il nome li contiene gia': `Prime 9 · Par 32`, non `Prime 9 · Par 32 · 9 buche · Par 32`.

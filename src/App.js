@@ -7212,6 +7212,27 @@ function App() {
       normalizedName.includes("seconde nove") ||
       normalizedName.includes("seconda nove") ||
       normalizedName.includes("second 9");
+    const openedCoursePhysicalHoleCount = inferPhysicalCourseHoleCount(openedCourse);
+    const openedCourseCombinationCount = Array.isArray(openedCourse?.routeCombinations)
+      ? openedCourse.routeCombinations.length
+      : 0;
+    const isSimpleOpenedCourse = openedCourse?.isComplex !== true && openedCourseCombinationCount === 0;
+    const isMareDiRomaOpenedCourse = normalizeCourseName(openedCourse?.name || "") === "mare di roma";
+    const useGenericRepeatedSingleNineLabel =
+      repeatedSingleNine &&
+      openedCourseCombinationCount === 0 &&
+      Number(openedCoursePhysicalHoleCount) === 9 &&
+      routeHolesCount === 9 &&
+      totalHoles === 18;
+    const useSimpleCourseGenericLabel =
+      (isSimpleOpenedCourse || useGenericRepeatedSingleNineLabel || isMareDiRomaOpenedCourse) &&
+      (
+        (isMareDiRomaOpenedCourse && (totalHoles === 9 || totalHoles === 18)) ||
+        (Number(openedCoursePhysicalHoleCount) === 9 && (totalHoles === 9 || totalHoles === 18)) ||
+        (Number(openedCoursePhysicalHoleCount) === 18 && totalHoles === 18)
+      ) &&
+      !isPrimeNine &&
+      !isSecondNine;
     const isGenericNine =
       normalizedName === "9 buche" ||
       normalizedName === "nove buche" ||
@@ -7245,24 +7266,28 @@ function App() {
     const titleAlreadyHasPar = /\bpar\s*\d+\b/i.test(routeName);
 
     let title = routeName || `${totalHoles} buche`;
-    if (repeatedNineRouteLabel) {
+    if (useSimpleCourseGenericLabel) {
+      title = `${totalHoles || routeHolesCount} Buche${totalPar ? ` · Par ${totalPar}` : ""}`;
+    } else if (repeatedNineRouteLabel) {
       title = `${repeatedNineRouteLabel} × 2`;
     } else if (repeatedSingleNine) {
       title = `${getRepeatedNineRouteLabel(routeName)} × 2`;
     } else if (isPrimeNine) {
-      title = "Prime 9";
+      title = `Prime 9${totalPar ? ` · Par ${totalPar}` : ""}`;
     } else if (isSecondNine) {
-      title = "Seconde 9";
+      title = `Seconde 9${totalPar ? ` · Par ${totalPar}` : ""}`;
     } else if (isGenericRoute && !titleAlreadyHasPar) {
       title = `${totalHoles || routeHolesCount} buche`;
     }
+    const titleIncludesPar = /\bpar\s*\d+\b/i.test(title);
 
     const details = [
-      (repeatedSingleNine || repeatedNineRouteLabel) && totalHoles
+      !useSimpleCourseGenericLabel && (repeatedSingleNine || repeatedNineRouteLabel) && totalHoles
         ? `${totalHoles} buche`
         : null,
       !repeatedSingleNine &&
       !repeatedNineRouteLabel &&
+      !useSimpleCourseGenericLabel &&
       !isGenericRoute &&
       !isPrimeNine &&
       !isSecondNine &&
@@ -7270,7 +7295,7 @@ function App() {
       totalHoles
         ? `${totalHoles} buche`
         : null,
-      totalPar && !titleAlreadyHasPar ? `Par ${totalPar}` : null
+      totalPar && !titleIncludesPar ? `Par ${totalPar}` : null
     ].filter(Boolean);
 
     return {
@@ -8163,41 +8188,6 @@ function App() {
                 ))}
               </div>
             ) : null}
-          </>
-        )}
-
-        {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && !showManualCombinationBuilder && (
-          <>
-            {!openedCourseRouteCombinations.length && (
-              <div
-                style={{
-                  ...roundSetupSectionTitleStyle,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px"
-                }}
-              >
-                <button
-                  onClick={() => setShowOtherEighteenRouteOptions((prev) => !prev)}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    color: colors.green,
-                    fontSize: "20px",
-                    fontWeight: 800,
-                    padding: 0,
-                    cursor: "pointer",
-                    fontFamily: appFont,
-                    lineHeight: 1,
-                    flexShrink: 0
-                  }}
-                  aria-label={showOtherEighteenRouteOptions ? "Chiudi percorsi" : "Apri percorsi"}
-                >
-                  {showOtherEighteenRouteOptions ? "▴" : "▾"}
-                </button>
-                <span>Scegli il percorso</span>
-              </div>
-            )}
           </>
         )}
 
