@@ -793,7 +793,6 @@ function App() {
   const [showRoundSetup, setShowRoundSetup] = useState(false);
   const [roundSetup, setRoundSetup] = useState(createInitialRoundSetup);
   const [showManualCombinationBuilder, setShowManualCombinationBuilder] = useState(false);
-  const [showOfficialCombinationOptions, setShowOfficialCombinationOptions] = useState(false);
   const [showRouteOptions, setShowRouteOptions] = useState(false);
   const [showOtherEighteenRouteOptions, setShowOtherEighteenRouteOptions] = useState(false);
   const [showTeeOptions, setShowTeeOptions] = useState(false);
@@ -3058,7 +3057,6 @@ function App() {
       setSheetClosing(false);
       setShowRoundsHistory(false);
       setShowManualCombinationBuilder(false);
-      setShowOfficialCombinationOptions(false);
       setShowRouteOptions(false);
       setShowTeeOptions(false);
       setRoundAlreadySaved(false);
@@ -4242,7 +4240,6 @@ function App() {
     setSheetClosing(false);
     setShowRoundsHistory(false);
     setShowManualCombinationBuilder(false);
-    setShowOfficialCombinationOptions(false);
     setShowRouteOptions(false);
     setShowTeeOptions(false);
     setRoundAlreadySaved(false);
@@ -7671,16 +7668,15 @@ function App() {
           ? "HCP stimato da dati 18 buche"
           : "";
     const roundSetupTopSubtitle = getClubCardSubtitle(openedCourse);
-    const showOfficialCombinationList =
+    const showEighteenRoutePicker =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
-      openedCourseRouteCombinations.length > 0 &&
       !showManualCombinationBuilder &&
-      showOfficialCombinationOptions;
+      (openedCourseRouteCombinations.length > 0 || eighteenHoleRoutes.length > 0);
     const showSelectedOfficialCombinationCard =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       Boolean(matchedOfficialCombination) &&
       !showManualCombinationBuilder &&
-      !showOfficialCombinationOptions;
+      !showOtherEighteenRouteOptions;
     const showSelectedRouteCard =
       Boolean(selectedPrimaryRoute) &&
       !usingOfficialCombination &&
@@ -8006,7 +8002,6 @@ function App() {
               key={option}
               onClick={() => {
                 setShowManualCombinationBuilder(false);
-                setShowOfficialCombinationOptions(false);
                 setShowRouteOptions(false);
                 setShowOtherEighteenRouteOptions(false);
                 setShowTeeOptions(false);
@@ -8201,166 +8196,71 @@ function App() {
           </>
         )}
 
-        {Number(roundSetup.totalCompetitionHoles) === 18 &&
-          openedCourseRouteCombinations.length > 0 &&
-          !showManualCombinationBuilder && (
-            <>
-              <h2 style={roundSetupSectionTitleStyle}>Scegli il percorso</h2>
-              <div
-                style={{
-                  ...roundSetupSectionTitleStyle,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px"
+        {showEighteenRoutePicker && (
+          <>
+            <div
+              style={{
+                ...roundSetupSectionTitleStyle,
+                display: "flex",
+                alignItems: "center",
+                gap: "10px"
+              }}
+            >
+              <button
+                onClick={() => {
+                  setShowOtherEighteenRouteOptions((prev) => !prev);
                 }}
-              >
-                <button
-                  onClick={() => setShowOfficialCombinationOptions((prev) => !prev)}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    color: colors.green,
-                    fontSize: "20px",
-                    fontWeight: 800,
-                    padding: 0,
-                    cursor: "pointer",
-                    fontFamily: appFont,
-                    lineHeight: 1,
-                    flexShrink: 0
-                  }}
-                  aria-label={
-                    showOfficialCombinationOptions
-                      ? "Chiudi giri ufficiali"
-                      : "Apri giri ufficiali"
-                  }
-                >
-                  {showOfficialCombinationOptions ? "▴" : "▾"}
-                </button>
-                <span>Giri ufficiali</span>
-              </div>
-              <div
                 style={{
-                  marginTop: "-4px",
-                  marginBottom: "12px",
-                  color: colors.subtext,
-                  fontSize: "13px",
-                  lineHeight: 1.5
+                  border: "none",
+                  background: "transparent",
+                  color: colors.green,
+                  fontSize: "20px",
+                  fontWeight: 800,
+                  padding: 0,
+                  cursor: "pointer",
+                  fontFamily: appFont,
+                  lineHeight: 1,
+                  flexShrink: 0
                 }}
+                aria-label={showOtherEighteenRouteOptions ? "Chiudi percorsi" : "Apri percorsi"}
               >
-                Se disponibili sono il modo piu' rapido e preciso per iniziare.
-              </div>
-              {showOfficialCombinationList && (
+                {showOtherEighteenRouteOptions ? "▴" : "▾"}
+              </button>
+              <span>Scegli il percorso</span>
+            </div>
+
+            {showSelectedOfficialCombinationCard && (
+              <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
                 <div
                   style={{
-                    ...roundSetupGridStyle,
-                    gridTemplateColumns: "1fr"
+                    fontSize: "16px",
+                    fontWeight: 700,
+                    lineHeight: 1.4
                   }}
                 >
-                  {openedCourseRouteCombinations.map((combination) => (
-                    <div
-                      key={combination.id}
-                      onClick={() => {
-                        setShowManualCombinationBuilder(false);
-                        setShowOfficialCombinationOptions(false);
-                        setShowRouteOptions(false);
-                        setShowOtherEighteenRouteOptions(false);
-                        setShowTeeOptions(false);
-                        setRoundSetup((prev) => ({
-                          ...prev,
-                          selectionMode: "official_combination_18",
-                          selectedRouteId: combination.frontRouteId,
-                          secondaryRouteId: combination.backRouteId,
-                          selectedCombinationId: combination.id,
-                          selectedRouteTeeId: null,
-                          selectedCombinationTeeId: getDefaultTeeId(combination.tees, 18),
-                          startHole: 1
-                        }));
-                      }}
-                      style={setupCardOptionStyle(
-                        matchedOfficialCombination?.id === combination.id
-                      )}
-                    >
-                      <div style={{ fontWeight: 700 }}>{combination.name}</div>
-                      <div style={{ marginTop: "6px", fontSize: "13px", color: colors.subtext }}>
-                        {renderRoutePair(combination.frontRouteName, combination.backRouteName, {
-                          muted: true
-                        })}
-                      </div>
-                      <div style={{ marginTop: "4px", fontSize: "13px", color: colors.subtext }}>
-                        {combination.holesCount} buche · Par {combination.totalPar}
-                      </div>
-                    </div>
-                  ))}
+                  {matchedOfficialCombination.name} · {matchedOfficialCombination.holesCount} buche · Par{" "}
+                  {matchedOfficialCombination.totalPar}
                 </div>
-              )}
-
-              {showSelectedOfficialCombinationCard && (
-                <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      fontWeight: 700,
-                      lineHeight: 1.4
-                    }}
-                  >
-                    {matchedOfficialCombination.name} · {matchedOfficialCombination.holesCount} buche · Par{" "}
-                    {matchedOfficialCombination.totalPar}
-                  </div>
-                  <div
-                    style={{
-                      marginTop: "6px",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      color: colors.subtext
-                    }}
-                  >
-                    {getRouteColor(matchedOfficialCombination.frontRouteName)
-                      ? renderColorDot(getRouteColor(matchedOfficialCombination.frontRouteName), 9)
-                      : null}
-                    {getRouteColor(matchedOfficialCombination.backRouteName)
-                      ? renderColorDot(getRouteColor(matchedOfficialCombination.backRouteName), 9)
-                      : null}
-                  </div>
-                </div>
-              )}
-            </>
-          )}
-
-        {Number(roundSetup.totalCompetitionHoles) === 18 && eighteenHoleRoutes.length > 0 && !showManualCombinationBuilder && (
-          <>
-            {openedCourseRouteCombinations.length > 0 && (
-              <div
-                style={{
-                  ...roundSetupSectionTitleStyle,
-                  marginTop: "18px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px"
-                }}
-              >
-                <button
-                  onClick={() => setShowOtherEighteenRouteOptions((prev) => !prev)}
+                <div
                   style={{
-                    border: "none",
-                    background: "transparent",
-                    color: colors.green,
-                    fontSize: "20px",
-                    fontWeight: 800,
-                    padding: 0,
-                    cursor: "pointer",
-                    fontFamily: appFont,
-                    lineHeight: 1,
-                    flexShrink: 0
+                    marginTop: "6px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: colors.subtext
                   }}
-                  aria-label={showOtherEighteenRouteOptions ? "Chiudi altri percorsi" : "Apri altri percorsi"}
                 >
-                  {showOtherEighteenRouteOptions ? "▴" : "▾"}
-                </button>
-                <span>Altre opzioni di gioco</span>
+                  {getRouteColor(matchedOfficialCombination.frontRouteName)
+                    ? renderColorDot(getRouteColor(matchedOfficialCombination.frontRouteName), 9)
+                    : null}
+                  {getRouteColor(matchedOfficialCombination.backRouteName)
+                    ? renderColorDot(getRouteColor(matchedOfficialCombination.backRouteName), 9)
+                    : null}
+                </div>
               </div>
             )}
-            {showSelectedRouteCard ? (
+
+            {showSelectedRouteCard && (
               <div style={{ ...roundSetupInputCardStyle, ...setupCardOptionStyle(true), cursor: "default" }}>
                 {(() => {
                   const displayRoute = getRoundSetupRouteDisplay(selectedPrimaryRoute, 18);
@@ -8384,19 +8284,52 @@ function App() {
                   );
                 })()}
               </div>
-            ) : (showOtherEighteenRouteOptions || !openedCourseRouteCombinations.length) ? (
+            )}
+
+            {(showOtherEighteenRouteOptions || (!matchedOfficialCombination && !selectedPrimaryRoute)) && (
               <div
                 style={{
                   ...roundSetupGridStyle,
                   gridTemplateColumns: "1fr"
                 }}
               >
-                {eighteenHoleRoutes.map((route) => (
+                {openedCourseRouteCombinations.map((combination) => (
                   <div
-                    key={route.id}
+                    key={`combination-${combination.id}`}
                     onClick={() => {
                       setShowManualCombinationBuilder(false);
-                      setShowOfficialCombinationOptions(false);
+                      setShowRouteOptions(false);
+                      setShowOtherEighteenRouteOptions(false);
+                      setShowTeeOptions(false);
+                      setRoundSetup((prev) => ({
+                        ...prev,
+                        selectionMode: "official_combination_18",
+                        selectedRouteId: combination.frontRouteId,
+                        secondaryRouteId: combination.backRouteId,
+                        selectedCombinationId: combination.id,
+                        selectedRouteTeeId: null,
+                        selectedCombinationTeeId: getDefaultTeeId(combination.tees, 18),
+                        startHole: 1
+                      }));
+                    }}
+                    style={setupCardOptionStyle(matchedOfficialCombination?.id === combination.id)}
+                  >
+                    <div style={{ fontWeight: 700 }}>
+                      {combination.name} · {combination.holesCount} buche · Par {combination.totalPar}
+                    </div>
+                    <div style={{ marginTop: "6px", fontSize: "13px", color: colors.subtext }}>
+                      {renderRoutePair(combination.frontRouteName, combination.backRouteName, {
+                        muted: true
+                      })}
+                    </div>
+                  </div>
+                ))}
+
+                {eighteenHoleRoutes.map((route) => (
+                  <div
+                    key={`route-${route.id}`}
+                    onClick={() => {
+                      setShowManualCombinationBuilder(false);
                       setShowOtherEighteenRouteOptions(false);
                       setRoundSetup((prev) => ({
                         ...prev,
@@ -8434,7 +8367,7 @@ function App() {
                   </div>
                 ))}
               </div>
-            ) : null}
+            )}
           </>
         )}
 
