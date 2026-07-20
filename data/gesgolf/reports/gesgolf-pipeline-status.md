@@ -25,7 +25,7 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - `Stablr Approved` verde si usa solo per campi controllati manualmente e marcati con `source_payload.stablr_approved: true`;
   - in UI il badge e' solo icona verde, senza scritta; evitare label tipo `Verificato` o `Approved` sulla card, perche' appesantiscono e confondono stato tecnico e controllo manuale;
   - tassonomia badge card club: `Approved`, `Review`, `Community`;
-  - al momento sono approvati manualmente solo `Albisola` e `Ambrosiano`;
+  - al momento sono approvati manualmente `Albisola`, `Ambrosiano` e `Antognolla`;
   - `verified` senza approvazione manuale non deve mostrare il badge verde.
 - Regola di semplificazione prodotto:
   - i club semplici fisici da 9 buche devono partire di default a 9 buche e, salvo eccezioni, avere una route `9 Buche` e una route `18 Buche`;
@@ -153,7 +153,7 @@ Club gia' interamente `import_ready`:
 - `Albisola`
 - `Aosta Arsanieres`
 - `Ambrosiano`
-- `Antognolla` *(giocabile in revisione / arancio, non verde)*
+- `Antognolla` *(Stablr Approved: scorecard ufficiale/Worldclass conferma par e SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Aosta Brissogne` *(giocabile in revisione / arancio, non verde)*
 - `Arenzano Pineta` *(giocabile in revisione / arancio, non verde)*
 - `Bagnaia` *(giocabile in revisione / arancio, non verde)*
