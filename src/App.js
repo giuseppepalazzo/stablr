@@ -4113,7 +4113,16 @@ function App() {
         const bIsDefault = isDefaultRoundVariant(b, 9);
         if (aIsDefault !== bIsDefault) return aIsDefault ? -1 : 1;
 
-        const priority = { "Blu": 0, "Bianco": 1, "Rosso": 2 };
+        const priority = {
+          Yellow: 0,
+          Giallo: 0,
+          Blu: 1,
+          Blue: 1,
+          Bianco: 2,
+          White: 2,
+          Rosso: 3,
+          Red: 3
+        };
         const aPriority = Object.prototype.hasOwnProperty.call(priority, a.name) ? priority[a.name] : 99;
         const bPriority = Object.prototype.hasOwnProperty.call(priority, b.name) ? priority[b.name] : 99;
         if (aPriority !== bPriority) return aPriority - bPriority;
