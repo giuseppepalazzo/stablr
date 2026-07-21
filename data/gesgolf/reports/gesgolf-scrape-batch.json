@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-08T12:20:21.844Z",
+  "generated_at": "2026-07-21T11:21:37.217Z",
   "source": {
     "coverage_path": "/Users/giuseppepalazzo/Stablr/data/gesgolf/reports/fig-gesgolf-coverage.json",
     "fig_catalog_path": "/Users/giuseppepalazzo/Stablr/data/fig/normalized/fig-catalog-normalized.json"
@@ -14,9 +14,9 @@
     "protected_skipped": 1,
     "weak_skipped": 36,
     "processed_now": 10,
-    "processed_total": 76,
-    "scraped_safe": 41,
-    "scraped_warning": 35,
+    "processed_total": 86,
+    "scraped_safe": 45,
+    "scraped_warning": 41,
     "scraped_error": 0
   },
   "skipped": [
@@ -1154,6 +1154,126 @@
       "warning_courses": 1,
       "failed_courses": 0,
       "output": "data/gesgolf/normalized/grado/circolo-238.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Green Club Lainate",
+      "gesgolf_club": "GREEN CLUB LAINATE",
+      "circolo_id": "102",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 15,
+      "warning_courses": 3,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/green-club-lainate/circolo-102.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Gressoney",
+      "gesgolf_club": "GRESSONEY",
+      "circolo_id": "715",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 3,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/gressoney/circolo-715.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Is Arenas",
+      "gesgolf_club": "IS ARENAS",
+      "circolo_id": "283",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 7,
+      "warning_courses": 2,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/is-arenas/circolo-283.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Is Molas Ssd",
+      "gesgolf_club": "IS MOLAS SSD",
+      "circolo_id": "814",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 5,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/is-molas-ssd/circolo-814.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Laghi",
+      "gesgolf_club": "LAGHI",
+      "circolo_id": "777",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 4,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/laghi/circolo-777.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Lamborghini",
+      "gesgolf_club": "LAMBORGHINI",
+      "circolo_id": "155",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 2,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/lamborghini/circolo-155.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Lana",
+      "gesgolf_club": "LANA",
+      "circolo_id": "256",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 4,
+      "warning_courses": 1,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/lana/circolo-256.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Lanzo",
+      "gesgolf_club": "LANZO",
+      "circolo_id": "19",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 4,
+      "warning_courses": 2,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/lanzo/circolo-19.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Lecco",
+      "gesgolf_club": "LECCO",
+      "circolo_id": "56",
+      "match_score": 100,
+      "scrape_status": "warning",
+      "playable_courses": 5,
+      "warning_courses": 2,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/lecco/circolo-56.json",
+      "action": "scraped"
+    },
+    {
+      "fig_club": "Lignano Ssd",
+      "gesgolf_club": "LIGNANO SSD",
+      "circolo_id": "841",
+      "match_score": 100,
+      "scrape_status": "safe",
+      "playable_courses": 3,
+      "warning_courses": 0,
+      "failed_courses": 0,
+      "output": "data/gesgolf/normalized/lignano-ssd/circolo-841.json",
       "action": "scraped"
     }
   ]

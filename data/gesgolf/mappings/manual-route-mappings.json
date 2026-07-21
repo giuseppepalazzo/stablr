@@ -403,6 +403,84 @@
           "confidence": "benchmark_manual"
         }
       ]
+    },
+    {
+      "circolo_id": "715",
+      "fig_club": "Gressoney",
+      "routes": [
+        {
+          "ges_route_name": "18 buche 2025",
+          "fig_course_name": "18 BUCHE",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "9 BUCHE 2025",
+          "fig_course_name": "9 BUCHE",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "9 buche",
+          "fig_course_name": "",
+          "relation": "exclude_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "777",
+      "fig_club": "Laghi",
+      "routes": [
+        {
+          "ges_route_name": "LAGHI",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "1-9",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "10-18",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "SECONDE X 2",
+          "fig_course_name": "2 Volte Seconde Nove",
+          "relation": "repeat_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
+    },
+    {
+      "circolo_id": "841",
+      "fig_club": "Lignano Ssd",
+      "routes": [
+        {
+          "ges_route_name": "LIGNANO",
+          "fig_course_name": "18 Buche",
+          "relation": "playable_course",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "PRIME 9B",
+          "fig_course_name": "Prime Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        },
+        {
+          "ges_route_name": "SEC. 9B",
+          "fig_course_name": "Seconde Nove",
+          "relation": "base_route",
+          "confidence": "benchmark_manual"
+        }
+      ]
     }
   ]
 }

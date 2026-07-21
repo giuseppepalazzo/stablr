@@ -147,8 +147,8 @@ Esito batch:
 
 Import summary attuale:
 - route totali valutate: 405
-- `import_ready`: 84
-- `needs_review`: 302
+- `import_ready`: 99
+- `needs_review`: 338
 - `protected_reference`: 11
 - `excluded_reference`: 8
 
@@ -170,6 +170,10 @@ Club gia' interamente `import_ready`:
 - `Cortina Ssd` *(giocabile in revisione / arancio, non verde)*
 - `Fioranello` *(Stablr Approved: scorecard ufficiale 2024 conferma par e SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Globale Jesolo` *(giocabile in revisione / arancio, non verde)*
+- `Gressoney` *(giocabile in revisione / arancio, non verde: import GesGolf/FIG seedato; sito ufficiale conferma configurazione campo PAR 70 ma non espone SI/HCP buca per buca; serve scorecard ufficiale o segreteria)*
+- `Laghi` *(giocabile in revisione / arancio, non verde: import GesGolf/FIG seedato; sito ufficiale espone PDF Stroke Saver ufficiale con PAR/HCP, da confrontare visivamente prima del badge verde)*
+- `Lamborghini` *(giocabile in revisione / arancio, non verde: import GesGolf/FIG seedato, ma sito ufficiale espone HCP/SI non allineati a GesGolf; serve conferma scorecard ufficiale o segreteria prima del verde)*
+- `Lignano Ssd` *(giocabile in revisione / arancio, non verde: import GesGolf/FIG seedato; sito ufficiale conferma 18 buche PAR 72 ma non espone scorecard/SI nella pagina percorso; serve scorecard ufficiale o segreteria)*
 
 Secondo caso validato:
 - `Aosta Arsanieres`
@@ -500,9 +504,8 @@ Ultimo punto raggiunto:
 - I club arancioni sono comunque gia' giocabili in app: il contatto segreteria serve a completare il controllo manuale e puo' diventare anche un primo touchpoint promozionale per presentare Stablr.
 - Per i club verdi/Stablr Approved, studiare una comunicazione separata di valorizzazione: notificare alla segreteria che il campo e' stato verificato e reso disponibile in Stablr, proponendo collaborazione/aggiornamenti futuri senza chiedere correzioni.
 
-Ripartenza prossima sessione:
-- continuare con il prossimo blocco di 10 club fortemente matchati FIG/GesGolf dopo `Grado`;
-- prossimo batch previsto:
+Nuovo batch FIG/GesGolf avviato:
+- batch scraped e mapping/candidates rigenerati per:
   - `Green Club Lainate`
   - `Gressoney`
   - `Is Arenas`
@@ -513,6 +516,36 @@ Ripartenza prossima sessione:
   - `Lanzo`
   - `Lecco`
   - `Lignano Ssd`
+- `Lamborghini` era l'unico `import_ready` pieno automatico nel batch: JSON generato, validato e seed Supabase completato in stato arancio `needs_review/playable_review`.
+- Mapping manuale semplice aggiunto e seed Supabase completato in stato arancio per:
+  - `Gressoney`: 18 buche 2025 + 9 buche 2025; vecchio `9 buche` PAR 34 escluso perche' non coerente con FIG corrente.
+  - `Laghi`: 18 buche, Prime Nove, Seconde Nove, Seconde Nove x 2.
+  - `Lignano Ssd`: 18 buche, Prime Nove, Seconde Nove.
+- Terza verifica approfondita Lamborghini:
+  - pagina ufficiale `https://www.tenutalamborghini.com/percorso`;
+  - par buca-per-buca coerente con import;
+  - HCP/SI ufficiali pubblicati non coincidono con GesGolf/import:
+    - pagina ufficiale dettagliata: `17/18, 11/12, 9/10, 5/6, 1/2, 13/14, 3/4, 7/8, 15/16`;
+    - import GesGolf 18: `17,5,7,3,1,15,9,13,11,18,6,8,4,2,16,10,14,12`;
+  - resta arancio e va verificato con scorecard ufficiale o segreteria prima di diventare `Stablr Approved`.
+- Terza verifica nuovo batch:
+  - `Gressoney`: sito ufficiale `https://www.golfgressoney.com/il-campo/` conferma campo PAR 70 / 12 buche fisiche con gioco 9 e 18, ma non SI/HCP buca per buca; resta arancio.
+  - `Laghi`: sito ufficiale `https://www.golfdeilaghi.it/en_GB/attivita-sportiva/percorso` espone PDF ufficiale `Stroke Saver` con PAR/HCP; PDF scaricato e renderizzato, ma il confronto completo par/SI va completato prima di eventuale verde.
+  - `Lignano Ssd`: sito ufficiale `https://golflignano.it/percorso/` conferma 18 buche PAR 72 ma non scorecard/SI buca per buca; resta arancio.
+- Stato altri club batch:
+  - `Green Club Lainate`: complesso, molte varianti e warning, non importare automaticamente.
+  - `Gressoney`: 3 route safe ma mapping non ancora high confidence; da sbloccare manualmente se coerente.
+  - `Is Arenas`: complesso con misti/varianti e warning, non importare automaticamente.
+  - `Is Molas Ssd`: parzialmente import_ready ma non completo; richiede mapping manuale.
+  - `Laghi`: safe ma mapping low/medium, da sbloccare manualmente se coerente.
+  - `Lana`: warning e varianti, da verificare manualmente.
+  - `Lanzo`: parzialmente import_ready ma non completo; richiede mapping manuale.
+  - `Lecco`: warning e varianti, da verificare manualmente.
+  - `Lignano Ssd`: safe ma mapping low, da sbloccare manualmente se coerente.
+- Ripartenza consigliata:
+  - lavorare prima sui candidati semplici `Gressoney`, `Laghi` e `Lignano Ssd`;
+  - per ciascuno: sbloccare mapping solo se leggibile, generare import arancio, validare, seedare, poi terza verifica sito ufficiale/scorecard.
+- usare lo stesso metodo:
 - usare lo stesso metodo:
   1. scrape batch GesGolf;
   2. rigenera route mapping;

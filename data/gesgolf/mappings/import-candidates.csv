@@ -393,6 +393,58 @@ Grado,GRADO,238,GC GRADO NEW,18 Buche,fig-course-grado-18-buche,playable_course,
 Grado,GRADO,238,OLD COURSE,18 Buche,fig-course-grado-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
 Grado,GRADO,238,PRIME 9,prime 9,fig-course-grado-prime-9,base_route,high,safe,,no,import_ready,all_checks_passed
 Grado,GRADO,238,1-6 & 16-18,9 Buche misto,fig-course-grado-9-buche-misto,base_route,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,campionato,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,avanzG/R,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,warning,,no,needs_review,ges_route_warning
+Green Club Lainate,GREEN CLUB LAINATE,102,10-18 BN,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Green Club Lainate,GREEN CLUB LAINATE,102,1-9 BN,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Green Club Lainate,GREEN CLUB LAINATE,102,giallo/rosso,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,18 buche,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,Buche 1-9,Prime Nove 2023,fig-course-green-club-lainate-prime-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,Buche 10-18,Seconde Nove 2023,fig-course-green-club-lainate-seconde-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,BUCA 1-9 PROVV,Prime Nove 2023,fig-course-green-club-lainate-prime-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,18 BUCHE PROVV,18 Buche Provvisorio 2025,fig-course-green-club-lainate-18-buche-provvisorio-2025,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,18 Buche GC old,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,Prime Nove old,Prime Nove 2023,fig-course-green-club-lainate-prime-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,Seconde Nove 25,Seconde Nove 2023,fig-course-green-club-lainate-seconde-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,18 Buche 25,18 Buche 2023,fig-course-green-club-lainate-18-buche-2023,playable_course,low,safe,,no,needs_review,confidence_too_low
+Green Club Lainate,GREEN CLUB LAINATE,102,Prime Nove 25,Prime Nove 2023,fig-course-green-club-lainate-prime-nove-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Gressoney,GRESSONEY,715,18 buche 2025,18 BUCHE,fig-course-gressoney-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Gressoney,GRESSONEY,715,9 BUCHE 2025,9 BUCHE,fig-course-gressoney-9-buche,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Gressoney,GRESSONEY,715,9 buche,,,exclude_route,benchmark_manual,safe,,no,excluded_reference,manual_route_excluded
+Is Arenas,IS ARENAS,283,Seconde 9 2022,Seconde Nove 2022,fig-course-is-arenas-seconde-nove-2022,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Is Arenas,IS ARENAS,283,MISTO 2022,Misto 1-2-3-13....18 2022,fig-course-is-arenas-misto-1-2-3-13-18-2022,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Is Arenas,IS ARENAS,283,MISTO D.18 2022,Misto 1-2-3-13....18 2022 2 volte,fig-course-is-arenas-misto-1-2-3-13-18-2022-2-volte,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Is Arenas,IS ARENAS,283,Is Arenas 2022,18 Buche 2022,fig-course-is-arenas-18-buche-2022,playable_course,low,safe,,no,needs_review,confidence_too_low
+Is Arenas,IS ARENAS,283,Prime 9 2022,Prime Nove 2022,fig-course-is-arenas-prime-nove-2022,base_route,low,safe,,no,needs_review,confidence_too_low
+Is Arenas,IS ARENAS,283,MISTO 4-12,4-12 2022,fig-course-is-arenas-4-12-2022,base_route,low,safe,,no,needs_review,confidence_too_low
+Is Arenas,IS ARENAS,283,MISTO D. 4-12,4-12 2022 2 volte,fig-course-is-arenas-4-12-2022-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Is Molas Ssd,IS MOLAS SSD,814,18 Buche.,18 Buche,fig-course-is-molas-ssd-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Is Molas Ssd,IS MOLAS SSD,814,Prime 9.,Prime Nove,fig-course-is-molas-ssd-prime-nove,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Is Molas Ssd,IS MOLAS SSD,814,Seconde 9.,Seconde Nove,fig-course-is-molas-ssd-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Is Molas Ssd,IS MOLAS SSD,814,Terze nove,Terze Nove,fig-course-is-molas-ssd-terze-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Is Molas Ssd,IS MOLAS SSD,814,Prime - Terze,Prime-Terze,fig-course-is-molas-ssd-prime-terze,playable_course,high,safe,,no,import_ready,all_checks_passed
+Laghi,LAGHI,777,LAGHI,18 Buche,fig-course-laghi-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Laghi,LAGHI,777,1-9,Prime Nove,fig-course-laghi-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Laghi,LAGHI,777,10-18,Seconde Nove,fig-course-laghi-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Laghi,LAGHI,777,SECONDE X 2,2 Volte Seconde Nove,fig-course-laghi-2-volte-seconde-nove,repeat_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Lamborghini,LAMBORGHINI,155,18 buche 2022,18 Buche 2022,fig-course-lamborghini-18-buche-2022,playable_course,high,safe,,no,import_ready,all_checks_passed
+Lamborghini,LAMBORGHINI,155,9 BUCHE 2022,9 Buche 2022,fig-course-lamborghini-9-buche-2022,base_route,high,safe,,no,import_ready,all_checks_passed
+Lana,LANA,256,GC Lana,Misto Lana+Eppan,fig-course-lana-misto-lana-eppan,playable_course,low,safe,,no,needs_review,confidence_too_low
+Lana,LANA,256,9 buche,9 Buche,fig-course-lana-9-buche,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Lana,LANA,256,Lana Eppan,Misto Lana+Eppan,fig-course-lana-misto-lana-eppan,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Lana,LANA,256,B/G - B/R,18 Buche,fig-course-lana-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Lanzo,LANZO,19,LANZO,18 Buche,fig-course-lanzo-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Lanzo,LANZO,19,PRIME NOVE,Prime Nove,fig-course-lanzo-prime-nove,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Lanzo,LANZO,19,UNDER 12,18 Buche,fig-course-lanzo-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Lanzo,LANZO,19,SECONDE NOVE,Seconde Nove,fig-course-lanzo-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Lecco,LECCO,56,GC Lecco,18 Buche,fig-course-lecco-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Lecco,LECCO,56,Prime 9,Prime Nove,fig-course-lecco-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Lecco,LECCO,56,Seconde,Seconde Nove,fig-course-lecco-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Lecco,LECCO,56,9+9 prime,Prime Nove 2 volte,fig-course-lecco-prime-nove-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Lecco,LECCO,56,2^ Nove x 2,Seconde Nove 2 volte,fig-course-lecco-seconde-nove-2-volte,repeat_route,medium,safe,,no,needs_review,confidence_too_low
+Lignano Ssd,LIGNANO SSD,841,LIGNANO,18 Buche,fig-course-lignano-ssd-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Lignano Ssd,LIGNANO SSD,841,PRIME 9B,Prime Nove,fig-course-lignano-ssd-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Lignano Ssd,LIGNANO SSD,841,SEC. 9B,Seconde Nove,fig-course-lignano-ssd-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
