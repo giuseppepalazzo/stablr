@@ -23,7 +23,7 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "Official Modena pages expose the Bernhard Langer 18-hole course and the Executive pitch-and-putt route. Main 18 uses iconic route name; Executive remains a separate playable real route, with 9 and 18 options.",
+      "verification_notes": "Official Modena pages expose the Bernhard Langer 18-hole course and the Executive pitch-and-putt route. Main 18 and its 9-hole segments use the Bernhard Langer iconic name; Executive remains a separate playable real route, with 9 and 18 options.",
       "official_course_links": [
         "https://www.modenagolf.it/percorso-langer",
         "https://www.modenagolf.it/percorso-executive"
@@ -34,7 +34,7 @@
         "circolo_id": "71",
         "gesgolf_club": "MODENA"
       },
-      "product_rule": "Exception: a club can have a main physical 18-hole course plus a real Executive/Pitch-and-Putt physical 9-hole route. Keep main 18 with iconic name and Prime/Seconde Nove; keep Executive as separate 9/18 playable route, not as a Parco-style combination club."
+      "product_rule": "Exception: Modena has a main physical 18-hole Bernhard Langer course plus a real Executive/Pitch-and-Putt physical 9-hole route. Default 18 is Bernhard Langer; default 9 is Executive 9 Buche. Keep Bernhard Langer Prime/Seconde Nove as secondary 9-hole options."
     }
   },
   "routes": [
@@ -295,7 +295,7 @@
     },
     {
       "external_key": "fig-course-modena-prime-nove",
-      "name": "Prime Nove",
+      "name": "Bernhard Langer · Prime Nove",
       "holes_count": 9,
       "total_par": 36,
       "display_order": 2,
@@ -307,7 +307,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "Prime Nove",
-        "stablr_product_name": "Prime Nove",
+        "stablr_product_name": "Bernhard Langer · Prime Nove",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": null,
@@ -323,62 +323,64 @@
             0,
             9
           ]
-        }
+        },
+        "product_note": "Named segment of the Bernhard Langer main 18-hole course; UI renders as Bernhard Langer · Prime 9.",
+        "punctuation_note": "Name uses middle dot separator between iconic course name and segment label."
       },
       "holes": [
         {
           "physical_hole_number": 1,
           "par": 4,
           "stroke_index": 4,
-          "display_label": "1"
+          "display_label": "Bernhard Langer 1"
         },
         {
           "physical_hole_number": 2,
           "par": 4,
           "stroke_index": 2,
-          "display_label": "2"
+          "display_label": "Bernhard Langer 2"
         },
         {
           "physical_hole_number": 3,
           "par": 3,
           "stroke_index": 8,
-          "display_label": "3"
+          "display_label": "Bernhard Langer 3"
         },
         {
           "physical_hole_number": 4,
           "par": 5,
           "stroke_index": 10,
-          "display_label": "4"
+          "display_label": "Bernhard Langer 4"
         },
         {
           "physical_hole_number": 5,
           "par": 4,
           "stroke_index": 12,
-          "display_label": "5"
+          "display_label": "Bernhard Langer 5"
         },
         {
           "physical_hole_number": 6,
           "par": 3,
           "stroke_index": 14,
-          "display_label": "6"
+          "display_label": "Bernhard Langer 6"
         },
         {
           "physical_hole_number": 7,
           "par": 5,
           "stroke_index": 18,
-          "display_label": "7"
+          "display_label": "Bernhard Langer 7"
         },
         {
           "physical_hole_number": 8,
           "par": 4,
           "stroke_index": 16,
-          "display_label": "8"
+          "display_label": "Bernhard Langer 8"
         },
         {
           "physical_hole_number": 9,
           "par": 4,
           "stroke_index": 6,
-          "display_label": "9"
+          "display_label": "Bernhard Langer 9"
         }
       ],
       "tees": [
@@ -500,7 +502,7 @@
     },
     {
       "external_key": "fig-course-modena-seconde-nove",
-      "name": "Seconde Nove",
+      "name": "Bernhard Langer · Seconde Nove",
       "holes_count": 9,
       "total_par": 36,
       "display_order": 3,
@@ -512,7 +514,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "Seconde Nove",
-        "stablr_product_name": "Seconde Nove",
+        "stablr_product_name": "Bernhard Langer · Seconde Nove",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": null,
@@ -528,62 +530,64 @@
             9,
             18
           ]
-        }
+        },
+        "product_note": "Named segment of the Bernhard Langer main 18-hole course; UI renders as Bernhard Langer · Seconde 9.",
+        "punctuation_note": "Name uses middle dot separator between iconic course name and segment label."
       },
       "holes": [
         {
           "physical_hole_number": 10,
           "par": 5,
           "stroke_index": 13,
-          "display_label": "10"
+          "display_label": "Bernhard Langer 10"
         },
         {
           "physical_hole_number": 11,
           "par": 3,
           "stroke_index": 17,
-          "display_label": "11"
+          "display_label": "Bernhard Langer 11"
         },
         {
           "physical_hole_number": 12,
           "par": 4,
           "stroke_index": 7,
-          "display_label": "12"
+          "display_label": "Bernhard Langer 12"
         },
         {
           "physical_hole_number": 13,
           "par": 5,
           "stroke_index": 3,
-          "display_label": "13"
+          "display_label": "Bernhard Langer 13"
         },
         {
           "physical_hole_number": 14,
           "par": 4,
           "stroke_index": 11,
-          "display_label": "14"
+          "display_label": "Bernhard Langer 14"
         },
         {
           "physical_hole_number": 15,
           "par": 3,
           "stroke_index": 5,
-          "display_label": "15"
+          "display_label": "Bernhard Langer 15"
         },
         {
           "physical_hole_number": 16,
           "par": 4,
           "stroke_index": 1,
-          "display_label": "16"
+          "display_label": "Bernhard Langer 16"
         },
         {
           "physical_hole_number": 17,
           "par": 3,
           "stroke_index": 15,
-          "display_label": "17"
+          "display_label": "Bernhard Langer 17"
         },
         {
           "physical_hole_number": 18,
           "par": 5,
           "stroke_index": 9,
-          "display_label": "18"
+          "display_label": "Bernhard Langer 18"
         }
       ],
       "tees": [
@@ -705,7 +709,7 @@
     },
     {
       "external_key": "fig-course-modena-9-buche-executive",
-      "name": "Executive 9 Buche",
+      "name": "Executive",
       "holes_count": 9,
       "total_par": 27,
       "display_order": 4,
@@ -717,10 +721,10 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "9 Buche Executive",
-        "stablr_product_name": "Executive 9 Buche",
+        "stablr_product_name": "Executive",
         "round_variant": {
           "holes_count": 9,
-          "default_for_holes": null,
+          "default_for_holes": 9,
           "default_source": "fig_gesgolf_official_site"
         },
         "gesgolf": {
@@ -729,7 +733,8 @@
           "route_name": "EXECUTIVE",
           "playable_kind": "base_9",
           "percorso_id": "2964"
-        }
+        },
+        "product_note": "Executive is the default 9-hole choice at Modena; UI renders as Executive · 9 buche · Par 27."
       },
       "holes": [
         {

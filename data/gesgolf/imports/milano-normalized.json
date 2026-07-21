@@ -1164,8 +1164,8 @@
     {
       "external_key": "fig-combination-milano-2-3",
       "name": "Blu/Giallo",
-      "front_route_external_key": "fig-course-milano-nove-perc-2",
-      "back_route_external_key": "fig-course-milano-nove-perc-3",
+      "front_route_external_key": "fig-course-milano-nove-perc-3",
+      "back_route_external_key": "fig-course-milano-nove-perc-2",
       "holes_count": 18,
       "total_par": 72,
       "is_active": true,
@@ -1186,103 +1186,13 @@
         "stablr_product_name": "Blu/Giallo",
         "color_route_name": "Blu/Giallo",
         "previous_stablr_product_name": "2/3",
-        "product_note": "Milano confirmed as Parco-style 27-hole color-route club. Combination 2/3 is displayed as Blu/Giallo to match the official course map visual order."
+        "product_note": "Milano combination 2/3 is displayed and sequenced as Blu/Giallo to match the official course map visual order; source GesGolf/FIG identifier remains 2/3."
       },
       "holes": [
         {
           "round_hole_number": 1,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 1,
-          "par": 3,
-          "stroke_index": 10,
-          "source_stroke_index": 10,
-          "display_label": "Giallo 1"
-        },
-        {
-          "round_hole_number": 2,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 2,
-          "par": 4,
-          "stroke_index": 12,
-          "source_stroke_index": 12,
-          "display_label": "Giallo 2"
-        },
-        {
-          "round_hole_number": 3,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 3,
-          "par": 3,
-          "stroke_index": 18,
-          "source_stroke_index": 18,
-          "display_label": "Giallo 3"
-        },
-        {
-          "round_hole_number": 4,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 4,
-          "par": 4,
-          "stroke_index": 2,
-          "source_stroke_index": 2,
-          "display_label": "Giallo 4"
-        },
-        {
-          "round_hole_number": 5,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 5,
-          "par": 5,
-          "stroke_index": 16,
-          "source_stroke_index": 16,
-          "display_label": "Giallo 5"
-        },
-        {
-          "round_hole_number": 6,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 6,
-          "par": 4,
-          "stroke_index": 6,
-          "source_stroke_index": 6,
-          "display_label": "Giallo 6"
-        },
-        {
-          "round_hole_number": 7,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 7,
-          "par": 5,
-          "stroke_index": 14,
-          "source_stroke_index": 14,
-          "display_label": "Giallo 7"
-        },
-        {
-          "round_hole_number": 8,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 8,
-          "par": 4,
-          "stroke_index": 8,
-          "source_stroke_index": 8,
-          "display_label": "Giallo 8"
-        },
-        {
-          "round_hole_number": 9,
-          "route_external_key": "fig-course-milano-nove-perc-2",
-          "route_position": 1,
-          "physical_hole_number": 9,
-          "par": 4,
-          "stroke_index": 4,
-          "source_stroke_index": 4,
-          "display_label": "Giallo 9"
-        },
-        {
-          "round_hole_number": 10,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 1,
           "par": 5,
           "stroke_index": 15,
@@ -1290,9 +1200,9 @@
           "display_label": "Blu 1"
         },
         {
-          "round_hole_number": 11,
+          "round_hole_number": 2,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 2,
           "par": 4,
           "stroke_index": 1,
@@ -1300,9 +1210,9 @@
           "display_label": "Blu 2"
         },
         {
-          "round_hole_number": 12,
+          "round_hole_number": 3,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 3,
           "par": 5,
           "stroke_index": 9,
@@ -1310,9 +1220,9 @@
           "display_label": "Blu 3"
         },
         {
-          "round_hole_number": 13,
+          "round_hole_number": 4,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 4,
           "par": 3,
           "stroke_index": 13,
@@ -1320,9 +1230,9 @@
           "display_label": "Blu 4"
         },
         {
-          "round_hole_number": 14,
+          "round_hole_number": 5,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 5,
           "par": 5,
           "stroke_index": 11,
@@ -1330,9 +1240,9 @@
           "display_label": "Blu 5"
         },
         {
-          "round_hole_number": 15,
+          "round_hole_number": 6,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 6,
           "par": 4,
           "stroke_index": 5,
@@ -1340,9 +1250,9 @@
           "display_label": "Blu 6"
         },
         {
-          "round_hole_number": 16,
+          "round_hole_number": 7,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 7,
           "par": 3,
           "stroke_index": 7,
@@ -1350,9 +1260,9 @@
           "display_label": "Blu 7"
         },
         {
-          "round_hole_number": 17,
+          "round_hole_number": 8,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 8,
           "par": 4,
           "stroke_index": 3,
@@ -1360,14 +1270,104 @@
           "display_label": "Blu 8"
         },
         {
-          "round_hole_number": 18,
+          "round_hole_number": 9,
           "route_external_key": "fig-course-milano-nove-perc-3",
-          "route_position": 2,
+          "route_position": 1,
           "physical_hole_number": 9,
           "par": 3,
           "stroke_index": 17,
           "source_stroke_index": 17,
           "display_label": "Blu 9"
+        },
+        {
+          "round_hole_number": 10,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 1,
+          "par": 3,
+          "stroke_index": 10,
+          "source_stroke_index": 10,
+          "display_label": "Giallo 1"
+        },
+        {
+          "round_hole_number": 11,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 12,
+          "source_stroke_index": 12,
+          "display_label": "Giallo 2"
+        },
+        {
+          "round_hole_number": 12,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 18,
+          "source_stroke_index": 18,
+          "display_label": "Giallo 3"
+        },
+        {
+          "round_hole_number": 13,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 2,
+          "source_stroke_index": 2,
+          "display_label": "Giallo 4"
+        },
+        {
+          "round_hole_number": 14,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 5,
+          "par": 5,
+          "stroke_index": 16,
+          "source_stroke_index": 16,
+          "display_label": "Giallo 5"
+        },
+        {
+          "round_hole_number": 15,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 6,
+          "source_stroke_index": 6,
+          "display_label": "Giallo 6"
+        },
+        {
+          "round_hole_number": 16,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 7,
+          "par": 5,
+          "stroke_index": 14,
+          "source_stroke_index": 14,
+          "display_label": "Giallo 7"
+        },
+        {
+          "round_hole_number": 17,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 8,
+          "source_stroke_index": 8,
+          "display_label": "Giallo 8"
+        },
+        {
+          "round_hole_number": 18,
+          "route_external_key": "fig-course-milano-nove-perc-2",
+          "route_position": 2,
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 4,
+          "source_stroke_index": 4,
+          "display_label": "Giallo 9"
         }
       ],
       "tees": [

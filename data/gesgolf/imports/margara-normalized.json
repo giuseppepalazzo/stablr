@@ -39,7 +39,7 @@
   "routes": [
     {
       "external_key": "fig-course-margara-lolli-ghetti-prime-nove",
-      "name": "Lolli Ghetti Prime Nove",
+      "name": "Lolli Ghetti · Prime Nove",
       "holes_count": 9,
       "total_par": 36,
       "display_order": 1,
@@ -51,7 +51,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "Lolli Ghetti Prime Nove",
-        "stablr_product_name": "Lolli Ghetti Prime Nove",
+        "stablr_product_name": "Lolli Ghetti · Prime Nove",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": 9,
@@ -67,7 +67,8 @@
             0,
             9
           ]
-        }
+        },
+        "punctuation_note": "Name uses middle dot separator between iconic course name and segment label."
       },
       "holes": [
         {
@@ -187,7 +188,7 @@
     },
     {
       "external_key": "fig-course-margara-lolli-ghetti-seconde-nove",
-      "name": "Lolli Ghetti Seconde Nove",
+      "name": "Lolli Ghetti · Seconde Nove",
       "holes_count": 9,
       "total_par": 36,
       "display_order": 2,
@@ -199,7 +200,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "Lolli Ghetti Seconde Nove",
-        "stablr_product_name": "Lolli Ghetti Seconde Nove",
+        "stablr_product_name": "Lolli Ghetti · Seconde Nove",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": null,
@@ -215,7 +216,8 @@
             9,
             18
           ]
-        }
+        },
+        "punctuation_note": "Name uses middle dot separator between iconic course name and segment label."
       },
       "holes": [
         {
@@ -335,7 +337,7 @@
     },
     {
       "external_key": "fig-course-margara-la-guazzetta-prime-nove",
-      "name": "La Guazzetta Prime Nove",
+      "name": "La Guazzetta · Prime Nove",
       "holes_count": 9,
       "total_par": 36,
       "display_order": 3,
@@ -347,7 +349,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "La Guazzetta Prime Nove",
-        "stablr_product_name": "La Guazzetta Prime Nove",
+        "stablr_product_name": "La Guazzetta · Prime Nove",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": null,
@@ -363,7 +365,8 @@
             0,
             9
           ]
-        }
+        },
+        "punctuation_note": "Name uses middle dot separator between iconic course name and segment label."
       },
       "holes": [
         {
@@ -540,7 +543,7 @@
     },
     {
       "external_key": "fig-course-margara-la-guazzetta-seconde-nove",
-      "name": "La Guazzetta Seconde Nove",
+      "name": "La Guazzetta · Seconde Nove",
       "holes_count": 9,
       "total_par": 36,
       "display_order": 4,
@@ -552,7 +555,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "La Guazzetta Seconde Nove",
-        "stablr_product_name": "La Guazzetta Seconde Nove",
+        "stablr_product_name": "La Guazzetta · Seconde Nove",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": null,
@@ -568,7 +571,8 @@
             9,
             18
           ]
-        }
+        },
+        "punctuation_note": "Name uses middle dot separator between iconic course name and segment label."
       },
       "holes": [
         {

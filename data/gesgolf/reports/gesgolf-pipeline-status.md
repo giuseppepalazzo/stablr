@@ -588,6 +588,8 @@ Regola club complessi:
   - giri da 18 come combinazioni ufficiali tra route base;
   - card combinazione con nome + due pallini colore quando il nome contiene due percorsi/colori.
   - se un club complesso ha due percorsi veri da 18, come Margara, non forzarlo nel pattern Parco: le 18 restano percorsi iconici (`Lolli Ghetti`, `La Guazzetta`) e le 9 derivate devono mantenere il nome del percorso (`Lolli Ghetti Prime 9`, `La Guazzetta Seconde 9`), non solo `Prime 9` / `Seconde 9`.
+  - nelle combinazioni 18 con nome iconico completo, come `Lolli Ghetti` o `La Guazzetta`, non ripetere sotto le due meta' (`Prime Nove` / `Seconde Nove`); la sottoriga resta utile solo quando visualizza colori/pallini o una composizione non gia' chiara dal titolo.
+  - nelle card `Scegli il percorso`, se una route ha un nome iconico con suffisso `9 Buche` o `18 Buche`, la UI deve renderlo su una riga/bold come `Nome · 9 buche · Par X`, non con `Par X` piccolo sotto. Esempio: `Executive 9 Buche` diventa `Executive · 9 buche · Par 27`.
 
 Regola di ritmo:
 - ogni 2/3 batch:
@@ -610,8 +612,8 @@ Aggiornamento batch `Madonna Campiglio` -> `Molino Pero`:
 - `Margherita`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`; il sito espone tabelle handicap ma non una scorecard buca-per-buca sufficiente.
 - `Menaggio`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Terza verifica su pagina ufficiale percorso con tabella `Buca / Par / Colpi`: `https://www.golfclubmenaggio.com/it/giocare-a-golf/percorso`.
 - `Milano`: arancio; club complesso 27 buche in pattern Parco de' Medici. Il controllo manuale su sito/GesGolf conferma tre route colore: `Rosso`, `Giallo`, `Blu`. Le combinazioni FIG importate restano tre e sono rinominate a colori: `Rosso/Giallo`, `Rosso/Blu`, `Blu/Giallo` (`2/3` mostrato come Blu/Giallo per coerenza con la mappa ufficiale). Non aggiungere automaticamente combinazioni GesGolf-only invertite come `3/2` o `3/1` finche' non sono confermate da FIG/club come route ratingate.
-- `Modena`: arancio; campo 18 con variante reale Executive FIG, route `Bernhard Langer`, `Prime Nove`, `Seconde Nove`, `Executive 9 Buche`, `Executive`. Eccezione intenzionale alla regola semplice 18 -> 3 route, perche' Executive e' un percorso reale separato da mantenere giocabile ma in review.
-- aggiornamento UX Modena: le route da 18 usano nomi iconici `Bernhard Langer` e `Executive`; le opzioni da 9 restano `Prime Nove`, `Seconde Nove` e `Executive 9 Buche`. Il percorso Executive e' un pitch-and-putt fisico da 9 buche con opzione 18 ripetuta, non una combinazione stile Parco de' Medici.
+- `Modena`: arancio; campo 18 con variante reale Executive FIG, route `Bernhard Langer`, `Bernhard Langer Prime Nove`, `Bernhard Langer Seconde Nove`, `Executive 9 Buche`, `Executive`. Eccezione intenzionale alla regola semplice 18 -> 3 route, perche' Executive e' un percorso reale separato da mantenere giocabile ma in review.
+- aggiornamento UX Modena: le route Executive usano il nome iconico `Executive` sia a 9 sia a 18; la UI distingue durata e par (`Executive · 9 buche · Par 27`, `Executive · 18 buche · Par 54`). Il default 9 buche e' `Executive`, perche' e' il percorso fisico pitch-and-putt da 9; le opzioni da 9 del percorso principale restano disponibili come secondarie e mantengono il nome `Bernhard Langer`, rese in UI come `Bernhard Langer · Prime 9 · Par 36` / `Bernhard Langer · Seconde 9 · Par 36`. Il percorso Executive non e' una combinazione stile Parco de' Medici.
 - `Molinetto`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Terza verifica su pagine ufficiali buca con PAR/HCP: `https://www.molinettocountryclub.it/buca-1/`.
 - `Molino Pero`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`.
 

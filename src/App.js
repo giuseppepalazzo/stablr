@@ -7222,7 +7222,6 @@ function App() {
       : 0;
     const isSimpleOpenedCourse = openedCourse?.isComplex !== true && openedCourseCombinationCount === 0;
     const isNamedSegmentRoute =
-      !isSimpleOpenedCourse &&
       (isPrimeNine || isSecondNine) &&
       !["prime nove", "prima nove", "prime 9", "first 9", "seconde nove", "seconda nove", "seconde 9", "second 9"].includes(
         normalizedName
@@ -7276,6 +7275,7 @@ function App() {
       normalizedTitleTokens.includes("seconde 9") ||
       normalizedTitleTokens.includes("seconde nove");
     const titleAlreadyHasPar = /\bpar\s*\d+\b/i.test(routeName);
+    const namedHolesRouteMatch = routeName.match(/^(.+?)\s+(9|18)\s+buche$/i);
 
     let title = routeName || `${totalHoles} buche`;
     if (shouldUseSimpleCourseGenericLabel) {
@@ -7284,14 +7284,16 @@ function App() {
       title = `${repeatedNineRouteLabel} × 2`;
     } else if (repeatedSingleNine) {
       title = `${getRepeatedNineRouteLabel(routeName)} × 2`;
+    } else if (namedHolesRouteMatch && !isGenericRoute) {
+      title = `${normalizeWhitespace(namedHolesRouteMatch[1])} · ${namedHolesRouteMatch[2]} buche${totalPar ? ` · Par ${totalPar}` : ""}`;
     } else if (isNamedSegmentRoute) {
       title = routeName
-        .replace(/\bprime\s+nove\b/i, "Prime 9")
-        .replace(/\bprima\s+nove\b/i, "Prime 9")
-        .replace(/\bfirst\s+9\b/i, "Prime 9")
-        .replace(/\bseconde\s+nove\b/i, "Seconde 9")
-        .replace(/\bseconda\s+nove\b/i, "Seconde 9")
-        .replace(/\bsecond\s+9\b/i, "Seconde 9");
+        .replace(/\s*(?:·\s*)?\bprime\s+nove\b/i, " · Prime 9")
+        .replace(/\s*(?:·\s*)?\bprima\s+nove\b/i, " · Prime 9")
+        .replace(/\s*(?:·\s*)?\bfirst\s+9\b/i, " · Prime 9")
+        .replace(/\s*(?:·\s*)?\bseconde\s+nove\b/i, " · Seconde 9")
+        .replace(/\s*(?:·\s*)?\bseconda\s+nove\b/i, " · Seconde 9")
+        .replace(/\s*(?:·\s*)?\bsecond\s+9\b/i, " · Seconde 9");
       if (totalPar && !/\bpar\s*\d+\b/i.test(title)) {
         title = `${title} · Par ${totalPar}`;
       }
@@ -7328,6 +7330,9 @@ function App() {
       colorInfo
     };
   };
+
+  const shouldShowCombinationRoutePair = (combination) =>
+    Boolean(getRouteColor(combination?.frontRouteName) || getRouteColor(combination?.backRouteName));
 
   const renderRoutePair = (
     frontRouteName,
@@ -7549,6 +7554,10 @@ function App() {
     const nineHoleRoutes = [...openedCourseRoutes]
       .filter((route) => Number(route.holesCount) === 9)
       .sort((a, b) => {
+        const aIsDefault = isDefaultRoundVariant(a, 9);
+        const bIsDefault = isDefaultRoundVariant(b, 9);
+        if (aIsDefault !== bIsDefault) return aIsDefault ? -1 : 1;
+
         const priority = { "Blu": 0, "Bianco": 1, "Rosso": 2 };
         const aPriority = Object.prototype.hasOwnProperty.call(priority, a.name) ? priority[a.name] : 99;
         const bPriority = Object.prototype.hasOwnProperty.call(priority, b.name) ? priority[b.name] : 99;
@@ -8293,22 +8302,24 @@ function App() {
                   {matchedOfficialCombination.name} · {matchedOfficialCombination.holesCount} buche · Par{" "}
                   {matchedOfficialCombination.totalPar}
                 </div>
-                <div
-                  style={{
-                    marginTop: "6px",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    color: colors.subtext
-                  }}
-                >
-                  {getRouteColor(matchedOfficialCombination.frontRouteName)
-                    ? renderColorDot(getRouteColor(matchedOfficialCombination.frontRouteName), 9)
-                    : null}
-                  {getRouteColor(matchedOfficialCombination.backRouteName)
-                    ? renderColorDot(getRouteColor(matchedOfficialCombination.backRouteName), 9)
-                    : null}
-                </div>
+                {shouldShowCombinationRoutePair(matchedOfficialCombination) && (
+                  <div
+                    style={{
+                      marginTop: "6px",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: colors.subtext
+                    }}
+                  >
+                    {getRouteColor(matchedOfficialCombination.frontRouteName)
+                      ? renderColorDot(getRouteColor(matchedOfficialCombination.frontRouteName), 9)
+                      : null}
+                    {getRouteColor(matchedOfficialCombination.backRouteName)
+                      ? renderColorDot(getRouteColor(matchedOfficialCombination.backRouteName), 9)
+                      : null}
+                  </div>
+                )}
               </div>
             )}
 
@@ -8369,11 +8380,13 @@ function App() {
                     <div style={{ fontWeight: 700 }}>
                       {combination.name} · {combination.holesCount} buche · Par {combination.totalPar}
                     </div>
-                    <div style={{ marginTop: "6px", fontSize: "13px", color: colors.subtext }}>
-                      {renderRoutePair(combination.frontRouteName, combination.backRouteName, {
-                        muted: true
-                      })}
-                    </div>
+                    {shouldShowCombinationRoutePair(combination) && (
+                      <div style={{ marginTop: "6px", fontSize: "13px", color: colors.subtext }}>
+                        {renderRoutePair(combination.frontRouteName, combination.backRouteName, {
+                          muted: true
+                        })}
+                      </div>
+                    )}
                   </div>
                 ))}
 
