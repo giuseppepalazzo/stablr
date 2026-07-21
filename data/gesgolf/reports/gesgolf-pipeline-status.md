@@ -605,6 +605,20 @@ Regola di ritmo:
     - avvio giro su un club fisico 18;
     - avvio giro su un club complesso/multi-percorso quando disponibile.
 
+Promemoria fase beta / protezione DB:
+- quando il database sara' completo nel senso prodotto, cioe' tutti i club target saranno almeno configurabili e giocabili anche se non tutti `Stablr Approved`, aprire una task tecnica dedicata: `Protezione DB Stablr - audit RLS e scraping surface`.
+- obiettivo: proteggere il valore del dataset curato Stablr prima della beta pubblica, rendendo difficile lo scraping bulk.
+- non fare questo lavoro nel mezzo degli import, per non rischiare regressioni sulla giocabilita'.
+- deliverable minimo:
+  - report `supabase/security-audit.md`;
+  - elenco tabelle esposte a `anon` / `authenticated`;
+  - verifica RLS e grants;
+  - elenco query frontend troppo larghe;
+  - piano per separare lista club, dettaglio club e dati giocabili hole-by-hole;
+  - valutazione Edge Function per `getRoundSetup` / `startRound`;
+  - rate limit/logging anti-abuso.
+- ricordare esplicitamente questa task quando il progetto entra in fase beta.
+
 Aggiornamento batch `Madonna Campiglio` -> `Molino Pero`:
 - batch seedato in Supabase il 2026-07-21 e verificato con audit DB read-only;
 - `Madonna Campiglio`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`.
