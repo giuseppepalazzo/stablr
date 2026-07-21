@@ -338,6 +338,15 @@ function getDefaultRouteForHolesCount(routes, holesCount) {
   );
 }
 
+function compareRouteDisplayOrder(left, right) {
+  const leftOrder = Number(left?.displayOrder);
+  const rightOrder = Number(right?.displayOrder);
+  const safeLeftOrder = Number.isFinite(leftOrder) ? leftOrder : 999;
+  const safeRightOrder = Number.isFinite(rightOrder) ? rightOrder : 999;
+  if (safeLeftOrder !== safeRightOrder) return safeLeftOrder - safeRightOrder;
+  return String(left?.name || "").localeCompare(String(right?.name || ""), "it");
+}
+
 function getRepeatedNineRouteLabel(routeName) {
   const cleanName = normalizeWhitespace(routeName || "");
   const iconicRepeatedMatch = cleanName.match(/^(.+?)\s*\(([^()]+?)\s*(?:x|×)\s*2\)$/i);
@@ -4126,7 +4135,7 @@ function App() {
         const aPriority = Object.prototype.hasOwnProperty.call(priority, a.name) ? priority[a.name] : 99;
         const bPriority = Object.prototype.hasOwnProperty.call(priority, b.name) ? priority[b.name] : 99;
         if (aPriority !== bPriority) return aPriority - bPriority;
-        return String(a.name || "").localeCompare(String(b.name || ""), "it");
+        return compareRouteDisplayOrder(a, b);
       });
     const eighteenHoleRoutes = routes.filter(
       (route) => Number(route.holesCount) === 18 && Array.isArray(route.holes) && route.holes.length > 0
@@ -7562,7 +7571,7 @@ function App() {
         const aPriority = Object.prototype.hasOwnProperty.call(priority, a.name) ? priority[a.name] : 99;
         const bPriority = Object.prototype.hasOwnProperty.call(priority, b.name) ? priority[b.name] : 99;
         if (aPriority !== bPriority) return aPriority - bPriority;
-        return String(a.name || "").localeCompare(String(b.name || ""), "it");
+        return compareRouteDisplayOrder(a, b);
       });
     const eighteenHoleRoutes = [...openedCourseRoutes]
       .filter((route) => Number(route.holesCount) === 18)
@@ -7582,7 +7591,7 @@ function App() {
         const aPriority = getRoutePriority(a.name);
         const bPriority = getRoutePriority(b.name);
         if (aPriority !== bPriority) return aPriority - bPriority;
-        return String(a.name || "").localeCompare(String(b.name || ""), "it");
+        return compareRouteDisplayOrder(a, b);
       });
     const canPlayNine = openedCourseRoutes.length > 0;
     const canPlayEighteen =

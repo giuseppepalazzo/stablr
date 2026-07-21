@@ -590,6 +590,7 @@ Regola club complessi:
   - se un club complesso ha due percorsi veri da 18, come Margara, non forzarlo nel pattern Parco: le 18 restano percorsi iconici (`Lolli Ghetti`, `La Guazzetta`) e le 9 derivate devono mantenere il nome del percorso (`Lolli Ghetti Prime 9`, `La Guazzetta Seconde 9`), non solo `Prime 9` / `Seconde 9`.
   - nelle combinazioni 18 con nome iconico completo, come `Lolli Ghetti` o `La Guazzetta`, non ripetere sotto le due meta' (`Prime Nove` / `Seconde Nove`); la sottoriga resta utile solo quando visualizza colori/pallini o una composizione non gia' chiara dal titolo.
   - nelle card `Scegli il percorso`, se una route ha un nome iconico con suffisso `9 Buche` o `18 Buche`, la UI deve renderlo su una riga/bold come `Nome · 9 buche · Par X`, non con `Par X` piccolo sotto. Esempio: `Executive 9 Buche` diventa `Executive · 9 buche · Par 27`.
+  - nei percorsi 9 derivati da circuiti nominati, completare sempre un circuito prima di passare al successivo: `Lolli Ghetti · Prime 9`, `Lolli Ghetti · Seconde 9`, poi `La Guazzetta · Prime 9`, `La Guazzetta · Seconde 9`. In UI rispettare `display_order` dei dati dopo eventuale default/priorita' colore.
 
 Regola di ritmo:
 - ogni 2/3 batch:
