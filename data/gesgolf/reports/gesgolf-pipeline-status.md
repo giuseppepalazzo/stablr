@@ -480,6 +480,16 @@ Ultimo punto raggiunto:
 - ultimi club sbloccati e scritti come arancio / `needs_review`:
   - `Globale Jesolo`
 
+## Controllo manuale Stablr Approved in corso
+
+- `Antognolla`: approvato manualmente; scorecard ufficiale/Worldclass conferma par e SI, CR/Slope mantenuti da FIG.
+- `Arenzano Pineta`: sito ufficiale conferma campo fisico 9 buche e par buca per buca, ma non SI; resta arancio finche' non arriva scorecard ufficiale o conferma segreteria.
+- `Bagnaia`: sito ufficiale `course guide` conferma par e SI buca per buca; approvabile Stablr Approved.
+- `Barlassina`: sito ufficiale non consultabile in modo affidabile per scorecard/dati campo; fonte terza Offcourse non sufficiente per badge verde. Resta arancio e va inserito nella lista club da confermare via segreteria.
+- Dopo completamento import + verifica manuale, usare i club rimasti arancioni come coda operativa per ricerca contatti segreteria: recuperare email dal sito ufficiale o fonti affidabili e preparare richieste puntuali di conferma scorecard/par/SI.
+- I club arancioni sono comunque gia' giocabili in app: il contatto segreteria serve a completare il controllo manuale e puo' diventare anche un primo touchpoint promozionale per presentare Stablr.
+- Per i club verdi/Stablr Approved, studiare una comunicazione separata di valorizzazione: notificare alla segreteria che il campo e' stato verificato e reso disponibile in Stablr, proponendo collaborazione/aggiornamenti futuri senza chiedere correzioni.
+
 Ripartenza prossima sessione:
 - continuare con il prossimo blocco di 10 club fortemente matchati FIG/GesGolf dopo `Grado`;
 - prossimo batch previsto:
