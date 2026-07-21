@@ -85,6 +85,26 @@ Lana,LANA,256,100,warning,4,1,0,data/gesgolf/normalized/lana/circolo-256.json,sc
 Lanzo,LANZO,19,100,warning,4,2,0,data/gesgolf/normalized/lanzo/circolo-19.json,scraped
 Lecco,LECCO,56,100,warning,5,2,0,data/gesgolf/normalized/lecco/circolo-56.json,scraped
 Lignano Ssd,LIGNANO SSD,841,100,safe,3,0,0,data/gesgolf/normalized/lignano-ssd/circolo-841.json,scraped
+Madonna Campiglio,MADONNA CAMPIGLIO,10,100,safe,5,0,0,data/gesgolf/normalized/madonna-campiglio/circolo-10.json,scraped
+Mantova,MANTOVA,720,100,safe,2,0,0,data/gesgolf/normalized/mantova/circolo-720.json,scraped
+Marco Simone,MARCO SIMONE,621,100,warning,4,0,1,data/gesgolf/normalized/marco-simone/circolo-621.json,scraped
+Margara,MARGARA,50,100,warning,7,2,0,data/gesgolf/normalized/margara/circolo-50.json,scraped
+Margherita,MARGHERITA,91,100,warning,3,2,0,data/gesgolf/normalized/margherita/circolo-91.json,scraped
+Menaggio,MENAGGIO,25,100,warning,5,2,0,data/gesgolf/normalized/menaggio/circolo-25.json,scraped
+Milano,MILANO,26,100,warning,9,2,0,data/gesgolf/normalized/milano/circolo-26.json,scraped
+Mirasole,MIRASOLE,198,100,error,0,0,1,,scrape_failed
+Modena,MODENA,71,100,warning,11,3,0,data/gesgolf/normalized/modena/circolo-71.json,scraped
+Molinetto,MOLINETTO,60,100,warning,4,2,0,data/gesgolf/normalized/molinetto/circolo-60.json,scraped
+Molino Pero,MOLINO PERO,483,100,safe,8,0,0,data/gesgolf/normalized/molino-pero/circolo-483.json,scraped
+Moncalieri,MONCALIERI,465,100,warning,2,1,0,data/gesgolf/normalized/moncalieri/circolo-465.json,scraped
+Monferrato,MONFERRATO,670,100,safe,2,0,0,data/gesgolf/normalized/monferrato/circolo-670.json,scraped
+Montebelluna,MONTEBELLUNA,307,100,safe,5,0,0,data/gesgolf/normalized/montebelluna/circolo-307.json,scraped
+Montecatini Terme Ssd,MONTECATINI TERME SSD,860,100,warning,4,1,0,data/gesgolf/normalized/montecatini-terme-ssd/circolo-860.json,scraped
+Montecchia Golf,MONTECCHIA GOLF,831,100,safe,10,0,0,data/gesgolf/normalized/montecchia-golf/circolo-831.json,scraped
+Montelupo,MONTELUPO,638,100,safe,6,0,0,data/gesgolf/normalized/montelupo/circolo-638.json,scraped
+Monteveglio Asd,MONTEVEGLIO ASD,832,100,safe,2,0,0,data/gesgolf/normalized/monteveglio-asd/circolo-832.json,scraped
+Monticello,MONTICELLO,27,100,warning,16,1,0,data/gesgolf/normalized/monticello/circolo-27.json,scraped
+Mulino Cerrione,MULINO CERRIONE,734,100,safe,2,0,0,data/gesgolf/normalized/mulino-cerrione/circolo-734.json,scraped
 Acquabona,,,,,,,,,skip_not_strong
 Alta Badia,,,,,,,,,skip_not_strong
 Appiano - Golf & Country,,,,,,,,,skip_not_strong

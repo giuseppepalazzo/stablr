@@ -445,6 +445,113 @@ Lecco,LECCO,56,2^ Nove x 2,Seconde Nove 2 volte,fig-course-lecco-seconde-nove-2-
 Lignano Ssd,LIGNANO SSD,841,LIGNANO,18 Buche,fig-course-lignano-ssd-18-buche,playable_course,benchmark_manual,safe,,no,import_ready,all_checks_passed
 Lignano Ssd,LIGNANO SSD,841,PRIME 9B,Prime Nove,fig-course-lignano-ssd-prime-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
 Lignano Ssd,LIGNANO SSD,841,SEC. 9B,Seconde Nove,fig-course-lignano-ssd-seconde-nove,base_route,benchmark_manual,safe,,no,import_ready,all_checks_passed
+Madonna Campiglio,MADONNA CAMPIGLIO,10,PRO AM PROFESS,18 Buche,fig-course-madonna-campiglio-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Madonna Campiglio,MADONNA CAMPIGLIO,10,PRO Am,18 Buche,fig-course-madonna-campiglio-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Madonna Campiglio,MADONNA CAMPIGLIO,10,Gara 9 buche,Prime Nove,fig-course-madonna-campiglio-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Madonna Campiglio,MADONNA CAMPIGLIO,10,Gara,18 Buche,fig-course-madonna-campiglio-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Madonna Campiglio,MADONNA CAMPIGLIO,10,Greensome,18 Buche,fig-course-madonna-campiglio-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Mantova,MANTOVA,720,MANTOVA GOLF,18 buche,fig-course-mantova-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Mantova,MANTOVA,720,9 BUCHE,9 buche,fig-course-mantova-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Marco Simone,MARCO SIMONE,621,RESORT 18 BUCHE,2021 18 buche,fig-course-marco-simone-2021-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Marco Simone,MARCO SIMONE,621,RYDER 18 BUCHE,2021 18 buche,fig-course-marco-simone-2021-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Marco Simone,MARCO SIMONE,621,RYDER 1&#176; NOVE,2021 prime 9,fig-course-marco-simone-2021-prime-9,base_route,low,safe,,no,needs_review,confidence_too_low
+Marco Simone,MARCO SIMONE,621,RYDER 2&#176; NOVE,2021 prime 9,fig-course-marco-simone-2021-prime-9,base_route,low,safe,,no,needs_review,confidence_too_low
+Margara,MARGARA,50,LOLLI-GHETTI,Lolli Ghetti,fig-course-margara-lolli-ghetti,playable_course,high,safe,,no,import_ready,all_checks_passed
+Margara,MARGARA,50,LA GUAZZETTA,La Guazzetta,fig-course-margara-la-guazzetta,playable_course,high,safe,,no,import_ready,all_checks_passed
+Margara,MARGARA,50,1-9,La Guazzetta,fig-course-margara-la-guazzetta,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Margara,MARGARA,50,10-18,La Guazzetta,fig-course-margara-la-guazzetta,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Margara,MARGARA,50,10-18 GUAZZETTA,La Guazzetta Prime Nove,fig-course-margara-la-guazzetta-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Margara,MARGARA,50,CHALLENGE,La Guazzetta,fig-course-margara-la-guazzetta,playable_course,low,safe,,no,needs_review,confidence_too_low
+Margara,MARGARA,50,LG CAMPIONATO,La Guazzetta,fig-course-margara-la-guazzetta,playable_course,low,safe,,no,needs_review,confidence_too_low
+Margherita,MARGHERITA,91,GARE,18 Buche,fig-course-margherita-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Margherita,MARGHERITA,91,FRONT,18 Buche,fig-course-margherita-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Margherita,MARGHERITA,91,BACK,18 Buche,fig-course-margherita-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Menaggio,MENAGGIO,25,18 buche,18 Buche,fig-course-menaggio-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Menaggio,MENAGGIO,25,1&#176; Nove,Prime Nove,fig-course-menaggio-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Menaggio,MENAGGIO,25,2&#176; nove,Seconde Nove,fig-course-menaggio-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Menaggio,MENAGGIO,25,18 buche provv.,18 Buche,fig-course-menaggio-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Menaggio,MENAGGIO,25,par69 bis,18 Buche,fig-course-menaggio-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Milano,MILANO,26,1/2,1/2,fig-course-milano-1-2,playable_course,high,safe,,no,import_ready,all_checks_passed
+Milano,MILANO,26,1/3,1/3,fig-course-milano-1-3,playable_course,high,safe,,no,import_ready,all_checks_passed
+Milano,MILANO,26,2/3,2/3,fig-course-milano-2-3,playable_course,high,safe,,no,import_ready,all_checks_passed
+Milano,MILANO,26,3/2,2/3,fig-course-milano-2-3,playable_course,low,safe,,no,needs_review,confidence_too_low
+Milano,MILANO,26,3/1,1/3,fig-course-milano-1-3,playable_course,low,safe,,no,needs_review,confidence_too_low
+Milano,MILANO,26,9 Giallo,1/2,fig-course-milano-1-2,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Milano,MILANO,26,9 Blu,1/2,fig-course-milano-1-2,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Milano,MILANO,26,9 Rosso,Nove Perc.1,fig-course-milano-nove-perc-1,base_route,low,safe,,no,needs_review,confidence_too_low
+Milano,MILANO,26,1/2 provvisorio,1/2,fig-course-milano-1-2,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,B.Langer,18 Buche,fig-course-modena-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,Prime 9,Prime Nove,fig-course-modena-prime-nove,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Modena,MODENA,71,Seconde9,18 Buche,fig-course-modena-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Modena,MODENA,71,par 71,18 Buche,fig-course-modena-18-buche,playable_course,low,warning,,no,needs_review,ges_route_warning
+Modena,MODENA,71,B. Langer Par70,18 Buche,fig-course-modena-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,PAR 71 x buca 7,18 Buche,fig-course-modena-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,PRIME 9 VOLTE,Prime Nove 2 Volte,fig-course-modena-prime-nove-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,EXECUTIVE,9 Buche Executive,fig-course-modena-9-buche-executive,base_route,medium,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,18 Buche execut,18 Buche Executive,fig-course-modena-18-buche-executive,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,SECONDE PRIME,Prime Nove 2 Volte,fig-course-modena-prime-nove-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Modena,MODENA,71,SECONDE 9 18BUC,18 Buche,fig-course-modena-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Molinetto,MOLINETTO,60,Molinetto,18 Buche,fig-course-molinetto-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Molinetto,MOLINETTO,60,Prime nove,Prime Nove,fig-course-molinetto-prime-nove,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Molinetto,MOLINETTO,60,Seconde nove,Seconde Nove,fig-course-molinetto-seconde-nove,playable_course,medium,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Molinetto,MOLINETTO,60,Championship,18 Buche,fig-course-molinetto-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,18 BUCHE,18 Buche 2024,fig-course-molino-pero-18-buche-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,Seconde nove 20,Seconde Nove 2024,fig-course-molino-pero-seconde-nove-2024,base_route,medium,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,MOLINO PERO2016,18 Buche 2024,fig-course-molino-pero-18-buche-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,Prime Nove 2016,Prime Nove 2024,fig-course-molino-pero-prime-nove-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,MOLINO 18 2024,18 Buche 2024,fig-course-molino-pero-18-buche-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,MOLINO PRIME 24,Prime Nove 2024,fig-course-molino-pero-prime-nove-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,MOLINO SECO 24,Seconde Nove 2024,fig-course-molino-pero-seconde-nove-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Molino Pero,MOLINO PERO,483,Inv. Provv 2024,Invernale Provvisorio 2024,fig-course-molino-pero-invernale-provvisorio-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Moncalieri,MONCALIERI,465,Bianco,18 Buche,fig-course-moncalieri-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Moncalieri,MONCALIERI,465,9 buche,9 buche,fig-course-moncalieri-9-buche,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Monferrato,MONFERRATO,670,Misto 18 Buche,Misto 18 Buche,fig-course-monferrato-misto-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Monferrato,MONFERRATO,670,Bianco/Blu 9B,Bianco/Blu 9B,fig-course-monferrato-bianco-blu-9b,base_route,high,safe,,no,import_ready,all_checks_passed
+Montebelluna,MONTEBELLUNA,307,MISTO,18 buche - 2024 - PAR 71,fig-course-montebelluna-18-buche-2024-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
+Montebelluna,MONTEBELLUNA,307,PRIME NOVE,Prime 9 - 2023,fig-course-montebelluna-prime-9-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Montebelluna,MONTEBELLUNA,307,18B PAR 72 2024,18 buche - 2024 - PAR 71,fig-course-montebelluna-18-buche-2024-par-71,playable_course,low,safe,,no,needs_review,confidence_too_low
+Montebelluna,MONTEBELLUNA,307,PRIME NOVE 2024,Prime 9 - 2023,fig-course-montebelluna-prime-9-2023,base_route,low,safe,,no,needs_review,confidence_too_low
+Montebelluna,MONTEBELLUNA,307,18 BUCHE 2024,18 buche - 2024 - PAR 71,fig-course-montebelluna-18-buche-2024-par-71,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Montecatini Terme Ssd,MONTECATINI TERME SSD,860,Champion,18 Buche,fig-course-montecatini-terme-ssd-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Montecatini Terme Ssd,MONTECATINI TERME SSD,860,OPEN,18 Buche,fig-course-montecatini-terme-ssd-18-buche,playable_course,low,warning,many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Montecatini Terme Ssd,MONTECATINI TERME SSD,860,B. 1 - 9,Prime Nove,fig-course-montecatini-terme-ssd-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Montecatini Terme Ssd,MONTECATINI TERME SSD,860,B. 10-18,Seconde Nove,fig-course-montecatini-terme-ssd-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Montecchia Golf,MONTECCHIA GOLF,831,Bianco - Rosso,Bianco-Rosso,fig-course-montecchia-golf-bianco-rosso,playable_course,high,safe,,no,import_ready,all_checks_passed
+Montecchia Golf,MONTECCHIA GOLF,831,Bianco - Verde,Bianco-Verde,fig-course-montecchia-golf-bianco-verde,playable_course,high,safe,,no,import_ready,all_checks_passed
+Montecchia Golf,MONTECCHIA GOLF,831,Rosso - Verde,Rosso-Verde,fig-course-montecchia-golf-rosso-verde,playable_course,high,safe,,no,import_ready,all_checks_passed
+Montecchia Golf,MONTECCHIA GOLF,831,Bianco 9b.,Bianco 9 b.,fig-course-montecchia-golf-bianco-9-b,base_route,low,safe,,no,needs_review,confidence_too_low
+Montecchia Golf,MONTECCHIA GOLF,831,Rosso 9b.,Rosso 9 b.,fig-course-montecchia-golf-rosso-9-b,base_route,low,safe,,no,needs_review,confidence_too_low
+Montecchia Golf,MONTECCHIA GOLF,831,Verde + Verde,Verde-Verde,fig-course-montecchia-golf-verde-verde,playable_course,high,safe,,no,import_ready,all_checks_passed
+Montecchia Golf,MONTECCHIA GOLF,831,Verde 9b.,Verde 9 b.,fig-course-montecchia-golf-verde-9-b,base_route,low,safe,,no,needs_review,confidence_too_low
+Montecchia Golf,MONTECCHIA GOLF,831,VO23 B11&B12,Albarella 18 Buche,fig-course-montecchia-golf-albarella-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Montecchia Golf,MONTECCHIA GOLF,831,VO23 G11&12 B10,Albarella 18 Buche,fig-course-montecchia-golf-albarella-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Montecchia Golf,MONTECCHIA GOLF,831,VO23 G10 & B9,Albarella 18 Buche,fig-course-montecchia-golf-albarella-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Montelupo,MONTELUPO,638,PERCORSO ROSSO,rosso 2020,fig-course-montelupo-rosso-2020,playable_course,low,safe,,no,needs_review,confidence_too_low
+Montelupo,MONTELUPO,638,Blu 9 buche,blu 2020 9 buche,fig-course-montelupo-blu-2020-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Montelupo,MONTELUPO,638,Verde,verde 2020,fig-course-montelupo-verde-2020,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Montelupo,MONTELUPO,638,Giallo,giallo 2020,fig-course-montelupo-giallo-2020,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Montelupo,MONTELUPO,638,Blu,blu 2020,fig-course-montelupo-blu-2020,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Montelupo,MONTELUPO,638,Bianco,bianco 2020,fig-course-montelupo-bianco-2020,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Monteveglio Asd,MONTEVEGLIO ASD,832,18 Buche,18 Buche,fig-course-monteveglio-asd-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Monteveglio Asd,MONTEVEGLIO ASD,832,9 Buche,Nove Buche,fig-course-monteveglio-asd-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,Rosso,Rosso,fig-course-monticello-rosso,playable_course,high,safe,,no,import_ready,all_checks_passed
+Monticello,MONTICELLO,27,Blu,Blu,fig-course-monticello-blu,playable_course,high,safe,,no,import_ready,all_checks_passed
+Monticello,MONTICELLO,27,1&#176; Rosse 1&#176; Blu,Blu,fig-course-monticello-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,1&#176; Rosse 2&#176; Blu,Blu,fig-course-monticello-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,2&#176; Rosse 1&#176; Blu,Blu,fig-course-monticello-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,2&#176; Rosse 2&#176; Blu,Blu,fig-course-monticello-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,Ros Ava,Blu,fig-course-monticello-blu,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Monticello,MONTICELLO,27,1&#176; Nove Blu,Prime Nove Blu,fig-course-monticello-prime-nove-blu,base_route,low,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,1&#176; Nove Rosso,Prime Nove Rosso,fig-course-monticello-prime-nove-rosso,base_route,low,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,2&#176; Nove Rosso,Prime Nove Rosso,fig-course-monticello-prime-nove-rosso,base_route,low,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,2&#176; Nove Blu,Prime Nove Blu,fig-course-monticello-prime-nove-blu,base_route,low,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,Family Course,Family Course,fig-course-monticello-family-course,base_route,high,safe,,no,import_ready,all_checks_passed
+Monticello,MONTICELLO,27,1&#176; Nove Blu Bis,Prime Nove Blu Bis,fig-course-monticello-prime-nove-blu-bis,base_route,medium,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,Blu Par 70,Blu Provvisorio 2026 Par 70,fig-course-monticello-blu-provvisorio-2026-par-70,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,2&#176; Blu Par 34,Seconde Nove Blu Provvisorio 2026 Par 34,fig-course-monticello-seconde-nove-blu-provvisorio-2026-par-34,base_route,medium,safe,,no,needs_review,confidence_too_low
+Monticello,MONTICELLO,27,2&#176;Rosse-2&#176;Blu 2,Blu,fig-course-monticello-blu,playable_course,low,safe,,no,needs_review,confidence_too_low
+Mulino Cerrione,MULINO CERRIONE,734,Golf Cerrione,18 BUCHE,fig-course-mulino-cerrione-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Mulino Cerrione,MULINO CERRIONE,734,9 BUCHE,NOVE BUCHE,fig-course-mulino-cerrione-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club

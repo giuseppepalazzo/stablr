@@ -16,6 +16,7 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   1. FIG come catalogo ufficiale per club, percorsi, Course Rating e Slope.
   2. GesGolf come fonte strutturata per buche, par e Stroke Index.
   3. Ricerca web approfondita della pagina ufficiale del club con dati del campo: non basta la home page o un link generico al club; cercare pagina percorso/course guide/scorecard/mappa campo che esponga almeno buche e par, idealmente anche Stroke Index.
+- La terza ricerca non si considera chiusa finche' non e' stata cercata una pagina specifica del campo, non solo la home del club: usare query mirate con `scorecard`, `percorso`, `course guide`, `holes`, `buca`, `hcp`, `stroke index`, `slope`, PDF/immagini e pagine singole buca. Se emerge PAR + SI/HCP buca per buca su sito ufficiale, e FIG conferma CR/Slope, il club puo' diventare verde anche se GesGolf contiene rumore o alias duplicati.
 - Se FIG + GesGolf + pagina ufficiale del campo combaciano sui dati rilevanti, il club puo' diventare subito `Stablr Approved` dopo il controllo manuale.
 - Se il sito ufficiale non e' disponibile, espone solo informazioni generiche o non conferma dati campo sufficienti, il club resta da review manuale; fonti terze tipo Golfify sono utili come indizio ma non valgono come conferma indipendente se sembrano derivate da GesGolf.
 - Le fonti terze possono contribuire al controllo solo quando espongono una scorecard verificabile come PDF o immagine, da leggere visivamente e incrociare con FIG/GesGolf; una pagina testuale terza senza scorecard visuale resta solo indizio. Esempio valido: scorecard PDF/immagine trovata per il controllo della lettera A / Perugia-Antognolla.
@@ -598,6 +599,24 @@ Regola di ritmo:
     - avvio giro su un club fisico 18;
     - avvio giro su un club complesso/multi-percorso quando disponibile.
 
+Aggiornamento batch `Madonna Campiglio` -> `Molino Pero`:
+- batch seedato in Supabase il 2026-07-21 e verificato con audit DB read-only;
+- `Madonna Campiglio`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`.
+- `Mantova`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`.
+- `Marco Simone`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Terza verifica su pagina ufficiale Ryder con PAR/HCP buca per buca: `https://golfmarcosimone.com/the-holes/`.
+- `Margara`: arancio; club complesso 36 buche, route base `Lolli Ghetti Prime Nove`, `Lolli Ghetti Seconde Nove`, `La Guazzetta Prime Nove`, `La Guazzetta Seconde Nove`, combinazioni 18 `Lolli Ghetti` e `La Guazzetta`. Il sito ufficiale espone pagine percorso con PAR/HCP, ma resta arancio finche' non viene completato il controllo manuale sulle due 18 complete: `https://www.golfmargara.it/golf/percorso-glauco-lolli-ghetti/` e `https://www.golfmargara.it/golf/percorso-la-guazzetta/`.
+- `Margherita`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`; il sito espone tabelle handicap ma non una scorecard buca-per-buca sufficiente.
+- `Menaggio`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Terza verifica su pagina ufficiale percorso con tabella `Buca / Par / Colpi`: `https://www.golfclubmenaggio.com/it/giocare-a-golf/percorso`.
+- `Milano`: arancio; club complesso 27 buche, route base `Percorso 1`, `Percorso 2`, `Percorso 3`, combinazioni 18 `1/2`, `1/3`, `2/3`; serve controllo ufficiale piu' profondo prima del verde.
+- `Modena`: arancio; campo 18 con variante reale Executive FIG, route `18 Buche`, `Prime Nove`, `Seconde Nove`, `Executive 9 Buche`, `Executive 18 Buche`. Eccezione intenzionale alla regola semplice 18 -> 3 route, perche' Executive e' un percorso reale separato da mantenere giocabile ma in review.
+- `Molinetto`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Terza verifica su pagine ufficiali buca con PAR/HCP: `https://www.molinettocountryclub.it/buca-1/`.
+- `Molino Pero`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`.
+
+Lezione operativa del batch:
+- il problema non e' solo importare dati, ma scegliere aggressivamente quando il sito ufficiale contiene davvero SI/HCP nascosti in pagine percorso, pagine buca, immagini o PDF;
+- GesGolf resta fonte operativa attendibile per PAR/SI, ma va de-rumorizzata: alias, vecchi percorsi, provvisori e doppioni non devono moltiplicare la UX;
+- dopo ogni seed fare sempre audit DB su numero route/combinazioni, badge verde/arancio, `is_complex`, default 9/18 e tee importati.
+
 ## Comandi utili
 
 ```bash
@@ -610,6 +629,6 @@ npm run gesgolf:build-import-candidates
 
 ## Stato sintetico
 
-La pipeline GesGolf e' pronta.
+La pipeline GesGolf e' attiva.
 Il gating decisionale e' pronto.
-Manca la fase di espansione su piu' club e il primo set di mapping realmente validati.
+La fase di espansione e' in corso con batch progressivi, seed DB e audit post-import.
