@@ -27,7 +27,7 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - `Stablr Approved` verde si usa solo per campi controllati manualmente e marcati con `source_payload.stablr_approved: true`;
   - in UI il badge e' solo icona verde, senza scritta; evitare label tipo `Verificato` o `Approved` sulla card, perche' appesantiscono e confondono stato tecnico e controllo manuale;
   - tassonomia badge card club: `Approved`, `Review`, `Community`;
-  - al momento sono approvati manualmente `Albisola`, `Ambrosiano` e `Antognolla`;
+  - al momento sono approvati manualmente `Albisola`, `Ambrosiano`, `Antognolla`, `Bagnaia`, `Bogliaco`, `Colli Bergamo` e `Fioranello`;
   - `verified` senza approvazione manuale non deve mostrare il badge verde.
   - se il controllo a tre livelli passa, aggiornare subito il club a `data_status: verified`, `source_payload.verification_status: verified` e `source_payload.stablr_approved: true`, con nota esplicita sulle fonti usate.
 - Regola di semplificazione prodotto:
@@ -159,16 +159,16 @@ Club gia' interamente `import_ready`:
 - `Antognolla` *(Stablr Approved: scorecard ufficiale/Worldclass conferma par e SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Aosta Brissogne` *(giocabile in revisione / arancio, non verde)*
 - `Arenzano Pineta` *(giocabile in revisione / arancio, non verde)*
-- `Bagnaia` *(giocabile in revisione / arancio, non verde)*
+- `Bagnaia` *(Stablr Approved: course guide ufficiale conferma par e SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Barlassina` *(giocabile in revisione / arancio, non verde)*
-- `Bogliaco` *(giocabile in revisione / arancio, non verde)*
+- `Bogliaco` *(Stablr Approved: scorecard ufficiale visuale/PDF conferma par e SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Bollina` *(giocabile in revisione / arancio, non verde)*
 - `Caorle` *(giocabile in revisione / arancio, non verde)*
 - `Citta' D'Asti` *(giocabile in revisione / arancio, non verde)*
-- `Colli Bergamo` *(giocabile in revisione / arancio, non verde)*
+- `Colli Bergamo` *(Stablr Approved: pagina percorso ufficiale conferma par e HCP/SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Colombaro` *(giocabile in revisione / arancio, non verde)*
 - `Cortina Ssd` *(giocabile in revisione / arancio, non verde)*
-- `Fioranello` *(giocabile in revisione / arancio, non verde)*
+- `Fioranello` *(Stablr Approved: scorecard ufficiale 2024 conferma par e SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Globale Jesolo` *(giocabile in revisione / arancio, non verde)*
 
 Secondo caso validato:
@@ -484,8 +484,18 @@ Ultimo punto raggiunto:
 
 - `Antognolla`: approvato manualmente; scorecard ufficiale/Worldclass conferma par e SI, CR/Slope mantenuti da FIG.
 - `Arenzano Pineta`: sito ufficiale conferma campo fisico 9 buche e par buca per buca, ma non SI; resta arancio finche' non arriva scorecard ufficiale o conferma segreteria.
-- `Bagnaia`: sito ufficiale `course guide` conferma par e SI buca per buca; approvabile Stablr Approved.
+- `Bagnaia`: sito ufficiale `course guide` conferma par e SI buca per buca; marcato Stablr Approved e seed Supabase completato.
 - `Barlassina`: sito ufficiale non consultabile in modo affidabile per scorecard/dati campo; fonte terza Offcourse non sufficiente per badge verde. Resta arancio e va inserito nella lista club da confermare via segreteria.
+- `Bogliaco`: scorecard visuale/PDF ufficiale conferma par e SI buca per buca; marcato Stablr Approved e seed Supabase completato.
+- `Bollina`: sito ufficiale conferma campo fisico 9 buche PAR 36, ma non espone SI buca per buca; immagini rating non bastano come scorecard. Resta arancio finche' non arriva scorecard ufficiale o conferma segreteria.
+- `Caorle`: resta arancio se il sito ufficiale conferma solo dati generali/par ma non espone scorecard o SI buca per buca; serve scorecard ufficiale o conferma segreteria.
+- `Citta' D'Asti`: sito ufficiale conferma par buca per buca ma gli HCP/SI pubblicati non sono coerenti con una sequenza 1..18 unica e differiscono da GesGolf su buche 3 e 5; resta arancio e va verificato con scorecard ufficiale o segreteria.
+- `Colli Bergamo`: pagina ufficiale percorso conferma par e HCP/SI buca per buca; marcato Stablr Approved e seed Supabase completato.
+- `Colombaro`: sito ufficiale conferma campo fisico 9 buche e par buca per buca, ma non SI; mappa/download ufficiale non contiene scorecard/SI. Resta arancio finche' non arriva scorecard ufficiale o conferma segreteria.
+- `Cortina Ssd`: sito ufficiale conferma campo fisico 9 buche e par buca per buca, ma non SI; resta arancio finche' non arriva scorecard ufficiale o conferma segreteria.
+- `Fioranello`: scorecard ufficiale 2024 conferma par e SI buca per buca; marcato Stablr Approved e seed Supabase completato.
+- `Globale Jesolo`: sito ufficiale conferma campo fisico 18 buche e par totale, ma non espone scorecard o SI buca per buca. Resta arancio finche' non arriva scorecard ufficiale o conferma segreteria.
+- Seed Supabase: eseguire in blocco a fine sessione per tutti i club approvati durante il controllo, non uno per volta.
 - Dopo completamento import + verifica manuale, usare i club rimasti arancioni come coda operativa per ricerca contatti segreteria: recuperare email dal sito ufficiale o fonti affidabili e preparare richieste puntuali di conferma scorecard/par/SI.
 - I club arancioni sono comunque gia' giocabili in app: il contatto segreteria serve a completare il controllo manuale e puo' diventare anche un primo touchpoint promozionale per presentare Stablr.
 - Per i club verdi/Stablr Approved, studiare una comunicazione separata di valorizzazione: notificare alla segreteria che il campo e' stato verificato e reso disponibile in Stablr, proponendo collaborazione/aggiornamenti futuri senza chiedere correzioni.
