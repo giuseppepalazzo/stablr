@@ -1408,6 +1408,7 @@ function App() {
             backRouteId: combination.back_route_id,
             frontRouteName: frontRoute?.name || "Prime nove",
             backRouteName: backRoute?.name || "Seconde nove",
+            displayOrder: Number(combination.source_payload?.display_order || 0) || null,
             holesCount: combination.holes_count,
             totalPar:
               Number(combination.total_par || 0) ||
@@ -1434,7 +1435,7 @@ function App() {
               })
           };
         })
-        .sort((left, right) => left.name.localeCompare(right.name, "it"));
+        .sort(compareRouteDisplayOrder);
       const physicalHoleCount = inferPhysicalCourseHoleCount({
         isComplex: Boolean(club.is_complex),
         sourcePayload: club.source_payload || null,
