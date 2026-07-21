@@ -15,8 +15,10 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
 - Prima di convalidare un nuovo campo per il DB live, usare un controllo a tre livelli:
   1. FIG come catalogo ufficiale per club, percorsi, Course Rating e Slope.
   2. GesGolf come fonte strutturata per buche, par e Stroke Index.
-  3. Sito ufficiale del club, quando disponibile, per confermare descrizione campo e/o scorecard prima della scrittura controllata su Supabase.
-- Se il sito ufficiale non e' disponibile o non espone dati sufficienti, il club resta da review manuale.
+  3. Ricerca web approfondita della pagina ufficiale del club con dati del campo: non basta la home page o un link generico al club; cercare pagina percorso/course guide/scorecard/mappa campo che esponga almeno buche e par, idealmente anche Stroke Index.
+- Se FIG + GesGolf + pagina ufficiale del campo combaciano sui dati rilevanti, il club puo' diventare subito `Stablr Approved` dopo il controllo manuale.
+- Se il sito ufficiale non e' disponibile, espone solo informazioni generiche o non conferma dati campo sufficienti, il club resta da review manuale; fonti terze tipo Golfify sono utili come indizio ma non valgono come conferma indipendente se sembrano derivate da GesGolf.
+- Le fonti terze possono contribuire al controllo solo quando espongono una scorecard verificabile come PDF o immagine, da leggere visivamente e incrociare con FIG/GesGolf; una pagina testuale terza senza scorecard visuale resta solo indizio. Esempio valido: scorecard PDF/immagine trovata per il controllo della lettera A / Perugia-Antognolla.
 - Regola default giro:
   - club fisico 9 buche con 18 ufficiale derivato, ad esempio Albisola/Aosta/Mare di Roma: default 9 buche;
   - club fisico 18 buche con Prime Nove/Seconde Nove, ad esempio Ambrosiano/Antognolla/Fioranello: default 18 buche;
@@ -27,6 +29,7 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - tassonomia badge card club: `Approved`, `Review`, `Community`;
   - al momento sono approvati manualmente `Albisola`, `Ambrosiano` e `Antognolla`;
   - `verified` senza approvazione manuale non deve mostrare il badge verde.
+  - se il controllo a tre livelli passa, aggiornare subito il club a `data_status: verified`, `source_payload.verification_status: verified` e `source_payload.stablr_approved: true`, con nota esplicita sulle fonti usate.
 - Regola di semplificazione prodotto:
   - i club semplici fisici da 9 buche devono partire di default a 9 buche e, salvo eccezioni, avere una route `9 Buche` e una route `18 Buche`;
   - se GesGolf/FIG espongono varianti 9 ufficiali coerenti e utili, possono essere mantenute come varianti 9 dedicate; per Albisola la nomenclatura e' `Prime 9 · Par 32` default e `Prime 9 · Par 33` variante;
