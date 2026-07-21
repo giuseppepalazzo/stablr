@@ -2,16 +2,16 @@
   "schema_version": "1.0",
   "source": {
     "system": "gesgolf",
-    "scraped_at": "2026-07-21T11:21:31.681Z",
+    "scraped_at": "2026-07-21T16:51:22.729Z",
     "club_external_id": "fig-club-lamborghini",
-    "notes": "Official FIG catalog + GesGolf hole-by-hole import pilot for Lamborghini"
+    "notes": "Official FIG catalog + GesGolf hole-by-hole import for Lamborghini"
   },
   "club": {
     "name": "Lamborghini",
     "name_normalized": "lamborghini",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,13 +22,19 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
+      "verification_status": "verified",
+      "stablr_approved": true,
+      "verification_notes": "Manual Stablr review completed. Official club course page exposes hole-by-hole PAR/HCP; FIG official table is retained for CR/Slope.",
+      "official_course_links": [
+        "https://www.tenutalamborghini.com/percorso"
+      ],
       "physical_hole_count": 9,
       "import_profile": "physical_9_with_official_18_variants",
       "gesgolf": {
         "circolo_id": "155",
         "gesgolf_club": "LAMBORGHINI"
-      }
+      },
+      "product_rule": "Ignore duplicate/noisy GesGolf route names when physical course structure is clear; keep only Stablr-playable routes."
     }
   },
   "routes": [
@@ -47,19 +53,17 @@
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "9 Buche 2022",
         "stablr_product_name": "9 Buche",
-        "product_simplification": "physical_9_route_variant",
-        "round_variant": {
-          "holes_count": 9,
-          "default_for_holes": 9,
-          "default_source": "official_club_site_and_gesgolf",
-          "note": "GesGolf is considered a highly reliable operational source for official 9-hole variants on physical 9-hole clubs."
-        },
+        "product_note": "9-hole route uses the front-nine official 18-hole SI segment, preserving SI 1-18.",
         "gesgolf": {
           "circolo_id": "155",
-          "gesgolf_club": "LAMBORGHINI",
-          "route_name": "9 BUCHE 2022",
-          "playable_kind": "base_9",
-          "percorso_id": "2821"
+          "gesgolf_club": "ASD GOLF CLUB LAMBORGHINI PANICALE",
+          "route_name": "18 buche 2022",
+          "playable_kind": "official_18",
+          "percorso_id": "2820",
+          "derived_segment": [
+            0,
+            9
+          ]
         }
       },
       "holes": [
@@ -212,16 +216,9 @@
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "18 Buche 2022",
         "stablr_product_name": "18 Buche",
-        "product_simplification": "physical_9_official_18_variant",
-        "round_variant": {
-          "holes_count": 18,
-          "default_for_holes": 18,
-          "default_source": "official_club_site_and_gesgolf",
-          "note": "GesGolf is considered a highly reliable operational source for official 18-hole variants on physical 9-hole clubs."
-        },
         "gesgolf": {
           "circolo_id": "155",
-          "gesgolf_club": "LAMBORGHINI",
+          "gesgolf_club": "ASD GOLF CLUB LAMBORGHINI PANICALE",
           "route_name": "18 buche 2022",
           "playable_kind": "official_18",
           "percorso_id": "2820"

@@ -556,6 +556,25 @@ Nuovo batch FIG/GesGolf avviato:
   7. seed Supabase;
   8. verifica DB.
 
+Aggiornamento batch `Green Club Lainate` -> `Lignano Ssd` dopo controllo manuale:
+- regola anti-rumore GesGolf: quando GesGolf espone piu' route duplicate, legacy, provvisorie o con nomi diversi, non trasformarle automaticamente in percorsi UX distinti. Prima si identifica la struttura fisica reale del club:
+  - campo fisico 9: importare `9 Buche` default e, se presente, `18 Buche` giocabile, preservando gli SI ufficiali 1..18 dal segmento corretto del 18;
+  - campo fisico 18: importare `18 Buche` default e `Prime Nove` / `Seconde Nove` se ricavabili;
+  - club complesso/multi-percorso: usare solo nomi reali/iconici del club o colori distintivi, evitando duplicati tecnici GesGolf;
+  - se il sito ufficiale espone PAR + SI/HCP buca per buca e combacia con GesGolf/import, il club puo' diventare verde subito; il controllo manuale successivo resta solo controllo rapido, non blocco.
+- import JSON generati e validati:
+  - `Green Club Lainate`: arancio; import semplificato come campo 18 con una route `18 Buche`.
+  - `Gressoney`: arancio; 9 fisico/12 da chiarire, ma sito ufficiale rimanda a GesGolf; route `9 Buche` e `18 Buche` giocabili.
+  - `Is Arenas`: arancio; campo 18 semplice, route `18 Buche`, `Prime Nove`, `Seconde Nove`; tee neri non importati perche' non presenti in FIG/GesGolf con CR/Slope.
+  - `Is Molas Ssd`: arancio; club complesso 27 buche, route `Yellow`, `White`, `Red`, `Championship White/Red`, `White/Yellow`, da confermare con segreteria.
+  - `Laghi`: verde / Stablr Approved; sito ufficiale con Stroke Saver e PAR/HCP, route `18 Buche`, `Prime Nove`, `Seconde Nove`, `Seconde Nove x 2`.
+  - `Lamborghini`: verde / Stablr Approved; campo fisico 9 con SI su pagina ufficiale, route `9 Buche` e `18 Buche`.
+  - `Lana`: verde / Stablr Approved; campo fisico 9 con Stroke/Index su sito ufficiale, route `9 Buche` e `18 Buche`.
+  - `Lanzo`: verde / Stablr Approved; campo fisico 9 trattato come `9 Buche` + `18 Buche`, SI preservati da GesGolf/FIG e controllo manuale positivo.
+  - `Lecco`: verde / Stablr Approved; sito ufficiale con PAR/HCP buca per buca, route `18 Buche`, `Prime Nove`, `Seconde Nove`.
+  - `Lignano Ssd`: arancio; campo 18 giocabile con route `18 Buche`, `Prime Nove`, `Seconde Nove`.
+- prossima azione DB: seed Supabase dei 10 JSON del batch in blocco.
+
 Regola di ritmo:
 - ogni 2/3 batch:
   - fare commit e push;

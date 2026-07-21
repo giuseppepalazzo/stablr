@@ -2,16 +2,16 @@
   "schema_version": "1.0",
   "source": {
     "system": "gesgolf",
-    "scraped_at": "2026-07-21T11:21:30.769Z",
+    "scraped_at": "2026-07-21T16:51:22.720Z",
     "club_external_id": "fig-club-laghi",
-    "notes": "Official FIG catalog + GesGolf hole-by-hole import pilot for Laghi"
+    "notes": "Official FIG catalog + GesGolf hole-by-hole import for Laghi"
   },
   "club": {
     "name": "Laghi",
     "name_normalized": "laghi",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,13 +22,19 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
+      "verification_status": "verified",
+      "stablr_approved": true,
+      "verification_notes": "Manual Stablr review completed. Official club Stroke Saver exposes hole-by-hole PAR/HCP; FIG official table is retained for CR/Slope. GesGolf duplicate/repeat route noise kept as playable secondary review note.",
+      "official_course_links": [
+        "https://www.golfdeilaghi.it/en_GB/attivita-sportiva/percorso"
+      ],
       "physical_hole_count": 18,
       "import_profile": "physical_18_with_official_9_segments",
       "gesgolf": {
         "circolo_id": "777",
         "gesgolf_club": "LAGHI"
-      }
+      },
+      "product_rule": "Ignore duplicate/noisy GesGolf route names when physical course structure is clear; keep only Stablr-playable routes."
     }
   },
   "routes": [
@@ -45,15 +51,11 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
-        "round_variant": {
-          "holes_count": 18,
-          "default_for_holes": 18,
-          "default_source": "fig_gesgolf_official_site",
-          "note": "Default full round for physical 18-hole clubs."
-        },
+        "fig_display_name": "18 Buche",
+        "stablr_product_name": "18 Buche",
         "gesgolf": {
           "circolo_id": "777",
-          "gesgolf_club": "LAGHI",
+          "gesgolf_club": "GOLF DEI LAGHI SSD a r.l.",
           "route_name": "LAGHI",
           "playable_kind": "official_18",
           "percorso_id": "2354"
@@ -287,11 +289,403 @@
       ]
     },
     {
+      "external_key": "fig-course-laghi-prime-nove",
+      "name": "Prime Nove",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-laghi-prime-nove",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Prime Nove",
+        "stablr_product_name": "Prime Nove",
+        "gesgolf": {
+          "circolo_id": "777",
+          "gesgolf_club": "GOLF DEI LAGHI SSD a r.l.",
+          "route_name": "1-9",
+          "playable_kind": "base_9",
+          "percorso_id": "2355"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.2,
+          "slope_rating": 144,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-prime-nove-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.2",
+              "slope_rating": "144"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36.4,
+          "slope_rating": 141,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-prime-nove-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.4",
+              "slope_rating": "141"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 35.1,
+          "slope_rating": 134,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-prime-nove-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.1",
+              "slope_rating": "134"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 38.4,
+          "slope_rating": 141,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-prime-nove-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "38.4",
+              "slope_rating": "141"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.6,
+          "slope_rating": 137,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-prime-nove-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.6",
+              "slope_rating": "137"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 36.3,
+          "slope_rating": 131,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-prime-nove-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.3",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-laghi-seconde-nove",
+      "name": "Seconde Nove",
+      "holes_count": 9,
+      "total_par": 37,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-laghi-seconde-nove",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Seconde Nove",
+        "stablr_product_name": "Seconde Nove",
+        "gesgolf": {
+          "circolo_id": "777",
+          "gesgolf_club": "GOLF DEI LAGHI SSD a r.l.",
+          "route_name": "10-18",
+          "playable_kind": "base_9",
+          "percorso_id": "2356"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 4,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.7,
+          "slope_rating": 139,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-seconde-nove-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.7",
+              "slope_rating": "139"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 37,
+          "slope_rating": 136,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-seconde-nove-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.0",
+              "slope_rating": "136"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 36,
+          "slope_rating": 132,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-seconde-nove-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.0",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 38.3,
+          "slope_rating": 150,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-seconde-nove-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "38.3",
+              "slope_rating": "150"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.4,
+          "slope_rating": 146,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-seconde-nove-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.4",
+              "slope_rating": "146"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 36.5,
+          "slope_rating": 142,
+          "par_total": 37,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-laghi-seconde-nove-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.5",
+              "slope_rating": "142"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
       "external_key": "fig-course-laghi-2-volte-seconde-nove",
-      "name": "18 Buche",
+      "name": "Seconde Nove × 2",
       "holes_count": 18,
       "total_par": 74,
-      "display_order": 2,
+      "display_order": 4,
       "is_active": true,
       "source_system": "fig",
       "source_external_id": "fig-course-laghi-2-volte-seconde-nove",
@@ -300,16 +694,10 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "2 Volte Seconde Nove",
-        "stablr_product_name": "18 Buche",
-        "round_variant": {
-          "holes_count": 18,
-          "default_for_holes": 18,
-          "default_source": "fig_gesgolf_official_site",
-          "note": "Default full round for physical 18-hole clubs."
-        },
+        "stablr_product_name": "Seconde Nove × 2",
         "gesgolf": {
           "circolo_id": "777",
-          "gesgolf_club": "LAGHI",
+          "gesgolf_club": "GOLF DEI LAGHI SSD a r.l.",
           "route_name": "SECONDE X 2",
           "playable_kind": "repeat_18",
           "percorso_id": "2463"
@@ -535,406 +923,6 @@
             "kind": "tee",
             "source_cells": {
               "course_rating": "73.0",
-              "slope_rating": "142"
-            },
-            "official_catalog": "fig"
-          }
-        }
-      ]
-    },
-    {
-      "external_key": "fig-course-laghi-prime-nove",
-      "name": "Prime Nove",
-      "holes_count": 9,
-      "total_par": 36,
-      "display_order": 3,
-      "is_active": true,
-      "source_system": "fig",
-      "source_external_id": "fig-course-laghi-prime-nove",
-      "source_payload": {
-        "kind": "route",
-        "official_catalog": "fig",
-        "hole_by_hole_source": "gesgolf",
-        "round_variant": {
-          "holes_count": 9,
-          "default_for_holes": 9,
-          "default_source": "fig_gesgolf_official_site",
-          "note": "For physical 18-hole clubs, Prime Nove is the default 9-hole option and Seconde Nove remains the secondary option."
-        },
-        "gesgolf": {
-          "circolo_id": "777",
-          "gesgolf_club": "LAGHI",
-          "route_name": "1-9",
-          "playable_kind": "base_9",
-          "percorso_id": "2355"
-        }
-      },
-      "holes": [
-        {
-          "physical_hole_number": 1,
-          "par": 5,
-          "stroke_index": 9,
-          "display_label": "1"
-        },
-        {
-          "physical_hole_number": 2,
-          "par": 4,
-          "stroke_index": 13,
-          "display_label": "2"
-        },
-        {
-          "physical_hole_number": 3,
-          "par": 4,
-          "stroke_index": 11,
-          "display_label": "3"
-        },
-        {
-          "physical_hole_number": 4,
-          "par": 4,
-          "stroke_index": 3,
-          "display_label": "4"
-        },
-        {
-          "physical_hole_number": 5,
-          "par": 3,
-          "stroke_index": 15,
-          "display_label": "5"
-        },
-        {
-          "physical_hole_number": 6,
-          "par": 4,
-          "stroke_index": 7,
-          "display_label": "6"
-        },
-        {
-          "physical_hole_number": 7,
-          "par": 3,
-          "stroke_index": 5,
-          "display_label": "7"
-        },
-        {
-          "physical_hole_number": 8,
-          "par": 4,
-          "stroke_index": 1,
-          "display_label": "8"
-        },
-        {
-          "physical_hole_number": 9,
-          "par": 5,
-          "stroke_index": 17,
-          "display_label": "9"
-        }
-      ],
-      "tees": [
-        {
-          "tee_name": "Bianco",
-          "tee_color": "white",
-          "gender": "men",
-          "course_rating": 37.2,
-          "slope_rating": 144,
-          "par_total": 36,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-prime-nove-bianco-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "37.2",
-              "slope_rating": "144"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Giallo",
-          "tee_color": "yellow",
-          "gender": "men",
-          "course_rating": 36.4,
-          "slope_rating": 141,
-          "par_total": 36,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-prime-nove-giallo-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "36.4",
-              "slope_rating": "141"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Verde",
-          "tee_color": "green",
-          "gender": "men",
-          "course_rating": 35.1,
-          "slope_rating": 134,
-          "par_total": 36,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-prime-nove-verde-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "35.1",
-              "slope_rating": "134"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Blu",
-          "tee_color": "blue",
-          "gender": "men",
-          "course_rating": 38.4,
-          "slope_rating": 141,
-          "par_total": 36,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-prime-nove-blu-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "38.4",
-              "slope_rating": "141"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Rosso",
-          "tee_color": "red",
-          "gender": "women",
-          "course_rating": 37.6,
-          "slope_rating": 137,
-          "par_total": 36,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-prime-nove-rosso-women",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "37.6",
-              "slope_rating": "137"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Arancio",
-          "tee_color": "orange",
-          "gender": "women",
-          "course_rating": 36.3,
-          "slope_rating": 131,
-          "par_total": 36,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-prime-nove-arancio-women",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "36.3",
-              "slope_rating": "131"
-            },
-            "official_catalog": "fig"
-          }
-        }
-      ]
-    },
-    {
-      "external_key": "fig-course-laghi-seconde-nove",
-      "name": "Seconde Nove",
-      "holes_count": 9,
-      "total_par": 37,
-      "display_order": 4,
-      "is_active": true,
-      "source_system": "fig",
-      "source_external_id": "fig-course-laghi-seconde-nove",
-      "source_payload": {
-        "kind": "route",
-        "official_catalog": "fig",
-        "hole_by_hole_source": "gesgolf",
-        "round_variant": {
-          "holes_count": 9,
-          "default_for_holes": null,
-          "default_source": "gesgolf",
-          "note": "For physical 18-hole clubs, Prime Nove is the default 9-hole option and Seconde Nove remains the secondary option."
-        },
-        "gesgolf": {
-          "circolo_id": "777",
-          "gesgolf_club": "LAGHI",
-          "route_name": "10-18",
-          "playable_kind": "base_9",
-          "percorso_id": "2356"
-        }
-      },
-      "holes": [
-        {
-          "physical_hole_number": 1,
-          "par": 5,
-          "stroke_index": 12,
-          "display_label": "1"
-        },
-        {
-          "physical_hole_number": 2,
-          "par": 4,
-          "stroke_index": 6,
-          "display_label": "2"
-        },
-        {
-          "physical_hole_number": 3,
-          "par": 5,
-          "stroke_index": 14,
-          "display_label": "3"
-        },
-        {
-          "physical_hole_number": 4,
-          "par": 3,
-          "stroke_index": 10,
-          "display_label": "4"
-        },
-        {
-          "physical_hole_number": 5,
-          "par": 4,
-          "stroke_index": 18,
-          "display_label": "5"
-        },
-        {
-          "physical_hole_number": 6,
-          "par": 4,
-          "stroke_index": 4,
-          "display_label": "6"
-        },
-        {
-          "physical_hole_number": 7,
-          "par": 4,
-          "stroke_index": 2,
-          "display_label": "7"
-        },
-        {
-          "physical_hole_number": 8,
-          "par": 3,
-          "stroke_index": 8,
-          "display_label": "8"
-        },
-        {
-          "physical_hole_number": 9,
-          "par": 5,
-          "stroke_index": 16,
-          "display_label": "9"
-        }
-      ],
-      "tees": [
-        {
-          "tee_name": "Bianco",
-          "tee_color": "white",
-          "gender": "men",
-          "course_rating": 37.7,
-          "slope_rating": 139,
-          "par_total": 37,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-seconde-nove-bianco-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "37.7",
-              "slope_rating": "139"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Giallo",
-          "tee_color": "yellow",
-          "gender": "men",
-          "course_rating": 37,
-          "slope_rating": 136,
-          "par_total": 37,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-seconde-nove-giallo-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "37.0",
-              "slope_rating": "136"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Verde",
-          "tee_color": "green",
-          "gender": "men",
-          "course_rating": 36,
-          "slope_rating": 132,
-          "par_total": 37,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-seconde-nove-verde-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "36.0",
-              "slope_rating": "132"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Blu",
-          "tee_color": "blue",
-          "gender": "men",
-          "course_rating": 38.3,
-          "slope_rating": 150,
-          "par_total": 37,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-seconde-nove-blu-men",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "38.3",
-              "slope_rating": "150"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Rosso",
-          "tee_color": "red",
-          "gender": "women",
-          "course_rating": 37.4,
-          "slope_rating": 146,
-          "par_total": 37,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-seconde-nove-rosso-women",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "37.4",
-              "slope_rating": "146"
-            },
-            "official_catalog": "fig"
-          }
-        },
-        {
-          "tee_name": "Arancio",
-          "tee_color": "orange",
-          "gender": "women",
-          "course_rating": 36.5,
-          "slope_rating": 142,
-          "par_total": 37,
-          "is_active": true,
-          "source_system": "fig",
-          "source_external_id": "fig-tee-laghi-seconde-nove-arancio-women",
-          "source_payload": {
-            "kind": "tee",
-            "source_cells": {
-              "course_rating": "36.5",
               "slope_rating": "142"
             },
             "official_catalog": "fig"

@@ -3,27 +3,26 @@
 Obiettivo: controllo manuale dei 10 club del batch `Green Club Lainate` -> `Lignano Ssd`.
 
 Legenda rapida:
-- `Seed arancio`: gia' importato/seedato in Supabase come giocabile, ma non Stablr Approved.
-- `Scraped/mapping`: dati GesGolf scaricati e candidati generati, ma non importato perche' il mapping richiede controllo manuale.
-- `Possibile verde`: il sito ufficiale sembra esporre PAR + HCP/SI buca per buca; serve confronto completo con import/GesGolf/FIG.
+- `Arancio`: configurabile e giocabile, ma non Stablr Approved.
+- `Verde`: Stablr Approved perche' sito ufficiale/scorecard espone PAR + SI/HCP buca per buca e FIG resta fonte ufficiale per CR/Slope.
+- `Rumore GesGolf`: route duplicate, legacy, provvisorie o nominalmente diverse che non vanno trasformate automaticamente in percorsi UX distinti.
 
 | Club | Stato sintetico | Link sito / pagina campo | Link GesGolf |
 |---|---|---|---|
-| Green Club Lainate | Scraped/mapping; club complesso con 15 route/varianti, non importare senza selezione manuale di cosa tenere. | https://www.greenclubgolf.it/il-golf-club/percorso.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=102 |
-| Gressoney | Seed arancio; sito conferma configurazione campo e PAR 70, ma non SI/HCP buca per buca. | https://www.golfgressoney.com/il-campo/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=715 |
-| Is Arenas | Scraped/mapping; varianti/misti da capire, ma sito ufficiale ha pagina scorecard: possibile verde dopo confronto. | https://www.isarenas.it/scorecard/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=283 |
-| Is Molas Ssd | Scraped/mapping; club complesso 27 buche, pagina ufficiale espone HCP su Championship e Yellow: serve mapping manuale accurato. | https://www.ismolasresort.com/en/championship-course.html / https://www.ismolasresort.com/en/yellow-course.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=814 |
-| Laghi | Seed arancio; sito ufficiale espone PDF Stroke Saver con PAR/HCP: possibile verde dopo confronto visuale completo. | https://www.golfdeilaghi.it/en_GB/attivita-sportiva/percorso | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=777 |
-| Lamborghini | Seed arancio; sito ufficiale espone PAR/HCP ma HCP non allineati a GesGolf/import, quindi resta arancio e richiede segreteria/scorecard aggiornata. | https://www.tenutalamborghini.com/percorso | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=155 |
-| Lana | Scraped/mapping; sito ufficiale espone Stroke/Index per 9 buche, ma mapping GesGolf ha varianti/nomi ambigui. Possibile verde dopo mapping corretto. | https://www.golfclublana.it/it/campo-da-golf | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=256 |
-| Lanzo | Scraped/mapping; sito ufficiale conferma 9 buche doppie partenze, PAR 68, CR/Slope, ma non SI/HCP buca per buca. | https://www.golflanzo.it/index.php/blog-single-column-4 | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=19 |
-| Lecco | Scraped/mapping; sito ufficiale espone PAR/HCP buca per buca, ma GesGolf ha warning/varianti: possibile verde dopo mapping corretto. | https://golfclublecco.it/percorso-buche/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=56 |
-| Lignano Ssd | Seed arancio; sito ufficiale conferma 18 buche PAR 72 ma non espone scorecard/SI nella pagina percorso. | https://golflignano.it/percorso/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=841 |
+| Green Club Lainate | Arancio; import semplificato come 18 fisico con una route `18 Buche`, ignorando rumore GesGolf. | https://www.greenclubgolf.it/il-golf-club/percorso.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=102 |
+| Gressoney | Arancio; 9 fisico/12 da chiarire, ma sito ufficiale rimanda a GesGolf; route `9 Buche` e `18 Buche` giocabili. | https://www.golfgressoney.com/il-campo/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=715 |
+| Is Arenas | Arancio; 18 fisico, route `18 Buche`, `Prime Nove`, `Seconde Nove`; tee nero non importato senza dati FIG/GesGolf completi. | https://www.isarenas.it/scorecard/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=283 |
+| Is Molas Ssd | Arancio; complesso 27 buche, route `Yellow`, `White`, `Red`, `Championship White/Red`, `White/Yellow`; serve verifica segreteria. | https://www.ismolasresort.com/en/championship-course.html / https://www.ismolasresort.com/en/yellow-course.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=814 |
+| Laghi | Verde; sito ufficiale con Stroke Saver e PAR/HCP, route `18 Buche`, `Prime Nove`, `Seconde Nove`, `Seconde Nove x 2`. | https://www.golfdeilaghi.it/en_GB/attivita-sportiva/percorso | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=777 |
+| Lamborghini | Verde; 9 fisico con SI su pagina ufficiale, route `9 Buche` e `18 Buche`. | https://www.tenutalamborghini.com/percorso | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=155 |
+| Lana | Verde; 9 fisico con Stroke/Index su sito ufficiale, route `9 Buche` e `18 Buche`. | https://www.golfclublana.it/it/campo-da-golf | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=256 |
+| Lanzo | Verde; 9 fisico trattato come `9 Buche` + `18 Buche`, SI preservati da GesGolf/FIG e controllo manuale positivo. | https://www.golflanzo.it/index.php/blog-single-column-4 | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=19 |
+| Lecco | Verde; sito ufficiale con PAR/HCP buca per buca, route `18 Buche`, `Prime Nove`, `Seconde Nove`. | https://golfclublecco.it/percorso-buche/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=56 |
+| Lignano Ssd | Arancio; 18 fisico giocabile con route `18 Buche`, `Prime Nove`, `Seconde Nove`, ma senza scorecard/SI ufficiale sul sito. | https://golflignano.it/percorso/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=841 |
 
-Priorita' consigliata per controllo manuale:
-1. `Laghi`: PDF ufficiale Stroke Saver gia' individuato.
-2. `Lecco`: pagina ufficiale con PAR/HCP buca per buca.
-3. `Lana`: pagina ufficiale con Stroke/Index buca per buca.
-4. `Is Arenas` / `Is Molas Ssd`: molto promettenti ma piu' complessi.
+Esito operativo:
+1. Generati e validati i 10 JSON normalizzati.
+2. Da seedare in blocco su Supabase.
+3. Regola anti-rumore GesGolf scritta anche in `gesgolf-pipeline-status.md`.
 
-Nota operativa: non promuovere a `Stablr Approved` senza confronto completo PAR + SI/HCP contro GesGolf/import e FIG per CR/Slope.
+Nota operativa: non bloccare il verde solo per la presenza di route GesGolf duplicate/rumorose se il sito ufficiale conferma PAR + SI/HCP e FIG conferma CR/Slope.
