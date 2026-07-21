@@ -23,9 +23,10 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "Official club page confirms the Bernhard Langer route context; GesGolf provides playable hole-by-hole data. No complete official scorecard/SI table found, so orange.",
+      "verification_notes": "Official Modena pages expose the Bernhard Langer 18-hole course and the Executive pitch-and-putt route. Main 18 uses iconic route name; Executive remains a separate playable real route, with 9 and 18 options.",
       "official_course_links": [
-        "https://www.modenagolf.it/percorso-langer"
+        "https://www.modenagolf.it/percorso-langer",
+        "https://www.modenagolf.it/percorso-executive"
       ],
       "physical_hole_count": 18,
       "import_profile": "physical_18_with_executive_variants",
@@ -33,13 +34,13 @@
         "circolo_id": "71",
         "gesgolf_club": "MODENA"
       },
-      "product_rule": "Final structure check: physical 9 -> 9 Buche + 18 Buche; physical 18 -> 18 Buche + Prime Nove + Seconde Nove; complex -> base 9 routes + official 18 combinations."
+      "product_rule": "Exception: a club can have a main physical 18-hole course plus a real Executive/Pitch-and-Putt physical 9-hole route. Keep main 18 with iconic name and Prime/Seconde Nove; keep Executive as separate 9/18 playable route, not as a Parco-style combination club."
     }
   },
   "routes": [
     {
       "external_key": "fig-course-modena-18-buche",
-      "name": "18 Buche",
+      "name": "Bernhard Langer",
       "holes_count": 18,
       "total_par": 72,
       "display_order": 1,
@@ -51,7 +52,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "18 Buche",
-        "stablr_product_name": "18 Buche",
+        "stablr_product_name": "Bernhard Langer",
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": 18,
@@ -829,7 +830,7 @@
     },
     {
       "external_key": "fig-course-modena-18-buche-executive",
-      "name": "Executive 18 Buche",
+      "name": "Executive",
       "holes_count": 18,
       "total_par": 54,
       "display_order": 5,
@@ -841,7 +842,7 @@
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "18 Buche Executive",
-        "stablr_product_name": "Executive 18 Buche",
+        "stablr_product_name": "Executive",
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": null,

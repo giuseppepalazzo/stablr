@@ -7228,6 +7228,14 @@ function App() {
       Number(openedCoursePhysicalHoleCount) === 9 &&
       routeHolesCount === 9 &&
       totalHoles === 18;
+    const isGenericNine =
+      normalizedName === "9 buche" ||
+      normalizedName === "nove buche" ||
+      normalizedName.startsWith("9 buche par");
+    const isGenericEighteen =
+      normalizedName === "18 buche" ||
+      normalizedName.startsWith("18 buche par");
+    const isGenericRoute = isGenericNine || isGenericEighteen;
     const useSimpleCourseGenericLabel =
       (isSimpleOpenedCourse || useGenericRepeatedSingleNineLabel || isMareDiRomaOpenedCourse) &&
       (
@@ -7237,14 +7245,8 @@ function App() {
       ) &&
       !isPrimeNine &&
       !isSecondNine;
-    const isGenericNine =
-      normalizedName === "9 buche" ||
-      normalizedName === "nove buche" ||
-      normalizedName.startsWith("9 buche par");
-    const isGenericEighteen =
-      normalizedName === "18 buche" ||
-      normalizedName.startsWith("18 buche par");
-    const isGenericRoute = isGenericNine || isGenericEighteen;
+    const shouldUseSimpleCourseGenericLabel =
+      useSimpleCourseGenericLabel && (isGenericRoute || !routeName || isMareDiRomaOpenedCourse);
     const colorInfo = isGenericRoute || isPrimeNine || isSecondNine ? null : getRouteColor(routeName);
     const repeatedNineRouteLabel =
       Number(totalCompetitionHoles) === 18 &&
@@ -7270,7 +7272,7 @@ function App() {
     const titleAlreadyHasPar = /\bpar\s*\d+\b/i.test(routeName);
 
     let title = routeName || `${totalHoles} buche`;
-    if (useSimpleCourseGenericLabel) {
+    if (shouldUseSimpleCourseGenericLabel) {
       title = `${totalHoles || routeHolesCount} Buche${totalPar ? ` · Par ${totalPar}` : ""}`;
     } else if (repeatedNineRouteLabel) {
       title = `${repeatedNineRouteLabel} × 2`;
@@ -7286,12 +7288,12 @@ function App() {
     const titleIncludesPar = /\bpar\s*\d+\b/i.test(title);
 
     const details = [
-      !useSimpleCourseGenericLabel && (repeatedSingleNine || repeatedNineRouteLabel) && totalHoles
+      !shouldUseSimpleCourseGenericLabel && (repeatedSingleNine || repeatedNineRouteLabel) && totalHoles
         ? `${totalHoles} buche`
         : null,
       !repeatedSingleNine &&
       !repeatedNineRouteLabel &&
-      !useSimpleCourseGenericLabel &&
+      !shouldUseSimpleCourseGenericLabel &&
       !isGenericRoute &&
       !isPrimeNine &&
       !isSecondNine &&
