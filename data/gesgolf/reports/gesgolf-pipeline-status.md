@@ -587,6 +587,7 @@ Regola club complessi:
   - percorsi fisici/base da 9 come route selezionabili per il giro a 9;
   - giri da 18 come combinazioni ufficiali tra route base;
   - card combinazione con nome + due pallini colore quando il nome contiene due percorsi/colori.
+  - se un club complesso ha due percorsi veri da 18, come Margara, non forzarlo nel pattern Parco: le 18 restano percorsi iconici (`Lolli Ghetti`, `La Guazzetta`) e le 9 derivate devono mantenere il nome del percorso (`Lolli Ghetti Prime 9`, `La Guazzetta Seconde 9`), non solo `Prime 9` / `Seconde 9`.
 
 Regola di ritmo:
 - ogni 2/3 batch:
@@ -608,7 +609,7 @@ Aggiornamento batch `Madonna Campiglio` -> `Molino Pero`:
 - `Margara`: arancio; club complesso 36 buche, route base `Lolli Ghetti Prime Nove`, `Lolli Ghetti Seconde Nove`, `La Guazzetta Prime Nove`, `La Guazzetta Seconde Nove`, combinazioni 18 `Lolli Ghetti` e `La Guazzetta`. Il sito ufficiale espone pagine percorso con PAR/HCP, ma resta arancio finche' non viene completato il controllo manuale sulle due 18 complete: `https://www.golfmargara.it/golf/percorso-glauco-lolli-ghetti/` e `https://www.golfmargara.it/golf/percorso-la-guazzetta/`.
 - `Margherita`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`; il sito espone tabelle handicap ma non una scorecard buca-per-buca sufficiente.
 - `Menaggio`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Terza verifica su pagina ufficiale percorso con tabella `Buca / Par / Colpi`: `https://www.golfclubmenaggio.com/it/giocare-a-golf/percorso`.
-- `Milano`: arancio; club complesso 27 buche in pattern Parco de' Medici. Il controllo manuale su sito/GesGolf conferma tre route colore: `Rosso`, `Giallo`, `Blu`. Le combinazioni FIG importate restano tre e sono rinominate a colori: `Rosso/Giallo`, `Rosso/Blu`, `Giallo/Blu`. Non aggiungere automaticamente combinazioni GesGolf-only invertite come `3/2` o `3/1` finche' non sono confermate da FIG/club come route ratingate.
+- `Milano`: arancio; club complesso 27 buche in pattern Parco de' Medici. Il controllo manuale su sito/GesGolf conferma tre route colore: `Rosso`, `Giallo`, `Blu`. Le combinazioni FIG importate restano tre e sono rinominate a colori: `Rosso/Giallo`, `Rosso/Blu`, `Blu/Giallo` (`2/3` mostrato come Blu/Giallo per coerenza con la mappa ufficiale). Non aggiungere automaticamente combinazioni GesGolf-only invertite come `3/2` o `3/1` finche' non sono confermate da FIG/club come route ratingate.
 - `Modena`: arancio; campo 18 con variante reale Executive FIG, route `Bernhard Langer`, `Prime Nove`, `Seconde Nove`, `Executive 9 Buche`, `Executive`. Eccezione intenzionale alla regola semplice 18 -> 3 route, perche' Executive e' un percorso reale separato da mantenere giocabile ma in review.
 - aggiornamento UX Modena: le route da 18 usano nomi iconici `Bernhard Langer` e `Executive`; le opzioni da 9 restano `Prime Nove`, `Seconde Nove` e `Executive 9 Buche`. Il percorso Executive e' un pitch-and-putt fisico da 9 buche con opzione 18 ripetuta, non una combinazione stile Parco de' Medici.
 - `Molinetto`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Terza verifica su pagine ufficiali buca con PAR/HCP: `https://www.molinettocountryclub.it/buca-1/`.

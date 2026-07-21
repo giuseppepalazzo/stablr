@@ -7221,6 +7221,12 @@ function App() {
       ? openedCourse.routeCombinations.length
       : 0;
     const isSimpleOpenedCourse = openedCourse?.isComplex !== true && openedCourseCombinationCount === 0;
+    const isNamedSegmentRoute =
+      !isSimpleOpenedCourse &&
+      (isPrimeNine || isSecondNine) &&
+      !["prime nove", "prima nove", "prime 9", "first 9", "seconde nove", "seconda nove", "seconde 9", "second 9"].includes(
+        normalizedName
+      );
     const isMareDiRomaOpenedCourse = normalizeCourseName(openedCourse?.name || "") === "mare di roma";
     const useGenericRepeatedSingleNineLabel =
       repeatedSingleNine &&
@@ -7278,6 +7284,17 @@ function App() {
       title = `${repeatedNineRouteLabel} × 2`;
     } else if (repeatedSingleNine) {
       title = `${getRepeatedNineRouteLabel(routeName)} × 2`;
+    } else if (isNamedSegmentRoute) {
+      title = routeName
+        .replace(/\bprime\s+nove\b/i, "Prime 9")
+        .replace(/\bprima\s+nove\b/i, "Prime 9")
+        .replace(/\bfirst\s+9\b/i, "Prime 9")
+        .replace(/\bseconde\s+nove\b/i, "Seconde 9")
+        .replace(/\bseconda\s+nove\b/i, "Seconde 9")
+        .replace(/\bsecond\s+9\b/i, "Seconde 9");
+      if (totalPar && !/\bpar\s*\d+\b/i.test(title)) {
+        title = `${title} · Par ${totalPar}`;
+      }
     } else if (isPrimeNine) {
       title = `Prime 9${totalPar ? ` · Par ${totalPar}` : ""}`;
     } else if (isSecondNine) {
@@ -7295,6 +7312,7 @@ function App() {
       !repeatedNineRouteLabel &&
       !shouldUseSimpleCourseGenericLabel &&
       !isGenericRoute &&
+      !isNamedSegmentRoute &&
       !isPrimeNine &&
       !isSecondNine &&
       !titleAlreadyHasHoles &&

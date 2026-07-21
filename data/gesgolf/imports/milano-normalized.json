@@ -23,7 +23,7 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "Official/region page confirms 27-hole structure; user manual check on club/GesGolf UI confirms route colors Giallo, Blu and Rosso. FIG official combinations are preserved as color labels; club remains orange until a full official scorecard/SI page is confirmed.",
+      "verification_notes": "Official/region page confirms 27-hole structure; user manual check on club/GesGolf UI and course map confirms route colors Giallo, Blu and Rosso. FIG official combinations are preserved as color labels; 2/3 is displayed as Blu/Giallo to match the official map visual order. Club remains orange until a full official scorecard/SI page is confirmed.",
       "official_course_links": [
         "https://www.golfclubmilano.com/pagina_buche.php?pagina=IL_PERCORSO",
         "https://www.federgolflombardia.it/portfolio-item/golf-club-milano/"
@@ -1163,7 +1163,7 @@
     },
     {
       "external_key": "fig-combination-milano-2-3",
-      "name": "Giallo/Blu",
+      "name": "Blu/Giallo",
       "front_route_external_key": "fig-course-milano-nove-perc-2",
       "back_route_external_key": "fig-course-milano-nove-perc-3",
       "holes_count": 18,
@@ -1183,10 +1183,10 @@
           "playable_kind": "official_18",
           "percorso_id": "238"
         },
-        "stablr_product_name": "Giallo/Blu",
-        "color_route_name": "Giallo/Blu",
+        "stablr_product_name": "Blu/Giallo",
+        "color_route_name": "Blu/Giallo",
         "previous_stablr_product_name": "2/3",
-        "product_note": "Milano confirmed as Parco-style 27-hole color-route club: base routes Rosso, Giallo, Blu; official FIG combinations preserved and labeled by color."
+        "product_note": "Milano confirmed as Parco-style 27-hole color-route club. Combination 2/3 is displayed as Blu/Giallo to match the official course map visual order."
       },
       "holes": [
         {
