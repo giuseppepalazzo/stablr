@@ -9,10 +9,10 @@ Legenda rapida:
 
 | Club | Stato sintetico | Link sito / pagina campo | Link GesGolf |
 |---|---|---|---|
-| Green Club Lainate | Arancio; import semplificato come 18 fisico con una route `18 Buche`, ignorando rumore GesGolf. | https://www.greenclubgolf.it/il-golf-club/percorso.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=102 |
+| Green Club Lainate | Arancio; 18 fisico con route `18 Buche`, `Prime Nove`, `Seconde Nove`, ignorando rumore GesGolf. | https://www.greenclubgolf.it/il-golf-club/percorso.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=102 |
 | Gressoney | Arancio; 9 fisico/12 da chiarire, ma sito ufficiale rimanda a GesGolf; route `9 Buche` e `18 Buche` giocabili. | https://www.golfgressoney.com/il-campo/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=715 |
-| Is Arenas | Arancio; 18 fisico, route `18 Buche`, `Prime Nove`, `Seconde Nove`; tee nero non importato senza dati FIG/GesGolf completi. | https://www.isarenas.it/scorecard/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=283 |
-| Is Molas Ssd | Arancio; complesso 27 buche, route `Yellow`, `White`, `Red`, `Championship White/Red`, `White/Yellow`; serve verifica segreteria. | https://www.ismolasresort.com/en/championship-course.html / https://www.ismolasresort.com/en/yellow-course.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=814 |
+| Is Arenas | Verde; scorecard ufficiale conferma PAR/HCP e tee. Route `18 Buche`, `Prime Nove`, `Seconde Nove`; tee ufficiali mappati FIG Bianco/Giallo/Verde/Blu/Rosso/Arancio, non Nero. | https://www.isarenas.it/golf-course/scorecard/ | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=283 |
+| Is Molas Ssd | Arancio; complesso 27 buche in stile Parco: route base `Yellow`, `White`, `Red`; combinazioni `Championship White/Red`, `White/Yellow`. | https://www.ismolasresort.com/en/championship-course.html / https://www.ismolasresort.com/en/yellow-course.html | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=814 |
 | Laghi | Verde; sito ufficiale con Stroke Saver e PAR/HCP, route `18 Buche`, `Prime Nove`, `Seconde Nove`, `Seconde Nove x 2`. | https://www.golfdeilaghi.it/en_GB/attivita-sportiva/percorso | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=777 |
 | Lamborghini | Verde; 9 fisico con SI su pagina ufficiale, route `9 Buche` e `18 Buche`. | https://www.tenutalamborghini.com/percorso | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=155 |
 | Lana | Verde; 9 fisico con Stroke/Index su sito ufficiale, route `9 Buche` e `18 Buche`. | https://www.golfclublana.it/it/campo-da-golf | https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=256 |

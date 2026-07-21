@@ -563,10 +563,10 @@ Aggiornamento batch `Green Club Lainate` -> `Lignano Ssd` dopo controllo manuale
   - club complesso/multi-percorso: usare solo nomi reali/iconici del club o colori distintivi, evitando duplicati tecnici GesGolf;
   - se il sito ufficiale espone PAR + SI/HCP buca per buca e combacia con GesGolf/import, il club puo' diventare verde subito; il controllo manuale successivo resta solo controllo rapido, non blocco.
 - import JSON generati e validati:
-  - `Green Club Lainate`: arancio; import semplificato come campo 18 con una route `18 Buche`.
+  - `Green Club Lainate`: arancio; campo 18 fisico con route `18 Buche`, `Prime Nove`, `Seconde Nove`.
   - `Gressoney`: arancio; 9 fisico/12 da chiarire, ma sito ufficiale rimanda a GesGolf; route `9 Buche` e `18 Buche` giocabili.
-  - `Is Arenas`: arancio; campo 18 semplice, route `18 Buche`, `Prime Nove`, `Seconde Nove`; tee neri non importati perche' non presenti in FIG/GesGolf con CR/Slope.
-  - `Is Molas Ssd`: arancio; club complesso 27 buche, route `Yellow`, `White`, `Red`, `Championship White/Red`, `White/Yellow`, da confermare con segreteria.
+  - `Is Arenas`: verde / Stablr Approved; scorecard ufficiale `https://www.isarenas.it/golf-course/scorecard/` conferma PAR/HCP e tee. I tee della scorecard (`Men Pro`, `Men`, `Men Front`, `Ladies Pro`, `Ladies`, `Ladies Front`) sono mappati sui tee FIG `Bianco`, `Giallo`, `Verde`, `Blu`, `Rosso`, `Arancio`; nessun tee `Nero` ratingato FIG importato.
+  - `Is Molas Ssd`: arancio; club complesso 27 buche in stile Parco de' Medici: route base `Yellow`, `White`, `Red`; combinazioni 18 `Championship White/Red`, `White/Yellow`, da confermare con segreteria.
   - `Laghi`: verde / Stablr Approved; sito ufficiale con Stroke Saver e PAR/HCP, route `18 Buche`, `Prime Nove`, `Seconde Nove`, `Seconde Nove x 2`.
   - `Lamborghini`: verde / Stablr Approved; campo fisico 9 con SI su pagina ufficiale, route `9 Buche` e `18 Buche`.
   - `Lana`: verde / Stablr Approved; campo fisico 9 con Stroke/Index su sito ufficiale, route `9 Buche` e `18 Buche`.
@@ -574,6 +574,17 @@ Aggiornamento batch `Green Club Lainate` -> `Lignano Ssd` dopo controllo manuale
   - `Lecco`: verde / Stablr Approved; sito ufficiale con PAR/HCP buca per buca, route `18 Buche`, `Prime Nove`, `Seconde Nove`.
   - `Lignano Ssd`: arancio; campo 18 giocabile con route `18 Buche`, `Prime Nove`, `Seconde Nove`.
 - prossima azione DB: seed Supabase dei 10 JSON del batch in blocco.
+
+Regola tee consolidata:
+- controllare sempre i colori tee esposti dal sito ufficiale/scorecard;
+- importare solo tee con CR/Slope FIG disponibili;
+- se il sito mostra un tee non presente in FIG, annotarlo nel report ma non usarlo per calcolo handicap finche' non arriva fonte ufficiale FIG/club con rating.
+
+Regola club complessi:
+- la UX deve seguire il pattern Parco de' Medici:
+  - percorsi fisici/base da 9 come route selezionabili per il giro a 9;
+  - giri da 18 come combinazioni ufficiali tra route base;
+  - card combinazione con nome + due pallini colore quando il nome contiene due percorsi/colori.
 
 Regola di ritmo:
 - ogni 2/3 batch:

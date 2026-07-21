@@ -11,7 +11,7 @@
     "name_normalized": "is arenas",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,10 +22,10 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "Playable orange import. Official site scorecard page is not a full scorecard; GesGolf is used for 18-hole and 9-hole playable routes pending secretary/scorecard verification.",
+      "verification_status": "verified",
+      "verification_notes": "Manual Stablr review completed. Official Is Arenas scorecard confirms hole-by-hole PAR/HCP and tee set; FIG official table is retained for CR/Slope. Site tee labels map to FIG as Men Pro=Bianco, Men=Giallo, Men Front=Verde, Ladies Pro=Blu, Ladies=Rosso, Ladies Front=Arancio.",
       "official_course_links": [
-        "https://www.isarenas.it/scorecard/"
+        "https://www.isarenas.it/golf-course/scorecard/"
       ],
       "physical_hole_count": 18,
       "import_profile": "physical_18_simplified_from_noisy_gesgolf",
@@ -33,7 +33,27 @@
         "circolo_id": "283",
         "gesgolf_club": "IS ARENAS"
       },
-      "product_rule": "Ignore duplicate/noisy GesGolf route names when physical course structure is clear; keep only Stablr-playable routes."
+      "product_rule": "Ignore duplicate/noisy GesGolf route names when physical course structure is clear; keep only Stablr-playable routes.",
+      "stablr_approved": true,
+      "tee_verification": {
+        "official_scorecard_labels": [
+          "Men Pro",
+          "Men",
+          "Men Front",
+          "Ladies Pro",
+          "Ladies",
+          "Ladies Front"
+        ],
+        "fig_imported_tees": [
+          "Bianco",
+          "Giallo",
+          "Verde",
+          "Blu",
+          "Rosso",
+          "Arancio"
+        ],
+        "note": "No rated FIG black/nero tee found; do not import Nero without FIG CR/Slope."
+      }
     }
   },
   "routes": [

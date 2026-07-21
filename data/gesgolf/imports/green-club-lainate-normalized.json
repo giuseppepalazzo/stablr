@@ -23,7 +23,7 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "Playable orange import. GesGolf has many duplicate/legacy routes; product import keeps the current physical 18-hole route only pending secretary/scorecard verification.",
+      "verification_notes": "Playable orange import. GesGolf has many duplicate/legacy routes; product import keeps 18 Buche plus Prime Nove and Seconde Nove so the physical 18-hole club is playable at both 18 and 9 holes pending secretary/scorecard verification.",
       "official_course_links": [
         "https://www.greenclubgolf.it/il-golf-club/percorso.html"
       ],
@@ -182,7 +182,7 @@
           "source_system": "fig",
           "source_external_id": "fig-tee-green-club-lainate-18-buche-provvisorio-2025-giallo-men",
           "source_payload": {
-            "kind": "tee",
+            "kind": "route_tee",
             "source_cells": {
               "course_rating": "70.3",
               "slope_rating": "126"
@@ -201,7 +201,7 @@
           "source_system": "fig",
           "source_external_id": "fig-tee-green-club-lainate-18-buche-provvisorio-2025-verde-men",
           "source_payload": {
-            "kind": "tee",
+            "kind": "route_tee",
             "source_cells": {
               "course_rating": "68.1",
               "slope_rating": "122"
@@ -220,7 +220,7 @@
           "source_system": "fig",
           "source_external_id": "fig-tee-green-club-lainate-18-buche-provvisorio-2025-rosso-women",
           "source_payload": {
-            "kind": "tee",
+            "kind": "route_tee",
             "source_cells": {
               "course_rating": "72.1",
               "slope_rating": "125"
@@ -239,10 +239,326 @@
           "source_system": "fig",
           "source_external_id": "fig-tee-green-club-lainate-18-buche-provvisorio-2025-arancio-women",
           "source_payload": {
-            "kind": "tee",
+            "kind": "route_tee",
             "source_cells": {
               "course_rating": "69.6",
               "slope_rating": "121"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-green-club-lainate-prime-nove-provvisorio-2025",
+      "name": "Prime Nove",
+      "holes_count": 9,
+      "total_par": 34,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-green-club-lainate-prime-nove-provvisorio-2025",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Prime Nove Provvisorio 2025",
+        "stablr_product_name": "Prime Nove",
+        "gesgolf": {
+          "circolo_id": "102",
+          "gesgolf_club": "GREEN CLUB LAINATE ASD",
+          "route_name": "Prime Nove 25",
+          "playable_kind": "base_9",
+          "percorso_id": "2938"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 34.3,
+          "slope_rating": 125,
+          "par_total": 34,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-prime-nove-provvisorio-2025-giallo-men",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "34.3",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 33.3,
+          "slope_rating": 120,
+          "par_total": 34,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-prime-nove-provvisorio-2025-verde-men",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "33.3",
+              "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.2,
+          "slope_rating": 120,
+          "par_total": 34,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-prime-nove-provvisorio-2025-rosso-women",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "35.2",
+              "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34,
+          "slope_rating": 116,
+          "par_total": 34,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-prime-nove-provvisorio-2025-arancio-women",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "34.0",
+              "slope_rating": "116"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-green-club-lainate-seconde-nove-2023",
+      "name": "Seconde Nove",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-green-club-lainate-seconde-nove-2023",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Seconde Nove 2023",
+        "stablr_product_name": "Seconde Nove",
+        "gesgolf": {
+          "circolo_id": "102",
+          "gesgolf_club": "GREEN CLUB LAINATE ASD",
+          "route_name": "Seconde Nove 25",
+          "playable_kind": "base_9",
+          "percorso_id": "2663"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 5,
+          "stroke_index": 3,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36,
+          "slope_rating": 128,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-seconde-nove-2023-giallo-men",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "36.0",
+              "slope_rating": "128"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34.8,
+          "slope_rating": 124,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-seconde-nove-2023-verde-men",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "34.8",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 36.9,
+          "slope_rating": 131,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-seconde-nove-2023-rosso-women",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "36.9",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35.6,
+          "slope_rating": 126,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-green-club-lainate-seconde-nove-2023-arancio-women",
+          "source_payload": {
+            "kind": "route_tee",
+            "source_cells": {
+              "course_rating": "35.6",
+              "slope_rating": "126"
             },
             "official_catalog": "fig"
           }
