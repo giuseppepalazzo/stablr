@@ -681,3 +681,23 @@ Lezione operativa del batch semplice:
 - badge verde solo quando la terza ricerca approfondita trova pagina ufficiale del club, PDF ufficiale o immagine scorecard con PAR/SI-HCP buca-per-buca coerente con FIG/GesGolf.
 - se il sito ufficiale incorpora o linka GesGolf come fonte di percorso/handicap, quel rimando pesa come fonte club ufficiale; non va liquidato come semplice terza fonte esterna.
 - quando una pagina non espone testo leggibile al crawler, non fermarsi: cercare tab, immagini, pagine `course-guide`, pagine buca, link "misure campo", PDF, iframe o risultati indicizzati.
+
+Aggiornamento batch semplice `Barialto Golf` -> `Udine`:
+- batch preparato il 2026-07-22 con scope intenzionale: solo club semplici fisici 9/18, esclusi club complessi e casi con route strutturalmente ambigue;
+- prima del seed e' stato applicato il terzo controllo su pagina ufficiale percorso/scorecard/HCP del club, non solo homepage;
+- regola tecnica applicata:
+  - campo fisico 18 buche: `18 Buche`, `Prime Nove`, `Seconde Nove`;
+  - campo fisico 9 buche: `9 Buche`, `18 Buche`;
+  - per i giri 9 dei campi fisici 18, gli SI sono derivati dal segmento corretto dell'`18 Buche` ufficiale GesGolf, evitando route 9 con SI compressi 1-9 o alias rumorosi;
+  - per i campi fisici 9 con 18 ufficiale, il giro `9 Buche` eredita il segmento SI corretto del 18 ufficiale quando coerente;
+  - tee e CR/Slope restano sempre da FIG, senza inventare colori tee non ratingati FIG.
+- `Barialto Golf`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale conferma 18 buche PAR 70 e pagina buche con PAR/HCP, ma gli HCP pubblici risultano rumorosi/duplicati e non combaciano con GesGolf; serve scorecard/segretaria prima del verde: `https://golfbarialto.it/campo-da-golf/`, `https://golfbarialto.it/buche/`.
+- `Cansiglio`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale conferma percorso e tabella percorso visuale, ma non e' stato estratto un SI/HCP buca-per-buca testuale affidabile: `https://www.golfcansiglio.com/`.
+- `Carimate`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale espone tabella completa buca/PAR/HCP e pagine buca dettagliate; PAR/HCP combaciano con GesGolf 18 BUCHE: `https://www.golfcarimate.it/pag1.php?l=Le+buche&lin=uk&pag=589`, `https://www.golfcarimate.it/holes.php?l=Le+buche+in+dettaglio&pag=572`.
+- `Conero`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale conferma percorso campionato 18 buche PAR 71 ma non espone scorecard/SI completa; `tabella-handicap` e' playing handicap, non SI buca-per-buca: `https://www.conerogolfclub.it/`, `https://www.conerogolfclub.it/tabella-handicap/`.
+- `Cus Ferrara`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale conferma 18 buche, 5.436 metri, PAR 68, ma non espone SI/HCP buca-per-buca: `https://www.cusferraragolf.it/il-percorso/`.
+- `Rossera`: arancio; campo fisico 9, route `9 Buche`, `18 Buche`. Sito ufficiale conferma percorso ma non espone scorecard/SI completa; esclusi alias GesGolf rumorosi: `https://www.golfrossera.it/percorso/`.
+- `Saluzzo`: verde / Stablr Approved; campo fisico 9 con doppie partenze, route `9 Buche`, `18 Buche`. Sito ufficiale espone PAR e HCP per le buche 1/10 ... 9/18; usata route GesGolf `Campionato DP`, coerente con la pagina ufficiale: `https://www.saluzzogolf.it/percorso-di-gioco`.
+- `San Vito`: arancio; campo fisico 9, route `9 Buche`, `18 Buche`. Sito ufficiale conferma 9 buche PAR 32 e PAR buca-per-buca e linka `Tabella EGA HCP`, ma la tabella SI non e' stata estratta/validata in modo completo durante il batch: `https://golfsanvito.it/ilpercorso/`.
+- `Tanka Villasimius`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale espone scorecard/tabella handicap, ma i dati pubblici indicizzati suggeriscono possibili differenze HCP rispetto a GesGolf; serve controllo visuale scorecard prima del verde: `https://tankagolfvillasimius.it/it/il-percorso-tanka-golf-villasimius/`.
+- `Udine`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale espone ogni buca con PAR e HCP; sequenza combacia con GesGolf 18 BUCHE: `https://www.golfudine.com/the-golf-course-en.html`.
