@@ -7778,20 +7778,26 @@ function App() {
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       !showManualCombinationBuilder &&
       (openedCourseRouteCombinations.length > 0 || eighteenHoleRoutes.length > 0);
+    const canToggleNineHoleRouteOptions = nineHoleRoutes.length > 1;
+    const canToggleEighteenHoleRouteOptions =
+      openedCourseRouteCombinations.length + eighteenHoleRoutes.length > 1;
+    const shouldShowNineHoleRouteOptions = canToggleNineHoleRouteOptions && showRouteOptions;
+    const shouldShowOtherEighteenRouteOptions =
+      canToggleEighteenHoleRouteOptions && showOtherEighteenRouteOptions;
     const showSelectedOfficialCombinationCard =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       Boolean(matchedOfficialCombination) &&
       !showManualCombinationBuilder &&
-      !showOtherEighteenRouteOptions;
+      !shouldShowOtherEighteenRouteOptions;
     const showSelectedRouteCard =
       Boolean(selectedPrimaryRoute) &&
       !usingOfficialCombination &&
-      !showRouteOptions &&
+      !shouldShowNineHoleRouteOptions &&
       (
         Number(roundSetup.totalCompetitionHoles) === 9 ||
         (Number(roundSetup.totalCompetitionHoles) === 18 &&
           !showManualCombinationBuilder &&
-          !showOtherEighteenRouteOptions)
+          !shouldShowOtherEighteenRouteOptions)
       );
     const showSelectedTeeCard = Boolean(selectedTee) && teeOptions.length > 0 && !showTeeOptions;
     const showTeeCardOptions = teeOptions.length > 1 && (!selectedTee || showTeeOptions);
@@ -8136,24 +8142,26 @@ function App() {
                 gap: "10px"
               }}
             >
-              <button
-                onClick={() => setShowRouteOptions((prev) => !prev)}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  color: colors.green,
-                  fontSize: "20px",
-                  fontWeight: 800,
-                  padding: 0,
-                  cursor: "pointer",
-                  fontFamily: appFont,
-                  lineHeight: 1,
-                  flexShrink: 0
-                }}
-                aria-label={showRouteOptions ? "Chiudi percorsi" : "Apri percorsi"}
-              >
-                {showRouteOptions ? "▴" : "▾"}
-              </button>
+              {canToggleNineHoleRouteOptions && (
+                <button
+                  onClick={() => setShowRouteOptions((prev) => !prev)}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    color: colors.green,
+                    fontSize: "20px",
+                    fontWeight: 800,
+                    padding: 0,
+                    cursor: "pointer",
+                    fontFamily: appFont,
+                    lineHeight: 1,
+                    flexShrink: 0
+                  }}
+                  aria-label={shouldShowNineHoleRouteOptions ? "Chiudi percorsi" : "Apri percorsi"}
+                >
+                  {shouldShowNineHoleRouteOptions ? "▴" : "▾"}
+                </button>
+              )}
               <span>Scegli il percorso</span>
             </div>
             {showSelectedRouteCard ? (
@@ -8185,7 +8193,7 @@ function App() {
                   );
                 })()}
               </div>
-            ) : showRouteOptions || !selectedPrimaryRoute ? (
+            ) : shouldShowNineHoleRouteOptions || !selectedPrimaryRoute ? (
               <div
                 style={{
                   ...roundSetupGridStyle,
@@ -8277,26 +8285,30 @@ function App() {
                 gap: "10px"
               }}
             >
-              <button
-                onClick={() => {
-                  setShowOtherEighteenRouteOptions((prev) => !prev);
-                }}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  color: colors.green,
-                  fontSize: "20px",
-                  fontWeight: 800,
-                  padding: 0,
-                  cursor: "pointer",
-                  fontFamily: appFont,
-                  lineHeight: 1,
-                  flexShrink: 0
-                }}
-                aria-label={showOtherEighteenRouteOptions ? "Chiudi percorsi" : "Apri percorsi"}
-              >
-                {showOtherEighteenRouteOptions ? "▴" : "▾"}
-              </button>
+              {canToggleEighteenHoleRouteOptions && (
+                <button
+                  onClick={() => {
+                    setShowOtherEighteenRouteOptions((prev) => !prev);
+                  }}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    color: colors.green,
+                    fontSize: "20px",
+                    fontWeight: 800,
+                    padding: 0,
+                    cursor: "pointer",
+                    fontFamily: appFont,
+                    lineHeight: 1,
+                    flexShrink: 0
+                  }}
+                  aria-label={
+                    shouldShowOtherEighteenRouteOptions ? "Chiudi percorsi" : "Apri percorsi"
+                  }
+                >
+                  {shouldShowOtherEighteenRouteOptions ? "▴" : "▾"}
+                </button>
+              )}
               <span>Scegli il percorso</span>
             </div>
 
@@ -8359,7 +8371,7 @@ function App() {
               </div>
             )}
 
-            {(showOtherEighteenRouteOptions || (!matchedOfficialCombination && !selectedPrimaryRoute)) && (
+            {(shouldShowOtherEighteenRouteOptions || (!matchedOfficialCombination && !selectedPrimaryRoute)) && (
               <div
                 style={{
                   ...roundSetupGridStyle,
