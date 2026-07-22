@@ -11,7 +11,7 @@
     "name_normalized": "aosta arsanieres",
     "city": null,
     "country": "Italia",
-    "data_status": "verified",
+    "data_status": "needs_review",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,13 +22,19 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "verified",
+      "verification_status": "playable_review",
       "physical_hole_count": 9,
       "import_profile": "physical_9_with_official_18_variants",
       "gesgolf": {
         "circolo_id": "105",
         "gesgolf_club": "AOSTA ARSANIERES"
-      }
+      },
+      "verification_notes": "Playable review: FIG confirms the official club/course and CR/Slope; GesGolf provides playable PAR/SI for 9 Buche and 18 Buche. Third-control on official site found 9-hole course description and official Tabella EGA image, but the Tabella EGA is a playing-handicap conversion table and does not expose PAR/SI-HCP buca-per-buca. Keep orange until official scorecard or secretary confirmation.",
+      "official_course_links": [
+        "https://golfaosta.com/",
+        "https://golfaosta.com/tabella-ega/",
+        "https://golfaosta.com/wp-content/uploads/2023/05/tab-ega.png"
+      ]
     }
   },
   "routes": [
@@ -49,7 +55,7 @@
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": 9,
-          "default_source": "official_club_site_and_gesgolf",
+          "default_source": "gesgolf",
           "note": "GesGolf is considered a highly reliable operational source for official 9-hole variants on physical 9-hole clubs."
         },
         "gesgolf": {
@@ -193,7 +199,7 @@
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": 18,
-          "default_source": "official_club_site_and_gesgolf",
+          "default_source": "gesgolf",
           "note": "GesGolf is considered a highly reliable operational source for official 18-hole variants on physical 9-hole clubs."
         },
         "gesgolf": {

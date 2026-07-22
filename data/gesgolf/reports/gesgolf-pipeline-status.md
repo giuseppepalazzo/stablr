@@ -12,6 +12,7 @@ Usare GesGolf come fonte secondaria strutturata per buche, par e Stroke Index, m
   - Parco De' Medici
 - Regola permanente: Mare di Roma e Parco De' Medici non devono essere toccati automaticamente da batch, seed correttivi o semplificazioni.
 - Parco De' Medici resta benchmark di confronto, non fonte da sovrascrivere.
+- Mare di Roma e Parco De' Medici sono club manuali protetti: non rientrano nei file `data/gesgolf/imports`, ma rientrano nel conteggio prodotto dei club giocabili Stablr. Possono essere uniformati solo nei metadati club (`data_status`, `source_type`, `source_payload.stablr_approved`, `source_payload.protected_manual`), senza toccare route, buche, tee o combinazioni curate manualmente.
 - Prima di convalidare un nuovo campo per il DB live, usare un controllo a tre livelli:
   1. FIG come catalogo ufficiale per club, percorsi, Course Rating e Slope.
   2. GesGolf come fonte strutturata per buche, par e Stroke Index.
@@ -156,7 +157,7 @@ Import summary attuale:
 
 Club gia' interamente `import_ready`:
 - `Albisola`
-- `Aosta Arsanieres`
+- `Aosta Arsanieres` *(giocabile in revisione / arancio, non verde: caso tecnico valido per regola SI 9 fisico + 18 ufficiale; sito ufficiale conferma 9 buche e pubblica Tabella EGA, ma la Tabella EGA e' conversione handicap di gioco, non scorecard PAR/SI buca-per-buca)*
 - `Ambrosiano`
 - `Antognolla` *(Stablr Approved: scorecard ufficiale/Worldclass conferma par e SI; CR/Slope mantenuti da FIG ufficiale)*
 - `Aosta Brissogne` *(giocabile in revisione / arancio, non verde)*
@@ -184,6 +185,7 @@ Secondo caso validato:
   - esclude `OLD C.` come alias 18 duplicato
   - esclude `PR NOVE` per anomalia GesGolf: 18 dichiarate con seconda meta' vuota/azzerata
   - conferma la regola Stroke Index per club fisico 9 + 18 ufficiale: il 9 buche eredita il segmento del 18 ufficiale, non i compressi 1-9
+  - correzione stato badge: resta arancio / playable review, perche' il sito ufficiale `https://golfaosta.com/` espone una `Tabella EGA` (`https://golfaosta.com/tabella-ega/`, immagine `tab-ega.png`) ma non una scorecard con PAR/SI-HCP buca-per-buca.
 
 Terzo caso validato:
 - `Ambrosiano`
@@ -653,6 +655,12 @@ npm run gesgolf:build-import-candidates
 La pipeline GesGolf e' attiva.
 Il gating decisionale e' pronto.
 La fase di espansione e' in corso con batch progressivi, seed DB e audit post-import.
+
+Conteggio prodotto:
+- i file import GesGolf/FIG contano solo i club generati dalla pipeline;
+- il conteggio Stablr dei club giocabili include anche i manuali protetti `Mare di Roma` e `Parco De' Medici`;
+- questi due club sono `Stablr Approved` manuali e protetti: devono restare fuori dagli automatismi di import, ma dentro la fotografia di avanzamento prodotto.
+- correzione manuale protetta su `Mare di Roma`: aggiunto in DB il tee FIG `Arancio` per il giro 18 buche con CR `68.0`, Slope `121`, Par `70`, `holes_count=18` (`fig-tee-mare-di-roma-18-buche-arancio-women`), senza modificare route, buche o mappature curate.
 
 Aggiornamento batch semplice `Moncalieri` -> `Des Iles Borromees`:
 - batch seedato in Supabase il 2026-07-22 e verificato con audit DB read-only;
