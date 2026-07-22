@@ -11,7 +11,7 @@
     "name_normalized": "tanka villasimius",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,10 +22,11 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "Playable review: FIG confirms 18/Prime/Seconde and CR/Slope; GesGolf 18 Buche provides coherent PAR/SI. Official Tanka course page exposes scorecard/tabella handicap resources, but public indexed data suggest possible HCP differences vs GesGolf; orange until visual scorecard comparison or secretary confirmation.",
+      "verification_status": "verified",
+      "verification_notes": "Stablr Approved: official Tanka Villasimius course page links Scorecard2018IT PDF with PAR and HCP for all 18 holes; sequence matches GesGolf 18 Buche. FIG remains source for CR/Slope and tees.",
       "official_course_links": [
-        "https://tankagolfvillasimius.it/it/il-percorso-tanka-golf-villasimius/"
+        "https://tankagolfvillasimius.it/it/il-percorso-tanka-golf-villasimius/",
+        "https://tankagolfvillasimius.it/it/wp-content/uploads/2018/08/Scorecard2018IT.pdf"
       ],
       "physical_hole_count": 18,
       "import_profile": "physical_18_with_official_9_segments",
@@ -33,7 +34,8 @@
         "circolo_id": "751",
         "gesgolf_club": "TANKA VILLASIMIUS"
       },
-      "product_rule": "Simple batch: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. Official site is checked deeply before green; noisy GesGolf aliases are not exposed."
+      "product_rule": "Simple batch: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. Official site is checked deeply before green; noisy GesGolf aliases are not exposed.",
+      "stablr_approved": true
     }
   },
   "routes": [

@@ -11,7 +11,7 @@
     "name_normalized": "conero",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,10 +22,10 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "Playable review: FIG confirms 18/Prime/Seconde and CR/Slope; GesGolf CHAMPION provides coherent PAR/SI. Official site confirms percorso campionato 18 buche PAR 71, but the public page found does not expose full scorecard/SI buca-per-buca; orange until official scorecard or secretary confirmation.",
+      "verification_status": "verified",
+      "verification_notes": "Stablr Approved: official Conero percorsi page exposes PAR and HCP for all 18 holes; sequence matches GesGolf CHAMPION. FIG remains source for CR/Slope and tees.",
       "official_course_links": [
-        "https://www.conerogolfclub.it/",
+        "https://www.conerogolfclub.it/percorsi/",
         "https://www.conerogolfclub.it/tabella-handicap/"
       ],
       "physical_hole_count": 18,
@@ -34,7 +34,8 @@
         "circolo_id": "460",
         "gesgolf_club": "CONERO"
       },
-      "product_rule": "Simple batch: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. Official site is checked deeply before green; noisy GesGolf aliases are not exposed."
+      "product_rule": "Simple batch: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. Official site is checked deeply before green; noisy GesGolf aliases are not exposed.",
+      "stablr_approved": true
     }
   },
   "routes": [
