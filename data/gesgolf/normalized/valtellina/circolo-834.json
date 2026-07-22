@@ -1,0 +1,7099 @@
+{
+  "schema_version": "1.1",
+  "source": {
+    "system": "gesgolf",
+    "scraped_at": "2026-07-22T08:38:28.195Z",
+    "circolo_id": "834",
+    "source_url": "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=834",
+    "notes": "Batch scraper from FIG coverage. No live DB writes. FIG catalog source: /Users/giuseppepalazzo/Stablr/data/fig/normalized/fig-catalog-normalized.json"
+  },
+  "club": {
+    "name": "ASD VALTELLINA GOLF AND COUNTRY CLUB",
+    "name_normalized": "asd valtellina golf and country club",
+    "source_system": "gesgolf",
+    "source_external_id": "834",
+    "fig_reference": {
+      "fig_club_name": "Valtellina",
+      "fig_name_normalized": "valtellina"
+    }
+  },
+  "scrape_status": "safe",
+  "playable_courses": [
+    {
+      "percorso_id": "2795",
+      "name": "VALTELLINA",
+      "holes_count": 18,
+      "total_par": 71,
+      "computed_total_par": 71,
+      "playable_kind": "official_18",
+      "holes": [
+        {
+          "hole_number": 1,
+          "distances": {
+            "BIANCO": 333,
+            "GIALLO": 324,
+            "VERDE": 279,
+            "BLU": 303,
+            "ROSSO": 279,
+            "ARANCIO": 250
+          },
+          "par": 4,
+          "hcp": 15
+        },
+        {
+          "hole_number": 2,
+          "distances": {
+            "BIANCO": 173,
+            "GIALLO": 164,
+            "VERDE": 135,
+            "BLU": 158,
+            "ROSSO": 135,
+            "ARANCIO": 125
+          },
+          "par": 3,
+          "hcp": 9
+        },
+        {
+          "hole_number": 3,
+          "distances": {
+            "BIANCO": 521,
+            "GIALLO": 494,
+            "VERDE": 422,
+            "BLU": 444,
+            "ROSSO": 422,
+            "ARANCIO": 390
+          },
+          "par": 5,
+          "hcp": 5
+        },
+        {
+          "hole_number": 4,
+          "distances": {
+            "BIANCO": 148,
+            "GIALLO": 132,
+            "VERDE": 112,
+            "BLU": 126,
+            "ROSSO": 112,
+            "ARANCIO": 70
+          },
+          "par": 3,
+          "hcp": 17
+        },
+        {
+          "hole_number": 5,
+          "distances": {
+            "BIANCO": 186,
+            "GIALLO": 174,
+            "VERDE": 136,
+            "BLU": 148,
+            "ROSSO": 136,
+            "ARANCIO": 117
+          },
+          "par": 3,
+          "hcp": 13
+        },
+        {
+          "hole_number": 6,
+          "distances": {
+            "BIANCO": 325,
+            "GIALLO": 307,
+            "VERDE": 252,
+            "BLU": 273,
+            "ROSSO": 252,
+            "ARANCIO": 210
+          },
+          "par": 4,
+          "hcp": 11
+        },
+        {
+          "hole_number": 7,
+          "distances": {
+            "BIANCO": 410,
+            "GIALLO": 374,
+            "VERDE": 325,
+            "BLU": 345,
+            "ROSSO": 325,
+            "ARANCIO": 285
+          },
+          "par": 4,
+          "hcp": 1
+        },
+        {
+          "hole_number": 8,
+          "distances": {
+            "BIANCO": 504,
+            "GIALLO": 480,
+            "VERDE": 428,
+            "BLU": 453,
+            "ROSSO": 428,
+            "ARANCIO": 391
+          },
+          "par": 5,
+          "hcp": 7
+        },
+        {
+          "hole_number": 9,
+          "distances": {
+            "BIANCO": 388,
+            "GIALLO": 370,
+            "VERDE": 300,
+            "BLU": 331,
+            "ROSSO": 300,
+            "ARANCIO": 290
+          },
+          "par": 4,
+          "hcp": 3
+        },
+        {
+          "hole_number": 10,
+          "distances": {
+            "BIANCO": 379,
+            "GIALLO": 366,
+            "VERDE": 284,
+            "BLU": 328,
+            "ROSSO": 284,
+            "ARANCIO": 270
+          },
+          "par": 4,
+          "hcp": 6
+        },
+        {
+          "hole_number": 11,
+          "distances": {
+            "BIANCO": 507,
+            "GIALLO": 481,
+            "VERDE": 407,
+            "BLU": 439,
+            "ROSSO": 407,
+            "ARANCIO": 380
+          },
+          "par": 5,
+          "hcp": 8
+        },
+        {
+          "hole_number": 12,
+          "distances": {
+            "BIANCO": 162,
+            "GIALLO": 127,
+            "VERDE": 105,
+            "BLU": 121,
+            "ROSSO": 105,
+            "ARANCIO": 98
+          },
+          "par": 3,
+          "hcp": 18
+        },
+        {
+          "hole_number": 13,
+          "distances": {
+            "BIANCO": 411,
+            "GIALLO": 382,
+            "VERDE": 335,
+            "BLU": 360,
+            "ROSSO": 335,
+            "ARANCIO": 267
+          },
+          "par": 4,
+          "hcp": 4
+        },
+        {
+          "hole_number": 14,
+          "distances": {
+            "BIANCO": 398,
+            "GIALLO": 372,
+            "VERDE": 311,
+            "BLU": 340,
+            "ROSSO": 311,
+            "ARANCIO": 280
+          },
+          "par": 4,
+          "hcp": 2
+        },
+        {
+          "hole_number": 15,
+          "distances": {
+            "BIANCO": 484,
+            "GIALLO": 448,
+            "VERDE": 410,
+            "BLU": 428,
+            "ROSSO": 410,
+            "ARANCIO": 380
+          },
+          "par": 5,
+          "hcp": 12
+        },
+        {
+          "hole_number": 16,
+          "distances": {
+            "BIANCO": 335,
+            "GIALLO": 315,
+            "VERDE": 281,
+            "BLU": 291,
+            "ROSSO": 281,
+            "ARANCIO": 270
+          },
+          "par": 4,
+          "hcp": 14
+        },
+        {
+          "hole_number": 17,
+          "distances": {
+            "BIANCO": 175,
+            "GIALLO": 150,
+            "VERDE": 123,
+            "BLU": 127,
+            "ROSSO": 123,
+            "ARANCIO": 110
+          },
+          "par": 3,
+          "hcp": 16
+        },
+        {
+          "hole_number": 18,
+          "distances": {
+            "BIANCO": 357,
+            "GIALLO": 341,
+            "VERDE": 306,
+            "BLU": 315,
+            "ROSSO": 306,
+            "ARANCIO": 295
+          },
+          "par": 4,
+          "hcp": 10
+        }
+      ],
+      "totals": {
+        "label": "Totali",
+        "distances": {
+          "BIANCO": 6196,
+          "GIALLO": 5801,
+          "VERDE": 4951,
+          "BLU": 5330,
+          "ROSSO": 4951,
+          "ARANCIO": 4478
+        },
+        "par": 71,
+        "hcp": null
+      },
+      "tee_sets": [
+        {
+          "tee_name": "BIANCO",
+          "tee_color": "white",
+          "gender_group": "men",
+          "course_rating": 71.9,
+          "slope_rating": 132,
+          "par_total": 71,
+          "total_distance": 6196
+        },
+        {
+          "tee_name": "GIALLO",
+          "tee_color": "yellow",
+          "gender_group": "men",
+          "course_rating": 70.3,
+          "slope_rating": 133,
+          "par_total": 71,
+          "total_distance": 5801
+        },
+        {
+          "tee_name": "VERDE",
+          "tee_color": "green",
+          "gender_group": "men",
+          "course_rating": 66.2,
+          "slope_rating": 124,
+          "par_total": 71,
+          "total_distance": 4951
+        },
+        {
+          "tee_name": "BLU",
+          "tee_color": "blue",
+          "gender_group": "women",
+          "course_rating": 73.5,
+          "slope_rating": 131,
+          "par_total": 71,
+          "total_distance": 5330
+        },
+        {
+          "tee_name": "ROSSO",
+          "tee_color": "red",
+          "gender_group": "women",
+          "course_rating": 71.7,
+          "slope_rating": 129,
+          "par_total": 71,
+          "total_distance": 4951
+        },
+        {
+          "tee_name": "ARANCIO",
+          "tee_color": "orange",
+          "gender_group": "women",
+          "course_rating": 68.6,
+          "slope_rating": 122,
+          "par_total": 71,
+          "total_distance": 4478
+        }
+      ],
+      "playing_hcp_rows": [
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+6,0 - +5,5",
+              "playing_hcp": "+6"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+6,0 - +5,8",
+              "playing_hcp": "+8"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+6,0 - +5,2",
+              "playing_hcp": "+11"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+6,0 - +5,2",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+6,0 - +5,5",
+              "playing_hcp": "+6"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+6,0 - +5,7",
+              "playing_hcp": "+9"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+5,4 - +4,7",
+              "playing_hcp": "+5"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+5,7 - +5,0",
+              "playing_hcp": "+7"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+5,1 - +4,3",
+              "playing_hcp": "+10"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+5,1 - +4,4",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+5,4 - +4,6",
+              "playing_hcp": "+5"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+5,6 - +4,8",
+              "playing_hcp": "+8"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+4,6 - +3,8",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+4,9 - +4,1",
+              "playing_hcp": "+6"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+4,2 - +3,4",
+              "playing_hcp": "+9"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+4,3 - +3,5",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+4,5 - +3,7",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+4,7 - +3,9",
+              "playing_hcp": "+7"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+3,7 - +3,0",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+4,0 - +3,3",
+              "playing_hcp": "+5"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+3,3 - +2,5",
+              "playing_hcp": "+8"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+3,4 - +2,6",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+3,6 - +2,9",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+3,8 - +2,9",
+              "playing_hcp": "+6"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+2,9 - +2,1",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+3,2 - +2,4",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+2,4 - +1,6",
+              "playing_hcp": "+7"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+2,5 - +1,8",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+2,8 - +2,0",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+2,8 - +2,0",
+              "playing_hcp": "+5"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+2,0 - +1,3",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+2,3 - +1,6",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+1,5 - +0,7",
+              "playing_hcp": "+6"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+1,7 - +0,9",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+1,9 - +1,1",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+1,9 - +1,1",
+              "playing_hcp": "+4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+1,2 - +0,4",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+1,5 - +0,7",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+0,6 - 0,2",
+              "playing_hcp": "+5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+0,8 - +0,1",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+1,0 - +0,2",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+1,0 - +0,1",
+              "playing_hcp": "+3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+0,3 - 0,5",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+0,6 - 0,1",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "0,3 - 1,1",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "0,0 - 0,8",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+0,1 - 0,7",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "0,0 - 0,8",
+              "playing_hcp": "+2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "0,6 - 1,3",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "0,2 - 1,0",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "1,2 - 2,0",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "0,9 - 1,7",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "0,8 - 1,5",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "0,9 - 1,7",
+              "playing_hcp": "+1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "1,4 - 2,2",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "1,1 - 1,8",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "2,1 - 3,0",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "1,8 - 2,5",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "1,6 - 2,4",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "1,8 - 2,6",
+              "playing_hcp": "0"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "2,3 - 3,0",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "1,9 - 2,7",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "3,1 - 3,9",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "2,6 - 3,4",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "2,5 - 3,3",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "2,7 - 3,6",
+              "playing_hcp": "1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "3,1 - 3,9",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "2,8 - 3,5",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "4,0 - 4,8",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "3,5 - 4,3",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "3,4 - 4,2",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "3,7 - 4,5",
+              "playing_hcp": "2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "4,0 - 4,7",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "3,6 - 4,4",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "4,9 - 5,7",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "4,4 - 5,1",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "4,3 - 5,0",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "4,6 - 5,4",
+              "playing_hcp": "3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "4,8 - 5,6",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "4,5 - 5,2",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "5,8 - 6,6",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "5,2 - 6,0",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "5,1 - 5,9",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "5,5 - 6,3",
+              "playing_hcp": "4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "5,7 - 6,5",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "5,3 - 6,1",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "6,7 - 7,5",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "6,1 - 6,9",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "6,0 - 6,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "6,4 - 7,3",
+              "playing_hcp": "5"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "6,6 - 7,3",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "6,2 - 6,9",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "7,6 - 8,4",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "7,0 - 7,7",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "6,9 - 7,7",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "7,4 - 8,2",
+              "playing_hcp": "6"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "7,4 - 8,2",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "7,0 - 7,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "8,5 - 9,3",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "7,8 - 8,6",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "7,8 - 8,5",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "8,3 - 9,1",
+              "playing_hcp": "7"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "8,3 - 9,0",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "7,9 - 8,6",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "9,4 - 10,2",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "8,7 - 9,4",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "8,6 - 9,4",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "9,2 - 10,0",
+              "playing_hcp": "8"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "9,1 - 9,9",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "8,7 - 9,5",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "10,3 - 11,2",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "9,5 - 10,3",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "9,5 - 10,3",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "10,1 - 11,0",
+              "playing_hcp": "9"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "10,0 - 10,7",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "9,6 - 10,3",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "11,3 - 12,1",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "10,4 - 11,2",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "10,4 - 11,2",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "11,1 - 11,9",
+              "playing_hcp": "10"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "10,8 - 11,6",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "10,4 - 11,2",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "12,2 - 13,0",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "11,3 - 12,0",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "11,3 - 12,0",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "12,0 - 12,8",
+              "playing_hcp": "11"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "11,7 - 12,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "11,3 - 12,0",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "13,1 - 13,9",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "12,1 - 12,9",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "12,1 - 12,9",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "12,9 - 13,8",
+              "playing_hcp": "12"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "12,5 - 13,3",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "12,1 - 12,9",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "14,0 - 14,8",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "13,0 - 13,8",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "13,0 - 13,8",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "13,9 - 14,7",
+              "playing_hcp": "13"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "13,4 - 14,2",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "13,0 - 13,7",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "14,9 - 15,7",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "13,9 - 14,6",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "13,9 - 14,7",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "14,8 - 15,6",
+              "playing_hcp": "14"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "14,3 - 15,0",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "13,8 - 14,6",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "15,8 - 16,6",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "14,7 - 15,5",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "14,8 - 15,5",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "15,7 - 16,5",
+              "playing_hcp": "15"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "15,1 - 15,9",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "14,7 - 15,4",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "16,7 - 17,5",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "15,6 - 16,3",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "15,6 - 16,4",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "16,6 - 17,5",
+              "playing_hcp": "16"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "16,0 - 16,7",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "15,5 - 16,3",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "17,6 - 18,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "16,4 - 17,2",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "16,5 - 17,3",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "17,6 - 18,4",
+              "playing_hcp": "17"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "16,8 - 17,6",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "16,4 - 17,1",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "18,5 - 19,4",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "17,3 - 18,1",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "17,4 - 18,2",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "18,5 - 19,3",
+              "playing_hcp": "18"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "17,7 - 18,4",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "17,2 - 18,0",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "19,5 - 20,3",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "18,2 - 18,9",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "18,3 - 19,0",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "19,4 - 20,2",
+              "playing_hcp": "19"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "18,5 - 19,3",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "18,1 - 18,8",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "20,4 - 21,2",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "19,0 - 19,8",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "19,1 - 19,9",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "20,3 - 21,2",
+              "playing_hcp": "20"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "19,4 - 20,2",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "18,9 - 19,7",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "21,3 - 22,1",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "19,9 - 20,7",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "20,0 - 20,8",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "21,3 - 22,1",
+              "playing_hcp": "21"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "20,3 - 21,0",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "19,8 - 20,5",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "22,2 - 23,0",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "20,8 - 21,5",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "20,9 - 21,7",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "22,2 - 23,0",
+              "playing_hcp": "22"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "21,1 - 21,9",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "20,6 - 21,4",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "23,1 - 23,9",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "21,6 - 22,4",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "21,8 - 22,5",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "23,1 - 23,9",
+              "playing_hcp": "23"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "22,0 - 22,7",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "21,5 - 22,2",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "24,0 - 24,8",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "22,5 - 23,2",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "22,6 - 23,4",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "24,0 - 24,9",
+              "playing_hcp": "24"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "22,8 - 23,6",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "22,3 - 23,1",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "24,9 - 25,7",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "23,3 - 24,1",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "23,5 - 24,3",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "25,0 - 25,8",
+              "playing_hcp": "25"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "23,7 - 24,4",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "23,2 - 23,9",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "25,8 - 26,7",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "24,2 - 25,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "24,4 - 25,2",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "25,9 - 26,7",
+              "playing_hcp": "26"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "24,5 - 25,3",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "24,0 - 24,8",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "26,8 - 27,6",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "25,1 - 25,8",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "25,3 - 26,1",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "26,8 - 27,6",
+              "playing_hcp": "27"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "25,4 - 26,1",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "24,9 - 25,6",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "27,7 - 28,5",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "25,9 - 26,7",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "26,2 - 26,9",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "27,7 - 28,6",
+              "playing_hcp": "28"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "26,2 - 27,0",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "25,7 - 26,5",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "28,6 - 29,4",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "26,8 - 27,6",
+              "playing_hcp": "34"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "27,0 - 27,8",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "28,7 - 29,5",
+              "playing_hcp": "29"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "27,1 - 27,9",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "26,6 - 27,3",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "29,5 - 30,3",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "27,7 - 28,4",
+              "playing_hcp": "35"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "27,9 - 28,7",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "29,6 - 30,4",
+              "playing_hcp": "30"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "28,0 - 28,7",
+              "playing_hcp": "34"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "27,4 - 28,2",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "30,4 - 31,2",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "28,5 - 29,3",
+              "playing_hcp": "36"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "28,8 - 29,6",
+              "playing_hcp": "34"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "30,5 - 31,3",
+              "playing_hcp": "31"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "28,8 - 29,6",
+              "playing_hcp": "35"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "28,3 - 29,0",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "31,3 - 32,1",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "29,4 - 30,1",
+              "playing_hcp": "37"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "29,7 - 30,4",
+              "playing_hcp": "35"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "31,4 - 32,3",
+              "playing_hcp": "32"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "29,7 - 30,4",
+              "playing_hcp": "36"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "29,1 - 29,9",
+              "playing_hcp": "34"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "32,2 - 33,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "30,2 - 31,0",
+              "playing_hcp": "38"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "30,5 - 31,3",
+              "playing_hcp": "36"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "32,4 - 33,2",
+              "playing_hcp": "33"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "30,5 - 31,3",
+              "playing_hcp": "37"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "30,0 - 30,7",
+              "playing_hcp": "35"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "33,1 - 33,9",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "31,1 - 31,9",
+              "playing_hcp": "39"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "31,4 - 32,2",
+              "playing_hcp": "37"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "33,3 - 34,1",
+              "playing_hcp": "34"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "31,4 - 32,1",
+              "playing_hcp": "38"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "30,8 - 31,6",
+              "playing_hcp": "36"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "34,0 - 34,9",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "32,0 - 32,7",
+              "playing_hcp": "40"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "32,3 - 33,1",
+              "playing_hcp": "38"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "34,2 - 35,1",
+              "playing_hcp": "35"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "32,2 - 33,0",
+              "playing_hcp": "39"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "31,7 - 32,4",
+              "playing_hcp": "37"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "35,0 - 35,8",
+              "playing_hcp": "34"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "32,8 - 33,6",
+              "playing_hcp": "41"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "33,2 - 33,9",
+              "playing_hcp": "39"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "35,2 - 36,0",
+              "playing_hcp": "36"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "33,1 - 33,8",
+              "playing_hcp": "40"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "32,5 - 33,3",
+              "playing_hcp": "38"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "35,9 - 36,7",
+              "playing_hcp": "35"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "33,7 - 34,5",
+              "playing_hcp": "42"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "34,0 - 34,8",
+              "playing_hcp": "40"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "36,1 - 36,9",
+              "playing_hcp": "37"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "33,9 - 34,7",
+              "playing_hcp": "41"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "33,4 - 34,1",
+              "playing_hcp": "39"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "36,8 - 37,6",
+              "playing_hcp": "36"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "34,6 - 35,3",
+              "playing_hcp": "43"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "34,9 - 35,7",
+              "playing_hcp": "41"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "37,0 - 37,8",
+              "playing_hcp": "38"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "34,8 - 35,6",
+              "playing_hcp": "42"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "34,2 - 35,0",
+              "playing_hcp": "40"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "37,7 - 38,5",
+              "playing_hcp": "37"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "35,4 - 36,2",
+              "playing_hcp": "44"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "35,8 - 36,6",
+              "playing_hcp": "42"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "37,9 - 38,8",
+              "playing_hcp": "39"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "35,7 - 36,4",
+              "playing_hcp": "43"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "35,1 - 35,8",
+              "playing_hcp": "41"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "38,6 - 39,4",
+              "playing_hcp": "38"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "36,3 - 37,0",
+              "playing_hcp": "45"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "36,7 - 37,4",
+              "playing_hcp": "43"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "38,9 - 39,7",
+              "playing_hcp": "40"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "36,5 - 37,3",
+              "playing_hcp": "44"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "35,9 - 36,7",
+              "playing_hcp": "42"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "39,5 - 40,3",
+              "playing_hcp": "39"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "37,1 - 37,9",
+              "playing_hcp": "46"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "37,5 - 38,3",
+              "playing_hcp": "44"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "39,8 - 40,6",
+              "playing_hcp": "41"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "37,4 - 38,1",
+              "playing_hcp": "45"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "36,8 - 37,5",
+              "playing_hcp": "43"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "40,4 - 41,2",
+              "playing_hcp": "40"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "38,0 - 38,8",
+              "playing_hcp": "47"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "38,4 - 39,2",
+              "playing_hcp": "45"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "40,7 - 41,5",
+              "playing_hcp": "42"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "38,2 - 39,0",
+              "playing_hcp": "46"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "37,6 - 38,4",
+              "playing_hcp": "44"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "41,3 - 42,1",
+              "playing_hcp": "41"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "38,9 - 39,6",
+              "playing_hcp": "48"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "39,3 - 40,1",
+              "playing_hcp": "46"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "41,6 - 42,5",
+              "playing_hcp": "43"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "39,1 - 39,8",
+              "playing_hcp": "47"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "38,5 - 39,2",
+              "playing_hcp": "45"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "42,2 - 43,1",
+              "playing_hcp": "42"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "39,7 - 40,5",
+              "playing_hcp": "49"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "40,2 - 40,9",
+              "playing_hcp": "47"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "42,6 - 43,4",
+              "playing_hcp": "44"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "39,9 - 40,7",
+              "playing_hcp": "48"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "39,3 - 40,1",
+              "playing_hcp": "46"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "43,2 - 44,0",
+              "playing_hcp": "43"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "40,6 - 41,4",
+              "playing_hcp": "50"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "41,0 - 41,8",
+              "playing_hcp": "48"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "43,5 - 44,3",
+              "playing_hcp": "45"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "40,8 - 41,6",
+              "playing_hcp": "49"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "40,2 - 40,9",
+              "playing_hcp": "47"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "44,1 - 44,9",
+              "playing_hcp": "44"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "41,5 - 42,2",
+              "playing_hcp": "51"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "41,9 - 42,7",
+              "playing_hcp": "49"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "44,4 - 45,2",
+              "playing_hcp": "46"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "41,7 - 42,4",
+              "playing_hcp": "50"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "41,0 - 41,8",
+              "playing_hcp": "48"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "45,0 - 45,8",
+              "playing_hcp": "45"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "42,3 - 43,1",
+              "playing_hcp": "52"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "42,8 - 43,6",
+              "playing_hcp": "50"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "45,3 - 46,2",
+              "playing_hcp": "47"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "42,5 - 43,3",
+              "playing_hcp": "51"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "41,9 - 42,6",
+              "playing_hcp": "49"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "45,9 - 46,7",
+              "playing_hcp": "46"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "43,2 - 43,9",
+              "playing_hcp": "53"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "43,7 - 44,4",
+              "playing_hcp": "51"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "46,3 - 47,1",
+              "playing_hcp": "48"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "43,4 - 44,1",
+              "playing_hcp": "52"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "42,7 - 43,5",
+              "playing_hcp": "50"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "46,8 - 47,6",
+              "playing_hcp": "47"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "44,0 - 44,8",
+              "playing_hcp": "54"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "44,5 - 45,3",
+              "playing_hcp": "52"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "47,2 - 48,0",
+              "playing_hcp": "49"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "44,2 - 45,0",
+              "playing_hcp": "53"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "43,6 - 44,3",
+              "playing_hcp": "51"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "47,7 - 48,5",
+              "playing_hcp": "48"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "44,9 - 45,7",
+              "playing_hcp": "55"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "45,4 - 46,2",
+              "playing_hcp": "53"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "48,1 - 48,9",
+              "playing_hcp": "50"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "45,1 - 45,8",
+              "playing_hcp": "54"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "44,4 - 45,1",
+              "playing_hcp": "52"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "48,6 - 49,4",
+              "playing_hcp": "49"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "45,8 - 46,5",
+              "playing_hcp": "56"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "46,3 - 47,1",
+              "playing_hcp": "54"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "49,0 - 49,9",
+              "playing_hcp": "51"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "45,9 - 46,7",
+              "playing_hcp": "55"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "45,2 - 46,0",
+              "playing_hcp": "53"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "49,5 - 50,3",
+              "playing_hcp": "50"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "46,6 - 47,4",
+              "playing_hcp": "57"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "47,2 - 48,0",
+              "playing_hcp": "55"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "50,0 - 50,8",
+              "playing_hcp": "52"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "46,8 - 47,5",
+              "playing_hcp": "56"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "46,1 - 46,8",
+              "playing_hcp": "54"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "50,4 - 51,3",
+              "playing_hcp": "51"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "47,5 - 48,3",
+              "playing_hcp": "58"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "48,1 - 48,8",
+              "playing_hcp": "56"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "50,9 - 51,7",
+              "playing_hcp": "53"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "47,6 - 48,4",
+              "playing_hcp": "57"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "46,9 - 47,7",
+              "playing_hcp": "55"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "51,4 - 52,2",
+              "playing_hcp": "52"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "48,4 - 49,1",
+              "playing_hcp": "59"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "48,9 - 49,7",
+              "playing_hcp": "57"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "51,8 - 52,7",
+              "playing_hcp": "54"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "48,5 - 49,3",
+              "playing_hcp": "58"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "47,8 - 48,5",
+              "playing_hcp": "56"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "52,3 - 53,1",
+              "playing_hcp": "53"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "49,2 - 50,0",
+              "playing_hcp": "60"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "49,8 - 50,6",
+              "playing_hcp": "58"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "52,8 - 53,6",
+              "playing_hcp": "55"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "49,4 - 50,1",
+              "playing_hcp": "59"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "48,6 - 49,4",
+              "playing_hcp": "57"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "53,2 - 54,0",
+              "playing_hcp": "54"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "50,1 - 50,8",
+              "playing_hcp": "61"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "50,7 - 51,5",
+              "playing_hcp": "59"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "53,7 - 54,0",
+              "playing_hcp": "56"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "50,2 - 51,0",
+              "playing_hcp": "60"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "49,5 - 50,2",
+              "playing_hcp": "58"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "50,9 - 51,7",
+              "playing_hcp": "62"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "51,6 - 52,3",
+              "playing_hcp": "60"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "51,1 - 51,8",
+              "playing_hcp": "61"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "50,3 - 51,1",
+              "playing_hcp": "59"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "51,8 - 52,6",
+              "playing_hcp": "63"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "52,4 - 53,2",
+              "playing_hcp": "61"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "51,9 - 52,7",
+              "playing_hcp": "62"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "51,2 - 51,9",
+              "playing_hcp": "60"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "52,7 - 53,4",
+              "playing_hcp": "64"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "53,3 - 54,0",
+              "playing_hcp": "62"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "52,8 - 53,5",
+              "playing_hcp": "63"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "52,0 - 52,8",
+              "playing_hcp": "61"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "53,5 - 54,0",
+              "playing_hcp": "65"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "53,6 - 54,0",
+              "playing_hcp": "64"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "52,9 - 53,6",
+              "playing_hcp": "62"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "53,7 - 54,0",
+              "playing_hcp": "63"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        }
+      ],
+      "warnings": [],
+      "anomalies": [],
+      "status": "safe"
+    },
+    {
+      "percorso_id": "2796",
+      "name": "Seconde 9",
+      "holes_count": 9,
+      "total_par": 36,
+      "computed_total_par": 36,
+      "playable_kind": "base_9",
+      "holes": [
+        {
+          "hole_number": 1,
+          "distances": {
+            "BIANCO": 333,
+            "GIALLO": 324,
+            "VERDE": 279,
+            "BLU": 303,
+            "ROSSO": 279,
+            "ARANCIO": 0
+          },
+          "par": 4,
+          "hcp": 6
+        },
+        {
+          "hole_number": 2,
+          "distances": {
+            "BIANCO": 173,
+            "GIALLO": 158,
+            "VERDE": 130,
+            "BLU": 140,
+            "ROSSO": 130,
+            "ARANCIO": 0
+          },
+          "par": 3,
+          "hcp": 4
+        },
+        {
+          "hole_number": 3,
+          "distances": {
+            "BIANCO": 521,
+            "GIALLO": 494,
+            "VERDE": 422,
+            "BLU": 444,
+            "ROSSO": 422,
+            "ARANCIO": 0
+          },
+          "par": 5,
+          "hcp": 3
+        },
+        {
+          "hole_number": 4,
+          "distances": {
+            "BIANCO": 411,
+            "GIALLO": 382,
+            "VERDE": 335,
+            "BLU": 360,
+            "ROSSO": 335,
+            "ARANCIO": 0
+          },
+          "par": 4,
+          "hcp": 2
+        },
+        {
+          "hole_number": 5,
+          "distances": {
+            "BIANCO": 398,
+            "GIALLO": 372,
+            "VERDE": 311,
+            "BLU": 340,
+            "ROSSO": 311,
+            "ARANCIO": 0
+          },
+          "par": 4,
+          "hcp": 1
+        },
+        {
+          "hole_number": 6,
+          "distances": {
+            "BIANCO": 484,
+            "GIALLO": 448,
+            "VERDE": 393,
+            "BLU": 410,
+            "ROSSO": 393,
+            "ARANCIO": 0
+          },
+          "par": 5,
+          "hcp": 8
+        },
+        {
+          "hole_number": 7,
+          "distances": {
+            "BIANCO": 335,
+            "GIALLO": 315,
+            "VERDE": 281,
+            "BLU": 291,
+            "ROSSO": 281,
+            "ARANCIO": 0
+          },
+          "par": 4,
+          "hcp": 7
+        },
+        {
+          "hole_number": 8,
+          "distances": {
+            "BIANCO": 175,
+            "GIALLO": 150,
+            "VERDE": 123,
+            "BLU": 127,
+            "ROSSO": 123,
+            "ARANCIO": 0
+          },
+          "par": 3,
+          "hcp": 9
+        },
+        {
+          "hole_number": 9,
+          "distances": {
+            "BIANCO": 357,
+            "GIALLO": 341,
+            "VERDE": 306,
+            "BLU": 315,
+            "ROSSO": 306,
+            "ARANCIO": 0
+          },
+          "par": 4,
+          "hcp": 5
+        }
+      ],
+      "totals": {
+        "label": "Totali",
+        "distances": {
+          "BIANCO": 3187,
+          "GIALLO": 2984,
+          "VERDE": 2580,
+          "BLU": 2730,
+          "ROSSO": 2580,
+          "ARANCIO": 0
+        },
+        "par": 36,
+        "hcp": null
+      },
+      "tee_sets": [
+        {
+          "tee_name": "BIANCO",
+          "tee_color": "white",
+          "gender_group": "men",
+          "course_rating": 36.3,
+          "slope_rating": 133,
+          "par_total": 36,
+          "total_distance": 3187
+        },
+        {
+          "tee_name": "GIALLO",
+          "tee_color": "yellow",
+          "gender_group": "men",
+          "course_rating": 35.4,
+          "slope_rating": 134,
+          "par_total": 36,
+          "total_distance": 2984
+        },
+        {
+          "tee_name": "VERDE",
+          "tee_color": "green",
+          "gender_group": "men",
+          "course_rating": 33.1,
+          "slope_rating": 124,
+          "par_total": 36,
+          "total_distance": 2580
+        },
+        {
+          "tee_name": "BLU",
+          "tee_color": "blue",
+          "gender_group": "women",
+          "course_rating": 37,
+          "slope_rating": 132,
+          "par_total": 36,
+          "total_distance": 2730
+        },
+        {
+          "tee_name": "ROSSO",
+          "tee_color": "red",
+          "gender_group": "women",
+          "course_rating": 36.2,
+          "slope_rating": 130,
+          "par_total": 36,
+          "total_distance": 2580
+        },
+        {
+          "tee_name": "ARANCIO",
+          "tee_color": "orange",
+          "gender_group": "women",
+          "course_rating": 34.5,
+          "slope_rating": 122,
+          "par_total": 36,
+          "total_distance": 0
+        }
+      ],
+      "playing_hcp_rows": [
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+6,0 - +4,7",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+6,0 - +4,9",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+6,0 - +4,7",
+              "playing_hcp": "+6"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+6,0 - +4,3",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+6,0 - +4,7",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+6,0 - +5,5",
+              "playing_hcp": "+5"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+4,6 - +3,1",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+4,8 - +3,3",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+4,6 - +2,9",
+              "playing_hcp": "+5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+4,2 - +2,5",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+4,6 - +2,9",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+5,4 - +3,7",
+              "playing_hcp": "+4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+3,0 - +1,3",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+3,2 - +1,5",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+2,8 - +1,1",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+2,4 - +0,9",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+2,8 - +1,3",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+3,6 - +1,9",
+              "playing_hcp": "+3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+1,2 - 0,2",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+1,4 - 0,0",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+1,0 - 0,6",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+0,8 - 0,8",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+1,2 - 0,4",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+1,8 - +0,1",
+              "playing_hcp": "+2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "0,3 - 2,0",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "0,1 - 1,8",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "0,7 - 2,4",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "0,9 - 2,4",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "0,5 - 2,2",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "0,0 - 1,8",
+              "playing_hcp": "+1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "2,1 - 3,6",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "1,9 - 3,4",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "2,5 - 4,2",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "2,5 - 4,2",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "2,3 - 3,8",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "1,9 - 3,6",
+              "playing_hcp": "0"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "3,7 - 5,4",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "3,5 - 5,2",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "4,3 - 6,0",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "4,3 - 5,8",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "3,9 - 5,6",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "3,7 - 5,4",
+              "playing_hcp": "1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "5,5 - 7,0",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "5,3 - 6,8",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "6,1 - 8,0",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "5,9 - 7,6",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "5,7 - 7,4",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "5,5 - 7,4",
+              "playing_hcp": "2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "7,1 - 8,8",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "6,9 - 8,6",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "8,1 - 9,8",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "7,7 - 9,4",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "7,5 - 9,2",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "7,5 - 9,2",
+              "playing_hcp": "3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "8,9 - 10,4",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "8,7 - 10,2",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "9,9 - 11,6",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "9,5 - 11,0",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "9,3 - 10,8",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "9,3 - 11,0",
+              "playing_hcp": "4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "10,5 - 12,2",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "10,3 - 11,8",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "11,7 - 13,4",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "11,1 - 12,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "10,9 - 12,6",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "11,1 - 12,8",
+              "playing_hcp": "5"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "12,3 - 13,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "11,9 - 13,6",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "13,5 - 15,2",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "12,9 - 14,4",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "12,7 - 14,4",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "12,9 - 14,8",
+              "playing_hcp": "6"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "13,9 - 15,6",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "13,7 - 15,2",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "15,3 - 17,0",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "14,5 - 16,2",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "14,5 - 16,0",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "14,9 - 16,6",
+              "playing_hcp": "7"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "15,7 - 17,2",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "15,3 - 17,0",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "17,1 - 18,8",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "16,3 - 17,8",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "16,1 - 17,8",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "16,7 - 18,4",
+              "playing_hcp": "8"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "17,3 - 19,0",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "17,1 - 18,6",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "18,9 - 20,6",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "17,9 - 19,6",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "17,9 - 19,6",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "18,5 - 20,2",
+              "playing_hcp": "9"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "19,1 - 20,6",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "18,7 - 20,4",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "20,7 - 22,4",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "19,7 - 21,4",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "19,7 - 21,2",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "20,3 - 22,2",
+              "playing_hcp": "10"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "20,7 - 22,4",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "20,5 - 22,0",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "22,5 - 24,4",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "21,5 - 23,0",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "21,3 - 23,0",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "22,3 - 24,0",
+              "playing_hcp": "11"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "22,5 - 24,0",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "22,1 - 23,6",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "24,5 - 26,2",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "23,1 - 24,8",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "23,1 - 24,8",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "24,1 - 25,8",
+              "playing_hcp": "12"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "24,1 - 25,8",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "23,7 - 25,4",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "26,3 - 28,0",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "24,9 - 26,4",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "24,9 - 26,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "25,9 - 27,6",
+              "playing_hcp": "13"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "25,9 - 27,4",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "25,5 - 27,0",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "28,1 - 29,8",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "26,5 - 28,2",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "26,5 - 28,2",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "27,7 - 29,6",
+              "playing_hcp": "14"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "27,5 - 29,2",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "27,1 - 28,8",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "29,9 - 31,6",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "28,3 - 29,8",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "28,3 - 30,0",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "29,7 - 31,4",
+              "playing_hcp": "15"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "29,3 - 30,8",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "28,9 - 30,4",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "31,7 - 33,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "29,9 - 31,6",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "30,1 - 31,8",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "31,5 - 33,2",
+              "playing_hcp": "16"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "30,9 - 32,6",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "30,5 - 32,2",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "33,5 - 35,2",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "31,7 - 33,2",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "31,9 - 33,4",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "33,3 - 35,0",
+              "playing_hcp": "17"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "32,7 - 34,2",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "32,3 - 33,8",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "35,3 - 37,0",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "33,3 - 35,0",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "33,5 - 35,2",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "35,1 - 37,0",
+              "playing_hcp": "18"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "34,3 - 36,0",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "33,9 - 35,4",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "37,1 - 39,0",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "35,1 - 36,8",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "35,3 - 37,0",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "37,1 - 38,8",
+              "playing_hcp": "19"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "36,1 - 37,6",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "35,5 - 37,2",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "39,1 - 40,8",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "36,9 - 38,4",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "37,1 - 38,6",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "38,9 - 40,6",
+              "playing_hcp": "20"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "37,7 - 39,4",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "37,3 - 38,8",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "40,9 - 42,6",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "38,5 - 40,2",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "38,7 - 40,4",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "40,7 - 42,6",
+              "playing_hcp": "21"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "39,5 - 41,0",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "38,9 - 40,6",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "42,7 - 44,4",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "40,3 - 41,8",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "40,5 - 42,2",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "42,7 - 44,4",
+              "playing_hcp": "22"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "41,1 - 42,8",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "40,7 - 42,2",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "44,5 - 46,2",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "41,9 - 43,6",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "42,3 - 43,8",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "44,5 - 46,2",
+              "playing_hcp": "23"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "42,9 - 44,4",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "42,3 - 44,0",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "46,3 - 48,0",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "43,7 - 45,2",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "43,9 - 45,6",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "46,3 - 48,0",
+              "playing_hcp": "24"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "44,5 - 46,2",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "44,1 - 45,6",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "48,1 - 49,8",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "45,3 - 47,0",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "45,7 - 47,4",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "48,1 - 50,0",
+              "playing_hcp": "25"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "46,3 - 47,8",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "45,7 - 47,2",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "49,9 - 51,6",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "47,1 - 48,6",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "47,5 - 49,0",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "50,1 - 51,8",
+              "playing_hcp": "26"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "47,9 - 49,6",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "47,3 - 49,0",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "51,7 - 53,4",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "48,7 - 50,4",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "49,1 - 50,8",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "51,9 - 53,6",
+              "playing_hcp": "27"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "49,7 - 51,2",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "49,1 - 50,6",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "53,5 - 54,0",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "50,5 - 52,2",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "50,9 - 52,6",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "53,7 - 54,0",
+              "playing_hcp": "28"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "51,3 - 53,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "50,7 - 52,4",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "52,3 - 53,8",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "52,7 - 54,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "53,1 - 54,0",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "52,5 - 54,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "53,9 - 54,0",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        }
+      ],
+      "warnings": [],
+      "anomalies": [],
+      "status": "safe"
+    },
+    {
+      "percorso_id": "2797",
+      "name": "Misto 9 buche",
+      "holes_count": 9,
+      "total_par": 36,
+      "computed_total_par": 36,
+      "playable_kind": "base_9",
+      "holes": [
+        {
+          "hole_number": 1,
+          "distances": {
+            "BIANCO": 333,
+            "GIALLO": 324,
+            "VERDE": 279,
+            "BLU": 303,
+            "ROSSO": 279,
+            "ARANCIO": 250
+          },
+          "par": 4,
+          "hcp": 6
+        },
+        {
+          "hole_number": 2,
+          "distances": {
+            "BIANCO": 173,
+            "GIALLO": 158,
+            "VERDE": 130,
+            "BLU": 140,
+            "ROSSO": 130,
+            "ARANCIO": 125
+          },
+          "par": 3,
+          "hcp": 4
+        },
+        {
+          "hole_number": 3,
+          "distances": {
+            "BIANCO": 521,
+            "GIALLO": 494,
+            "VERDE": 422,
+            "BLU": 444,
+            "ROSSO": 422,
+            "ARANCIO": 390
+          },
+          "par": 5,
+          "hcp": 3
+        },
+        {
+          "hole_number": 4,
+          "distances": {
+            "BIANCO": 411,
+            "GIALLO": 382,
+            "VERDE": 335,
+            "BLU": 360,
+            "ROSSO": 335,
+            "ARANCIO": 290
+          },
+          "par": 4,
+          "hcp": 2
+        },
+        {
+          "hole_number": 5,
+          "distances": {
+            "BIANCO": 398,
+            "GIALLO": 372,
+            "VERDE": 311,
+            "BLU": 340,
+            "ROSSO": 311,
+            "ARANCIO": 280
+          },
+          "par": 4,
+          "hcp": 1
+        },
+        {
+          "hole_number": 6,
+          "distances": {
+            "BIANCO": 484,
+            "GIALLO": 448,
+            "VERDE": 393,
+            "BLU": 410,
+            "ROSSO": 393,
+            "ARANCIO": 322
+          },
+          "par": 5,
+          "hcp": 8
+        },
+        {
+          "hole_number": 7,
+          "distances": {
+            "BIANCO": 335,
+            "GIALLO": 315,
+            "VERDE": 281,
+            "BLU": 291,
+            "ROSSO": 281,
+            "ARANCIO": 270
+          },
+          "par": 4,
+          "hcp": 7
+        },
+        {
+          "hole_number": 8,
+          "distances": {
+            "BIANCO": 175,
+            "GIALLO": 150,
+            "VERDE": 123,
+            "BLU": 127,
+            "ROSSO": 123,
+            "ARANCIO": 110
+          },
+          "par": 3,
+          "hcp": 9
+        },
+        {
+          "hole_number": 9,
+          "distances": {
+            "BIANCO": 357,
+            "GIALLO": 341,
+            "VERDE": 306,
+            "BLU": 315,
+            "ROSSO": 306,
+            "ARANCIO": 257
+          },
+          "par": 4,
+          "hcp": 5
+        }
+      ],
+      "totals": {
+        "label": "Totali",
+        "distances": {
+          "BIANCO": 3187,
+          "GIALLO": 2984,
+          "VERDE": 2580,
+          "BLU": 2730,
+          "ROSSO": 2580,
+          "ARANCIO": 2294
+        },
+        "par": 36,
+        "hcp": null
+      },
+      "tee_sets": [
+        {
+          "tee_name": "BIANCO",
+          "tee_color": "white",
+          "gender_group": "men",
+          "course_rating": 36.5,
+          "slope_rating": 133,
+          "par_total": 36,
+          "total_distance": 3187
+        },
+        {
+          "tee_name": "GIALLO",
+          "tee_color": "yellow",
+          "gender_group": "men",
+          "course_rating": 35.6,
+          "slope_rating": 136,
+          "par_total": 36,
+          "total_distance": 2984
+        },
+        {
+          "tee_name": "VERDE",
+          "tee_color": "green",
+          "gender_group": "men",
+          "course_rating": 33.6,
+          "slope_rating": 131,
+          "par_total": 36,
+          "total_distance": 2580
+        },
+        {
+          "tee_name": "BLU",
+          "tee_color": "blue",
+          "gender_group": "women",
+          "course_rating": 37.5,
+          "slope_rating": 133,
+          "par_total": 36,
+          "total_distance": 2730
+        },
+        {
+          "tee_name": "ROSSO",
+          "tee_color": "red",
+          "gender_group": "women",
+          "course_rating": 36.5,
+          "slope_rating": 131,
+          "par_total": 36,
+          "total_distance": 2580
+        },
+        {
+          "tee_name": "ARANCIO",
+          "tee_color": "orange",
+          "gender_group": "women",
+          "course_rating": 34.8,
+          "slope_rating": 124,
+          "par_total": 36,
+          "total_distance": 2294
+        }
+      ],
+      "playing_hcp_rows": [
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+6,0 - +5,1",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+6,0 - +5,1",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+6,0 - +5,3",
+              "playing_hcp": "+6"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+6,0 - +5,1",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+6,0 - +5,1",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+6,0 - +4,3",
+              "playing_hcp": "+4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+5,0 - +3,5",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+5,0 - +3,5",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+5,2 - +3,7",
+              "playing_hcp": "+5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+5,0 - +3,5",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+5,0 - +3,5",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+4,2 - +2,3",
+              "playing_hcp": "+3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+3,4 - +1,7",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+3,4 - +1,9",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+3,6 - +1,9",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+3,4 - +1,7",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+3,4 - +1,7",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+2,2 - +0,5",
+              "playing_hcp": "+2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+1,6 - +0,1",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+1,8 - +0,1",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+1,8 - +0,1",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+1,6 - +0,1",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+1,6 - +0,1",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+0,4 - 1,2",
+              "playing_hcp": "+1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "0,0 - 1,6",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "0,0 - 1,4",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "0,0 - 1,4",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "0,0 - 1,6",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "0,0 - 1,6",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "1,3 - 3,0",
+              "playing_hcp": "0"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "1,7 - 3,2",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "1,5 - 3,0",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "1,5 - 3,2",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "1,7 - 3,2",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "1,7 - 3,4",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "3,1 - 4,8",
+              "playing_hcp": "1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "3,3 - 5,0",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "3,1 - 4,8",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "3,3 - 5,0",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "3,3 - 5,0",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "3,5 - 5,0",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "4,9 - 6,6",
+              "playing_hcp": "2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "5,1 - 6,6",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "4,9 - 6,4",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "5,1 - 6,6",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "5,1 - 6,6",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "5,1 - 6,8",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "6,7 - 8,4",
+              "playing_hcp": "3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "6,7 - 8,4",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "6,5 - 8,0",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "6,7 - 8,4",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "6,7 - 8,4",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "6,9 - 8,6",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "8,5 - 10,2",
+              "playing_hcp": "4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "8,5 - 10,0",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "8,1 - 9,8",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "8,5 - 10,0",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "8,5 - 10,0",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "8,7 - 10,2",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "10,3 - 12,2",
+              "playing_hcp": "5"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "10,1 - 11,8",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "9,9 - 11,4",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "10,1 - 11,8",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "10,1 - 11,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "10,3 - 12,0",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "12,3 - 14,0",
+              "playing_hcp": "6"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "11,9 - 13,4",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "11,5 - 13,0",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "11,9 - 13,6",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "11,9 - 13,4",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "12,1 - 13,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "14,1 - 15,8",
+              "playing_hcp": "7"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "13,5 - 15,2",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "13,1 - 14,6",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "13,7 - 15,2",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "13,5 - 15,2",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "13,9 - 15,4",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "15,9 - 17,6",
+              "playing_hcp": "8"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "15,3 - 16,8",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "14,7 - 16,4",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "15,3 - 17,0",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "15,3 - 16,8",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "15,5 - 17,2",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "17,7 - 19,4",
+              "playing_hcp": "9"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "16,9 - 18,6",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "16,5 - 18,0",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "17,1 - 18,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "16,9 - 18,6",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "17,3 - 18,8",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "19,5 - 21,2",
+              "playing_hcp": "10"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "18,7 - 20,2",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "18,1 - 19,6",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "18,9 - 20,4",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "18,7 - 20,2",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "18,9 - 20,6",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "21,3 - 23,0",
+              "playing_hcp": "11"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "20,3 - 22,0",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "19,7 - 21,4",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "20,5 - 22,2",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "20,3 - 22,0",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "20,7 - 22,4",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "23,1 - 24,8",
+              "playing_hcp": "12"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "22,1 - 23,6",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "21,5 - 23,0",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "22,3 - 23,8",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "22,1 - 23,6",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "22,5 - 24,0",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "24,9 - 26,6",
+              "playing_hcp": "13"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "23,7 - 25,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "23,1 - 24,6",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "23,9 - 25,6",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "23,7 - 25,4",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "24,1 - 25,8",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "26,7 - 28,6",
+              "playing_hcp": "14"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "25,5 - 27,0",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "24,7 - 26,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "25,7 - 27,4",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "25,5 - 27,0",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "25,9 - 27,6",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "28,7 - 30,4",
+              "playing_hcp": "15"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "27,1 - 28,8",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "26,5 - 28,0",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "27,5 - 29,0",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "27,1 - 28,8",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "27,7 - 29,2",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "30,5 - 32,2",
+              "playing_hcp": "16"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "28,9 - 30,4",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "28,1 - 29,6",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "29,1 - 30,8",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "28,9 - 30,4",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "29,3 - 31,0",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "32,3 - 34,0",
+              "playing_hcp": "17"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "30,5 - 32,2",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "29,7 - 31,4",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "30,9 - 32,6",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "30,5 - 32,2",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "31,1 - 32,6",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "34,1 - 35,8",
+              "playing_hcp": "18"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "32,3 - 33,8",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "31,5 - 33,0",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "32,7 - 34,2",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "32,3 - 33,8",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "32,7 - 34,4",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "35,9 - 37,6",
+              "playing_hcp": "19"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "33,9 - 35,6",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "33,1 - 34,6",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "34,3 - 36,0",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "33,9 - 35,6",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "34,5 - 36,2",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "37,7 - 39,4",
+              "playing_hcp": "20"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "35,7 - 37,2",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "34,7 - 36,2",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "36,1 - 37,6",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "35,7 - 37,2",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "36,3 - 37,8",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "39,5 - 41,2",
+              "playing_hcp": "21"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "37,3 - 39,0",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "36,3 - 38,0",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "37,7 - 39,4",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "37,3 - 39,0",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "37,9 - 39,6",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "41,3 - 43,0",
+              "playing_hcp": "22"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "39,1 - 40,6",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "38,1 - 39,6",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "39,5 - 41,2",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "39,1 - 40,6",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "39,7 - 41,4",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "43,1 - 45,0",
+              "playing_hcp": "23"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "40,7 - 42,4",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "39,7 - 41,2",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "41,3 - 42,8",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "40,7 - 42,4",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "41,5 - 43,0",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "45,1 - 46,8",
+              "playing_hcp": "24"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "42,5 - 44,0",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "41,3 - 43,0",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "42,9 - 44,6",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "42,5 - 44,0",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "43,1 - 44,8",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "46,9 - 48,6",
+              "playing_hcp": "25"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "44,1 - 45,8",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "43,1 - 44,6",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "44,7 - 46,4",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "44,1 - 45,8",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "44,9 - 46,4",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "48,7 - 50,4",
+              "playing_hcp": "26"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "45,9 - 47,4",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "44,7 - 46,2",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "46,5 - 48,0",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "45,9 - 47,4",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "46,5 - 48,2",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "50,5 - 52,2",
+              "playing_hcp": "27"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "47,5 - 49,2",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "46,3 - 48,0",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "48,1 - 49,8",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "47,5 - 49,2",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "48,3 - 50,0",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "52,3 - 54,0",
+              "playing_hcp": "28"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "49,3 - 50,8",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "48,1 - 49,6",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "49,9 - 51,4",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "49,3 - 50,8",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "50,1 - 51,6",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "50,9 - 52,6",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "49,7 - 51,2",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "51,5 - 53,2",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "50,9 - 52,6",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "51,7 - 53,4",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "52,7 - 54,0",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "51,3 - 53,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "53,3 - 54,0",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "52,7 - 54,0",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "53,5 - 54,0",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "53,1 - 54,0",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        }
+      ],
+      "warnings": [],
+      "anomalies": [],
+      "status": "safe"
+    },
+    {
+      "percorso_id": "2919",
+      "name": "prime nove",
+      "holes_count": 9,
+      "total_par": 35,
+      "computed_total_par": 35,
+      "playable_kind": "base_9",
+      "holes": [
+        {
+          "hole_number": 1,
+          "distances": {
+            "BIANCO": 333,
+            "GIALLO": 324,
+            "VERDE": 279,
+            "BLU": 303,
+            "ROSSO": 279,
+            "ARANCIO": 250
+          },
+          "par": 4,
+          "hcp": 8
+        },
+        {
+          "hole_number": 2,
+          "distances": {
+            "BIANCO": 173,
+            "GIALLO": 158,
+            "VERDE": 130,
+            "BLU": 140,
+            "ROSSO": 130,
+            "ARANCIO": 125
+          },
+          "par": 3,
+          "hcp": 5
+        },
+        {
+          "hole_number": 3,
+          "distances": {
+            "BIANCO": 521,
+            "GIALLO": 494,
+            "VERDE": 422,
+            "BLU": 444,
+            "ROSSO": 422,
+            "ARANCIO": 390
+          },
+          "par": 5,
+          "hcp": 3
+        },
+        {
+          "hole_number": 4,
+          "distances": {
+            "BIANCO": 136,
+            "GIALLO": 132,
+            "VERDE": 112,
+            "BLU": 126,
+            "ROSSO": 112,
+            "ARANCIO": 95
+          },
+          "par": 3,
+          "hcp": 9
+        },
+        {
+          "hole_number": 5,
+          "distances": {
+            "BIANCO": 186,
+            "GIALLO": 155,
+            "VERDE": 128,
+            "BLU": 148,
+            "ROSSO": 128,
+            "ARANCIO": 105
+          },
+          "par": 3,
+          "hcp": 7
+        },
+        {
+          "hole_number": 6,
+          "distances": {
+            "BIANCO": 325,
+            "GIALLO": 307,
+            "VERDE": 252,
+            "BLU": 273,
+            "ROSSO": 252,
+            "ARANCIO": 210
+          },
+          "par": 4,
+          "hcp": 6
+        },
+        {
+          "hole_number": 7,
+          "distances": {
+            "BIANCO": 410,
+            "GIALLO": 374,
+            "VERDE": 325,
+            "BLU": 345,
+            "ROSSO": 325,
+            "ARANCIO": 285
+          },
+          "par": 4,
+          "hcp": 1
+        },
+        {
+          "hole_number": 8,
+          "distances": {
+            "BIANCO": 504,
+            "GIALLO": 480,
+            "VERDE": 428,
+            "BLU": 453,
+            "ROSSO": 428,
+            "ARANCIO": 391
+          },
+          "par": 5,
+          "hcp": 4
+        },
+        {
+          "hole_number": 9,
+          "distances": {
+            "BIANCO": 388,
+            "GIALLO": 370,
+            "VERDE": 300,
+            "BLU": 331,
+            "ROSSO": 300,
+            "ARANCIO": 280
+          },
+          "par": 4,
+          "hcp": 2
+        }
+      ],
+      "totals": {
+        "label": "Totali",
+        "distances": {
+          "BIANCO": 2976,
+          "GIALLO": 2794,
+          "VERDE": 2376,
+          "BLU": 2563,
+          "ROSSO": 2376,
+          "ARANCIO": 2131
+        },
+        "par": 35,
+        "hcp": null
+      },
+      "tee_sets": [
+        {
+          "tee_name": "BIANCO",
+          "tee_color": "white",
+          "gender_group": "men",
+          "course_rating": 35.7,
+          "slope_rating": 131,
+          "par_total": 35,
+          "total_distance": 2976
+        },
+        {
+          "tee_name": "GIALLO",
+          "tee_color": "yellow",
+          "gender_group": "men",
+          "course_rating": 35,
+          "slope_rating": 132,
+          "par_total": 35,
+          "total_distance": 2794
+        },
+        {
+          "tee_name": "VERDE",
+          "tee_color": "green",
+          "gender_group": "men",
+          "course_rating": 33.1,
+          "slope_rating": 123,
+          "par_total": 35,
+          "total_distance": 2376
+        },
+        {
+          "tee_name": "BLU",
+          "tee_color": "blue",
+          "gender_group": "women",
+          "course_rating": 36.5,
+          "slope_rating": 130,
+          "par_total": 35,
+          "total_distance": 2563
+        },
+        {
+          "tee_name": "ROSSO",
+          "tee_color": "red",
+          "gender_group": "women",
+          "course_rating": 35.6,
+          "slope_rating": 128,
+          "par_total": 35,
+          "total_distance": 2376
+        },
+        {
+          "tee_name": "ARANCIO",
+          "tee_color": "orange",
+          "gender_group": "women",
+          "course_rating": 34.1,
+          "slope_rating": 122,
+          "par_total": 35,
+          "total_distance": 2131
+        }
+      ],
+      "playing_hcp_rows": [
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+6,0 - +5,5",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+6,0 - +4,3",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+6,0 - +4,7",
+              "playing_hcp": "+5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+6,0 - +5,3",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+6,0 - +5,5",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+6,0 - +4,9",
+              "playing_hcp": "+4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+5,4 - +3,9",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+4,2 - +2,5",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+4,6 - +2,9",
+              "playing_hcp": "+4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+5,2 - +3,5",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+5,4 - +3,7",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+4,8 - +2,9",
+              "playing_hcp": "+3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+3,8 - +2,1",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+2,4 - +0,9",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+2,8 - +1,1",
+              "playing_hcp": "+3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+3,4 - +1,7",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+3,6 - +1,9",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+2,8 - +1,1",
+              "playing_hcp": "+2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+2,0 - +0,3",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "+0,8 - 0,8",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "+1,0 - 0,6",
+              "playing_hcp": "+2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "+1,6 - +0,1",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "+1,8 - +0,1",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "+1,0 - 0,6",
+              "playing_hcp": "+1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "+0,2 - 1,2",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "0,9 - 2,4",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "0,7 - 2,4",
+              "playing_hcp": "+1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "0,0 - 1,6",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "0,0 - 1,4",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "0,7 - 2,4",
+              "playing_hcp": "0"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "1,3 - 3,0",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "2,5 - 4,2",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "2,5 - 4,4",
+              "playing_hcp": "0"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "1,7 - 3,4",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "1,5 - 3,2",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "2,5 - 4,4",
+              "playing_hcp": "1"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "3,1 - 4,8",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "4,3 - 5,8",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "4,5 - 6,2",
+              "playing_hcp": "1"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "3,5 - 5,2",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "3,3 - 5,0",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "4,5 - 6,2",
+              "playing_hcp": "2"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "4,9 - 6,4",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "5,9 - 7,6",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "6,3 - 8,0",
+              "playing_hcp": "2"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "5,3 - 6,8",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "5,1 - 6,8",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "6,3 - 8,0",
+              "playing_hcp": "3"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "6,5 - 8,2",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "7,7 - 9,4",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "8,1 - 9,8",
+              "playing_hcp": "3"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "6,9 - 8,6",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "6,9 - 8,6",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "8,1 - 10,0",
+              "playing_hcp": "4"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "8,3 - 10,0",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "9,5 - 11,0",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "9,9 - 11,6",
+              "playing_hcp": "4"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "8,7 - 10,4",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "8,7 - 10,4",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "10,1 - 11,8",
+              "playing_hcp": "5"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "10,1 - 11,6",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "11,1 - 12,8",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "11,7 - 13,4",
+              "playing_hcp": "5"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "10,5 - 12,0",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "10,5 - 12,0",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "11,9 - 13,6",
+              "playing_hcp": "6"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "11,7 - 13,4",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "12,9 - 14,4",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "13,5 - 15,4",
+              "playing_hcp": "6"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "12,1 - 13,8",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "12,1 - 13,8",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "13,7 - 15,4",
+              "playing_hcp": "7"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "13,5 - 15,0",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "14,5 - 16,2",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "15,5 - 17,2",
+              "playing_hcp": "7"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "13,9 - 15,6",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "13,9 - 15,6",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "15,5 - 17,4",
+              "playing_hcp": "8"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "15,1 - 16,8",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "16,3 - 17,8",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "17,3 - 19,0",
+              "playing_hcp": "8"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "15,7 - 17,2",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "15,7 - 17,4",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "17,5 - 19,2",
+              "playing_hcp": "9"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "16,9 - 18,6",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "17,9 - 19,6",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "19,1 - 20,8",
+              "playing_hcp": "9"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "17,3 - 19,0",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "17,5 - 19,2",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "19,3 - 21,0",
+              "playing_hcp": "10"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "18,7 - 20,2",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "19,7 - 21,4",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "20,9 - 22,6",
+              "playing_hcp": "10"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "19,1 - 20,8",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "19,3 - 21,0",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "21,1 - 22,8",
+              "playing_hcp": "11"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "20,3 - 22,0",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "21,5 - 23,0",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "22,7 - 24,6",
+              "playing_hcp": "11"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "20,9 - 22,4",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "21,1 - 22,6",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "22,9 - 24,8",
+              "playing_hcp": "12"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "22,1 - 23,8",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "23,1 - 24,8",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "24,7 - 26,4",
+              "playing_hcp": "12"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "22,5 - 24,2",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "22,7 - 24,4",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "24,9 - 26,6",
+              "playing_hcp": "13"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "23,9 - 25,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "24,9 - 26,4",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "26,5 - 28,2",
+              "playing_hcp": "13"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "24,3 - 26,0",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "24,5 - 26,2",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "26,7 - 28,4",
+              "playing_hcp": "14"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "25,5 - 27,2",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "26,5 - 28,2",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "28,3 - 30,0",
+              "playing_hcp": "14"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "26,1 - 27,8",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "26,3 - 28,0",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "28,5 - 30,2",
+              "playing_hcp": "15"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "27,3 - 28,8",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "28,3 - 29,8",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "30,1 - 31,8",
+              "playing_hcp": "15"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "27,9 - 29,4",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "28,1 - 29,8",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "30,3 - 32,2",
+              "playing_hcp": "16"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "28,9 - 30,6",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "29,9 - 31,6",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "31,9 - 33,8",
+              "playing_hcp": "16"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "29,5 - 31,2",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "29,9 - 31,6",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "32,3 - 34,0",
+              "playing_hcp": "17"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "30,7 - 32,4",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "31,7 - 33,2",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "33,9 - 35,6",
+              "playing_hcp": "17"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "31,3 - 33,0",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "31,7 - 33,2",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "34,1 - 35,8",
+              "playing_hcp": "18"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "32,5 - 34,0",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "33,3 - 35,0",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "35,7 - 37,4",
+              "playing_hcp": "18"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "33,1 - 34,6",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "33,3 - 35,0",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "35,9 - 37,6",
+              "playing_hcp": "19"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "34,1 - 35,8",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "35,1 - 36,8",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "37,5 - 39,2",
+              "playing_hcp": "19"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "34,7 - 36,4",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "35,1 - 36,8",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "37,7 - 39,6",
+              "playing_hcp": "20"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "35,9 - 37,6",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "36,9 - 38,4",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "39,3 - 41,0",
+              "playing_hcp": "20"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "36,5 - 38,2",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "36,9 - 38,6",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "39,7 - 41,4",
+              "playing_hcp": "21"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "37,7 - 39,2",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "38,5 - 40,2",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "41,1 - 42,8",
+              "playing_hcp": "21"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "38,3 - 39,8",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "38,7 - 40,4",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "41,5 - 43,2",
+              "playing_hcp": "22"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "39,3 - 41,0",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "40,3 - 41,8",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "42,9 - 44,8",
+              "playing_hcp": "22"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "39,9 - 41,6",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "40,5 - 42,0",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "43,3 - 45,0",
+              "playing_hcp": "23"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "41,1 - 42,6",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "41,9 - 43,6",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "44,9 - 46,6",
+              "playing_hcp": "23"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "41,7 - 43,4",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "42,1 - 43,8",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "45,1 - 47,0",
+              "playing_hcp": "24"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "42,7 - 44,4",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "43,7 - 45,2",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "46,7 - 48,4",
+              "playing_hcp": "24"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "43,5 - 45,0",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "43,9 - 45,6",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "47,1 - 48,8",
+              "playing_hcp": "25"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "44,5 - 46,2",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "45,3 - 47,0",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "48,5 - 50,2",
+              "playing_hcp": "25"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "45,1 - 46,8",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "45,7 - 47,4",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "48,9 - 50,6",
+              "playing_hcp": "26"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "46,3 - 47,8",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "47,1 - 48,6",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "50,3 - 52,0",
+              "playing_hcp": "26"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "46,9 - 48,6",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "47,5 - 49,2",
+              "playing_hcp": "28"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "50,7 - 52,6",
+              "playing_hcp": "27"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "47,9 - 49,6",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "48,7 - 50,4",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "52,1 - 54,0",
+              "playing_hcp": "27"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "48,7 - 50,4",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "49,3 - 51,0",
+              "playing_hcp": "29"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "52,7 - 54,0",
+              "playing_hcp": "28"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "49,7 - 51,4",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "50,5 - 52,2",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "50,5 - 52,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "51,1 - 52,6",
+              "playing_hcp": "30"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "51,5 - 53,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "52,3 - 53,8",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "52,1 - 53,8",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "52,7 - 54,0",
+              "playing_hcp": "31"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        },
+        {
+          "tees": [
+            {
+              "tee_name": "BIANCO",
+              "exact_hcp_range": "53,1 - 54,0",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "GIALLO",
+              "exact_hcp_range": "53,9 - 54,0",
+              "playing_hcp": "32"
+            },
+            {
+              "tee_name": "VERDE",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "BLU",
+              "exact_hcp_range": "53,9 - 54,0",
+              "playing_hcp": "33"
+            },
+            {
+              "tee_name": "ROSSO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            },
+            {
+              "tee_name": "ARANCIO",
+              "exact_hcp_range": "-",
+              "playing_hcp": "-"
+            }
+          ]
+        }
+      ],
+      "warnings": [],
+      "anomalies": [],
+      "status": "safe"
+    }
+  ],
+  "failed_courses": []
+}

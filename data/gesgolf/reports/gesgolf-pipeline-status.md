@@ -653,3 +653,29 @@ npm run gesgolf:build-import-candidates
 La pipeline GesGolf e' attiva.
 Il gating decisionale e' pronto.
 La fase di espansione e' in corso con batch progressivi, seed DB e audit post-import.
+
+Aggiornamento batch semplice `Moncalieri` -> `Des Iles Borromees`:
+- batch seedato in Supabase il 2026-07-22 e verificato con audit DB read-only;
+- scope intenzionale: solo club semplici, nessun club complesso/multi-percorso;
+- esclusi dal batch i club con struttura complessa o potenzialmente rumorosa da trattare separatamente;
+- regola applicata:
+  - campo fisico 9 buche: esporre solo `9 Buche` e `18 Buche`, senza scrivere in UX che il 18 e' il 9 ripetuto;
+  - campo fisico 18 buche: esporre `18 Buche`, `Prime Nove`, `Seconde Nove`;
+  - se GesGolf contiene doppioni, provvisori o alias, de-rumorizzare e tenere solo le route Stablr giocabili coerenti con FIG e sito ufficiale;
+  - per i campi fisici 9 con 18 ufficiale, il giro da 9 eredita il segmento SI corretto del 18 ufficiale quando il par buca-per-buca combacia, evitando SI compressi 1-9;
+  - controllare sempre i tee FIG disponibili e non inventare tee assenti da FIG.
+- `Moncalieri`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale percorso: `https://www.moncalierigolfclub.com/percorso/`.
+- `Monferrato`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale conferma 9 buche omologate FIG ma non scorecard SI/HCP completa: `https://golfclubmonferrato.it/`.
+- `Montebelluna`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; usata route GesGolf 18 BUCHE 2024 per preservare SI 1..18 e segmento corretto sul giro da 9: `https://montebellunagolf.it/percorso/`.
+- `Montecatini Terme Ssd`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`; ignorata route GesGolf `OPEN` con SI vuoti.
+- `Monteveglio Asd`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale conferma 9 buche Par 32 ma non SI/HCP completo: `https://www.golfclubmonteveglio.it/wordpress/percorso/`.
+- `Mulino Cerrione`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale conferma 9 buche Par 36: `https://www.golfclubcerrione.com/`.
+- `Rovigolf`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale non espone scorecard SI/HCP sufficiente: `https://www.rovigolf.it/`.
+- `Salice Terme`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; fonte operativa GesGolf valida ma manca terza fonte ufficiale club con SI/HCP.
+- `San Giovanni Ssd`: verde / Stablr Approved; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale Canavese espone PAR/HCP buca-per-buca e FIG Piemonte conferma 9 buche/CR/Slope: `https://www.canavesecountryclub.it/wp/il-campo-da-golf/` e `https://www.federgolfpiemonte.it/circolo/golf-club-sgiovanni-dei-boschi`.
+- `Des Iles Borromees`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`; usato `18 BUCHE 2023` come fonte SI anche per le 9, per evitare una route GesGolf Prime 2023 rumorosa con valore HCP anomalo: `https://www.golfdesilesborromees.it/campo.asp`.
+
+Lezione operativa del batch semplice:
+- sui 9/18 semplici la tecnica ora e' stabile e veloce;
+- il controllo post-import deve restare obbligatorio, per evitare errori di struttura tipo “mappo troppo poco/troppo” e per verificare tee e default;
+- badge verde solo quando la terza ricerca approfondita trova pagina ufficiale del club, PDF ufficiale o immagine scorecard con PAR/SI-HCP buca-per-buca coerente con FIG/GesGolf.

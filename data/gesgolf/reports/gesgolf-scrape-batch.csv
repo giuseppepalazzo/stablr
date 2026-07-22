@@ -105,6 +105,83 @@ Montelupo,MONTELUPO,638,100,safe,6,0,0,data/gesgolf/normalized/montelupo/circolo
 Monteveglio Asd,MONTEVEGLIO ASD,832,100,safe,2,0,0,data/gesgolf/normalized/monteveglio-asd/circolo-832.json,scraped
 Monticello,MONTICELLO,27,100,warning,16,1,0,data/gesgolf/normalized/monticello/circolo-27.json,scraped
 Mulino Cerrione,MULINO CERRIONE,734,100,safe,2,0,0,data/gesgolf/normalized/mulino-cerrione/circolo-734.json,scraped
+Musella,MUSELLA,674,100,error,0,0,1,,scrape_failed
+Napoli,NAPOLI,61,100,error,0,0,1,,scrape_failed
+Nazionale,NAZIONALE,601,100,error,0,0,1,,scrape_failed
+Oasi Di Magliano-Fiordalisi,OASI DI MAGLIANO-FIORDALISI,791,100,error,0,0,1,,scrape_failed
+Olgiata,OLGIATA,28,100,error,0,0,1,,scrape_failed
+Padova,PADOVA,29,100,error,0,0,1,,scrape_failed
+Palermo,PALERMO,769,100,error,0,0,1,,scrape_failed
+Panorama Golf,PANORAMA GOLF,765,100,error,0,0,1,,scrape_failed
+Paradiso,PARADISO,357,100,error,0,0,1,,scrape_failed
+Parco Firenze,PARCO FIRENZE,300,100,error,0,0,1,,scrape_failed
+Parco Roma,PARCO ROMA,783,100,error,0,0,1,,scrape_failed
+Passiria Merano,PASSIRIA MERANO,689,100,error,0,0,1,,scrape_failed
+Pavoniere,PAVONIERE,703,100,error,0,0,1,,scrape_failed
+Perugia,PERUGIA,30,100,error,0,0,1,,scrape_failed
+Petersberg,PETERSBERG,97,100,error,0,0,1,,scrape_failed
+Pevero,PEVERO,31,100,error,0,0,1,,scrape_failed
+Piandisole 2025,PIANDISOLE 2025,849,100,error,0,0,1,,scrape_failed
+Pinerolo - Pragelato,PINEROLO - PRAGELATO,410,100,error,0,0,1,,scrape_failed
+Pinetina,PINETINA,20,100,error,0,0,1,,scrape_failed
+Poggio Medici,POGGIO MEDICI,153,100,error,0,0,1,,scrape_failed
+Ponte Legno,PONTE LEGNO,64,100,error,0,0,1,,scrape_failed
+Pordenone,PORDENONE,86,100,error,0,0,1,,scrape_failed
+Primule,PRIMULE,405,100,error,0,0,1,,scrape_failed
+Puntaldia,PUNTALDIA,129,100,error,0,0,1,,scrape_failed
+Pustertal,PUSTERTAL,756,100,error,0,0,1,,scrape_failed
+Rapallo,RAPALLO,34,100,error,0,0,1,,scrape_failed
+Rendena,RENDENA,170,100,error,0,0,1,,scrape_failed
+Rimini Verucchio,RIMINI VERUCCHIO,723,100,error,0,0,1,,scrape_failed
+Riva Toscana,RIVA TOSCANA,816,100,error,0,0,1,,scrape_failed
+Riviera Golf,RIVIERA GOLF,776,100,error,0,0,1,,scrape_failed
+Robinie,ROBINIE,182,100,warning,6,2,0,data/gesgolf/normalized/robinie/circolo-182.json,scraped
+Roma Acquasanta,ROMA ACQUASANTA,36,100,warning,5,1,0,data/gesgolf/normalized/roma-acquasanta/circolo-36.json,scraped
+Rossera,ROSSERA,698,100,warning,4,1,0,data/gesgolf/normalized/rossera/circolo-698.json,scraped
+Rovedine,ROVEDINE,57,100,warning,2,1,0,data/gesgolf/normalized/rovedine/circolo-57.json,scraped
+Rovigolf,ROVIGOLF,784,100,safe,2,0,0,data/gesgolf/normalized/rovigolf/circolo-784.json,scraped
+Royal Park Roveri,ROYAL PARK ROVERI,384,100,warning,8,4,1,data/gesgolf/normalized/royal-park-roveri/circolo-384.json,scraped
+Salice Terme,SALICE TERME,672,100,safe,3,0,0,data/gesgolf/normalized/salice-terme/circolo-672.json,scraped
+Salici 2.0,SALICI 2.0,802,100,safe,9,0,0,data/gesgolf/normalized/salici-2-0/circolo-802.json,scraped
+Salsomaggiore Terme,SALSOMAGGIORE TERME,762,100,safe,4,0,0,data/gesgolf/normalized/salsomaggiore-terme/circolo-762.json,scraped
+Saluzzo,SALUZZO,706,100,safe,3,0,0,data/gesgolf/normalized/saluzzo/circolo-706.json,scraped
+San Domenico - Egnazia,SAN DOMENICO - EGNAZIA,785,100,safe,4,0,0,data/gesgolf/normalized/san-domenico-egnazia/circolo-785.json,scraped
+San Giovanni Ssd,SAN GIOVANNI SSD,800,100,safe,2,0,0,data/gesgolf/normalized/san-giovanni-ssd/circolo-800.json,scraped
+San Valentino,SAN VALENTINO,789,100,safe,5,0,0,data/gesgolf/normalized/san-valentino/circolo-789.json,scraped
+San Vigilio,SAN VIGILIO,441,100,warning,14,3,0,data/gesgolf/normalized/san-vigilio/circolo-441.json,scraped
+San Vito,SAN VITO,348,100,safe,2,0,0,data/gesgolf/normalized/san-vito/circolo-348.json,scraped
+Sanremo Ulivi,SANREMO ULIVI,37,100,warning,5,1,0,data/gesgolf/normalized/sanremo-ulivi/circolo-37.json,scraped
+Santa Maria Maggiore,SANTA MARIA MAGGIORE,663,100,safe,2,0,0,data/gesgolf/normalized/santa-maria-maggiore/circolo-663.json,scraped
+Santo Stefano Golf,SANTO STEFANO GOLF,828,100,warning,14,6,0,data/gesgolf/normalized/santo-stefano-golf/circolo-828.json,scraped
+Saturnia,SATURNIA,412,100,safe,3,0,0,data/gesgolf/normalized/saturnia/circolo-412.json,scraped
+Serra,SERRA,22,100,warning,3,2,0,data/gesgolf/normalized/serra/circolo-22.json,scraped
+St. Anna,ST. ANNA,310,100,safe,8,0,0,data/gesgolf/normalized/st-anna/circolo-310.json,scraped
+St. Vigil Seis,ST. VIGIL SEIS,655,100,error,0,0,1,,scrape_failed
+Tanka Villasimius,TANKA VILLASIMIUS,751,100,warning,5,1,0,data/gesgolf/normalized/tanka-villasimius/circolo-751.json,scraped
+Tarvisio,TARVISIO,749,100,error,0,0,1,,scrape_failed
+Terre Consoli,TERRE CONSOLI,499,100,safe,12,0,0,data/gesgolf/normalized/terre-consoli/circolo-499.json,scraped
+Terre Di Canossa,TERRE DI CANOSSA,839,100,safe,5,0,0,data/gesgolf/normalized/terre-di-canossa/circolo-839.json,scraped
+Tesino,TESINO,226,100,safe,3,0,0,data/gesgolf/normalized/tesino/circolo-226.json,scraped
+Tolcinasco,TOLCINASCO,829,100,safe,7,0,0,data/gesgolf/normalized/tolcinasco/circolo-829.json,scraped
+Torino,TORINO,42,100,warning,12,2,0,data/gesgolf/normalized/torino/circolo-42.json,scraped
+Torrazzo - Cremona,TORRAZZO - CREMONA,150,100,warning,2,1,0,data/gesgolf/normalized/torrazzo-cremona/circolo-150.json,scraped
+Torre Ronchi,TORRE RONCHI,435,100,warning,3,1,0,data/gesgolf/normalized/torre-ronchi/circolo-435.json,scraped
+Torrenova Ssd,TORRENOVA SSD,842,100,safe,2,0,0,data/gesgolf/normalized/torrenova-ssd/circolo-842.json,scraped
+Toscana,TOSCANA,291,100,warning,3,2,0,data/gesgolf/normalized/toscana/circolo-291.json,scraped
+Trieste,TRIESTE,43,100,warning,4,2,0,data/gesgolf/normalized/trieste/circolo-43.json,scraped
+Udine,UDINE,44,100,safe,3,0,0,data/gesgolf/normalized/udine/circolo-44.json,scraped
+Valtellina,VALTELLINA,834,100,safe,4,0,0,data/gesgolf/normalized/valtellina/circolo-834.json,scraped
+Varese,VARESE,45,100,warning,11,2,0,data/gesgolf/normalized/varese/circolo-45.json,scraped
+Venezia,VENEZIA,46,100,warning,5,2,0,data/gesgolf/normalized/venezia/circolo-46.json,scraped
+Verona,VERONA,47,100,safe,5,0,0,data/gesgolf/normalized/verona/circolo-47.json,scraped
+Vicenza,VICENZA,447,100,warning,6,2,0,data/gesgolf/normalized/vicenza/circolo-447.json,scraped
+Vigevano G.C. Ssd,VIGEVANO G.C. SSD,847,100,safe,5,0,0,data/gesgolf/normalized/vigevano-g-c-ssd/circolo-847.json,scraped
+Vigne,VIGNE,673,100,warning,5,2,0,data/gesgolf/normalized/vigne/circolo-673.json,scraped
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,100,safe,7,0,0,data/gesgolf/normalized/villa-carolina-ssd/circolo-833.json,scraped
+Villa Condulmer,VILLA CONDULMER,49,100,warning,13,2,0,data/gesgolf/normalized/villa-condulmer/circolo-49.json,scraped
+Villa D'Este,VILLA D'ESTE,48,100,safe,5,0,0,data/gesgolf/normalized/villa-d-este/circolo-48.json,scraped
+Villa Paradiso Ssd,VILLA PARADISO SSD,798,100,safe,3,0,0,data/gesgolf/normalized/villa-paradiso-ssd/circolo-798.json,scraped
+Zoate,ZOATE,63,100,warning,4,2,0,data/gesgolf/normalized/zoate/circolo-63.json,scraped
 Acquabona,,,,,,,,,skip_not_strong
 Alta Badia,,,,,,,,,skip_not_strong
 Appiano - Golf & Country,,,,,,,,,skip_not_strong

@@ -552,6 +552,248 @@ Monticello,MONTICELLO,27,2&#176; Blu Par 34,Seconde Nove Blu Provvisorio 2026 Pa
 Monticello,MONTICELLO,27,2&#176;Rosse-2&#176;Blu 2,Blu,fig-course-monticello-blu,playable_course,low,safe,,no,needs_review,confidence_too_low
 Mulino Cerrione,MULINO CERRIONE,734,Golf Cerrione,18 BUCHE,fig-course-mulino-cerrione-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
 Mulino Cerrione,MULINO CERRIONE,734,9 BUCHE,NOVE BUCHE,fig-course-mulino-cerrione-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Robinie,ROBINIE,182,ROBINIE,18 Buche,fig-course-robinie-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Robinie,ROBINIE,182,ROB 1/9,Invernale (1-4-11 green provv),fig-course-robinie-invernale-1-4-11-green-provv,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Robinie,ROBINIE,182,RO 10/18,18 Buche,fig-course-robinie-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Robinie,ROBINIE,182,ROBINIE INVERNO,18 Buche,fig-course-robinie-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Robinie,ROBINIE,182,INVERNO 1-9,Invernale Prime Nove,fig-course-robinie-invernale-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Robinie,ROBINIE,182,INVERNO 10-18,Invernale Prime Nove,fig-course-robinie-invernale-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Roma Acquasanta,ROMA ACQUASANTA,36,NORMALE,18 Buche,fig-course-roma-acquasanta-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Roma Acquasanta,ROMA ACQUASANTA,36,PRIME NOVE,Prime Nove,fig-course-roma-acquasanta-prime-nove,playable_course,medium,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Roma Acquasanta,ROMA ACQUASANTA,36,SECONDE NOVE,Seconde Nove,fig-course-roma-acquasanta-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Roma Acquasanta,ROMA ACQUASANTA,36,AUTO D'EPOCA,18 Buche,fig-course-roma-acquasanta-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Roma Acquasanta,ROMA ACQUASANTA,36,Camp.lady,18 Buche,fig-course-roma-acquasanta-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Rossera,ROSSERA,698,18 BUCHE,18 Buche,fig-course-rossera-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Rossera,ROSSERA,698,9 BUCHE,9 Buche,fig-course-rossera-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Rossera,ROSSERA,698,GIA/ROS,9 Buche,fig-course-rossera-9-buche,base_route,low,warning,many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Rossera,ROSSERA,698,18 BUCHE BIS,18 Buche,fig-course-rossera-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Rovedine,ROVEDINE,57,ROVEDINE,18 Buche,fig-course-rovedine-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Rovedine,ROVEDINE,57,2 Volte Nuove Buche,2 Volte Vecchie Buche,fig-course-rovedine-2-volte-vecchie-buche,repeat_route,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Rovigolf,ROVIGOLF,784,18 buche,18 Buche,fig-course-rovigolf-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Rovigolf,ROVIGOLF,784,9 buche,Nove Buche,fig-course-rovigolf-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Royal Park Roveri,ROYAL PARK ROVERI,384,Allianz Course,Hurdzan Fry,fig-course-royal-park-roveri-hurdzan-fry,playable_course,low,safe,,no,needs_review,confidence_too_low
+Royal Park Roveri,ROYAL PARK ROVERI,384,Allianz Bank,Hurdzan Fry,fig-course-royal-park-roveri-hurdzan-fry,playable_course,low,safe,,no,needs_review,confidence_too_low
+Royal Park Roveri,ROYAL PARK ROVERI,384,AC 1-9,Hurdzan Fry 1-9,fig-course-royal-park-roveri-hurdzan-fry-1-9,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Royal Park Roveri,ROYAL PARK ROVERI,384,AC 10-18,Hurdzan Fry 10-18,fig-course-royal-park-roveri-hurdzan-fry-10-18,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Royal Park Roveri,ROYAL PARK ROVERI,384,AB 1-9,Hurdzan Fry 1-9,fig-course-royal-park-roveri-hurdzan-fry-1-9,playable_course,low,warning,par_total_anomaly_for_18|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Royal Park Roveri,ROYAL PARK ROVERI,384,AB 10-18,Hurdzan Fry 10-18,fig-course-royal-park-roveri-hurdzan-fry-10-18,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Royal Park Roveri,ROYAL PARK ROVERI,384,TJ1/9-PR10/18,Hurdzan Fry,fig-course-royal-park-roveri-hurdzan-fry,playable_course,low,safe,,no,needs_review,confidence_too_low
+Royal Park Roveri,ROYAL PARK ROVERI,384,Internazionali,Hurdzan Fry,fig-course-royal-park-roveri-hurdzan-fry,playable_course,low,safe,,no,needs_review,confidence_too_low
+Salice Terme,SALICE TERME,672,Salice T,18 Buche,fig-course-salice-terme-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Salice Terme,SALICE TERME,672,1e 9 Buc,Prime Nove,fig-course-salice-terme-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Salice Terme,SALICE TERME,672,PROAMDILETTANTI,18 Buche,fig-course-salice-terme-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Salici 2.0,SALICI 2.0,802,Uff18 buche,18 Buche Par 56,fig-course-salici-2-0-18-buche-par-56,playable_course,low,safe,,no,needs_review,confidence_too_low
+Salici 2.0,SALICI 2.0,802,18 buche par 58,18 Buche Par 58,fig-course-salici-2-0-18-buche-par-58,playable_course,high,safe,,no,import_ready,all_checks_passed
+Salici 2.0,SALICI 2.0,802,9 buche par 29,9 Buche Par 29,fig-course-salici-2-0-9-buche-par-29,base_route,high,safe,,no,import_ready,all_checks_passed
+Salici 2.0,SALICI 2.0,802,18 Buche par 56,18 Buche Par 56,fig-course-salici-2-0-18-buche-par-56,playable_course,high,safe,,no,import_ready,all_checks_passed
+Salici 2.0,SALICI 2.0,802,9 Buche par 28,9 Buche Par 28,fig-course-salici-2-0-9-buche-par-28,base_route,high,safe,,no,import_ready,all_checks_passed
+Salici 2.0,SALICI 2.0,802,9 buche corto,9 Buche Par 28,fig-course-salici-2-0-9-buche-par-28,base_route,low,safe,,no,needs_review,confidence_too_low
+Salici 2.0,SALICI 2.0,802,9 buche lungo,9 Buche Par 29,fig-course-salici-2-0-9-buche-par-29,base_route,low,safe,,no,needs_review,confidence_too_low
+Salici 2.0,SALICI 2.0,802,18 buche lungo,18 Buche Par 58,fig-course-salici-2-0-18-buche-par-58,playable_course,low,safe,,no,needs_review,confidence_too_low
+Salici 2.0,SALICI 2.0,802,18 buche corto,18 Buche Par 56,fig-course-salici-2-0-18-buche-par-56,playable_course,low,safe,,no,needs_review,confidence_too_low
+Salsomaggiore Terme,SALSOMAGGIORE TERME,762,I COLLI,18 Buche,fig-course-salsomaggiore-terme-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Salsomaggiore Terme,SALSOMAGGIORE TERME,762,PRIME 9,Prime Nove,fig-course-salsomaggiore-terme-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Salsomaggiore Terme,SALSOMAGGIORE TERME,762,SECONDE 9,Seconde Nove,fig-course-salsomaggiore-terme-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Salsomaggiore Terme,SALSOMAGGIORE TERME,762,PRIME 9-2 VOLTE,Prime Nove 2 Volte,fig-course-salsomaggiore-terme-prime-nove-2-volte,repeat_route,medium,safe,,no,needs_review,confidence_too_low
+Saluzzo,SALUZZO,706,18 buche,18 Buche,fig-course-saluzzo-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Saluzzo,SALUZZO,706,9 buche,Nove Buche,fig-course-saluzzo-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Saluzzo,SALUZZO,706,Campionato DP,18 Buche,fig-course-saluzzo-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Domenico - Egnazia,SAN DOMENICO - EGNAZIA,785,NORMALE,18 Buche,fig-course-san-domenico-egnazia-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Domenico - Egnazia,SAN DOMENICO - EGNAZIA,785,GARA,18 Buche,fig-course-san-domenico-egnazia-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Domenico - Egnazia,SAN DOMENICO - EGNAZIA,785,Prime 9 buche,Prime Nove,fig-course-san-domenico-egnazia-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+San Domenico - Egnazia,SAN DOMENICO - EGNAZIA,785,seconde 9,Seconde Nove,fig-course-san-domenico-egnazia-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+San Giovanni Ssd,SAN GIOVANNI SSD,800,18 Buche,18 Buche,fig-course-san-giovanni-ssd-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+San Giovanni Ssd,SAN GIOVANNI SSD,800,9 Buche,Prime Nove,fig-course-san-giovanni-ssd-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+San Valentino,SAN VALENTINO,789,PAR 69,18 Buche,fig-course-san-valentino-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Valentino,SAN VALENTINO,789,PAR 72,Par 72,fig-course-san-valentino-par-72,playable_course,high,safe,,no,import_ready,all_checks_passed
+San Valentino,SAN VALENTINO,789,PRIME 9,Prime Nove,fig-course-san-valentino-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+San Valentino,SAN VALENTINO,789,SECONDE9,1&#176; Nove P.72,fig-course-san-valentino-1-176-nove-p-72,base_route,low,safe,,no,needs_review,confidence_too_low
+San Valentino,SAN VALENTINO,789,PRIME9,1&#176; Nove P.72,fig-course-san-valentino-1-176-nove-p-72,base_route,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,ROS+GIA,Benaco-Solferino,fig-course-san-vigilio-benaco-solferino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,ROS+BIAN,Benaco-San Martino,fig-course-san-vigilio-benaco-san-martino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,GIA+BIAN,Benaco-San Martino,fig-course-san-vigilio-benaco-san-martino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,ROSSO,Benaco,fig-course-san-vigilio-benaco,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+San Vigilio,SAN VIGILIO,441,GIALLO,Benaco,fig-course-san-vigilio-benaco,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+San Vigilio,SAN VIGILIO,441,BIANCO,Benaco-San Martino,fig-course-san-vigilio-benaco-san-martino,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+San Vigilio,SAN VIGILIO,441,BIA+GIA,Benaco-San Martino,fig-course-san-vigilio-benaco-san-martino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,BIAN+ ROS,Benaco-San Martino,fig-course-san-vigilio-benaco-san-martino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,GIA+ROS,Benaco-Solferino,fig-course-san-vigilio-benaco-solferino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,BIA+ROS,Benaco-San Martino,fig-course-san-vigilio-benaco-san-martino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,BLU - GIA,Pozzolengo-Benaco,fig-course-san-vigilio-pozzolengo-benaco,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,BLU,Pozzolengo,fig-course-san-vigilio-pozzolengo,base_route,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,BLU - BIA,Pozzolengo-San Martino,fig-course-san-vigilio-pozzolengo-san-martino,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vigilio,SAN VIGILIO,441,BLU - ROS,Pozzolengo-Benaco,fig-course-san-vigilio-pozzolengo-benaco,playable_course,low,safe,,no,needs_review,confidence_too_low
+San Vito,SAN VITO,348,18 BUCHE 2017,18 Buche,fig-course-san-vito-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+San Vito,SAN VITO,348,9 BUCHE 2017,9 Buche,fig-course-san-vito-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Sanremo Ulivi,SANREMO ULIVI,37,ULIVI,18 Buche,fig-course-sanremo-ulivi-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Sanremo Ulivi,SANREMO ULIVI,37,ULIVI ALPS,18 Buche,fig-course-sanremo-ulivi-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Sanremo Ulivi,SANREMO ULIVI,37,ULIVI prime9,9 buche 1-4 14-18,fig-course-sanremo-ulivi-9-buche-1-4-14-18,base_route,low,warning,,no,needs_review,ges_route_warning
+Sanremo Ulivi,SANREMO ULIVI,37,ULIVI seconde9,9 buche 1-4 14-18,fig-course-sanremo-ulivi-9-buche-1-4-14-18,base_route,low,safe,,no,needs_review,confidence_too_low
+Sanremo Ulivi,SANREMO ULIVI,37,9buche1-4 14-18,9 buche 1-4 14-18,fig-course-sanremo-ulivi-9-buche-1-4-14-18,base_route,medium,safe,,no,needs_review,confidence_too_low
+Santa Maria Maggiore,SANTA MARIA MAGGIORE,663,9 B 1 par 4,9 Buche (1 par 4),fig-course-santa-maria-maggiore-9-buche-1-par-4,base_route,medium,safe,,no,needs_review,confidence_too_low
+Santa Maria Maggiore,SANTA MARIA MAGGIORE,663,18 Buche par 59,18 buche par 59,fig-course-santa-maria-maggiore-18-buche-par-59,playable_course,high,safe,,no,import_ready,all_checks_passed
+Santo Stefano Golf,SANTO STEFANO GOLF,828,Normale,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Santo Stefano Golf,SANTO STEFANO GOLF,828,Pitc&Put,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,warning,,no,needs_review,ges_route_warning
+Santo Stefano Golf,SANTO STEFANO GOLF,828,CAMP SOC,Nove Buche,fig-course-santo-stefano-golf-nove-buche,base_route,low,warning,,no,needs_review,ges_route_warning
+Santo Stefano Golf,SANTO STEFANO GOLF,828,NUOVO,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Santo Stefano Golf,SANTO STEFANO GOLF,828,EX 8,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,warning,,no,needs_review,ges_route_warning
+Santo Stefano Golf,SANTO STEFANO GOLF,828,RYDER,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,warning,,no,needs_review,ges_route_warning
+Santo Stefano Golf,SANTO STEFANO GOLF,828,NUOVO_10,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Santo Stefano Golf,SANTO STEFANO GOLF,828,9 BUCHE,Nove Buche,fig-course-santo-stefano-golf-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Santo Stefano Golf,SANTO STEFANO GOLF,828,B 10-18,Nove Buche,fig-course-santo-stefano-golf-nove-buche,base_route,low,warning,many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Santo Stefano Golf,SANTO STEFANO GOLF,828,9BUCHEN,Nove Buche,fig-course-santo-stefano-golf-nove-buche,base_route,low,warning,,no,needs_review,ges_route_warning
+Santo Stefano Golf,SANTO STEFANO GOLF,828,GIAL-ROS_13,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Santo Stefano Golf,SANTO STEFANO GOLF,828,Nuovo 9+9 24,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Santo Stefano Golf,SANTO STEFANO GOLF,828,GIAL-ROS_25,18 Buche,fig-course-santo-stefano-golf-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Santo Stefano Golf,SANTO STEFANO GOLF,828,9 buche 25,Nove Buche,fig-course-santo-stefano-golf-nove-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Saturnia,SATURNIA,412,SATURNIA 1-18,18 Buche,fig-course-saturnia-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Saturnia,SATURNIA,412,Saturnia 10-18,Prime Nove,fig-course-saturnia-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Saturnia,SATURNIA,412,Saturnia 1-18,18 Buche,fig-course-saturnia-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Serra,SERRA,22,Normale,18 Buche,fig-course-serra-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Serra,SERRA,22,Prime 9,Prime Nove,fig-course-serra-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Serra,SERRA,22,Seconde,Seconde Nove,fig-course-serra-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+St. Anna,ST. ANNA,310,2 Volte Monti,Monti 2 volte,fig-course-st-anna-monti-2-volte,repeat_route,medium,safe,,no,needs_review,confidence_too_low
+St. Anna,ST. ANNA,310,2 Volte Mare,Mare 2 volte,fig-course-st-anna-mare-2-volte,repeat_route,medium,safe,,no,needs_review,confidence_too_low
+St. Anna,ST. ANNA,310,18 Buche,18 Buche,fig-course-st-anna-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+St. Anna,ST. ANNA,310,Monti,Monti,fig-course-st-anna-monti,base_route,high,safe,,no,import_ready,all_checks_passed
+St. Anna,ST. ANNA,310,Mare,Mare,fig-course-st-anna-mare,base_route,high,safe,,no,import_ready,all_checks_passed
+St. Anna,ST. ANNA,310,Mare - Monti,18 Buche,fig-course-st-anna-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+St. Anna,ST. ANNA,310,percorso 18/70,PROVV 2021 PAR 70,fig-course-st-anna-provv-2021-par-70,playable_course,low,safe,,no,needs_review,confidence_too_low
+St. Anna,ST. ANNA,310,Camp. Europeo,18 Buche,fig-course-st-anna-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Tanka Villasimius,TANKA VILLASIMIUS,751,18 Buche,18 Buche,fig-course-tanka-villasimius-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Tanka Villasimius,TANKA VILLASIMIUS,751,Prime Nove,Prime Nove,fig-course-tanka-villasimius-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Tanka Villasimius,TANKA VILLASIMIUS,751,Seconde Nove,Seconde Nove,fig-course-tanka-villasimius-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Tanka Villasimius,TANKA VILLASIMIUS,751,2 Volte P. Nove,2 Volte Prime Nove,fig-course-tanka-villasimius-2-volte-prime-nove,repeat_route,medium,safe,,no,needs_review,confidence_too_low
+Tanka Villasimius,TANKA VILLASIMIUS,751,Buca 12 Par 3,18 Buche Provvisorio Par 68,fig-course-tanka-villasimius-18-buche-provvisorio-par-68,playable_course,low,warning,many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Terre Consoli,TERRE CONSOLI,499,Family,Executive PAR 31,fig-course-terre-consoli-executive-par-31,base_route,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,Family 18,Executive PAR 62,fig-course-terre-consoli-executive-par-62,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,exChampionship,18 buche 2019,fig-course-terre-consoli-18-buche-2019,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,Championship 20,18 buche 2019,fig-course-terre-consoli-18-buche-2019,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,PRIME 9 CHAMP.,prime 9 camp 2019,fig-course-terre-consoli-prime-9-camp-2019,base_route,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,SECONDE 9 CHAMP,seconde 9 camp 2019,fig-course-terre-consoli-seconde-9-camp-2019,base_route,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,US KIDS,18 buche 2019,fig-course-terre-consoli-18-buche-2019,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,Campionato Raga,18 Buche Par 73,fig-course-terre-consoli-18-buche-par-73,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,CHAMP. PAR 73NO,18 Buche Par 73,fig-course-terre-consoli-18-buche-par-73,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,R. CLASSIC12-18,18 buche 2019,fig-course-terre-consoli-18-buche-2019,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,R. CLASSIC 9-11,ROME CLASSIC 2023 - ETA&#39; 9/11,fig-course-terre-consoli-rome-classic-2023-eta-9-11,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Terre Consoli,TERRE CONSOLI,499,C. PAR 73 NEW,18 Buche Par 73,fig-course-terre-consoli-18-buche-par-73,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Di Canossa,TERRE DI CANOSSA,839,18 BUCHE TERRE,18 Buche,fig-course-terre-di-canossa-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Terre Di Canossa,TERRE DI CANOSSA,839,PRIME 9 TERRE,Prime Nove,fig-course-terre-di-canossa-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Terre Di Canossa,TERRE DI CANOSSA,839,SECONDE 9 TERRE,Seconde Nove,fig-course-terre-di-canossa-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Terre Di Canossa,TERRE DI CANOSSA,839,REGGIO GOLF 18,Reggio Emilia - 18 Buche,fig-course-terre-di-canossa-reggio-emilia-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Terre Di Canossa,TERRE DI CANOSSA,839,REGGIO 9 BUCHE,Reggio Emilia - 9 Buche,fig-course-terre-di-canossa-reggio-emilia-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Tesino,TESINO,226,18 Buche,18 Buche,fig-course-tesino-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Tesino,TESINO,226,PRIME 9,Prime Nove,fig-course-tesino-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Tesino,TESINO,226,SECONDE 9,Seconde Nove,fig-course-tesino-seconde-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Tolcinasco,TOLCINASCO,829,Ross-Blu,Blu-Giallo,fig-course-tolcinasco-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Tolcinasco,TOLCINASCO,829,Gial/Blu,Blu-Giallo,fig-course-tolcinasco-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Tolcinasco,TOLCINASCO,829,Gial/Ros,Blu-Giallo,fig-course-tolcinasco-blu-giallo,playable_course,low,safe,,no,needs_review,confidence_too_low
+Tolcinasco,TOLCINASCO,829,Blu/Gial,Blu-Giallo,fig-course-tolcinasco-blu-giallo,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Tolcinasco,TOLCINASCO,829,GIALLO 9,Prime Nove (Giallo),fig-course-tolcinasco-prime-nove-giallo,base_route,low,safe,,no,needs_review,confidence_too_low
+Tolcinasco,TOLCINASCO,829,BLU 9,Seconde Nove (Blu),fig-course-tolcinasco-seconde-nove-blu,base_route,low,safe,,no,needs_review,confidence_too_low
+Tolcinasco,TOLCINASCO,829,ROSSO 9,Terze Nove (Rosso),fig-course-tolcinasco-terze-nove-rosso,base_route,low,safe,,no,needs_review,confidence_too_low
+Torino,TORINO,42,BLU/BLUE,Blu,fig-course-torino-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Torino,TORINO,42,BLU1-GIALLO1,Blu1-Giallo1,fig-course-torino-blu1-giallo1,playable_course,high,safe,,no,import_ready,all_checks_passed
+Torino,TORINO,42,GIALLO1-BLU2,Blu,fig-course-torino-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Torino,TORINO,42,GIALLO1-BLU1,Blu,fig-course-torino-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Torino,TORINO,42,ROVERI,Blu,fig-course-torino-blu,playable_course,low,safe,,no,needs_review,confidence_too_low
+Torino,TORINO,42,GIALLO/YELLOW,Giallo,fig-course-torino-giallo,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Torino,TORINO,42,BLU1-GIALLO2,Blu1-Giallo2,fig-course-torino-blu1-giallo2,playable_course,high,safe,,no,import_ready,all_checks_passed
+Torino,TORINO,42,BLU2-GIALLO2,Blu2-Giallo2,fig-course-torino-blu2-giallo2,playable_course,high,safe,,no,import_ready,all_checks_passed
+Torino,TORINO,42,BLU 1,Blu,fig-course-torino-blu,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Torino,TORINO,42,BLU 2,Blu,fig-course-torino-blu,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Torino,TORINO,42,GIALLO 1,1&#176; Nove Giallo,fig-course-torino-1-176-nove-giallo,base_route,low,safe,,no,needs_review,confidence_too_low
+Torino,TORINO,42,GIALLO 2,2&#176; Nove Giallo,fig-course-torino-2-176-nove-giallo,base_route,low,safe,,no,needs_review,confidence_too_low
+Torrazzo - Cremona,TORRAZZO - CREMONA,150,BIANCO,18 Buche,fig-course-torrazzo-cremona-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Torrazzo - Cremona,TORRAZZO - CREMONA,150,GIALLO,18 Buche,fig-course-torrazzo-cremona-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Torre Ronchi,TORRE RONCHI,435,PERCORSO 1,18 Buche,fig-course-torre-ronchi-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Torre Ronchi,TORRE RONCHI,435,PERCORSO A 9,18 Buche,fig-course-torre-ronchi-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Torre Ronchi,TORRE RONCHI,435,PERCORSO MISTO,Misto I Bianchi II Gialli,fig-course-torre-ronchi-misto-i-bianchi-ii-gialli,playable_course,low,safe,,no,needs_review,confidence_too_low
+Torrenova Ssd,TORRENOVA SSD,842,Torrenova 18,18 Buche,fig-course-torrenova-ssd-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Torrenova Ssd,TORRENOVA SSD,842,Torrenova 9,9 Buche,fig-course-torrenova-ssd-9-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Toscana,TOSCANA,291,AZZURRE,18 Buche,fig-course-toscana-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Toscana,TOSCANA,291,1 - 9,18 Buche,fig-course-toscana-18-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Toscana,TOSCANA,291,10-18,18 Buche,fig-course-toscana-18-buche,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Trieste,TRIESTE,43,18 BUCHE,18 Buche,fig-course-trieste-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Trieste,TRIESTE,43,PRIME 9,Prime Nove,fig-course-trieste-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Trieste,TRIESTE,43,SECONDE 9,Seconde Nove,fig-course-trieste-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Trieste,TRIESTE,43,18 vers2,18 Buche,fig-course-trieste-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Udine,UDINE,44,18 BUCHE,18 buche 2018,fig-course-udine-18-buche-2018,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Udine,UDINE,44,PRIME NOVE,Prime Nove,fig-course-udine-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Udine,UDINE,44,SECONDE NOVE,Seconde Nove,fig-course-udine-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Valtellina,VALTELLINA,834,VALTELLINA,18 Buche,fig-course-valtellina-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Valtellina,VALTELLINA,834,Seconde 9,Misto 9 buche,fig-course-valtellina-misto-9-buche,base_route,low,safe,,no,needs_review,confidence_too_low
+Valtellina,VALTELLINA,834,Misto 9 buche,Misto 9 buche,fig-course-valtellina-misto-9-buche,base_route,high,safe,,no,import_ready,all_checks_passed
+Valtellina,VALTELLINA,834,prime nove,Prime Nove,fig-course-valtellina-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Varese,VARESE,45,VARESE,Vecchio Monastero,fig-course-varese-vecchio-monastero,playable_course,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,1-9,Prime Nove,fig-course-varese-prime-nove,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Varese,VARESE,45,ANTONINO,Vecchio Monastero,fig-course-varese-vecchio-monastero,playable_course,low,warning,,no,needs_review,ges_route_warning
+Varese,VARESE,45,PERCORSO MOD.,Vecchio Monastero,fig-course-varese-vecchio-monastero,playable_course,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,Gara UFFICIALE,Vecchio Monastero,fig-course-varese-vecchio-monastero,playable_course,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,GREENSOME,Vecchio Monastero,fig-course-varese-vecchio-monastero,playable_course,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,PRIME NOVE MOD.,Prime Nove,fig-course-varese-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,Provv. B1 Par 3,Vecchio Monastero,fig-course-varese-vecchio-monastero,playable_course,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,Prime9 B.1 Par3,Prime Nove,fig-course-varese-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,MARZO 2018,Vecchio Monastero,fig-course-varese-vecchio-monastero,playable_course,low,safe,,no,needs_review,confidence_too_low
+Varese,VARESE,45,10-18,Prime Nove,fig-course-varese-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Venezia,VENEZIA,46,NORMALE,18 Buche,fig-course-venezia-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Venezia,VENEZIA,46,CAMP.TO,18 Buche,fig-course-venezia-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Venezia,VENEZIA,46,1e NOVE,Prime Nove,fig-course-venezia-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Venezia,VENEZIA,46,2e NOVE,Seconde Nove,fig-course-venezia-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Venezia,VENEZIA,46,PROVV. 18 BUCHE,18 Buche,fig-course-venezia-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Verona,VERONA,47,VERONA,18 Buche,fig-course-verona-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Verona,VERONA,47,Prime Nove,Prime Nove,fig-course-verona-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Verona,VERONA,47,Seconde Nove,Seconde Nove,fig-course-verona-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Verona,VERONA,47,Pallavicino,18 Buche,fig-course-verona-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Verona,VERONA,47,Baby 2024,18 Buche,fig-course-verona-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Vicenza,VICENZA,447,VICENZA,18 Buche,fig-course-vicenza-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Vicenza,VICENZA,447,9 Buche,9 Buche,fig-course-vicenza-9-buche,playable_course,medium,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Vicenza,VICENZA,447,18 Buche misto,18 buche misto,fig-course-vicenza-18-buche-misto,playable_course,high,safe,,no,import_ready,all_checks_passed
+Vicenza,VICENZA,447,bianco 9 buche,9 Buche,fig-course-vicenza-9-buche,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Vicenza,VICENZA,447,VICENZA NEWS,18 Buche,fig-course-vicenza-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Vicenza,VICENZA,447,9 BUCHE NEWS,9 Buche,fig-course-vicenza-9-buche,base_route,medium,safe,,no,needs_review,confidence_too_low
+Vigevano G.C. Ssd,VIGEVANO G.C. SSD,847,18 buche,18 Buche,fig-course-vigevano-g-c-ssd-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Vigevano G.C. Ssd,VIGEVANO G.C. SSD,847,Prime Nove,Prime Nove,fig-course-vigevano-g-c-ssd-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Vigevano G.C. Ssd,VIGEVANO G.C. SSD,847,Seconde Nove,Seconde Nove,fig-course-vigevano-g-c-ssd-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Vigevano G.C. Ssd,VIGEVANO G.C. SSD,847,10-18 due volte,Seconde Nove 2 Volte,fig-course-vigevano-g-c-ssd-seconde-nove-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Vigevano G.C. Ssd,VIGEVANO G.C. SSD,847,1-9 due volte,Prime Nove 2 Volte,fig-course-vigevano-g-c-ssd-prime-nove-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Vigne,VIGNE,673,18 BUCHE VIGNE,18 buche_2024,fig-course-vigne-18-buche-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Vigne,VIGNE,673,VILLAFRANCA 9,18 buche_2024,fig-course-vigne-18-buche-2024,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Vigne,VIGNE,673,CUSTOZA 9,18 buche_2024,fig-course-vigne-18-buche-2024,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Vigne,VIGNE,673,VILLAFRANCA 18,Prime Nove 2 Volte 2024,fig-course-vigne-prime-nove-2-volte-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Vigne,VIGNE,673,CUSTOZA 18,Seconde Nove 2 Volte_2024,fig-course-vigne-seconde-nove-2-volte-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,Marchesa,La Marchesa,fig-course-villa-carolina-ssd-la-marchesa,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,Principe,Il Principe,fig-course-villa-carolina-ssd-il-principe,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,I Tigli,Il Principe,fig-course-villa-carolina-ssd-il-principe,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,Paradiso,Paradiso,fig-course-villa-carolina-ssd-paradiso,playable_course,high,safe,,no,import_ready,all_checks_passed
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,Paradiso9,La Marchesa Prime Nove,fig-course-villa-carolina-ssd-la-marchesa-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,Marchesa 1-9,La Marchesa Prime Nove,fig-course-villa-carolina-ssd-la-marchesa-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Villa Carolina Ssd,VILLA CAROLINA SSD,833,Marchesa 10-18,La Marchesa Prime Nove,fig-course-villa-carolina-ssd-la-marchesa-prime-nove,base_route,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,18 buche,18 Buche (Giallo/Blu),fig-course-villa-condulmer-18-buche-giallo-blu,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Percorso Giallo,18 Buche (Giallo/Blu),fig-course-villa-condulmer-18-buche-giallo-blu,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Villa Condulmer,VILLA CONDULMER,49,Percorso Bl&#249;,18 Buche (Giallo/Blu),fig-course-villa-condulmer-18-buche-giallo-blu,playable_course,low,warning,par_total_anomaly_for_18,no,needs_review,ges_route_warning
+Villa Condulmer,VILLA CONDULMER,49,Percorso Verde,9 buche Executive (Verde),fig-course-villa-condulmer-9-buche-executive-verde,base_route,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Giallo/Verde,Giallo/Verde,fig-course-villa-condulmer-giallo-verde,playable_course,high,safe,,no,import_ready,all_checks_passed
+Villa Condulmer,VILLA CONDULMER,49,Bl&#249;/Verde,Blu/Verde,fig-course-villa-condulmer-blu-verde,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Giallo/Giallo,Prime 9 (Giallo) 2 volte,fig-course-villa-condulmer-prime-9-giallo-2-volte,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Verde/Verde,18 Buche Executive (Verde),fig-course-villa-condulmer-18-buche-executive-verde,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Internazionali,18 Buche (Giallo/Blu),fig-course-villa-condulmer-18-buche-giallo-blu,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Invernale,Invernale Provvisorio 25/26,fig-course-villa-condulmer-invernale-provvisorio-25-26,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Giallo/Blu 2026,18 Buche (Giallo/Blu),fig-course-villa-condulmer-18-buche-giallo-blu,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Giallo 2026,Prime Nove (Giallo),fig-course-villa-condulmer-prime-nove-giallo,base_route,low,safe,,no,needs_review,confidence_too_low
+Villa Condulmer,VILLA CONDULMER,49,Blu 2026,Seconde Nove (Blu),fig-course-villa-condulmer-seconde-nove-blu,base_route,low,safe,,no,needs_review,confidence_too_low
+Villa D'Este,VILLA D'ESTE,48,18 buche,18 Buche,fig-course-villa-d-este-18-buche,playable_course,high,safe,,no,import_ready,all_checks_passed
+Villa D'Este,VILLA D'ESTE,48,Seconde nove,Seconde Nove,fig-course-villa-d-este-seconde-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Villa D'Este,VILLA D'ESTE,48,Prime nove,Prime Nove,fig-course-villa-d-este-prime-nove,base_route,high,safe,,no,import_ready,all_checks_passed
+Villa D'Este,VILLA D'ESTE,48,Campionato,18 Buche Campionato,fig-course-villa-d-este-18-buche-campionato,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Villa D'Este,VILLA D'ESTE,48,18 buche provv,18 Buche,fig-course-villa-d-este-18-buche,playable_course,medium,safe,,no,needs_review,confidence_too_low
+Villa Paradiso Ssd,VILLA PARADISO SSD,798,CAMPIONATO,18 Buche 2024,fig-course-villa-paradiso-ssd-18-buche-2024,playable_course,low,safe,,no,needs_review,confidence_too_low
+Villa Paradiso Ssd,VILLA PARADISO SSD,798,Prime 9,Prime Nove 2024,fig-course-villa-paradiso-ssd-prime-nove-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Villa Paradiso Ssd,VILLA PARADISO SSD,798,Seconde 9,Seconde Nove 2024,fig-course-villa-paradiso-ssd-seconde-nove-2024,base_route,low,safe,,no,needs_review,confidence_too_low
+Zoate,ZOATE,63,ZOATE,18 Buche,fig-course-zoate-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
+Zoate,ZOATE,63,prime 9,2 Volte Prime Nove,fig-course-zoate-2-volte-prime-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Zoate,ZOATE,63,seconde 9,Seconde Nove,fig-course-zoate-seconde-nove,playable_course,low,warning,par_total_anomaly_for_18|second_half_empty_or_zero|many_zero_stroke_indexes,no,needs_review,ges_route_warning
+Zoate,ZOATE,63,2x9 BUCHE,18 Buche,fig-course-zoate-18-buche,playable_course,low,safe,,no,needs_review,confidence_too_low
 Parco De' Medici,PARCO DE' MEDICI,112,W-BL,Championship Bianco/Blu,fig-course-parco-de-medici-championship-bianco-blu,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,BL-R,King Blu/Rosso,fig-course-parco-de-medici-king-blu-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
 Parco De' Medici,PARCO DE' MEDICI,112,W-R,Queen Bianco/Rosso,fig-course-parco-de-medici-queen-bianco-rosso,combination_route,benchmark_manual,,,yes,protected_reference,protected_club
