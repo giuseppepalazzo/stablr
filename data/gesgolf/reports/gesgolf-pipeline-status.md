@@ -709,3 +709,32 @@ Aggiornamento batch semplice `Barialto Golf` -> `Udine`:
 - `San Vito`: arancio; campo fisico 9, route `9 Buche`, `18 Buche`. Sito ufficiale conferma 9 buche PAR 32 e PAR buca-per-buca e linka `Tabella EGA HCP`, ma la tabella SI non e' stata estratta/validata in modo completo durante il batch: `https://golfsanvito.it/ilpercorso/`.
 - `Tanka Villasimius`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Correzione post-review: la pagina ufficiale linka la scorecard PDF `Scorecard2018IT`, con PAR/HCP per tutte le 18 buche; sequenza coerente con GesGolf `18 Buche`: `https://tankagolfvillasimius.it/it/il-percorso-tanka-golf-villasimius/`, `https://tankagolfvillasimius.it/it/wp-content/uploads/2018/08/Scorecard2018IT.pdf`.
 - `Udine`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Sito ufficiale espone ogni buca con PAR e HCP; sequenza combacia con GesGolf 18 BUCHE: `https://www.golfudine.com/the-golf-course-en.html`.
+
+Aggiornamento batch semplice `Argenta` -> `Salsomaggiore Terme`:
+- batch seedato in Supabase il 2026-07-22 e verificato con audit DB read-only;
+- scope intenzionale: 11 club semplici fisici 18 buche, configurati tutti con `18 Buche`, `Prime Nove`, `Seconde Nove`;
+- regola applicata:
+  - il 18 e' sempre default per i campi fisici 18;
+  - il default del giro da 9 e' `Prime Nove`, seguito da `Seconde Nove`;
+  - GesGolf viene de-rumorizzato scegliendo una sola route 18 coerente e ignorando alias, duplicati, provvisori e route 9 con SI compressi;
+  - PAR/SI delle 9 sono derivati dal segmento corretto della route 18 ufficiale selezionata;
+  - tee e CR/Slope restano sempre da FIG, senza inventare colori tee assenti dal catalogo FIG.
+- terza ricerca rafforzata:
+  - non fermarsi all'HTML testuale;
+  - scaricare/guardare immagini ufficiali e PDF quando la pagina li usa come scorecard;
+  - aprire pagine buca-per-buca quando il sito spezza PAR/HCP in pagine singole.
+- `Argenta`: verde / Stablr Approved; scorecard ufficiale immagine conferma PAR/HCP e combacia con GesGolf `Arg-EGA`: `https://argentagolf.it/score/`, asset `https://argentagolf.it/wp-content/uploads/2020/11/score-hq.jpg`.
+- `Brianza`: verde / Stablr Approved; pagina ufficiale `Descrizione Buche` espone PAR/HCP buca-per-buca e combacia con GesGolf `Gare`: `https://brianzagolf.it/campo/descrizione-buche/`.
+- `Ca' Nave Ssd`: verde / Stablr Approved; pagina ufficiale percorso contiene immagini buca-per-buca con PAR/HCP; asset scaricati e verificati, combaciano con GesGolf `CAMPIONATO`: `https://www.cadellanave.com/il-percorso/`.
+- `Frassanelle`: arancio; import giocabile da FIG + GesGolf `CHAMP.`, ma non e' stata trovata scorecard ufficiale completa PAR/HCP sul sito del club.
+- `Fronde`: verde / Stablr Approved; sito ufficiale espone 18 pagine buca-per-buca con PAR/HCP; scaricate e confrontate tutte, compresa correzione slug `buca-16-alberone`; sequenza combacia con GesGolf `Ega`: `https://www.golflefronde.it/il-campo/`.
+- `Roma Acquasanta`: arancio; import giocabile da FIG + GesGolf `NORMALE`, ma non e' stata trovata pagina ufficiale completa PAR/HCP; ignorate varianti GesGolf rumorose.
+- `Saturnia`: verde / Stablr Approved; pagina tecnica ufficiale Terme di Saturnia espone tabella completa PAR/HCP e tee; scelta esplicitamente la seconda route GesGolf `Saturnia 1-18` (`percorso_id 2589`) perche' combacia con il sito, ignorando il duplicato omonimo non coerente: `https://www.termedisaturnia.it/golf/informazioni-tecniche/`.
+- `Serra`: arancio; import giocabile da FIG + GesGolf `Normale`, ma non e' stata trovata scorecard ufficiale completa PAR/HCP.
+- `Trieste`: arancio; import giocabile da FIG + GesGolf `18 BUCHE`; sito ufficiale conferma pagina percorso ma non scorecard PAR/HCP completa.
+- `Verona`: arancio; import giocabile da FIG + GesGolf `VERONA`; non usati alias GesGolf duplicati (`Pallavicino`, `Baby 2024`) e non assegnato verde senza conferma ufficiale PAR/HCP completa.
+- `Salsomaggiore Terme`: arancio; import giocabile da FIG + GesGolf `I COLLI`; pagina Parma Golf conferma campo 18 buche, ma non espone scorecard PAR/HCP completa.
+- conteggio Supabase post-seed:
+  - club Stablr giocabili: 70;
+  - Stablr Approved / verdi: 33;
+  - playable review / arancioni: 37.
