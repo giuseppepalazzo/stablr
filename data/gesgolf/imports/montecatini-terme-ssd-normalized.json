@@ -11,7 +11,7 @@
     "name_normalized": "montecatini terme ssd",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,10 +22,10 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "Campo fisico 18 buche; ignorata route GesGolf OPEN con SI vuoti.",
+      "verification_status": "verified",
+      "verification_notes": "Stablr Approved: terza verifica approfondita corretta. La pagina ufficiale course guide espone HCP buca-per-buca; FIG resta fonte ufficiale per tee, CR e Slope; GesGolf conferma PAR/SI per 18, Prime Nove e Seconde Nove.",
       "official_course_links": [
-        "https://www.montecatinigolf.it/"
+        "https://www.montecatinigolf.it/course-guide"
       ],
       "physical_hole_count": 18,
       "import_profile": "physical_18_with_official_9_segments",
@@ -33,7 +33,8 @@
         "circolo_id": "860",
         "gesgolf_club": "GOLF CLUB MONTECATINI TERME SSD a R.L."
       },
-      "product_rule": "Simple clubs only: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. GesGolf duplicate/noisy routes are de-rumored, not exposed."
+      "product_rule": "Simple clubs only: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. GesGolf duplicate/noisy routes are de-rumored, not exposed.",
+      "stablr_approved": true
     }
   },
   "routes": [

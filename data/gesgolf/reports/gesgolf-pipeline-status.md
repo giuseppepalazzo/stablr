@@ -664,18 +664,20 @@ Aggiornamento batch semplice `Moncalieri` -> `Des Iles Borromees`:
   - se GesGolf contiene doppioni, provvisori o alias, de-rumorizzare e tenere solo le route Stablr giocabili coerenti con FIG e sito ufficiale;
   - per i campi fisici 9 con 18 ufficiale, il giro da 9 eredita il segmento SI corretto del 18 ufficiale quando il par buca-per-buca combacia, evitando SI compressi 1-9;
   - controllare sempre i tee FIG disponibili e non inventare tee assenti da FIG.
-- `Moncalieri`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale percorso: `https://www.moncalierigolfclub.com/percorso/`.
+- `Moncalieri`: verde / Stablr Approved; campo fisico 9, route `9 Buche` e `18 Buche`. Correzione post-review: la terza ricerca approfondita sul sito ufficiale ha confermato la presenza di SI/HCP percorso; FIG resta fonte ufficiale per tee, CR e Slope; GesGolf conferma PAR/SI: `https://www.moncalierigolfclub.com/percorso/`.
 - `Monferrato`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale conferma 9 buche omologate FIG ma non scorecard SI/HCP completa: `https://golfclubmonferrato.it/`.
-- `Montebelluna`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; usata route GesGolf 18 BUCHE 2024 per preservare SI 1..18 e segmento corretto sul giro da 9: `https://montebellunagolf.it/percorso/`.
-- `Montecatini Terme Ssd`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`; ignorata route GesGolf `OPEN` con SI vuoti.
+- `Montebelluna`: verde / Stablr Approved; campo fisico 9, route `9 Buche` e `18 Buche`. Il sito ufficiale conferma campo a nove buche, affiliazione FIG e rimanda direttamente a GesGolf per `EGA Playing Handicap`; usata route GesGolf 18 BUCHE 2024 per preservare SI 1..18 e segmento corretto sul giro da 9: `https://montebellunagolf.it/percorso/`.
+- `Montecatini Terme Ssd`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Correzione post-review: la pagina ufficiale `course-guide` espone HCP buca-per-buca; ignorata route GesGolf `OPEN` con SI vuoti: `https://www.montecatinigolf.it/course-guide`.
 - `Monteveglio Asd`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale conferma 9 buche Par 32 ma non SI/HCP completo: `https://www.golfclubmonteveglio.it/wordpress/percorso/`.
 - `Mulino Cerrione`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale conferma 9 buche Par 36: `https://www.golfclubcerrione.com/`.
 - `Rovigolf`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale non espone scorecard SI/HCP sufficiente: `https://www.rovigolf.it/`.
 - `Salice Terme`: arancio; campo fisico 9, route `9 Buche` e `18 Buche`; fonte operativa GesGolf valida ma manca terza fonte ufficiale club con SI/HCP.
 - `San Giovanni Ssd`: verde / Stablr Approved; campo fisico 9, route `9 Buche` e `18 Buche`; sito ufficiale Canavese espone PAR/HCP buca-per-buca e FIG Piemonte conferma 9 buche/CR/Slope: `https://www.canavesecountryclub.it/wp/il-campo-da-golf/` e `https://www.federgolfpiemonte.it/circolo/golf-club-sgiovanni-dei-boschi`.
-- `Des Iles Borromees`: arancio; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`; usato `18 BUCHE 2023` come fonte SI anche per le 9, per evitare una route GesGolf Prime 2023 rumorosa con valore HCP anomalo: `https://www.golfdesilesborromees.it/campo.asp`.
+- `Des Iles Borromees`: verde / Stablr Approved; campo fisico 18, route `18 Buche`, `Prime Nove`, `Seconde Nove`. Correzione post-review: scorecard/misure campo ufficiali e controllo manuale Stablr confermano PAR/SI del percorso 18 buche; usato `18 BUCHE 2023` come fonte SI anche per le 9, per evitare una route GesGolf Prime 2023 rumorosa con valore HCP anomalo: `https://www.golfdesilesborromees.it/campo.asp`.
 
 Lezione operativa del batch semplice:
 - sui 9/18 semplici la tecnica ora e' stabile e veloce;
 - il controllo post-import deve restare obbligatorio, per evitare errori di struttura tipo “mappo troppo poco/troppo” e per verificare tee e default;
 - badge verde solo quando la terza ricerca approfondita trova pagina ufficiale del club, PDF ufficiale o immagine scorecard con PAR/SI-HCP buca-per-buca coerente con FIG/GesGolf.
+- se il sito ufficiale incorpora o linka GesGolf come fonte di percorso/handicap, quel rimando pesa come fonte club ufficiale; non va liquidato come semplice terza fonte esterna.
+- quando una pagina non espone testo leggibile al crawler, non fermarsi: cercare tab, immagini, pagine `course-guide`, pagine buca, link "misure campo", PDF, iframe o risultati indicizzati.

@@ -11,7 +11,7 @@
     "name_normalized": "montebelluna",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,10 +22,11 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "Campo fisico 9 buche; usato 18 ufficiale GesGolf 2024 per preservare SI 1..18 anche sul giro da 9.",
+      "verification_status": "verified",
+      "verification_notes": "Stablr Approved: il sito ufficiale conferma campo a nove buche e rimanda direttamente a GesGolf per EGA Playing Handicap; GesGolf e FIG sono quindi fonti coerenti per rendere il campo giocabile/verificato.",
       "official_course_links": [
-        "https://montebellunagolf.it/percorso/"
+        "https://montebellunagolf.it/percorso/",
+        "https://www.gesgolf.it/"
       ],
       "physical_hole_count": 9,
       "import_profile": "physical_9_with_official_18_variants",
@@ -33,7 +34,8 @@
         "circolo_id": "307",
         "gesgolf_club": "MONTEBELLUNA GOLF CLUB ASD"
       },
-      "product_rule": "Simple clubs only: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. GesGolf duplicate/noisy routes are de-rumored, not exposed."
+      "product_rule": "Simple clubs only: physical 9 => 9 Buche + 18 Buche; physical 18 => 18 Buche + Prime Nove + Seconde Nove. GesGolf duplicate/noisy routes are de-rumored, not exposed.",
+      "stablr_approved": true
     }
   },
   "routes": [
