@@ -763,15 +763,15 @@ Aggiornamento batch semplice `Argenta` -> `Salsomaggiore Terme`:
 - `Argenta`: verde / Stablr Approved; scorecard ufficiale immagine conferma PAR/HCP e combacia con GesGolf `Arg-EGA`: `https://argentagolf.it/score/`, asset `https://argentagolf.it/wp-content/uploads/2020/11/score-hq.jpg`.
 - `Brianza`: verde / Stablr Approved; pagina ufficiale `Descrizione Buche` espone PAR/HCP buca-per-buca e combacia con GesGolf `Gare`: `https://brianzagolf.it/campo/descrizione-buche/`.
 - `Ca' Nave Ssd`: verde / Stablr Approved; pagina ufficiale percorso contiene immagini buca-per-buca con PAR/HCP; asset scaricati e verificati, combaciano con GesGolf `CAMPIONATO`: `https://www.cadellanave.com/il-percorso/`.
-- `Frassanelle`: arancio; import giocabile da FIG + GesGolf `CHAMP.`, ma non e' stata trovata scorecard ufficiale completa PAR/HCP sul sito del club.
+- `Frassanelle`: arancio; import giocabile da FIG + GesGolf `CHAMP.`. Correzione post-review: la terza ricerca approfondita trova pagine ufficiali buca-per-buca con PAR/HCP, ma la buca 15 non combacia con l'import (`Par 4 / HCP 9` sul sito vs `Par 3 / SI 13` Stablr/GesGolf). Possibile riferimento a provvisori/variante GesGolf; mantenere arancio fino a verifica club, preservando per ora `Par 3 / SI 13`.
 - `Fronde`: verde / Stablr Approved; sito ufficiale espone 18 pagine buca-per-buca con PAR/HCP; scaricate e confrontate tutte, compresa correzione slug `buca-16-alberone`; sequenza combacia con GesGolf `Ega`: `https://www.golflefronde.it/il-campo/`.
-- `Roma Acquasanta`: arancio; import giocabile da FIG + GesGolf `NORMALE`, ma non e' stata trovata pagina ufficiale completa PAR/HCP; ignorate varianti GesGolf rumorose.
+- `Roma Acquasanta`: verde / Stablr Approved; correzione post-review con terza ricerca approfondita: la pagina ufficiale `The Course` espone immagini lightbox per tutte le 18 buche, con PAR/HCP nella fascia scorecard; sequenza combacia con GesGolf `NORMALE`. FIG resta fonte per CR/Slope e tee: `https://golfroma.it/en/the-course/`.
 - `Saturnia`: verde / Stablr Approved; pagina tecnica ufficiale Terme di Saturnia espone tabella completa PAR/HCP e tee; scelta esplicitamente la seconda route GesGolf `Saturnia 1-18` (`percorso_id 2589`) perche' combacia con il sito, ignorando il duplicato omonimo non coerente: `https://www.termedisaturnia.it/golf/informazioni-tecniche/`.
-- `Serra`: arancio; import giocabile da FIG + GesGolf `Normale`, ma non e' stata trovata scorecard ufficiale completa PAR/HCP.
-- `Trieste`: arancio; import giocabile da FIG + GesGolf `18 BUCHE`; sito ufficiale conferma pagina percorso ma non scorecard PAR/HCP completa.
-- `Verona`: arancio; import giocabile da FIG + GesGolf `VERONA`; non usati alias GesGolf duplicati (`Pallavicino`, `Baby 2024`) e non assegnato verde senza conferma ufficiale PAR/HCP completa.
+- `Serra`: verde / Stablr Approved; correzione post-review con terza ricerca approfondita: la pagina ufficiale carica come immagine/background la scorecard `BUCHE DEL PERCORSO` con PAR/HCP buca-per-buca; sequenza combacia con GesGolf `Normale`. FIG resta fonte per CR/Slope e tee: `https://www.golflaserra.it/golf#PERCORSO`, asset `https://irp.cdn-website.com/aec1ba38/dms3rep/multi/opt/BUCHE+DEL+PERCORSO-2880w.PNG`.
+- `Trieste`: arancio; import giocabile da FIG + GesGolf `18 BUCHE`. Correzione post-review: la terza ricerca approfondita trova pagine ufficiali buca-per-buca con PAR/HCP, ma la buca 3 non combacia (`HCP 14` sul sito vs `SI 15` Stablr/GesGolf) e il sito mostra una sequenza HCP non pienamente coerente; mantenere arancio fino a verifica club.
+- `Verona`: verde / Stablr Approved; correzione post-review con terza ricerca approfondita: la pagina ufficiale `score` espone PAR/HCP buca-per-buca e combacia con GesGolf `VERONA`; non usati alias GesGolf duplicati (`Pallavicino`, `Baby 2024`). FIG resta fonte per CR/Slope e tee: `https://www.golfclubverona.com/score/`.
 - `Salsomaggiore Terme`: arancio; import giocabile da FIG + GesGolf `I COLLI`; pagina Parma Golf conferma campo 18 buche, ma non espone scorecard PAR/HCP completa.
 - conteggio Supabase post-seed:
   - club Stablr giocabili: 70;
-  - Stablr Approved / verdi: 33;
-  - playable review / arancioni: 37.
+  - Stablr Approved / verdi: 36;
+  - playable review / arancioni: 34.
