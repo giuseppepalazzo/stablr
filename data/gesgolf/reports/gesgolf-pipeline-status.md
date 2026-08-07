@@ -521,9 +521,57 @@ Ultimo punto raggiunto:
   - `Girasoli`
   - `Globale Jesolo`
   - `Grado`
-- ultimo club scritto su Supabase: `Globale Jesolo`;
-- ultimi club sbloccati e scritti come arancio / `needs_review`:
-  - `Globale Jesolo`
+
+Ottavo batch import semplice con terzo livello approfondito:
+- Sono stati importati e seedati su Supabase altri 10 club semplici, mantenendo la regola di semplificazione prodotto:
+  - club fisici da 9 buche: solo `9 Buche` e `18 Buche`;
+  - club fisici da 18 buche: solo `18 Buche`, `Prime Nove`, `Seconde Nove`;
+  - nessuna route GesGolf rumorosa/provvisoria esposta in UX.
+- Club seedati:
+  - `Argentario` — arancione / `needs_review`; sito ufficiale conferma 18 buche PAR 71, ma non espone scorecard ufficiale PAR/HCP buca-per-buca.
+  - `Castellaro` — verde / `Stablr Approved`; sito ufficiale espone scorecard 9 buche con PAR/HCP coerenti con GesGolf.
+  - `Claviere` — verde / `Stablr Approved`; correzione post-review: le immagini ufficiali buca-per-buca espongono PAR/HCP per 1/10 ... 9/18 e combaciano con GesGolf `CLAVIERE`.
+  - `San Domenico - Egnazia` — arancione / `needs_review`; sito ufficiale conferma 18 buche PAR 72, ma manca scorecard ufficiale PAR/HCP completa.
+  - `Torrenova Ssd` — arancione / `needs_review`; correzione post-review: la route `9 Buche` usa ora GesGolf `Torrenova 9`, coerente con la scorecard 9 buche fornita manualmente; la route `18 Buche` resta giocabile da GesGolf ma richiede Evidence ufficiale completa prima del verde.
+  - `Toscana` — arancione / `needs_review`; sito ufficiale Il Pelagone conferma 18 buche, ma non espone scorecard ufficiale PAR/HCP; segnali terzi non sono evidenza certificante.
+  - `Venezia` — verde / `Stablr Approved`; pagine ufficiali buca-per-buca espongono PAR/HCP per tutte le 18 buche e combaciano con GesGolf.
+  - `Passiria Merano` — verde / `Stablr Approved`; PDF scorecard ufficiale espone PAR/HCP per tutte le 18 buche e combacia con GesGolf.
+  - `Pevero` — verde / `Stablr Approved`; correzione post-review: il Birdie Book ufficiale, renderizzato visualmente, espone PAR/HCP per tutte le 18 buche e combacia con GesGolf `18 buche`.
+  - `Petersberg` — verde / `Stablr Approved`; correzione post-review: le immagini ufficiali cliccabili espongono PAR/HCP per tutte le 18 buche e combaciano con GesGolf route `1`.
+- Terzo livello applicato in modo piu' maturo:
+  - ricerca mirata su pagine campo/course guide/scorecard/PDF;
+  - controllo di pagine buca-per-buca quando disponibili;
+  - apertura di link nascosti o secondari come PDF scorecard e Birdie Book;
+  - fonti terze usate solo come indizio, non come evidenza certificante.
+- Esito audit DB dopo seed:
+  - club giocabili totali: 80;
+  - `Stablr Approved` verdi: 42;
+  - arancioni / `needs_review`: 38.
+- Script batch:
+  - `scripts/gesgolf/build-simple-import-batch-2026-08-07.mjs`
+- File import generati:
+  - `data/gesgolf/imports/argentario-normalized.json`
+  - `data/gesgolf/imports/castellaro-normalized.json`
+  - `data/gesgolf/imports/claviere-normalized.json`
+  - `data/gesgolf/imports/san-domenico-egnazia-normalized.json`
+  - `data/gesgolf/imports/torrenova-ssd-normalized.json`
+  - `data/gesgolf/imports/toscana-normalized.json`
+  - `data/gesgolf/imports/venezia-normalized.json`
+  - `data/gesgolf/imports/passiria-merano-normalized.json`
+  - `data/gesgolf/imports/pevero-normalized.json`
+  - `data/gesgolf/imports/petersberg-normalized.json`
+- File normalized/raw aggiunti per scrape manuale controllato:
+  - `Passiria Merano`
+  - `Pevero`
+  - `Petersberg`
+
+SEGNO4:
+- import batch 10 club completato e seedato;
+- terzo livello applicato con controllo profondo e distinzione netta tra Evidence ufficiale e indizi terzi;
+- nuovi verdi: `Castellaro`, `Claviere`, `Venezia`, `Passiria Merano`, `Pevero`, `Petersberg`;
+- nuovi arancioni: `Argentario`, `San Domenico - Egnazia`, `Torrenova Ssd`, `Toscana`;
+- conteggio prodotto dopo seed e correzione post-review: 80 club giocabili, 42 verdi, 38 arancioni;
+- prossimo lavoro: test front-end dopo questo batch, poi continuare import semplici con lo stesso metodo.
 
 ## Controllo manuale Stablr Approved in corso
 
@@ -772,6 +820,6 @@ Aggiornamento batch semplice `Argenta` -> `Salsomaggiore Terme`:
 - `Verona`: verde / Stablr Approved; correzione post-review con terza ricerca approfondita: la pagina ufficiale `score` espone PAR/HCP buca-per-buca e combacia con GesGolf `VERONA`; non usati alias GesGolf duplicati (`Pallavicino`, `Baby 2024`). FIG resta fonte per CR/Slope e tee: `https://www.golfclubverona.com/score/`.
 - `Salsomaggiore Terme`: arancio; import giocabile da FIG + GesGolf `I COLLI`; pagina Parma Golf conferma campo 18 buche, ma non espone scorecard PAR/HCP completa.
 - conteggio Supabase post-seed:
-  - club Stablr giocabili: 70;
-  - Stablr Approved / verdi: 36;
-  - playable review / arancioni: 34.
+  - club Stablr giocabili: 80;
+  - Stablr Approved / verdi: 42;
+  - playable review / arancioni: 38.
