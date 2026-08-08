@@ -573,6 +573,51 @@ SEGNO4:
 - conteggio prodotto dopo seed e correzione post-review: 80 club giocabili, 42 verdi, 38 arancioni;
 - prossimo lavoro: test front-end dopo questo batch, poi continuare import semplici con lo stesso metodo.
 
+Nono batch import controllato verso quota 100:
+- Sono stati importati e seedati su Supabase altri 20 club, tutti come arancio / `needs_review`.
+- Obiettivo del batch: aumentare copertura giocabile senza assegnare badge verde prima del controllo terzo livello completo.
+- Club seedati:
+  - `Acaya`
+  - `Panorama Golf`
+  - `Piandisole 2025`
+  - `Riva Toscana`
+  - `Tesino`
+  - `Bellosguardo`
+  - `Bologna`
+  - `Ca' Amata`
+  - `Castello Spessa`
+  - `Cerreto Miglianico`
+  - `Courmayeur`
+  - `Croara Ssd`
+  - `Dolomiti`
+  - `Faenza Cicogne`
+  - `Garlenda`
+  - `Grado`
+  - `Santo Stefano Golf`
+  - `Palermo`
+  - `Colombera Asd`
+  - `Bormio Ssd`
+- Regola applicata:
+  - esposte solo le route giocabili Stablr;
+  - alias, duplicati, provvisori non confermati e route rumorose GesGolf/FIG non sono stati esposti in UX;
+  - club fisici da 9 buche ordinati come `9 Buche` poi `18 Buche`;
+  - club fisici/semi-semplici da 18 buche ordinati come `18 Buche`, `Prime Nove`, `Seconde Nove` quando disponibili.
+- Candidati semplici bloccati e rimandati:
+  - `Mirasole`: scrape GesGolf non riuscito per assenza del form atteso `__EVENTVALIDATION`;
+  - `St. Vigil Seis`: scrape GesGolf non riuscito per assenza del form atteso `__EVENTVALIDATION`.
+- Script batch:
+  - `scripts/gesgolf/build-simple-import-batch-2026-08-08.mjs`
+- Esito audit DB dopo seed:
+  - club giocabili totali: 100;
+  - `Stablr Approved` verdi: 42;
+  - arancioni / `needs_review`: 58.
+
+SEGNO5:
+- quota 100 club giocabili raggiunta;
+- nuovi 20 importati tutti arancioni, in attesa di controllo terzo livello club-per-club;
+- prossimo lavoro: guidare il controllo manuale dei 20 nuovi partendo da quelli con maggiore probabilita' di scorecard ufficiale/PDF/immagini buca-per-buca;
+- dopo il controllo manuale, promuovere a verde solo i club in cui FIG + GesGolf + Evidence ufficiale combaciano.
+
 ## Controllo manuale Stablr Approved in corso
 
 - `Antognolla`: approvato manualmente; scorecard ufficiale/Worldclass conferma par e SI, CR/Slope mantenuti da FIG.
@@ -823,3 +868,19 @@ Aggiornamento batch semplice `Argenta` -> `Salsomaggiore Terme`:
   - club Stablr giocabili: 80;
   - Stablr Approved / verdi: 42;
   - playable review / arancioni: 38.
+
+Aggiornamento post-audit batch quota 100:
+- batch da 20 club importato e seedato in Supabase il 2026-08-08, portando il catalogo a 100 club giocabili;
+- dopo il controllo approfondito del terzo livello e' stata promossa autonomamente solo `Garlenda`;
+- criterio: FIG ufficiale + GesGolf hole-by-hole + sito ufficiale del club con PAR/HCP buca-per-buca completo e coerente;
+- `Garlenda`: verde / Stablr Approved; pagina ufficiale `Percorso` espone PAR/HCP per tutte le 18 buche e la sequenza combacia con GesGolf `GARLENDA`: `https://www.garlendagolf.it/percorso/`;
+- nessun altro club del batch e' stato promosso automaticamente: gli altri 19 restano arancioni per assenza di HCP/SI completo ufficiale, mismatch o struttura da correggere/classificare;
+- conteggio Supabase post-promozione:
+  - club Stablr giocabili: 100;
+  - Stablr Approved / verdi: 43;
+  - playable review / arancioni: 57.
+- report dettagliato: `data/gesgolf/reports/third-level-audit-batch-20-2026-08-08.md`.
+
+SEGNO7:
+- ripartenza prossima sessione: chiudere manual review dei 19 arancioni del batch quota 100 prima di importare altri club;
+- priorita' tecnica: decidere correzione struttura per `Tesino`, `Courmayeur`, `Bellosguardo`; classificare `Colombera ASD`; risolvere mismatch `Bologna`; cercare scorecard/HCP ufficiali per i near-green.
