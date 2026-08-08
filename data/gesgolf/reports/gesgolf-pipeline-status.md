@@ -533,7 +533,7 @@ Ottavo batch import semplice con terzo livello approfondito:
   - `Claviere` — verde / `Stablr Approved`; correzione post-review: le immagini ufficiali buca-per-buca espongono PAR/HCP per 1/10 ... 9/18 e combaciano con GesGolf `CLAVIERE`.
   - `San Domenico - Egnazia` — arancione / `needs_review`; sito ufficiale conferma 18 buche PAR 72, ma manca scorecard ufficiale PAR/HCP completa.
   - `Torrenova Ssd` — arancione / `needs_review`; correzione post-review: la route `9 Buche` usa ora GesGolf `Torrenova 9`, coerente con la scorecard 9 buche fornita manualmente; la route `18 Buche` resta giocabile da GesGolf ma richiede Evidence ufficiale completa prima del verde.
-  - `Toscana` — arancione / `needs_review`; sito ufficiale Il Pelagone conferma 18 buche, ma non espone scorecard ufficiale PAR/HCP; segnali terzi non sono evidenza certificante.
+  - `Toscana` — arancione / `needs_review`; correzione post-review: la brochure ufficiale espone PAR/HCP visuali, ma non certifica la route `AZZURRE` importata. Le prime nove combaciano con un diverso segmento GesGolf, la buca 13 non mostra box PAR/HCP leggibile e le seconde nove hanno HCP non riconducibili a una sequenza SI 1..18 pulita. Serve scorecard ufficiale corrente o conferma segreteria prima del verde.
   - `Venezia` — verde / `Stablr Approved`; pagine ufficiali buca-per-buca espongono PAR/HCP per tutte le 18 buche e combaciano con GesGolf.
   - `Passiria Merano` — verde / `Stablr Approved`; PDF scorecard ufficiale espone PAR/HCP per tutte le 18 buche e combacia con GesGolf.
   - `Pevero` — verde / `Stablr Approved`; correzione post-review: il Birdie Book ufficiale, renderizzato visualmente, espone PAR/HCP per tutte le 18 buche e combacia con GesGolf `18 buche`.
