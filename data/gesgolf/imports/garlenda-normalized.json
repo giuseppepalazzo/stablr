@@ -24,7 +24,7 @@
       "hole_by_hole_source": "gesgolf",
       "verification_status": "verified",
       "stablr_approved": true,
-      "verification_notes": "Stablr Approved: FIG official catalog + GesGolf hole-by-hole data + official Garlenda course page exposing PAR/HCP for all 18 holes. Official site sequence matches the imported GesGolf sequence; provisional/duplicate routes are intentionally not exposed in UX.",
+      "verification_notes": "Stablr Approved: FIG official catalog + GesGolf GARLENDA hole-by-hole import + official Garlenda course page exposing PAR/HCP for all 18 holes. Official site sequence matches the imported GesGolf sequence; provisional/duplicate routes are intentionally not exposed in UX.",
       "official_course_links": [
         "https://www.garlendagolf.it/percorso/"
       ],

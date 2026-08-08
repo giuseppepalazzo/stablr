@@ -871,16 +871,36 @@ Aggiornamento batch semplice `Argenta` -> `Salsomaggiore Terme`:
 
 Aggiornamento post-audit batch quota 100:
 - batch da 20 club importato e seedato in Supabase il 2026-08-08, portando il catalogo a 100 club giocabili;
-- dopo il controllo approfondito del terzo livello e' stata promossa autonomamente solo `Garlenda`;
+- dopo il controllo approfondito del terzo livello sono stati promossi autonomamente `Garlenda`, `Riva Toscana`, `Panorama Golf`, `Croara Ssd`, `Dolomiti` e `Bormio Ssd`;
 - criterio: FIG ufficiale + GesGolf hole-by-hole + sito ufficiale del club con PAR/HCP buca-per-buca completo e coerente;
 - `Garlenda`: verde / Stablr Approved; pagina ufficiale `Percorso` espone PAR/HCP per tutte le 18 buche e la sequenza combacia con GesGolf `GARLENDA`: `https://www.garlendagolf.it/percorso/`;
-- nessun altro club del batch e' stato promosso automaticamente: gli altri 19 restano arancioni per assenza di HCP/SI completo ufficiale, mismatch o struttura da correggere/classificare;
+- `Riva Toscana`: verde / Stablr Approved; pagina ufficiale `Percorso` e scorecard espongono PAR/HCP per tutte le 18 buche, sequenza coerente con GesGolf `18 Riva`: `https://www.rivatoscana.it/golf-resort-toscana/percorso-golf`;
+- `Panorama Golf`: verde / Stablr Approved; pagina ufficiale `Percorso Panorama` linka card buca-per-buca con PAR/HCP doppio 1/10 ... 9/18, sequenza coerente con GesGolf `PANORAMA`: `https://www.panoramagolf.it/index.php/il-campo/percorso-panorama`;
+- `Croara Ssd`: verde / Stablr Approved; pagina ufficiale `Percorso` usa immagini buca-per-buca con PAR/HCP, sequenza coerente con GesGolf `CROARA 1`: `https://www.golfcroara.it/percorso/`;
+- `Dolomiti`: verde / Stablr Approved; il `Campo virtuale` ufficiale incorpora `VirtualTour/virtualfield.html` con card visuali `Table1.png` ... `Table18.png`; PAR/SI combaciano con GesGolf `DOLOMITI`: `https://www.dolomitigolf.it/campovirtuale/`, `https://www.dolomitigolf.it/VirtualTour/virtualfield.html`;
+- `Bormio Ssd`: verde / Stablr Approved; trattato come campo fisico 9 normale con route `9 Buche` + `18 Buche`. Pagina ufficiale conferma 9 buche fisiche e sezioni 1/10 ... 9/18, HCP 9 buche coerente con Stablr; PDF WHS ufficiali confermano `9 Buche Par 33` e `18 Buche Par 66`: `https://www.bormiogolf.com/il-percorso/`;
+- gli altri 14 restano arancioni per assenza di HCP/SI completo ufficiale estratto, mismatch o struttura da correggere/classificare;
+- `Ca' Amata` resta high-priority per controllo manuale: il sito contiene Evidence ma confliggente;
+- `Ca' Amata`: controllo manuale screenshot 2026-08-08 mostra conflitto interno sul sito ufficiale. La tabella riepilogativa in fondo pagina combacia con GesGolf/import (`1=HCP11`, `2=HCP3`, `18=HCP2`), mentre le card singole mostrate indicano valori diversi (`1=HCP12`, `2=HCP6`, `18=HCP5`). Restare arancione fino a conferma club/admin su quale Evidence sia corrente.
 - conteggio Supabase post-promozione:
   - club Stablr giocabili: 100;
-  - Stablr Approved / verdi: 43;
-  - playable review / arancioni: 57.
+  - Stablr Approved / verdi: 48;
+  - playable review / arancioni: 52.
 - report dettagliato: `data/gesgolf/reports/third-level-audit-batch-20-2026-08-08.md`.
 
 SEGNO7:
-- ripartenza prossima sessione: chiudere manual review dei 19 arancioni del batch quota 100 prima di importare altri club;
+- ripartenza prossima sessione: chiudere manual review dei 14 arancioni del batch quota 100 prima di importare altri club;
 - priorita' tecnica: decidere correzione struttura per `Tesino`, `Courmayeur`, `Bellosguardo`; classificare `Colombera ASD`; risolvere mismatch `Bologna`; cercare scorecard/HCP ufficiali per i near-green.
+
+SEGNO8:
+- correzione del metodo terzo livello: per i siti con immagini/card, aprire/scaricare le singole buche e leggere visivamente PAR/HCP; non fermarsi all'HTML testuale.
+- verdi aggiunti post-cazziatone: `Riva Toscana`, `Panorama Golf`, `Croara Ssd`.
+
+SEGNO9:
+- `Ca' Amata` resta arancione non per assenza di Evidence, ma per conflitto tra Evidence ufficiali interne al sito.
+
+SEGNO10:
+- `Dolomiti` promosso verde dopo lettura diretta dell'iframe ufficiale `VirtualTour/virtualfield.html` e delle card visuali `Table1.png` ... `Table18.png`.
+
+SEGNO11:
+- `Bormio Ssd` promosso verde come fisico 9 normale: sito ufficiale + PDF WHS confermano struttura 9/18, GesGolf resta Source per SI ufficiale 18.

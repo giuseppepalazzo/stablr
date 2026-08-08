@@ -29,7 +29,14 @@ const CLUBS = [
     gesSlug: "panorama-golf",
     circoloId: "765",
     physicalHoleCount: 9,
-    notes: "FIG official catalog + GesGolf PANORAMA hole-by-hole import. Third-level official club scorecard evidence still pending.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.panoramagolf.it/index.php/il-campo/percorso-panorama",
+      "https://www.panoramagolf.it/index.php/component/content/article/8-buche/3-buca-1?Itemid=101"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf PANORAMA hole-by-hole import + official Panorama hole cards exposing PAR/HCP pairs for holes 1/10 through 9/18. Official card sequence matches the imported GesGolf sequence.",
     routes: [
       { figCourse: "9 Buche", name: "9 Buche", gesRoute: "PANORAMA", gesRouteId: 2211, start: 0, count: 9, defaultForHoles: 9 },
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "PANORAMA", gesRouteId: 2211, start: 0, count: 18, defaultForHoles: 18 }
@@ -52,7 +59,13 @@ const CLUBS = [
     gesSlug: "riva-toscana",
     circoloId: "816",
     physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf 18 Riva hole-by-hole import. Third-level official club scorecard evidence still pending.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.rivatoscana.it/golf-resort-toscana/percorso-golf"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf 18 Riva hole-by-hole import + official Riva Toscana course page/scorecard exposing PAR/HCP for all 18 holes. Official scorecard sequence matches the imported GesGolf sequence.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "18 Riva", gesRouteId: 2603, start: 0, count: 18, defaultForHoles: 18 },
       { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "18 Riva", gesRouteId: 2603, start: 0, count: 9, defaultForHoles: 9 },
@@ -148,7 +161,13 @@ const CLUBS = [
     gesSlug: "croara-ssd",
     circoloId: "855",
     physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf CROARA 1 hole-by-hole import. Provisional par-71 route is intentionally not exposed in UX.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.golfcroara.it/percorso/"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf CROARA 1 hole-by-hole import + official Croara course images exposing PAR/HCP for all 18 holes. Official image sequence matches the imported GesGolf sequence; provisional par-71 route is intentionally not exposed in UX.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "CROARA 1", gesRouteId: 2970, start: 0, count: 18, defaultForHoles: 18 },
       { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "CROARA 1", gesRouteId: 2970, start: 0, count: 9, defaultForHoles: 9 },
@@ -160,7 +179,14 @@ const CLUBS = [
     gesSlug: "dolomiti",
     circoloId: "140",
     physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf DOLOMITI hole-by-hole import. 2x back-nine route is intentionally not exposed in UX.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.dolomitigolf.it/campovirtuale/",
+      "https://www.dolomitigolf.it/VirtualTour/virtualfield.html"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf DOLOMITI hole-by-hole import + official Dolomiti virtual course hole cards exposing PAR/SI for all 18 holes. Official visual sequence matches the imported GesGolf sequence; 2x back-nine route is intentionally not exposed in UX.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "DOLOMITI", gesRouteId: 180, start: 0, count: 18, defaultForHoles: 18 },
       { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "DOLOMITI", gesRouteId: 180, start: 0, count: 9, defaultForHoles: 9 },
@@ -183,7 +209,13 @@ const CLUBS = [
     gesSlug: "garlenda",
     circoloId: "17",
     physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf GARLENDA hole-by-hole import. Provisional/duplicate routes are intentionally not exposed in UX.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.garlendagolf.it/percorso/"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf GARLENDA hole-by-hole import + official Garlenda course page exposing PAR/HCP for all 18 holes. Official site sequence matches the imported GesGolf sequence; provisional/duplicate routes are intentionally not exposed in UX.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "GARLENDA", gesRouteId: 106, start: 0, count: 18, defaultForHoles: 18 },
       { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "GARLENDA", gesRouteId: 106, start: 0, count: 9, defaultForHoles: 9 },
@@ -239,7 +271,15 @@ const CLUBS = [
     gesSlug: "bormio-ssd",
     circoloId: "825",
     physicalHoleCount: 9,
-    notes: "FIG official catalog + GesGolf BORMIO hole-by-hole import. Par-62 provisional route is intentionally not exposed in UX.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.bormiogolf.com/il-percorso/",
+      "https://www.bormiogolf.com/media/userfiles/ReportTabellaEgaWHS_Bormio_18_buche.pdf",
+      "https://www.bormiogolf.com/media/userfiles/ReportTabellaEgaWHS_Bormio_9_buche.pdf"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf BORMIO hole-by-hole import + official Bormio page confirming a physical 9-hole course with hole sections 1/10 through 9/18 and HCP values matching the Stablr 9-hole route. Official WHS PDFs confirm both 9 Buche Par 33 and 18 Buche Par 66; GesGolf supplies the official 18-hole SI sequence. Par-62 provisional route is intentionally not exposed in UX.",
     routes: [
       { figCourse: "9 Buche", name: "9 Buche", gesRoute: "BORMIO", gesRouteId: 2664, start: 0, count: 9, defaultForHoles: 9 },
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "BORMIO", gesRouteId: 2664, start: 0, count: 18, defaultForHoles: 18 }
@@ -399,7 +439,7 @@ async function main() {
         name_normalized: figClub.name_normalized,
         city: figClub.city || null,
         country: figClub.country || "Italia",
-        data_status: "needs_review",
+        data_status: config.dataStatus || "needs_review",
         source_type: "fig_import",
         is_complex: false,
         playable: true,
@@ -410,8 +450,11 @@ async function main() {
           ...(figClub.source_payload || {}),
           official_catalog: "fig",
           hole_by_hole_source: "gesgolf",
-          verification_status: "playable_review",
+          verification_status: config.dataStatus === "verified" ? "verified" : "playable_review",
+          ...(config.approved ? { stablr_approved: true } : {}),
           verification_notes: config.notes,
+          ...(config.officialCourseLinks ? { official_course_links: config.officialCourseLinks } : {}),
+          ...(config.websiteEvidenceStatus ? { website_evidence_status: config.websiteEvidenceStatus } : {}),
           physical_hole_count: config.physicalHoleCount,
           import_profile:
             config.physicalHoleCount === 9
