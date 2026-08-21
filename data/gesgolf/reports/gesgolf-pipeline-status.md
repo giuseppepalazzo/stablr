@@ -1131,3 +1131,14 @@ SEGNO19:
   - corretta `Paradiso 9 buche`: prima puntava a metadata/buche `Marchesa 1-9`; ora usa il segmento front-nine di `Paradiso` con HCP compressi 1-9;
   - struttura finale esposta: `La Marchesa` 18, `Paradiso` 18, `La Marchesa Prime 9`, `Paradiso Prime 9`;
   - Villa Carolina Ssd promosso verde (`verified`), mantenendo FIG come fonte ufficiale tee/CR/Slope.
+
+SEGNO20:
+- regola da ricordare per task futura sui club fisici da 18:
+  - Stablr e' una scorecard giocabile, non solo un archivio federale: nei campi fisici da 18, `Prime 9` e `Seconde 9` sono opzioni pratiche reali anche quando non sempre sono nominate come percorsi autonomi sul sito o in GesGolf;
+  - non rimuovere retroattivamente le 9 derivate gia' importate: oltre meta' DB e' gia' coerente con questa UX e tutte le route 9 analizzate hanno rating/tee utilizzabili nel JSON;
+  - task futura consigliata: classificare internamente le route 9 in `FIG-rated 9`, `GesGolf-official 9`, `derived playable 9`, senza rompere la UX;
+  - quando scriveremo ai club, chiedere anche i nomi locali/d'uso reale dei percorsi e delle combinazioni: Stablr puo' usare nomi confermati dal club anche quando FIG/GesGolf usano nomi tecnici da gara.
+- microfix Villa Carolina Ssd per coerenza UX 18 buche:
+  - aggiunte anche `La Marchesa Seconde 9` e `Paradiso Seconde 9`;
+  - PAR/HCP delle Seconde 9 derivano dai segmenti verificati 10-18 dei rispettivi percorsi ufficiali da 18, con HCP compressi 1-9;
+  - i tee delle Seconde 9 sono marcati come fallback `derived_fig_split`: non sono rating FIG autonomi trovati nei PDF ufficiali, ma servono a mantenere giocabilita' pratica coerente con gli altri campi fisici da 18.
