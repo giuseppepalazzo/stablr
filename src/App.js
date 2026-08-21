@@ -8046,7 +8046,21 @@ function App() {
               gap: "12px"
             }}
           >
-            <div style={{ fontSize: "25px", fontWeight: 700, minWidth: 0 }}>{openedCourse.name}</div>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: "25px", fontWeight: 700 }}>{openedCourse.name}</div>
+              {roundSetupAffiliationLabel && (
+                <div
+                  style={{
+                    marginTop: "4px",
+                    color: colors.subtext,
+                    fontSize: "13px",
+                    lineHeight: 1.4
+                  }}
+                >
+                  {roundSetupAffiliationLabel}
+                </div>
+              )}
+            </div>
 
             {openedCourse.playable && (
               <button
@@ -8070,18 +8084,6 @@ function App() {
           >
             {roundSetupTopSubtitle}
           </div>
-          {roundSetupAffiliationLabel && (
-            <div
-              style={{
-                marginTop: "4px",
-                color: colors.subtext,
-                fontSize: "13px",
-                lineHeight: 1.4
-              }}
-            >
-              {roundSetupAffiliationLabel}
-            </div>
-          )}
         </div>
 
         <h2 style={roundSetupSectionTitleStyle}>Nome del giro</h2>
