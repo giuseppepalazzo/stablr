@@ -2,16 +2,16 @@
   "schema_version": "1.0",
   "source": {
     "system": "gesgolf",
-    "scraped_at": "2026-08-21T15:39:25.893Z",
+    "scraped_at": "2026-08-21T16:23:46.461Z",
     "club_external_id": "fig-club-nazionale",
-    "notes": "FIG Campionato CR/Slope + GesGolf SCORE hole-by-hole import. Official club site confirms course structure but a full official PAR/HCP scorecard was not found in the third-level scan; keep orange pending official confirmation."
+    "notes": "Stablr Approved: FIG Campionato CR/Slope + GesGolf SCORE hole-by-hole import + official Golf Nazionale course page exposing complete course data including SI/HCP. Official site evidence matches the imported 18-hole route."
   },
   "club": {
     "name": "Nazionale",
     "name_normalized": "nazionale",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,13 +22,15 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "FIG Campionato CR/Slope + GesGolf SCORE hole-by-hole import. Official club site confirms course structure but a full official PAR/HCP scorecard was not found in the third-level scan; keep orange pending official confirmation.",
-      "website_evidence_status": "pending_manual_review",
+      "verification_status": "verified",
+      "stablr_approved": true,
+      "verification_notes": "Stablr Approved: FIG Campionato CR/Slope + GesGolf SCORE hole-by-hole import + official Golf Nazionale course page exposing complete course data including SI/HCP. Official site evidence matches the imported 18-hole route.",
+      "website_evidence_status": "verified",
       "physical_hole_count": 18,
       "import_profile": "physical_18_simple",
       "official_course_links": [
-        "https://golfnazionale.it/"
+        "https://golfnazionale.it/campo",
+        "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=601"
       ],
       "product_rule": "Lazio completion batch: expose the simplest Stablr-playable structure. Ignore temporary/provisional routes unless they represent the current stable club setup."
     }
@@ -52,7 +54,7 @@
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": 18,
-          "default_source": "fig_operational_sources",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Physical 18-hole club: full 18 is default; Prime Nove is default for 9-hole play and Seconde Nove is secondary."
         },
         "gesgolf": {
@@ -304,7 +306,7 @@
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": 9,
-          "default_source": "fig_operational_sources",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Physical 18-hole club: full 18 is default; Prime Nove is default for 9-hole play and Seconde Nove is secondary."
         },
         "gesgolf": {
@@ -502,7 +504,7 @@
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": null,
-          "default_source": "fig_operational_sources",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Physical 18-hole club: full 18 is default; Prime Nove is default for 9-hole play and Seconde Nove is secondary."
         },
         "gesgolf": {

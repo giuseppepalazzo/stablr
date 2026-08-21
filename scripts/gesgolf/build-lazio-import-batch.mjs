@@ -78,13 +78,13 @@ const CLUBS = [
   },
   {
     name: "Fiuggi 1928",
-    dataStatus: "needs_review",
-    approved: false,
+    dataStatus: "verified",
+    approved: true,
     physicalHoleCount: 18,
     importProfile: "physical_18_simple",
-    holeSource: "third_party_scorecard_cross_checked_with_fig_and_official_site_par",
+    holeSource: "fig_gesgolf_official_site",
     notes:
-      "FIG CR/Slope + official club/Federgolf Lazio page confirms 18-hole Par 70. Hole-by-hole PAR/SI imported from public scorecard sources; keep orange until official club scorecard/PDF confirms SI.",
+      "Stablr Approved: FIG CR/Slope + official Fiuggi course page/cards expose PAR and HCP/SI buca-per-buca for all 18 holes. The official sequence matches the imported playable route.",
     officialCourseLinks: [
       "https://golfclubfiuggi1928.it/percorso/",
       "https://www.federgolflazio.it/circoli-del-lazio/golf-club-fiuggi-1928/"
@@ -146,8 +146,8 @@ const CLUBS = [
   },
   {
     name: "Nazionale",
-    dataStatus: "needs_review",
-    approved: false,
+    dataStatus: "verified",
+    approved: true,
     physicalHoleCount: 18,
     importProfile: "physical_18_simple",
     gesSlug: "nazionale",
@@ -156,9 +156,10 @@ const CLUBS = [
     gesRouteId: "1615",
     holeSource: "gesgolf",
     notes:
-      "FIG Campionato CR/Slope + GesGolf SCORE hole-by-hole import. Official club site confirms course structure but a full official PAR/HCP scorecard was not found in the third-level scan; keep orange pending official confirmation.",
+      "Stablr Approved: FIG Campionato CR/Slope + GesGolf SCORE hole-by-hole import + official Golf Nazionale course page exposing complete course data including SI/HCP. Official site evidence matches the imported 18-hole route.",
     officialCourseLinks: [
-      "https://golfnazionale.it/"
+      "https://golfnazionale.it/campo",
+      "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=601"
     ],
     routes: [
       { figCourse: "Campionato", name: "18 Buche", holes: "gesAll18", displayOrder: 1, defaultForHoles: 18 },
@@ -191,15 +192,15 @@ const CLUBS = [
   },
   {
     name: "Rieti",
-    dataStatus: "needs_review",
-    approved: false,
+    dataStatus: "verified",
+    approved: true,
     physicalHoleCount: 9,
     importProfile: "physical_9_with_official_18_variants",
-    holeSource: "third_party_scorecard_cross_checked_with_fig_and_official_site_par",
+    holeSource: "fig_gesgolf_official_site",
     notes:
-      "FIG CR/Slope + official club/Federgolf Lazio pages confirm physical 9-hole Par 35. Hole-by-hole PAR/SI imported from public scorecard evidence; keep orange until official club scorecard confirms SI.",
+      "Stablr Approved: FIG CR/Slope + official Rieti course page confirms physical 9-hole course and exposes PAR/HCP buca-per-buca. The official sequence matches the imported 9-hole playable route.",
     officialCourseLinks: [
-      "https://www.golfclubrieti.com/",
+      "https://www.golfclubrieti.com/il-percorso-di-gioco.html",
       "https://www.federgolflazio.it/circoli-del-lazio/rieti-centro-ditalia/"
     ],
     holes9: [
@@ -225,6 +226,7 @@ const CLUBS = [
     isComplex: true,
     physicalHoleCount: 27,
     physicalRouteCount: 2,
+    clubCardSubtitle: "2 percorsi",
     importProfile: "complex_27_championship_family",
     gesSlug: "terre-consoli",
     gesCircoloId: "499",
@@ -448,6 +450,7 @@ async function buildPayload(figCatalog, config) {
         website_evidence_status: config.approved ? "verified" : "pending_manual_review",
         physical_hole_count: config.physicalHoleCount,
         ...(config.physicalRouteCount ? { physical_route_count: config.physicalRouteCount } : {}),
+        ...(config.clubCardSubtitle ? { club_card_subtitle: config.clubCardSubtitle } : {}),
         import_profile: config.importProfile,
         official_course_links: config.officialCourseLinks,
         product_rule:

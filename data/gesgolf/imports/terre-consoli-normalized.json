@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "source": {
     "system": "gesgolf",
-    "scraped_at": "2026-08-21T15:39:25.990Z",
+    "scraped_at": "2026-08-21T16:23:46.595Z",
     "club_external_id": "fig-club-terre-consoli",
     "notes": "FIG CR/Slope + GesGolf hole-by-hole import for Championship and Family/Executive routes. Official site confirms Championship Course and Family Course structure, but full official SI table was not found; keep orange pending manual/secretary confirmation."
   },
@@ -27,6 +27,7 @@
       "website_evidence_status": "pending_manual_review",
       "physical_hole_count": 27,
       "physical_route_count": 2,
+      "club_card_subtitle": "2 percorsi",
       "import_profile": "complex_27_championship_family",
       "official_course_links": [
         "https://terredeiconsoligolfclub.it/en/course/championship-course/",

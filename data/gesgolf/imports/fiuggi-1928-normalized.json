@@ -1,17 +1,17 @@
 {
   "schema_version": "1.0",
   "source": {
-    "system": "third_party_scorecard_cross_checked_with_fig_and_official_site_par",
-    "scraped_at": "2026-08-21T15:39:25.860Z",
+    "system": "fig_gesgolf_official_site",
+    "scraped_at": "2026-08-21T16:23:46.397Z",
     "club_external_id": "fig-club-fiuggi-1928",
-    "notes": "FIG CR/Slope + official club/Federgolf Lazio page confirms 18-hole Par 70. Hole-by-hole PAR/SI imported from public scorecard sources; keep orange until official club scorecard/PDF confirms SI."
+    "notes": "Stablr Approved: FIG CR/Slope + official Fiuggi course page/cards expose PAR and HCP/SI buca-per-buca for all 18 holes. The official sequence matches the imported playable route."
   },
   "club": {
     "name": "Fiuggi 1928",
     "name_normalized": "fiuggi 1928",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -21,10 +21,11 @@
     "source_payload": {
       "kind": "club",
       "official_catalog": "fig",
-      "hole_by_hole_source": "third_party_scorecard_cross_checked_with_fig_and_official_site_par",
-      "verification_status": "playable_review",
-      "verification_notes": "FIG CR/Slope + official club/Federgolf Lazio page confirms 18-hole Par 70. Hole-by-hole PAR/SI imported from public scorecard sources; keep orange until official club scorecard/PDF confirms SI.",
-      "website_evidence_status": "pending_manual_review",
+      "hole_by_hole_source": "fig_gesgolf_official_site",
+      "verification_status": "verified",
+      "stablr_approved": true,
+      "verification_notes": "Stablr Approved: FIG CR/Slope + official Fiuggi course page/cards expose PAR and HCP/SI buca-per-buca for all 18 holes. The official sequence matches the imported playable route.",
+      "website_evidence_status": "verified",
       "physical_hole_count": 18,
       "import_profile": "physical_18_simple",
       "official_course_links": [
@@ -47,11 +48,11 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "third_party_scorecard_cross_checked_with_fig_and_official_site_par",
+        "hole_by_hole_source": "fig_gesgolf_official_site",
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": 18,
-          "default_source": "fig_operational_sources",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Physical 18-hole club: full 18 is default; Prime Nove is default for 9-hole play and Seconde Nove is secondary."
         }
       },
@@ -256,11 +257,11 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "third_party_scorecard_cross_checked_with_fig_and_official_site_par",
+        "hole_by_hole_source": "fig_gesgolf_official_site",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": 9,
-          "default_source": "fig_operational_sources",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Physical 18-hole club: full 18 is default; Prime Nove is default for 9-hole play and Seconde Nove is secondary."
         }
       },
@@ -411,11 +412,11 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "third_party_scorecard_cross_checked_with_fig_and_official_site_par",
+        "hole_by_hole_source": "fig_gesgolf_official_site",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": null,
-          "default_source": "fig_operational_sources",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Physical 18-hole club: full 18 is default; Prime Nove is default for 9-hole play and Seconde Nove is secondary."
         }
       },
