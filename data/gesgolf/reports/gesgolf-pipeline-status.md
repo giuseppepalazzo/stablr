@@ -925,6 +925,19 @@ Aggiornamento batch grande quota 120/121:
   - Stablr Approved / verdi: 48;
   - playable review / arancioni: 73.
 
+Aggiornamento audit terzo livello batch quota 121:
+- audit eseguito il 2026-08-21 sui primi candidati del batch grande usando ricerca ufficiale approfondita, lettura PDF/immagini quando necessario e confronto PAR/HCP con GesGolf/Stablr;
+- promossi a `Stablr Approved`:
+  - `Poggio Medici`: scorecard PDF ufficiale scaricata/renderizzata come immagine e letta visivamente; PAR/HCP combaciano con la route importata `POGGIO 2018` per tutte le 18 buche. Fonti: `https://www.golfpoggiodeimedici.com/golf-club-mugello-il-campo/informazioni-generali-campo`, `https://www.golfpoggiodeimedici.com/images/documents/Score_campo.pdf`.
+  - `Perugia`: estratte e confrontate le pagine ufficiali buca 1-18; PAR/HCP combaciano con la route importata `Classic Par 72` per tutte le 18 buche. Fonti: `https://www.golfclubperugia.it/portfolio-items/buca-1/` ... `https://www.golfclubperugia.it/portfolio-items/buca-18/`.
+- mantenuti arancioni dopo controllo:
+  - `Varese`: il sito ufficiale espone PAR/HCP buca-per-buca, ma gli HCP non combaciano pienamente con l'import GesGolf/Stablr (`Vecchio Monastero`); restare arancione fino a correzione o conferma segreteria.
+  - `Rendena`: il sito ufficiale espone scorecard/HCP, ma la sequenza non combacia pienamente con l'import; restare arancione fino a correzione o conferma segreteria.
+- conteggio Supabase post-promozione:
+  - record club DB: 121;
+  - Stablr Approved / verdi: 50;
+  - playable review / arancioni: 71.
+
 SEGNO7:
 - ripartenza prossima sessione: chiudere manual review dei 14 arancioni del batch quota 100 prima di importare altri club;
 - priorita' tecnica: decidere correzione struttura per `Tesino`, `Courmayeur`, `Bellosguardo`; classificare `Colombera ASD`; risolvere mismatch `Bologna`; cercare scorecard/HCP ufficiali per i near-green.
