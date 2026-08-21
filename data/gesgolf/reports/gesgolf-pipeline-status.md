@@ -1067,3 +1067,57 @@ SEGNO14:
   - club giocabili: 150;
   - Stablr Approved / verdi: 61;
   - playable review / arancioni: 89.
+
+SEGNO15:
+- controllo PDF Borgo Camuzzago:
+  - fonte ricevuta: `CAMUZZAGOGOLF-STROKE-SAVER.pdf`, stroke saver Corel/PDF datato 2018;
+  - il PDF conferma il PAR del percorso 9 buche par 32 (`3,3,4,4,4,4,4,3,3`);
+  - HCP PDF 9 buche: `13,17,3,7,9,5,1,15,11`;
+  - GesGolf/Stablr non combaciano pienamente con HCP PDF: il 9 importato usa HCP compressi `7,9,2,4,5,6,1,8,3`, mentre l'official 18 GesGolf par 64 differisce anche su alcune buche rispetto alla sequenza PDF;
+  - decisione: NON promuovere verde; lasciare arancione finche' non si chiarisce se lo stroke saver 2018 e' ancora vigente o se GesGolf riflette una revisione successiva.
+
+SEGNO16:
+- controllo ufficiale su 4 candidati verdi del batch quota 150:
+  - `Boves`: sito ufficiale `http://www.golfboves.com/buca.aspx?b=01` espone PAR/HCP per tutte le 18 buche; sequenza PAR/HCP combacia con GesGolf/Stablr (`13,15,5,1,9,17,11,3,7,14,18,6,10,2,16,4,8,12`); promosso verde.
+  - `Ca' Ulivi`: pagine ufficiali Mirabello e Championship lette buca per buca; PAR sostanzialmente coerente, ma HCP non combacia pienamente con GesGolf/Stablr (es. Championship buca 1: sito HCP 9, import HCP 16; Mirabello 9: sito `15,11,13,7,1,5,3,17,9`, import compresso `8,6,7,4,1,3,2,9,5`); resta arancione.
+  - `Casentino`: pagine ufficiali lette oltre il testo visibile, usando i `data-value` dei counter; emergono dati utili ma anche incongruenze/ambiguita' nella pagina buca 8 e copertura non chiara delle varianti importate; resta arancione.
+  - `Cervino`: controllo corretto dopo screenshot ufficiale con tabella completa Hole/PAR/HCP; la scorecard ufficiale mostra PAR totale 69 e HCP `13,1,17,15,7,3,5,11,9,12,14,2,10,6,8,18,4,16`, ma non combacia con nessuna route GesGolf/Stablr importata; resta arancione per conflitto fonte ufficiale sito vs GesGolf/import, non per assenza HCP.
+- conteggio atteso post-seed Boves:
+  - record club DB: 150;
+  - club giocabili: 150;
+  - Stablr Approved / verdi: 62;
+  - playable review / arancioni: 88.
+
+SEGNO17:
+- controllo ufficiale/manuale su 10 club del batch quota 150:
+  - `Colli Berici`: il sito del club rimanda alla pagina GesGolf ufficiale (`circolo_id=90`); la route 18 buche par 70 combacia con GesGolf/Stablr per PAR/HCP; promosso verde.
+  - `Rimini Verucchio`: screenshot scorecard con riga `Colpi` usata come HCP; PAR/HCP 18 buche combaciano con GesGolf/Stablr; promosso verde.
+  - `Cherasco`: sito ufficiale letto buca per buca tramite `golf.aspx?ID=1..18`; il sito espone PAR/HCP completi ma non combacia con il JSON attuale (es. buca 1 sito HCP 5, import HCP 3); resta arancione per conflitto fonte ufficiale vs import.
+  - `Ciliegi`: sito ufficiale letto nella sezione campo; espone coppie buca/HCP per percorso fisico 9+9, ma non combacia pienamente con le route importate; resta arancione.
+  - `Fonti`: sito ufficiale controllato aprendo gli asset immagine `/wp-content/uploads/2019/01/1.jpg..18.jpg`; le immagini espongono PAR/HCP buca per buca e combaciano con GesGolf/Stablr sulla route 18 buche par 71; promosso verde.
+  - `Pinerolo - Pragelato`: asset PNG ufficiali scaricati e letti visivamente; contengono PAR/HCP, ma gia' la buca 1/10 mostra HCP 18/17 mentre il JSON importato usa 9/17 sul 18; resta arancione per conflitto.
+  - `Pinetina`: asset immagine ufficiali `/wp-content/uploads/2021/02/Buca-1.jpg..18.jpg` aperti; confermano PAR/HCP della route `18 Buche Par 71` (es. buche 1-3 HCP `9,15,13`), non del default attuale `18 buche Par 70`; resta arancione finche' non si decide se cambiare default/struttura.
+  - `Continental Verbania`: screenshot ricevuto con PAR/HCP completo; la sequenza HCP visuale `13,1,17,15,7,3,5,11,9,12,14,2,10,6,8,18,4,16` non combacia con la route JSON attuale `13,11,9,17,7,15,1,5,3,10,18,8,16,14,12,4,2,6`; resta arancione per conflitto fonte vs import.
+  - `Ducato`: il JSON attuale contiene `La Rocca` e `Parma Golf`, caso analogo a `Terre Di Canossa` come contenitore con due campi/percorsi distinti; resta arancione per assenza di scheda campo ufficiale completa sul sito.
+  - `Girasoli`: confermato arancione da controllo manuale.
+- regola rinforzata:
+  - nel controllo 3 non basta leggere testo HTML: aprire link buca-per-buca, asset immagine, PDF, lightbox e risorse collegate; se la fonte ufficiale espone HCP/PAR ma non matcha GesGolf/Stablr, il club resta arancione per conflitto e non va promosso.
+- conteggio Supabase dopo seed di `Colli Berici`, `Rimini Verucchio` e `Fonti`:
+  - record club DB: 150;
+  - club giocabili: 150;
+  - Stablr Approved / verdi: 65;
+  - playable review / arancioni: 85.
+
+SEGNO18:
+- controllo finale manuale/ufficiale su ulteriori club del batch quota 150:
+  - `Riviera Golf`: resta arancione come da controllo manuale.
+  - `Salici 2.0`: sito ufficiale `https://golfclubisalici.it/campo-golf/` espone PAR/HCP 9 buche (`HCP 7,8,5,2,3,9,6,4,1`), ma la sequenza non combacia con le route importate; resta arancione per conflitto fonte vs import.
+  - `Santa Maria Maggiore`: PDF ufficiali locali `mappa-9-buche.pdf` e `mappa-18-buche.pdf` renderizzati/controllati visualmente; le tabelle PAR/HCP combaciano con le route Stablr esposte 9 e 18; promosso verde. Nota: il PDF `mappa-12-buche.pdf` esiste ma la route 12 non e' attualmente esposta in Stablr.
+  - `Vigne`: resta arancione come da controllo manuale.
+  - `Villa Carolina Ssd`: il sito ufficiale documenta bene `La Marchesa` e `Paradiso` con asset buca-per-buca, ma il JSON attuale espone anche `Il Principe` e una `Paradiso 9 buche` con metadata GesGolf di `Marchesa 1-9`; resta arancione finche' non si fa un microfix strutturale dedicato.
+  - `Villa D'Este`: pagine ufficiali buca-per-buca controllate anche via browser per leggere gli asset visuali; le immagini espongono PAR/HCP (es. buca 1 `PAR 5 / HCP 6`, buca 2 `PAR 4 / HCP 4`, buca 8 `PAR 4 / HCP 2`, buca 10 `PAR 3 / HCP 13`, buca 15 `PAR 4 / HCP 1`) e combaciano con GesGolf/Stablr; promosso verde.
+- conteggio Supabase dopo seed di `Santa Maria Maggiore` e `Villa D'Este`:
+  - record club DB: 150;
+  - club giocabili: 150;
+  - Stablr Approved / verdi: 67;
+  - playable review / arancioni: 83.

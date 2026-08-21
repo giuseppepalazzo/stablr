@@ -11,7 +11,7 @@
     "name_normalized": "boves",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": true,
     "playable": true,
@@ -22,8 +22,8 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "website_evidence_status": "pending_deep_review",
+      "verification_status": "verified",
+      "website_evidence_status": "verified",
       "club_card_subtitle": "2 percorsi",
       "import_profile": "batch_29_playable_review",
       "gesgolf": {
@@ -36,7 +36,30 @@
           "2253"
         ]
       },
-      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes."
+      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes.",
+      "stablr_approved": true,
+      "website_evidence_url": "http://www.golfboves.com/buca.aspx?b=01",
+      "website_evidence_urls": [
+        "http://www.golfboves.com/buca.aspx?b=01",
+        "http://www.golfboves.com/buca.aspx?b=02",
+        "http://www.golfboves.com/buca.aspx?b=03",
+        "http://www.golfboves.com/buca.aspx?b=04",
+        "http://www.golfboves.com/buca.aspx?b=05",
+        "http://www.golfboves.com/buca.aspx?b=06",
+        "http://www.golfboves.com/buca.aspx?b=07",
+        "http://www.golfboves.com/buca.aspx?b=08",
+        "http://www.golfboves.com/buca.aspx?b=09",
+        "http://www.golfboves.com/buca.aspx?b=10",
+        "http://www.golfboves.com/buca.aspx?b=11",
+        "http://www.golfboves.com/buca.aspx?b=12",
+        "http://www.golfboves.com/buca.aspx?b=13",
+        "http://www.golfboves.com/buca.aspx?b=14",
+        "http://www.golfboves.com/buca.aspx?b=15",
+        "http://www.golfboves.com/buca.aspx?b=16",
+        "http://www.golfboves.com/buca.aspx?b=17",
+        "http://www.golfboves.com/buca.aspx?b=18"
+      ],
+      "verification_notes": "Official Golf Club Boves hole pages expose PAR/HCP for holes 1-18; the sequence matches GesGolf/Stablr for the 18-hole route. FIG remains official for tee/CR/Slope."
     }
   },
   "routes": [
@@ -69,7 +92,10 @@
           "match_score": 100,
           "declared_total_par": 72,
           "computed_total_par": 72
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "http://www.golfboves.com/buca.aspx?b=01",
+        "website_evidence_note": "Official Golf Club Boves pages expose PAR/HCP buca per buca; main 18-hole route matches Stablr/GesGolf."
       },
       "holes": [
         {
@@ -325,7 +351,10 @@
           "match_score": 88,
           "declared_total_par": 72,
           "computed_total_par": 72
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "http://www.golfboves.com/buca.aspx?b=01",
+        "website_evidence_note": "Official Golf Club Boves pages expose PAR/HCP buca per buca; main 18-hole route matches Stablr/GesGolf."
       },
       "holes": [
         {
@@ -583,7 +612,10 @@
           "match_score": 100,
           "declared_total_par": 36,
           "computed_total_par": 36
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "http://www.golfboves.com/buca.aspx?b=01",
+        "website_evidence_note": "Official Golf Club Boves pages expose PAR/HCP buca per buca; main 18-hole route matches Stablr/GesGolf."
       },
       "holes": [
         {
@@ -785,7 +817,10 @@
           "match_score": 100,
           "declared_total_par": 36,
           "computed_total_par": 36
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "http://www.golfboves.com/buca.aspx?b=01",
+        "website_evidence_note": "Official Golf Club Boves pages expose PAR/HCP buca per buca; main 18-hole route matches Stablr/GesGolf."
       },
       "holes": [
         {

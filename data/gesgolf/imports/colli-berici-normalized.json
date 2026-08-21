@@ -11,7 +11,7 @@
     "name_normalized": "colli berici",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": true,
     "playable": true,
@@ -22,8 +22,8 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "website_evidence_status": "pending_deep_review",
+      "verification_status": "verified",
+      "website_evidence_status": "verified",
       "club_card_subtitle": "18 buche · Par 70",
       "import_profile": "batch_29_playable_review",
       "gesgolf": {
@@ -37,7 +37,10 @@
           "2906"
         ]
       },
-      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes."
+      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes.",
+      "stablr_approved": true,
+      "website_evidence_url": "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=90",
+      "verification_notes": "Official club site points to the GesGolf course page; the 18-hole PAR/HCP sequence on GesGolf matches the Stablr imported 18-hole route. FIG remains official for tee/CR/Slope."
     }
   },
   "routes": [
@@ -70,7 +73,10 @@
           "match_score": 100,
           "declared_total_par": 70,
           "computed_total_par": 70
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=90",
+        "verification_notes": "Official club site points to the GesGolf course page; the 18-hole PAR/HCP sequence on GesGolf matches the Stablr imported 18-hole route. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -326,7 +332,10 @@
           "match_score": 0,
           "declared_total_par": 68,
           "computed_total_par": 68
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=90",
+        "verification_notes": "Official club site points to the GesGolf course page; the 18-hole PAR/HCP sequence on GesGolf matches the Stablr imported 18-hole route. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -544,7 +553,10 @@
           "match_score": 20,
           "declared_total_par": 72,
           "computed_total_par": 72
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=90",
+        "verification_notes": "Official club site points to the GesGolf course page; the 18-hole PAR/HCP sequence on GesGolf matches the Stablr imported 18-hole route. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -762,7 +774,10 @@
           "match_score": 0,
           "declared_total_par": 34,
           "computed_total_par": 34
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=90",
+        "verification_notes": "Official club site points to the GesGolf course page; the 18-hole PAR/HCP sequence on GesGolf matches the Stablr imported 18-hole route. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {

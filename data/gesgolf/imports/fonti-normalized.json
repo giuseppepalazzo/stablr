@@ -11,7 +11,7 @@
     "name_normalized": "fonti",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": true,
     "playable": true,
@@ -22,8 +22,8 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "website_evidence_status": "pending_deep_review",
+      "verification_status": "verified",
+      "website_evidence_status": "verified",
       "club_card_subtitle": "3 percorsi",
       "import_profile": "batch_29_playable_review",
       "gesgolf": {
@@ -38,7 +38,30 @@
           "2700"
         ]
       },
-      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes."
+      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes.",
+      "stablr_approved": true,
+      "website_evidence_url": "https://www.golfclublefonti.it/il-campo/",
+      "website_evidence_urls": [
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/1.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/2.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/3.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/4.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/5.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/6.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/7.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/8.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/9.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/10.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/11.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/12.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/13.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/14.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/15.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/16.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/17.jpg",
+        "https://www.golfclublefonti.it/wp-content/uploads/2019/01/18.jpg"
+      ],
+      "verification_notes": "Official club course page includes hole-by-hole image assets with PAR/HCP; the 18-hole PAR/HCP sequence matches GesGolf/Stablr for the Par 71 route. FIG remains official for tee/CR/Slope."
     }
   },
   "routes": [
@@ -69,7 +92,10 @@
           "match_score": 32,
           "declared_total_par": 71,
           "computed_total_par": 71
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.golfclublefonti.it/il-campo/",
+        "verification_notes": "Official Le Fonti hole images expose PAR/HCP; route data is consistent with the verified 18-hole sequence/segments. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -325,7 +351,10 @@
           "match_score": 32,
           "declared_total_par": 72,
           "computed_total_par": 72
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.golfclublefonti.it/il-campo/",
+        "verification_notes": "Official Le Fonti hole images expose PAR/HCP; route data is consistent with the verified 18-hole sequence/segments. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -581,7 +610,10 @@
           "match_score": 48,
           "declared_total_par": 35,
           "computed_total_par": 35
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.golfclublefonti.it/il-campo/",
+        "verification_notes": "Official Le Fonti hole images expose PAR/HCP; route data is consistent with the verified 18-hole sequence/segments. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -783,7 +815,10 @@
           "match_score": 48,
           "declared_total_par": 36,
           "computed_total_par": 36
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.golfclublefonti.it/il-campo/",
+        "verification_notes": "Official Le Fonti hole images expose PAR/HCP; route data is consistent with the verified 18-hole sequence/segments. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -985,7 +1020,10 @@
           "match_score": 32,
           "declared_total_par": 36,
           "computed_total_par": 36
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://www.golfclublefonti.it/il-campo/",
+        "verification_notes": "Official Le Fonti hole images expose PAR/HCP; route data is consistent with the verified 18-hole sequence/segments. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {

@@ -11,7 +11,7 @@
     "name_normalized": "santa maria maggiore",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,8 +22,8 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "website_evidence_status": "pending_deep_review",
+      "verification_status": "verified",
+      "website_evidence_status": "verified",
       "club_card_subtitle": "18 buche · Par 59",
       "import_profile": "batch_29_playable_review",
       "gesgolf": {
@@ -35,7 +35,14 @@
           "2695"
         ]
       },
-      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes."
+      "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes.",
+      "stablr_approved": true,
+      "website_evidence_url": "https://golfsantamaria.com/campo.php#",
+      "website_evidence_urls": [
+        "/Users/giuseppepalazzo/Downloads/mappa-9-buche.pdf",
+        "/Users/giuseppepalazzo/Downloads/mappa-18-buche.pdf"
+      ],
+      "verification_notes": "Official Santa Maria Maggiore PDF maps for 9 and 18 holes expose PAR/HCP tables; exposed Stablr routes match PDF sequences. The 12-hole PDF exists but is not currently exposed as a Stablr route. FIG remains official for tee/CR/Slope."
     }
   },
   "routes": [
@@ -66,7 +73,10 @@
           "match_score": 100,
           "declared_total_par": 59,
           "computed_total_par": 59
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://golfsantamaria.com/campo.php#",
+        "verification_notes": "Official Santa Maria Maggiore PDF maps for 9 and 18 holes expose PAR/HCP tables; exposed Stablr routes match PDF sequences. The 12-hole PDF exists but is not currently exposed as a Stablr route. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
@@ -284,7 +294,10 @@
           "match_score": 64,
           "declared_total_par": 30,
           "computed_total_par": 30
-        }
+        },
+        "website_evidence_status": "verified",
+        "website_evidence_url": "https://golfsantamaria.com/campo.php#",
+        "verification_notes": "Official Santa Maria Maggiore PDF maps for 9 and 18 holes expose PAR/HCP tables; exposed Stablr routes match PDF sequences. The 12-hole PDF exists but is not currently exposed as a Stablr route. FIG remains official for tee/CR/Slope."
       },
       "holes": [
         {
