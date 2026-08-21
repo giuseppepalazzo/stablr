@@ -1121,3 +1121,13 @@ SEGNO18:
   - club giocabili: 150;
   - Stablr Approved / verdi: 67;
   - playable review / arancioni: 83.
+
+SEGNO19:
+- microfix Villa Carolina Ssd dopo controllo ufficiale sito/asset:
+  - fonti ufficiali: `https://www.villacarolinaresort.com/la-marchesa/` e `https://www.villacarolinaresort.com/paradiso/`;
+  - il sito ufficiale documenta due percorsi iconici da 18 buche: `La Marchesa` e `Paradiso`, entrambi Par 72;
+  - le pagine includono asset immagine buca-per-buca con PAR/HCP: controllo visuale su Marchesa buca 1 (`Par 4 / Hcp 10`) e Paradiso buca 1 (`Par 4 / Hcp 3`) coerente con GesGolf/Stablr, con sequenze route 18 gia' allineate;
+  - `Il Principe` e' stato trattato come rumore GesGolf/FIG per la UX Stablr perche' non documentato come pagina percorso corrente sul sito ufficiale;
+  - corretta `Paradiso 9 buche`: prima puntava a metadata/buche `Marchesa 1-9`; ora usa il segmento front-nine di `Paradiso` con HCP compressi 1-9;
+  - struttura finale esposta: `La Marchesa` 18, `Paradiso` 18, `La Marchesa Prime 9`, `Paradiso Prime 9`;
+  - Villa Carolina Ssd promosso verde (`verified`), mantenendo FIG come fonte ufficiale tee/CR/Slope.
