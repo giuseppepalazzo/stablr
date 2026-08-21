@@ -7787,6 +7787,7 @@ function App() {
           ? "HCP stimato da dati 18 buche"
           : "";
     const roundSetupTopSubtitle = getClubCardSubtitle(openedCourse);
+    const roundSetupAffiliationLabel = normalizeWhitespace(openedCourse?.sourcePayload?.affiliation_label || "");
     const showEighteenRoutePicker =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       !showManualCombinationBuilder &&
@@ -8069,6 +8070,18 @@ function App() {
           >
             {roundSetupTopSubtitle}
           </div>
+          {roundSetupAffiliationLabel && (
+            <div
+              style={{
+                marginTop: "4px",
+                color: colors.subtext,
+                fontSize: "13px",
+                lineHeight: 1.4
+              }}
+            >
+              {roundSetupAffiliationLabel}
+            </div>
+          )}
         </div>
 
         <h2 style={roundSetupSectionTitleStyle}>Nome del giro</h2>

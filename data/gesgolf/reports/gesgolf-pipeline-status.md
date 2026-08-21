@@ -1157,3 +1157,7 @@ SEGNO21:
 - microfix alias `Golf La Rocca`:
   - il nome pubblico resta `Golf La Rocca`, ma `Ducato` / `Golf del Ducato` sono mantenuti come alias di ricerca per intercettare il nome storico/commerciale usato da golfisti e fonti web;
   - la home search ora controlla anche `source_payload.search_aliases`.
+- microcopy/alias gruppo Emilia Golf Experience:
+  - i 5 club fisici separati (`Salsomaggiore Terme`, `Golf La Rocca`, `Terre Di Canossa`, `Parma Golf`, `Reggio Golf`) mantengono nome e sottoriga funzionale autonomi;
+  - nella schermata `Imposta il giro` mostrano microcopy secondaria `Emilia Golf Experience`;
+  - gli alias `Emilia`, `Emilia Golf`, `Emilia Experience`, `Emilia Golf Experience` fanno emergere i 5 club reali in ricerca, ordinati alfabeticamente, senza reintrodurre un club-container giocabile.

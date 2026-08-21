@@ -46,9 +46,15 @@
         "Golf del Ducato La Rocca",
         "La Rocca Golf del Ducato",
         "Golf La Rocca",
-        "La Rocca"
+        "La Rocca",
+        "Emilia",
+        "Emilia Golf",
+        "Emilia Experience",
+        "Emilia Golf Experience"
       ],
-      "naming_note": "Public UX name is Golf La Rocca, while Ducato/Golf del Ducato are kept as search aliases because golfers and web sources often use the historic/container name."
+      "naming_note": "Public UX name is Golf La Rocca, while Ducato/Golf del Ducato are kept as search aliases because golfers and web sources often use the historic/container name.",
+      "affiliation_label": "Emilia Golf Experience",
+      "affiliation_note": "Displayed as a secondary microcopy in round setup; used as search alias to group the five real Emilia Golf Experience facilities without reintroducing a playable container club."
     }
   },
   "routes": [

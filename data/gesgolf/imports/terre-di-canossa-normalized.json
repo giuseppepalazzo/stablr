@@ -39,7 +39,17 @@
       "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes. Emilia Golf split rule: when a FIG/GesGolf container includes distinct real fields, Stablr exposes each field as a searchable club and keeps the original FIG course names in metadata.",
       "container_split": "emilia_golf_experience",
       "parent_fig_container": "Terre Di Canossa",
-      "verification_notes": "Split cleanup for Emilia Golf Experience: Stablr keeps Terre Di Canossa as the standalone 18-hole field and moves Reggio Golf into its own searchable club."
+      "verification_notes": "Split cleanup for Emilia Golf Experience: Stablr keeps Terre Di Canossa as the standalone 18-hole field and moves Reggio Golf into its own searchable club.",
+      "search_aliases": [
+        "Terre di Canossa Golf",
+        "Golf Terre di Canossa",
+        "Emilia",
+        "Emilia Golf",
+        "Emilia Experience",
+        "Emilia Golf Experience"
+      ],
+      "affiliation_label": "Emilia Golf Experience",
+      "affiliation_note": "Displayed as a secondary microcopy in round setup; used as search alias to group the five real Emilia Golf Experience facilities without reintroducing a playable container club."
     }
   },
   "routes": [
