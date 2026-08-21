@@ -1,0 +1,703 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "system": "gesgolf",
+    "scraped_at": "2026-08-21T06:54:14.941Z",
+    "club_external_id": "fig-club-pordenone",
+    "notes": "Official FIG catalog + GesGolf controlled larger batch import for Pordenone"
+  },
+  "club": {
+    "name": "Pordenone",
+    "name_normalized": "pordenone",
+    "city": null,
+    "country": "Italia",
+    "data_status": "needs_review",
+    "source_type": "fig_import",
+    "is_complex": false,
+    "playable": true,
+    "is_active": true,
+    "source_system": "fig",
+    "source_external_id": "fig-club-pordenone",
+    "source_payload": {
+      "kind": "club",
+      "official_catalog": "fig",
+      "hole_by_hole_source": "gesgolf",
+      "verification_status": "playable_review",
+      "verification_notes": "FIG official catalog + GesGolf 2022 route import. Third-level official scorecard evidence pending.",
+      "website_evidence_status": "pending_deep_review",
+      "physical_hole_count": 18,
+      "import_profile": "physical_18_simple_or_trimmed",
+      "product_rule": "Expose only Stablr-playable routes for this controlled batch; noisy, duplicate, provisional or unconfirmed GesGolf/FIG variants stay out of UX.",
+      "gesgolf": {
+        "circoloId": "86",
+        "gesClub": "ASD GOLF PORDENONE"
+      }
+    }
+  },
+  "routes": [
+    {
+      "external_key": "fig-course-pordenone-18-buche-2022",
+      "name": "18 Buche",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 1,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pordenone-18-buche-2022",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "18 Buche 2022",
+        "stablr_product_name": "18 Buche",
+        "product_simplification": "physical_18_simple_or_trimmed",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": 18,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Simple/semi-simple physical 18-hole club: full 18 is default; 9-hole options follow in the same route list."
+        },
+        "gesgolf": {
+          "circolo_id": "86",
+          "gesgolf_club": "ASD GOLF PORDENONE",
+          "route_name": "18 Buche_2022",
+          "playable_kind": "official_18",
+          "percorso_id": "2609"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 16,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 12,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 14,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 3,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 3,
+          "stroke_index": 11,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 71.6,
+          "slope_rating": 127,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-18-buche-2022-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.6",
+              "slope_rating": "127"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 70.4,
+          "slope_rating": 125,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-18-buche-2022-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.4",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 67.6,
+          "slope_rating": 120,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-18-buche-2022-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "67.6",
+              "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 74.3,
+          "slope_rating": 129,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-18-buche-2022-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.3",
+              "slope_rating": "129"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 70.8,
+          "slope_rating": 122,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-18-buche-2022-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.8",
+              "slope_rating": "122"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 68,
+          "slope_rating": 116,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-18-buche-2022-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "68.0",
+              "slope_rating": "116"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pordenone-prime-nove-2022",
+      "name": "Prime 9",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pordenone-prime-nove-2022",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Prime Nove 2022",
+        "stablr_product_name": "Prime 9",
+        "product_simplification": "physical_18_simple_or_trimmed",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": 9,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Simple/semi-simple physical 18-hole club: full 18 is default; 9-hole options follow in the same route list."
+        },
+        "gesgolf": {
+          "circolo_id": "86",
+          "gesgolf_club": "ASD GOLF PORDENONE",
+          "route_name": "Prime Nove_2022",
+          "playable_kind": "base_9",
+          "percorso_id": "2610"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 3,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 36.2,
+          "slope_rating": 127,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-prime-nove-2022-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.2",
+              "slope_rating": "127"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.5,
+          "slope_rating": 123,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-prime-nove-2022-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.5",
+              "slope_rating": "123"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34,
+          "slope_rating": 117,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-prime-nove-2022-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.0",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 37.5,
+          "slope_rating": 124,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-prime-nove-2022-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.5",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.3,
+          "slope_rating": 118,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-prime-nove-2022-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.3",
+              "slope_rating": "118"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 33.8,
+          "slope_rating": 111,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-prime-nove-2022-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "33.8",
+              "slope_rating": "111"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pordenone-seconde-nove-2022",
+      "name": "Seconde 9",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pordenone-seconde-nove-2022",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Seconde Nove 2022",
+        "stablr_product_name": "Seconde 9",
+        "product_simplification": "physical_18_simple_or_trimmed",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Simple/semi-simple physical 18-hole club: full 18 is default; 9-hole options follow in the same route list."
+        },
+        "gesgolf": {
+          "circolo_id": "86",
+          "gesgolf_club": "ASD GOLF PORDENONE",
+          "route_name": "SecondeNove2022",
+          "playable_kind": "base_9",
+          "percorso_id": "2611"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 2,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 35.4,
+          "slope_rating": 126,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-seconde-nove-2022-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.4",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 34.9,
+          "slope_rating": 127,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-seconde-nove-2022-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.9",
+              "slope_rating": "127"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 33.6,
+          "slope_rating": 122,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-seconde-nove-2022-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "33.6",
+              "slope_rating": "122"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 36.8,
+          "slope_rating": 134,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-seconde-nove-2022-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.8",
+              "slope_rating": "134"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.5,
+          "slope_rating": 126,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-seconde-nove-2022-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.5",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.2,
+          "slope_rating": 120,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pordenone-seconde-nove-2022-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.2",
+              "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    }
+  ],
+  "route_combinations": []
+}

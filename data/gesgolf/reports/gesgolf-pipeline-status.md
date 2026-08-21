@@ -888,6 +888,43 @@ Aggiornamento post-audit batch quota 100:
   - playable review / arancioni: 52.
 - report dettagliato: `data/gesgolf/reports/third-level-audit-batch-20-2026-08-08.md`.
 
+Aggiornamento batch grande quota 120/121:
+- batch da 20 club importato e seedato in Supabase il 2026-08-21 dopo ripristino progetto Supabase;
+- scope intenzionale: aumentare copertura giocabile senza promuovere verde in automatico;
+- tutti i 20 club del batch sono stati scritti come `needs_review` / arancione, con `website_evidence_status: pending_deep_review`;
+- regola applicata:
+  - FIG resta fonte ufficiale per club, tee, CR e Slope;
+  - GesGolf resta fonte operativa per buche, par e Stroke Index;
+  - rumore GesGolf, alias duplicati, provvisori e route non utili sono stati esclusi dalla UX;
+  - i nomi iconici sono stati conservati solo quando aiutano davvero il giocatore a riconoscere un percorso, ad esempio `Le Betulle` e `Vecchio Monastero`;
+  - nessun badge verde senza terza ricerca approfondita su sito ufficiale/scorecard/PDF/immagini o controllo manuale.
+- club seedati:
+  - `Alpino`
+  - `Arona`
+  - `Biella Betulle`
+  - `Cavaglia'`
+  - `Druento`
+  - `Napoli`
+  - `Oasi Di Magliano-Fiordalisi`
+  - `Paradiso`
+  - `Parco Firenze`
+  - `Perugia`
+  - `Poggio Medici`
+  - `Ponte Legno`
+  - `Pordenone`
+  - `Primule`
+  - `Puntaldia`
+  - `Rendena`
+  - `Torrazzo - Cremona`
+  - `Torre Ronchi`
+  - `Varese`
+  - `Vicenza`
+- escluso dal batch `Ca' Ulivi` per struttura piu' ambigua/multi-percorso (`Champion`, `Mirabello`, `Mirabello 9 B.`): va trattato con review dedicata, non dentro il batch semplice.
+- conteggio Supabase post-seed:
+  - record club DB: 121;
+  - Stablr Approved / verdi: 48;
+  - playable review / arancioni: 73.
+
 SEGNO7:
 - ripartenza prossima sessione: chiudere manual review dei 14 arancioni del batch quota 100 prima di importare altri club;
 - priorita' tecnica: decidere correzione struttura per `Tesino`, `Courmayeur`, `Bellosguardo`; classificare `Colombera ASD`; risolvere mismatch `Bologna`; cercare scorecard/HCP ufficiali per i near-green.
