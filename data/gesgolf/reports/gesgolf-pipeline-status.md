@@ -1053,3 +1053,17 @@ SEGNO13:
   - club giocabili: 150;
   - Stablr Approved / verdi: 60;
   - playable review / arancioni: 90.
+
+SEGNO14:
+- microfix Arzaga dopo controllo manuale ufficiale:
+  - sito ufficiale letto a fondo: `https://www.arzagagolf.it/percorsi-golf/gary-player-buca-1-9`, `https://www.arzagagolf.it/percorsi-golf/jack-nicklaus-i-buca-1-9`, `https://www.arzagagolf.it/percorsi-golf/jack-nicklaus-ii-buca-10`;
+  - struttura corretta: 27 buche fisiche, con segmenti `Gary Player`, `Jack Nicklaus II · Prime 9`, `Jack Nicklaus II · Seconde 9`;
+  - card club corretta a `27 buche`;
+  - route 18 mantenute dalle combinazioni FIG/GesGolf: `Jack Nicklaus II`, `Gary Player/Jack Nicklaus II Prime 9`, `Gary Player/Jack Nicklaus II Seconde 9`, `Gary Player × 2`;
+  - PAR/HCP dei 27 segmenti fisici presi dal sito ufficiale e incrociati con GesGolf/FIG;
+  - Arzaga promosso verde (`verified`).
+- conteggio atteso post-seed Arzaga:
+  - record club DB: 150;
+  - club giocabili: 150;
+  - Stablr Approved / verdi: 61;
+  - playable review / arancioni: 89.
