@@ -1142,3 +1142,15 @@ SEGNO20:
   - aggiunte anche `La Marchesa Seconde 9` e `Paradiso Seconde 9`;
   - PAR/HCP delle Seconde 9 derivano dai segmenti verificati 10-18 dei rispettivi percorsi ufficiali da 18, con HCP compressi 1-9;
   - i tee delle Seconde 9 sono marcati come fallback `derived_fig_split`: non sono rating FIG autonomi trovati nei PDF ufficiali, ma servono a mantenere giocabilita' pratica coerente con gli altri campi fisici da 18.
+
+SEGNO21:
+- regola normalizzazione container/join:
+  - per Stablr il club deve essere cercabile come campo reale giocabile, non come contenitore amministrativo o commerciale;
+  - se FIG/GesGolf raggruppano piu' campi reali sotto una join/container, e i percorsi FIG mostrano nomi distinti, Stablr deve separare in club distinti mantenendo i nomi FIG originali nei metadata;
+  - il contenitore puo' avere senso online o per soci, ma in UX Stablr crea rumore: chi cerca un campo deve trovarlo direttamente.
+- microfix Emilia Golf Experience:
+  - ex `Ducato` normalizzato in `Golf La Rocca`, con solo `18 Buche`, `Prime Nove`, `Seconde Nove` La Rocca;
+  - creato `Parma Golf` come club separato, con `9 Buche` Par 27 e `18 Buche` Par 54;
+  - `Terre Di Canossa` mantenuto come club separato 18 buche Par 72, con `Prime 9` e `Seconde 9`;
+  - creato `Reggio Golf` come club separato, con `9 Buche` Par 29 e `18 Buche` Par 58;
+  - tutti restano `playable_review`: questa task corregge struttura/ricercabilita', non promuove verde.
