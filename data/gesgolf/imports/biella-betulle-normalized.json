@@ -11,7 +11,7 @@
     "name_normalized": "biella betulle",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,16 +22,21 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "FIG official catalog + GesGolf Le Betulle/2018 hole-by-hole import. Distinctive Le Betulle naming preserved; third-level official scorecard evidence pending.",
-      "website_evidence_status": "pending_deep_review",
+      "verification_status": "verified",
+      "verification_notes": "Stablr Approved: FIG official catalog + GesGolf 18 buche 2018/prime 9 import + official Golf Club Biella route page/table image reviewed manually. PAR/HCP sequence in the official table matches the imported Stablr/GesGolf Le Betulle route for all 18 holes.",
+      "website_evidence_status": "verified",
       "physical_hole_count": 18,
       "import_profile": "physical_18_simple_or_trimmed",
       "product_rule": "Expose only Stablr-playable routes for this controlled batch; noisy, duplicate, provisional or unconfirmed GesGolf/FIG variants stay out of UX.",
       "gesgolf": {
         "circoloId": "6",
         "gesClub": "ASD GOLF CLUB BIELLA \"LE BETULLE\""
-      }
+      },
+      "stablr_approved": true,
+      "official_course_links": [
+        "https://golfclubbiella.com/il-percorso/",
+        "/Users/giuseppepalazzo/Desktop/Screenshot 2026-08-21 alle 09.26.34.png"
+      ]
     }
   },
   "routes": [
@@ -51,7 +56,7 @@
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": 18,
-          "default_source": "fig_gesgolf_manual_batch",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Simple/semi-simple physical 18-hole club: full 18 is default; 9-hole options follow in the same route list."
         },
         "gesgolf": {
@@ -308,7 +313,7 @@
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": 9,
-          "default_source": "fig_gesgolf_manual_batch",
+          "default_source": "fig_gesgolf_official_site",
           "note": "Simple/semi-simple physical 18-hole club: full 18 is default; 9-hole options follow in the same route list."
         },
         "gesgolf": {

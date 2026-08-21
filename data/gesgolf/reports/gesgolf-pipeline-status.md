@@ -938,6 +938,24 @@ Aggiornamento audit terzo livello batch quota 121:
   - Stablr Approved / verdi: 50;
   - playable review / arancioni: 71.
 
+Aggiornamento audit manuale assistito batch quota 121:
+- dopo controllo manuale utente del 2026-08-21 sono stati ricontrollati i 9 candidati indicati (`Arona`, `Biella Betulle`, `Napoli`, `Ponte Legno`, `Primule`, `Puntaldia`, `Rendena`, `Torrazzo - Cremona`, `Varese`);
+- promossi a `Stablr Approved`:
+  - `Biella Betulle`: tabella ufficiale del percorso/screenshot utente con PAR/HCP e tee; sequenza PAR/HCP combacia con l'import `Le Betulle` per tutte le 18 buche. Fonte: `https://golfclubbiella.com/il-percorso/`.
+  - `Ponte Legno`: pagine ufficiali buca `1 e 10` ... `9 e 18` espongono PAR e doppio HCP; sequenza completa 1-18 combacia con l'import GesGolf/Stablr. Fonti: `https://www.golfpontedilegno.it/hole/1-e-10/` ... `https://www.golfpontedilegno.it/hole/9-e-18/`.
+  - `Puntaldia`: immagini ufficiali `buca-1.jpg` ... `buca-9.jpg` scaricate e lette visivamente; PAR/HCP combaciano con la route 9 e con il segmento coerente dell'import 18. Fonte: `https://golfclubpuntaldia.it/il-campo/`.
+- mantenuti arancioni:
+  - `Arona`: pagina ufficiale conferma PAR/campo ma non espone HCP/SI buca-per-buca.
+  - `Napoli`: screenshot ufficiale/GesGolf sul sito mostra HCP diversi dall'import attuale; non promuovere senza correzione route/import.
+  - `Primule`: pagina ufficiale espone PAR/HCP ma almeno una buca non combacia con l'import (`buca 7`: sito `Par 4 / HCP 5`, import `Par 3 / SI 5`).
+  - `Rendena`: pagina ufficiale espone PAR/HCP ma sequenza non combacia pienamente con l'import.
+  - `Torrazzo - Cremona`: pagina ufficiale non espone scorecard PAR/HCP buca-per-buca; il riferimento `Verifica il tuo HCP di gioco` non basta per badge verde.
+  - `Varese`: pagine ufficiali italiane `buca-1` ... `buca-18` espongono PAR/HCP ma la sequenza non combacia pienamente con l'import (`Vecchio Monastero`).
+- conteggio Supabase post-promozione:
+  - record club DB: 121;
+  - Stablr Approved / verdi: 53;
+  - playable review / arancioni: 68.
+
 SEGNO7:
 - ripartenza prossima sessione: chiudere manual review dei 14 arancioni del batch quota 100 prima di importare altri club;
 - priorita' tecnica: decidere correzione struttura per `Tesino`, `Courmayeur`, `Bellosguardo`; classificare `Colombera ASD`; risolvere mismatch `Bologna`; cercare scorecard/HCP ufficiali per i near-green.
