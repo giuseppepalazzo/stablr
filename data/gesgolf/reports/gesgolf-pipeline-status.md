@@ -999,3 +999,57 @@ SEGNO12:
   - club giocabili: 121;
   - Stablr Approved / verdi: 54;
   - playable review / arancioni: 67.
+
+SEGNO13:
+- batch quota 150 eseguito il 2026-08-21: importati e seedati 29 nuovi club giocabili, tutti inizialmente arancioni (`needs_review`).
+- obiettivo batch: portare il database da 121 a 150 club giocabili senza assegnare badge verde frettolosi.
+- regola applicata:
+  - FIG resta fonte ufficiale per club, percorsi esposti, tee, CR e Slope;
+  - GesGolf resta fonte operativa per PAR/HCP buca-per-buca;
+  - sono state scritte solo route FIG con match GesGolf utilizzabile: buche complete, PAR coerente e SI/HCP validi;
+  - `Mirasole`, `St. Vigil Seis` e `Tarvisio` sono stati esclusi da questo batch per scrape GesGolf non affidabile nella sessione;
+  - `Pustertal` escluso: scrape locale generato ma non usato per assenza di route complete e sicure nel match automatico.
+- club importati:
+  - `Arzaga`
+  - `Borgo Camuzzago`
+  - `Boves`
+  - `Ca' Ulivi`
+  - `Casentino`
+  - `Cervino`
+  - `Cherasco`
+  - `Ciliegi`
+  - `Colli Berici`
+  - `Continental Verbania`
+  - `Ducato`
+  - `Fonti`
+  - `Girasoli`
+  - `Pinerolo - Pragelato`
+  - `Pinetina`
+  - `Rapallo`
+  - `Rimini Verucchio`
+  - `Riviera Golf`
+  - `Salici 2.0`
+  - `Sanremo Ulivi`
+  - `Santa Maria Maggiore`
+  - `Terre Di Canossa`
+  - `Valtellina`
+  - `Vigevano G.C. Ssd`
+  - `Vigne`
+  - `Villa Carolina Ssd`
+  - `Villa D'Este`
+  - `Villa Paradiso Ssd`
+  - `Zoate`
+- controllo 3 avviato sul batch quota 150 con ricerca approfondita su pagine ufficiali, asset/immagini/PDF quando disponibili:
+  - promossi verdi dopo match sito ufficiale + GesGolf/Stablr: `Rapallo`, `Sanremo Ulivi`, `Valtellina`, `Vigevano G.C. Ssd`, `Zoate`, `Villa Paradiso Ssd`;
+  - restano arancioni per controllo manuale o per ambiguita'/copertura parziale: gli altri club del batch;
+  - nota metodo: se il sito ufficiale espone PAR/HCP in pagina buca, scorecard, immagine, PDF o asset lightbox, va letto e confrontato gia' durante import/scrittura; non basta leggere il testo HTML indicizzato.
+- conteggio Supabase post-seed:
+  - record club DB: 150;
+  - club giocabili: 150;
+  - Stablr Approved / verdi: 54 prima del controllo 3;
+  - playable review / arancioni: 96 prima del controllo 3.
+- conteggio Supabase dopo promozione dei 6 verdi del controllo 3:
+  - record club DB: 150;
+  - club giocabili: 150;
+  - Stablr Approved / verdi: 60;
+  - playable review / arancioni: 90.
