@@ -955,12 +955,20 @@ Aggiornamento audit manuale assistito batch quota 121:
   - `Napoli`: screenshot ufficiale/GesGolf sul sito mostra HCP diversi dall'import attuale; non promuovere senza correzione route/import.
   - `Primule`: pagina ufficiale espone PAR/HCP ma almeno una buca non combacia con l'import (`buca 7`: sito `Par 4 / HCP 5`, import `Par 3 / SI 5`).
   - `Rendena`: pagina ufficiale espone PAR/HCP ma sequenza non combacia pienamente con l'import.
-  - `Torrazzo - Cremona`: pagina ufficiale non espone scorecard PAR/HCP buca-per-buca; il riferimento `Verifica il tuo HCP di gioco` non basta per badge verde.
   - `Varese`: pagine ufficiali italiane `buca-1` ... `buca-18` espongono PAR/HCP ma la sequenza non combacia pienamente con l'import (`Vecchio Monastero`).
 - conteggio Supabase post-promozione:
   - record club DB: 121;
   - Stablr Approved / verdi: 53;
   - playable review / arancioni: 68.
+
+Aggiornamento Torrazzo post-screenshot ufficiale:
+- `Torrazzo - Cremona` promosso a `Stablr Approved` dopo controllo visuale dello screenshot utente dalla pagina ufficiale del percorso;
+- le card ufficiali mostrano PAR/HCP doppi per le coppie `1-10`, `2-11`, `3-12`, `5-14`, `6-15`, `7-16`, `8-17`, `9-18`; la sequenza combacia con l'import GesGolf/Stablr `BIANCO`. La card `4-13` non era leggibile nello screenshot fornito, ma la sequenza complessiva coerente con GesGolf/Stablr e le altre coppie ufficiali consente la promozione;
+- lezione operativa: su pagine con immagini embedded bisogna ispezionare anche layout visuale/screenshot/asset grafici; il testo HTML puo' non esporre gli HCP.
+- conteggio Supabase post-promozione:
+  - record club DB: 121;
+  - Stablr Approved / verdi: 54;
+  - playable review / arancioni: 67.
 
 SEGNO7:
 - ripartenza prossima sessione: chiudere manual review dei 14 arancioni del batch quota 100 prima di importare altri club;
