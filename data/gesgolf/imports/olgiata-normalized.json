@@ -4,7 +4,7 @@
     "system": "gesgolf",
     "scraped_at": "2026-08-21T08:20:24.777Z",
     "club_external_id": "fig-club-olgiata",
-    "notes": "Official FIG catalog + GesGolf hole-by-hole import for Olgiata. Converts old non-playable review record into playable orange club; no Stablr Approved badge until official site/scorecard third check confirms SI."
+    "notes": "Official FIG catalog + GesGolf hole-by-hole import for Olgiata. Official site confirms 27 holes and Ovest PAR/HCP match; Est HCP/SI not exposed on official site, so no Stablr Approved badge yet."
   },
   "club": {
     "name": "Olgiata",
@@ -23,16 +23,21 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "Olgiata was present as an old non-playable user/review record. This import uses FIG official playable courses for tees/CR/Slope and GesGolf hole-by-hole data for par/HCP. Remains orange until third-source official website/scorecard evidence is confirmed.",
+      "verification_notes": "Official Olgiata site confirms 27 holes split across Ovest 18 and Est 9. Official Ovest hole images expose PAR/HCP for Par 71, Par 72 and Par 73 and match FIG+GesGolf route data. Official Est images confirm Par/distance but do not expose HCP/SI, so the club remains orange until Est SI is independently confirmed.",
       "physical_hole_count": 27,
       "physical_route_count": 2,
-      "import_profile": "complex_27_curated_from_fig_courses",
+      "import_profile": "complex_27_official_west_east_curated",
       "gesgolf": {
         "circolo_id": "28",
         "gesgolf_club": "OLGIATA GOLF CLUB ASD",
         "scrape_status": "warning"
       },
-      "product_rule": "Complex club with Est 9 and Ovest 18: expose FIG-rated current playable routes only; ignore extra GesGolf aliases/noise unless FIG/club confirms them."
+      "product_rule": "Olgiata official structure: 27 holes across Ovest 18 and Est 9. UX card uses 27 buche. The 9-hole selector exposes Est plus Ovest Prime/Seconde 9; the 18-hole selector exposes FIG/GesGolf-rated Ovest configurations and Est x2. Keep orange until official Est SI/HCP is confirmed.",
+      "club_card_subtitle": "27 buche",
+      "official_course_links": [
+        "https://www.olgiatagolfclub.com/il-campo/",
+        "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=28"
+      ]
     }
   },
   "routes": [

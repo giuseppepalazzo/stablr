@@ -378,6 +378,13 @@ function getClubCardRouteCount(course) {
 }
 
 function getClubCardSubtitle(course) {
+  const subtitleOverride =
+    course?.sourcePayload?.club_card_subtitle || course?.source_payload?.club_card_subtitle;
+
+  if (subtitleOverride) {
+    return subtitleOverride;
+  }
+
   const complexRouteCount = getClubCardRouteCount(course);
 
   if (complexRouteCount && complexRouteCount > 1) {
