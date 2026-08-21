@@ -986,3 +986,14 @@ SEGNO10:
 
 SEGNO11:
 - `Bormio Ssd` promosso verde come fisico 9 normale: sito ufficiale + PDF WHS confermano struttura 9/18, GesGolf resta Source per SI ufficiale 18.
+
+SEGNO12:
+- `Olgiata` sistemato come record pulito giocabile: era presente nel DB come vecchia scheda `user/review` non giocabile, non come import manuale e non come club manuale protetto.
+- nuovo import `data/gesgolf/imports/olgiata-normalized.json`: FIG resta fonte ufficiale per percorsi/tee/CR/Slope, GesGolf alimenta PAR/HCP buca-per-buca.
+- configurazione UX/import: club complesso 27 buche con 3 opzioni da 9 (`Est`, `Ovest · Prime 9`, `Ovest · Seconde 9`) e 6 opzioni da 18 (`Ovest · Par 72`, `Championship`, `Ovest · Par 71`, `Ovest · Par 73`, `Est × 2`, `Roma Local Tour`).
+- Olgiata resta arancione (`needs_review`): non promuovere a verde finche' non esiste terzo controllo ufficiale solido su sito/scorecard.
+- conteggio Supabase post-seed:
+  - record club DB: 121;
+  - club giocabili: 121;
+  - Stablr Approved / verdi: 54;
+  - playable review / arancioni: 67.
