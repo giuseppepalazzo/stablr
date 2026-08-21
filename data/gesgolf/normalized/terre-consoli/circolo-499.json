@@ -2,20 +2,17 @@
   "schema_version": "1.1",
   "source": {
     "system": "gesgolf",
-    "scraped_at": "2026-07-22T08:38:16.424Z",
+    "scraped_at": "2026-08-21T15:34:39.034Z",
     "circolo_id": "499",
     "source_url": "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=499",
-    "notes": "Batch scraper from FIG coverage. No live DB writes. FIG catalog source: /Users/giuseppepalazzo/Stablr/data/fig/normalized/fig-catalog-normalized.json"
+    "notes": "Benchmark scraper output. Do not upsert into live DB automatically."
   },
   "club": {
     "name": "TERRE DEI CONSOLI GOLF CLUB SSD a r.l.",
     "name_normalized": "terre dei consoli golf club ssd a r l",
     "source_system": "gesgolf",
     "source_external_id": "499",
-    "fig_reference": {
-      "fig_club_name": "Terre Consoli",
-      "fig_name_normalized": "terre consoli"
-    }
+    "fig_reference": null
   },
   "scrape_status": "safe",
   "playable_courses": [

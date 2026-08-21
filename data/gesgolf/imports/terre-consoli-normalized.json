@@ -1,0 +1,1366 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "system": "gesgolf",
+    "scraped_at": "2026-08-21T15:39:25.990Z",
+    "club_external_id": "fig-club-terre-consoli",
+    "notes": "FIG CR/Slope + GesGolf hole-by-hole import for Championship and Family/Executive routes. Official site confirms Championship Course and Family Course structure, but full official SI table was not found; keep orange pending manual/secretary confirmation."
+  },
+  "club": {
+    "name": "Terre Consoli",
+    "name_normalized": "terre consoli",
+    "city": null,
+    "country": "Italia",
+    "data_status": "needs_review",
+    "source_type": "fig_import",
+    "is_complex": true,
+    "playable": true,
+    "is_active": true,
+    "source_system": "fig",
+    "source_external_id": "fig-club-terre-consoli",
+    "source_payload": {
+      "kind": "club",
+      "official_catalog": "fig",
+      "hole_by_hole_source": "gesgolf",
+      "verification_status": "playable_review",
+      "verification_notes": "FIG CR/Slope + GesGolf hole-by-hole import for Championship and Family/Executive routes. Official site confirms Championship Course and Family Course structure, but full official SI table was not found; keep orange pending manual/secretary confirmation.",
+      "website_evidence_status": "pending_manual_review",
+      "physical_hole_count": 27,
+      "physical_route_count": 2,
+      "import_profile": "complex_27_championship_family",
+      "official_course_links": [
+        "https://terredeiconsoligolfclub.it/en/course/championship-course/",
+        "https://terredeiconsoligolfclub.it/tariffe/",
+        "https://www.gesgolf.it/GolfOnline/Clubs/percorsi.aspx?circolo_id=499"
+      ],
+      "product_rule": "Lazio completion batch: expose the simplest Stablr-playable structure. Ignore temporary/provisional routes unless they represent the current stable club setup."
+    }
+  },
+  "routes": [
+    {
+      "external_key": "fig-course-terre-consoli-executive-par-31",
+      "name": "Family",
+      "holes_count": 9,
+      "total_par": 31,
+      "display_order": 1,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-terre-consoli-executive-par-31",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Executive PAR 31",
+        "stablr_product_name": "Family",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": 9,
+          "default_source": "fig_operational_sources",
+          "note": "Physical 9-hole club: expose 9-hole play and the FIG-rated 18-hole repeated variant."
+        },
+        "gesgolf": {
+          "circolo_id": "499",
+          "route_name": "Family",
+          "percorso_id": "1693"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 2,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 30.4,
+          "slope_rating": 101,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-31-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "30.4",
+              "slope_rating": "101"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 29.8,
+          "slope_rating": 98,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-31-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "29.8",
+              "slope_rating": "98"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 30.4,
+          "slope_rating": 103,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-31-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "30.4",
+              "slope_rating": "103"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 29.1,
+          "slope_rating": 98,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-31-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "29.1",
+              "slope_rating": "98"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-terre-consoli-prime-9-camp-2019",
+      "name": "Championship · Prime 9",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-terre-consoli-prime-9-camp-2019",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "prime 9 camp 2019",
+        "stablr_product_name": "Championship · Prime 9",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_operational_sources",
+          "note": "Physical 9-hole club: expose 9-hole play and the FIG-rated 18-hole repeated variant."
+        },
+        "gesgolf": {
+          "circolo_id": "499",
+          "route_name": "PRIME 9 CHAMP.",
+          "percorso_id": "2495"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 1,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.6,
+          "slope_rating": 137,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-prime-9-camp-2019-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.6",
+              "slope_rating": "137"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36.5,
+          "slope_rating": 132,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-prime-9-camp-2019-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.5",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 35.3,
+          "slope_rating": 126,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-prime-9-camp-2019-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.3",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 39.1,
+          "slope_rating": 138,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-prime-9-camp-2019-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "39.1",
+              "slope_rating": "138"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.5,
+          "slope_rating": 131,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-prime-9-camp-2019-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.5",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35.9,
+          "slope_rating": 124,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-prime-9-camp-2019-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-terre-consoli-seconde-9-camp-2019",
+      "name": "Championship · Seconde 9",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-terre-consoli-seconde-9-camp-2019",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "seconde 9 camp 2019",
+        "stablr_product_name": "Championship · Seconde 9",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_operational_sources",
+          "note": "Physical 9-hole club: expose 9-hole play and the FIG-rated 18-hole repeated variant."
+        },
+        "gesgolf": {
+          "circolo_id": "499",
+          "route_name": "SECONDE 9 CHAMP",
+          "percorso_id": "2496"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 2,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.1,
+          "slope_rating": 130,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-seconde-9-camp-2019-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.1",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.6,
+          "slope_rating": 123,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-seconde-9-camp-2019-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.6",
+              "slope_rating": "123"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34.3,
+          "slope_rating": 117,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-seconde-9-camp-2019-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.3",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 38,
+          "slope_rating": 124,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-seconde-9-camp-2019-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "38.0",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 36.7,
+          "slope_rating": 119,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-seconde-9-camp-2019-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.7",
+              "slope_rating": "119"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.6,
+          "slope_rating": 110,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-seconde-9-camp-2019-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.6",
+              "slope_rating": "110"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-terre-consoli-18-buche-2019",
+      "name": "Championship",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 4,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-terre-consoli-18-buche-2019",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "18 buche 2019",
+        "stablr_product_name": "Championship",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": 18,
+          "default_source": "fig_operational_sources",
+          "note": "Physical 9-hole club: expose 9-hole play and the FIG-rated 18-hole repeated variant."
+        },
+        "gesgolf": {
+          "circolo_id": "499",
+          "route_name": "Championship 20",
+          "percorso_id": "1876"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 1,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 14,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 18,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 5,
+          "stroke_index": 11,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Nero",
+          "tee_color": "black",
+          "gender": "men",
+          "course_rating": 76.2,
+          "slope_rating": 136,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-2019-nero-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "76.2",
+              "slope_rating": "136"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 74.8,
+          "slope_rating": 133,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-2019-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.8",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 72.1,
+          "slope_rating": 127,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-2019-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.1",
+              "slope_rating": "127"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 69.6,
+          "slope_rating": 121,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-2019-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "69.6",
+              "slope_rating": "121"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 77.1,
+          "slope_rating": 131,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-2019-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "77.1",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 74.2,
+          "slope_rating": 125,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-2019-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.2",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 70.5,
+          "slope_rating": 117,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-2019-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.5",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-terre-consoli-18-buche-par-73",
+      "name": "Championship · Par 73",
+      "holes_count": 18,
+      "total_par": 73,
+      "display_order": 5,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-terre-consoli-18-buche-par-73",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "18 Buche Par 73",
+        "stablr_product_name": "Championship · Par 73",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_operational_sources",
+          "note": "Physical 9-hole club: expose 9-hole play and the FIG-rated 18-hole repeated variant."
+        },
+        "gesgolf": {
+          "circolo_id": "499",
+          "route_name": "C. PAR 73 NEW",
+          "percorso_id": "2717"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 1,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 10,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 11,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 3,
+          "stroke_index": 12,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 14,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 18,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 16,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Nero",
+          "tee_color": "black",
+          "gender": "men",
+          "course_rating": 76.1,
+          "slope_rating": 137,
+          "par_total": 73,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-par-73-nero-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "76.1",
+              "slope_rating": "137"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 74.8,
+          "slope_rating": 134,
+          "par_total": 73,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-par-73-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.8",
+              "slope_rating": "134"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 72.3,
+          "slope_rating": 128,
+          "par_total": 73,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-par-73-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.3",
+              "slope_rating": "128"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 69.6,
+          "slope_rating": 122,
+          "par_total": 73,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-par-73-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "69.6",
+              "slope_rating": "122"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 77.4,
+          "slope_rating": 132,
+          "par_total": 73,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-par-73-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "77.4",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 74.6,
+          "slope_rating": 126,
+          "par_total": 73,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-par-73-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.6",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 71.5,
+          "slope_rating": 120,
+          "par_total": 73,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-18-buche-par-73-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.5",
+              "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-terre-consoli-executive-par-62",
+      "name": "Family × 2",
+      "holes_count": 18,
+      "total_par": 62,
+      "display_order": 6,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-terre-consoli-executive-par-62",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Executive PAR 62",
+        "stablr_product_name": "Family × 2",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_operational_sources",
+          "note": "Physical 9-hole club: expose 9-hole play and the FIG-rated 18-hole repeated variant."
+        },
+        "gesgolf": {
+          "circolo_id": "499",
+          "route_name": "Family 18",
+          "percorso_id": "1694"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 3,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 11,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 4,
+          "stroke_index": 14,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 4,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 12,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 3,
+          "stroke_index": 10,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 60.8,
+          "slope_rating": 101,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-62-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "60.8",
+              "slope_rating": "101"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 59.5,
+          "slope_rating": 98,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-62-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "59.5",
+              "slope_rating": "98"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 60.8,
+          "slope_rating": 103,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-62-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "60.8",
+              "slope_rating": "103"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 58.2,
+          "slope_rating": 98,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-terre-consoli-executive-par-62-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "58.2",
+              "slope_rating": "98"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    }
+  ],
+  "route_combinations": []
+}
