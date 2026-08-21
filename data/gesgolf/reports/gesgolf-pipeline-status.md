@@ -1154,3 +1154,6 @@ SEGNO21:
   - `Terre Di Canossa` mantenuto come club separato 18 buche Par 72, con `Prime 9` e `Seconde 9`;
   - creato `Reggio Golf` come club separato, con `9 Buche` Par 29 e `18 Buche` Par 58;
   - tutti restano `playable_review`: questa task corregge struttura/ricercabilita', non promuove verde.
+- microfix alias `Golf La Rocca`:
+  - il nome pubblico resta `Golf La Rocca`, ma `Ducato` / `Golf del Ducato` sono mantenuti come alias di ricerca per intercettare il nome storico/commerciale usato da golfisti e fonti web;
+  - la home search ora controlla anche `source_payload.search_aliases`.

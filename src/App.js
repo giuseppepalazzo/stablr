@@ -758,19 +758,23 @@ function shouldKeepFigSuggestionForQuery(query, candidateName) {
   return normalizedCandidate.includes(normalizedQuery);
 }
 
-function matchesClubSearchQuery(query, candidateName) {
+function matchesClubSearchQuery(query, candidateName, candidateAliases = []) {
   const normalizedQuery = normalizeFigMatchName(query);
-  const normalizedCandidate = normalizeFigMatchName(candidateName);
-  if (!normalizedQuery || !normalizedCandidate) return false;
+  const normalizedCandidates = [candidateName, ...(Array.isArray(candidateAliases) ? candidateAliases : [])]
+    .map((candidate) => normalizeFigMatchName(candidate))
+    .filter(Boolean);
+  if (!normalizedQuery || normalizedCandidates.length === 0) return false;
 
-  if (normalizedQuery.length <= 2) {
-    return (
+  return normalizedCandidates.some((normalizedCandidate) => {
+    if (normalizedQuery.length <= 2) {
+      return (
       normalizedCandidate.startsWith(normalizedQuery) ||
       normalizedCandidate.split(" ").some((token) => token.startsWith(normalizedQuery))
-    );
-  }
+      );
+    }
 
-  return normalizedCandidate.includes(normalizedQuery);
+    return normalizedCandidate.includes(normalizedQuery);
+  });
 }
 
 function buildPlaceholderSourcePayloadWithPrivateReviewCourse(
@@ -1827,7 +1831,9 @@ function App() {
     if (!trimmedQuery) return coursesWithFavorites;
 
     return coursesWithFavorites
-      .filter((course) => matchesClubSearchQuery(trimmedQuery, course.name))
+      .filter((course) =>
+        matchesClubSearchQuery(trimmedQuery, course.name, course.sourcePayload?.search_aliases)
+      )
       .sort((left, right) => {
         const normalizedQuery = normalizeFigMatchName(trimmedQuery);
         const leftName = normalizeFigMatchName(left.name);

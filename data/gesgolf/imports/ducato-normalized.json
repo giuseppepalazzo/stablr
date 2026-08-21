@@ -39,7 +39,16 @@
       "product_rule": "Batch import: only FIG routes with complete GesGolf PAR/HCP match by holes/par are exposed. Keep orange until deep official-site asset/PDF audit passes. Emilia Golf split rule: when a FIG/GesGolf container includes distinct real fields, Stablr exposes each field as a searchable club and keeps the original FIG course names in metadata.",
       "container_split": "emilia_golf_experience",
       "parent_fig_container": "Ducato",
-      "verification_notes": "Split from the FIG/GesGolf Ducato container. Stablr exposes Golf La Rocca as its own searchable field; FIG course names La Rocca 18 Buche/Prime Nove/Seconde Nove are preserved in route metadata."
+      "verification_notes": "Split from the FIG/GesGolf Ducato container. Stablr exposes Golf La Rocca as its own searchable field; FIG course names La Rocca 18 Buche/Prime Nove/Seconde Nove are preserved in route metadata.",
+      "search_aliases": [
+        "Ducato",
+        "Golf del Ducato",
+        "Golf del Ducato La Rocca",
+        "La Rocca Golf del Ducato",
+        "Golf La Rocca",
+        "La Rocca"
+      ],
+      "naming_note": "Public UX name is Golf La Rocca, while Ducato/Golf del Ducato are kept as search aliases because golfers and web sources often use the historic/container name."
     }
   },
   "routes": [
