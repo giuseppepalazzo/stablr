@@ -1174,12 +1174,13 @@ SEGNO22:
   - `Firenze Ugolino` verde;
   - `Torino` verde;
   - `Robinie` verde dopo controllo ufficiale buca-per-buca;
-  - `Rovedine`, `San Valentino`, `St. Anna`, `Campodoglio`, `Castelfalfi`, `Montelupo`, `Asiago`, `Folgaria`, `Bogogno`, `Asolo`, `Colline Gavi`, `Monticello`, `Royal Park Roveri`, `Tolcinasco`, `Villa Condulmer`, `San Vigilio`, `Castelconturbia` arancioni.
+  - `Rovedine` verde dopo controllo immagini ufficiali Campionato;
+  - `San Valentino`, `St. Anna`, `Campodoglio`, `Castelfalfi`, `Montelupo`, `Asiago`, `Folgaria`, `Bogogno`, `Asolo`, `Colline Gavi`, `Monticello`, `Royal Park Roveri`, `Tolcinasco`, `Villa Condulmer`, `San Vigilio`, `Castelconturbia` arancioni.
 - note terzo livello:
   - `Firenze Ugolino`: sito ufficiale con percorso buca-per-buca e PAR/HCP; combacia con GesGolf/Stablr.
   - `Torino`: pagine ufficiali Blue/Yellow course; Blue espone PAR/HCP buca-per-buca e combacia con GesGolf/Stablr.
   - `Robinie`: pagine ufficiali `https://golf.lerobinie.com/hole/buca-n-1/` ... `/buca-n-18/` controllate; ogni pagina espone PAR/HCP e la sequenza combacia con GesGolf/Stablr; promosso verde.
-  - `Rovedine`: sito ufficiale con pagine percorso e asset visuali; resta arancione finche' non viene completata la review dei visual.
+  - `Rovedine`: pagina ufficiale Campionato e asset immagini `Buca-1-rovedine-golf-milano.jpg` ... `Buca-18-rovedine-golf-milano.jpg` controllati; PAR/HCP combaciano con GesGolf/Stablr; promosso verde. Il sito espone anche Executive 9 buche Par 27 con schede buca-per-buca, ma non viene pubblicato nel live perché manca percorso FIG coerente.
   - `Villa Condulmer`: sito ufficiale molto ricco con PAR/HCP buca-per-buca, ma c'e' almeno una discrepanza HCP da chiarire prima del verde.
   - `Folgaria`: sito ufficiale con pagina percorso, tabella handicap linkata e sezioni visuali; resta arancione finche' non si completa estrazione/lettura di immagini/PDF.
 - report dettagliato:
@@ -1187,5 +1188,5 @@ SEGNO22:
 - conteggio Supabase dopo seed batch 161-180:
   - record club DB: 180;
   - club giocabili: 180;
-  - Stablr Approved / verdi: 77;
-  - playable review / arancioni: 103.
+  - Stablr Approved / verdi: 78;
+  - playable review / arancioni: 102.

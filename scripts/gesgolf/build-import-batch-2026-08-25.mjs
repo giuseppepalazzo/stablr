@@ -57,11 +57,15 @@ const CLUBS = [
     circoloId: "57",
     isComplex: false,
     physicalHoleCount: 18,
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
     officialCourseLinks: [
       "https://www.rovedine.com/club/percorso-campionato/",
+      "https://www.rovedine.com/wp-content/uploads/2016/03/Buca-1-rovedine-golf-milano.jpg",
       "https://www.rovedine.com/club/percorso-executive/"
     ],
-    notes: "FIG official catalog + GesGolf ROVEDINE hole-by-hole import. Official site exposes course pages and visual hole assets; extra Vecchie/Nuove variants stay out of the initial UX until official Evidence is fully reviewed.",
+    notes: "Stablr Approved: FIG official catalog + GesGolf ROVEDINE hole-by-hole import + official Rovedine Campionato visual hole cards exposing PAR/HCP for all 18 holes. The official Campionato sequence matches the imported route. The official site also exposes a 9-hole Executive course, but it is not published in Stablr because no matching FIG playable course is available in the current catalog.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "ROVEDINE", gesRouteId: 281, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "ROVEDINE", gesRouteId: 281, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
