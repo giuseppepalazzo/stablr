@@ -233,7 +233,17 @@ const CLUBS = [
     circoloId: "310",
     isComplex: true,
     physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf St. Anna hole-by-hole import. Monti/Mare official variants are preserved; certification waits for third-level official Evidence.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.santannagolf.com/percorsi/",
+      "https://www.santannagolf.com/percorsi/percorso-mare/",
+      "https://www.santannagolf.com/percorsi/percorso-monti/",
+      "https://www.santannagolf.com/wp-content/uploads/1MARE-718x1024.jpg",
+      "https://www.santannagolf.com/wp-content/uploads/1MONTI-718x1024.jpg"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf St. Anna hole-by-hole import + official Sant'Anna course pages and visual hole cards for Mare and Monti. Official site confirms 18 holes split into two 9-hole courses, Mare and Monti, Par 71 overall; official visual PAR/HCP cards match the imported GesGolf/Stablr sequence.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "18 Buche", gesRouteId: 2022, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "Monti", name: "Monti", gesRoute: "Monti", gesRouteId: 2023, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },

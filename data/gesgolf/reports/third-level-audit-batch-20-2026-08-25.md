@@ -15,7 +15,7 @@ Metodo applicato:
 | Robinie | verde | Pagine ufficiali buca-per-buca `buca-n-1` ... `buca-n-18` controllate: PAR/HCP completo e coerente con GesGolf/Stablr. |
 | Rovedine | verde | Pagina ufficiale Campionato e immagini buca-per-buca controllate: PAR/HCP completo e coerente con GesGolf/Stablr. Il sito espone anche Executive Pitch & Putt 9 buche Par 27 con schede PAR/HCP; pubblicato come percorso official-site non FIG/WHS, senza CR/Slope inventati. Card club forzata a “2 percorsi”. |
 | San Valentino | verde | Sito ufficiale conferma due 18 buche e immagini ufficiali Par72 con PAR/HCP completo. Par72 pubblicato come default certificato; Par69 mantenuto come Old Course/Invernale. Buca 10 Par72 mantenuta HCP 7 come da immagine ufficiale. |
-| St. Anna | arancio | FIG+GesGolf mappano Monti/Mare e 18; serve Evidence ufficiale completa per certificare. |
+| St. Anna | verde | Sito ufficiale conferma 18 buche divise in Mare e Monti; pagine Mare/Monti e immagini ufficiali `1MARE...9MARE`, `1MONTI...9MONTI` espongono PAR/HCP e combaciano con GesGolf/Stablr. |
 | Campodoglio | arancio | FIG+GesGolf mappano Old/New/Easy/Mixed 2024; certificazione rinviata a Evidence ufficiale completa. |
 | Castelfalfi | arancio | FIG+GesGolf mappano Mountain/Lake; certificazione rinviata a Evidence ufficiale completa. |
 | Montelupo | arancio | FIG+GesGolf mappano varianti colore; certificazione rinviata a Evidence ufficiale completa. |
