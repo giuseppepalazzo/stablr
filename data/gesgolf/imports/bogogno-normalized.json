@@ -1,0 +1,1318 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "system": "gesgolf",
+    "scraped_at": "2026-07-01T16:49:45.317Z",
+    "club_external_id": "fig-club-bogogno",
+    "notes": "Official FIG catalog + GesGolf controlled batch import for Bogogno"
+  },
+  "club": {
+    "name": "Bogogno",
+    "name_normalized": "bogogno",
+    "city": null,
+    "country": "Italia",
+    "data_status": "needs_review",
+    "source_type": "fig_import",
+    "is_complex": true,
+    "playable": true,
+    "is_active": true,
+    "source_system": "fig",
+    "source_external_id": "fig-club-bogogno",
+    "source_payload": {
+      "kind": "club",
+      "official_catalog": "fig",
+      "hole_by_hole_source": "gesgolf",
+      "verification_status": "playable_review",
+      "verification_notes": "FIG official catalog + GesGolf Conte/Bonora hole-by-hole import. Certification waits for third-level official Evidence.",
+      "website_evidence_status": "deep_review_pending",
+      "physical_hole_count": 36,
+      "import_profile": "complex_fig_routes_explicit_mapping",
+      "product_rule": "Expose only explicitly mapped Stablr-playable routes for this controlled batch; noisy, duplicate, provisional or unconfirmed variants stay out of UX.",
+      "gesgolf": {
+        "circoloId": "659",
+        "gesClub": "GOLF CLUB BOGOGNO SSD a r.l."
+      }
+    }
+  },
+  "routes": [
+    {
+      "external_key": "fig-course-bogogno-del-conte",
+      "name": "del Conte",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 1,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-bogogno-del-conte",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": 18,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Complex club: expose only explicitly mapped FIG/GesGolf playable routes; unresolved variants stay out of UX."
+        },
+        "gesgolf": {
+          "circolo_id": "659",
+          "gesgolf_club": "GOLF CLUB BOGOGNO SSD a r.l.",
+          "route_name": "CONTE",
+          "playable_kind": "official_18",
+          "percorso_id": "1744"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 11,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 15,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 3,
+          "stroke_index": 14,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 10,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 5,
+          "stroke_index": 12,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Nero",
+          "tee_color": "black",
+          "gender": "men",
+          "course_rating": 74.6,
+          "slope_rating": 134,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-del-conte-nero-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.6",
+              "slope_rating": "134"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 73.1,
+          "slope_rating": 131,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-del-conte-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "73.1",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 71,
+          "slope_rating": 127,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-del-conte-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.0",
+              "slope_rating": "127"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 68.4,
+          "slope_rating": 122,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-del-conte-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "68.4",
+              "slope_rating": "122"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 74.1,
+          "slope_rating": 128,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-del-conte-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.1",
+              "slope_rating": "128"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 71.6,
+          "slope_rating": 123,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-del-conte-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.6",
+              "slope_rating": "123"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 68.6,
+          "slope_rating": 117,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-del-conte-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "68.6",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-bogogno-1-176-nove-conte",
+      "name": "1° Nove Conte",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-bogogno-1-176-nove-conte",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "1&#176; Nove - Conte",
+        "stablr_product_name": "1° Nove Conte",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": 9,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Complex club: expose only explicitly mapped FIG/GesGolf playable routes; unresolved variants stay out of UX."
+        },
+        "gesgolf": {
+          "circolo_id": "659",
+          "gesgolf_club": "GOLF CLUB BOGOGNO SSD a r.l.",
+          "route_name": "DEL CONTE 1-9",
+          "playable_kind": "base_9",
+          "percorso_id": "1746"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 4,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Nero",
+          "tee_color": "black",
+          "gender": "men",
+          "course_rating": 37.5,
+          "slope_rating": 139,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-1-176-nove-conte-nero-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.5",
+              "slope_rating": "139"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 36.8,
+          "slope_rating": 137,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-1-176-nove-conte-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.8",
+              "slope_rating": "137"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.9,
+          "slope_rating": 130,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-1-176-nove-conte-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34.5,
+          "slope_rating": 125,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-1-176-nove-conte-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.5",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 37.3,
+          "slope_rating": 131,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-1-176-nove-conte-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.3",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.7,
+          "slope_rating": 126,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-1-176-nove-conte-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.7",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.3,
+          "slope_rating": 120,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-1-176-nove-conte-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.3",
+              "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-bogogno-2-176-nove-conte",
+      "name": "2° Nove Conte",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-bogogno-2-176-nove-conte",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "2&#176; Nove - Conte",
+        "stablr_product_name": "2° Nove Conte",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Complex club: expose only explicitly mapped FIG/GesGolf playable routes; unresolved variants stay out of UX."
+        },
+        "gesgolf": {
+          "circolo_id": "659",
+          "gesgolf_club": "GOLF CLUB BOGOGNO SSD a r.l.",
+          "route_name": "DEL CONTE 10-18",
+          "playable_kind": "base_9",
+          "percorso_id": "1747"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Nero",
+          "tee_color": "black",
+          "gender": "men",
+          "course_rating": 37.1,
+          "slope_rating": 128,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-2-176-nove-conte-nero-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.1",
+              "slope_rating": "128"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 36.3,
+          "slope_rating": 125,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-2-176-nove-conte-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.3",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.1,
+          "slope_rating": 124,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-2-176-nove-conte-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.1",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 33.9,
+          "slope_rating": 118,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-2-176-nove-conte-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "33.9",
+              "slope_rating": "118"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 36.8,
+          "slope_rating": 125,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-2-176-nove-conte-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.8",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.9,
+          "slope_rating": 120,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-2-176-nove-conte-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.3,
+          "slope_rating": 114,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-2-176-nove-conte-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.3",
+              "slope_rating": "114"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-bogogno-bonora",
+      "name": "Bonora",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 4,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-bogogno-bonora",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Complex club: expose only explicitly mapped FIG/GesGolf playable routes; unresolved variants stay out of UX."
+        },
+        "gesgolf": {
+          "circolo_id": "659",
+          "gesgolf_club": "GOLF CLUB BOGOGNO SSD a r.l.",
+          "route_name": "BONORA",
+          "playable_kind": "official_18",
+          "percorso_id": "1745"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 13,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 14,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 16,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 5,
+          "stroke_index": 10,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 74.8,
+          "slope_rating": 141,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-bonora-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.8",
+              "slope_rating": "141"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 72.7,
+          "slope_rating": 138,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-bonora-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.7",
+              "slope_rating": "138"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 69.8,
+          "slope_rating": 131,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-bonora-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "69.8",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 75.3,
+          "slope_rating": 137,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-bonora-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "75.3",
+              "slope_rating": "137"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 72,
+          "slope_rating": 132,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-bonora-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.0",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 69.2,
+          "slope_rating": 125,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-bonora-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "69.2",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-bogogno-prime-nove-bonora",
+      "name": "Prime Nove Bonora",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 5,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-bogogno-prime-nove-bonora",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Prime Nove - Bonora",
+        "stablr_product_name": "Prime Nove Bonora",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Complex club: expose only explicitly mapped FIG/GesGolf playable routes; unresolved variants stay out of UX."
+        },
+        "gesgolf": {
+          "circolo_id": "659",
+          "gesgolf_club": "GOLF CLUB BOGOGNO SSD a r.l.",
+          "route_name": "BONORA 1-9",
+          "playable_kind": "base_9",
+          "percorso_id": "1961"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 3,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.9,
+          "slope_rating": 132,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-prime-nove-bonora-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34.4,
+          "slope_rating": 125,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-prime-nove-bonora-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.4",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.8,
+          "slope_rating": 130,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-prime-nove-bonora-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.8",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.3,
+          "slope_rating": 124,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-prime-nove-bonora-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.3",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-bogogno-seconde-nove-bonora",
+      "name": "Seconde Nove Bonora",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 6,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-bogogno-seconde-nove-bonora",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Seconde Nove - Bonora",
+        "stablr_product_name": "Seconde Nove Bonora",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_gesgolf_manual_batch",
+          "note": "Complex club: expose only explicitly mapped FIG/GesGolf playable routes; unresolved variants stay out of UX."
+        },
+        "gesgolf": {
+          "circolo_id": "659",
+          "gesgolf_club": "GOLF CLUB BOGOGNO SSD a r.l.",
+          "route_name": "BONORA 10-18",
+          "playable_kind": "base_9",
+          "percorso_id": "1962"
+        }
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 4,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36.6,
+          "slope_rating": 140,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-seconde-nove-bonora-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.6",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 35,
+          "slope_rating": 133,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-seconde-nove-bonora-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.0",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 36,
+          "slope_rating": 130,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-bogogno-seconde-nove-bonora-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.0",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    }
+  ],
+  "route_combinations": []
+}

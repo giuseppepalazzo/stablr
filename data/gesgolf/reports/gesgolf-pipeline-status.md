@@ -1161,3 +1161,30 @@ SEGNO21:
   - i 5 club fisici separati (`Salsomaggiore Terme`, `Golf La Rocca`, `Terre Di Canossa`, `Parma Golf`, `Reggio Golf`) mantengono nome e sottoriga funzionale autonomi;
   - nella schermata `Imposta il giro` mostrano microcopy secondaria `Emilia Golf Experience`;
   - gli alias `Emilia`, `Emilia Golf`, `Emilia Experience`, `Emilia Golf Experience` fanno emergere i 5 club reali in ricerca, ordinati alfabeticamente, senza reintrodurre un club-container giocabile.
+
+SEGNO22:
+- avvio batch 161-180 dopo allineamento MacBook:
+  - repo verificato su `/Users/giuseppepalazzo/Stablr`, branch `main`, pari a `origin/main`;
+  - protetti confermati: `Mare di Roma` e `Parco de' Medici` non toccati.
+- nuovo builder controllato:
+  - `scripts/gesgolf/build-import-batch-2026-08-25.mjs`;
+  - genera 20 import in `data/gesgolf/imports/*-normalized.json`;
+  - validazione JSON completata con `npm run fig:validate`.
+- club importati nel batch:
+  - `Firenze Ugolino` verde;
+  - `Torino` verde;
+  - `Robinie`, `Rovedine`, `San Valentino`, `St. Anna`, `Campodoglio`, `Castelfalfi`, `Montelupo`, `Asiago`, `Folgaria`, `Bogogno`, `Asolo`, `Colline Gavi`, `Monticello`, `Royal Park Roveri`, `Tolcinasco`, `Villa Condulmer`, `San Vigilio`, `Castelconturbia` arancioni.
+- note terzo livello:
+  - `Firenze Ugolino`: sito ufficiale con percorso buca-per-buca e PAR/HCP; combacia con GesGolf/Stablr.
+  - `Torino`: pagine ufficiali Blue/Yellow course; Blue espone PAR/HCP buca-per-buca e combacia con GesGolf/Stablr.
+  - `Robinie`: sito ufficiale con schede buca-per-buca e PDF WHS linkati; resta arancione finche' non viene estratto/letto il SI/HCP in modo completo.
+  - `Rovedine`: sito ufficiale con pagine percorso e asset visuali; resta arancione finche' non viene completata la review dei visual.
+  - `Villa Condulmer`: sito ufficiale molto ricco con PAR/HCP buca-per-buca, ma c'e' almeno una discrepanza HCP da chiarire prima del verde.
+  - `Folgaria`: sito ufficiale con pagina percorso, tabella handicap linkata e sezioni visuali; resta arancione finche' non si completa estrazione/lettura di immagini/PDF.
+- report dettagliato:
+  - `data/gesgolf/reports/third-level-audit-batch-20-2026-08-25.md`.
+- conteggio Supabase dopo seed batch 161-180:
+  - record club DB: 180;
+  - club giocabili: 180;
+  - Stablr Approved / verdi: 76;
+  - playable review / arancioni: 104.
