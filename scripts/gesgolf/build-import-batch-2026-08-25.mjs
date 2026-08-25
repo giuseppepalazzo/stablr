@@ -133,14 +133,98 @@ const CLUBS = [
     circoloId: "789",
     isComplex: false,
     physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf PAR 69/PAR 72 hole-by-hole import. Multiple official FIG variants are preserved but remain orange until third-level official Evidence certifies the current setup.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.sanvalentino.it/il-golf/",
+      "https://www.sanvalentino.it/wp-content/uploads/paginailgolfbuca1fronteok-640w.webp",
+      "https://www.sanvalentino.it/wp-content/uploads/paginailgolfbuca10fronteok-640w.webp",
+      "https://www.sanvalentino.it/wp-content/uploads/par72paginailgolf.pdf",
+      "https://www.sanvalentino.it/wp-content/uploads/par69paginailgolf.pdf"
+    ],
+    notes: "Stablr Approved: FIG official catalog + official San Valentino course page/images. The official club page states two 18-hole courses (Par 72 and Par 69 winter) and exposes complete visual PAR/HCP cards for Championship Course Par 72. The Par 72 visual sequence is used as authoritative Evidence; hole 10 is kept as official HCP 7 even if this duplicates hole 6.",
     routes: [
-      { figCourse: "18 Buche", name: "18 Buche", gesRoute: "PAR 69", gesRouteId: 2424, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
-      { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "PRIME 9", gesRouteId: 2426, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
-      { figCourse: "Seconde Nove", name: "Seconde Nove", gesRoute: "SECONDE9", gesRouteId: 2427, start: 0, count: 9, displayOrder: 3 },
-      { figCourse: "Par 72", name: "Par 72", gesRoute: "PAR 72", gesRouteId: 2425, start: 0, count: 18, displayOrder: 4 },
-      { figCourse: "1&#176; Nove P.72", name: "Prime Nove Par 72", gesRoute: "PRIME9", gesRouteId: 2428, start: 0, count: 9, displayOrder: 5 },
-      { figCourse: "2&#176; Nove P.72", name: "Seconde Nove Par 72", gesRoute: "PAR 72", gesRouteId: 2425, start: 9, count: 9, displayOrder: 6 }
+      {
+        figCourse: "Par 72",
+        name: "18 Buche",
+        gesRoute: "PAR 72",
+        gesRouteId: 2425,
+        start: 0,
+        count: 18,
+        displayOrder: 1,
+        defaultForHoles: 18,
+        holeByHoleSource: "official_club_site_images",
+        officialHoleEvidenceLink: "https://www.sanvalentino.it/il-golf/",
+        holesOverride: [
+          [1, 4, 3],
+          [2, 5, 9],
+          [3, 3, 14],
+          [4, 4, 15],
+          [5, 4, 1],
+          [6, 4, 7],
+          [7, 4, 10],
+          [8, 3, 8],
+          [9, 5, 4],
+          [10, 4, 7],
+          [11, 4, 2],
+          [12, 3, 16],
+          [13, 4, 18],
+          [14, 4, 11],
+          [15, 5, 12],
+          [16, 3, 17],
+          [17, 4, 5],
+          [18, 5, 13]
+        ]
+      },
+      {
+        figCourse: "1&#176; Nove P.72",
+        name: "Prime Nove",
+        gesRoute: "PAR 72",
+        gesRouteId: 2425,
+        start: 0,
+        count: 9,
+        displayOrder: 2,
+        defaultForHoles: 9,
+        holeByHoleSource: "official_club_site_images",
+        officialHoleEvidenceLink: "https://www.sanvalentino.it/il-golf/",
+        holesOverride: [
+          [1, 4, 3],
+          [2, 5, 9],
+          [3, 3, 14],
+          [4, 4, 15],
+          [5, 4, 1],
+          [6, 4, 7],
+          [7, 4, 10],
+          [8, 3, 8],
+          [9, 5, 4]
+        ]
+      },
+      {
+        figCourse: "2&#176; Nove P.72",
+        name: "Seconde Nove",
+        gesRoute: "PAR 72",
+        gesRouteId: 2425,
+        start: 9,
+        count: 9,
+        displayOrder: 3,
+        holeByHoleSource: "official_club_site_images",
+        officialHoleEvidenceLink: "https://www.sanvalentino.it/il-golf/",
+        holesOverride: [
+          [1, 4, 7],
+          [2, 4, 2],
+          [3, 3, 16],
+          [4, 4, 18],
+          [5, 4, 11],
+          [6, 5, 12],
+          [7, 3, 17],
+          [8, 4, 5],
+          [9, 5, 13]
+        ]
+      },
+      { figCourse: "18 Buche", name: "Old Course Par 69", gesRoute: "PAR 69", gesRouteId: 2424, start: 0, count: 18, displayOrder: 4 },
+      { figCourse: "Prime Nove", name: "9 Buche Par 33", gesRoute: "PRIME 9", gesRouteId: 2426, start: 0, count: 9, displayOrder: 5 },
+      { figCourse: "Seconde Nove", name: "9 Buche Par 36", gesRoute: "SECONDE9", gesRouteId: 2427, start: 0, count: 9, displayOrder: 6 }
     ]
   },
   {
@@ -469,6 +553,15 @@ function routeHolesFromGesHoles(gesHoles, startIndex, count) {
   }));
 }
 
+function routeHolesFromManualEvidence(holes) {
+  return holes.map(([physicalHoleNumber, par, strokeIndex]) => ({
+    physical_hole_number: physicalHoleNumber,
+    par,
+    stroke_index: strokeIndex,
+    display_label: String(physicalHoleNumber)
+  }));
+}
+
 function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
   return {
     external_key: figCourse.source_external_id,
@@ -482,7 +575,14 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
     source_payload: {
       kind: "route",
       official_catalog: "fig",
-      hole_by_hole_source: "gesgolf",
+      hole_by_hole_source: routeSpec.holeByHoleSource || "gesgolf",
+      ...(routeSpec.officialHoleEvidenceLink
+        ? {
+            official_hole_evidence_link: routeSpec.officialHoleEvidenceLink,
+            hole_data_override:
+              "Official club visual Evidence is used for PAR/HCP because it is more authoritative than the current GesGolf route sequence."
+          }
+        : {}),
       ...(routeSpec.name !== figCourse.name
         ? {
             fig_display_name: figCourse.name,
@@ -508,7 +608,9 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
           : {})
       }
     },
-    holes: routeHolesFromGesHoles(gesRoute.holes, routeSpec.start, routeSpec.count),
+    holes: routeSpec.holesOverride
+      ? routeHolesFromManualEvidence(routeSpec.holesOverride)
+      : routeHolesFromGesHoles(gesRoute.holes, routeSpec.start, routeSpec.count),
     tees: teePayload(figCourse)
   };
 }
