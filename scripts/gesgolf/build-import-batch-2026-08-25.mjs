@@ -35,12 +35,16 @@ const CLUBS = [
     circoloId: "182",
     isComplex: false,
     physicalHoleCount: 18,
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
     officialCourseLinks: [
       "https://golf.lerobinie.com/golf-course/",
+      "https://golf.lerobinie.com/hole/buca-n-1/",
       "https://golf.lerobinie.com/wp-content/uploads/2021/03/Tabella-WHS-18-Buche.pdf",
       "https://golf.lerobinie.com/wp-content/uploads/2021/03/Tabella-WHS-9-Buche.pdf"
     ],
-    notes: "FIG official catalog + GesGolf ROBINIE hole-by-hole import. Official site exposes all 18 hole cards and WHS PDF links; HCP/SI evidence still requires complete visual/PDF extraction before certification.",
+    notes: "Stablr Approved: FIG official catalog + GesGolf ROBINIE hole-by-hole import + official club hole pages exposing PAR/HCP for holes 1-18. The official sequence matches the imported GesGolf/Stablr route.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "ROBINIE", gesRouteId: 421, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "ROBINIE", gesRouteId: 421, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },

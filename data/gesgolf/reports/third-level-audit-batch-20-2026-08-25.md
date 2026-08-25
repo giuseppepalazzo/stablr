@@ -12,7 +12,7 @@ Metodo applicato:
 | --- | --- | --- |
 | Firenze Ugolino | verde | Sito ufficiale con percorso buca-per-buca e PAR/HCP; sequenza combacia con GesGolf/Stablr. |
 | Torino | verde | Pagine ufficiali Blue/Yellow course con PAR/HCP buca-per-buca; Blue combacia con GesGolf/Stablr, Yellow importato da GesGolf/FIG e collegato alla stessa fonte ufficiale. |
-| Robinie | arancio | Sito ufficiale con schede buca-per-buca e PDF WHS linkati; serve estrazione completa SI/HCP prima del verde. |
+| Robinie | verde | Pagine ufficiali buca-per-buca `buca-n-1` ... `buca-n-18` controllate: PAR/HCP completo e coerente con GesGolf/Stablr. |
 | Rovedine | arancio | Sito ufficiale con pagine percorso e asset visuali; varianti Vecchie/Nuove non esposte nel primo import finché non chiarite da Evidence ufficiale. |
 | San Valentino | arancio | FIG+GesGolf espongono varianti Par 69/72; serve Evidence ufficiale per decidere assetto certificabile. |
 | St. Anna | arancio | FIG+GesGolf mappano Monti/Mare e 18; serve Evidence ufficiale completa per certificare. |
