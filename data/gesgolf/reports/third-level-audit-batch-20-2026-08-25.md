@@ -13,7 +13,7 @@ Metodo applicato:
 | Firenze Ugolino | verde | Sito ufficiale con percorso buca-per-buca e PAR/HCP; sequenza combacia con GesGolf/Stablr. |
 | Torino | verde | Pagine ufficiali Blue/Yellow course con PAR/HCP buca-per-buca; Blue combacia con GesGolf/Stablr, Yellow importato da GesGolf/FIG e collegato alla stessa fonte ufficiale. |
 | Robinie | verde | Pagine ufficiali buca-per-buca `buca-n-1` ... `buca-n-18` controllate: PAR/HCP completo e coerente con GesGolf/Stablr. |
-| Rovedine | verde | Pagina ufficiale Campionato e immagini buca-per-buca controllate: PAR/HCP completo e coerente con GesGolf/Stablr. Il sito espone anche Executive 9 buche, non pubblicato perché manca percorso FIG coerente. |
+| Rovedine | verde | Pagina ufficiale Campionato e immagini buca-per-buca controllate: PAR/HCP completo e coerente con GesGolf/Stablr. Il sito espone anche Executive Pitch & Putt 9 buche Par 27 con schede PAR/HCP; pubblicato come percorso official-site non FIG/WHS, senza CR/Slope inventati. Card club forzata a “2 percorsi”. |
 | San Valentino | arancio | FIG+GesGolf espongono varianti Par 69/72; serve Evidence ufficiale per decidere assetto certificabile. |
 | St. Anna | arancio | FIG+GesGolf mappano Monti/Mare e 18; serve Evidence ufficiale completa per certificare. |
 | Campodoglio | arancio | FIG+GesGolf mappano Old/New/Easy/Mixed 2024; certificazione rinviata a Evidence ufficiale completa. |
@@ -36,5 +36,5 @@ Metodo applicato:
 - Nessun intervento su Mare di Roma e Parco de' Medici.
 - Nessuna route GesGolf `warning` usata nel batch.
 - Nessun publish automatico: i 18 club non certificati restano arancioni.
-- Nei complessi non è stata applicata la regola dei campi semplici 9/18: sono esposte solo route FIG/GesGolf esplicitamente mappate.
+- Nei complessi non è stata applicata la regola dei campi semplici 9/18: sono esposte solo route FIG/GesGolf esplicitamente mappate o percorsi club-official separati e documentati.
 - Le varianti rumorose, duplicate, provvisorie o non mappate sono rimaste fuori dalla UX.

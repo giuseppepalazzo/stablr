@@ -55,21 +55,76 @@ const CLUBS = [
     name: "Rovedine",
     gesSlug: "rovedine",
     circoloId: "57",
-    isComplex: false,
+    isComplex: true,
     physicalHoleCount: 18,
     dataStatus: "verified",
     approved: true,
     websiteEvidenceStatus: "verified",
+    clubCardSubtitle: "2 percorsi",
     officialCourseLinks: [
       "https://www.rovedine.com/club/percorso-campionato/",
       "https://www.rovedine.com/wp-content/uploads/2016/03/Buca-1-rovedine-golf-milano.jpg",
       "https://www.rovedine.com/club/percorso-executive/"
     ],
-    notes: "Stablr Approved: FIG official catalog + GesGolf ROVEDINE hole-by-hole import + official Rovedine Campionato visual hole cards exposing PAR/HCP for all 18 holes. The official Campionato sequence matches the imported route. The official site also exposes a 9-hole Executive course, but it is not published in Stablr because no matching FIG playable course is available in the current catalog.",
+    notes: "Stablr Approved: FIG official catalog + GesGolf ROVEDINE hole-by-hole import + official Rovedine Campionato visual hole cards exposing PAR/HCP for all 18 holes. The official Campionato sequence matches the imported route. The official site also exposes an Executive Pitch & Putt 9-hole Par 27 course with official PAR/HCP cards; it is published as a club-official non-FIG/WHS route without invented CR/Slope values.",
     routes: [
       { figCourse: "18 Buche", name: "18 Buche", gesRoute: "ROVEDINE", gesRouteId: 281, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "Prime Nove", name: "Prime Nove", gesRoute: "ROVEDINE", gesRouteId: 281, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
-      { figCourse: "Seconde Nove", name: "Seconde Nove", gesRoute: "ROVEDINE", gesRouteId: 281, start: 9, count: 9, displayOrder: 3 }
+      { figCourse: "Seconde Nove", name: "Seconde Nove", gesRoute: "ROVEDINE", gesRouteId: 281, start: 9, count: 9, displayOrder: 3 },
+      {
+        type: "official_site_pitch_and_putt",
+        name: "Executive Pitch & Putt",
+        displayOrder: 4,
+        holesCount: 9,
+        totalPar: 27,
+        externalKey: "official-site-rovedine-executive-pitch-and-putt-9",
+        officialCourseLink: "https://www.rovedine.com/club/percorso-executive/",
+        holes: [
+          { physical_hole_number: 1, par: 3, stroke_index: 4, display_label: "1" },
+          { physical_hole_number: 2, par: 3, stroke_index: 8, display_label: "2" },
+          { physical_hole_number: 3, par: 3, stroke_index: 2, display_label: "3" },
+          { physical_hole_number: 4, par: 3, stroke_index: 6, display_label: "4" },
+          { physical_hole_number: 5, par: 3, stroke_index: 1, display_label: "5" },
+          { physical_hole_number: 6, par: 3, stroke_index: 3, display_label: "6" },
+          { physical_hole_number: 7, par: 3, stroke_index: 5, display_label: "7" },
+          { physical_hole_number: 8, par: 3, stroke_index: 7, display_label: "8" },
+          { physical_hole_number: 9, par: 3, stroke_index: 9, display_label: "9" }
+        ],
+        tees: [
+          {
+            tee_name: "Giallo",
+            tee_color: "giallo",
+            gender: "men",
+            course_rating: null,
+            slope_rating: null,
+            par_total: 27,
+            is_active: true,
+            source_system: "official_club_site",
+            source_external_id: "official-site-rovedine-executive-yellow",
+            source_payload: {
+              official_catalog: "club_site",
+              whs_rating_status: "not_fig_rated_in_local_catalog",
+              distances_m: [92, 81, 110, 89, 132, 102, null, null, null]
+            }
+          },
+          {
+            tee_name: "Rosso",
+            tee_color: "rosso",
+            gender: "women",
+            course_rating: null,
+            slope_rating: null,
+            par_total: 27,
+            is_active: true,
+            source_system: "official_club_site",
+            source_external_id: "official-site-rovedine-executive-red",
+            source_payload: {
+              official_catalog: "club_site",
+              whs_rating_status: "not_fig_rated_in_local_catalog",
+              distances_m: [86, 75, 100, 75, 120, 90, null, null, null]
+            }
+          }
+        ]
+      }
     ]
   },
   {
@@ -458,6 +513,37 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
   };
 }
 
+function buildOfficialSiteRoute({ routeSpec, config }) {
+  return {
+    external_key: routeSpec.externalKey,
+    name: routeSpec.name,
+    holes_count: routeSpec.holesCount,
+    total_par: routeSpec.totalPar,
+    display_order: routeSpec.displayOrder,
+    is_active: true,
+    source_system: "official_club_site",
+    source_external_id: routeSpec.externalKey,
+    source_payload: {
+      kind: "route",
+      official_catalog: "club_site",
+      hole_by_hole_source: "official_club_site",
+      route_family: "pitch_and_putt",
+      whs_rating_status: "not_fig_rated_in_local_catalog",
+      official_course_link: routeSpec.officialCourseLink,
+      round_variant: {
+        holes_count: routeSpec.holesCount,
+        default_for_holes: routeSpec.defaultForHoles ?? null,
+        default_source: "club_official_site",
+        note: "Club-official Executive/Pitch & Putt route. Published as playable route without invented FIG/WHS CR/Slope values."
+      },
+      product_rule:
+        "Pitch & Putt/Executive courses can be published when the club site exposes official PAR/HCP hole cards; WHS/FIG rating must remain explicit and must not be inferred."
+    },
+    holes: routeSpec.holes,
+    tees: routeSpec.tees
+  };
+}
+
 async function main() {
   const figCatalog = await readJson(FIG_CATALOG_PATH);
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
@@ -477,6 +563,10 @@ async function main() {
     };
 
     const routes = config.routes.map((routeSpec) => {
+      if (routeSpec.type === "official_site_pitch_and_putt") {
+        return buildOfficialSiteRoute({ routeSpec, config });
+      }
+
       const figCourse = findFigCourse(figClub, routeSpec.figCourse);
       const gesRoute = findGesRoute(gesNormalized, routeSpec, config.name);
       return buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config });
@@ -511,6 +601,7 @@ async function main() {
           verification_notes: config.notes,
           ...(config.officialCourseLinks ? { official_course_links: config.officialCourseLinks } : {}),
           website_evidence_status: config.websiteEvidenceStatus || "deep_review_pending",
+          ...(config.clubCardSubtitle ? { club_card_subtitle: config.clubCardSubtitle } : {}),
           physical_hole_count: config.physicalHoleCount,
           import_profile: config.isComplex ? "complex_fig_routes_explicit_mapping" : "physical_18_simple_or_trimmed",
           product_rule:

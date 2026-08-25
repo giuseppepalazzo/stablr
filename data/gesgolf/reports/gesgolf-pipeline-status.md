@@ -1180,7 +1180,8 @@ SEGNO22:
   - `Firenze Ugolino`: sito ufficiale con percorso buca-per-buca e PAR/HCP; combacia con GesGolf/Stablr.
   - `Torino`: pagine ufficiali Blue/Yellow course; Blue espone PAR/HCP buca-per-buca e combacia con GesGolf/Stablr.
   - `Robinie`: pagine ufficiali `https://golf.lerobinie.com/hole/buca-n-1/` ... `/buca-n-18/` controllate; ogni pagina espone PAR/HCP e la sequenza combacia con GesGolf/Stablr; promosso verde.
-  - `Rovedine`: pagina ufficiale Campionato e asset immagini `Buca-1-rovedine-golf-milano.jpg` ... `Buca-18-rovedine-golf-milano.jpg` controllati; PAR/HCP combaciano con GesGolf/Stablr; promosso verde. Il sito espone anche Executive 9 buche Par 27 con schede buca-per-buca, ma non viene pubblicato nel live perché manca percorso FIG coerente.
+  - `Rovedine`: pagina ufficiale Campionato e asset immagini `Buca-1-rovedine-golf-milano.jpg` ... `Buca-18-rovedine-golf-milano.jpg` controllati; PAR/HCP combaciano con GesGolf/Stablr; promosso verde.
+  - `Rovedine Executive`: riconosciuto come Pitch & Putt ufficiale del club, 9 buche Par 27, schede PAR/HCP ufficiali da `https://www.rovedine.com/club/percorso-executive/`; pubblicato come route `official_club_site`, senza CR/Slope FIG/WHS inventati, con card subtitle `2 percorsi`.
   - `Villa Condulmer`: sito ufficiale molto ricco con PAR/HCP buca-per-buca, ma c'e' almeno una discrepanza HCP da chiarire prima del verde.
   - `Folgaria`: sito ufficiale con pagina percorso, tabella handicap linkata e sezioni visuali; resta arancione finche' non si completa estrazione/lettura di immagini/PDF.
 - report dettagliato:
