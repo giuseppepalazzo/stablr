@@ -258,7 +258,12 @@ const CLUBS = [
     circoloId: "701",
     isComplex: true,
     physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf 2024 Old/New/Easy/Mixed hole-by-hole import. Current batch publishes playable review routes only.",
+    officialCourseLinks: [
+      "https://www.campodoglio.it/percorso-golf-club/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-1/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-9/"
+    ],
+    notes: "FIG official catalog + GesGolf 2024 Old/New/Easy/Mixed hole-by-hole import. Official Campodoglio site exposes PAR/HCP tables on pages Buca 1/10 through Buca 9/18 for Par 72 and Par 70 variants, but the official site structure does not map cleanly to the current Old/New/Easy/Mixed import and some HCP values differ from the current GesGolf/Stablr routes. Keep orange pending a dedicated structural microfix.",
     routes: [
       { figCourse: "18 Buche Old 2024", name: "18 Buche Old 2024", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "9 Buche Old 2024", name: "9 Buche Old 2024", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },

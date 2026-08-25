@@ -23,7 +23,12 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "FIG official catalog + GesGolf 2024 Old/New/Easy/Mixed hole-by-hole import. Current batch publishes playable review routes only.",
+      "verification_notes": "FIG official catalog + GesGolf 2024 Old/New/Easy/Mixed hole-by-hole import. Official Campodoglio site exposes PAR/HCP tables on pages Buca 1/10 through Buca 9/18 for Par 72 and Par 70 variants, but the official site structure does not map cleanly to the current Old/New/Easy/Mixed import and some HCP values differ from the current GesGolf/Stablr routes. Keep orange pending a dedicated structural microfix.",
+      "official_course_links": [
+        "https://www.campodoglio.it/percorso-golf-club/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-1/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-9/"
+      ],
       "website_evidence_status": "deep_review_pending",
       "physical_hole_count": 18,
       "import_profile": "complex_fig_routes_explicit_mapping",
