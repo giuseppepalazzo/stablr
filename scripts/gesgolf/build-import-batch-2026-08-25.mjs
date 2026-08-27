@@ -336,8 +336,7 @@ const CLUBS = [
     circoloId: "701",
     isComplex: false,
     physicalHoleCount: 9,
-    dataStatus: "verified",
-    approved: true,
+    dataStatus: "needs_review",
     websiteEvidenceStatus: "verified",
     officialCourseLinks: [
       "https://www.campodoglio.it/percorso-golf-club/",
@@ -351,11 +350,11 @@ const CLUBS = [
       "https://www.campodoglio.it/percorso-golf-club/buca-8-17/",
       "https://www.campodoglio.it/percorso-golf-club/buca-9-18/"
     ],
-    notes: "Stablr Approved: FIG official catalog + GesGolf Campodoglio 2024 import + official Campodoglio course pages. The official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables with tee-specific HCP pairs for Par 72 and Par 70 variants. Stablr treats noisy GesGolf variants as technical source noise, exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70, uses the official tee-specific HCP matrix for Bianco/Giallo/Blu/Rosso, and keeps additional FIG-rated tee options playable with static route SI when not covered by the club-site HCP matrix.",
+    notes: "FIG official catalog + GesGolf Campodoglio 2024 import + official Campodoglio course pages. The official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables with tee-specific HCP pairs for Par 72 and Par 70 variants, but the site evidence currently shows Bianco/Giallo/Blu/Rosso while FIG also exposes Verde/Arancio tee ratings. Stablr keeps Campodoglio playable in review, exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70, uses the official tee-specific HCP matrix for the site-documented tees, and will send a club-specific confirmation email asking whether to follow only site-listed tees or also support FIG Verde/Arancio and how to treat tee-dynamic HCP.",
     routes: [
-      { figCourse: "9 Buche Old 2024", name: "9 Buche", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 1, defaultForHoles: 9, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
-      { figCourse: "18 Buche Old 2024", name: "18 Buche Par 72", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 2, defaultForHoles: 18, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
-      { figCourse: "18 Buche New 2024", name: "18 Buche Par 70", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(70) },
+      { figCourse: "9 Buche Old 2024", name: "9 Buche", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 1, defaultForHoles: 9, officialTeeNames: ["Bianco", "Giallo", "Blu", "Rosso"], teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
+      { figCourse: "18 Buche Old 2024", name: "18 Buche Par 72", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 2, defaultForHoles: 18, officialTeeNames: ["Bianco", "Giallo", "Blu", "Rosso"], teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
+      { figCourse: "18 Buche New 2024", name: "18 Buche Par 70", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3, officialTeeNames: ["Bianco", "Giallo", "Blu", "Rosso"], teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(70) },
       { figCourse: "9 Buche New 2024", name: "9 Buche New 2024", gesRoute: "9 Buche New 24", gesRouteId: 2845, start: 0, count: 9, displayOrder: 90, isActive: false },
       { figCourse: "18 Buche Easy 2024", name: "18 Buche Easy 2024", gesRoute: "18 Buche Easy", gesRouteId: 2854, start: 0, count: 18, displayOrder: 91, isActive: false },
       { figCourse: "9 Buche Easy 2024", name: "9 Buche Easy 2024", gesRoute: "9 Buche Easy", gesRouteId: 2853, start: 0, count: 9, displayOrder: 92, isActive: false },
