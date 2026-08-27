@@ -7704,24 +7704,7 @@ function App() {
       });
     const eighteenHoleRoutes = [...openedCourseRoutes]
       .filter((route) => Number(route.holesCount) === 18)
-      .sort((a, b) => {
-        const aIsDefault = isDefaultRoundVariant(a, 18);
-        const bIsDefault = isDefaultRoundVariant(b, 18);
-        if (aIsDefault !== bIsDefault) return aIsDefault ? -1 : 1;
-
-        const getRoutePriority = (name) => {
-          const normalizedName = String(name || "").toLowerCase();
-          if (normalizedName.includes("blu") || normalizedName.includes("blue")) return 0;
-          if (normalizedName.includes("bianco") || normalizedName.includes("white")) return 1;
-          if (normalizedName.includes("rosso") || normalizedName.includes("red")) return 2;
-          return 99;
-        };
-
-        const aPriority = getRoutePriority(a.name);
-        const bPriority = getRoutePriority(b.name);
-        if (aPriority !== bPriority) return aPriority - bPriority;
-        return compareRouteDisplayOrder(a, b);
-      });
+      .sort(compareRouteDisplayOrder);
     const canPlayNine = openedCourseRoutes.length > 0;
     const canPlayEighteen =
       openedCourseRouteCombinations.length > 0 ||
