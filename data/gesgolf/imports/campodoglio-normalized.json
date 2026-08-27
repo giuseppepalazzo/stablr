@@ -24,7 +24,7 @@
       "hole_by_hole_source": "gesgolf",
       "verification_status": "verified",
       "stablr_approved": true,
-      "verification_notes": "Stablr Approved: FIG official catalog + GesGolf Campodoglio 2024 import + official Campodoglio course pages. The official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables with tee-specific HCP pairs for Par 72 and Par 70 variants. Stablr treats noisy GesGolf variants as technical source noise, exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70, and uses the official tee-specific HCP matrix as the certification Evidence.",
+      "verification_notes": "Stablr Approved: FIG official catalog + GesGolf Campodoglio 2024 import + official Campodoglio course pages. The official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables with tee-specific HCP pairs for Par 72 and Par 70 variants. Stablr treats noisy GesGolf variants as technical source noise, exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70, uses the official tee-specific HCP matrix for Bianco/Giallo/Blu/Rosso, and keeps additional FIG-rated tee options playable with static route SI when not covered by the club-site HCP matrix.",
       "official_course_links": [
         "https://www.campodoglio.it/percorso-golf-club/",
         "https://www.campodoglio.it/percorso-golf-club/buca-1/",
@@ -612,6 +612,25 @@
           }
         },
         {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 33.5,
+          "slope_rating": 113,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-campodoglio-9-buche-old-2024-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "33.5",
+              "slope_rating": "113"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
           "tee_name": "Blu",
           "tee_color": "blue",
           "gender": "men",
@@ -645,6 +664,25 @@
             "source_cells": {
               "course_rating": "36.0",
               "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.2,
+          "slope_rating": 114,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-campodoglio-9-buche-old-2024-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.2",
+              "slope_rating": "114"
             },
             "official_catalog": "fig"
           }
@@ -1269,6 +1307,25 @@
           }
         },
         {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 67,
+          "slope_rating": 113,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-campodoglio-18-buche-old-2024-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "67.0",
+              "slope_rating": "113"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
           "tee_name": "Blu",
           "tee_color": "blue",
           "gender": "men",
@@ -1302,6 +1359,25 @@
             "source_cells": {
               "course_rating": "72.0",
               "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 68.4,
+          "slope_rating": 114,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-campodoglio-18-buche-old-2024-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "68.4",
+              "slope_rating": "114"
             },
             "official_catalog": "fig"
           }
@@ -1926,6 +2002,25 @@
           }
         },
         {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 66.6,
+          "slope_rating": 112,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-campodoglio-18-buche-new-2024-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "66.6",
+              "slope_rating": "112"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
           "tee_name": "Blu",
           "tee_color": "blue",
           "gender": "men",
@@ -1959,6 +2054,25 @@
             "source_cells": {
               "course_rating": "71.2",
               "slope_rating": "120"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 68.2,
+          "slope_rating": 114,
+          "par_total": 70,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-campodoglio-18-buche-new-2024-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "68.2",
+              "slope_rating": "114"
             },
             "official_catalog": "fig"
           }
