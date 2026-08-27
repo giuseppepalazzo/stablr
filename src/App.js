@@ -1363,19 +1363,29 @@ function App() {
       const uniqueIds = [...new Set((ids || []).filter(Boolean))];
       if (!uniqueIds.length) return [];
 
-      const chunkSize = 200;
+      const chunkSize = 50;
+      const pageSize = 1000;
       const rows = [];
 
       for (let index = 0; index < uniqueIds.length; index += chunkSize) {
         const chunk = uniqueIds.slice(index, index + chunkSize);
-        const { data: chunkRows, error: chunkError } = await supabase
-          .from(tableName)
-          .select("*")
-          .eq("is_active", true)
-          .in(foreignKey, chunk);
 
-        if (chunkError) throw chunkError;
-        rows.push(...(chunkRows || []));
+        for (let from = 0; ; from += pageSize) {
+          const to = from + pageSize - 1;
+          const { data: chunkRows, error: chunkError } = await supabase
+            .from(tableName)
+            .select("*")
+            .eq("is_active", true)
+            .in(foreignKey, chunk)
+            .range(from, to);
+
+          if (chunkError) throw chunkError;
+
+          const fetchedRows = chunkRows || [];
+          rows.push(...fetchedRows);
+
+          if (fetchedRows.length < pageSize) break;
+        }
       }
 
       return rows;
