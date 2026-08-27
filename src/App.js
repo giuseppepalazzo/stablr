@@ -1350,19 +1350,43 @@ function App() {
 
     if (error) throw error;
 
-    const { data: routeTeesData, error: routeTeesError } = await supabase
-      .from("route_tees")
-      .select("*")
-      .eq("is_active", true);
+    const routeIds = (data || []).flatMap((club) =>
+      (Array.isArray(club.course_routes) ? club.course_routes : []).map((route) => route.id)
+    );
+    const combinationIds = (data || []).flatMap((club) =>
+      (Array.isArray(club.route_combinations) ? club.route_combinations : []).map(
+        (combination) => combination.id
+      )
+    );
 
-    if (routeTeesError) throw routeTeesError;
+    const fetchRowsByForeignKey = async (tableName, foreignKey, ids) => {
+      const uniqueIds = [...new Set((ids || []).filter(Boolean))];
+      if (!uniqueIds.length) return [];
 
-    const { data: combinationTeesData, error: combinationTeesError } = await supabase
-      .from("combination_tees")
-      .select("*")
-      .eq("is_active", true);
+      const chunkSize = 200;
+      const rows = [];
 
-    if (combinationTeesError) throw combinationTeesError;
+      for (let index = 0; index < uniqueIds.length; index += chunkSize) {
+        const chunk = uniqueIds.slice(index, index + chunkSize);
+        const { data: chunkRows, error: chunkError } = await supabase
+          .from(tableName)
+          .select("*")
+          .eq("is_active", true)
+          .in(foreignKey, chunk);
+
+        if (chunkError) throw chunkError;
+        rows.push(...(chunkRows || []));
+      }
+
+      return rows;
+    };
+
+    const routeTeesData = await fetchRowsByForeignKey("route_tees", "route_id", routeIds);
+    const combinationTeesData = await fetchRowsByForeignKey(
+      "combination_tees",
+      "route_combination_id",
+      combinationIds
+    );
 
     const routeTeesByRouteId = new Map();
     (routeTeesData || []).forEach((tee) => {
