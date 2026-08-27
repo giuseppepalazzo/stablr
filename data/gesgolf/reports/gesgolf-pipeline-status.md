@@ -1177,7 +1177,8 @@ SEGNO22:
   - `Rovedine` verde dopo controllo immagini ufficiali Campionato;
   - `San Valentino` verde dopo controllo immagini ufficiali Par72;
   - `St. Anna` verde dopo controllo pagine ufficiali Mare/Monti;
-  - `Campodoglio`, `Castelfalfi`, `Montelupo`, `Asiago`, `Folgaria`, `Bogogno`, `Asolo`, `Colline Gavi`, `Monticello`, `Royal Park Roveri`, `Tolcinasco`, `Villa Condulmer`, `San Vigilio`, `Castelconturbia` arancioni.
+  - `Campodoglio` verde dopo microfix HCP dinamico tee-specific;
+  - `Castelfalfi`, `Montelupo`, `Asiago`, `Folgaria`, `Bogogno`, `Asolo`, `Colline Gavi`, `Monticello`, `Royal Park Roveri`, `Tolcinasco`, `Villa Condulmer`, `San Vigilio`, `Castelconturbia` arancioni.
 - note terzo livello:
   - `Firenze Ugolino`: sito ufficiale con percorso buca-per-buca e PAR/HCP; combacia con GesGolf/Stablr.
   - `Torino`: pagine ufficiali Blue/Yellow course; Blue espone PAR/HCP buca-per-buca e combacia con GesGolf/Stablr.
@@ -1186,12 +1187,14 @@ SEGNO22:
   - `Rovedine Executive`: riconosciuto come Pitch & Putt ufficiale del club, 9 buche Par 27, schede PAR/HCP ufficiali da `https://www.rovedine.com/club/percorso-executive/`; pubblicato come route `official_club_site`, senza CR/Slope FIG/WHS inventati, con card subtitle `2 percorsi`.
   - `San Valentino`: sito ufficiale `https://www.sanvalentino.it/il-golf/` conferma due percorsi da 18 buche (`Par 72` e `Par 69 invernale`) e tre percorsi da 9; immagini ufficiali `paginailgolfbuca1fronteok-640w.webp` ... `Buca181-640w-1.webp` controllate per Par72; Par72 diventa `18 Buche` default certificato, `Prime Nove` e `Seconde Nove` derivano dagli stessi asset; `Old Course Par 69` resta separato. Nota: buca 10 Par72 mantenuta HCP 7 come da immagine ufficiale, anche se duplica la buca 6.
   - `St. Anna`: sito ufficiale `https://www.santannagolf.com/percorsi/` conferma 18 buche divise in `Percorso Mare` e `Percorso Monti`; pagine `percorso-mare` e `percorso-monti` espongono testi buca-per-buca e asset visuali `1MARE-718x1024.jpg` ... `9MARE-718x1024.jpg`, `1MONTI-718x1024.jpg` ... `9MONTI-718x1024.jpg`; PAR/HCP controllati a campione e coerenti con GesGolf/Stablr; promosso verde.
-  - `Campodoglio`: sito ufficiale `https://www.campodoglio.it/percorso-golf-club/` e pagine `buca-1` ... `buca-9` controllate; espongono PAR/HCP per coppie `Buca 1/10` ... `9/18`, con varianti Par72 e Par70. Non promosso verde: la fonte ufficiale non mappa direttamente le varianti FIG/GesGolf `Old/New/Easy/Mixed` e alcune sequenze HCP non combaciano con il JSON attuale. Task dedicata: semplificare Campodoglio su struttura ufficiale sito/FIG e poi certificare.
+  - `Campodoglio`: sito ufficiale `https://www.campodoglio.it/percorso-golf-club/` e pagine `buca-1` ... `buca-9` controllate; espongono PAR/HCP per coppie `Buca 1/10` ... `9/18`, con varianti Par72 e Par70. Promosso verde dopo microfix: Stablr tratta il club come fisico 9 buche e usa la matrice ufficiale HCP tee-specific, evitando di moltiplicare le varianti rumorose GesGolf.
 - microfix Campodoglio:
   - struttura ufficiale sito: campo fisico 9 buche Par 36, con varianti 18 buche Par72 e Par70;
   - attive in UX solo `9 Buche`, `18 Buche Par 72`, `18 Buche Par 70`;
   - disattivate le varianti tecniche `9 Buche New 2024`, `18 Buche Easy 2024`, `9 Buche Easy 2024`, `18 Buche Mixed 2024`, `9 Buche Mixed 2024`;
-  - club mantenuto arancione per limite dati: HCP ufficiali sono tee/variante-specifici e non vanno compressi in modo arbitrario nel singolo `route_holes.stroke_index`.
+  - aggiunta matrice ufficiale `tee_specific_hole_matrix` nelle route `9 Buche`, `18 Buche Par 72`, `18 Buche Par 70`;
+  - frontend aggiornato: se una route espone `tee_specific_hole_matrix`, lo stroke index del giro viene risolto dopo la scelta del tee;
+  - club promosso verde (`verified` / `stablr_approved`) perché la certificazione si basa su FIG + GesGolf come Source e sito ufficiale Campodoglio come Evidence determinante.
 - microfix Montelupo:
   - sito ufficiale `https://www.golfmontelupo.it/` conferma che il campo attualmente propone 14 buche;
   - mappa ufficiale `https://www.golfmontelupo.it/foto/grandi/mlupopercorso1-1-1.jpg` mostra tre routing 18 buche: `Bianco` Par68, `Rosso` Par68, `Blu` Par70;
@@ -1206,5 +1209,5 @@ SEGNO22:
 - conteggio Supabase dopo seed batch 161-180:
   - record club DB: 180;
   - club giocabili: 180;
-  - Stablr Approved / verdi: 80;
-  - playable review / arancioni: 100.
+  - Stablr Approved / verdi: 81;
+  - playable review / arancioni: 99.

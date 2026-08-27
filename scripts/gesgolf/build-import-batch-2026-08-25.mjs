@@ -11,6 +11,84 @@ const OUTPUT_DIR = path.join(repoRoot, "data", "gesgolf", "imports");
 
 const PROTECTED_CLUB_NAMES = new Set(["mare di roma", "parco de' medici", "parco de’ medici", "parco de medici"]);
 
+const CAMPODOGLIO_TEE_SPECIFIC_BASE_HOLES = [
+  { physical_hole_number: 1, par: 4, white_yellow_hcp: [4, 4], blue_red_hcp: [5, 6], distances_m: { bianco: [394], giallo: [369], blu: [341], rosso: [334] } },
+  { physical_hole_number: 2, par: 4, white_yellow_hcp: [13, 14], blue_red_hcp: [17, 18], distances_m: { bianco: [355], giallo: [339], blu: [309], rosso: [296] } },
+  { physical_hole_number: 3, par: 5, white_yellow_hcp: [7, 8], blue_red_hcp: [9, 10], distances_m: { bianco: [472], giallo: [445], blu: [410], rosso: [384] } },
+  { physical_hole_number: 4, par: 4, white_yellow_hcp: [1, 2], blue_red_hcp: [3, 4], distances_m: { bianco: [388], giallo: [367], blu: [339], rosso: [317] } },
+  { physical_hole_number: 5, par: 3, white_yellow_hcp: [11, 12], blue_red_hcp: [13, 14], distances_m: { bianco: [174], giallo: [164], blu: [145], rosso: [127] } },
+  { physical_hole_number: 6, par: 4, white_yellow_hcp: [17, 18], blue_red_hcp: [15, 16], distances_m: { bianco: [288], giallo: [272], blu: [250], rosso: [236] } },
+  { physical_hole_number: 7, par: 4, white_yellow_hcp: [5, 6], blue_red_hcp: [7, 8], distances_m: { bianco: [350], giallo: [338], blu: [309], rosso: [290] } },
+  { physical_hole_number: 8, par: 3, white_yellow_hcp: [9, 10], blue_red_hcp: [11, 12], distances_m: { bianco: [145], giallo: [138], blu: [130], rosso: [123] } }
+];
+
+function campodoglioHoleNineForVariant(parVariant) {
+  if (parVariant === 70) {
+    return {
+      physical_hole_number: 9,
+      par: 4,
+      white_yellow_hcp: [1, 2],
+      blue_red_hcp: [1, 2],
+      distances_m: { bianco: [430], giallo: [394], blu: [367], rosso: [315] }
+    };
+  }
+
+  return {
+    physical_hole_number: 9,
+    par: 5,
+    white_yellow_hcp: [17, 18],
+    blue_red_hcp: [17, 18],
+    distances_m: { bianco: [446], giallo: [430], blu: [394], rosso: [367] }
+  };
+}
+
+function buildCampodoglioTeeSpecificHoleMatrix(parVariant = 72) {
+  const sourceLinks = [
+    "https://www.campodoglio.it/percorso-golf-club/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-1/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-2/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-3-12/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-4-13/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-5-14/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-6-15/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-7-16/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-8-17/",
+    "https://www.campodoglio.it/percorso-golf-club/buca-9-18/"
+  ];
+  const holes = [...CAMPODOGLIO_TEE_SPECIFIC_BASE_HOLES, campodoglioHoleNineForVariant(parVariant)];
+  const teeConfigs = {
+    bianco: { label: "Bianco", hcpKey: "white_yellow_hcp" },
+    giallo: { label: "Giallo", hcpKey: "white_yellow_hcp" },
+    blu: { label: "Blu", hcpKey: "blue_red_hcp" },
+    rosso: { label: "Rosso", hcpKey: "blue_red_hcp" }
+  };
+
+  return {
+    model: "physical_9_dual_round_hcp_by_tee",
+    source: "official_club_site",
+    evidence_status: "verified",
+    par_variant: parVariant,
+    physical_hole_count: 9,
+    source_links: sourceLinks,
+    note:
+      "Campodoglio official site exposes Buca 1/10 through 9/18 with tee-specific HCP pairs. Stablr uses the first value for the first loop and the second value for the second loop.",
+    tees: Object.fromEntries(
+      Object.entries(teeConfigs).map(([teeKey, teeConfig]) => [
+        teeKey,
+        {
+          label: teeConfig.label,
+          holes: holes.map((hole) => ({
+            physical_hole_number: hole.physical_hole_number,
+            par: hole.par,
+            stroke_indexes: hole[teeConfig.hcpKey],
+            distances_m: hole.distances_m[teeKey]
+          }))
+        }
+      ])
+    )
+  };
+}
+
 const CLUBS = [
   {
     name: "Firenze Ugolino",
@@ -258,16 +336,26 @@ const CLUBS = [
     circoloId: "701",
     isComplex: false,
     physicalHoleCount: 9,
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
     officialCourseLinks: [
       "https://www.campodoglio.it/percorso-golf-club/",
       "https://www.campodoglio.it/percorso-golf-club/buca-1/",
-      "https://www.campodoglio.it/percorso-golf-club/buca-9/"
+      "https://www.campodoglio.it/percorso-golf-club/buca-2/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-3-12/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-4-13/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-5-14/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-6-15/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-7-16/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-8-17/",
+      "https://www.campodoglio.it/percorso-golf-club/buca-9-18/"
     ],
-    notes: "FIG official catalog + GesGolf 2024 hole-by-hole import, simplified against official Campodoglio site structure. Official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables for Par 72 and Par 70 variants. Stablr exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70; Old/New/Easy/Mixed technical labels are hidden from UX. Keep orange because official HCP values are tee/variant-specific and cannot yet be represented as tee-specific stroke indexes in the current live model.",
+    notes: "Stablr Approved: FIG official catalog + GesGolf Campodoglio 2024 import + official Campodoglio course pages. The official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables with tee-specific HCP pairs for Par 72 and Par 70 variants. Stablr treats noisy GesGolf variants as technical source noise, exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70, and uses the official tee-specific HCP matrix as the certification Evidence.",
     routes: [
-      { figCourse: "9 Buche Old 2024", name: "9 Buche", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 1, defaultForHoles: 9 },
-      { figCourse: "18 Buche Old 2024", name: "18 Buche Par 72", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 2, defaultForHoles: 18 },
-      { figCourse: "18 Buche New 2024", name: "18 Buche Par 70", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3 },
+      { figCourse: "9 Buche Old 2024", name: "9 Buche", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 1, defaultForHoles: 9, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
+      { figCourse: "18 Buche Old 2024", name: "18 Buche Par 72", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 2, defaultForHoles: 18, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
+      { figCourse: "18 Buche New 2024", name: "18 Buche Par 70", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(70) },
       { figCourse: "9 Buche New 2024", name: "9 Buche New 2024", gesRoute: "9 Buche New 24", gesRouteId: 2845, start: 0, count: 9, displayOrder: 90, isActive: false },
       { figCourse: "18 Buche Easy 2024", name: "18 Buche Easy 2024", gesRoute: "18 Buche Easy", gesRouteId: 2854, start: 0, count: 18, displayOrder: 91, isActive: false },
       { figCourse: "9 Buche Easy 2024", name: "9 Buche Easy 2024", gesRoute: "9 Buche Easy", gesRouteId: 2853, start: 0, count: 9, displayOrder: 92, isActive: false },
@@ -608,6 +696,13 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
         ? {
             fig_display_name: figCourse.name,
             stablr_product_name: routeSpec.name
+          }
+        : {}),
+      ...(routeSpec.teeSpecificHoleMatrix
+        ? {
+            tee_specific_hole_matrix: routeSpec.teeSpecificHoleMatrix,
+            hole_data_override:
+              "Official club Evidence provides tee-specific HCP pairs; frontend should use this matrix after tee selection instead of the static GesGolf stroke_index values."
           }
         : {}),
       round_variant: {

@@ -11,7 +11,7 @@
     "name_normalized": "campodoglio",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": false,
     "playable": true,
@@ -22,14 +22,22 @@
       "kind": "club",
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
-      "verification_status": "playable_review",
-      "verification_notes": "FIG official catalog + GesGolf 2024 hole-by-hole import, simplified against official Campodoglio site structure. Official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables for Par 72 and Par 70 variants. Stablr exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70; Old/New/Easy/Mixed technical labels are hidden from UX. Keep orange because official HCP values are tee/variant-specific and cannot yet be represented as tee-specific stroke indexes in the current live model.",
+      "verification_status": "verified",
+      "stablr_approved": true,
+      "verification_notes": "Stablr Approved: FIG official catalog + GesGolf Campodoglio 2024 import + official Campodoglio course pages. The official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables with tee-specific HCP pairs for Par 72 and Par 70 variants. Stablr treats noisy GesGolf variants as technical source noise, exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70, and uses the official tee-specific HCP matrix as the certification Evidence.",
       "official_course_links": [
         "https://www.campodoglio.it/percorso-golf-club/",
         "https://www.campodoglio.it/percorso-golf-club/buca-1/",
-        "https://www.campodoglio.it/percorso-golf-club/buca-9/"
+        "https://www.campodoglio.it/percorso-golf-club/buca-2/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-3-12/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-4-13/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-5-14/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-6-15/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-7-16/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-8-17/",
+        "https://www.campodoglio.it/percorso-golf-club/buca-9-18/"
       ],
-      "website_evidence_status": "deep_review_pending",
+      "website_evidence_status": "verified",
       "physical_hole_count": 9,
       "import_profile": "physical_18_simple_or_trimmed",
       "product_rule": "Expose only explicitly mapped Stablr-playable routes for this controlled batch; noisy, duplicate, provisional or unconfirmed variants stay out of UX.",
@@ -55,6 +63,445 @@
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "9 Buche Old 2024",
         "stablr_product_name": "9 Buche",
+        "tee_specific_hole_matrix": {
+          "model": "physical_9_dual_round_hcp_by_tee",
+          "source": "official_club_site",
+          "evidence_status": "verified",
+          "par_variant": 72,
+          "physical_hole_count": 9,
+          "source_links": [
+            "https://www.campodoglio.it/percorso-golf-club/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-1/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-2/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-3-12/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-4-13/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-5-14/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-6-15/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-7-16/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-8-17/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-9-18/"
+          ],
+          "note": "Campodoglio official site exposes Buca 1/10 through 9/18 with tee-specific HCP pairs. Stablr uses the first value for the first loop and the second value for the second loop.",
+          "tees": {
+            "bianco": {
+              "label": "Bianco",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    4,
+                    4
+                  ],
+                  "distances_m": [
+                    394
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    355
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    472
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    388
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    174
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    288
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    350
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    145
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    446
+                  ]
+                }
+              ]
+            },
+            "giallo": {
+              "label": "Giallo",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    4,
+                    4
+                  ],
+                  "distances_m": [
+                    369
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    339
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    445
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    367
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    164
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    272
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    338
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    138
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    430
+                  ]
+                }
+              ]
+            },
+            "blu": {
+              "label": "Blu",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    341
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    309
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    410
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    3,
+                    4
+                  ],
+                  "distances_m": [
+                    339
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    145
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    15,
+                    16
+                  ],
+                  "distances_m": [
+                    250
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    309
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    130
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    394
+                  ]
+                }
+              ]
+            },
+            "rosso": {
+              "label": "Rosso",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    334
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    296
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    384
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    3,
+                    4
+                  ],
+                  "distances_m": [
+                    317
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    127
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    15,
+                    16
+                  ],
+                  "distances_m": [
+                    236
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    290
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    123
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    367
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "hole_data_override": "Official club Evidence provides tee-specific HCP pairs; frontend should use this matrix after tee selection instead of the static GesGolf stroke_index values.",
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": 9,
@@ -257,6 +704,445 @@
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "18 Buche Old 2024",
         "stablr_product_name": "18 Buche Par 72",
+        "tee_specific_hole_matrix": {
+          "model": "physical_9_dual_round_hcp_by_tee",
+          "source": "official_club_site",
+          "evidence_status": "verified",
+          "par_variant": 72,
+          "physical_hole_count": 9,
+          "source_links": [
+            "https://www.campodoglio.it/percorso-golf-club/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-1/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-2/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-3-12/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-4-13/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-5-14/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-6-15/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-7-16/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-8-17/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-9-18/"
+          ],
+          "note": "Campodoglio official site exposes Buca 1/10 through 9/18 with tee-specific HCP pairs. Stablr uses the first value for the first loop and the second value for the second loop.",
+          "tees": {
+            "bianco": {
+              "label": "Bianco",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    4,
+                    4
+                  ],
+                  "distances_m": [
+                    394
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    355
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    472
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    388
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    174
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    288
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    350
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    145
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    446
+                  ]
+                }
+              ]
+            },
+            "giallo": {
+              "label": "Giallo",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    4,
+                    4
+                  ],
+                  "distances_m": [
+                    369
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    339
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    445
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    367
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    164
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    272
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    338
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    138
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    430
+                  ]
+                }
+              ]
+            },
+            "blu": {
+              "label": "Blu",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    341
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    309
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    410
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    3,
+                    4
+                  ],
+                  "distances_m": [
+                    339
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    145
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    15,
+                    16
+                  ],
+                  "distances_m": [
+                    250
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    309
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    130
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    394
+                  ]
+                }
+              ]
+            },
+            "rosso": {
+              "label": "Rosso",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    334
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    296
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    384
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    3,
+                    4
+                  ],
+                  "distances_m": [
+                    317
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    127
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    15,
+                    16
+                  ],
+                  "distances_m": [
+                    236
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    290
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    123
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 5,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    367
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "hole_data_override": "Official club Evidence provides tee-specific HCP pairs; frontend should use this matrix after tee selection instead of the static GesGolf stroke_index values.",
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": 18,
@@ -513,6 +1399,445 @@
         "hole_by_hole_source": "gesgolf",
         "fig_display_name": "18 Buche New 2024",
         "stablr_product_name": "18 Buche Par 70",
+        "tee_specific_hole_matrix": {
+          "model": "physical_9_dual_round_hcp_by_tee",
+          "source": "official_club_site",
+          "evidence_status": "verified",
+          "par_variant": 70,
+          "physical_hole_count": 9,
+          "source_links": [
+            "https://www.campodoglio.it/percorso-golf-club/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-1/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-2/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-3-12/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-4-13/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-5-14/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-6-15/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-7-16/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-8-17/",
+            "https://www.campodoglio.it/percorso-golf-club/buca-9-18/"
+          ],
+          "note": "Campodoglio official site exposes Buca 1/10 through 9/18 with tee-specific HCP pairs. Stablr uses the first value for the first loop and the second value for the second loop.",
+          "tees": {
+            "bianco": {
+              "label": "Bianco",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    4,
+                    4
+                  ],
+                  "distances_m": [
+                    394
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    355
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    472
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    388
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    174
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    288
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    350
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    145
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    430
+                  ]
+                }
+              ]
+            },
+            "giallo": {
+              "label": "Giallo",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    4,
+                    4
+                  ],
+                  "distances_m": [
+                    369
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    339
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    445
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    367
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    164
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    272
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    338
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    138
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    394
+                  ]
+                }
+              ]
+            },
+            "blu": {
+              "label": "Blu",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    341
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    309
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    410
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    3,
+                    4
+                  ],
+                  "distances_m": [
+                    339
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    145
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    15,
+                    16
+                  ],
+                  "distances_m": [
+                    250
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    309
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    130
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    367
+                  ]
+                }
+              ]
+            },
+            "rosso": {
+              "label": "Rosso",
+              "holes": [
+                {
+                  "physical_hole_number": 1,
+                  "par": 4,
+                  "stroke_indexes": [
+                    5,
+                    6
+                  ],
+                  "distances_m": [
+                    334
+                  ]
+                },
+                {
+                  "physical_hole_number": 2,
+                  "par": 4,
+                  "stroke_indexes": [
+                    17,
+                    18
+                  ],
+                  "distances_m": [
+                    296
+                  ]
+                },
+                {
+                  "physical_hole_number": 3,
+                  "par": 5,
+                  "stroke_indexes": [
+                    9,
+                    10
+                  ],
+                  "distances_m": [
+                    384
+                  ]
+                },
+                {
+                  "physical_hole_number": 4,
+                  "par": 4,
+                  "stroke_indexes": [
+                    3,
+                    4
+                  ],
+                  "distances_m": [
+                    317
+                  ]
+                },
+                {
+                  "physical_hole_number": 5,
+                  "par": 3,
+                  "stroke_indexes": [
+                    13,
+                    14
+                  ],
+                  "distances_m": [
+                    127
+                  ]
+                },
+                {
+                  "physical_hole_number": 6,
+                  "par": 4,
+                  "stroke_indexes": [
+                    15,
+                    16
+                  ],
+                  "distances_m": [
+                    236
+                  ]
+                },
+                {
+                  "physical_hole_number": 7,
+                  "par": 4,
+                  "stroke_indexes": [
+                    7,
+                    8
+                  ],
+                  "distances_m": [
+                    290
+                  ]
+                },
+                {
+                  "physical_hole_number": 8,
+                  "par": 3,
+                  "stroke_indexes": [
+                    11,
+                    12
+                  ],
+                  "distances_m": [
+                    123
+                  ]
+                },
+                {
+                  "physical_hole_number": 9,
+                  "par": 4,
+                  "stroke_indexes": [
+                    1,
+                    2
+                  ],
+                  "distances_m": [
+                    315
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "hole_data_override": "Official club Evidence provides tee-specific HCP pairs; frontend should use this matrix after tee selection instead of the static GesGolf stroke_index values.",
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": null,

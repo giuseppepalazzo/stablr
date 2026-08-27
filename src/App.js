@@ -94,6 +94,50 @@ function createInitialRoundSetup() {
   };
 }
 
+function getTeeSpecificHoleMatrixKey(tee) {
+  const rawParts = [tee?.teeColor, tee?.teeName, tee?.name]
+    .map((value) =>
+      String(value || "")
+        .trim()
+        .toLowerCase()
+    )
+    .filter(Boolean);
+
+  const raw = rawParts.join(" ");
+  if (!raw) return null;
+  if (raw.includes("white") || raw.includes("bianco")) return "bianco";
+  if (raw.includes("yellow") || raw.includes("giallo")) return "giallo";
+  if (raw.includes("blue") || raw.includes("blu")) return "blu";
+  if (raw.includes("red") || raw.includes("rosso")) return "rosso";
+  return rawParts[0].replace(/\s+/g, "_");
+}
+
+function getTeeSpecificHoleData(route, tee, physicalHoleNumber, roundNumber) {
+  const matrix = route?.sourcePayload?.tee_specific_hole_matrix;
+  if (!matrix || !tee) return null;
+
+  const teeKey = getTeeSpecificHoleMatrixKey(tee);
+  const teeMatrix = teeKey ? matrix.tees?.[teeKey] : null;
+  const holes = Array.isArray(teeMatrix?.holes) ? teeMatrix.holes : [];
+  const holeData = holes.find(
+    (hole) => Number(hole.physical_hole_number) === Number(physicalHoleNumber)
+  );
+  if (!holeData) return null;
+
+  const occurrenceIndex = Math.max(0, Math.min(1, Number(roundNumber || 1) - 1));
+  const strokeIndexes = Array.isArray(holeData.stroke_indexes)
+    ? holeData.stroke_indexes
+    : [];
+  const distances = Array.isArray(holeData.distances_m) ? holeData.distances_m : [];
+
+  return {
+    par: Number(holeData.par || 0) || null,
+    strokeIndex: Number(strokeIndexes[occurrenceIndex] || 0) || null,
+    distanceM: Number(distances[occurrenceIndex] || distances[0] || 0) || null,
+    source: matrix.source || "tee_specific_hole_matrix"
+  };
+}
+
 function getRoundSelectionMode({
   totalCompetitionHoles,
   selectedRoute,
@@ -4491,7 +4535,7 @@ function App() {
     setStartHolePage(nextPage);
   }, [showRoundSetup, roundSetup.startHole, roundSetup.totalCompetitionHoles]);
 
-  const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole) => {
+  const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole, selectedTee = null) => {
     const courseHoleCount = Number(route?.holesCount || 0);
     const start = Number(startHole || 1);
 
@@ -4504,6 +4548,12 @@ function App() {
       const roundNumber = Math.floor(index / courseHoleCount) + 1;
       const totalRounds = totalCompetitionHoles / courseHoleCount;
       const sourceStrokeIndex = Number(baseHole.strokeIndex || 0) || null;
+      const teeSpecificHoleData = getTeeSpecificHoleData(
+        route,
+        selectedTee,
+        baseHole.hole,
+        roundNumber
+      );
       const repeatedSingleNineStrokeIndex =
         totalRounds === 2 &&
         courseHoleCount === 9 &&
@@ -4511,6 +4561,9 @@ function App() {
         sourceStrokeIndex !== null
           ? Math.min(18, sourceStrokeIndex + 1)
           : sourceStrokeIndex;
+      const effectiveStrokeIndex =
+        teeSpecificHoleData?.strokeIndex || repeatedSingleNineStrokeIndex;
+      const effectivePar = teeSpecificHoleData?.par || baseHole.par;
 
       return {
         competitionHoleNumber,
@@ -4519,9 +4572,11 @@ function App() {
         routePosition: totalRounds > 1 ? roundNumber : 1,
         courseHoleNumber: baseHole.hole,
         physicalHoleNumber: baseHole.hole,
-        par: baseHole.par,
-        strokeIndex: repeatedSingleNineStrokeIndex,
+        par: effectivePar,
+        strokeIndex: effectiveStrokeIndex,
         sourceStrokeIndex,
+        teeSpecificStrokeIndex: teeSpecificHoleData?.strokeIndex || null,
+        distanceM: teeSpecificHoleData?.distanceM || null,
         roundNumber,
         totalRounds,
         segmentLabel:
@@ -4623,6 +4678,11 @@ function App() {
       routes.find((route) => route.id === setup.selectedRouteId) || routes[0] || null;
     const secondaryRoute =
       routes.find((route) => route.id === setup.secondaryRouteId) || null;
+    const selectedRouteTeeOptions = Array.isArray(selectedRoute?.tees) ? selectedRoute.tees : [];
+    const selectedRouteTee =
+      selectedRouteTeeOptions.find((tee) => tee.id === setup.selectedRouteTeeId) ||
+      selectedRouteTeeOptions[0] ||
+      null;
     const routeCombinations = Array.isArray(course?.routeCombinations)
       ? course.routeCombinations
       : [];
@@ -4670,7 +4730,8 @@ function App() {
         return buildSingleRouteCompetitionSequence(
           selectedRoute,
           Number(setup.totalCompetitionHoles),
-          Number(setup.startHole)
+          Number(setup.startHole),
+          selectedRouteTee
         );
       }
 
@@ -4682,7 +4743,8 @@ function App() {
         return buildSingleRouteCompetitionSequence(
           selectedRoute,
           Number(setup.totalCompetitionHoles),
-          Number(setup.startHole)
+          Number(setup.startHole),
+          selectedRouteTee
         );
       }
     }
@@ -4692,7 +4754,8 @@ function App() {
     return buildSingleRouteCompetitionSequence(
       selectedRoute,
       Number(setup.totalCompetitionHoles),
-      Number(setup.startHole)
+      Number(setup.startHole),
+      selectedRouteTee
     );
   }, [
     buildManualCombinationSequence,
