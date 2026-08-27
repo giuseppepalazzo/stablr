@@ -40,6 +40,26 @@ Poi attendi la mia conferma prima di eseguire la task.
 
 Se l'impostazione corrente è già adeguata, non interrompere il workflow con raccomandazioni: procedi normalmente.
 
+### Ritorno a Terra Light
+
+Quando mi hai consigliato di passare temporaneamente a un modello o livello di reasoning superiore, continua a valutare il livello necessario durante la task.
+
+Appena la parte del lavoro che richiedeva maggiore capacità è conclusa e le attività residue possono essere svolte in sicurezza con GPT-5.6 Terra Light, fermati prima di proseguire e avvisami.
+
+Usa soltanto questo formato:
+
+**Puoi tornare a:** GPT-5.6 Terra Light\
+**Motivo:** [una frase breve su cosa è stato completato e perché il lavoro residuo non richiede più il livello superiore]
+
+Attendi che io effettui il cambio e ti dica di continuare.
+
+Non mantenere un modello/reasoning superiore per comodità o per tutta la durata della task se non è più necessario.
+
+L'obiettivo è quindi simmetrico:
+
+- consigliarmi di **salire** quando Terra Light non è sufficiente;
+- consigliarmi di **scendere** appena il lavoro complesso è terminato.
+
 ## Context efficiency
 
 - Non analizzare l'intero repository quando bastano file, directory o ricerche mirate.
