@@ -1187,6 +1187,18 @@ SEGNO22:
   - `San Valentino`: sito ufficiale `https://www.sanvalentino.it/il-golf/` conferma due percorsi da 18 buche (`Par 72` e `Par 69 invernale`) e tre percorsi da 9; immagini ufficiali `paginailgolfbuca1fronteok-640w.webp` ... `Buca181-640w-1.webp` controllate per Par72; Par72 diventa `18 Buche` default certificato, `Prime Nove` e `Seconde Nove` derivano dagli stessi asset; `Old Course Par 69` resta separato. Nota: buca 10 Par72 mantenuta HCP 7 come da immagine ufficiale, anche se duplica la buca 6.
   - `St. Anna`: sito ufficiale `https://www.santannagolf.com/percorsi/` conferma 18 buche divise in `Percorso Mare` e `Percorso Monti`; pagine `percorso-mare` e `percorso-monti` espongono testi buca-per-buca e asset visuali `1MARE-718x1024.jpg` ... `9MARE-718x1024.jpg`, `1MONTI-718x1024.jpg` ... `9MONTI-718x1024.jpg`; PAR/HCP controllati a campione e coerenti con GesGolf/Stablr; promosso verde.
   - `Campodoglio`: sito ufficiale `https://www.campodoglio.it/percorso-golf-club/` e pagine `buca-1` ... `buca-9` controllate; espongono PAR/HCP per coppie `Buca 1/10` ... `9/18`, con varianti Par72 e Par70. Non promosso verde: la fonte ufficiale non mappa direttamente le varianti FIG/GesGolf `Old/New/Easy/Mixed` e alcune sequenze HCP non combaciano con il JSON attuale. Task dedicata: semplificare Campodoglio su struttura ufficiale sito/FIG e poi certificare.
+- microfix Campodoglio:
+  - struttura ufficiale sito: campo fisico 9 buche Par 36, con varianti 18 buche Par72 e Par70;
+  - attive in UX solo `9 Buche`, `18 Buche Par 72`, `18 Buche Par 70`;
+  - disattivate le varianti tecniche `9 Buche New 2024`, `18 Buche Easy 2024`, `9 Buche Easy 2024`, `18 Buche Mixed 2024`, `9 Buche Mixed 2024`;
+  - club mantenuto arancione per limite dati: HCP ufficiali sono tee/variante-specifici e non vanno compressi in modo arbitrario nel singolo `route_holes.stroke_index`.
+- microfix Montelupo:
+  - sito ufficiale `https://www.golfmontelupo.it/` conferma che il campo attualmente propone 14 buche;
+  - mappa ufficiale `https://www.golfmontelupo.it/foto/grandi/mlupopercorso1-1-1.jpg` mostra tre routing 18 buche: `Bianco` Par68, `Rosso` Par68, `Blu` Par70;
+  - attive in UX solo `Bianco`, `Rosso`, `Blu`;
+  - disattivati `Blu 9 buche`, `Verde`, `Giallo`;
+  - card club forzata a `3 percorsi`, per evitare la sottoriga fuorviante `18 buche · Par 70`;
+  - club mantenuto arancione finche' non viene trovata Evidence ufficiale HCP/SI buca-per-buca.
   - `Villa Condulmer`: sito ufficiale molto ricco con PAR/HCP buca-per-buca, ma c'e' almeno una discrepanza HCP da chiarire prima del verde.
   - `Folgaria`: sito ufficiale con pagina percorso, tabella handicap linkata e sezioni visuali; resta arancione finche' non si completa estrazione/lettura di immagini/PDF.
 - report dettagliato:

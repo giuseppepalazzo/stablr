@@ -256,23 +256,23 @@ const CLUBS = [
     name: "Campodoglio",
     gesSlug: "campodoglio",
     circoloId: "701",
-    isComplex: true,
-    physicalHoleCount: 18,
+    isComplex: false,
+    physicalHoleCount: 9,
     officialCourseLinks: [
       "https://www.campodoglio.it/percorso-golf-club/",
       "https://www.campodoglio.it/percorso-golf-club/buca-1/",
       "https://www.campodoglio.it/percorso-golf-club/buca-9/"
     ],
-    notes: "FIG official catalog + GesGolf 2024 Old/New/Easy/Mixed hole-by-hole import. Official Campodoglio site exposes PAR/HCP tables on pages Buca 1/10 through Buca 9/18 for Par 72 and Par 70 variants, but the official site structure does not map cleanly to the current Old/New/Easy/Mixed import and some HCP values differ from the current GesGolf/Stablr routes. Keep orange pending a dedicated structural microfix.",
+    notes: "FIG official catalog + GesGolf 2024 hole-by-hole import, simplified against official Campodoglio site structure. Official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables for Par 72 and Par 70 variants. Stablr exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70; Old/New/Easy/Mixed technical labels are hidden from UX. Keep orange because official HCP values are tee/variant-specific and cannot yet be represented as tee-specific stroke indexes in the current live model.",
     routes: [
-      { figCourse: "18 Buche Old 2024", name: "18 Buche Old 2024", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
-      { figCourse: "9 Buche Old 2024", name: "9 Buche Old 2024", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
-      { figCourse: "18 Buche New 2024", name: "18 Buche New 2024", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3 },
-      { figCourse: "9 Buche New 2024", name: "9 Buche New 2024", gesRoute: "9 Buche New 24", gesRouteId: 2845, start: 0, count: 9, displayOrder: 4 },
-      { figCourse: "18 Buche Easy 2024", name: "18 Buche Easy 2024", gesRoute: "18 Buche Easy", gesRouteId: 2854, start: 0, count: 18, displayOrder: 5 },
-      { figCourse: "9 Buche Easy 2024", name: "9 Buche Easy 2024", gesRoute: "9 Buche Easy", gesRouteId: 2853, start: 0, count: 9, displayOrder: 6 },
-      { figCourse: "18 Buche Mixed 2024", name: "18 Buche Mixed 2024", gesRoute: "18 Buche Mixed", gesRouteId: 2856, start: 0, count: 18, displayOrder: 7 },
-      { figCourse: "9 Buche Mixed 2024", name: "9 Buche Mixed 2024", gesRoute: "9 Buche Mixed", gesRouteId: 2855, start: 0, count: 9, displayOrder: 8 }
+      { figCourse: "9 Buche Old 2024", name: "9 Buche", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 1, defaultForHoles: 9 },
+      { figCourse: "18 Buche Old 2024", name: "18 Buche Par 72", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 2, defaultForHoles: 18 },
+      { figCourse: "18 Buche New 2024", name: "18 Buche Par 70", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3 },
+      { figCourse: "9 Buche New 2024", name: "9 Buche New 2024", gesRoute: "9 Buche New 24", gesRouteId: 2845, start: 0, count: 9, displayOrder: 90, isActive: false },
+      { figCourse: "18 Buche Easy 2024", name: "18 Buche Easy 2024", gesRoute: "18 Buche Easy", gesRouteId: 2854, start: 0, count: 18, displayOrder: 91, isActive: false },
+      { figCourse: "9 Buche Easy 2024", name: "9 Buche Easy 2024", gesRoute: "9 Buche Easy", gesRouteId: 2853, start: 0, count: 9, displayOrder: 92, isActive: false },
+      { figCourse: "18 Buche Mixed 2024", name: "18 Buche Mixed 2024", gesRoute: "18 Buche Mixed", gesRouteId: 2856, start: 0, count: 18, displayOrder: 93, isActive: false },
+      { figCourse: "9 Buche Mixed 2024", name: "9 Buche Mixed 2024", gesRoute: "9 Buche Mixed", gesRouteId: 2855, start: 0, count: 9, displayOrder: 94, isActive: false }
     ]
   },
   {
@@ -297,15 +297,21 @@ const CLUBS = [
     gesSlug: "montelupo",
     circoloId: "638",
     isComplex: true,
-    physicalHoleCount: 18,
-    notes: "FIG official catalog + GesGolf Montelupo color-route hole-by-hole import. Certification waits for official third-level Evidence.",
+    physicalHoleCount: 14,
+    clubCardSubtitle: "3 percorsi",
+    officialCourseLinks: [
+      "https://www.golfmontelupo.it/",
+      "https://www.golfmontelupo.it/PERCORSO.htm",
+      "https://www.golfmontelupo.it/foto/grandi/mlupopercorso1-1-1.jpg"
+    ],
+    notes: "FIG official catalog + GesGolf Montelupo color-route hole-by-hole import, simplified against official club site/map. Official site states the course currently has 14 physical holes; the official course map exposes three 18-hole routings: Bianco Par 68, Rosso Par 68 and Blu Par 70. Stablr exposes only these three routings; Giallo, Verde and Blu 9 technical variants are hidden from UX. Keep orange until official third-level Evidence confirms HCP/SI buca-per-buca.",
     routes: [
-      { figCourse: "blu 2020", name: "Blu", gesRoute: "Blu", gesRouteId: 2229, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
-      { figCourse: "blu 2020 9 buche", name: "Blu 9 buche", gesRoute: "Blu 9 buche", gesRouteId: 2226, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
-      { figCourse: "verde 2020", name: "Verde", gesRoute: "Verde", gesRouteId: 2227, start: 0, count: 18, displayOrder: 3 },
-      { figCourse: "giallo 2020", name: "Giallo", gesRoute: "Giallo", gesRouteId: 2228, start: 0, count: 18, displayOrder: 4 },
-      { figCourse: "bianco 2020", name: "Bianco", gesRoute: "Bianco", gesRouteId: 2447, start: 0, count: 18, displayOrder: 5 },
-      { figCourse: "rosso 2020", name: "Rosso", gesRoute: "PERCORSO ROSSO", gesRouteId: 2225, start: 0, count: 18, displayOrder: 6 }
+      { figCourse: "bianco 2020", name: "Bianco", gesRoute: "Bianco", gesRouteId: 2447, start: 0, count: 18, displayOrder: 1 },
+      { figCourse: "rosso 2020", name: "Rosso", gesRoute: "PERCORSO ROSSO", gesRouteId: 2225, start: 0, count: 18, displayOrder: 2 },
+      { figCourse: "blu 2020", name: "Blu", gesRoute: "Blu", gesRouteId: 2229, start: 0, count: 18, displayOrder: 3, defaultForHoles: 18 },
+      { figCourse: "blu 2020 9 buche", name: "Blu 9 buche", gesRoute: "Blu 9 buche", gesRouteId: 2226, start: 0, count: 9, displayOrder: 90, isActive: false },
+      { figCourse: "verde 2020", name: "Verde", gesRoute: "Verde", gesRouteId: 2227, start: 0, count: 18, displayOrder: 91, isActive: false },
+      { figCourse: "giallo 2020", name: "Giallo", gesRoute: "Giallo", gesRouteId: 2228, start: 0, count: 18, displayOrder: 92, isActive: false }
     ]
   },
   {
@@ -584,7 +590,7 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
     holes_count: figCourse.holes_count,
     total_par: figCourse.total_par,
     display_order: routeSpec.displayOrder,
-    is_active: figCourse.is_active ?? true,
+    is_active: routeSpec.isActive ?? figCourse.is_active ?? true,
     source_system: "fig",
     source_external_id: figCourse.source_external_id,
     source_payload: {
