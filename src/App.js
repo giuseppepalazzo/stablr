@@ -4594,11 +4594,16 @@ function App() {
       const competitionHoleNumber = index + 1;
       const roundNumber = Math.floor(index / courseHoleCount) + 1;
       const totalRounds = totalCompetitionHoles / courseHoleCount;
+      const physicalHoleSequence = Array.isArray(route?.sourcePayload?.physical_hole_sequence)
+        ? route.sourcePayload.physical_hole_sequence
+        : [];
+      const officialPhysicalHoleNumber =
+        Number(physicalHoleSequence[relativeIndex] || 0) || baseHole.hole;
       const sourceStrokeIndex = Number(baseHole.strokeIndex || 0) || null;
       const teeSpecificHoleData = getTeeSpecificHoleData(
         route,
         selectedTee,
-        baseHole.hole,
+        officialPhysicalHoleNumber,
         roundNumber
       );
       const repeatedSingleNineStrokeIndex =
@@ -4618,7 +4623,7 @@ function App() {
         routeName: route.name,
         routePosition: totalRounds > 1 ? roundNumber : 1,
         courseHoleNumber: baseHole.hole,
-        physicalHoleNumber: baseHole.hole,
+        physicalHoleNumber: officialPhysicalHoleNumber,
         par: effectivePar,
         strokeIndex: effectiveStrokeIndex,
         sourceStrokeIndex,
@@ -10139,7 +10144,7 @@ function App() {
                         fontSize: "14px"
                       }}
                     >
-                      ⛳️ {hole.courseHoleNumber}
+                      ⛳️ {hole.physicalHoleNumber || hole.courseHoleNumber}
                     </div>
                   </div>
 

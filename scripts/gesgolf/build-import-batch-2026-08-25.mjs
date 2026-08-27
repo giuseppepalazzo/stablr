@@ -11,6 +11,12 @@ const OUTPUT_DIR = path.join(repoRoot, "data", "gesgolf", "imports");
 
 const PROTECTED_CLUB_NAMES = new Set(["mare di roma", "parco de' medici", "parco de’ medici", "parco de medici"]);
 
+const MONTELUPO_PHYSICAL_HOLE_SEQUENCES = {
+  bianco: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1, 3, 5, 6, 14],
+  rosso: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 1, 2, 3, 5, 6],
+  blu: [1, 2, 3, 4, 5, 6, 9, 12, 14, 1, 2, 3, 4, 5, 6, 9, 12, 14]
+};
+
 const CAMPODOGLIO_TEE_SPECIFIC_BASE_HOLES = [
   { physical_hole_number: 1, par: 4, white_yellow_hcp: [4, 4], blue_red_hcp: [5, 6], distances_m: { bianco: [394], giallo: [369], blu: [341], rosso: [334] } },
   { physical_hole_number: 2, par: 4, white_yellow_hcp: [13, 14], blue_red_hcp: [17, 18], distances_m: { bianco: [355], giallo: [339], blu: [309], rosso: [296] } },
@@ -391,12 +397,14 @@ const CLUBS = [
       "https://www.golfmontelupo.it/PERCORSO.htm",
       "https://www.golfmontelupo.it/foto/grandi/mlupopercorso1-1-1.jpg"
     ],
-    notes: "FIG official catalog + GesGolf Montelupo color-route hole-by-hole import, simplified against official club site/map. Official site states the course currently has 14 physical holes; the official course map exposes three 18-hole routings: Bianco Par 68, Rosso Par 68 and Blu Par 70. Stablr exposes only these three routings; Giallo, Verde and Blu 9 technical variants are hidden from UX. Keep orange until official third-level Evidence confirms HCP/SI buca-per-buca.",
+    notes: "FIG official catalog + GesGolf Montelupo color-route hole-by-hole import, simplified against official club site/map. Official site states the course currently has 14 physical holes; the official course map exposes three routings: Bianco Par 68, Rosso Par 68 and Blu Par 70. Stablr exposes Bianco/Rosso/Blu as 18-hole routes and matching 9-hole route options, preserving the official physical-hole sequence in route payload for UX display. Giallo and Verde technical variants are hidden from UX. Keep orange until official third-level Evidence confirms HCP/SI buca-per-buca.",
     routes: [
-      { figCourse: "bianco 2020", name: "Bianco", gesRoute: "Bianco", gesRouteId: 2447, start: 0, count: 18, displayOrder: 1 },
-      { figCourse: "rosso 2020", name: "Rosso", gesRoute: "PERCORSO ROSSO", gesRouteId: 2225, start: 0, count: 18, displayOrder: 2 },
-      { figCourse: "blu 2020", name: "Blu", gesRoute: "Blu", gesRouteId: 2229, start: 0, count: 18, displayOrder: 3, defaultForHoles: 18 },
-      { figCourse: "blu 2020 9 buche", name: "Blu 9 buche", gesRoute: "Blu 9 buche", gesRouteId: 2226, start: 0, count: 9, displayOrder: 90, isActive: false },
+      { figCourse: "bianco 2020", name: "Bianco", gesRoute: "Bianco", gesRouteId: 2447, start: 0, count: 18, displayOrder: 1, physicalHoleSequence: MONTELUPO_PHYSICAL_HOLE_SEQUENCES.bianco },
+      { figCourse: "bianco 2020", name: "Bianco 9 buche", gesRoute: "Bianco", gesRouteId: 2447, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9, externalKey: "fig-course-montelupo-bianco-2020-stablr-9-buche", physicalHoleSequence: MONTELUPO_PHYSICAL_HOLE_SEQUENCES.bianco.slice(0, 9), includeFigTees: false },
+      { figCourse: "rosso 2020", name: "Rosso", gesRoute: "PERCORSO ROSSO", gesRouteId: 2225, start: 0, count: 18, displayOrder: 3, physicalHoleSequence: MONTELUPO_PHYSICAL_HOLE_SEQUENCES.rosso },
+      { figCourse: "rosso 2020", name: "Rosso 9 buche", gesRoute: "PERCORSO ROSSO", gesRouteId: 2225, start: 0, count: 9, displayOrder: 4, externalKey: "fig-course-montelupo-rosso-2020-stablr-9-buche", physicalHoleSequence: MONTELUPO_PHYSICAL_HOLE_SEQUENCES.rosso.slice(0, 9), includeFigTees: false },
+      { figCourse: "blu 2020", name: "Blu", gesRoute: "Blu", gesRouteId: 2229, start: 0, count: 18, displayOrder: 5, defaultForHoles: 18, physicalHoleSequence: MONTELUPO_PHYSICAL_HOLE_SEQUENCES.blu },
+      { figCourse: "blu 2020 9 buche", name: "Blu 9 buche", gesRoute: "Blu 9 buche", gesRouteId: 2226, start: 0, count: 9, displayOrder: 6, physicalHoleSequence: MONTELUPO_PHYSICAL_HOLE_SEQUENCES.blu.slice(0, 9) },
       { figCourse: "verde 2020", name: "Verde", gesRoute: "Verde", gesRouteId: 2227, start: 0, count: 18, displayOrder: 91, isActive: false },
       { figCourse: "giallo 2020", name: "Giallo", gesRoute: "Giallo", gesRouteId: 2228, start: 0, count: 18, displayOrder: 92, isActive: false }
     ]
@@ -680,15 +688,25 @@ function routeHolesFromManualEvidence(holes) {
 }
 
 function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
+  const routeExternalKey = routeSpec.externalKey || figCourse.source_external_id;
+  const holes = routeSpec.holesOverride
+    ? routeHolesFromManualEvidence(routeSpec.holesOverride)
+    : routeHolesFromGesHoles(gesRoute.holes, routeSpec.start, routeSpec.count);
+  const routeHolesCount = Number(routeSpec.holesCount || holes.length || figCourse.holes_count);
+  const routeTotalPar = Number(
+    routeSpec.totalPar ?? holes.reduce((sum, hole) => sum + Number(hole.par || 0), 0) ?? figCourse.total_par
+  );
+  const isDerivedRoute = routeExternalKey !== figCourse.source_external_id;
+
   return {
-    external_key: figCourse.source_external_id,
+    external_key: routeExternalKey,
     name: routeSpec.name,
-    holes_count: figCourse.holes_count,
-    total_par: figCourse.total_par,
+    holes_count: routeHolesCount,
+    total_par: routeTotalPar,
     display_order: routeSpec.displayOrder,
     is_active: routeSpec.isActive ?? figCourse.is_active ?? true,
     source_system: "fig",
-    source_external_id: figCourse.source_external_id,
+    source_external_id: routeExternalKey,
     source_payload: {
       kind: "route",
       official_catalog: "fig",
@@ -713,8 +731,23 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
               "Official club Evidence provides tee-specific HCP pairs; frontend should use this matrix after tee selection instead of the static GesGolf stroke_index values."
           }
         : {}),
+      ...(routeSpec.physicalHoleSequence
+        ? {
+            physical_hole_sequence: routeSpec.physicalHoleSequence,
+            physical_hole_sequence_source: "official_club_course_map",
+            physical_hole_sequence_note:
+              "Official club map defines the physical hole played at each round position; frontend should use this sequence for the flag/physical-hole label."
+          }
+        : {}),
+      ...(routeSpec.includeFigTees === false
+        ? {
+            whs_rating_status: "not_available_for_derived_route",
+            tee_data_note:
+              "No separate FIG/WHS rating is available for this derived route; CR/Slope values from the full route are not inferred."
+          }
+        : {}),
       round_variant: {
-        holes_count: figCourse.holes_count,
+        holes_count: routeHolesCount,
         default_for_holes: routeSpec.defaultForHoles ?? null,
         default_source: "fig_gesgolf_manual_batch",
         note: config.isComplex
@@ -732,10 +765,8 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
           : {})
       }
     },
-    holes: routeSpec.holesOverride
-      ? routeHolesFromManualEvidence(routeSpec.holesOverride)
-      : routeHolesFromGesHoles(gesRoute.holes, routeSpec.start, routeSpec.count),
-    tees: teePayload(figCourse, routeSpec)
+    holes,
+    tees: routeSpec.includeFigTees === false && isDerivedRoute ? [] : teePayload(figCourse, routeSpec)
   };
 }
 
