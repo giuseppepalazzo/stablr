@@ -20,16 +20,16 @@ Metodo applicato:
 | Castelfalfi | arancio | FIG+GesGolf mappano Mountain/Lake; certificazione rinviata a Evidence ufficiale completa. |
 | Montelupo | arancio | Microfix strutturale completato: sito ufficiale conferma 14 buche fisiche e la mappa ufficiale mostra tre routing 18 buche (`Bianco` Par68, `Rosso` Par68, `Blu` Par70). In UX restano attivi solo questi 3 percorsi; `Blu 9 buche`, `Verde`, `Giallo` disattivati. Card club forzata a “3 percorsi”. Non verde finché non troviamo Evidence ufficiale HCP/SI buca-per-buca. |
 | Asiago | arancio | Importata struttura 2025 semplificata; varianti vecchie/provvisorie/invernali escluse finché non chiarite. |
-| Folgaria | arancio | Sito ufficiale ha pagina percorso, tabella handicap linkata e sezioni visuali buca-per-buca; resta arancio finché non si estrae/controlla completamente il materiale visuale/PDF. |
-| Bogogno | arancio | FIG+GesGolf mappano Conte/Bonora; serve Evidence ufficiale completa per certificare. |
+| Folgaria | arancio | Controllate pagina, PDF mappa 2026 e 18 schede ufficiali buca-per-buca. La sequenza ufficiale non coincide con le route GesGolf importate in più punti (in particolare dal tratto 9–12 e tra le varianti Par 71/72); resta arancio. |
+| Bogogno | verde | Pagine ufficiali Stroke-Saver Conte e Bonora: PAR/HCP delle 36 buche coincidono integralmente con le due matrici importate. |
 | Asolo | arancio | FIG+GesGolf mappano combinazioni colore; provvisori non esposti; serve Evidence ufficiale completa. |
-| Colline Gavi | arancio | FIG+GesGolf mappano Giallo/Blu/Rosso combinati; Rosso singolo non esposto per assenza route safe. |
-| Monticello | arancio | FIG+GesGolf mappano Blu/Rosso/combinazioni; Family/provvisori esclusi nel primo import. |
-| Royal Park Roveri | arancio | FIG+GesGolf mappano due percorsi, ma naming Trent Jones/Hurdzan Fry vs Allianz Course/Bank richiede controllo ufficiale dedicato. |
+| Colline Gavi | verde | Pagine ufficiali Lago (Giallo), Castello (Blu), Old Course (Rosso): PAR/HCP/“colpi” coincidono con le combinazioni FIG/GesGolf. UX rinominata con i nomi del club e cerchi colore. Old Course singolo resta non esposto perché manca una route FIG sicura a 9. |
+| Monticello | verde | Le 36 schede ufficiali Blu/Rosso confermano integralmente PAR/HCP. Le combinazioni pubblicate sono derivate in modo deterministico dalle nove verificate. |
+| Royal Park Roveri | arancio | Pagine ufficiali e 18 Stroke-Saver Hurdzan-Fry controllati: Trent Jones coincide, ma Hurdzan-Fry buca 14 espone HCP 14 contro HCP 15 importato. Resta arancio. |
 | Tolcinasco | arancio | FIG+GesGolf mappano Blu/Giallo/Rosso; Executive non esposto perché non presente nel normalizzato GesGolf. |
 | Villa Condulmer | arancio | Sito ufficiale espone PAR/HCP buca-per-buca; almeno una discrepanza HCP richiede review manuale prima del verde. |
-| San Vigilio | arancio | FIG Benaco/Solferino/San Martino/Pozzolengo mappato su naming GesGolf colore; serve review ufficiale dedicata. |
-| Castelconturbia | arancio | FIG+GesGolf mappano combinazioni; Azzurro/Rosso 9 esclusi perché GesGolf li marca warning/non-standard. |
+| San Vigilio | arancio | I PDF ufficiali confermano Benaco/Rosso, Solferino/Giallo e San Martino/Bianco; Pozzolengo - Executive/Blu è ora nominato e colorato correttamente, ma il suo PDF non espone HCP. Resta arancio. |
+| Castelconturbia | verde | Controllate le 27 pagine ufficiali buca-per-buca: PAR/HCP coincidono con Azzurro, Giallo e Rosso e con le combinazioni pubblicate. Azzurro/Rosso 9 restano esclusi perché GesGolf li marca warning/non-standard. |
 
 ## Guardrail applicati
 

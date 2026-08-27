@@ -23,7 +23,7 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "FIG official catalog + GesGolf San Vigilio hole-by-hole import. FIG Benaco/Solferino/San Martino/Pozzolengo names are preserved while source naming remains under review.",
+      "verification_notes": "FIG official catalog + GesGolf San Vigilio hole-by-hole import. Club PDFs confirm Benaco (Rosso), Solferino (Giallo) and San Martino (Bianco) PAR/HCP matrices. Pozzolengo - Executive (Blu) is named and color-coded from the official PDF, but the PDF does not expose HCP; certification remains pending for the club.",
       "website_evidence_status": "deep_review_pending",
       "physical_hole_count": 36,
       "import_profile": "complex_fig_routes_explicit_mapping",
@@ -48,6 +48,10 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "route_color_keys": [
+          "rosso",
+          "giallo"
+        ],
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": 18,
@@ -302,6 +306,10 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "route_color_keys": [
+          "giallo",
+          "bianco"
+        ],
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": null,
@@ -556,6 +564,10 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "route_color_keys": [
+          "rosso",
+          "bianco"
+        ],
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": null,
@@ -799,7 +811,7 @@
     },
     {
       "external_key": "fig-course-san-vigilio-pozzolengo",
-      "name": "Pozzolengo",
+      "name": "Pozzolengo - Executive",
       "holes_count": 9,
       "total_par": 27,
       "display_order": 4,
@@ -810,6 +822,11 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Pozzolengo",
+        "stablr_product_name": "Pozzolengo - Executive",
+        "route_color_keys": [
+          "blu"
+        ],
         "round_variant": {
           "holes_count": 9,
           "default_for_holes": 9,
@@ -923,7 +940,7 @@
     },
     {
       "external_key": "fig-course-san-vigilio-pozzolengo-benaco",
-      "name": "Pozzolengo-Benaco",
+      "name": "Pozzolengo - Executive-Benaco",
       "holes_count": 18,
       "total_par": 63,
       "display_order": 5,
@@ -934,6 +951,12 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Pozzolengo-Benaco",
+        "stablr_product_name": "Pozzolengo - Executive-Benaco",
+        "route_color_keys": [
+          "blu",
+          "rosso"
+        ],
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": null,
@@ -1177,7 +1200,7 @@
     },
     {
       "external_key": "fig-course-san-vigilio-pozzolengo-solferino",
-      "name": "Pozzolengo-Solferino",
+      "name": "Pozzolengo - Executive-Solferino",
       "holes_count": 18,
       "total_par": 63,
       "display_order": 6,
@@ -1188,6 +1211,12 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Pozzolengo-Solferino",
+        "stablr_product_name": "Pozzolengo - Executive-Solferino",
+        "route_color_keys": [
+          "blu",
+          "giallo"
+        ],
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": null,
@@ -1431,7 +1460,7 @@
     },
     {
       "external_key": "fig-course-san-vigilio-pozzolengo-san-martino",
-      "name": "Pozzolengo-San Martino",
+      "name": "Pozzolengo - Executive-San Martino",
       "holes_count": 18,
       "total_par": 62,
       "display_order": 7,
@@ -1442,6 +1471,12 @@
         "kind": "route",
         "official_catalog": "fig",
         "hole_by_hole_source": "gesgolf",
+        "fig_display_name": "Pozzolengo-San Martino",
+        "stablr_product_name": "Pozzolengo - Executive-San Martino",
+        "route_color_keys": [
+          "blu",
+          "bianco"
+        ],
         "round_variant": {
           "holes_count": 18,
           "default_for_holes": null,

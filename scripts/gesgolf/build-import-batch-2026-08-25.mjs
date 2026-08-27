@@ -446,7 +446,14 @@ const CLUBS = [
     circoloId: "659",
     isComplex: true,
     physicalHoleCount: 36,
-    notes: "FIG official catalog + GesGolf Conte/Bonora hole-by-hole import. Certification waits for third-level official Evidence.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.bogognogolfresort.com/site/index.php/article/index/page-golf-54a11dc51e2d0/article/page-golf",
+      "https://www.bogognogolfresort.com/site/index.php/article/index/page-golf-54a1273d32b5a/article/page-golf"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf Conte/Bonora hole-by-hole import + official club Stroke-Saver pages. PAR/HCP match on all 36 physical holes; the published 9-hole segments are FIG/GesGolf-rated derivatives.",
     routes: [
       { figCourse: "del Conte", name: "del Conte", gesRoute: "CONTE", gesRouteId: 1744, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "1&#176; Nove - Conte", name: "1° Nove Conte", gesRoute: "DEL CONTE 1-9", gesRouteId: 1746, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
@@ -478,13 +485,21 @@ const CLUBS = [
     circoloId: "732",
     isComplex: true,
     physicalHoleCount: 27,
-    notes: "FIG official catalog + GesGolf Colline del Gavi hole-by-hole import. Rosso single 9 is not exposed in this batch because no safe GesGolf base-9 route is available.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://golfcollinedelgavi.com/percorso-lago",
+      "https://golfcollinedelgavi.com/percorso-castello",
+      "https://golfcollinedelgavi.com/percorso-old-course"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf routes + official club hole pages. Lago (Giallo), Castello (Blu) and Old Course (Rosso) PAR/HCP matrices match the published FIG/GesGolf combinations. Old Course remains unavailable as a standalone 9 because FIG does not expose a safe standalone playable route.",
     routes: [
-      { figCourse: "GIALLO BLU", name: "Giallo-Blu", gesRoute: "GIALLO-BLU", gesRouteId: 1978, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
-      { figCourse: "GIALLO", name: "Giallo", gesRoute: "GIALLO", gesRouteId: 2279, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
-      { figCourse: "BLU", name: "Blu", gesRoute: "BLU", gesRouteId: 2280, start: 0, count: 9, displayOrder: 3 },
-      { figCourse: "GIALLO ROSSO", name: "Giallo-Rosso", gesRoute: "GIALLO ROSSO", gesRouteId: 2363, start: 0, count: 18, displayOrder: 4 },
-      { figCourse: "ROSSO BLU", name: "Rosso-Blu", gesRoute: "ROSSO BLU", gesRouteId: 2615, start: 0, count: 18, displayOrder: 5 }
+      { figCourse: "GIALLO BLU", name: "Lago-Castello", routeColorKeys: ["giallo", "blu"], gesRoute: "GIALLO-BLU", gesRouteId: 1978, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
+      { figCourse: "GIALLO", name: "Lago", routeColorKeys: ["giallo"], gesRoute: "GIALLO", gesRouteId: 2279, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
+      { figCourse: "BLU", name: "Castello", routeColorKeys: ["blu"], gesRoute: "BLU", gesRouteId: 2280, start: 0, count: 9, displayOrder: 3 },
+      { figCourse: "GIALLO ROSSO", name: "Lago-Old Course", routeColorKeys: ["giallo", "rosso"], gesRoute: "GIALLO ROSSO", gesRouteId: 2363, start: 0, count: 18, displayOrder: 4 },
+      { figCourse: "ROSSO BLU", name: "Old Course-Castello", routeColorKeys: ["rosso", "blu"], gesRoute: "ROSSO BLU", gesRouteId: 2615, start: 0, count: 18, displayOrder: 5 }
     ]
   },
   {
@@ -493,7 +508,14 @@ const CLUBS = [
     circoloId: "27",
     isComplex: true,
     physicalHoleCount: 36,
-    notes: "FIG official catalog + GesGolf Monticello Blu/Rosso hole-by-hole import. Family/provisional routes are excluded from the initial import unless mapped by safe GesGolf route.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.golfclubmonticello.it/pagine/golf/Percorsi_rosso.aspx",
+      "https://www.golfclubmonticello.it/pagine/golf/Percorsi_blu.aspx"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf Monticello Blu/Rosso hole-by-hole import + official club hole cards. PAR/HCP match on both 18-hole base courses; published mixed routes are deterministic FIG/GesGolf combinations of those verified nines.",
     routes: [
       { figCourse: "Blu", name: "Blu", gesRoute: "Blu", gesRouteId: 59, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "Prime Nove Blu", name: "Prime Nove Blu", gesRoute: "1&#176; Nove Blu", gesRouteId: 1553, start: 0, count: 9, displayOrder: 2, defaultForHoles: 9 },
@@ -513,7 +535,11 @@ const CLUBS = [
     circoloId: "384",
     isComplex: true,
     physicalHoleCount: 36,
-    notes: "FIG official catalog + GesGolf Royal Park Roveri course import. Trent Jones/Allianz naming requires third-level review before certification.",
+    officialCourseLinks: [
+      "https://www.royalparkgolf.it/allianz-course-trent-jones-sr/",
+      "https://www.royalparkgolf.it/allianz-bank-financial-advisor-hurdzan-fry/"
+    ],
+    notes: "FIG official catalog + GesGolf Royal Park Roveri course import. Official pages confirm Allianz Course Trent Jones Sr. and Allianz Bank Financial Advisor Hurdzan-Fry naming. Trent Jones matches; Hurdzan-Fry official hole 14 shows HCP 14 while the imported matrix has 15, so certification remains pending.",
     routes: [
       { figCourse: "Trent Jones", name: "Trent Jones", gesRoute: "Allianz Course", gesRouteId: 424, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "Hurdzan Fry", name: "Hurdzan Fry", gesRoute: "Allianz Bank", gesRouteId: 428, start: 0, count: 18, displayOrder: 2 }
@@ -583,15 +609,15 @@ const CLUBS = [
     circoloId: "441",
     isComplex: true,
     physicalHoleCount: 36,
-    notes: "FIG official catalog + GesGolf San Vigilio hole-by-hole import. FIG Benaco/Solferino/San Martino/Pozzolengo names are preserved while source naming remains under review.",
+    notes: "FIG official catalog + GesGolf San Vigilio hole-by-hole import. Club PDFs confirm Benaco (Rosso), Solferino (Giallo) and San Martino (Bianco) PAR/HCP matrices. Pozzolengo - Executive (Blu) is named and color-coded from the official PDF, but the PDF does not expose HCP; certification remains pending for the club.",
     routes: [
-      { figCourse: "Benaco-Solferino", name: "Benaco-Solferino", gesRoute: "ROS+GIA", gesRouteId: 692, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
-      { figCourse: "Solferino-San Martino", name: "Solferino-San Martino", gesRoute: "GIA+BIAN", gesRouteId: 694, start: 0, count: 18, displayOrder: 2 },
-      { figCourse: "Benaco-San Martino", name: "Benaco-San Martino", gesRoute: "ROS+BIAN", gesRouteId: 693, start: 0, count: 18, displayOrder: 3 },
-      { figCourse: "Pozzolengo", name: "Pozzolengo", gesRoute: "BLU", gesRouteId: 2946, start: 0, count: 9, displayOrder: 4, defaultForHoles: 9 },
-      { figCourse: "Pozzolengo-Benaco", name: "Pozzolengo-Benaco", gesRoute: "BLU - ROS", gesRouteId: 2948, start: 0, count: 18, displayOrder: 5 },
-      { figCourse: "Pozzolengo-Solferino", name: "Pozzolengo-Solferino", gesRoute: "BLU - GIA", gesRouteId: 2945, start: 0, count: 18, displayOrder: 6 },
-      { figCourse: "Pozzolengo-San Martino", name: "Pozzolengo-San Martino", gesRoute: "BLU - BIA", gesRouteId: 2947, start: 0, count: 18, displayOrder: 7 }
+      { figCourse: "Benaco-Solferino", name: "Benaco-Solferino", routeColorKeys: ["rosso", "giallo"], gesRoute: "ROS+GIA", gesRouteId: 692, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
+      { figCourse: "Solferino-San Martino", name: "Solferino-San Martino", routeColorKeys: ["giallo", "bianco"], gesRoute: "GIA+BIAN", gesRouteId: 694, start: 0, count: 18, displayOrder: 2 },
+      { figCourse: "Benaco-San Martino", name: "Benaco-San Martino", routeColorKeys: ["rosso", "bianco"], gesRoute: "ROS+BIAN", gesRouteId: 693, start: 0, count: 18, displayOrder: 3 },
+      { figCourse: "Pozzolengo", name: "Pozzolengo - Executive", routeColorKeys: ["blu"], gesRoute: "BLU", gesRouteId: 2946, start: 0, count: 9, displayOrder: 4, defaultForHoles: 9 },
+      { figCourse: "Pozzolengo-Benaco", name: "Pozzolengo - Executive-Benaco", routeColorKeys: ["blu", "rosso"], gesRoute: "BLU - ROS", gesRouteId: 2948, start: 0, count: 18, displayOrder: 5 },
+      { figCourse: "Pozzolengo-Solferino", name: "Pozzolengo - Executive-Solferino", routeColorKeys: ["blu", "giallo"], gesRoute: "BLU - GIA", gesRouteId: 2945, start: 0, count: 18, displayOrder: 6 },
+      { figCourse: "Pozzolengo-San Martino", name: "Pozzolengo - Executive-San Martino", routeColorKeys: ["blu", "bianco"], gesRoute: "BLU - BIA", gesRouteId: 2947, start: 0, count: 18, displayOrder: 7 }
     ]
   },
   {
@@ -600,7 +626,15 @@ const CLUBS = [
     circoloId: "68",
     isComplex: true,
     physicalHoleCount: 27,
-    notes: "FIG official catalog + GesGolf Castelconturbia color-route hole-by-hole import. Single Azzurro/Rosso 9-hole routes remain excluded because GesGolf marks them as warning/non-standard.",
+    dataStatus: "verified",
+    approved: true,
+    websiteEvidenceStatus: "verified",
+    officialCourseLinks: [
+      "https://www.golfclubcastelconturbia.it/?themo_hole=buca-1-percorso-azzurro",
+      "https://www.golfclubcastelconturbia.it/?themo_hole=buca-1-percorso-giallo",
+      "https://www.golfclubcastelconturbia.it/?themo_hole=buca-1-percorso-rosso"
+    ],
+    notes: "Stablr Approved: FIG official catalog + GesGolf combinations + official club pages for all 27 holes. PAR/HCP match the Azzurro, Giallo and Rosso matrices; standalone Azzurro/Rosso 9-hole routes remain excluded because GesGolf marks them warning/non-standard.",
     routes: [
       { figCourse: "Azzurro-Giallo", name: "Azzurro-Giallo", gesRoute: "Azz+Gial", gesRouteId: 423, start: 0, count: 18, displayOrder: 1, defaultForHoles: 18 },
       { figCourse: "Azzurro-Rosso", name: "Azzurro-Rosso", gesRoute: "Azz+Ros", gesRouteId: 223, start: 0, count: 18, displayOrder: 2 },
@@ -723,6 +757,9 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
             fig_display_name: figCourse.name,
             stablr_product_name: routeSpec.name
           }
+        : {}),
+      ...(Array.isArray(routeSpec.routeColorKeys) && routeSpec.routeColorKeys.length
+        ? { route_color_keys: routeSpec.routeColorKeys }
         : {}),
       ...(routeSpec.teeSpecificHoleMatrix
         ? {

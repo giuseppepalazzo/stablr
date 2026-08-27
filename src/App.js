@@ -614,6 +614,23 @@ function getRouteColor(routeName) {
   return colorKey ? COLOR_INFO_BY_KEY[colorKey] : null;
 }
 
+function getRouteColorInfos(route) {
+  const explicitKeys = route?.sourcePayload?.route_color_keys || route?.source_payload?.route_color_keys;
+  const colorKeys = Array.isArray(explicitKeys)
+    ? explicitKeys.map((value) => findColorKey(value)).filter(Boolean)
+    : [];
+  const fallbackColor = getRouteColor(route?.name);
+  const colorInfos = colorKeys.length
+    ? colorKeys.map((colorKey) => COLOR_INFO_BY_KEY[colorKey]).filter(Boolean)
+    : fallbackColor
+      ? [fallbackColor]
+      : [];
+
+  return colorInfos.filter(
+    (colorInfo, index) => colorInfos.findIndex((candidate) => candidate?.label === colorInfo?.label) === index
+  );
+}
+
 function rotateCompetitionSequence(sequence, startHole) {
   const normalizedStartHole = Number(startHole || 1);
   const holes = Array.isArray(sequence) ? sequence : [];
@@ -7328,6 +7345,21 @@ function App() {
     );
   };
 
+  const renderRouteColorDots = (colorInfos, size = 9) => {
+    const uniqueColors = Array.isArray(colorInfos) ? colorInfos.filter(Boolean) : [];
+    if (!uniqueColors.length) return null;
+
+    return (
+      <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+        {uniqueColors.map((colorInfo) => (
+          <span key={colorInfo.label} style={{ display: "inline-flex" }}>
+            {renderColorDot(colorInfo, size)}
+          </span>
+        ))}
+      </span>
+    );
+  };
+
   const getRoundSetupRouteDisplay = (
     route,
     totalCompetitionHoles,
@@ -7390,7 +7422,9 @@ function App() {
       !isSecondNine;
     const shouldUseSimpleCourseGenericLabel =
       useSimpleCourseGenericLabel && (isGenericRoute || !routeName || isMareDiRomaOpenedCourse);
-    const colorInfo = isGenericRoute || isPrimeNine || isSecondNine ? null : getRouteColor(routeName);
+    const colorInfos =
+      isGenericRoute || isPrimeNine || isSecondNine ? [] : getRouteColorInfos(route);
+    const colorInfo = colorInfos[0] || null;
     const repeatedNineRouteLabel =
       Number(totalCompetitionHoles) === 18 &&
       routeHolesCount === 18 &&
@@ -7465,7 +7499,8 @@ function App() {
     return {
       title,
       details: details.join(" • "),
-      colorInfo
+      colorInfo,
+      colorInfos
     };
   };
 
@@ -8308,9 +8343,7 @@ function App() {
                         gap: "8px"
                       }}
                     >
-                      {displayRoute.colorInfo
-                        ? renderColorDot(displayRoute.colorInfo, 10)
-                        : null}
+                      {renderRouteColorDots(displayRoute.colorInfos, 10)}
                       <span>
                         {displayRoute.title}
                         {displayRoute.details ? ` · ${displayRoute.details}` : ""}
@@ -8350,7 +8383,7 @@ function App() {
                       return (
                         <>
                           <div style={routeNameBlockStyle}>
-                            {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                            {renderRouteColorDots(displayRoute.colorInfos)}
                             {displayRoute.title}
                           </div>
                           {displayRoute.details && (
@@ -8387,9 +8420,7 @@ function App() {
                       gap: "8px"
                     }}
                   >
-                    {displayRoute.colorInfo
-                      ? renderColorDot(displayRoute.colorInfo, 10)
-                      : null}
+                    {renderRouteColorDots(displayRoute.colorInfos, 10)}
                     <span>
                       {displayRoute.title}
                       {displayRoute.details ? ` · ${displayRoute.details}` : ""}
@@ -8486,7 +8517,7 @@ function App() {
                         gap: "8px"
                       }}
                     >
-                      {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo, 10) : null}
+                      {renderRouteColorDots(displayRoute.colorInfos, 10)}
                       <span>
                         {displayRoute.title}
                         {displayRoute.details ? ` · ${displayRoute.details}` : ""}
@@ -8566,7 +8597,7 @@ function App() {
                       return (
                         <>
                           <div style={routeNameBlockStyle}>
-                            {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                            {renderRouteColorDots(displayRoute.colorInfos)}
                             {displayRoute.title}
                           </div>
                           {displayRoute.details && (
@@ -8647,7 +8678,7 @@ function App() {
                     return (
                       <>
                         <div style={routeNameBlockStyle}>
-                          {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                          {renderRouteColorDots(displayRoute.colorInfos)}
                           {displayRoute.title}
                         </div>
                         {displayRoute.details && (
@@ -8712,7 +8743,7 @@ function App() {
                     return (
                       <>
                         <div style={routeNameBlockStyle}>
-                          {displayRoute.colorInfo ? renderColorDot(displayRoute.colorInfo) : null}
+                          {renderRouteColorDots(displayRoute.colorInfos)}
                           {displayRoute.title}
                         </div>
                         {displayRoute.details && (

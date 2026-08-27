@@ -23,7 +23,11 @@
       "official_catalog": "fig",
       "hole_by_hole_source": "gesgolf",
       "verification_status": "playable_review",
-      "verification_notes": "FIG official catalog + GesGolf Royal Park Roveri course import. Trent Jones/Allianz naming requires third-level review before certification.",
+      "verification_notes": "FIG official catalog + GesGolf Royal Park Roveri course import. Official pages confirm Allianz Course Trent Jones Sr. and Allianz Bank Financial Advisor Hurdzan-Fry naming. Trent Jones matches; Hurdzan-Fry official hole 14 shows HCP 14 while the imported matrix has 15, so certification remains pending.",
+      "official_course_links": [
+        "https://www.royalparkgolf.it/allianz-course-trent-jones-sr/",
+        "https://www.royalparkgolf.it/allianz-bank-financial-advisor-hurdzan-fry/"
+      ],
       "website_evidence_status": "deep_review_pending",
       "physical_hole_count": 36,
       "import_profile": "complex_fig_routes_explicit_mapping",
