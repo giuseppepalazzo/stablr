@@ -119,12 +119,25 @@ function getTeeSpecificHoleData(route, tee, physicalHoleNumber, roundNumber) {
   const teeKey = getTeeSpecificHoleMatrixKey(tee);
   const teeMatrix = teeKey ? matrix.tees?.[teeKey] : null;
   const holes = Array.isArray(teeMatrix?.holes) ? teeMatrix.holes : [];
+  const matrixHoleCount = Number(matrix.physical_hole_count || 0);
+  const numericPhysicalHoleNumber = Number(physicalHoleNumber || 0);
+  const matrixPhysicalHoleNumber =
+    matrixHoleCount > 0 && numericPhysicalHoleNumber > 0
+      ? ((numericPhysicalHoleNumber - 1) % matrixHoleCount) + 1
+      : numericPhysicalHoleNumber;
   const holeData = holes.find(
-    (hole) => Number(hole.physical_hole_number) === Number(physicalHoleNumber)
+    (hole) => Number(hole.physical_hole_number) === Number(matrixPhysicalHoleNumber)
   );
   if (!holeData) return null;
 
-  const occurrenceIndex = Math.max(0, Math.min(1, Number(roundNumber || 1) - 1));
+  const occurrenceIndexFromPhysicalHole =
+    matrixHoleCount > 0 && numericPhysicalHoleNumber > 0
+      ? Math.floor((numericPhysicalHoleNumber - 1) / matrixHoleCount)
+      : 0;
+  const occurrenceIndex = Math.max(
+    0,
+    Math.min(1, Math.max(occurrenceIndexFromPhysicalHole, Number(roundNumber || 1) - 1))
+  );
   const strokeIndexes = Array.isArray(holeData.stroke_indexes)
     ? holeData.stroke_indexes
     : [];

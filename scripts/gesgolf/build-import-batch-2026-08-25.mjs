@@ -353,9 +353,9 @@ const CLUBS = [
     ],
     notes: "Stablr Approved: FIG official catalog + GesGolf Campodoglio 2024 import + official Campodoglio course pages. The official site describes a physical 9-hole Par 36 course and exposes Buca 1/10 through 9/18 tables with tee-specific HCP pairs for Par 72 and Par 70 variants. Stablr treats noisy GesGolf variants as technical source noise, exposes only 9 Buche, 18 Buche Par 72 and 18 Buche Par 70, and uses the official tee-specific HCP matrix as the certification Evidence.",
     routes: [
-      { figCourse: "9 Buche Old 2024", name: "9 Buche", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 1, defaultForHoles: 9, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
-      { figCourse: "18 Buche Old 2024", name: "18 Buche Par 72", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 2, defaultForHoles: 18, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
-      { figCourse: "18 Buche New 2024", name: "18 Buche Par 70", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3, teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(70) },
+      { figCourse: "9 Buche Old 2024", name: "9 Buche", gesRoute: "9 Buche Old 24", gesRouteId: 2843, start: 0, count: 9, displayOrder: 1, defaultForHoles: 9, officialTeeNames: ["Bianco", "Giallo", "Blu", "Rosso"], teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
+      { figCourse: "18 Buche Old 2024", name: "18 Buche Par 72", gesRoute: "18 Buche Old 24", gesRouteId: 2844, start: 0, count: 18, displayOrder: 2, defaultForHoles: 18, officialTeeNames: ["Bianco", "Giallo", "Blu", "Rosso"], teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(72) },
+      { figCourse: "18 Buche New 2024", name: "18 Buche Par 70", gesRoute: "18 Buche New 24", gesRouteId: 2846, start: 0, count: 18, displayOrder: 3, officialTeeNames: ["Bianco", "Giallo", "Blu", "Rosso"], teeSpecificHoleMatrix: buildCampodoglioTeeSpecificHoleMatrix(70) },
       { figCourse: "9 Buche New 2024", name: "9 Buche New 2024", gesRoute: "9 Buche New 24", gesRouteId: 2845, start: 0, count: 9, displayOrder: 90, isActive: false },
       { figCourse: "18 Buche Easy 2024", name: "18 Buche Easy 2024", gesRoute: "18 Buche Easy", gesRouteId: 2854, start: 0, count: 18, displayOrder: 91, isActive: false },
       { figCourse: "9 Buche Easy 2024", name: "9 Buche Easy 2024", gesRoute: "9 Buche Easy", gesRouteId: 2853, start: 0, count: 9, displayOrder: 92, isActive: false },
@@ -619,19 +619,28 @@ function assertNotProtected(name) {
   assert(!PROTECTED_CLUB_NAMES.has(normalizeClubName(name)), `Club protetto nel batch automatico: ${name}`);
 }
 
-function teePayload(figCourse) {
-  return (figCourse.tees || []).map((tee) => ({
-    tee_name: tee.tee_name,
-    tee_color: tee.tee_color || null,
-    gender: tee.gender || null,
-    course_rating: tee.course_rating ?? null,
-    slope_rating: tee.slope_rating ?? null,
-    par_total: tee.par_total ?? figCourse.total_par ?? null,
-    is_active: tee.is_active ?? true,
-    source_system: "fig",
-    source_external_id: tee.source_external_id,
-    source_payload: { ...(tee.source_payload || {}), official_catalog: "fig" }
-  }));
+function teePayload(figCourse, routeSpec = {}) {
+  const allowedTeeNames = Array.isArray(routeSpec.officialTeeNames)
+    ? new Set(routeSpec.officialTeeNames.map((name) => String(name).trim().toLowerCase()))
+    : null;
+
+  return (figCourse.tees || [])
+    .filter((tee) => {
+      if (!allowedTeeNames) return true;
+      return allowedTeeNames.has(String(tee.tee_name || "").trim().toLowerCase());
+    })
+    .map((tee) => ({
+      tee_name: tee.tee_name,
+      tee_color: tee.tee_color || null,
+      gender: tee.gender || null,
+      course_rating: tee.course_rating ?? null,
+      slope_rating: tee.slope_rating ?? null,
+      par_total: tee.par_total ?? figCourse.total_par ?? null,
+      is_active: tee.is_active ?? true,
+      source_system: "fig",
+      source_external_id: tee.source_external_id,
+      source_payload: { ...(tee.source_payload || {}), official_catalog: "fig" }
+    }));
 }
 
 function findFigCourse(figClub, name) {
@@ -727,7 +736,7 @@ function buildRoute({ figCourse, gesRoute, gesSource, routeSpec, config }) {
     holes: routeSpec.holesOverride
       ? routeHolesFromManualEvidence(routeSpec.holesOverride)
       : routeHolesFromGesHoles(gesRoute.holes, routeSpec.start, routeSpec.count),
-    tees: teePayload(figCourse)
+    tees: teePayload(figCourse, routeSpec)
   };
 }
 
