@@ -1195,7 +1195,7 @@ SEGNO22:
   - aggiunta matrice ufficiale `tee_specific_hole_matrix` nelle route `9 Buche`, `18 Buche Par 72`, `18 Buche Par 70`;
   - frontend aggiornato: se una route espone `tee_specific_hole_matrix`, lo stroke index del giro viene risolto dopo la scelta del tee;
   - club mantenuto arancione (`needs_review` / `playable_review`): la certificazione è sospesa finché il club non chiarisce se attenersi ai tee riportati dal sito o supportare anche Verde/Arancio FIG e, in quel caso, come trattare HCP/SI dinamici per tee.
-  - promemoria mail club: preparare una mail specifica Campodoglio chiedendo conferma dei tee fisicamente in uso (`Bianco`, `Giallo`, `Blu`, `Rosso` sul sito vs anche `Verde`, `Arancio` in FIG) e la regola ufficiale per l'HCP buca-per-buca dinamico rispetto al tee di partenza.
+  - promemoria mail club: preparare una mail specifica Campodoglio chiedendo conferma dei tee fisicamente in uso (`Bianco`, `Giallo`, `Blu`, `Rosso` sul sito vs anche `Verde`, `Arancio` in FIG), la regola ufficiale per l'HCP buca-per-buca dinamico rispetto al tee di partenza, e se il `9 Buche New 2024` Par 35 indicato da FIG/GesGolf corrisponde a una reale opzione giocabile da 9 buche o solo a una variante tecnica collegata al giro 18 Par 70.
 - microfix Montelupo:
   - sito ufficiale `https://www.golfmontelupo.it/` conferma che il campo attualmente propone 14 buche;
   - mappa ufficiale `https://www.golfmontelupo.it/foto/grandi/mlupopercorso1-1-1.jpg` mostra tre routing 18 buche: `Bianco` Par68, `Rosso` Par68, `Blu` Par70;
