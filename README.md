@@ -7,8 +7,8 @@ This repository includes a lightweight GitHub Actions workflow at
 to generate minimal read-only activity against Supabase on Free plan projects.
 
 What it does:
-- runs on a schedule, roughly every 5 days
-- performs a read-only `GET` request against `fig_clubs?select=id&limit=1`
+- runs twice daily at 05:17 and 17:17 UTC
+- performs three read-only `GET` requests against `fig_clubs?select=id&limit=1`
 - writes clear logs:
   - `Supabase keep-alive ok`
   - or the failing HTTP status
@@ -22,7 +22,7 @@ How to disable it:
 - or remove the `schedule` block from the workflow file
 
 Note:
-- this is a best-effort keep-alive only
+- this is a best-effort keep-alive only; Supabase alone decides whether a Free project has sufficient activity
 - it does not create or modify app data
 - it is not a guaranteed substitute for upgrading the Supabase organization plan
 
