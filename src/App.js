@@ -6460,7 +6460,34 @@ function App() {
           boxSizing: "border-box"
         }}
       >
-        Caricamento...
+        <div
+          style={{
+            width: "min(100%, 320px)",
+            minHeight: "220px",
+            backgroundColor: colors.card,
+            border: `1px solid ${colors.border}`,
+            borderRadius: "20px",
+            padding: "28px",
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center"
+          }}
+        >
+          <img
+            src="/stablr_home_logo.png"
+            alt="Stablr"
+            style={{ width: "156px", height: "auto", display: "block" }}
+          />
+          <div style={{ marginTop: "22px", fontSize: "18px", fontWeight: 700 }}>
+            Bentornato {userProfile.playerName || "Giocatore"}
+          </div>
+          <div style={{ marginTop: "7px", fontSize: "14px", color: colors.subtext }}>
+            Un attimo e sei in campo
+          </div>
+        </div>
       </div>
     );
   }
@@ -6936,7 +6963,7 @@ function App() {
     gridTemplateColumns: "minmax(0, 1fr) 44px",
     alignItems: "center",
     columnGap: "12px",
-    paddingLeft: HEADER_HORIZONTAL_INSET,
+    paddingLeft: HOME_SECTION_INSET,
     paddingRight: HEADER_HORIZONTAL_INSET,
     paddingTop: "10px",
     paddingBottom: "12px",
@@ -10539,7 +10566,7 @@ function App() {
           <button onClick={openHcpEditor} style={homeNameButtonStyle} title={userProfile.playerName}>
             <div
               style={{
-                fontSize: "24px",
+                fontSize: "22px",
                 fontWeight: 700,
                 color: colors.text,
                 letterSpacing: "-0.01em",
