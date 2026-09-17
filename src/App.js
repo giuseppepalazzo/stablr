@@ -6846,17 +6846,20 @@ function App() {
           >
             GOLF SCORE
           </div>
-          {showWelcomeBack && (
-            <div className="stablr-loader-fade-in stablr-loader-fade-in--welcome">
-              <div style={{ marginTop: "22px", fontSize: "18px", fontWeight: 700 }}>
+          <div style={{ marginTop: "22px", minHeight: "22px" }}>
+            {showWelcomeBack && (
+              <div
+                className="stablr-loader-fade-in stablr-loader-fade-in--welcome"
+                style={{ fontSize: "18px", fontWeight: 700 }}
+              >
                 {loadingTitle}
               </div>
-            </div>
-          )}
+            )}
+          </div>
           <div
             className="stablr-loader-fade-in stablr-loader-fade-in--message"
             style={{
-              marginTop: showWelcomeBack ? "7px" : "14px",
+              marginTop: "7px",
               color: colors.subtext,
               fontSize: "14px",
               lineHeight: 1.5
