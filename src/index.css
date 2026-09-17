@@ -71,13 +71,13 @@ body {
 .stablr-loader-fade-in--message {
   animation-delay: 2000ms;
   animation-duration: 1200ms;
-  animation-name: stablr-loader-blur-in;
+  animation-name: stablr-loader-opacity-in;
 }
 
 .stablr-loader-fade-in--welcome {
   animation-delay: 80ms;
-  animation-duration: 700ms;
-  animation-name: stablr-loader-opacity-in;
+  animation-duration: 1200ms;
+  animation-name: stablr-loader-blur-in;
 }
 
 @media (prefers-reduced-motion: reduce) {
