@@ -43,12 +43,12 @@ body {
 
 .stablr-loader-fade-in--brand {
   animation-delay: 1000ms;
-  animation-duration: 700ms;
+  animation-duration: 1200ms;
 }
 
 .stablr-loader-fade-in--message {
   animation-delay: 2000ms;
-  animation-duration: 800ms;
+  animation-duration: 1200ms;
 }
 
 .stablr-loader-fade-in--welcome {
