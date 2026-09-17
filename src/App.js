@@ -7144,7 +7144,7 @@ function App() {
     color: colors.subtext,
     borderRadius: "999px",
     padding: "6px 11px",
-    fontSize: "22px",
+    fontSize: "18px",
     fontWeight: 700,
     fontFamily: appFont,
     cursor: "pointer",
