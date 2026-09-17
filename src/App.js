@@ -930,7 +930,6 @@ function App() {
   const [searchPublicPlaceholderCourses, setSearchPublicPlaceholderCourses] = useState([]);
   const [searchFigSuggestionsLoading, setSearchFigSuggestionsLoading] = useState(false);
   const [activeCourseCardId, setActiveCourseCardId] = useState(null);
-  const [searchEmptyHintPulse, setSearchEmptyHintPulse] = useState(false);
   const [hcpHighlightActive, setHcpHighlightActive] = useState(false);
   const [estimatedHcpHighlightActive, setEstimatedHcpHighlightActive] = useState(false);
   const [activeSheet, setActiveSheet] = useState(null);
@@ -1961,28 +1960,10 @@ function App() {
   const resolvedSearchCourses = filteredCourses.length
     ? filteredCourses
     : searchPublicPlaceholderCourses;
-  const showSearchEmptyState =
-    searchQuery.trim() !== "" && resolvedSearchCourses.length === 0;
   const normalizedPlayerDisplayName = useMemo(
     () => normalizePlayerDisplayName(userProfile.playerName),
     [userProfile.playerName]
   );
-
-  useEffect(() => {
-    if (!showSearchEmptyState) {
-      setSearchEmptyHintPulse(false);
-      return;
-    }
-
-    setSearchEmptyHintPulse(true);
-    const timeoutId = window.setTimeout(() => {
-      setSearchEmptyHintPulse(false);
-    }, 700);
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, [showSearchEmptyState]);
 
   useEffect(() => {
     if (!supabase) {
@@ -2248,11 +2229,6 @@ function App() {
     setCommunityHandicapFeedback("");
     setCommunityHandicapNextAction(null);
   }, []);
-
-  const openDialog = () => {
-    resetDialogState();
-    setShowDialog(true);
-  };
 
   const resetHomeSearchState = useCallback(() => {
     setSearchQuery("");
@@ -6957,7 +6933,7 @@ function App() {
 
   const homeHeaderStyle = {
     display: "grid",
-    gridTemplateColumns: `${HEADER_CIRCLE_SIZE} 1fr ${HEADER_CIRCLE_SIZE}`,
+    gridTemplateColumns: "112px 1fr 44px",
     alignItems: "center",
     columnGap: "12px",
     paddingLeft: HEADER_HORIZONTAL_INSET,
@@ -7222,6 +7198,7 @@ function App() {
 
   const homePrimarySectionCardStyle = {
     ...homeSectionCardStyle,
+    border: `1px solid ${colors.border}`,
     paddingTop: "6px",
     paddingBottom: "6px",
     boxShadow: isLight
@@ -10570,28 +10547,12 @@ function App() {
       {topSafeAreaBackdrop}
 
       <div style={homeHeaderStyle}>
-        <div style={headerLeftButtonWrapStyle}>
-          <button
-            onClick={openDialog}
-            style={{
-              ...headerCircleButtonStyle({
-                borderColor: colors.green,
-                fontSize: "24px"
-              }),
-              boxShadow: searchEmptyHintPulse
-                ? isLight
-                  ? "0 0 0 6px rgba(39, 167, 56, 0.10), 0 8px 20px rgba(17, 24, 39, 0.08)"
-                  : "0 0 0 6px rgba(39, 167, 56, 0.12), 0 10px 24px rgba(0, 0, 0, 0.34)"
-                : headerCircleButtonBaseStyle.boxShadow,
-              transform: searchEmptyHintPulse ? "scale(1.04)" : "scale(1)",
-              transition: "transform 0.35s ease, box-shadow 0.35s ease"
-            }}
-            aria-label="Aggiungi club"
-          >
-            <span style={{ fontSize: "24px", lineHeight: 1, transform: "translateY(-1px)" }}>
-              +
-            </span>
-          </button>
+        <div style={{ display: "flex", alignItems: "center", height: HEADER_CIRCLE_SIZE }}>
+          <img
+            src="/stablr_home_logo.png"
+            alt="Stablr"
+            style={{ width: "104px", height: "auto", display: "block" }}
+          />
         </div>
 
         <div aria-hidden="true" />
