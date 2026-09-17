@@ -1224,21 +1224,6 @@ function App() {
       );
     }
 
-    return () => {
-      document.body.style.margin = "";
-      document.body.style.backgroundColor = "";
-      document.body.style.color = "";
-      document.body.style.fontFamily = "";
-      document.body.style.colorScheme = "";
-      document.documentElement.style.backgroundColor = "";
-      document.documentElement.style.color = "";
-      document.documentElement.style.colorScheme = "";
-      if (rootElement) {
-        rootElement.style.backgroundColor = "";
-        rootElement.style.color = "";
-        rootElement.style.colorScheme = "";
-      }
-    };
   }, [colors.bg, colors.text, isLight]);
 
   const sessionUserId = session?.user?.id || null;
