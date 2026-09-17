@@ -7123,7 +7123,7 @@ function App() {
     color: colors.subtext,
     borderRadius: "999px",
     padding: "6px 11px",
-    fontSize: "28px",
+    fontSize: "22px",
     fontWeight: 700,
     fontFamily: appFont,
     cursor: "pointer",
@@ -10570,7 +10570,7 @@ function App() {
           <button onClick={openHcpEditor} style={homeNameButtonStyle} title={userProfile.playerName}>
             <div
               style={{
-                fontSize: "28px",
+                fontSize: "22px",
                 fontWeight: 700,
                 color: colors.text,
                 letterSpacing: "-0.01em",
