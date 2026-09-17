@@ -1033,10 +1033,17 @@ function App() {
       success: isLight ? "#1d9f2a" : "#27a738",
       successDark: isLight ? "#e1f3e4" : "#1a4a30",
       successBorder: isLight ? "#9ed6a5" : "#3d8061",
+      approvalBg: isLight ? "#e1f3e4" : "#15372b",
+      approvalText: isLight ? "#1d6b2a" : "#5d9276",
+      approvalBorder: isLight ? "#9ed6a5" : "#3c6d58",
       overlay: isLight ? "rgba(245, 245, 243, 0.60)" : "rgba(3, 17, 13, 0.64)"
     }),
     [isLight]
   );
+
+  const loadingLogoSrc = isLight
+    ? "/stablr_home_logo_positive.png"
+    : "/stablr_home_logo.png";
 
   const supportsFinePointer = useMemo(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
@@ -6494,10 +6501,10 @@ function App() {
           }}
         >
           <img
-            src="/stablr_home_logo.png"
+            src={loadingLogoSrc}
             alt="Stablr"
             className="stablr-loader-fade-in"
-            style={{ width: "156px", height: "auto", display: "block" }}
+            style={{ width: "156px", height: "59px", objectFit: "contain", display: "block" }}
           />
           <div
             className="stablr-loader-fade-in stablr-loader-fade-in--brand"
@@ -6835,10 +6842,10 @@ function App() {
           }}
         >
           <img
-            src="/stablr_home_logo.png"
+            src={loadingLogoSrc}
             alt="Stablr"
             className="stablr-loader-fade-in"
-            style={{ width: "156px", height: "auto", display: "block" }}
+            style={{ width: "156px", height: "59px", objectFit: "contain", display: "block" }}
           />
           <div
             className="stablr-loader-fade-in stablr-loader-fade-in--brand"
@@ -7081,9 +7088,9 @@ function App() {
     width: CARD_FAVORITE_SIZE,
     height: CARD_FAVORITE_SIZE,
     borderRadius: CARD_FAVORITE_RADIUS,
-    border: `1.5px solid ${isFav ? "#3c6d58" : colors.borderStrong}`,
-    backgroundColor: isFav ? "#15372b" : colors.card,
-    color: "#5d9276",
+    border: `1.5px solid ${isFav ? colors.approvalBorder : colors.borderStrong}`,
+    backgroundColor: isFav ? colors.approvalBg : colors.card,
+    color: colors.approvalText,
     cursor: "pointer",
     fontFamily: appFont,
     display: "flex",
@@ -7585,9 +7592,9 @@ function App() {
   const getClubStatusPillStyle = (accent) => {
     if (accent === "approved") {
       return {
-        color: "#5d9276",
-        backgroundColor: "#15372b",
-        border: "1px solid #3c6d58"
+        color: colors.approvalText,
+        backgroundColor: colors.approvalBg,
+        border: `1px solid ${colors.approvalBorder}`
       };
     }
 
