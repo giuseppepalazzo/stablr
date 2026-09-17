@@ -1056,32 +1056,16 @@ function App() {
     const resolvedTheme = nextTheme === "light" ? "light" : "dark";
     const nextBackground = resolvedTheme === "light" ? "#f5f5f3" : "#071f19";
     const rootElement = document.getElementById("root");
-    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    const colorSchemeMeta = document.querySelector('meta[name="color-scheme"]');
-    const appleStatusBarMeta = document.querySelector(
-      'meta[name="apple-mobile-web-app-status-bar-style"]'
-    );
 
     document.documentElement.setAttribute("data-stablr-theme", resolvedTheme);
     document.documentElement.style.backgroundColor = nextBackground;
-    document.documentElement.style.colorScheme = resolvedTheme;
     document.body.style.backgroundColor = nextBackground;
-    document.body.style.colorScheme = resolvedTheme;
     if (rootElement) {
       rootElement.style.backgroundColor = nextBackground;
-      rootElement.style.colorScheme = resolvedTheme;
     }
-    if (themeColorMeta) {
-      themeColorMeta.setAttribute("content", nextBackground);
-    }
-    if (colorSchemeMeta) {
-      colorSchemeMeta.setAttribute("content", resolvedTheme);
-    }
-    if (appleStatusBarMeta) {
-      appleStatusBarMeta.setAttribute(
-        "content",
-        resolvedTheme === "light" ? "default" : "black-translucent"
-      );
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, resolvedTheme);
+    } catch (error) {
     }
 
     setTheme(resolvedTheme);
@@ -1190,11 +1174,6 @@ function App() {
 
   useLayoutEffect(() => {
     const rootElement = document.getElementById("root");
-    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    const colorSchemeMeta = document.querySelector('meta[name="color-scheme"]');
-    const appleStatusBarMeta = document.querySelector(
-      'meta[name="apple-mobile-web-app-status-bar-style"]'
-    );
     const runtimeColorScheme = isLight ? "light" : "dark";
 
     document.documentElement.setAttribute("data-stablr-theme", runtimeColorScheme);
@@ -1202,26 +1181,11 @@ function App() {
     document.body.style.backgroundColor = colors.bg;
     document.body.style.color = colors.text;
     document.body.style.fontFamily = appFont;
-    document.body.style.colorScheme = runtimeColorScheme;
     document.documentElement.style.backgroundColor = colors.bg;
     document.documentElement.style.color = colors.text;
-    document.documentElement.style.colorScheme = runtimeColorScheme;
     if (rootElement) {
       rootElement.style.backgroundColor = colors.bg;
       rootElement.style.color = colors.text;
-      rootElement.style.colorScheme = runtimeColorScheme;
-    }
-    if (themeColorMeta) {
-      themeColorMeta.setAttribute("content", colors.bg);
-    }
-    if (colorSchemeMeta) {
-      colorSchemeMeta.setAttribute("content", runtimeColorScheme);
-    }
-    if (appleStatusBarMeta) {
-      appleStatusBarMeta.setAttribute(
-        "content",
-        isLight ? "default" : "black-translucent"
-      );
     }
 
   }, [colors.bg, colors.text, isLight]);
