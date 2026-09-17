@@ -26,6 +26,7 @@ const HEADER_CIRCLE_RADIUS = "22px";
 const CARD_FAVORITE_SIZE = "40px";
 const CARD_FAVORITE_RADIUS = "20px";
 const SHEET_CLOSE_DURATION = 220;
+const LOADING_MESSAGE_DELAY_MS = 2000;
 const WELCOME_NAME_HOLD_MS = 1000;
 const SCORECARD_UPLOAD_BUCKET = "scorecard-submissions";
 const SCORECARD_FILE_ACCEPT =
@@ -942,6 +943,7 @@ function App() {
   const [authLoading, setAuthLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(false);
   const [profileResolved, setProfileResolved] = useState(false);
+  const [loadingWelcomeReady, setLoadingWelcomeReady] = useState(false);
   const [appReady, setAppReady] = useState(false);
   const [needsOnboarding, setNeedsOnboarding] = useState(false);
   const [authSubmitting, setAuthSubmitting] = useState(false);
@@ -1872,6 +1874,7 @@ function App() {
       setAppReady(false);
       setNeedsOnboarding(false);
       setProfileResolved(false);
+      setLoadingWelcomeReady(false);
       setSavedRounds([]);
       setFavoriteCourseIds([]);
       setSearchQuery("");
@@ -1888,6 +1891,9 @@ function App() {
     let cancelled = false;
 
     const bootstrapAuthenticatedApp = async () => {
+      const loadingSequenceStartedAt = Date.now();
+      setLoadingWelcomeReady(false);
+
       try {
         const initialCourses = await loadCourses();
         await migrateLocalCoursesIfNeeded();
@@ -1902,6 +1908,17 @@ function App() {
         }
 
         if (profile?.player_name) {
+          const elapsedMs = Date.now() - loadingSequenceStartedAt;
+          const remainingMessageDelayMs = Math.max(0, LOADING_MESSAGE_DELAY_MS - elapsedMs);
+
+          if (remainingMessageDelayMs) {
+            await new Promise((resolve) => window.setTimeout(resolve, remainingMessageDelayMs));
+          }
+
+          if (!cancelled) {
+            setLoadingWelcomeReady(true);
+          }
+
           await new Promise((resolve) => window.setTimeout(resolve, WELCOME_NAME_HOLD_MS));
         }
 
@@ -6780,7 +6797,8 @@ function App() {
   }
 
   if (session && (profileLoading || !appReady) && !needsOnboarding) {
-    const showWelcomeBack = profileResolved && normalizedPlayerDisplayName;
+    const showWelcomeBack =
+      profileResolved && loadingWelcomeReady && normalizedPlayerDisplayName;
     const loadingTitle = showWelcomeBack
       ? `Bentornato ${normalizedPlayerDisplayName}`
       : null;
@@ -7144,7 +7162,7 @@ function App() {
     color: colors.subtext,
     borderRadius: "999px",
     padding: "6px 11px",
-    fontSize: "14px",
+    fontSize: "12px",
     fontWeight: 700,
     fontFamily: appFont,
     cursor: "pointer",
