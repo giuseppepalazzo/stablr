@@ -39,7 +39,7 @@ body {
 @keyframes stablr-loader-blur-in {
   from {
     opacity: 0;
-    filter: blur(7px);
+    filter: blur(14px);
   }
 
   to {
@@ -76,6 +76,7 @@ body {
 
 .stablr-loader-fade-in--welcome {
   animation-delay: 80ms;
+  animation-duration: 700ms;
   animation-name: stablr-loader-opacity-in;
 }
 
