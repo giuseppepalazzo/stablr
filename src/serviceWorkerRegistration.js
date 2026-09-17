@@ -6,12 +6,23 @@ const isLocalhost = Boolean(
     )
 );
 
+let isRefreshingAfterServiceWorkerUpdate = false;
+
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
       return;
     }
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (isRefreshingAfterServiceWorkerUpdate) {
+        return;
+      }
+
+      isRefreshingAfterServiceWorkerUpdate = true;
+      window.location.reload();
+    });
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
