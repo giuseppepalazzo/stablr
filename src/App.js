@@ -1052,6 +1052,41 @@ function App() {
     ? "/stablr_home_logo_positive.png"
     : "/stablr_home_logo.png";
 
+  const selectTheme = (nextTheme) => {
+    const resolvedTheme = nextTheme === "light" ? "light" : "dark";
+    const nextBackground = resolvedTheme === "light" ? "#f5f5f3" : "#071f19";
+    const rootElement = document.getElementById("root");
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    const colorSchemeMeta = document.querySelector('meta[name="color-scheme"]');
+    const appleStatusBarMeta = document.querySelector(
+      'meta[name="apple-mobile-web-app-status-bar-style"]'
+    );
+
+    document.documentElement.setAttribute("data-stablr-theme", resolvedTheme);
+    document.documentElement.style.backgroundColor = nextBackground;
+    document.documentElement.style.colorScheme = resolvedTheme;
+    document.body.style.backgroundColor = nextBackground;
+    document.body.style.colorScheme = resolvedTheme;
+    if (rootElement) {
+      rootElement.style.backgroundColor = nextBackground;
+      rootElement.style.colorScheme = resolvedTheme;
+    }
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", nextBackground);
+    }
+    if (colorSchemeMeta) {
+      colorSchemeMeta.setAttribute("content", resolvedTheme);
+    }
+    if (appleStatusBarMeta) {
+      appleStatusBarMeta.setAttribute(
+        "content",
+        resolvedTheme === "light" ? "default" : "black-translucent"
+      );
+    }
+
+    setTheme(resolvedTheme);
+  };
+
   const supportsFinePointer = useMemo(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
       return false;
@@ -5725,7 +5760,7 @@ function App() {
 
               <div style={{ display: "flex", gap: "8px", marginLeft: "1px" }}>
                 <button
-                  onClick={() => setTheme("light")}
+                  onClick={() => selectTheme("light")}
                   style={{
                     flex: 1,
                     padding: "8px",
@@ -5745,7 +5780,7 @@ function App() {
                 </button>
 
                 <button
-                  onClick={() => setTheme("dark")}
+                  onClick={() => selectTheme("dark")}
                   style={{
                     flex: 1,
                     padding: "8px",
