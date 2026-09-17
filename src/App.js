@@ -6773,15 +6773,10 @@ function App() {
   }
 
   if (session && (profileLoading || !appReady) && !needsOnboarding) {
-    const shouldShowWelcomeBack = profileResolved && !profileLoading;
-    const loadingTitle = shouldShowWelcomeBack
-      ? normalizedPlayerDisplayName
-        ? `Bentornato ${normalizedPlayerDisplayName}`
-        : "Bentornato"
-      : "Stablr";
-    const loadingSubtitle = shouldShowWelcomeBack
-      ? "Un attimo e sei in campo"
-      : "Un attimo...";
+    const loadingTitle = profileResolved && normalizedPlayerDisplayName
+      ? `Bentornato ${normalizedPlayerDisplayName}`
+      : "Bentornato";
+    const loadingSubtitle = "Un attimo e sei in campo";
 
     return (
       <div
@@ -6799,22 +6794,31 @@ function App() {
       >
         <div
           style={{
-            width: "100%",
-            maxWidth: "380px",
+            width: "min(100%, 320px)",
+            minHeight: "220px",
             backgroundColor: colors.card,
             border: `1px solid ${colors.border}`,
-            borderRadius: "24px",
-            padding: "24px",
+            borderRadius: "20px",
+            padding: "28px",
             boxSizing: "border-box",
-            boxShadow: isLight
-              ? "0 18px 36px rgba(17, 24, 39, 0.08)"
-              : "0 18px 36px rgba(0, 0, 0, 0.26)"
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center"
           }}
         >
-          <div style={{ fontSize: "24px", fontWeight: 700 }}>{loadingTitle}</div>
+          <img
+            src="/stablr_home_logo.png"
+            alt="Stablr"
+            style={{ width: "156px", height: "auto", display: "block" }}
+          />
+          <div style={{ marginTop: "22px", fontSize: "18px", fontWeight: 700 }}>
+            {loadingTitle}
+          </div>
           <div
             style={{
-              marginTop: "8px",
+              marginTop: "7px",
               color: colors.subtext,
               fontSize: "14px",
               lineHeight: 1.5
