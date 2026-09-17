@@ -1036,6 +1036,12 @@ function App() {
       approvalBg: isLight ? "#e1f3e4" : "#15372b",
       approvalText: isLight ? "#1d6b2a" : "#5d9276",
       approvalBorder: isLight ? "#9ed6a5" : "#3c6d58",
+      reviewBg: isLight ? "#fff4dc" : "#3b2b13",
+      reviewText: isLight ? "#925800" : "#e4b663",
+      reviewBorder: isLight ? "#efd39a" : "#6b4b1c",
+      infoBg: isLight ? "#eaf2ff" : "#12314a",
+      infoText: isLight ? "#225d95" : "#7cb7e8",
+      infoBorder: isLight ? "#b7d3ee" : "#23577d",
       overlay: isLight ? "rgba(245, 245, 243, 0.60)" : "rgba(3, 17, 13, 0.64)"
     }),
     [isLight]
@@ -7600,16 +7606,16 @@ function App() {
 
     if (accent === "review") {
       return {
-        color: "#F59E0B",
-        backgroundColor: "#FFFBEB",
-        border: "1px solid rgba(245, 158, 11, 0.18)"
+        color: colors.reviewText,
+        backgroundColor: colors.reviewBg,
+        border: `1px solid ${colors.reviewBorder}`
       };
     }
 
     return {
-      color: "#60A5FA",
-      backgroundColor: "#F5F9FF",
-      border: "1px solid rgba(59, 130, 246, 0.18)"
+      color: colors.infoText,
+      backgroundColor: colors.infoBg,
+      border: `1px solid ${colors.infoBorder}`
     };
   };
 
