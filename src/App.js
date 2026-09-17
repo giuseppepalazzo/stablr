@@ -6501,7 +6501,7 @@ function App() {
           />
           <div
             className="stablr-loader-fade-in stablr-loader-fade-in--brand"
-            style={{ marginTop: "-12px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
+            style={{ marginTop: "-8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
           >
             GOLF SCORE
           </div>
@@ -6842,7 +6842,7 @@ function App() {
           />
           <div
             className="stablr-loader-fade-in stablr-loader-fade-in--brand"
-            style={{ marginTop: "-12px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
+            style={{ marginTop: "-8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
           >
             GOLF SCORE
           </div>
