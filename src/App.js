@@ -5724,7 +5724,7 @@ function App() {
                     borderRadius: "10px",
                     border:
                       theme === "light"
-                        ? `1px solid ${colors.green}`
+                        ? `1px solid ${colors.greenBorder}`
                         : `1px solid ${colors.borderStrong}`,
                     backgroundColor:
                       theme === "light" ? colors.greenDark : colors.inputBg,
@@ -5744,7 +5744,7 @@ function App() {
                     borderRadius: "10px",
                     border:
                       theme === "dark"
-                        ? `1px solid ${colors.green}`
+                        ? `1px solid ${colors.greenBorder}`
                         : `1px solid ${colors.borderStrong}`,
                     backgroundColor:
                       theme === "dark" ? colors.greenDark : colors.inputBg,
@@ -5770,7 +5770,7 @@ function App() {
                     flex: 1,
                     padding: "8px",
                     borderRadius: "10px",
-                    border: `1px solid ${colors.green}`,
+                    border: `1px solid ${colors.greenBorder}`,
                     backgroundColor: colors.greenDark,
                     color: colors.text,
                     cursor: "default",
@@ -6463,7 +6463,7 @@ function App() {
     marginBottom: "16px",
     padding: "14px",
     borderRadius: "14px",
-    border: active ? `1px solid ${colors.green}` : `1px solid ${colors.border}`,
+    border: active ? `1px solid ${colors.greenBorder}` : `1px solid ${colors.border}`,
     backgroundColor: active ? colors.greenDark : colors.card,
     transition: "all 0.2s ease",
     cursor: "pointer"
@@ -7310,17 +7310,13 @@ function App() {
   const setupCardOptionStyle = (active) => ({
     padding: "18px 16px",
     borderRadius: "14px",
-    border: active ? `1px solid ${colors.green}` : `1px solid ${colors.borderStrong}`,
+    border: active ? `1px solid ${colors.greenBorder}` : `1px solid ${colors.borderStrong}`,
     backgroundColor: active ? colors.greenDark : colors.inputBg,
     cursor: "pointer",
     fontWeight: 600,
     textAlign: "center",
     color: colors.text,
-    boxShadow: active
-      ? isLight
-        ? "0 6px 16px rgba(39, 167, 56, 0.14)"
-        : "0 8px 18px rgba(0, 0, 0, 0.2)"
-      : "none"
+    boxShadow: "none"
   });
 
   const renderColorDot = (colorInfo, size = 9) => (
@@ -9435,12 +9431,9 @@ function App() {
           style={{
             position: "sticky",
             bottom: 0,
-            paddingTop: "14px",
+            paddingTop: "8px",
             paddingBottom: "8px",
-            background:
-              theme === "light"
-                ? "linear-gradient(180deg, rgba(245,248,244,0) 0%, rgba(245,248,244,0.92) 22%, rgba(245,248,244,1) 100%)"
-                : "linear-gradient(180deg, rgba(11,15,13,0) 0%, rgba(11,15,13,0.92) 22%, rgba(11,15,13,1) 100%)"
+            background: "transparent"
           }}
         >
           <button onClick={startRound} style={primaryButtonStyle(canStartRound)} disabled={!canStartRound}>
@@ -10096,6 +10089,8 @@ function App() {
         <div
           style={{
             ...scorecardSummaryCardStyle,
+            backgroundColor: colors.card,
+            border: `1px solid ${colors.border}`,
             marginTop: "12px"
           }}
         >
@@ -11058,10 +11053,11 @@ function App() {
                       style={{
                         flex: 1,
                         padding: "16px",
-                        backgroundColor: colors.inputBg,
+                        backgroundColor:
+                          clubCreationMode === option.id ? colors.greenDark : colors.inputBg,
                         border:
                           clubCreationMode === option.id
-                            ? `1px solid ${colors.green}`
+                            ? `1px solid ${colors.greenBorder}`
                             : `1px solid ${colors.inputBorder}`,
                         borderRadius: "14px",
                         display: "flex",
@@ -11090,7 +11086,7 @@ function App() {
                           borderRadius: "50%",
                           border:
                             clubCreationMode === option.id
-                              ? `2px solid ${colors.green}`
+                              ? `2px solid ${colors.greenBorder}`
                               : `2px solid ${colors.borderStrong}`,
                           backgroundColor:
                             clubCreationMode === option.id ? colors.green : "transparent"
@@ -11789,10 +11785,10 @@ function App() {
                     style={{
                       flex: 1,
                       padding: "16px",
-                      backgroundColor: colors.inputBg,
+                      backgroundColor: holesCount === 9 ? colors.greenDark : colors.inputBg,
                       border:
                         holesCount === 9
-                          ? `1px solid ${colors.green}`
+                          ? `1px solid ${colors.greenBorder}`
                           : `1px solid ${colors.inputBorder}`,
                       borderRadius: "14px",
                       display: "flex",
@@ -11809,7 +11805,7 @@ function App() {
                         borderRadius: "50%",
                         border:
                           holesCount === 9
-                            ? `2px solid ${colors.green}`
+                            ? `2px solid ${colors.greenBorder}`
                             : `2px solid ${colors.borderStrong}`,
                         backgroundColor:
                           holesCount === 9 ? colors.green : "transparent"
@@ -11822,10 +11818,10 @@ function App() {
                     style={{
                       flex: 1,
                       padding: "16px",
-                      backgroundColor: colors.inputBg,
+                      backgroundColor: holesCount === 18 ? colors.greenDark : colors.inputBg,
                       border:
                         holesCount === 18
-                          ? `1px solid ${colors.green}`
+                          ? `1px solid ${colors.greenBorder}`
                           : `1px solid ${colors.inputBorder}`,
                       borderRadius: "14px",
                       display: "flex",
@@ -11842,7 +11838,7 @@ function App() {
                         borderRadius: "50%",
                         border:
                           holesCount === 18
-                            ? `2px solid ${colors.green}`
+                            ? `2px solid ${colors.greenBorder}`
                             : `2px solid ${colors.borderStrong}`,
                         backgroundColor:
                           holesCount === 18 ? colors.green : "transparent"
