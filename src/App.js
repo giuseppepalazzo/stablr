@@ -6479,8 +6479,21 @@ function App() {
           <img
             src="/stablr_home_logo.png"
             alt="Stablr"
+            className="stablr-loader-fade-in"
             style={{ width: "156px", height: "auto", display: "block" }}
           />
+          <div
+            className="stablr-loader-fade-in stablr-loader-fade-in--brand"
+            style={{ marginTop: "16px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
+          >
+            GOLF SCORE
+          </div>
+          <div
+            className="stablr-loader-fade-in stablr-loader-fade-in--message"
+            style={{ marginTop: "14px", fontSize: "14px", color: colors.subtext }}
+          >
+            Un attimo e sei in campo
+          </div>
         </div>
       </div>
     );
@@ -6806,25 +6819,33 @@ function App() {
           <img
             src="/stablr_home_logo.png"
             alt="Stablr"
+            className="stablr-loader-fade-in"
             style={{ width: "156px", height: "auto", display: "block" }}
           />
+          <div
+            className="stablr-loader-fade-in stablr-loader-fade-in--brand"
+            style={{ marginTop: "16px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
+          >
+            GOLF SCORE
+          </div>
           {showWelcomeBack && (
-            <>
+            <div className="stablr-loader-fade-in stablr-loader-fade-in--welcome">
               <div style={{ marginTop: "22px", fontSize: "18px", fontWeight: 700 }}>
                 {loadingTitle}
               </div>
-              <div
-                style={{
-                  marginTop: "7px",
-                  color: colors.subtext,
-                  fontSize: "14px",
-                  lineHeight: 1.5
-                }}
-              >
-                {loadingSubtitle}
-              </div>
-            </>
+            </div>
           )}
+          <div
+            className="stablr-loader-fade-in stablr-loader-fade-in--message"
+            style={{
+              marginTop: showWelcomeBack ? "7px" : "14px",
+              color: colors.subtext,
+              fontSize: "14px",
+              lineHeight: 1.5
+            }}
+          >
+            {loadingSubtitle}
+          </div>
 
           {authError && (
             <div

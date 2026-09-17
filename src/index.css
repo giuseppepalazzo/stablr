@@ -24,6 +24,45 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+@keyframes stablr-loader-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stablr-loader-fade-in {
+  opacity: 0;
+  animation: stablr-loader-fade-in 360ms ease-out forwards;
+}
+
+.stablr-loader-fade-in--brand {
+  animation-delay: 140ms;
+}
+
+.stablr-loader-fade-in--message {
+  animation-delay: 280ms;
+}
+
+.stablr-loader-fade-in--welcome {
+  animation-delay: 80ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stablr-loader-fade-in,
+  .stablr-loader-fade-in--brand,
+  .stablr-loader-fade-in--message,
+  .stablr-loader-fade-in--welcome {
+    opacity: 1;
+    animation: none;
+  }
+}
+
 button,
 input,
 textarea,
