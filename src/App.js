@@ -6850,7 +6850,7 @@ function App() {
             {showWelcomeBack && (
               <div
                 className="stablr-loader-fade-in stablr-loader-fade-in--welcome"
-                style={{ fontSize: "18px", fontWeight: 700 }}
+                style={{ width: "100%", fontSize: "18px", fontWeight: 700, textAlign: "center" }}
               >
                 {loadingTitle}
               </div>

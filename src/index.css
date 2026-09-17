@@ -36,6 +36,28 @@ body {
   }
 }
 
+@keyframes stablr-loader-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(7px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes stablr-loader-opacity-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .stablr-loader-fade-in {
   opacity: 0;
   animation: stablr-loader-fade-in 360ms ease-out forwards;
@@ -49,10 +71,12 @@ body {
 .stablr-loader-fade-in--message {
   animation-delay: 2000ms;
   animation-duration: 1200ms;
+  animation-name: stablr-loader-blur-in;
 }
 
 .stablr-loader-fade-in--welcome {
   animation-delay: 80ms;
+  animation-name: stablr-loader-opacity-in;
 }
 
 @media (prefers-reduced-motion: reduce) {
