@@ -6933,7 +6933,7 @@ function App() {
 
   const homeHeaderStyle = {
     display: "grid",
-    gridTemplateColumns: "112px 1fr 44px",
+    gridTemplateColumns: "minmax(0, 1fr) 44px",
     alignItems: "center",
     columnGap: "12px",
     paddingLeft: HEADER_HORIZONTAL_INSET,
@@ -7009,9 +7009,9 @@ function App() {
     width: CARD_FAVORITE_SIZE,
     height: CARD_FAVORITE_SIZE,
     borderRadius: CARD_FAVORITE_RADIUS,
-    border: `2px solid ${isFav ? colors.green : colors.borderStrong}`,
-    backgroundColor: colors.card,
-    color: colors.text,
+    border: `1.5px solid ${isFav ? "#3c6d58" : colors.borderStrong}`,
+    backgroundColor: isFav ? "#15372b" : colors.card,
+    color: "#5d9276",
     cursor: "pointer",
     fontFamily: appFont,
     display: "flex",
@@ -7021,9 +7021,7 @@ function App() {
     lineHeight: 1,
     flexShrink: 0,
     boxSizing: "border-box",
-    boxShadow: isLight
-      ? "0 4px 12px rgba(17, 24, 39, 0.05)"
-      : "0 6px 16px rgba(0, 0, 0, 0.24)"
+    boxShadow: "none"
   });
 
   const reportActionButtonStyle = {
@@ -7079,25 +7077,13 @@ function App() {
     textAlign: "center"
   };
 
-  const homeIdentityRowStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    flexWrap: "wrap",
-    gap: "10px",
-    minWidth: 0,
-    marginLeft: HOME_SECTION_INSET,
-    marginRight: HOME_SECTION_INSET,
-    marginBottom: "26px"
-  };
-
   const homeHeaderIdentityStyle = {
     minWidth: 0,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: "10px",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     lineHeight: 1.1
   };
 
@@ -7526,9 +7512,9 @@ function App() {
   const getClubStatusPillStyle = (accent) => {
     if (accent === "approved") {
       return {
-        color: "#16A34A",
-        backgroundColor: "#ECFDF5",
-        border: "1px solid rgba(22, 163, 74, 0.18)"
+        color: "#5d9276",
+        backgroundColor: "#15372b",
+        border: "1px solid #3c6d58"
       };
     }
 
@@ -7696,9 +7682,11 @@ function App() {
           style={cardFavoriteIconStyle(course.favorite)}
           title="Preferito"
         >
-          <span style={{ fontSize: "17px", lineHeight: 1, transform: "translateY(-1px)" }}>
-            ⛳️
-          </span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8 21V3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            <path d="M8 4.5c3.4-2 6.3 2 9.6 0v7c-3.3 2-6.2-2-9.6 0v-7Z" fill="currentColor" opacity="0.82" />
+            <path d="M4.5 21h7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
         </div>
       </div>
     </div>
@@ -10547,15 +10535,30 @@ function App() {
       {topSafeAreaBackdrop}
 
       <div style={homeHeaderStyle}>
-        <div style={{ display: "flex", alignItems: "center", height: HEADER_CIRCLE_SIZE }}>
-          <img
-            src="/stablr_home_logo.png"
-            alt="Stablr"
-            style={{ width: "104px", height: "auto", display: "block" }}
-          />
-        </div>
+        <div style={homeHeaderIdentityStyle}>
+          <button onClick={openHcpEditor} style={homeNameButtonStyle} title={userProfile.playerName}>
+            <div
+              style={{
+                fontSize: "24px",
+                fontWeight: 700,
+                color: colors.text,
+                letterSpacing: "-0.01em",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap"
+              }}
+            >
+              {userProfile.playerName}
+            </div>
+          </button>
 
-        <div aria-hidden="true" />
+          <button onClick={openHcpEditor} style={homeHcpPillStyle}>
+            HCP{" "}
+            <span style={getHcpValueFeedbackStyle(hcpHighlightActive, colors.subtext)}>
+              {userProfile.hcp}
+            </span>
+          </button>
+        </div>
 
         <div style={headerRightButtonWrapStyle}>
           <button
@@ -10574,33 +10577,6 @@ function App() {
             </span>
           </button>
         </div>
-      </div>
-
-      <div style={homeIdentityRowStyle}>
-        <div style={homeHeaderIdentityStyle}>
-          <button onClick={openHcpEditor} style={homeNameButtonStyle} title={userProfile.playerName}>
-            <div
-              style={{
-                fontSize: "24px",
-                fontWeight: 700,
-                color: colors.text,
-                letterSpacing: "-0.01em",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap"
-              }}
-            >
-              {userProfile.playerName}
-            </div>
-          </button>
-        </div>
-
-        <button onClick={openHcpEditor} style={homeHcpPillStyle}>
-          HCP{" "}
-          <span style={getHcpValueFeedbackStyle(hcpHighlightActive, colors.subtext)}>
-            {userProfile.hcp}
-          </span>
-        </button>
       </div>
 
       <h2 style={homeSectionTitleStyle}>Club preferiti</h2>
