@@ -16,6 +16,7 @@ const DISMISSED_COMMUNITY_TEE_PLACEHOLDERS_STORAGE_KEY =
   "stablr:dismissedCommunityTeePlaceholders:v1";
 const MAX_SAVED_ROUNDS = 100;
 const SCREEN_HORIZONTAL_PADDING = "16px";
+const SCREEN_TOP_PADDING = "calc(20px + env(safe-area-inset-top, 0px))";
 const CARD_ROW_HORIZONTAL_PADDING = "12px";
 const CARD_CONTAINER_HORIZONTAL_PADDING = "14px";
 const HEADER_HORIZONTAL_INSET = "26px";
@@ -6977,7 +6978,7 @@ function App() {
     width: HEADER_CIRCLE_SIZE,
     height: HEADER_CIRCLE_SIZE,
     borderRadius: HEADER_CIRCLE_RADIUS,
-    backgroundColor: isLight ? colors.card : "#174a3a",
+    backgroundColor: colors.card,
     color: colors.text,
     cursor: "pointer",
     fontFamily: appFont,
@@ -6990,11 +6991,11 @@ function App() {
     boxSizing: "border-box",
     boxShadow: isLight
       ? "0 8px 20px rgba(17, 24, 39, 0.08)"
-      : "0 10px 24px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(114, 217, 173, 0.12)"
+      : "0 10px 24px rgba(0, 0, 0, 0.34)"
   };
 
   const headerCircleButtonStyle = ({
-    borderColor = isLight ? colors.borderStrong : colors.green,
+    borderColor = colors.borderStrong,
     fontSize = "22px"
   } = {}) => ({
     ...headerCircleButtonBaseStyle,
@@ -7975,7 +7976,7 @@ function App() {
             backgroundColor: colors.bg,
             color: colors.text,
             minHeight: "100vh",
-            padding: `20px ${SCREEN_HORIZONTAL_PADDING}`,
+            padding: `${SCREEN_TOP_PADDING} ${SCREEN_HORIZONTAL_PADDING}`,
             boxSizing: "border-box",
             fontFamily: appFont
           }}
@@ -8133,7 +8134,7 @@ function App() {
           backgroundColor: colors.bg,
           color: colors.text,
           minHeight: "100vh",
-          padding: `20px ${SCREEN_HORIZONTAL_PADDING}`,
+          padding: `${SCREEN_TOP_PADDING} ${SCREEN_HORIZONTAL_PADDING}`,
           boxSizing: "border-box",
           fontFamily: appFont
         }}
@@ -9970,7 +9971,7 @@ function App() {
           backgroundColor: colors.bg,
           color: colors.text,
           minHeight: "100vh",
-          padding: `20px ${SCREEN_HORIZONTAL_PADDING}`,
+          padding: `${SCREEN_TOP_PADDING} ${SCREEN_HORIZONTAL_PADDING}`,
           boxSizing: "border-box",
           fontFamily: appFont
         }}
@@ -10442,7 +10443,7 @@ function App() {
           backgroundColor: colors.bg,
           color: colors.text,
           minHeight: "100vh",
-          padding: `20px ${SCREEN_HORIZONTAL_PADDING}`,
+          padding: `${SCREEN_TOP_PADDING} ${SCREEN_HORIZONTAL_PADDING}`,
           boxSizing: "border-box",
           fontFamily: appFont
         }}
@@ -10561,7 +10562,7 @@ function App() {
         backgroundColor: colors.bg,
         color: colors.text,
         minHeight: "100vh",
-        padding: `20px ${SCREEN_HORIZONTAL_PADDING}`,
+        padding: `${SCREEN_TOP_PADDING} ${SCREEN_HORIZONTAL_PADDING}`,
         boxSizing: "border-box",
         fontFamily: appFont
       }}
