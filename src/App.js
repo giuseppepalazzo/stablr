@@ -1068,9 +1068,7 @@ function App() {
     } catch (error) {
     }
 
-    flushSync(() => {
-      setTheme(resolvedTheme);
-    });
+    setTheme(resolvedTheme);
   };
 
   const supportsFinePointer = useMemo(() => {
