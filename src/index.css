@@ -1,13 +1,21 @@
+:root {
+  --stablr-page-bg: #071f19;
+}
+
+html[data-stablr-theme="light"] {
+  --stablr-page-bg: #f5f5f3;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
-  background: #f5f5f3;
+  background: var(--stablr-page-bg);
 }
 
 html,
 body,
 #root {
   min-height: 100%;
-  background: #f5f5f3;
+  background: var(--stablr-page-bg);
 }
 
 body {

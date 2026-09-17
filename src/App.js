@@ -1162,6 +1162,7 @@ function App() {
     );
     const runtimeColorScheme = isLight ? "light" : "dark";
 
+    document.documentElement.setAttribute("data-stablr-theme", runtimeColorScheme);
     document.body.style.margin = "0";
     document.body.style.backgroundColor = colors.bg;
     document.body.style.color = colors.text;
@@ -6431,7 +6432,7 @@ function App() {
     padding: "13px",
     backgroundColor: enabled ? colors.green : isLight ? "#bfd9c9" : "#244233",
     border: "none",
-    color: enabled ? "#112018" : isLight ? "#496457" : "#112018",
+    color: enabled ? "#112018" : isLight ? "#496457" : "#a8c0b3",
     fontWeight: 700,
     borderRadius: "12px",
     cursor: enabled ? "pointer" : "not-allowed",
