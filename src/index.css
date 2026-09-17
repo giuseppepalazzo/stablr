@@ -76,7 +76,7 @@ body {
 
 .stablr-loader-fade-in--welcome {
   animation-delay: 80ms;
-  animation-duration: 1200ms;
+  animation-duration: 700ms;
   animation-name: stablr-loader-blur-in;
 }
 
