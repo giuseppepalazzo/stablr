@@ -6977,7 +6977,7 @@ function App() {
     width: HEADER_CIRCLE_SIZE,
     height: HEADER_CIRCLE_SIZE,
     borderRadius: HEADER_CIRCLE_RADIUS,
-    backgroundColor: colors.card,
+    backgroundColor: isLight ? colors.card : "#174a3a",
     color: colors.text,
     cursor: "pointer",
     fontFamily: appFont,
@@ -6990,11 +6990,11 @@ function App() {
     boxSizing: "border-box",
     boxShadow: isLight
       ? "0 8px 20px rgba(17, 24, 39, 0.08)"
-      : "0 10px 24px rgba(0, 0, 0, 0.34)"
+      : "0 10px 24px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(114, 217, 173, 0.12)"
   };
 
   const headerCircleButtonStyle = ({
-    borderColor = colors.borderStrong,
+    borderColor = isLight ? colors.borderStrong : colors.green,
     fontSize = "22px"
   } = {}) => ({
     ...headerCircleButtonBaseStyle,
