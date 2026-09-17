@@ -10,7 +10,7 @@ import {
 const appFont =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
-const THEME_STORAGE_KEY = "golf-score-app-theme-v1";
+const THEME_STORAGE_KEY = "stablr:theme:v2";
 const LAST_LOGIN_EMAIL_STORAGE_KEY = "stablr:lastLoginEmail";
 const DISMISSED_COMMUNITY_TEE_PLACEHOLDERS_STORAGE_KEY =
   "stablr:dismissedCommunityTeePlaceholders:v1";
@@ -1022,11 +1022,16 @@ function App() {
       inputBorder: isLight ? "#dddd d6".replace(" ", "") : "#346454",
       pillBg: isLight ? "#f2f2ee" : "#0d3026",
       pillBorder: isLight ? "#d7d7cf" : "#2a5a4b",
-      green: isLight ? "#2ecc71" : "#72d9ad",
-      greenDark: isLight ? "#eef9f2" : "#1b4b3c",
-      greenBorder: isLight ? "#b8e7c8" : "#43836c",
-      greenManualBg: isLight ? "#e6f8ec" : "#1b4b3c",
-      greenManualBorder: isLight ? "#7cdb9f" : "#72d9ad",
+      // Brand green: aligned to the flag and fairway in the Stablr icon.
+      green: isLight ? "#1d9f2a" : "#27a738",
+      greenDark: isLight ? "#e7f6e9" : "#163d29",
+      greenBorder: isLight ? "#a9dfae" : "#347849",
+      greenManualBg: isLight ? "#e2f6e5" : "#1a4a30",
+      greenManualBorder: isLight ? "#67c573" : "#4aae5b",
+      // Mint is reserved for positive results, verified data and score highlights.
+      success: isLight ? "#168c57" : "#72d9ad",
+      successDark: isLight ? "#e6f8ef" : "#1b4b3c",
+      successBorder: isLight ? "#a9e2c3" : "#43836c",
       overlay: isLight ? "rgba(245, 245, 243, 0.60)" : "rgba(3, 17, 13, 0.64)"
     }),
     [isLight]
@@ -6214,7 +6219,7 @@ function App() {
                     <td style={{ padding: "12px" }}>{hole.par}</td>
                     <td style={{ padding: "12px" }}>{strokes || "—"}</td>
                     <td style={{ padding: "12px" }}>{netScore}</td>
-                    <td style={{ padding: "12px", color: colors.green, fontWeight: 600 }}>
+                    <td style={{ padding: "12px", color: colors.success, fontWeight: 600 }}>
                       {points}
                     </td>
                   </tr>
@@ -6305,7 +6310,7 @@ function App() {
               marginTop: "12px",
               color:
                 courseReportFeedback === "Segnalazione inviata."
-                  ? colors.green
+                  ? colors.success
                   : "#d64545",
               fontSize: "13px",
               lineHeight: 1.5
@@ -7246,8 +7251,8 @@ function App() {
 
   const scorecardStablefordCardStyle = {
     ...scorecardSummaryCardStyle,
-    border: `1px solid ${colors.greenBorder}`,
-    backgroundColor: isLight ? colors.card : colors.greenDark
+    border: `1px solid ${colors.successBorder}`,
+    backgroundColor: isLight ? colors.card : colors.successDark
   };
 
   const scorecardHoleCardStyle = {
@@ -8107,7 +8112,7 @@ function App() {
                   marginTop: "12px",
                   color: clubRequestFeedback.toLowerCase().includes("errore")
                     ? "#d64545"
-                    : colors.green,
+                    : colors.success,
                   fontSize: "13px",
                   lineHeight: 1.5
                 }}
@@ -10080,7 +10085,7 @@ function App() {
                 marginTop: "6px",
                 fontSize: "26px",
                 fontWeight: 700,
-                color: colors.green
+                color: colors.success
               }}
             >
               {stablefordTotal}
@@ -10102,10 +10107,10 @@ function App() {
               marginTop: "6px",
               fontSize: "24px",
               fontWeight: 700,
-              color: colors.green
+              color: colors.success
             }}
           >
-            <span style={getHcpValueFeedbackStyle(estimatedHcpHighlightActive, colors.green)}>
+            <span style={getHcpValueFeedbackStyle(estimatedHcpHighlightActive, colors.success)}>
               {estimatedHcpAfterRound}
             </span>
           </div>
@@ -11227,10 +11232,10 @@ function App() {
                                 unit.state === "missing"
                                   ? colors.subtext
                                   : unit.state === "published"
-                                    ? colors.green
+                                    ? colors.success
                                     : colors.text,
                               backgroundColor:
-                                unit.state === "published" ? colors.greenDark : colors.cardSecondary
+                                unit.state === "published" ? colors.successDark : colors.cardSecondary
                             }}
                           >
                             {stateMeta.label}
@@ -11515,12 +11520,12 @@ function App() {
                             fontWeight: 600,
                             color:
                               unit.state === "published"
-                                ? colors.green
+                                ? colors.success
                                 : unit.state === "missing"
                                   ? colors.subtext
                                   : colors.text,
                             backgroundColor:
-                              unit.state === "published" ? colors.greenDark : colors.inputBg
+                              unit.state === "published" ? colors.successDark : colors.inputBg
                           }}
                         >
                           {unit.isUploader && unit.state === "draft_private"
@@ -11646,7 +11651,7 @@ function App() {
                               marginTop: "10px",
                               color:
                                 scorecardUploadStatusByCourseId[course.id].tone === "success"
-                                  ? colors.green
+                                  ? colors.success
                                   : scorecardUploadStatusByCourseId[course.id].tone === "error"
                                     ? "#d64545"
                                     : colors.subtext,
@@ -11697,7 +11702,7 @@ function App() {
                       marginBottom: "14px",
                       color: clubRequestFeedback.toLowerCase().includes("errore")
                         ? "#d64545"
-                        : colors.green,
+                        : colors.success,
                       fontSize: "13px",
                       lineHeight: 1.5
                     }}
