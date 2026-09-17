@@ -6481,12 +6481,6 @@ function App() {
             alt="Stablr"
             style={{ width: "156px", height: "auto", display: "block" }}
           />
-          <div style={{ marginTop: "22px", fontSize: "18px", fontWeight: 700 }}>
-            Bentornato {userProfile.playerName || "Giocatore"}
-          </div>
-          <div style={{ marginTop: "7px", fontSize: "14px", color: colors.subtext }}>
-            Un attimo e sei in campo
-          </div>
         </div>
       </div>
     );
@@ -6773,9 +6767,10 @@ function App() {
   }
 
   if (session && (profileLoading || !appReady) && !needsOnboarding) {
-    const loadingTitle = profileResolved && normalizedPlayerDisplayName
+    const showWelcomeBack = profileResolved && normalizedPlayerDisplayName;
+    const loadingTitle = showWelcomeBack
       ? `Bentornato ${normalizedPlayerDisplayName}`
-      : "Bentornato";
+      : null;
     const loadingSubtitle = "Un attimo e sei in campo";
 
     return (
@@ -6813,19 +6808,23 @@ function App() {
             alt="Stablr"
             style={{ width: "156px", height: "auto", display: "block" }}
           />
-          <div style={{ marginTop: "22px", fontSize: "18px", fontWeight: 700 }}>
-            {loadingTitle}
-          </div>
-          <div
-            style={{
-              marginTop: "7px",
-              color: colors.subtext,
-              fontSize: "14px",
-              lineHeight: 1.5
-            }}
-          >
-            {loadingSubtitle}
-          </div>
+          {showWelcomeBack && (
+            <>
+              <div style={{ marginTop: "22px", fontSize: "18px", fontWeight: 700 }}>
+                {loadingTitle}
+              </div>
+              <div
+                style={{
+                  marginTop: "7px",
+                  color: colors.subtext,
+                  fontSize: "14px",
+                  lineHeight: 1.5
+                }}
+              >
+                {loadingSubtitle}
+              </div>
+            </>
+          )}
 
           {authError && (
             <div
