@@ -26,7 +26,7 @@ const HEADER_CIRCLE_RADIUS = "22px";
 const CARD_FAVORITE_SIZE = "40px";
 const CARD_FAVORITE_RADIUS = "20px";
 const SHEET_CLOSE_DURATION = 220;
-const WELCOME_NAME_HOLD_MS = 650;
+const WELCOME_NAME_HOLD_MS = 1000;
 const SCORECARD_UPLOAD_BUCKET = "scorecard-submissions";
 const SCORECARD_FILE_ACCEPT =
   ".heic,.HEIC,.heif,.HEIF,.jpg,.jpeg,.png,.pdf,image/heic,image/heif,image/jpeg,image/png,application/pdf";
@@ -6484,7 +6484,7 @@ function App() {
           />
           <div
             className="stablr-loader-fade-in stablr-loader-fade-in--brand"
-            style={{ marginTop: "16px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
+            style={{ marginTop: "10px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
           >
             GOLF SCORE
           </div>
@@ -6824,7 +6824,7 @@ function App() {
           />
           <div
             className="stablr-loader-fade-in stablr-loader-fade-in--brand"
-            style={{ marginTop: "16px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
+            style={{ marginTop: "10px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.16em" }}
           >
             GOLF SCORE
           </div>
