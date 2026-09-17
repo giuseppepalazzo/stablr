@@ -1035,6 +1035,7 @@ function App() {
       successBorder: isLight ? "#9ed6a5" : "#3d8061",
       approvalBg: isLight ? "#e1f3e4" : "#15372b",
       approvalText: isLight ? "#1d6b2a" : "#5d9276",
+      approvalIcon: isLight ? "#1d6b2a" : "#9bb8a8",
       approvalBorder: isLight ? "#9ed6a5" : "#3c6d58",
       reviewBg: isLight ? "#fff4dc" : "#3b2b13",
       reviewText: isLight ? "#925800" : "#e4b663",
@@ -7096,7 +7097,7 @@ function App() {
     borderRadius: CARD_FAVORITE_RADIUS,
     border: `1.5px solid ${isFav ? colors.approvalBorder : colors.borderStrong}`,
     backgroundColor: isFav ? colors.approvalBg : colors.card,
-    color: colors.approvalText,
+    color: colors.approvalIcon,
     cursor: "pointer",
     fontFamily: appFont,
     display: "flex",
@@ -7599,6 +7600,7 @@ function App() {
     if (accent === "approved") {
       return {
         color: colors.approvalText,
+        iconColor: colors.approvalIcon,
         backgroundColor: colors.approvalBg,
         border: `1px solid ${colors.approvalBorder}`
       };
@@ -7742,7 +7744,7 @@ function App() {
                   ...pillStyle
                 }}
               >
-                {renderClubStatusIcon(statusMeta.icon, pillStyle.color, 13)}
+                {renderClubStatusIcon(statusMeta.icon, pillStyle.iconColor || pillStyle.color, 13)}
                 {statusMeta.showLabel ? <span>{statusMeta.label}</span> : null}
               </div>
             );
