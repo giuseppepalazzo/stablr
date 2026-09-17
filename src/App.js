@@ -1012,7 +1012,7 @@ function App() {
   const colors = useMemo(
     () => ({
       bg: isLight ? "#f5f5f3" : "#071f19",
-      text: isLight ? "#111111" : "#ffffff",
+      text: isLight ? "#111111" : "#f4f6f1",
       subtext: isLight ? "#6b6b6b" : "#b7c9c0",
       card: isLight ? "#ffffff" : "#123b2f",
       cardSecondary: isLight ? "#f0f0ed" : "#0d3026",
@@ -1024,14 +1024,14 @@ function App() {
       pillBorder: isLight ? "#d7d7cf" : "#2a5a4b",
       // Brand green: aligned to the flag and fairway in the Stablr icon.
       green: isLight ? "#1d9f2a" : "#27a738",
-      greenDark: isLight ? "#e7f6e9" : "#163d29",
-      greenBorder: isLight ? "#a9dfae" : "#347849",
-      greenManualBg: isLight ? "#e2f6e5" : "#1a4a30",
+      greenDark: isLight ? "#e1f3e4" : "#245e48",
+      greenBorder: isLight ? "#9ed6a5" : "#3d8061",
+      greenManualBg: isLight ? "#e1f3e4" : "#245e48",
       greenManualBorder: isLight ? "#67c573" : "#4aae5b",
-      // Mint is reserved for positive results, verified data and score highlights.
-      success: isLight ? "#168c57" : "#72d9ad",
-      successDark: isLight ? "#e6f8ef" : "#1b4b3c",
-      successBorder: isLight ? "#a9e2c3" : "#43836c",
+      // Positive results use the same saturated brand green, never mint.
+      success: isLight ? "#1d9f2a" : "#27a738",
+      successDark: isLight ? "#e1f3e4" : "#1a4a30",
+      successBorder: isLight ? "#9ed6a5" : "#3d8061",
       overlay: isLight ? "rgba(245, 245, 243, 0.60)" : "rgba(3, 17, 13, 0.64)"
     }),
     [isLight]
@@ -5920,7 +5920,7 @@ function App() {
               padding: "13px",
               backgroundColor: colors.green,
               border: "none",
-              color: isLight ? "#08351c" : "black",
+              color: "#112018",
               fontWeight: 700,
               borderRadius: "12px",
               cursor: "pointer",
@@ -6328,7 +6328,7 @@ function App() {
             padding: "13px",
             backgroundColor: colors.green,
             border: "none",
-            color: isLight ? "#08351c" : "black",
+            color: "#112018",
             fontWeight: 700,
             borderRadius: "12px",
             cursor: "pointer",
@@ -6424,7 +6424,7 @@ function App() {
     padding: "13px",
     backgroundColor: enabled ? colors.green : isLight ? "#bfd9c9" : "#244233",
     border: "none",
-    color: enabled ? (isLight ? "#08351c" : "black") : isLight ? "#496457" : "black",
+    color: enabled ? "#112018" : isLight ? "#496457" : "#112018",
     fontWeight: 700,
     borderRadius: "12px",
     cursor: enabled ? "pointer" : "not-allowed",
@@ -7240,8 +7240,8 @@ function App() {
   };
 
   const scorecardSummaryCardStyle = {
-    backgroundColor: isLight ? colors.card : colors.cardSecondary,
-    border: `1px solid ${colors.border}`,
+    backgroundColor: isLight ? colors.card : "#050706",
+    border: `1px solid ${isLight ? colors.border : "#222825"}`,
     borderRadius: "18px",
     padding: "18px",
     boxShadow: isLight
@@ -7251,8 +7251,8 @@ function App() {
 
   const scorecardStablefordCardStyle = {
     ...scorecardSummaryCardStyle,
-    border: `1px solid ${colors.successBorder}`,
-    backgroundColor: isLight ? colors.card : colors.successDark
+    border: `1px solid ${isLight ? colors.border : "#222825"}`,
+    backgroundColor: isLight ? colors.card : "#050706"
   };
 
   const scorecardHoleCardStyle = {
@@ -7318,7 +7318,7 @@ function App() {
     color: colors.text,
     boxShadow: active
       ? isLight
-        ? "0 6px 16px rgba(46, 204, 113, 0.14)"
+        ? "0 6px 16px rgba(39, 167, 56, 0.14)"
         : "0 8px 18px rgba(0, 0, 0, 0.2)"
       : "none"
   });
@@ -10585,8 +10585,8 @@ function App() {
               }),
               boxShadow: searchEmptyHintPulse
                 ? isLight
-                  ? "0 0 0 6px rgba(46, 204, 113, 0.10), 0 8px 20px rgba(17, 24, 39, 0.08)"
-                  : "0 0 0 6px rgba(46, 204, 113, 0.12), 0 10px 24px rgba(0, 0, 0, 0.34)"
+                  ? "0 0 0 6px rgba(39, 167, 56, 0.10), 0 8px 20px rgba(17, 24, 39, 0.08)"
+                  : "0 0 0 6px rgba(39, 167, 56, 0.12), 0 10px 24px rgba(0, 0, 0, 0.34)"
                 : headerCircleButtonBaseStyle.boxShadow,
               transform: searchEmptyHintPulse ? "scale(1.04)" : "scale(1)",
               transition: "transform 0.35s ease, box-shadow 0.35s ease"
