@@ -992,9 +992,9 @@ function App() {
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem(THEME_STORAGE_KEY);
-      return saved || "light";
+      return saved || "dark";
     } catch (error) {
-      return "light";
+      return "dark";
     }
   });
 
@@ -1010,23 +1010,23 @@ function App() {
 
   const colors = useMemo(
     () => ({
-      bg: isLight ? "#f5f5f3" : "#000000",
+      bg: isLight ? "#f5f5f3" : "#071f19",
       text: isLight ? "#111111" : "#ffffff",
-      subtext: isLight ? "#6b6b6b" : "#8c8c8c",
-      card: isLight ? "#ffffff" : "#111111",
-      cardSecondary: isLight ? "#f0f0ed" : "#171717",
-      border: isLight ? "#e3e3dd" : "#222222",
-      borderStrong: isLight ? "#d0d0c8" : "#333333",
-      inputBg: isLight ? "#f4f4f1" : "#1a1a1a",
-      inputBorder: isLight ? "#dddd d6".replace(" ", "") : "#333333",
-      pillBg: isLight ? "#f2f2ee" : "#171717",
-      pillBorder: isLight ? "#d7d7cf" : "#2b2b2b",
-      green: "#2ecc71",
-      greenDark: isLight ? "#eef9f2" : "#16261c",
-      greenBorder: isLight ? "#b8e7c8" : "#244233",
-      greenManualBg: isLight ? "#e6f8ec" : "#1b3022",
-      greenManualBorder: isLight ? "#7cdb9f" : "#52d88b",
-      overlay: isLight ? "rgba(245, 245, 243, 0.60)" : "rgba(0, 0, 0, 0.46)"
+      subtext: isLight ? "#6b6b6b" : "#b7c9c0",
+      card: isLight ? "#ffffff" : "#123b2f",
+      cardSecondary: isLight ? "#f0f0ed" : "#0d3026",
+      border: isLight ? "#e3e3dd" : "#255445",
+      borderStrong: isLight ? "#d0d0c8" : "#3b6b5a",
+      inputBg: isLight ? "#f4f4f1" : "#102a22",
+      inputBorder: isLight ? "#dddd d6".replace(" ", "") : "#346454",
+      pillBg: isLight ? "#f2f2ee" : "#0d3026",
+      pillBorder: isLight ? "#d7d7cf" : "#2a5a4b",
+      green: isLight ? "#2ecc71" : "#72d9ad",
+      greenDark: isLight ? "#eef9f2" : "#1b4b3c",
+      greenBorder: isLight ? "#b8e7c8" : "#43836c",
+      greenManualBg: isLight ? "#e6f8ec" : "#1b4b3c",
+      greenManualBorder: isLight ? "#7cdb9f" : "#72d9ad",
+      overlay: isLight ? "rgba(245, 245, 243, 0.60)" : "rgba(3, 17, 13, 0.64)"
     }),
     [isLight]
   );
@@ -7234,13 +7234,19 @@ function App() {
   };
 
   const scorecardSummaryCardStyle = {
-    backgroundColor: colors.card,
+    backgroundColor: isLight ? colors.card : colors.cardSecondary,
     border: `1px solid ${colors.border}`,
-    borderRadius: "16px",
+    borderRadius: "18px",
     padding: "18px",
     boxShadow: isLight
       ? "0 4px 14px rgba(17, 24, 39, 0.03)"
-      : "0 6px 16px rgba(0, 0, 0, 0.14)"
+      : "0 10px 22px rgba(0, 0, 0, 0.18)"
+  };
+
+  const scorecardStablefordCardStyle = {
+    ...scorecardSummaryCardStyle,
+    border: `1px solid ${colors.greenBorder}`,
+    backgroundColor: isLight ? colors.card : colors.greenDark
   };
 
   const scorecardHoleCardStyle = {
@@ -10066,7 +10072,7 @@ function App() {
             </div>
           </div>
 
-          <div style={scorecardSummaryCardStyle}>
+          <div style={scorecardStablefordCardStyle}>
             <div style={{ color: colors.subtext, fontSize: "13px" }}>Stableford</div>
             <div
               style={{
