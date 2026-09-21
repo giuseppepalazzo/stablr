@@ -53,7 +53,7 @@ La definizione completa, inclusi stati, guardrail, criteri oggettivi, audit e ve
 
 La pipeline FIG/GesGolf e' attiva: dispone di scraper, normalizzazione, mapping, classificazione import e validazione. Il report di stato registra 220 club FIG, 184 match GesGolf forti e 36 deboli/assenti; questi conteggi sono una fotografia del report e vanno rieseguiti se servono dati aggiornati.
 
-I batch 161--180 e 181--200 hanno report dedicati. Il riesame del 2026-09-08 dei 13 club arancioni ha promosso Metaponto e mantenuto gli altri 12 in review, con Casalunga in review esplicita per conflitto di versioni. I club manuali Mare di Roma e Parco de' Medici restano protetti dagli automatismi.
+I batch 161--180 e 181--200 hanno report dedicati. Il riesame del 2026-09-08 dei 13 club arancioni ha promosso Metaponto e mantenuto gli altri 12 in review, con Casalunga in review esplicita per conflitto di versioni. Il batch controllato del 2026-09-21 ha aggiunto Padova, Montecchia Golf, Pustertal, St. Vigil Seis, Tarvisio, Sestrieres e Valdichiana: il remoto verificato contiene ora 207 club attivi, 97 verdi e 110 arancioni. I club manuali Mare di Roma e Parco de' Medici restano protetti dagli automatismi.
 
 Riferimenti operativi:
 
@@ -62,6 +62,7 @@ Riferimenti operativi:
 - [Website evidence audit](../data/gesgolf/reports/website-evidence-audit.md)
 - [Audit batch 161--180](../data/gesgolf/reports/third-level-audit-batch-20-2026-08-25.md)
 - [Audit batch 181--200](../data/gesgolf/reports/third-level-audit-batch-20-2026-09-08.md)
+- [Batch finale controllato 2026-09-21](../data/gesgolf/reports/final-catalog-batch-2026-09-21.md)
 - [Riesame 13 arancioni](../data/gesgolf/reports/third-level-rereview-orange-13-2026-09-08.md)
 - [Mismatch Parco de' Medici](../data/gesgolf/reports/parco-de-medici-gesgolf-mismatch.md)
 
@@ -123,4 +124,3 @@ Ogni nuova sessione Codex deve:
 4. verificare `git status` prima di modificare;
 5. non assumere mai che lo stato locale descriva il database remoto;
 6. aggiornare questo documento quando viene raggiunto un milestone significativo, cambia la roadmap o viene verificato uno stato remoto finora ignoto.
-

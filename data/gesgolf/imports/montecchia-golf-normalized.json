@@ -1,0 +1,1523 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "system": "fig_official_web",
+    "scraped_at": "2026-09-21T08:24:25.124Z",
+    "club_external_id": "fig-club-montecchia-golf",
+    "notes": "FIG + batch finale controllato 2026-09-21 per Montecchia Golf"
+  },
+  "club": {
+    "name": "Montecchia Golf",
+    "name_normalized": "montecchia golf",
+    "city": null,
+    "country": "Italia",
+    "data_status": "needs_review",
+    "source_type": "fig_import",
+    "is_complex": true,
+    "playable": true,
+    "is_active": true,
+    "source_system": "fig",
+    "source_external_id": "fig-club-montecchia-golf",
+    "source_payload": {
+      "kind": "club",
+      "official_catalog": "fig",
+      "original_fig_club_name": "Montecchia Golf",
+      "verification_status": "playable_review",
+      "website_evidence_status": "review_completed_with_open_issue",
+      "official_course_links": [
+        "https://www.golfmontecchia.it/",
+        "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+        "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+      ],
+      "verification_notes": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione.",
+      "physical_hole_count": 27,
+      "import_profile": "fig_official_web_final_batch_2026_09_21",
+      "product_rule": "Pubblicare solo i percorsi esplicitamente mappati; escludere route legacy, tecniche, duplicate o non confermate."
+    }
+  },
+  "routes": [
+    {
+      "external_key": "fig-course-montecchia-golf-bianco-rosso",
+      "name": "Bianco-Rosso",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 1,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-montecchia-golf-bianco-rosso",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "fig_gesgolf_review",
+        "fig_display_name": "Bianco-Rosso",
+        "route_color_keys": [
+          "bianco",
+          "rosso"
+        ],
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": 18,
+          "default_source": "fig_official_web_batch_2026_09_21"
+        },
+        "evidence_links": [
+          "https://www.golfmontecchia.it/",
+          "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+        ],
+        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 15,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 13,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 11,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 3,
+          "stroke_index": 10,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 18,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 5,
+          "stroke_index": 14,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 73.2,
+          "slope_rating": 129,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-rosso-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "73.2",
+              "slope_rating": "129"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 72.1,
+          "slope_rating": 128,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-rosso-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.1",
+              "slope_rating": "128"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 67.6,
+          "slope_rating": 118,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-rosso-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "67.6",
+              "slope_rating": "118"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 75.4,
+          "slope_rating": 127,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-rosso-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "75.4",
+              "slope_rating": "127"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 74.1,
+          "slope_rating": 124,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-rosso-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.1",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 69.2,
+          "slope_rating": 114,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-rosso-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "69.2",
+              "slope_rating": "114"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-montecchia-golf-bianco-verde",
+      "name": "Bianco-Verde",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-montecchia-golf-bianco-verde",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "fig_gesgolf_review",
+        "fig_display_name": "Bianco-Verde",
+        "route_color_keys": [
+          "bianco",
+          "verde"
+        ],
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_official_web_batch_2026_09_21"
+        },
+        "evidence_links": [
+          "https://www.golfmontecchia.it/",
+          "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+        ],
+        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 15,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 13,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 11,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 18,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 12,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 14,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 72.9,
+          "slope_rating": 126,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-verde-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.9",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 71.8,
+          "slope_rating": 126,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-verde-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.8",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 68,
+          "slope_rating": 117,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-verde-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "68.0",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 74.2,
+          "slope_rating": 125,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-verde-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.2",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 73.2,
+          "slope_rating": 122,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-verde-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "73.2",
+              "slope_rating": "122"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 69.8,
+          "slope_rating": 115,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-verde-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "69.8",
+              "slope_rating": "115"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-montecchia-golf-rosso-verde",
+      "name": "Rosso-Verde",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-montecchia-golf-rosso-verde",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "fig_gesgolf_review",
+        "fig_display_name": "Rosso-Verde",
+        "route_color_keys": [
+          "rosso",
+          "verde"
+        ],
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_official_web_batch_2026_09_21"
+        },
+        "evidence_links": [
+          "https://www.golfmontecchia.it/",
+          "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+        ],
+        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 13,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 18,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 12,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 14,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 72.2,
+          "slope_rating": 126,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-verde-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.2",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 71.3,
+          "slope_rating": 124,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-verde-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.3",
+              "slope_rating": "124"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 67.7,
+          "slope_rating": 117,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-verde-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "67.7",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 73.6,
+          "slope_rating": 123,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-verde-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "73.6",
+              "slope_rating": "123"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 72.6,
+          "slope_rating": 121,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-verde-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.6",
+              "slope_rating": "121"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 69.4,
+          "slope_rating": 114,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-verde-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "69.4",
+              "slope_rating": "114"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-montecchia-golf-verde-verde",
+      "name": "Verde-Verde",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 4,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-montecchia-golf-verde-verde",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "fig_gesgolf_review",
+        "fig_display_name": "Verde-Verde",
+        "route_color_keys": [
+          "verde",
+          "verde"
+        ],
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_official_web_batch_2026_09_21"
+        },
+        "evidence_links": [
+          "https://www.golfmontecchia.it/",
+          "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+        ],
+        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 17,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 11,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 15,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 18,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 3,
+          "stroke_index": 12,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 10,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 3,
+          "stroke_index": 16,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 14,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 71,
+          "slope_rating": 123,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-verde-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.0",
+              "slope_rating": "123"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 68.2,
+          "slope_rating": 117,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-verde-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "68.2",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 71.8,
+          "slope_rating": 119,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-verde-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.8",
+              "slope_rating": "119"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 70,
+          "slope_rating": 115,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-verde-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.0",
+              "slope_rating": "115"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-montecchia-golf-bianco-9-b",
+      "name": "Bianco",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 5,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-montecchia-golf-bianco-9-b",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "fig_gesgolf_review",
+        "fig_display_name": "Bianco 9 b.",
+        "route_color_keys": [
+          "bianco"
+        ],
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": 9,
+          "default_source": "fig_official_web_batch_2026_09_21"
+        },
+        "evidence_links": [
+          "https://www.golfmontecchia.it/",
+          "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+        ],
+        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 3,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 6,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36.3,
+          "slope_rating": 129,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-9-b-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.3",
+              "slope_rating": "129"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 33.9,
+          "slope_rating": 118,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-9-b-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "33.9",
+              "slope_rating": "118"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.3,
+          "slope_rating": 125,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-9-b-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.3",
+              "slope_rating": "125"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.8,
+          "slope_rating": 115,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-bianco-9-b-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.8",
+              "slope_rating": "115"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-montecchia-golf-rosso-9-b",
+      "name": "Rosso",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 6,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-montecchia-golf-rosso-9-b",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "fig_gesgolf_review",
+        "fig_display_name": "Rosso 9 b.",
+        "route_color_keys": [
+          "rosso"
+        ],
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_official_web_batch_2026_09_21"
+        },
+        "evidence_links": [
+          "https://www.golfmontecchia.it/",
+          "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+        ],
+        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 3,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.7,
+          "slope_rating": 126,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-9-b-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.7",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 33.6,
+          "slope_rating": 116,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-9-b-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "33.6",
+              "slope_rating": "116"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 36.8,
+          "slope_rating": 123,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-9-b-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.8",
+              "slope_rating": "123"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 34.4,
+          "slope_rating": 113,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-rosso-9-b-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.4",
+              "slope_rating": "113"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-montecchia-golf-verde-9-b",
+      "name": "Verde",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 7,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-montecchia-golf-verde-9-b",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "fig_gesgolf_review",
+        "fig_display_name": "Verde 9 b.",
+        "route_color_keys": [
+          "verde"
+        ],
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_official_web_batch_2026_09_21"
+        },
+        "evidence_links": [
+          "https://www.golfmontecchia.it/",
+          "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
+        ],
+        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 9,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 5,
+          "stroke_index": 3,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.5,
+          "slope_rating": 123,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-9-b-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.5",
+              "slope_rating": "123"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34.1,
+          "slope_rating": 117,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-9-b-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.1",
+              "slope_rating": "117"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 35.9,
+          "slope_rating": 119,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-9-b-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "119"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35,
+          "slope_rating": 115,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-montecchia-golf-verde-9-b-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.0",
+              "slope_rating": "115"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    }
+  ],
+  "route_combinations": []
+}

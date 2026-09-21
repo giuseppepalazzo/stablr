@@ -1243,3 +1243,24 @@ SEGNO25:
 - Bergamo Albenza: Blu, Giallo, Rosso, Blu-Giallo e Rosso-Blu sono corroborati dalle matrici ufficiali, ma Rosso-Giallo conserva una trasformazione HCP non esposta esplicitamente; il club resta `playable_review` fino alla certificazione di tutte le route attive;
 - Casalunga resta review esplicita: la scorecard Hole19 9/36 converge con il vecchio GesGolf Augusta 18/72, non con il playable course FIG New Storm 2025 9/35 e 18/70;
 - nessuna matrice di raw/normalizzato GesGolf attribuibile ai restanti dieci club e' presente nel repository; gli import esistenti non sono trattati come seconda fonte indipendente.
+
+SEGNO26:
+- completato il batch finale controllato del 2026-09-21 senza rieseguire i batch gia' live;
+- importati e seedati 7 nuovi club:
+  - verdi / Stablr Approved: `Pustertal`, `St. Vigil Seis`, `Tarvisio`, `Sestrieres`, `Valdichiana`;
+  - arancioni / playable review: `Padova`, `Montecchia Golf`;
+- pubblicate 23 route complessive, tutte verificate post-seed con numero di buche completo;
+- guardrail applicati:
+  - Pustertal: pubblicate solo le route FIG 2021 Par 66/33 confermate dalla scorecard ufficiale; escluse le route legacy Par 68/34;
+  - Tarvisio: pubblicata solo la route 18 buche Par 70; escluse le route FIG 9 buche perche' il routing corrente inferiore/superiore non coincide con semplici prime/seconde nove;
+  - Sestrieres: pubblicate la route ufficiale 18 buche Par 65 e la Prime Nove Par 31, entrambe derivate dalla matrice Par/HCP ufficiale completa;
+  - Valdichiana: pubblicate le route 9 buche Par 34 e 18 buche Par 68, costruite deterministicamente dalle coppie HCP ufficiali dei nove green fisici;
+  - Montecchia: pubblicate solo le route del campo principale Bianco/Rosso/Verde; esclusi Albarella, Galzignano e rumore tecnico VO23;
+  - Musella e Pavoniere non seedati per conflitti di routing/versione ancora aperti;
+- validator normalizzati superati per tutti i 7 payload; confronto programmatico positivo delle 13 matrici Padova/Montecchia contro GesGolf;
+- conteggio Supabase post-seed:
+  - record club DB: 207;
+  - club attivi/giocabili: 207;
+  - Stablr Approved / verdi: 97;
+  - playable review / arancioni: 110;
+- report dettagliato: `data/gesgolf/reports/final-catalog-batch-2026-09-21.md`.
