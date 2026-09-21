@@ -11,7 +11,7 @@
     "name_normalized": "montecchia golf",
     "city": null,
     "country": "Italia",
-    "data_status": "needs_review",
+    "data_status": "verified",
     "source_type": "fig_import",
     "is_complex": true,
     "playable": true,
@@ -22,14 +22,17 @@
       "kind": "club",
       "official_catalog": "fig",
       "original_fig_club_name": "Montecchia Golf",
-      "verification_status": "playable_review",
-      "website_evidence_status": "review_completed_with_open_issue",
+      "verification_status": "verified",
+      "stablr_approved": true,
+      "website_evidence_status": "verified",
       "official_course_links": [
-        "https://www.golfmontecchia.it/",
+        "https://www.golfmontecchia.it/il-percorso-bianco",
+        "https://www.golfmontecchia.it/il-percorso-rosso",
+        "https://www.golfmontecchia.it/percorso-verde",
         "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
         "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
       ],
-      "verification_notes": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione.",
+      "verification_notes": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse.",
       "physical_hole_count": 27,
       "import_profile": "fig_official_web_final_batch_2026_09_21",
       "product_rule": "Pubblicare solo i percorsi esplicitamente mappati; escludere route legacy, tecniche, duplicate o non confermate."
@@ -48,7 +51,7 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "fig_gesgolf_review",
+        "hole_by_hole_source": "official_club_evidence",
         "fig_display_name": "Bianco-Rosso",
         "route_color_keys": [
           "bianco",
@@ -64,7 +67,7 @@
           "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
           "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
         ],
-        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+        "evidence_note": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse."
       },
       "holes": [
         {
@@ -305,7 +308,7 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "fig_gesgolf_review",
+        "hole_by_hole_source": "official_club_evidence",
         "fig_display_name": "Bianco-Verde",
         "route_color_keys": [
           "bianco",
@@ -321,7 +324,7 @@
           "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
           "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
         ],
-        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+        "evidence_note": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse."
       },
       "holes": [
         {
@@ -562,7 +565,7 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "fig_gesgolf_review",
+        "hole_by_hole_source": "official_club_evidence",
         "fig_display_name": "Rosso-Verde",
         "route_color_keys": [
           "rosso",
@@ -578,7 +581,7 @@
           "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
           "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
         ],
-        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+        "evidence_note": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse."
       },
       "holes": [
         {
@@ -819,7 +822,7 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "fig_gesgolf_review",
+        "hole_by_hole_source": "official_club_evidence",
         "fig_display_name": "Verde-Verde",
         "route_color_keys": [
           "verde",
@@ -835,7 +838,7 @@
           "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
           "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
         ],
-        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+        "evidence_note": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse."
       },
       "holes": [
         {
@@ -1038,7 +1041,7 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "fig_gesgolf_review",
+        "hole_by_hole_source": "official_club_evidence",
         "fig_display_name": "Bianco 9 b.",
         "route_color_keys": [
           "bianco"
@@ -1053,7 +1056,7 @@
           "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
           "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
         ],
-        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+        "evidence_note": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse."
       },
       "holes": [
         {
@@ -1202,7 +1205,7 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "fig_gesgolf_review",
+        "hole_by_hole_source": "official_club_evidence",
         "fig_display_name": "Rosso 9 b.",
         "route_color_keys": [
           "rosso"
@@ -1217,7 +1220,7 @@
           "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
           "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
         ],
-        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+        "evidence_note": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse."
       },
       "holes": [
         {
@@ -1366,7 +1369,7 @@
       "source_payload": {
         "kind": "route",
         "official_catalog": "fig",
-        "hole_by_hole_source": "fig_gesgolf_review",
+        "hole_by_hole_source": "official_club_evidence",
         "fig_display_name": "Verde 9 b.",
         "route_color_keys": [
           "verde"
@@ -1381,7 +1384,7 @@
           "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
           "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
         ],
-        "evidence_note": "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione."
+        "evidence_note": "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse."
       },
       "holes": [
         {

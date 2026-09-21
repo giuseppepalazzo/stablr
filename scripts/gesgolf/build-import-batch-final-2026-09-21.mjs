@@ -56,13 +56,15 @@ const CLUBS = [
   {
     figName: "Montecchia Golf",
     physicalHoleCount: 27,
-    verified: false,
+    verified: true,
     links: [
-      "https://www.golfmontecchia.it/",
+      "https://www.golfmontecchia.it/il-percorso-bianco",
+      "https://www.golfmontecchia.it/il-percorso-rosso",
+      "https://www.golfmontecchia.it/percorso-verde",
       "https://www.golfmontecchia.it/images/pdf/FILE3-Montecchia_book_FINALE-compresso.pdf",
       "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=831"
     ],
-    note: "Il sito e il course book ufficiali confermano i tre segmenti Bianco, Rosso e Verde da 9 buche Par 36. FIG e GesGolf coincidono sulle route principali e sulle matrici operative; Albarella, Galzignano e varianti tecniche VO23 restano escluse. Mancando HCP/SI ufficiali completi, il club resta arancione.",
+    note: "Le schede buca-per-buca ufficiali confermano PAR e HCP/SI completi per Bianco, Rosso e Verde; le 7 matrici attive coincidono integralmente con GesGolf e FIG. FIG resta l'autorita' per l'identita' della route Verde: alcune grafiche della relativa pagina riportano il nome storico/incoerente 'Percorso Giallo', senza divergenze numeriche. Albarella, Galzignano e varianti tecniche VO23 restano escluse.",
     routes: [
       ["Bianco-Rosso", "Bianco-Rosso", M.montecchiaBiancoRosso, 18, ["bianco", "rosso"]],
       ["Bianco-Verde", "Bianco-Verde", M.montecchiaBiancoVerde, null, ["bianco", "verde"]],

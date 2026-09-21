@@ -1247,20 +1247,26 @@ SEGNO25:
 SEGNO26:
 - completato il batch finale controllato del 2026-09-21 senza rieseguire i batch gia' live;
 - importati e seedati 7 nuovi club:
-  - verdi / Stablr Approved: `Pustertal`, `St. Vigil Seis`, `Tarvisio`, `Sestrieres`, `Valdichiana`;
-  - arancioni / playable review: `Padova`, `Montecchia Golf`;
+  - verdi / Stablr Approved: `Pustertal`, `St. Vigil Seis`, `Tarvisio`, `Sestrieres`, `Valdichiana`, `Montecchia Golf`;
+  - arancioni / playable review: `Padova`;
 - pubblicate 23 route complessive, tutte verificate post-seed con numero di buche completo;
 - guardrail applicati:
   - Pustertal: pubblicate solo le route FIG 2021 Par 66/33 confermate dalla scorecard ufficiale; escluse le route legacy Par 68/34;
   - Tarvisio: pubblicata solo la route 18 buche Par 70; escluse le route FIG 9 buche perche' il routing corrente inferiore/superiore non coincide con semplici prime/seconde nove;
   - Sestrieres: pubblicate la route ufficiale 18 buche Par 65 e la Prime Nove Par 31, entrambe derivate dalla matrice Par/HCP ufficiale completa;
   - Valdichiana: pubblicate le route 9 buche Par 34 e 18 buche Par 68, costruite deterministicamente dalle coppie HCP ufficiali dei nove green fisici;
-  - Montecchia: pubblicate solo le route del campo principale Bianco/Rosso/Verde; esclusi Albarella, Galzignano e rumore tecnico VO23;
+  - Montecchia: promossa verde dopo verifica delle schede ufficiali PAR/HCP/SI per tutte le 27 buche e match integrale delle 7 route con GesGolf; FIG conserva l'identita' `Verde` nonostante il label `Percorso Giallo` in alcune grafiche ufficiali; restano esclusi Albarella, Galzignano e rumore tecnico VO23;
   - Musella e Pavoniere non seedati per conflitti di routing/versione ancora aperti;
 - validator normalizzati superati per tutti i 7 payload; confronto programmatico positivo delle 13 matrici Padova/Montecchia contro GesGolf;
 - conteggio Supabase post-seed:
   - record club DB: 207;
   - club attivi/giocabili: 207;
-  - Stablr Approved / verdi: 97;
-  - playable review / arancioni: 110;
+  - Stablr Approved / verdi: 98;
+  - playable review / arancioni: 109;
 - report dettagliato: `data/gesgolf/reports/final-catalog-batch-2026-09-21.md`.
+
+SEGNO27:
+- Montecchia Golf promossa da `needs_review` a `verified` / Stablr Approved dopo evidence ufficiale PAR/HCP/SI buca-per-buca per Bianco, Rosso e Verde e cross-check integrale delle 7 route con GesGolf;
+- nessuna modifica alle matrici PAR/HCP/SI; FIG resta autorita' identitaria per il segmento `Verde`;
+- registrata nel promotion audit l'incoerenza nominale del sito: alcune grafiche della pagina Verde riportano `Percorso Giallo`, senza divergenze numeriche o di routing;
+- audit: `data/gesgolf/reports/montecchia-golf-promotion-2026-09-21.md`.

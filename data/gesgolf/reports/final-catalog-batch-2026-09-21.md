@@ -11,7 +11,7 @@ The FIG catalog contains 220 identities, but the difference from the live count 
 | Club | Final status | Published routes | Decision |
 | --- | --- | ---: | --- |
 | Padova | orange / `needs_review` | 6 | FIG and GesGolf 2025 agree on the three 9-hole loops and all three 18-hole combinations. Official pages confirm the loops and distances but do not publish hole-by-hole HCP/SI. |
-| Montecchia Golf | orange / `needs_review` | 7 | Main Bianco/Rosso/Verde routes agree between FIG and GesGolf; the official course book confirms three Par-36 loops. Albarella, Galzignano and technical VO23 variants are excluded. Official HCP/SI evidence is incomplete. |
+| Montecchia Golf | green / `verified` | 7 | Official hole-by-hole cards now confirm complete PAR/HCP/SI for Bianco, Rosso and Verde; all seven FIG routes match GesGolf. FIG remains authoritative for `Verde`, despite the `Percorso Giallo` label present in some official graphics. |
 | Pustertal | green / `verified` | 2 | The current official scorecard publishes complete Par/HCP, distances, CR and Slope for Par 66 and matches the FIG 2021 routes. Legacy Par-68 routes are excluded. |
 | St. Vigil Seis | green / `verified` | 3 | All 18 official hole cards were inspected. Their complete Par/HCP matrix matches FIG totals: 18 holes Par 69, first nine Par 35, second nine Par 34. |
 | Tarvisio | green / `verified` | 1 | The current official scorecard publishes the complete Par-70/HCP matrix and matches the FIG 18-hole route. FIG 9-hole routes are excluded because the current club routing uses a different lower/upper composition. |
@@ -51,13 +51,13 @@ The FIG catalog contains 220 identities, but the difference from the live count 
 - Remote counts after the seed:
   - clubs: 207;
   - active/playable clubs: 207;
-  - green / `verified`: 97;
-  - orange / `needs_review`: 110.
+  - green / `verified`: 98;
+  - orange / `needs_review`: 109.
 
 ## Evidence
 
 - Padova: `https://www.golfclubpadova.it/percorso-giallo/`, `percorso-blu/`, `percorso-rosso/`, GesGolf circolo `29`.
-- Montecchia: `https://www.golfmontecchia.it/`, official course book PDF, GesGolf circolo `831`.
+- Montecchia: `https://www.golfmontecchia.it/il-percorso-bianco`, `il-percorso-rosso`, `percorso-verde`, official course book PDF, GesGolf circolo `831`; promotion audit: `data/gesgolf/reports/montecchia-golf-promotion-2026-09-21.md`.
 - Pustertal: `https://www.golfpustertal.com/it/campo-da-golf/scorecard-rating`.
 - St. Vigil Seis: `https://www.golfstvigilseis.it/en/golf-courese-prices/golf-course-routing/` and the 18 linked official hole cards.
 - Tarvisio: `https://golfsenzaconfini.com/it` and `https://cdn.jessas.org/downloads/Scorecard.pdf`.
