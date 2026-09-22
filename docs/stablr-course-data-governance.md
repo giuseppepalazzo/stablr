@@ -318,6 +318,22 @@ L’audit conserva:
 
 Nota: i nomi tecnici potranno evolvere. Il modello concettuale deve restare stabile.
 
+### 3.1 Soglia di giocabilita' e soglia di certificazione
+
+La giocabilita' e la certificazione sono decisioni distinte:
+
+- FIG determina identita', esistenza e rating dei playable course ufficiali;
+- GesGolf e' una Source operativa utile per bootstrap e confronto, ma non e' obbligatoria per `playable_unverified`;
+- un percorso puo' essere `playable_unverified` quando struttura, PAR, SI/HCP, tee e routing sono completi e sufficientemente affidabili sulla migliore Evidence complessivamente disponibile;
+- una fonte secondaria attribuibile e plausibile puo' completare dati non pubblicati dal club quando converge con FIG e con i dati ufficiali leggibili e non esistono conflitti irrisolti;
+- l'assenza di GesGolf o di una seconda Source non produce automaticamente `missing` o `in_review`;
+- `in_review` non giocabile si usa quando manca concretamente un dato indispensabile alla scorecard oppure esiste un conflitto che non puo' essere risolto senza inventare dati;
+- `certified` richiede sempre lo standard probatorio piu' elevato previsto da questa governance.
+
+Una variante FIG non supportata dall'Evidence corrente puo' restare non pubblicata e documentata come possibile versione precedente o configurazione distinta; non deve bloccare altre route dello stesso club che risultano complete e giocabili.
+
+Per i campi fisici da 9 buche, una route FIG 18 puo' essere derivata soltanto con una trasformazione Stablr gia' definita e validata, producendo PAR corretto e SI unici 1–18. La derivazione deve essere registrata nell'audit e nei metadata; non sono ammesse regole ad hoc.
+
 ---
 
 ## 4. Badge e significato prodotto

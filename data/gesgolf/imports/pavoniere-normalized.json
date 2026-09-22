@@ -1,0 +1,2343 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "system": "fig_official_web",
+    "scraped_at": "2026-09-21T00:00:00.000Z",
+    "club_external_id": "fig-club-pavoniere",
+    "notes": "Recovery batch gruppo 1 controllato 2026-09-21 per Pavoniere"
+  },
+  "club": {
+    "name": "Pavoniere",
+    "name_normalized": "pavoniere",
+    "city": null,
+    "country": "Italia",
+    "data_status": "verified",
+    "source_type": "fig_import",
+    "is_complex": true,
+    "playable": true,
+    "is_active": true,
+    "source_system": "fig",
+    "source_external_id": "fig-club-pavoniere",
+    "fig_club_source_external_id": "fig-club-pavoniere",
+    "fig_match_status": "matched",
+    "fig_match_confidence": 1,
+    "fig_match_notes": "Identita' collegata direttamente al catalogo FIG; stato giocabile deciso dal recovery audit.",
+    "club_taxonomy": null,
+    "source_payload": {
+      "kind": "club",
+      "official_catalog": "fig",
+      "original_fig_club_name": "Pavoniere",
+      "verification_status": "verified",
+      "stablr_approved": true,
+      "governance_state": "certified",
+      "website_evidence_status": "verified",
+      "official_course_links": [
+        "https://www.pavoniere.it/index.php/score/",
+        "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+      ],
+      "verification_notes": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf.",
+      "physical_hole_count": 18,
+      "import_profile": "fig_recovery_batch_group_1_2026-09-21",
+      "product_rule": "Pubblicare solo i playable course FIG esplicitamente mappati e validati."
+    }
+  },
+  "routes": [
+    {
+      "external_key": "fig-course-pavoniere-18-buche",
+      "name": "18 Buche",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 1,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-18-buche",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "18 Buche",
+        "gesgolf_route_id": "1839",
+        "gesgolf_route_name": "ARNOLD",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": 18,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 5,
+          "stroke_index": 10,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 14,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 74.7,
+          "slope_rating": 140,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.7",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 73,
+          "slope_rating": 139,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "73.0",
+              "slope_rating": "139"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 70,
+          "slope_rating": 130,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.0",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 77.1,
+          "slope_rating": 145,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "77.1",
+              "slope_rating": "145"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 74.9,
+          "slope_rating": 139,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.9",
+              "slope_rating": "139"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 71.7,
+          "slope_rating": 132,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.7",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-18-buche-short",
+      "name": "18 buche short",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-18-buche-short",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "18 buche short",
+        "gesgolf_route_id": "2221",
+        "gesgolf_route_name": "18 buche sh",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 5,
+          "stroke_index": 10,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 14,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 74.7,
+          "slope_rating": 140,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-short-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.7",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 72.2,
+          "slope_rating": 138,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-short-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.2",
+              "slope_rating": "138"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 70,
+          "slope_rating": 133,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-short-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.0",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 77.1,
+          "slope_rating": 145,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-short-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "77.1",
+              "slope_rating": "145"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 74.8,
+          "slope_rating": 139,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-short-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.8",
+              "slope_rating": "139"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 71.7,
+          "slope_rating": 132,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-18-buche-short-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.7",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-2-volte-le-seconde-nove",
+      "name": "2 volte le seconde nove",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 3,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-2-volte-le-seconde-nove",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "2 volte le seconde nove",
+        "gesgolf_route_id": "2392",
+        "gesgolf_route_name": "sec9b sh 2volte",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 13,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 5,
+          "stroke_index": 10,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 14,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 73.2,
+          "slope_rating": 142,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-2-volte-le-seconde-nove-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "73.2",
+              "slope_rating": "142"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 70.2,
+          "slope_rating": 134,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-2-volte-le-seconde-nove-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.2",
+              "slope_rating": "134"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 75,
+          "slope_rating": 140,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-2-volte-le-seconde-nove-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "75.0",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 71.8,
+          "slope_rating": 133,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-2-volte-le-seconde-nove-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.8",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-campionato-nazionale-maschile-match-play-2026",
+      "name": "Campionato Nazionale Maschile Match Play 2026",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 4,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-campionato-nazionale-maschile-match-play-2026",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "Campionato Nazionale Maschile Match Play 2026",
+        "gesgolf_route_id": "3006",
+        "gesgolf_route_name": "Campionato",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 5,
+          "stroke_index": 10,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 14,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 75.2,
+          "slope_rating": 140,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-campionato-nazionale-maschile-match-play-2026-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "75.2",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 73.5,
+          "slope_rating": 139,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-campionato-nazionale-maschile-match-play-2026-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "73.5",
+              "slope_rating": "139"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 70.5,
+          "slope_rating": 130,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-campionato-nazionale-maschile-match-play-2026-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.5",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 77.5,
+          "slope_rating": 145,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-campionato-nazionale-maschile-match-play-2026-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "77.5",
+              "slope_rating": "145"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 75.3,
+          "slope_rating": 139,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-campionato-nazionale-maschile-match-play-2026-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "75.3",
+              "slope_rating": "139"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 72.1,
+          "slope_rating": 132,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-campionato-nazionale-maschile-match-play-2026-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.1",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-prime-9-short-2-volte",
+      "name": "prime 9 short 2 volte",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 5,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-prime-9-short-2-volte",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "prime 9 short 2 volte",
+        "gesgolf_route_id": "2393",
+        "gesgolf_route_name": "prime9 sh 2volt",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 13,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 14,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 10,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 74.4,
+          "slope_rating": 136,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-9-short-2-volte-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.4",
+              "slope_rating": "136"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 71.8,
+          "slope_rating": 133,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-9-short-2-volte-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.8",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 70,
+          "slope_rating": 130,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-9-short-2-volte-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.0",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 77,
+          "slope_rating": 144,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-9-short-2-volte-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "77.0",
+              "slope_rating": "144"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 74.6,
+          "slope_rating": 137,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-9-short-2-volte-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "74.6",
+              "slope_rating": "137"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 71.6,
+          "slope_rating": 131,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-9-short-2-volte-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.6",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-prime-nove",
+      "name": "Prime Nove",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 6,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-prime-nove",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "Prime Nove",
+        "gesgolf_route_id": "1842",
+        "gesgolf_route_name": "PRIME 9",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": 9,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.2,
+          "slope_rating": 136,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.2",
+              "slope_rating": "136"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36.4,
+          "slope_rating": 135,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.4",
+              "slope_rating": "135"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 34.9,
+          "slope_rating": 126,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "34.9",
+              "slope_rating": "126"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 38.5,
+          "slope_rating": 144,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "38.5",
+              "slope_rating": "144"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.4,
+          "slope_rating": 138,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.4",
+              "slope_rating": "138"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35.8,
+          "slope_rating": 131,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.8",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-prime-nove-sh",
+      "name": "prime nove short",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 7,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-prime-nove-sh",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "prime nove sh",
+        "gesgolf_route_id": "2222",
+        "gesgolf_route_name": "Prime 9 sh",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 5,
+          "stroke_index": 4,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.2,
+          "slope_rating": 136,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-sh-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.2",
+              "slope_rating": "136"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 35.9,
+          "slope_rating": 133,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-sh-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 35,
+          "slope_rating": 130,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-sh-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.0",
+              "slope_rating": "130"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 38.5,
+          "slope_rating": 144,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-sh-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "38.5",
+              "slope_rating": "144"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.3,
+          "slope_rating": 137,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-sh-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.3",
+              "slope_rating": "137"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35.8,
+          "slope_rating": 131,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-prime-nove-sh-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.8",
+              "slope_rating": "131"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-seconde-9-short-2-volte",
+      "name": "seconde 9 short 2 volte",
+      "holes_count": 18,
+      "total_par": 72,
+      "display_order": 8,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-seconde-9-short-2-volte",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "seconde 9 short 2 volte",
+        "gesgolf_route_id": "2392",
+        "gesgolf_route_name": "sec9b sh 2volte",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 15,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 7,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 5,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 5,
+          "stroke_index": 9,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 13,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 5,
+          "stroke_index": 16,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 4,
+          "stroke_index": 8,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 5,
+          "stroke_index": 10,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 14,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 75,
+          "slope_rating": 144,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-9-short-2-volte-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "75.0",
+              "slope_rating": "144"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 72.6,
+          "slope_rating": 142,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-9-short-2-volte-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "72.6",
+              "slope_rating": "142"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 70.1,
+          "slope_rating": 136,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-9-short-2-volte-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "70.1",
+              "slope_rating": "136"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 77.2,
+          "slope_rating": 146,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-9-short-2-volte-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "77.2",
+              "slope_rating": "146"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 75,
+          "slope_rating": 140,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-9-short-2-volte-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "75.0",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 71.4,
+          "slope_rating": 132,
+          "par_total": 72,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-9-short-2-volte-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "71.4",
+              "slope_rating": "132"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-seconde-nove",
+      "name": "Seconde Nove",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 9,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-seconde-nove",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "Seconde Nove",
+        "gesgolf_route_id": "1843",
+        "gesgolf_route_name": "SECONDE 9",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.5,
+          "slope_rating": 144,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.5",
+              "slope_rating": "144"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36.6,
+          "slope_rating": 142,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.6",
+              "slope_rating": "142"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 35.1,
+          "slope_rating": 134,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.1",
+              "slope_rating": "134"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 38.6,
+          "slope_rating": 146,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "38.6",
+              "slope_rating": "146"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.5,
+          "slope_rating": 140,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.5",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35.9,
+          "slope_rating": 133,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-pavoniere-seconde-nove-sh",
+      "name": "seconde nove short",
+      "holes_count": 9,
+      "total_par": 36,
+      "display_order": 10,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-pavoniere-seconde-nove-sh",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_crosschecked",
+        "fig_display_name": "seconde nove sh",
+        "gesgolf_route_id": "2223",
+        "gesgolf_route_name": "Seconde 9 sh",
+        "governance_state": "certified",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": null,
+          "default_source": "fig_recovery_batch_2026-09-21"
+        },
+        "evidence_links": [
+          "https://www.pavoniere.it/index.php/score/",
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=703"
+        ],
+        "evidence_note": "La scorecard ufficiale espone PAR/HCP completi per tutte le 18 buche e coincide con GesGolf. Le route principali, short, prime/seconde nove, ripetizioni delle nove e Campionato 2026 sono mappate su identita' FIG distinte; le ripetizioni SI sono trasformazioni deterministiche delle due nove ufficiali e coincidono con GesGolf."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 6,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 5,
+          "stroke_index": 8,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 5,
+          "stroke_index": 5,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Bianco",
+          "tee_color": "white",
+          "gender": "men",
+          "course_rating": 37.5,
+          "slope_rating": 144,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-sh-bianco-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.5",
+              "slope_rating": "144"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 36.3,
+          "slope_rating": 142,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-sh-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "36.3",
+              "slope_rating": "142"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 35,
+          "slope_rating": 136,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-sh-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.0",
+              "slope_rating": "136"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Blu",
+          "tee_color": "blue",
+          "gender": "men",
+          "course_rating": 38.6,
+          "slope_rating": 146,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-sh-blu-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "38.6",
+              "slope_rating": "146"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 37.5,
+          "slope_rating": 140,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-sh-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "37.5",
+              "slope_rating": "140"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 35.9,
+          "slope_rating": 133,
+          "par_total": 36,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-pavoniere-seconde-nove-sh-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "35.9",
+              "slope_rating": "133"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    }
+  ],
+  "route_combinations": []
+}

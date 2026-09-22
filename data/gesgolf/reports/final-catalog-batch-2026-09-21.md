@@ -18,12 +18,18 @@ The FIG catalog contains 220 identities, but the difference from the live count 
 | Sestrieres | green / `verified` | 2 | The official Vialattea course page publishes complete Par/HCP for all 18 holes. The Par-65 matrix and its first-nine Par-31 segment match the two FIG routes. |
 | Valdichiana | green / `verified` | 2 | The official course page publishes Par and paired HCP values for each of the nine physical holes. First-pass and second-pass values deterministically produce the FIG 9-hole Par-34 and 18-hole Par-68 routes. |
 
-## Excluded from this seed
+## Recovery batch group 1
 
-- `Musella`: GesGolf/FIG expose historical 9/18 route families, while the current official site describes a 12-hole homologated facility. The current playable routing is not deterministic.
-- `Pavoniere`: multiple duplicate and short-course variants create an unresolved route/version mapping; no sufficiently strong current official scorecard was found in this audit.
-- `St. Vigil Seis` and `Tarvisio` GesGolf scraping failed because the current GesGolf form did not return the expected `__EVENTVALIDATION`; strong official evidence plus FIG was used only for the explicitly published routes.
-- The 15 remaining unrepresented FIG identities were not converted into playable records without reliable current hole-by-hole data: `Musella`, `Pavoniere`, `Punta Ala`, `Roncegno`, `Salerno`, `San Donato`, `San Michele`, `Sappada`, `Sicilia'S Picciolo`, `Stupinigi`, `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`.
+- `Musella`: recovered as playable orange with all 7 FIG routes. The official 2025 route scorecards reconcile the 12 physical holes with GesGolf; the repeated 18-hole SI rule remains uncertified.
+- `Pavoniere`: recovered as green with all 10 active FIG routes reconciled against the official complete scorecard and GesGolf.
+- `Punta Ala`: recovered as playable orange with `18 Buche`, `Prime Nove` and `Seconde Nove`; the official page plus two matching secondary scorecards support the complete matrix without reaching the green threshold.
+- `Roncegno`: recovered as playable orange with 9/34 and the FIG-rated 18/68 derived through the established Stablr odd/even repetition rule.
+- `Salerno`: recovered as playable orange with the current 9/34 and its deterministic 18/68; FIG variants 9/33 and 18/66 remain catalog identities but are not published.
+
+## Open evidence notes and remaining unrepresented identities
+
+- `St. Vigil Seis` and `Tarvisio` were imported from FIG plus strong official evidence even though GesGolf scraping failed because the current form did not return the expected `__EVENTVALIDATION`; only the explicitly corroborated routes were published.
+- The 10 remaining unrepresented FIG identities were not converted into records without reliable current hole-by-hole data: `San Donato`, `San Michele`, `Sappada`, `Sicilia'S Picciolo`, `Stupinigi`, `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`.
 - In particular, the current official material for Sicilia'S Picciolo is internally inconsistent, Stupinigi lacks a complete HCP matrix and contains conflicting Par information, San Michele exposes incomplete/ambiguous hole data, and San Donato's available brochure is not demonstrably aligned with the current FIG 2026 routes. The other identities still lack a complete authoritative current matrix in the retained audit evidence.
 
 ## Artifacts
@@ -53,6 +59,17 @@ The FIG catalog contains 220 identities, but the difference from the live count 
   - active/playable clubs: 207;
   - green / `verified`: 98;
   - orange / `needs_review`: 109.
+
+## Recovery group 1 remote result
+
+- The five recovery records were seeded after the final catalog batch: Pavoniere is green; Musella, Punta Ala, Roncegno and Salerno are playable orange.
+- The final corrective verification for Punta Ala, Roncegno and Salerno found no payload/database differences across 7 routes, 90 hole rows and 34 tees.
+- Remote counts after recovery group 1:
+  - clubs / active clubs: 212;
+  - playable clubs: 212;
+  - non-playable clubs: 0;
+  - green / `verified`: 99;
+  - orange / `needs_review`: 113.
 
 ## Evidence
 

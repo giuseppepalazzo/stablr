@@ -1270,3 +1270,21 @@ SEGNO27:
 - nessuna modifica alle matrici PAR/HCP/SI; FIG resta autorita' identitaria per il segmento `Verde`;
 - registrata nel promotion audit l'incoerenza nominale del sito: alcune grafiche della pagina Verde riportano `Percorso Giallo`, senza divergenze numeriche o di routing;
 - audit: `data/gesgolf/reports/montecchia-golf-promotion-2026-09-21.md`.
+
+SEGNO28 (prima rappresentazione del recovery, superata da SEGNO29):
+- recovery batch finale gruppo 1 completato per cinque identita' FIG senza rieseguire i batch precedenti;
+- `Musella`: importato come giocabile arancione / `playable_unverified`, con 7 route FIG. Le scorecard ufficiali 2025 e GesGolf convergono sulle matrici; il verde resta sospeso perche' la trasformazione SI delle tre ripetizioni 18 buche non e' esplicitata dalla fonte ufficiale;
+- `Pavoniere`: importato e certificato verde / Stablr Approved, con 10 route FIG. Scorecard ufficiale e GesGolf convergono integralmente; le ripetizioni sono deterministiche dalle nove ufficiali;
+- `Punta Ala`, `Roncegno` e `Salerno`: registrati come identita' FIG `in_review`, non giocabili e senza route pubblicate. Punta Ala ha una matrice HCP ufficiale corrotta/incompleta; Roncegno e Salerno non dispongono nel repository di una seconda fonte GesGolf attribuibile e Salerno non conferma tutte le varianti FIG;
+- preflight e verifica remota: tutti e cinque i club sono FIG-linked (`matched`, confidenza 1); controllo payload/database superato su 17 route, 243 righe buca e 86 tee, senza differenze;
+- conteggio Supabase post-seed: 212 club attivi, 209 giocabili, 99 Stablr Approved / verdi e 113 `needs_review`;
+- builder: `scripts/gesgolf/build-recovery-batch-group-1-2026-09-21.mjs`; audit: `data/gesgolf/reports/recovery-batch-group-1-2026-09-21.md`.
+
+SEGNO29:
+- corretta la distinzione persistente tra giocabilita' e certificazione: GesGolf e una seconda fonte non sono requisiti obbligatori per `playable_unverified`; `in_review` non giocabile si usa solo se manca un dato indispensabile o resta un conflitto non risolvibile senza inventare dati;
+- `Punta Ala` aggiornata a giocabile arancione con 3 route FIG: matrice 18/72 completa corroborata da due scorecard secondarie indipendenti e coerente con tutti i dati ufficiali leggibili; Prime Nove e Seconde Nove sono segmenti della stessa matrice;
+- `Roncegno` aggiornato a giocabile arancione con 9/34 da sito ufficiale + Hole19 e 18/68 derivato dalla trasformazione Stablr standard primo giro dispari / secondo giro pari;
+- `Salerno` aggiornato a giocabile arancione con 9/34 corrente e 18/68 derivato dalla stessa regola; le identita' FIG 9/33 e 18/66 restano non pubblicate e documentate come versioning/configurazioni non supportate dall'Evidence corrente;
+- seed correttivo eseguito una sola volta sui tre club; verifica remota superata su 7 route, 90 buche e 34 tee, con matrici, stati, tassonomia e collegamenti FIG identici ai payload;
+- conteggio Supabase finale: 212 club Stablr attivi, 212 giocabili, 0 non giocabili, 99 verdi e 113 arancioni / `needs_review`;
+- il catalogo FIG normalizzato corrente contiene 220 identita' attive. La tabella remota `fig_clubs` contiene 228 righe attive perche' conserva 8 alias legacy con apostrofi HTML-encoded non presenti nel catalogo corrente; non vanno conteggiati come nuove identita' FIG.

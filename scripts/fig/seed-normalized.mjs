@@ -89,7 +89,16 @@ async function upsertClub(supabase, clubPayload, createdBy) {
     is_active: clubPayload.is_active ?? true,
     source_system: clubPayload.source_system || null,
     source_external_id: clubPayload.source_external_id || null,
-    source_payload: clubPayload.source_payload || {}
+    source_payload: clubPayload.source_payload || {},
+    ...(clubPayload.fig_club_id ? { fig_club_id: clubPayload.fig_club_id } : {}),
+    ...(clubPayload.fig_match_status ? { fig_match_status: clubPayload.fig_match_status } : {}),
+    ...(clubPayload.fig_match_confidence != null
+      ? { fig_match_confidence: clubPayload.fig_match_confidence }
+      : {}),
+    ...(clubPayload.fig_match_notes ? { fig_match_notes: clubPayload.fig_match_notes } : {}),
+    ...(Object.prototype.hasOwnProperty.call(clubPayload, "club_taxonomy")
+      ? { club_taxonomy: clubPayload.club_taxonomy }
+      : {})
   };
 
   const existing =
@@ -350,6 +359,18 @@ async function main() {
   const createdBy = getRequiredEnv("STABLR_CREATED_BY_USER_ID");
 
   const supabase = createSeedDatabaseClient(supabaseUrl, supabaseServiceRoleKey);
+
+  const figClubExternalId = data.club.fig_club_source_external_id || data.club.source_external_id;
+  if (figClubExternalId) {
+    const figClub = await fetchExistingRow(supabase, "fig_clubs", [
+      ["source_system", "fig"],
+      ["source_external_id", figClubExternalId]
+    ]);
+    if (!figClub) {
+      throw new Error(`Club FIG remoto non trovato: ${figClubExternalId}`);
+    }
+    data.club.fig_club_id = figClub.id;
+  }
 
   const club = await upsertClub(supabase, data.club, createdBy);
 
