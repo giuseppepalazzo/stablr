@@ -1301,3 +1301,15 @@ SEGNO30:
 - conteggio Supabase finale: 217 club attivi e giocabili, 0 non giocabili, 100 verdi e 117 arancioni / `needs_review`;
 - restano fuori dal layer giocabile 5 identita' FIG canoniche e 21 route attive: `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`;
 - builder: `scripts/gesgolf/build-recovery-batch-group-2-2026-09-22.mjs`; audit: `data/gesgolf/reports/recovery-batch-group-2-2026-09-22.md`.
+
+SEGNO31:
+- recovery batch finale gruppo 3 completato per le ultime cinque identita' FIG canoniche: `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`;
+- catalogo FIG interamente rappresentato: 220 identita' canoniche locali;
+- `Tirrenia` verde con `Nove buche` 9/36 e `18 Buche` 18/72 da grafiche ufficiali complete; `Misto` resta non pubblicata per assenza di routing specifico;
+- `Valpescara` verde con `18 BUCHE 2017`, `Prime Nove` e `Seconde Nove` dalla matrice completa del sito ufficiale Adriatico; famiglie Laghi/Piano non pubblicate;
+- `Tauriana` arancione con 9/35 e doppio giro 18/70; Hole19 coincide con la matrice recuperata, mentre una scorecard secondaria scambia gli SI delle buche 3 e 7 e impedisce il verde;
+- `Verdura` arancione con tutte le 6 route East/West; FIG e identita' ufficiali confermano struttura e rating, scorecard secondarie complete forniscono gli SI;
+- `Villa Giusti` rappresentato ma `in_review`, non giocabile e senza route live: FIG 2025 e' Par 66, mentre la sola vecchia scorecard completa e' Par 65 e i relativi HCP non vengono trasferiti;
+- validator superati per tutti i payload; seed eseguito una sola volta; read-back positivo su 5 club, 13 route, 162 buche e 70 tee, senza differenze su stati, PAR, SI/HCP, CR o Slope;
+- conteggio remoto finale: 222 club attivi, 221 giocabili, 1 non giocabile, 102 verdi, 119 arancioni e 1 `in_review`;
+- builder: `scripts/gesgolf/build-recovery-batch-group-3-2026-09-22.mjs`; verifier: `scripts/gesgolf/verify-recovery-batch-group-3-2026-09-22.mjs`; audit: `data/gesgolf/reports/recovery-batch-group-3-2026-09-22.md`.

@@ -39,7 +39,7 @@ La definizione completa, inclusi stati, guardrail, criteri oggettivi, audit e ve
 
 | Area | Stato | Evidenza persistente |
 | --- | --- | --- |
-| Catalogo/campi | **IN CORSO** | Pipeline e batch progressivi esistono; la copertura completa non risulta conclusa. |
+| Catalogo/campi | **IN CORSO** | Tutte le 220 identita' FIG canoniche sono ora rappresentate. 221 club sono giocabili; Villa Giusti resta non giocabile in review in attesa degli SI/HCP 2025. Certification e manutenzione del catalogo restano continuative. |
 | Frontend | **IN CORSO** | Implementazione presente in [`src/App.js`](../src/App.js), inclusi ricerca club, setup giro e stati dati. Copertura e test end-to-end attuali: **DA VERIFICARE**. |
 | Backend/Supabase | **IN CORSO** | Schemi, policy e script di seed sono presenti. Applicazione reale delle migrazioni e coerenza DB: **DA VERIFICARE**. |
 | Scorecard contribution flow | **IN CORSO** | Design, UX flow, schema/RLS e codice di upload/staging sono presenti; verifica end-to-end sul backend remoto: **DA VERIFICARE**. |
@@ -53,7 +53,7 @@ La definizione completa, inclusi stati, guardrail, criteri oggettivi, audit e ve
 
 La pipeline FIG/GesGolf e' attiva: dispone di scraper, normalizzazione, mapping, classificazione import e validazione. Il report di stato registra 220 club FIG, 184 match GesGolf forti e 36 deboli/assenti; questi conteggi sono una fotografia del report e vanno rieseguiti se servono dati aggiornati.
 
-I batch 161--180 e 181--200 hanno report dedicati. Il riesame del 2026-09-08 dei 13 club arancioni ha promosso Metaponto e mantenuto gli altri 12 in review, con Casalunga in review esplicita per conflitto di versioni. Il batch controllato e i recovery gruppi 1 e 2 del 2026-09-21/22 hanno portato il remoto verificato a 217 club Stablr attivi e giocabili: 100 verdi e 117 arancioni. Il catalogo FIG normalizzato corrente contiene 220 identita'; la tabella remota `fig_clubs` conserva inoltre 8 alias legacy HTML-encoded, da non contare come nuove identita'. Restano fuori dal layer giocabile 5 identita' FIG canoniche con 21 route attive. I club manuali Mare di Roma e Parco de' Medici restano protetti dagli automatismi.
+I batch 161--180 e 181--200 hanno report dedicati. Il riesame del 2026-09-08 dei 13 club arancioni ha promosso Metaponto e mantenuto gli altri 12 in review, con Casalunga in review esplicita per conflitto di versioni. Il batch controllato e i tre recovery group del 2026-09-21/22 hanno completato la rappresentazione delle 220 identita' FIG canoniche. Lo snapshot remoto verificato e' di 222 club Stablr attivi: 221 giocabili, 1 non giocabile (`Villa Giusti`), 102 verdi, 119 arancioni e 1 `in_review`. La tabella remota `fig_clubs` conserva inoltre 8 alias legacy HTML-encoded, da non contare come nuove identita'. I club manuali Mare di Roma e Parco de' Medici restano protetti dagli automatismi.
 
 Riferimenti operativi:
 
@@ -68,7 +68,7 @@ Riferimenti operativi:
 
 ## 7. Known technical debt / risks
 
-- La copertura e la verifica manuale dei club non sono concluse; mapping ambigui, route legacy/provvisorie e scorecard senza SI ufficiale richiedono review.
+- La rappresentazione delle identita' FIG e' completa, ma la verifica editoriale resta continuativa; mapping ambigui, route legacy/provvisorie e scorecard senza SI ufficiale richiedono review. Villa Giusti resta non giocabile finche' non emerge la matrice SI/HCP 2025.
 - Le feature di certification/admin previste nel MVP del Framework non risultano complete.
 - Il flusso staging e le RLS richiedono verifica reale sul backend, non solo presenza di schema e codice.
 - Prima della beta pubblica e dopo il completamento della copertura prodotto serve un audit dedicato di RLS, grants, superficie di scraping, query frontend, eventuali Edge Function, rate limiting e logging. Riferimento: [Beta security checkpoint](../supabase/beta-security-checkpoint.md).
@@ -78,18 +78,18 @@ Riferimenti operativi:
 
 | Ambito | Stato verificabile dal repository |
 | --- | --- |
-| Supabase remoto | Snapshot verificato il 2026-09-22 dopo il recovery gruppo 2: 217 club Stablr attivi, tutti giocabili; 220 identita' FIG canoniche locali e 228 righe `fig_clubs` remote per 8 alias legacy. Verifiche future devono comunque interrogare nuovamente il remoto. |
+| Supabase remoto | Snapshot verificato il 2026-09-22 dopo il recovery gruppo 3: 222 club Stablr attivi, 221 giocabili e Villa Giusti non giocabile in review; 220 identita' FIG canoniche locali e 228 righe `fig_clubs` remote per 8 alias legacy. Verifiche future devono comunque interrogare nuovamente il remoto. |
 | Migrazioni applicate | **DA VERIFICARE**: il repository contiene le migrazioni/schema, non prova dell'ordine o dell'esito di applicazione remoto. |
-| Seed | Recovery batch gruppo 1 verificato dopo seed: payload e remoto coincidono per i cinque club; dettaglio nel report specialistico. Altri batch o migrazioni restano da verificare per task. |
+| Seed | I recovery batch gruppi 1--3 sono stati verificati dopo seed. Per il gruppo 3 payload e remoto coincidono su 5 club, 13 route, 162 buche e 70 tee; dettaglio nel report specialistico. Altri batch o migrazioni restano da verificare per task. |
 | RLS live | Policy SQL presenti; policy effettivamente applicate e testate in remoto: **DA VERIFICARE**. |
-| Dati live | Snapshot catalogo verificato il 2026-09-22: 217 club giocabili, 100 verdi e 117 arancioni. Non assumere che lo snapshot resti valido senza una nuova query remota. |
+| Dati live | Snapshot catalogo verificato il 2026-09-22: 222 club attivi, 221 giocabili, 1 non giocabile, 102 verdi, 119 arancioni e 1 `in_review`. Non assumere che lo snapshot resti valido senza una nuova query remota. |
 | Deployment corrente | **DA VERIFICARE**: nessun artefatto di deployment/stato ambiente e' stato individuato. |
 
 ## 9. Product roadmap
 
 Ordine ricostruibile dai documenti, non una roadmap con scadenze:
 
-1. **Catalogo completo**: continuare batch FIG/GesGolf, risolvere mapping a bassa confidenza e fare audit manuale a tre livelli; mantenere arancio quando l'evidenza non consente il verde.
+1. **Catalogo completo**: milestone di rappresentazione raggiunta per tutte le 220 identita' FIG canoniche; completare Villa Giusti quando sara' disponibile la matrice SI/HCP 2025 e proseguire audit/certification delle route arancioni senza abbassare la soglia verde.
 2. **Catalogo giocabile coerente**: validare gli import, applicare/controllare seed verso Supabase in modo controllato e testare ricerca, badge, setup giro e avvio giro su campi 9, 18 e complessi.
 3. **Beta privata**: completare o decidere il perimetro del surface admin/review MVP, verificare flussi OTP, contribution/staging e round su backend remoto. Priorita' e criterio di uscita della beta privata: **DA DECIDERE DAL PRODUCT OWNER**.
 4. **Beta pubblica / release**: completare il checkpoint di sicurezza (RLS, grants e anti-scraping), risolvere le regressioni emerse e verificare deployment/live state. Requisiti commerciali, scadenze e perimetro di release: **DA DECIDERE DAL PRODUCT OWNER**.
@@ -98,9 +98,7 @@ Le evoluzioni successive previste dal Framework includono scorecard upload compl
 
 ## 10. Next recommended task
 
-Il prossimo task tecnico naturale, sulla base del [pipeline status](../data/gesgolf/reports/gesgolf-pipeline-status.md), e' il recovery delle cinque identita' FIG residue (`Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`) e delle loro 21 route attive, usando la migliore combinazione disponibile di FIG, fonti ufficiali e fonti secondarie affidabili. GesGolf resta una Source operativa utile ma non obbligatoria per l'arancione; ogni risultato deve produrre o aggiornare il relativo report persistente e non deve toccare i club protetti.
-
-Prima di qualunque seed o modifica del DB remoto, verificare esplicitamente lo stato live e le autorizzazioni.
+Il prossimo task tecnico naturale e' verificare nell'app pubblica come viene mostrato `Villa Giusti`, club FIG attivo ma non giocabile e senza route pubblicate. Il controllo deve essere diagnostico: cercare il club, osservare ricerca/card/dettaglio e decidere separatamente se progettare lo stato pubblico `Percorso in verifica`, senza modificare automaticamente la UX.
 
 ## 11. Important project documents
 

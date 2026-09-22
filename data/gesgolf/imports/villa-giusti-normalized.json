@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "system": "fig_official_web",
+    "scraped_at": "2026-09-22T00:00:00.000Z",
+    "club_external_id": "fig-club-villa-giusti",
+    "notes": "Recovery batch gruppo 3 controllato 2026-09-22 per Villa Giusti"
+  },
+  "club": {
+    "name": "Villa Giusti",
+    "name_normalized": "villa giusti",
+    "city": null,
+    "country": "Italia",
+    "data_status": "needs_review",
+    "source_type": "fig_import",
+    "is_complex": true,
+    "playable": false,
+    "is_active": true,
+    "source_system": "fig",
+    "source_external_id": "fig-club-villa-giusti",
+    "fig_club_source_external_id": "fig-club-villa-giusti",
+    "fig_match_status": "matched",
+    "fig_match_confidence": 1,
+    "fig_match_notes": "Identita' collegata direttamente al catalogo FIG; stato deciso dal recovery audit gruppo 3.",
+    "club_taxonomy": "complex_official",
+    "source_payload": {
+      "kind": "club",
+      "official_catalog": "fig",
+      "original_fig_club_name": "Villa Giusti",
+      "verification_status": "in_review",
+      "governance_state": "in_review",
+      "website_evidence_status": "review_open",
+      "official_course_links": [],
+      "verification_notes": "FIG 2025 conferma 18/66, Prime Nove/31 e Seconde Nove/35 con CR additivi e tee completi. La sola scorecard hole-by-hole disponibile appartiene alla precedente configurazione Par 65 (31+34): i suoi HCP non vengono trasferiti alla versione 2025. Il club resta rappresentato e FIG-linked, ma senza route pubblicate finche' non sara' disponibile una matrice SI/HCP 2025 affidabile.",
+      "physical_hole_count": 18,
+      "unpublished_fig_routes": [
+        "18 Buche 2025",
+        "Prime Nove 2025",
+        "Seconde Nove 2025"
+      ],
+      "import_profile": "fig_recovery_batch_group_3_2026-09-22",
+      "product_rule": "Rappresentare il club FIG senza route live finche' manca una matrice scorecard affidabile."
+    }
+  },
+  "routes": [],
+  "route_combinations": []
+}

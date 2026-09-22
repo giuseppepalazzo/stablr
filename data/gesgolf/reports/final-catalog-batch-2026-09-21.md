@@ -35,10 +35,10 @@ The FIG catalog contains 220 identities, but the difference from the live count 
 - `Stupinigi`: playable orange with the FIG/GesGolf family `9/31` and `18/62`; the official page's hole-5 Par conflicts with its own Par-62 heading, so families 30/60 and 32/64 remain unpublished.
 - Detailed audit: `data/gesgolf/reports/recovery-batch-group-2-2026-09-22.md`.
 
-## Open evidence notes and remaining unrepresented identities
+## Open evidence notes and final recovery status
 
 - `St. Vigil Seis` and `Tarvisio` were imported from FIG plus strong official evidence even though GesGolf scraping failed because the current form did not return the expected `__EVENTVALIDATION`; only the explicitly corroborated routes were published.
-- The 5 remaining unrepresented FIG identities are `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura` and `Villa Giusti`, representing 21 active FIG routes to reassess.
+- Recovery group 3 completed the representation of all 220 canonical FIG identities. `Tauriana` and `Verdura` are playable orange; `Tirrenia` and `Valpescara` are green on the explicitly corroborated routes; `Villa Giusti` is represented but remains non-playable/in-review without published routes because its 2025 SI/HCP matrix is missing.
 
 ## Artifacts
 
@@ -89,6 +89,20 @@ The FIG catalog contains 220 identities, but the difference from the live count 
   - non-playable clubs: 0;
   - green / `verified`: 100;
   - orange / `needs_review`: 117.
+
+## Recovery group 3 remote result
+
+- Seeded the final five canonical FIG identities. Published 13 routes: Tauriana 2, Tirrenia 2, Valpescara 3 and Verdura 6; Villa Giusti has zero published routes.
+- Tirrenia and Valpescara are green; Tauriana and Verdura are playable orange; Villa Giusti is `in_review` and non-playable.
+- Post-seed read-back found no payload/database differences across club state, 13 routes, 162 hole rows and 70 tees, including PAR, SI/HCP, CR and Slope.
+- Final remote counts:
+  - active clubs: 222;
+  - playable clubs: 221;
+  - non-playable clubs: 1;
+  - green / `verified`: 102;
+  - orange / `playable_review`: 119;
+  - `in_review`: 1.
+- Detailed audit: `data/gesgolf/reports/recovery-batch-group-3-2026-09-22.md`.
 
 ## Evidence
 
