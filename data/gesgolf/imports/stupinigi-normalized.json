@@ -1,0 +1,430 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "system": "fig_official_web",
+    "scraped_at": "2026-09-22T00:00:00.000Z",
+    "club_external_id": "fig-club-stupinigi",
+    "notes": "Recovery batch gruppo 2 controllato 2026-09-22 per Stupinigi"
+  },
+  "club": {
+    "name": "Stupinigi",
+    "name_normalized": "stupinigi",
+    "city": null,
+    "country": "Italia",
+    "data_status": "needs_review",
+    "source_type": "fig_import",
+    "is_complex": false,
+    "playable": true,
+    "is_active": true,
+    "source_system": "fig",
+    "source_external_id": "fig-club-stupinigi",
+    "fig_club_source_external_id": "fig-club-stupinigi",
+    "fig_match_status": "matched",
+    "fig_match_confidence": 1,
+    "fig_match_notes": "Identita' collegata direttamente al catalogo FIG; stato giocabile deciso dal recovery audit.",
+    "club_taxonomy": null,
+    "source_payload": {
+      "kind": "club",
+      "official_catalog": "fig",
+      "original_fig_club_name": "Stupinigi",
+      "verification_status": "playable_review",
+      "governance_state": "playable_unverified",
+      "website_evidence_status": "verified_with_certification_gap",
+      "official_course_links": [
+        "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=40",
+        "https://www.golfclubstupinigi.com/percorso-golf-club-stupinigi/"
+      ],
+      "verification_notes": "GesGolf corrente pubblica la famiglia completa 9/31 e 18/62 con PAR e HCP; FIG contiene la stessa famiglia e rating coerenti. La route 18 usa la trasformazione standard SI dispari/pari e coincide con GesGolf. Il sito ufficiale dichiara il giro Par 62 ma il dettaglio assegna ancora Par 5 alla buca 5, producendo Par 32 e richiamando la distinta famiglia FIG 32/64: per questo la famiglia 31/62 e' giocabile ma resta arancione. Le famiglie 30/60 e 32/64 restano catalogate e non pubblicate.",
+      "physical_hole_count": 9,
+      "unpublished_fig_routes": [
+        "PAR 30",
+        "PAR 32",
+        "PAR 60",
+        "PAR 64"
+      ],
+      "import_profile": "fig_recovery_batch_group_2_2026-09-22",
+      "product_rule": "Pubblicare solo i playable course FIG esplicitamente mappati e validati."
+    }
+  },
+  "routes": [
+    {
+      "external_key": "fig-course-stupinigi-par-31",
+      "name": "9 Buche · Par 31",
+      "holes_count": 9,
+      "total_par": 31,
+      "display_order": 1,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-stupinigi-par-31",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_current_family_31_62",
+        "fig_display_name": "PAR 31",
+        "governance_state": "playable_unverified",
+        "round_variant": {
+          "holes_count": 9,
+          "default_for_holes": 9,
+          "default_source": "fig_recovery_batch_group_2_2026-09-22"
+        },
+        "evidence_links": [
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=40",
+          "https://www.golfclubstupinigi.com/percorso-golf-club-stupinigi/"
+        ],
+        "evidence_note": "GesGolf corrente pubblica la famiglia completa 9/31 e 18/62 con PAR e HCP; FIG contiene la stessa famiglia e rating coerenti. La route 18 usa la trasformazione standard SI dispari/pari e coincide con GesGolf. Il sito ufficiale dichiara il giro Par 62 ma il dettaglio assegna ancora Par 5 alla buca 5, producendo Par 32 e richiamando la distinta famiglia FIG 32/64: per questo la famiglia 31/62 e' giocabile ma resta arancione. Le famiglie 30/60 e 32/64 restano catalogate e non pubblicate."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 15,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 13,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "9"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 30.7,
+          "slope_rating": 108,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-31-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "30.7",
+              "slope_rating": "108"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 29.9,
+          "slope_rating": 108,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-31-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "29.9",
+              "slope_rating": "108"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 31.3,
+          "slope_rating": 109,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-31-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "31.3",
+              "slope_rating": "109"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 31.3,
+          "slope_rating": 109,
+          "par_total": 31,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-31-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "31.3",
+              "slope_rating": "109"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    },
+    {
+      "external_key": "fig-course-stupinigi-par-62",
+      "name": "18 Buche · Par 62",
+      "holes_count": 18,
+      "total_par": 62,
+      "display_order": 2,
+      "is_active": true,
+      "source_system": "fig",
+      "source_external_id": "fig-course-stupinigi-par-62",
+      "source_payload": {
+        "kind": "route",
+        "official_catalog": "fig",
+        "hole_by_hole_source": "gesgolf_current_plus_stablr_standard_repeated_9",
+        "fig_display_name": "PAR 62",
+        "governance_state": "playable_unverified",
+        "derived_route": true,
+        "derivation_rule": "standard_repeated_9_first_pass_odd_second_pass_even",
+        "round_variant": {
+          "holes_count": 18,
+          "default_for_holes": 18,
+          "default_source": "fig_recovery_batch_group_2_2026-09-22"
+        },
+        "evidence_links": [
+          "https://www.gesgolf.it/golfonline/clubs/percorsi.aspx?circolo_id=40",
+          "https://www.golfclubstupinigi.com/percorso-golf-club-stupinigi/"
+        ],
+        "evidence_note": "GesGolf corrente pubblica la famiglia completa 9/31 e 18/62 con PAR e HCP; FIG contiene la stessa famiglia e rating coerenti. La route 18 usa la trasformazione standard SI dispari/pari e coincide con GesGolf. Il sito ufficiale dichiara il giro Par 62 ma il dettaglio assegna ancora Par 5 alla buca 5, producendo Par 32 e richiamando la distinta famiglia FIG 32/64: per questo la famiglia 31/62 e' giocabile ma resta arancione. Le famiglie 30/60 e 32/64 restano catalogate e non pubblicate."
+      },
+      "holes": [
+        {
+          "physical_hole_number": 1,
+          "par": 4,
+          "stroke_index": 1,
+          "display_label": "1"
+        },
+        {
+          "physical_hole_number": 2,
+          "par": 3,
+          "stroke_index": 5,
+          "display_label": "2"
+        },
+        {
+          "physical_hole_number": 3,
+          "par": 3,
+          "stroke_index": 9,
+          "display_label": "3"
+        },
+        {
+          "physical_hole_number": 4,
+          "par": 4,
+          "stroke_index": 3,
+          "display_label": "4"
+        },
+        {
+          "physical_hole_number": 5,
+          "par": 4,
+          "stroke_index": 15,
+          "display_label": "5"
+        },
+        {
+          "physical_hole_number": 6,
+          "par": 3,
+          "stroke_index": 17,
+          "display_label": "6"
+        },
+        {
+          "physical_hole_number": 7,
+          "par": 3,
+          "stroke_index": 7,
+          "display_label": "7"
+        },
+        {
+          "physical_hole_number": 8,
+          "par": 3,
+          "stroke_index": 13,
+          "display_label": "8"
+        },
+        {
+          "physical_hole_number": 9,
+          "par": 4,
+          "stroke_index": 11,
+          "display_label": "9"
+        },
+        {
+          "physical_hole_number": 10,
+          "par": 4,
+          "stroke_index": 2,
+          "display_label": "10"
+        },
+        {
+          "physical_hole_number": 11,
+          "par": 3,
+          "stroke_index": 6,
+          "display_label": "11"
+        },
+        {
+          "physical_hole_number": 12,
+          "par": 3,
+          "stroke_index": 10,
+          "display_label": "12"
+        },
+        {
+          "physical_hole_number": 13,
+          "par": 4,
+          "stroke_index": 4,
+          "display_label": "13"
+        },
+        {
+          "physical_hole_number": 14,
+          "par": 4,
+          "stroke_index": 16,
+          "display_label": "14"
+        },
+        {
+          "physical_hole_number": 15,
+          "par": 3,
+          "stroke_index": 18,
+          "display_label": "15"
+        },
+        {
+          "physical_hole_number": 16,
+          "par": 3,
+          "stroke_index": 8,
+          "display_label": "16"
+        },
+        {
+          "physical_hole_number": 17,
+          "par": 3,
+          "stroke_index": 14,
+          "display_label": "17"
+        },
+        {
+          "physical_hole_number": 18,
+          "par": 4,
+          "stroke_index": 12,
+          "display_label": "18"
+        }
+      ],
+      "tees": [
+        {
+          "tee_name": "Giallo",
+          "tee_color": "yellow",
+          "gender": "men",
+          "course_rating": 61.4,
+          "slope_rating": 108,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-62-giallo-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "61.4",
+              "slope_rating": "108"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Verde",
+          "tee_color": "green",
+          "gender": "men",
+          "course_rating": 59.8,
+          "slope_rating": 108,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-62-verde-men",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "59.8",
+              "slope_rating": "108"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Rosso",
+          "tee_color": "red",
+          "gender": "women",
+          "course_rating": 62.6,
+          "slope_rating": 109,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-62-rosso-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "62.6",
+              "slope_rating": "109"
+            },
+            "official_catalog": "fig"
+          }
+        },
+        {
+          "tee_name": "Arancio",
+          "tee_color": "orange",
+          "gender": "women",
+          "course_rating": 62.6,
+          "slope_rating": 109,
+          "par_total": 62,
+          "is_active": true,
+          "source_system": "fig",
+          "source_external_id": "fig-tee-stupinigi-par-62-arancio-women",
+          "source_payload": {
+            "kind": "tee",
+            "source_cells": {
+              "course_rating": "62.6",
+              "slope_rating": "109"
+            },
+            "official_catalog": "fig"
+          }
+        }
+      ]
+    }
+  ],
+  "route_combinations": []
+}

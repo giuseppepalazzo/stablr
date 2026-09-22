@@ -1288,3 +1288,16 @@ SEGNO29:
 - seed correttivo eseguito una sola volta sui tre club; verifica remota superata su 7 route, 90 buche e 34 tee, con matrici, stati, tassonomia e collegamenti FIG identici ai payload;
 - conteggio Supabase finale: 212 club Stablr attivi, 212 giocabili, 0 non giocabili, 99 verdi e 113 arancioni / `needs_review`;
 - il catalogo FIG normalizzato corrente contiene 220 identita' attive. La tabella remota `fig_clubs` contiene 228 righe attive perche' conserva 8 alias legacy con apostrofi HTML-encoded non presenti nel catalogo corrente; non vanno conteggiati come nuove identita' FIG.
+
+SEGNO30:
+- recovery batch finale gruppo 2 completato per `San Donato`, `San Michele`, `Sappada`, `Sicilia'S Picciolo` e `Stupinigi`;
+- tutti e cinque sono ora giocabili e FIG-linked; route pubblicate complessive: 11;
+- `Sicilia'S Picciolo` certificato verde: sito ufficiale coerente su 17/18 buche; il duplicato della buca 1 visualizzato sulla buca 2 e' risolto da FIG Par 36/72 e dalle scorecard concordanti FlyAway/18Birdies;
+- `San Donato` arancione: pubblicata solo la famiglia 2015 18/68 con segmenti 35+33; configurazioni 2024 e routing ambiguo non pubblicati;
+- `San Michele` arancione: pubblicata la route 9/35 con HCP del primo giro letti sulle grafiche ufficiali; 18/70 non pubblicata per assenza degli HCP del secondo giro sulle buche fisiche 3 e 9;
+- `Sappada` arancione: 9/31 da sito ufficiale + Hole19 e 18/62 derivato con trasformazione Stablr standard;
+- `Stupinigi` arancione: famiglia FIG/GesGolf 9/31 + 18/62 completa; il sito ufficiale dichiara Par 62 ma assegna Par 5 alla buca 5, producendo la famiglia 32/64, quindi il conflitto impedisce il verde;
+- validator superati per tutti i payload; seed eseguito una sola volta; verifica remota positiva su 5 club, 11 route, 135 buche e 45 tee, senza differenze;
+- conteggio Supabase finale: 217 club attivi e giocabili, 0 non giocabili, 100 verdi e 117 arancioni / `needs_review`;
+- restano fuori dal layer giocabile 5 identita' FIG canoniche e 21 route attive: `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`;
+- builder: `scripts/gesgolf/build-recovery-batch-group-2-2026-09-22.mjs`; audit: `data/gesgolf/reports/recovery-batch-group-2-2026-09-22.md`.

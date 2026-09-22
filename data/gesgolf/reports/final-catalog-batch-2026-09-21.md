@@ -26,11 +26,19 @@ The FIG catalog contains 220 identities, but the difference from the live count 
 - `Roncegno`: recovered as playable orange with 9/34 and the FIG-rated 18/68 derived through the established Stablr odd/even repetition rule.
 - `Salerno`: recovered as playable orange with the current 9/34 and its deterministic 18/68; FIG variants 9/33 and 18/66 remain catalog identities but are not published.
 
+## Recovery batch group 2
+
+- `San Donato`: playable orange with the supported 2015 family `18/68`, `Prime Nove/35` and `Seconde Nove/33`; the 2024 family and the ambiguous repeated-nine route remain unpublished.
+- `San Michele`: playable orange with the complete official `9/35`; `18/70` remains unpublished because the official graphics do not expose the second-lap HCP for physical holes 3 and 9.
+- `Sappada`: playable orange with `9/31` from official PAR plus Hole19 SI and deterministic `18/62`.
+- `Sicilia'S Picciolo`: green with `18/72`, `Prime Nove/36` and `Seconde Nove/36`; the isolated official hole-2 rendering duplicate is resolved by FIG totals and two concordant complete scorecards.
+- `Stupinigi`: playable orange with the FIG/GesGolf family `9/31` and `18/62`; the official page's hole-5 Par conflicts with its own Par-62 heading, so families 30/60 and 32/64 remain unpublished.
+- Detailed audit: `data/gesgolf/reports/recovery-batch-group-2-2026-09-22.md`.
+
 ## Open evidence notes and remaining unrepresented identities
 
 - `St. Vigil Seis` and `Tarvisio` were imported from FIG plus strong official evidence even though GesGolf scraping failed because the current form did not return the expected `__EVENTVALIDATION`; only the explicitly corroborated routes were published.
-- The 10 remaining unrepresented FIG identities were not converted into records without reliable current hole-by-hole data: `San Donato`, `San Michele`, `Sappada`, `Sicilia'S Picciolo`, `Stupinigi`, `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`.
-- In particular, the current official material for Sicilia'S Picciolo is internally inconsistent, Stupinigi lacks a complete HCP matrix and contains conflicting Par information, San Michele exposes incomplete/ambiguous hole data, and San Donato's available brochure is not demonstrably aligned with the current FIG 2026 routes. The other identities still lack a complete authoritative current matrix in the retained audit evidence.
+- The 5 remaining unrepresented FIG identities are `Tauriana`, `Tirrenia`, `Valpescara`, `Verdura` and `Villa Giusti`, representing 21 active FIG routes to reassess.
 
 ## Artifacts
 
@@ -70,6 +78,17 @@ The FIG catalog contains 220 identities, but the difference from the live count 
   - non-playable clubs: 0;
   - green / `verified`: 99;
   - orange / `needs_review`: 113.
+
+## Recovery group 2 remote result
+
+- Seeded five new FIG-linked playable clubs: Sicilia'S Picciolo is green; San Donato, San Michele, Sappada and Stupinigi are orange.
+- Post-seed verification found no payload/database differences across 11 routes, 135 hole rows and 45 tees.
+- Remote counts after recovery group 2:
+  - clubs / active clubs: 217;
+  - playable clubs: 217;
+  - non-playable clubs: 0;
+  - green / `verified`: 100;
+  - orange / `needs_review`: 117.
 
 ## Evidence
 

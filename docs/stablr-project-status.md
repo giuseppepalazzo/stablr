@@ -53,7 +53,7 @@ La definizione completa, inclusi stati, guardrail, criteri oggettivi, audit e ve
 
 La pipeline FIG/GesGolf e' attiva: dispone di scraper, normalizzazione, mapping, classificazione import e validazione. Il report di stato registra 220 club FIG, 184 match GesGolf forti e 36 deboli/assenti; questi conteggi sono una fotografia del report e vanno rieseguiti se servono dati aggiornati.
 
-I batch 161--180 e 181--200 hanno report dedicati. Il riesame del 2026-09-08 dei 13 club arancioni ha promosso Metaponto e mantenuto gli altri 12 in review, con Casalunga in review esplicita per conflitto di versioni. Il batch controllato e il recovery gruppo 1 del 2026-09-21/22 hanno portato il remoto verificato a 212 club Stablr attivi e giocabili: 99 verdi e 113 arancioni. Il catalogo FIG normalizzato corrente contiene 220 identita'; la tabella remota `fig_clubs` conserva inoltre 8 alias legacy HTML-encoded, da non contare come nuove identita'. I club manuali Mare di Roma e Parco de' Medici restano protetti dagli automatismi.
+I batch 161--180 e 181--200 hanno report dedicati. Il riesame del 2026-09-08 dei 13 club arancioni ha promosso Metaponto e mantenuto gli altri 12 in review, con Casalunga in review esplicita per conflitto di versioni. Il batch controllato e i recovery gruppi 1 e 2 del 2026-09-21/22 hanno portato il remoto verificato a 217 club Stablr attivi e giocabili: 100 verdi e 117 arancioni. Il catalogo FIG normalizzato corrente contiene 220 identita'; la tabella remota `fig_clubs` conserva inoltre 8 alias legacy HTML-encoded, da non contare come nuove identita'. Restano fuori dal layer giocabile 5 identita' FIG canoniche con 21 route attive. I club manuali Mare di Roma e Parco de' Medici restano protetti dagli automatismi.
 
 Riferimenti operativi:
 
@@ -78,11 +78,11 @@ Riferimenti operativi:
 
 | Ambito | Stato verificabile dal repository |
 | --- | --- |
-| Supabase remoto | Snapshot verificato il 2026-09-22 per il recovery catalogo: 212 club Stablr attivi, tutti giocabili; 220 identita' FIG canoniche locali e 228 righe `fig_clubs` remote per 8 alias legacy. Verifiche future devono comunque interrogare nuovamente il remoto. |
+| Supabase remoto | Snapshot verificato il 2026-09-22 dopo il recovery gruppo 2: 217 club Stablr attivi, tutti giocabili; 220 identita' FIG canoniche locali e 228 righe `fig_clubs` remote per 8 alias legacy. Verifiche future devono comunque interrogare nuovamente il remoto. |
 | Migrazioni applicate | **DA VERIFICARE**: il repository contiene le migrazioni/schema, non prova dell'ordine o dell'esito di applicazione remoto. |
 | Seed | Recovery batch gruppo 1 verificato dopo seed: payload e remoto coincidono per i cinque club; dettaglio nel report specialistico. Altri batch o migrazioni restano da verificare per task. |
 | RLS live | Policy SQL presenti; policy effettivamente applicate e testate in remoto: **DA VERIFICARE**. |
-| Dati live | Snapshot catalogo verificato il 2026-09-22: 212 club giocabili, 99 verdi e 113 arancioni. Non assumere che lo snapshot resti valido senza una nuova query remota. |
+| Dati live | Snapshot catalogo verificato il 2026-09-22: 217 club giocabili, 100 verdi e 117 arancioni. Non assumere che lo snapshot resti valido senza una nuova query remota. |
 | Deployment corrente | **DA VERIFICARE**: nessun artefatto di deployment/stato ambiente e' stato individuato. |
 
 ## 9. Product roadmap
@@ -98,7 +98,7 @@ Le evoluzioni successive previste dal Framework includono scorecard upload compl
 
 ## 10. Next recommended task
 
-Il prossimo task tecnico naturale, sulla base del [pipeline status](../data/gesgolf/reports/gesgolf-pipeline-status.md), e' il recovery dei dieci club FIG residui usando la migliore combinazione disponibile di FIG, fonti ufficiali e fonti secondarie affidabili. GesGolf resta una Source operativa utile ma non obbligatoria per l'arancione; ogni risultato deve produrre o aggiornare il relativo report persistente e non deve toccare i club protetti.
+Il prossimo task tecnico naturale, sulla base del [pipeline status](../data/gesgolf/reports/gesgolf-pipeline-status.md), e' il recovery delle cinque identita' FIG residue (`Tauriana`, `Tirrenia`, `Valpescara`, `Verdura`, `Villa Giusti`) e delle loro 21 route attive, usando la migliore combinazione disponibile di FIG, fonti ufficiali e fonti secondarie affidabili. GesGolf resta una Source operativa utile ma non obbligatoria per l'arancione; ogni risultato deve produrre o aggiornare il relativo report persistente e non deve toccare i club protetti.
 
 Prima di qualunque seed o modifica del DB remoto, verificare esplicitamente lo stato live e le autorizzazioni.
 
