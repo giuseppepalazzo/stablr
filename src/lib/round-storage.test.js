@@ -39,7 +39,14 @@ describe("round storage", () => {
       handicapIndex: 36,
       playingHandicap: 36,
       selectedRouteTeeId: "tee-a",
-      selectedCombinationTeeId: null
+      selectedCombinationTeeId: null,
+      teeSnapshot: {
+        tee_label: "Giallo",
+        tee_color: "yellow",
+        course_rating: 72.1,
+        slope_rating: 129,
+        par_total: 72
+      }
     });
 
     expect(payload.round).toMatchObject({
@@ -63,7 +70,15 @@ describe("round storage", () => {
     });
     expect(getRoundStorageMetadata(payload.round.selected_routes)).toEqual({
       competitionName: "Coppa domenica",
-      startHole: 3
+      startHole: 3,
+      routeName: "Percorso",
+      teeSnapshot: {
+        tee_label: "Giallo",
+        tee_color: "yellow",
+        course_rating: 72.1,
+        slope_rating: 129,
+        par_total: 72
+      }
     });
   });
 
@@ -145,11 +160,126 @@ describe("round storage", () => {
       "Club prova"
     );
 
-    expect(storedRound.savedName).toBe("Gara sociale_23/09/2026");
+    expect(storedRound.savedName).toBe("Gara sociale");
+    expect(storedRound.displayTitle).toBe("Gara sociale");
+    expect(storedRound.displayMetadata).toBe("Club prova · 23/09/2026");
     expect(storedRound.courseName).toBe("Club prova");
     expect(storedRound.scores).toEqual([3, 5]);
     expect(storedRound.receivedShots).toEqual([0, 1]);
     expect(storedRound.manualReceivedShots).toEqual({});
     expect(storedRound.holes.map((hole) => hole.physicalHoleNumber)).toEqual([4, 5]);
+  });
+
+  test("uses club and route naming for a legacy unnamed round without inventing tee data", () => {
+    const storedRound = normalizeStoredRound(
+      {
+        id: "legacy-round",
+        club_id: "club-a",
+        created_at: "2026-09-23T10:00:00.000Z",
+        selected_routes: [{
+          competition_name: "Giro",
+          route_name: "18 Buche",
+          start_hole: 1
+        }],
+        gross_total: 100,
+        net_total: 58,
+        stableford_gross_total: 8,
+        stableford_net_total: 50,
+        handicap_index_snapshot: 36.7,
+        playing_handicap: 42,
+        round_holes: []
+      },
+      "Marco Simone"
+    );
+
+    expect(storedRound.displayTitle).toBe("Marco Simone");
+    expect(storedRound.displayMetadata).toBe("18 Buche · 23/09/2026");
+    expect(storedRound.savedName).toBe("Marco Simone");
+    expect(storedRound.tee).toBeNull();
+    expect(storedRound).toMatchObject({
+      handicapIndex: 36.7,
+      playingHandicap: 42,
+      grossTotal: 100,
+      netTotal: 58,
+      stablefordGrossTotal: 8,
+      stablefordNetTotal: 50
+    });
+  });
+
+  test("restores a legacy tee from the current catalog only when its stored id still matches", () => {
+    const storedRound = normalizeStoredRound(
+      {
+        id: "legacy-round",
+        club_id: "club-a",
+        created_at: "2026-09-23T10:00:00.000Z",
+        selected_route_tee_id: "tee-yellow",
+        selected_routes: [{ route_name: "18 Buche" }],
+        round_holes: []
+      },
+      {
+        name: "Marco Simone",
+        routes: [{
+          id: "route-a",
+          tees: [{
+            id: "tee-yellow",
+            teeName: "Giallo",
+            teeColor: "yellow",
+            courseRating: 72.1,
+            slopeRating: 129,
+            parTotal: 72
+          }]
+        }]
+      }
+    );
+
+    expect(storedRound.tee).toEqual({
+      label: "Giallo",
+      color: "yellow",
+      courseRating: 72.1,
+      slopeRating: 129,
+      par: 72
+    });
+  });
+
+  test("keeps a new round tee snapshot even when the current catalog changes", () => {
+    const storedRound = normalizeStoredRound(
+      {
+        id: "snapshot-round",
+        club_id: "club-a",
+        created_at: "2026-09-23T10:00:00.000Z",
+        selected_route_tee_id: "tee-yellow",
+        selected_routes: [{
+          route_name: "18 Buche",
+          tee_snapshot: {
+            tee_label: "Giallo",
+            tee_color: "yellow",
+            course_rating: 72.1,
+            slope_rating: 129,
+            par_total: 72
+          }
+        }],
+        round_holes: []
+      },
+      {
+        name: "Marco Simone",
+        routes: [{
+          tees: [{
+            id: "tee-yellow",
+            teeName: "Bianco",
+            courseRating: 74,
+            slopeRating: 140,
+            parTotal: 72
+          }]
+        }]
+      }
+    );
+
+    expect(storedRound.tee).toEqual({
+      label: "Giallo",
+      color: "yellow",
+      courseRating: 72.1,
+      slopeRating: 129,
+      par: 72
+    });
   });
 });
