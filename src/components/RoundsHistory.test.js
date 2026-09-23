@@ -95,8 +95,8 @@ test("renders the validated Marco Simone metrics, tee data and complete 18-hole 
     />
   );
 
-  expect(screen.getByText("HCP Index 36,7")).toBeInTheDocument();
-  expect(screen.getByText("Playing Handicap 42")).toBeInTheDocument();
+  expect(screen.getByText("HCP 36,7")).toBeInTheDocument();
+  expect(screen.getByText("PH 42")).toBeInTheDocument();
   expect(screen.getByText("CR 72,1")).toBeInTheDocument();
   expect(screen.getByText("Slope 129")).toBeInTheDocument();
 

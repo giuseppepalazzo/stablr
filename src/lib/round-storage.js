@@ -178,6 +178,15 @@ function isCustomCompetitionName(value) {
   return !/^giro(?:[_\s-]+\d{1,2}[/-]\d{1,2}[/-]\d{4})?$/i.test(normalized);
 }
 
+function getDisplayRouteName(routeName, holesCount) {
+  const normalizedName = String(routeName || "").trim();
+  const isGenericRouteName = /^(percorso|route)$/i.test(normalizedName);
+  if (normalizedName && !isGenericRouteName) return normalizedName;
+
+  const numericHolesCount = Number(holesCount);
+  return [9, 18].includes(numericHolesCount) ? `${numericHolesCount} Buche` : "";
+}
+
 function findCurrentCatalogTee(round, course) {
   if (!course || typeof course !== "object") return null;
 
@@ -235,7 +244,7 @@ export function normalizeStoredRound(round, course = "") {
   const formattedDate = formatStoredRoundDate(round?.created_at);
   const courseName = typeof course === "string" ? course : String(course?.name || "");
   const hasCustomName = isCustomCompetitionName(metadata.competitionName);
-  const routeName = metadata.routeName || "";
+  const routeName = getDisplayRouteName(metadata.routeName, round?.holes_count);
   const tee = normalizeTeeSnapshot(
     metadata.teeSnapshot,
     findCurrentCatalogTee(round, course)

@@ -206,6 +206,33 @@ describe("round storage", () => {
     });
   });
 
+  test("uses the stored route name or a holes-count fallback for unnamed cards", () => {
+    const nineHoleRound = normalizeStoredRound(
+      {
+        club_id: "club-a",
+        holes_count: 9,
+        created_at: "2026-09-23T10:00:00.000Z",
+        selected_routes: [{ competition_name: "", route_name: "Percorso" }],
+        round_holes: []
+      },
+      "Club prova"
+    );
+    const namedRouteRound = normalizeStoredRound(
+      {
+        club_id: "club-a",
+        holes_count: 9,
+        created_at: "2026-09-23T10:00:00.000Z",
+        selected_routes: [{ competition_name: "", route_name: "Prime Nove" }],
+        round_holes: []
+      },
+      "Club prova"
+    );
+
+    expect(nineHoleRound.displayTitle).toBe("Club prova");
+    expect(nineHoleRound.displayMetadata).toBe("9 Buche · 23/09/2026");
+    expect(namedRouteRound.displayMetadata).toBe("Prime Nove · 23/09/2026");
+  });
+
   test("restores a legacy tee from the current catalog only when its stored id still matches", () => {
     const storedRound = normalizeStoredRound(
       {

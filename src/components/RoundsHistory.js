@@ -189,7 +189,10 @@ function LandscapeScorecard({ round, results, colors }) {
 
   return (
     <div className="round-scorecard-landscape-wrap" style={{ borderColor: colors.border }}>
-      <table className="round-scorecard-landscape" aria-label="Scorecard orizzontale">
+      <table
+        className={`round-scorecard-landscape ${isEighteen ? "round-scorecard-landscape-18" : "round-scorecard-landscape-9"}`}
+        aria-label="Scorecard orizzontale"
+      >
         <thead>
           <tr style={{ backgroundColor: colors.cardSecondary, color: colors.subtext }}>
             <th>Buche</th>
@@ -258,8 +261,8 @@ export function RoundHistoryDetail({
 
         <div className="round-history-details" style={{ color: colors.subtext }}>
           <TeeSummary round={round} getTeeColor={getTeeColor} />
-          <span>HCP Index {displayDecimal(round.handicapIndex)}</span>
-          <span>Playing Handicap {displayValue(round.playingHandicap)}</span>
+          <span>HCP {displayDecimal(round.handicapIndex)}</span>
+          <span>PH {displayValue(round.playingHandicap)}</span>
           <span>CR {displayDecimal(round.tee?.courseRating)}</span>
           <span>Slope {displayValue(round.tee?.slopeRating)}</span>
         </div>
@@ -267,7 +270,8 @@ export function RoundHistoryDetail({
         <RoundMetricsGrid round={round} colors={colors} />
 
         <div className="round-scorecard-rotate-hint" style={{ color: colors.subtext }}>
-          Ruota il telefono per vedere la scorecard completa
+          <span className="round-scorecard-rotate-icon" aria-hidden="true">↻</span>
+          <span>Ruota il telefono per vedere la scorecard completa</span>
         </div>
         <PortraitScorecard results={results} colors={colors} />
         <LandscapeScorecard round={round} results={results} colors={colors} />
