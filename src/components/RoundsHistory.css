@@ -214,6 +214,8 @@
     padding-left: 5px;
     padding-right: 5px;
     text-align: left;
+    font-size: 10px;
+    font-weight: 700;
   }
 
   .round-scorecard-landscape-9 {
@@ -222,5 +224,12 @@
 
   .round-scorecard-landscape-18 {
     min-width: 940px;
+  }
+}
+
+@media (orientation: landscape), (min-width: 900px) {
+  .round-history-detail .round-history-metrics {
+    grid-template-columns: repeat(4, minmax(128px, 148px));
+    justify-content: center;
   }
 }
