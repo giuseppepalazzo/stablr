@@ -8,6 +8,7 @@ import {
 } from "./lib/course-utils";
 import { isFigCatalogClubAwaitingPlayableData } from "./lib/club-availability";
 import { RoundDeleteControl } from "./components/RoundDeleteControl";
+import { RoundsHistoryEmptyState } from "./components/RoundsHistoryEmptyState";
 import {
   buildRoundStoragePayload,
   normalizeStoredRound
@@ -5971,18 +5972,7 @@ function App() {
         {activeSheet === "history" && (
           <>
             {savedRounds.length === 0 ? (
-              <div
-                style={{
-                  color: colors.subtext,
-                  lineHeight: 1.5,
-                  backgroundColor: colors.cardSecondary,
-                  border: `1px solid ${colors.border}`,
-                  borderRadius: "14px",
-                  padding: "16px"
-                }}
-              >
-                Nessun giro salvato per ora.
-              </div>
+              <RoundsHistoryEmptyState colors={colors} appFont={appFont} />
             ) : (
               savedRounds.map((round) => (
                 <div
@@ -10394,17 +10384,7 @@ function App() {
             <h2 style={{ ...titleStyle, marginTop: "0" }}>Storico</h2>
 
             {roundsForOpenedCourse.length === 0 ? (
-              <div
-                style={{
-                  color: colors.subtext,
-                  backgroundColor: colors.card,
-                  border: `1px solid ${colors.border}`,
-                  borderRadius: "14px",
-                  padding: "18px"
-                }}
-              >
-                Nessun giro salvato per questo campo.
-              </div>
+              <RoundsHistoryEmptyState colors={colors} appFont={appFont} />
             ) : (
               roundsForOpenedCourse.map((round) => (
                 <div
