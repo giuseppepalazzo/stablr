@@ -42,7 +42,7 @@ export function RoundMetricsGrid({ round, colors }) {
         <div
           key={key}
           className="round-history-metric"
-          style={getMetricStyle(colors, index >= 2)}
+          style={getMetricStyle(colors, index === 3)}
         >
           <span>{label}</span>
           <strong>{displayValue(round?.[key])}</strong>
@@ -172,7 +172,7 @@ function PortraitScorecard({ results, colors }) {
               <td>{hole.number}</td><td>{hole.par}</td><td>{displayValue(hole.si)}</td>
               <td>{displayValue(hole.gross)}</td><td>{displayValue(hole.net)}</td>
               <td>{displayValue(hole.stablrGross)}</td>
-              <td style={{ color: colors.success, fontWeight: 700 }}>{displayValue(hole.stablrNet)}</td>
+              <td>{displayValue(hole.stablrNet)}</td>
             </tr>
           ))}
         </tbody>

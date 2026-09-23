@@ -6011,10 +6011,7 @@ function App() {
                 <RoundHistoryCard
                   key={round.id}
                   round={round}
-                  onOpen={(selectedRound) => {
-                    setActiveSheet(null);
-                    setSelectedHistoryRound(selectedRound);
-                  }}
+                  onOpen={setSelectedHistoryRound}
                   onDelete={deleteRound}
                   colors={colors}
                   appFont={appFont}

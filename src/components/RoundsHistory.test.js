@@ -75,6 +75,9 @@ test("shows the four complete metric names and the requested card naming", () =>
   expect(screen.getByText("STABLR Lordo")).toBeInTheDocument();
   expect(screen.getByText("STABLR Netto")).toBeInTheDocument();
   expect(screen.queryByText("Stableford")).not.toBeInTheDocument();
+  const metricCards = document.querySelectorAll(".round-history-metric");
+  expect(metricCards[2]).toHaveStyle({ backgroundColor: colors.pillBg });
+  expect(metricCards[3]).toHaveStyle({ backgroundColor: colors.greenDark });
 
   fireEvent.click(screen.getByText("Marco Simone"));
   expect(onOpen).toHaveBeenCalledTimes(1);
