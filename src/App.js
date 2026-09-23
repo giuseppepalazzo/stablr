@@ -6,6 +6,7 @@ import {
   normalizeCourseName,
   normalizeWhitespace
 } from "./lib/course-utils";
+import { isFigCatalogClubAwaitingPlayableData } from "./lib/club-availability";
 
 const appFont =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
@@ -11423,7 +11424,50 @@ function App() {
               </>
             )}
 
-            {dialogStep === 7 && (
+            {dialogStep === 7 && isFigCatalogClubAwaitingPlayableData(figMatchedClub?.publicPlaceholderCourse) && (
+              <>
+                <h3
+                  style={{
+                    marginTop: 0,
+                    marginBottom: "8px",
+                    fontSize: "24px",
+                    fontWeight: 700
+                  }}
+                >
+                  Percorso in verifica
+                </h3>
+
+                <p
+                  style={{
+                    color: colors.text,
+                    fontSize: "15px",
+                    marginTop: 0,
+                    marginBottom: "14px",
+                    lineHeight: 1.6
+                  }}
+                >
+                  Stiamo verificando i dati di questo club prima di renderlo giocabile su Stablr.
+                </p>
+
+                <p
+                  style={{
+                    color: colors.subtext,
+                    fontSize: "13px",
+                    marginTop: 0,
+                    marginBottom: "18px",
+                    lineHeight: 1.5
+                  }}
+                >
+                  Preferiamo aspettare dati affidabili piuttosto che mostrarti una scorecard non corretta.
+                </p>
+
+                <button onClick={closeDialog} style={secondaryButtonStyle}>
+                  Torna indietro
+                </button>
+              </>
+            )}
+
+            {dialogStep === 7 && !isFigCatalogClubAwaitingPlayableData(figMatchedClub?.publicPlaceholderCourse) && (
               <>
                 <h3
                   style={{
