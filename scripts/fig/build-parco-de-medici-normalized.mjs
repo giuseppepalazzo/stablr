@@ -279,7 +279,7 @@ const payload = {
   source: {
     system: "fig",
     scraped_at: "2026-05-04T16:00:00Z",
-    club_external_id: "fig-parco-medici",
+    club_external_id: "fig-club-parco-de-medici",
     notes: "Curated normalized payload for Parco De' Medici with all primary routes and official playable combinations"
   },
   club: {
@@ -292,7 +292,7 @@ const payload = {
     is_complex: true,
     playable: true,
     source_system: "fig",
-    source_external_id: "fig-parco-medici",
+    source_external_id: "fig-club-parco-de-medici",
     source_payload: {
       kind: "club",
       curated: true
