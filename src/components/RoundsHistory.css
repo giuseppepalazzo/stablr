@@ -230,6 +230,7 @@
 @media (orientation: landscape), (min-width: 900px) {
   .round-history-detail .round-history-metrics {
     grid-template-columns: repeat(4, minmax(128px, 148px));
-    justify-content: center;
+    justify-content: start;
+    margin-top: 9px;
   }
 }
