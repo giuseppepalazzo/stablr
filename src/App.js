@@ -7,6 +7,11 @@ import {
   normalizeWhitespace
 } from "./lib/course-utils";
 import { isFigCatalogClubAwaitingPlayableData } from "./lib/club-availability";
+import { RoundDeleteControl } from "./components/RoundDeleteControl";
+import {
+  buildRoundStoragePayload,
+  normalizeStoredRound
+} from "./lib/round-storage";
 
 const appFont =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
@@ -47,14 +52,6 @@ const stepperButtonStyle = {
   justifyContent: "center",
   fontFamily: appFont
 };
-
-function formatDateItalian(dateLike) {
-  const date = new Date(dateLike);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
 
 function sanitizeRoundName(name) {
   return name.trim().replace(/\s+/g, " ");
@@ -921,6 +918,8 @@ function App() {
   const [savedRounds, setSavedRounds] = useState([]);
   const [showRoundsHistory, setShowRoundsHistory] = useState(false);
   const [roundAlreadySaved, setRoundAlreadySaved] = useState(false);
+  const [roundSaveLoading, setRoundSaveLoading] = useState(false);
+  const [roundSaveError, setRoundSaveError] = useState("");
 
   const [manualReceivedShots, setManualReceivedShots] = useState({});
 
@@ -1795,31 +1794,18 @@ function App() {
 
     const { data, error } = await supabase
       .from("rounds")
-      .select("*")
+      .select("*, round_holes(*)")
       .eq("user_id", session.user.id)
       .order("created_at", { ascending: false });
 
     if (error) throw error;
 
-    const nextRounds = (data || []).map((round) => ({
-      id: round.id,
-      savedName: round.saved_name,
-      competitionName: round.competition_name,
-      courseId: round.club_id,
-      courseName:
-        coursesOverride.find((course) => course.id === round.club_id)?.name || "",
-      createdAt: round.created_at,
-      formattedDate: round.formatted_date,
-      playerHcp: round.player_hcp,
-      totalCompetitionHoles: round.total_competition_holes,
-      startHole: round.start_hole,
-      grossTotal: round.gross_total,
-      netTotal: round.net_total,
-      stablefordTotal: round.stableford_total,
-      estimatedHcpAfterRound: round.estimated_hcp_after_round,
-      scores: Array.isArray(round.scores) ? round.scores : round.scores || [],
-      manualReceivedShots: round.manual_received_shots || {}
-    }));
+    const nextRounds = (data || []).map((round) =>
+      normalizeStoredRound(
+        round,
+        coursesOverride.find((course) => course.id === round.club_id)?.name || ""
+      )
+    );
 
     setSavedRounds(nextRounds);
     return nextRounds;
@@ -4899,6 +4885,8 @@ function App() {
     const startingScores = competitionHoles.map((hole) => Number(hole.par));
     setRoundScores(startingScores);
     setRoundAlreadySaved(false);
+    setRoundSaveLoading(false);
+    setRoundSaveError("");
     setManualReceivedShots({});
     setShowRoundSetup(false);
   };
@@ -4912,6 +4900,8 @@ function App() {
     setRoundScores([]);
     setShowRoundsHistory(false);
     setRoundAlreadySaved(false);
+    setRoundSaveLoading(false);
+    setRoundSaveError("");
     setManualReceivedShots({});
     setRoundSetup(createInitialRoundSetup());
   };
@@ -4965,6 +4955,7 @@ function App() {
   const cycleReceivedShotsValue = (index, autoValue) => {
     const manualValue = manualReceivedShots[index];
     const cycleValues = getManualCycleValues(autoValue);
+    setRoundSaveError("");
 
     if (manualValue === undefined) {
       setManualReceivedShots((prev) => ({
@@ -5098,6 +5089,7 @@ function App() {
     updated[index] = value;
     setRoundScores(updated);
     setRoundAlreadySaved(false);
+    setRoundSaveError("");
   };
 
   const getRoundScoreBounds = (index) => {
@@ -5158,63 +5150,96 @@ function App() {
   };
 
   const saveRound = async () => {
-    if (!supabase || !session?.user || !openedCourse || !competitionHoles.length || roundAlreadySaved) return;
-
-    const formattedDate = formatDateItalian(Date.now());
-    const cleanCompetitionName = sanitizeRoundName(roundSetup.competitionName);
-    const savedName =
-      cleanCompetitionName !== ""
-        ? `${cleanCompetitionName}_${formattedDate}`
-        : `Giro_${formattedDate}`;
-
-    const { data, error } = await supabase
-      .from("rounds")
-      .insert({
-        user_id: session.user.id,
-        course_id: openedCourse.id,
-        saved_name: savedName,
-        competition_name: cleanCompetitionName || "Giro",
-        formatted_date: formattedDate,
-        gross_total: grossTotal,
-        net_total: netTotal,
-        stableford_total: stablefordTotal,
-        estimated_hcp_after_round: estimatedHcpAfterRound,
-        scores: roundScores,
-        manual_received_shots: manualReceivedShots,
-        total_competition_holes: roundSetup.totalCompetitionHoles,
-        start_hole: roundSetup.startHole,
-        player_hcp: effectivePlayingHandicap
-      })
-      .select("*")
-      .single();
-
-    if (error) {
-      setAuthError(error.message || "Errore nel salvataggio del giro.");
+    if (
+      !supabase ||
+      !session?.user ||
+      !openedCourse ||
+      !competitionHoles.length ||
+      roundAlreadySaved ||
+      roundSaveLoading
+    ) {
       return;
     }
 
-    const newRound = {
-      id: data.id,
-      savedName: data.saved_name,
-      competitionName: data.competition_name,
-      courseId: data.course_id,
-      courseName: openedCourse.name,
-      createdAt: data.created_at,
-      formattedDate: data.formatted_date,
-      playerHcp: data.player_hcp,
-      totalCompetitionHoles: data.total_competition_holes,
-      startHole: data.start_hole,
-      grossTotal: data.gross_total,
-      netTotal: data.net_total,
-      stablefordTotal: data.stableford_total,
-      estimatedHcpAfterRound: data.estimated_hcp_after_round,
-      scores: data.scores || [],
-      manualReceivedShots: data.manual_received_shots || {}
-    };
+    setRoundSaveLoading(true);
+    setRoundSaveError("");
+    let insertedRoundId = null;
 
-    setSavedRounds((prev) => [newRound, ...prev].slice(0, MAX_SAVED_ROUNDS));
-    setRoundAlreadySaved(true);
-    setShowRoundsHistory(true);
+    try {
+      const cleanCompetitionName = sanitizeRoundName(roundSetup.competitionName);
+      const receivedShots = competitionHoles.map((hole, index) =>
+        getEffectiveReceivedShots(index, effectivePlayingHandicap, hole.strokeIndex)
+      );
+      const stablefordPoints = competitionHoles.map((hole, index) =>
+        getStablefordPoints(hole.par, roundScores[index], receivedShots[index])
+      );
+      const grossStablefordPoints = competitionHoles.map((hole, index) =>
+        getStablefordPoints(hole.par, roundScores[index], 0)
+      );
+      const { round, holes } = buildRoundStoragePayload({
+        userId: session.user.id,
+        clubId: openedCourse.id,
+        setup: roundSetup,
+        competitionName: cleanCompetitionName,
+        competitionHoles,
+        scores: roundScores,
+        receivedShots,
+        stablefordPoints,
+        grossStablefordPoints,
+        grossTotal,
+        netTotal,
+        estimatedHcpAfterRound,
+        handicapIndex: userProfile.hcp,
+        playingHandicap: effectivePlayingHandicap,
+        selectedRouteTeeId: roundSetup.selectedRouteTeeId,
+        selectedCombinationTeeId: roundSetup.selectedCombinationTeeId
+      });
+
+      const { data: insertedRound, error: roundError } = await supabase
+        .from("rounds")
+        .insert(round)
+        .select("*")
+        .single();
+
+      if (roundError) throw roundError;
+      insertedRoundId = insertedRound.id;
+
+      const roundHoleRows = holes.map((hole) => ({
+        ...hole,
+        round_id: insertedRound.id
+      }));
+      const { data: insertedHoles, error: holesError } = await supabase
+        .from("round_holes")
+        .insert(roundHoleRows)
+        .select("*");
+
+      if (holesError) throw holesError;
+
+      const newRound = normalizeStoredRound(
+        { ...insertedRound, round_holes: insertedHoles || roundHoleRows },
+        openedCourse.name
+      );
+      setSavedRounds((prev) => [newRound, ...prev].slice(0, MAX_SAVED_ROUNDS));
+      setRoundAlreadySaved(true);
+      setShowRoundsHistory(true);
+    } catch (error) {
+      if (insertedRoundId) {
+        const { error: rollbackError } = await supabase
+          .from("rounds")
+          .delete()
+          .eq("id", insertedRoundId)
+          .eq("user_id", session.user.id);
+        if (rollbackError) {
+          console.error("Round save rollback failed", rollbackError);
+        }
+      }
+      console.error("Round save failed", error);
+      setRoundSaveError(
+        "Non siamo riusciti a salvare il giro. Controlla la connessione e riprova."
+      );
+    } finally {
+      setRoundSaveLoading(false);
+    }
   };
 
   const roundsForOpenedCourse = openedCourse
@@ -5252,7 +5277,12 @@ function App() {
 
   const deleteRound = async (roundId) => {
     if (supabase && session?.user) {
-      await supabase.from("rounds").delete().eq("id", roundId).eq("user_id", session.user.id);
+      const { error } = await supabase
+        .from("rounds")
+        .delete()
+        .eq("id", roundId)
+        .eq("user_id", session.user.id);
+      if (error) throw error;
     }
 
     setSavedRounds((prev) => prev.filter((round) => round.id !== roundId));
@@ -5262,6 +5292,9 @@ function App() {
   const getHistoryRoundCompetitionHoles = useCallback(
     (round) => {
       if (!round) return [];
+      if (Array.isArray(round.holes) && round.holes.length > 0) {
+        return round.holes;
+      }
 
       const relatedCourse = savedCourses.find((course) => course.id === round.courseId);
       if (!relatedCourse) return [];
@@ -5282,6 +5315,11 @@ function App() {
   const getHistoryRoundReceivedShots = useCallback(
     (round, hole, index) => {
       if (!round || !hole) return 0;
+
+      const storedValue = round.receivedShots?.[index];
+      if (storedValue !== undefined && storedValue !== null && storedValue !== "") {
+        return Number(storedValue);
+      }
 
       const manualValue = round.manualReceivedShots?.[index];
       if (manualValue !== undefined && manualValue !== null && manualValue !== "") {
@@ -5973,23 +6011,12 @@ function App() {
                     <div style={{ fontSize: "14px", fontWeight: 700 }}>
                       {round.savedName}
                     </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteRound(round.id);
-                      }}
-                      style={{
-                        border: "none",
-                        background: "transparent",
-                        color: colors.subtext,
-                        cursor: "pointer",
-                        fontFamily: appFont,
-                        fontSize: "12px",
-                        padding: 0
-                      }}
-                    >
-                      Elimina
-                    </button>
+                    <RoundDeleteControl
+                      roundName={round.savedName}
+                      onConfirm={() => deleteRound(round.id)}
+                      colors={colors}
+                      appFont={appFont}
+                    />
                   </div>
                   <div
                     style={{
@@ -10337,11 +10364,30 @@ function App() {
 
         <button
           onClick={saveRound}
-          disabled={roundAlreadySaved}
-          style={primaryButtonStyle(!roundAlreadySaved)}
+          disabled={roundAlreadySaved || roundSaveLoading}
+          style={primaryButtonStyle(!(roundAlreadySaved || roundSaveLoading))}
         >
-          {roundAlreadySaved ? "Giro salvato" : "Salva giro"}
+          {roundAlreadySaved
+            ? "Giro salvato"
+            : roundSaveLoading
+              ? "Salvataggio…"
+              : "Salva giro"}
         </button>
+
+        {roundSaveError && (
+          <div
+            role="alert"
+            style={{
+              marginTop: "12px",
+              color: "#d64545",
+              fontSize: "13px",
+              lineHeight: 1.5,
+              textAlign: "center"
+            }}
+          >
+            {roundSaveError}
+          </div>
+        )}
 
         {showRoundsHistory && (
           <div style={{ marginTop: "14px" }}>
@@ -10383,20 +10429,12 @@ function App() {
                     <div style={{ fontSize: "14px", fontWeight: 700 }}>
                       {round.savedName}
                     </div>
-                    <button
-                      onClick={() => deleteRound(round.id)}
-                      style={{
-                        border: "none",
-                        background: "transparent",
-                        color: colors.subtext,
-                        cursor: "pointer",
-                        fontFamily: appFont,
-                        fontSize: "12px",
-                        padding: 0
-                      }}
-                    >
-                      Elimina
-                    </button>
+                    <RoundDeleteControl
+                      roundName={round.savedName}
+                      onConfirm={() => deleteRound(round.id)}
+                      colors={colors}
+                      appFont={appFont}
+                    />
                   </div>
 
                   <div
