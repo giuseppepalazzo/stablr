@@ -271,7 +271,7 @@ export function RoundHistoryDetail({
 
         <div className="round-scorecard-rotate-hint" style={{ color: colors.subtext }}>
           <span className="round-scorecard-rotate-icon" aria-hidden="true">↻</span>
-          <span>Ruota il telefono per vedere la scorecard completa</span>
+          <span>Ruota il telefono per la scorecard completa</span>
         </div>
         <PortraitScorecard results={results} colors={colors} />
         <LandscapeScorecard round={round} results={results} colors={colors} />

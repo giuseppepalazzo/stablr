@@ -114,9 +114,10 @@
   justify-content: center;
   gap: 7px;
   margin: 16px 0 8px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-align: center;
+  white-space: nowrap;
 }
 
 .round-scorecard-rotate-icon {
@@ -212,6 +213,7 @@
     min-width: 68px;
     padding-left: 5px;
     padding-right: 5px;
+    text-align: left;
   }
 
   .round-scorecard-landscape-9 {
@@ -220,11 +222,5 @@
 
   .round-scorecard-landscape-18 {
     min-width: 940px;
-  }
-}
-
-@media (min-width: 700px) {
-  .round-history-metrics {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }

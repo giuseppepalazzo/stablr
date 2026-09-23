@@ -99,6 +99,7 @@ test("renders the validated Marco Simone metrics, tee data and complete 18-hole 
   expect(screen.getByText("PH 42")).toBeInTheDocument();
   expect(screen.getByText("CR 72,1")).toBeInTheDocument();
   expect(screen.getByText("Slope 129")).toBeInTheDocument();
+  expect(screen.getByText("Ruota il telefono per la scorecard completa")).toBeInTheDocument();
 
   const metrics = screen.getAllByText("STABLR Netto")[0].closest(".round-history-metrics");
   expect(metrics).toHaveTextContent("Lordo100");
