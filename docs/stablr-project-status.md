@@ -66,6 +66,10 @@ Riferimenti operativi:
 - [Riesame 13 arancioni](../data/gesgolf/reports/third-level-rereview-orange-13-2026-09-08.md)
 - [Mismatch Parco de' Medici](../data/gesgolf/reports/parco-de-medici-gesgolf-mismatch.md)
 
+## V1 beta freeze — 2026-09-23
+
+La base codice V1 e' congelata per l'avvio del beta testing. Il freeze include il catalogo recuperato, il flusso di gioco/salvataggio e lo storico dei giri con scorecard responsive. I test automatizzati e la production build locali sono stati completati con esito positivo al momento del freeze. Il comportamento su dispositivi reali, lo stato del deployment e l'integrita' del backend remoto restano da verificare durante la beta; non sono attestati da questo freeze locale.
+
 ## 7. Known technical debt / risks
 
 - La rappresentazione delle identita' FIG e' completa, ma la verifica editoriale resta continuativa; mapping ambigui, route legacy/provvisorie e scorecard senza SI ufficiale richiedono review. Villa Giusti resta non giocabile finche' non emerge la matrice SI/HCP 2025.
