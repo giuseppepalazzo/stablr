@@ -13,6 +13,20 @@ export function RoundDeleteControl({ roundName, onConfirm, colors, appFont }) {
     setIsOpen(false);
   };
 
+  // This control can live inside a clickable history card. React events from a
+  // portal still bubble through that card's React tree, so every interaction
+  // belonging to the confirmation must be consumed here.
+  const stopConfirmationEvent = (event) => {
+    event.stopPropagation();
+  };
+
+  const closeFromBackdrop = (event) => {
+    event.stopPropagation();
+    if (event.target === event.currentTarget) {
+      closeConfirmation();
+    }
+  };
+
   const confirmDeletion = async () => {
     if (deleteLockRef.current) return;
 
@@ -35,6 +49,8 @@ export function RoundDeleteControl({ roundName, onConfirm, colors, appFont }) {
     <>
       <button
         type="button"
+        onPointerDown={stopConfirmationEvent}
+        onTouchStart={stopConfirmationEvent}
         onClick={(event) => {
           event.stopPropagation();
           setError("");
@@ -57,6 +73,9 @@ export function RoundDeleteControl({ roundName, onConfirm, colors, appFont }) {
         createPortal(
           <div
             data-testid="round-delete-backdrop"
+            onPointerDown={stopConfirmationEvent}
+            onTouchStart={stopConfirmationEvent}
+            onClick={closeFromBackdrop}
             style={{
               position: "fixed",
               inset: 0,
@@ -73,6 +92,9 @@ export function RoundDeleteControl({ roundName, onConfirm, colors, appFont }) {
               role="dialog"
               aria-modal="true"
               aria-labelledby="round-delete-title"
+              onPointerDown={stopConfirmationEvent}
+              onTouchStart={stopConfirmationEvent}
+              onClick={stopConfirmationEvent}
               style={{
                 width: "100%",
                 maxWidth: "360px",
@@ -117,7 +139,12 @@ export function RoundDeleteControl({ roundName, onConfirm, colors, appFont }) {
               <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
                 <button
                   type="button"
-                  onClick={closeConfirmation}
+                  onPointerDown={stopConfirmationEvent}
+                  onTouchStart={stopConfirmationEvent}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    closeConfirmation();
+                  }}
                   disabled={isDeleting}
                   style={{
                     flex: 1,
@@ -136,7 +163,12 @@ export function RoundDeleteControl({ roundName, onConfirm, colors, appFont }) {
                 </button>
                 <button
                   type="button"
-                  onClick={confirmDeletion}
+                  onPointerDown={stopConfirmationEvent}
+                  onTouchStart={stopConfirmationEvent}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    confirmDeletion();
+                  }}
                   disabled={isDeleting}
                   style={{
                     flex: 1,

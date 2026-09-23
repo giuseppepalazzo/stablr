@@ -34,9 +34,12 @@ describe("RoundDeleteControl", () => {
     expect(onConfirm).not.toHaveBeenCalled();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
 
+    fireEvent.pointerDown(screen.getByTestId("round-delete-backdrop"), { pointerType: "touch" });
     fireEvent.click(screen.getByTestId("round-delete-backdrop"));
     expect(onConfirm).not.toHaveBeenCalled();
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Elimina" }));
 
     const confirmation = screen.getByRole("dialog");
     const deleteButton = within(confirmation).getByRole("button", { name: "Elimina" });
