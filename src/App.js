@@ -6388,7 +6388,11 @@ function App() {
       <RoundDraftRecovery
         draft={roundDraftRecovery}
         onContinue={resumeRoundDraft}
-        onDiscard={() => setShowRoundDraftDiscardConfirm(true)}
+        onDiscard={
+          roundDraftRecovery.state === "playing"
+            ? () => setShowRoundDraftDiscardConfirm(true)
+            : discardRoundDraft
+        }
         colors={colors}
         appFont={appFont}
       />
