@@ -10,6 +10,8 @@ import { isFigCatalogClubAwaitingPlayableData } from "./lib/club-availability";
 import { RoundsHistoryEmptyState } from "./components/RoundsHistoryEmptyState";
 import { RoundHistoryCard, RoundHistoryDetail } from "./components/RoundsHistory";
 import "./components/RoundsHistory.css";
+import { RoundDraftDiscardConfirm, RoundDraftRecovery } from "./components/RoundDraftRecovery";
+import { clearRoundDraft, loadRoundDraft, saveRoundDraft } from "./lib/round-draft";
 import {
   buildRoundStoragePayload,
   normalizeStoredRound
@@ -917,6 +919,12 @@ function App() {
   const courseNameInputRef = useRef(null);
 
   const [roundScores, setRoundScores] = useState([]);
+  const [roundCompetitionSnapshot, setRoundCompetitionSnapshot] = useState(null);
+  const [completedHoleIndexes, setCompletedHoleIndexes] = useState([]);
+  const [activeRoundHandicap, setActiveRoundHandicap] = useState(null);
+  const [activePlayingHandicap, setActivePlayingHandicap] = useState(null);
+  const [roundDraftRecovery, setRoundDraftRecovery] = useState(null);
+  const [showRoundDraftDiscardConfirm, setShowRoundDraftDiscardConfirm] = useState(false);
   const [savedRounds, setSavedRounds] = useState([]);
   const [showRoundsHistory, setShowRoundsHistory] = useState(false);
   const [roundAlreadySaved, setRoundAlreadySaved] = useState(false);
@@ -1172,7 +1180,9 @@ function App() {
     Boolean(activeSheet) ||
     sheetClosing ||
     Boolean(selectedHistoryRound) ||
-    Boolean(courseReportTarget);
+    Boolean(courseReportTarget) ||
+    Boolean(roundDraftRecovery) ||
+    showRoundDraftDiscardConfirm;
 
   useLayoutEffect(() => {
     const rootElement = document.getElementById("root");
@@ -4823,8 +4833,12 @@ function App() {
   const competitionHoles = useMemo(() => {
     if (!openedCourse) return [];
 
+    if (Array.isArray(roundCompetitionSnapshot) && roundCompetitionSnapshot.length > 0) {
+      return roundCompetitionSnapshot;
+    }
+
     return getCompetitionSequence(openedCourse, roundSetup);
-  }, [openedCourse, roundSetup, getCompetitionSequence]);
+  }, [openedCourse, roundSetup, getCompetitionSequence, roundCompetitionSnapshot]);
 
   const roundSetupTotalPar = useMemo(
     () => competitionHoles.reduce((sum, hole) => sum + Number(hole.par || 0), 0),
@@ -4855,7 +4869,11 @@ function App() {
   }, [openedCourse, roundSetup, findOfficialCombinationByRoutes]);
 
   const effectivePlayingHandicap = useMemo(() => {
-    const numericHandicapIndex = Number(userProfile.hcp);
+    if (activePlayingHandicap !== null && activePlayingHandicap !== undefined) {
+      return Number(activePlayingHandicap);
+    }
+
+    const numericHandicapIndex = Number(activeRoundHandicap ?? userProfile.hcp);
     if (!Number.isFinite(numericHandicapIndex)) return 0;
 
     const roundedIndex = Math.round(numericHandicapIndex);
@@ -4897,13 +4915,130 @@ function App() {
     roundSetup,
     roundSetupTotalPar,
     userProfile.hcp,
+    activeRoundHandicap,
+    activePlayingHandicap,
     selectedRoundTee,
     findOfficialCombinationByRoutes
   ]);
 
+  useEffect(() => {
+    if (!sessionUserId) {
+      setRoundDraftRecovery(null);
+      return;
+    }
+
+    setRoundDraftRecovery(loadRoundDraft(sessionUserId));
+  }, [sessionUserId]);
+
+  useEffect(() => {
+    if (!sessionUserId || !openedCourse || roundAlreadySaved) return;
+
+    const draftState = showRoundSetup
+      ? "setup"
+      : roundScores.length > 0
+        ? "playing"
+        : null;
+    if (!draftState) return;
+
+    const activeHoles =
+      draftState === "playing"
+        ? (roundCompetitionSnapshot || competitionHoles).map((hole) => ({ ...hole }))
+        : [];
+    const routeName = Array.from(
+      new Set(activeHoles.map((hole) => String(hole.routeName || "").trim()).filter(Boolean))
+    ).join(" / ");
+
+    saveRoundDraft(sessionUserId, {
+      state: draftState,
+      courseSnapshot: openedCourse,
+      roundSetup: { ...roundSetup },
+      routeName,
+      competitionHoles: activeHoles,
+      roundScores: draftState === "playing" ? [...roundScores] : [],
+      manualReceivedShots: draftState === "playing" ? { ...manualReceivedShots } : {},
+      completedHoleIndexes: draftState === "playing" ? [...completedHoleIndexes] : [],
+      handicapIndex: draftState === "playing" ? activeRoundHandicap : userProfile.hcp,
+      playingHandicap: effectivePlayingHandicap,
+      playerName: userProfile.playerName || ""
+    });
+  }, [
+    sessionUserId,
+    openedCourse,
+    roundAlreadySaved,
+    showRoundSetup,
+    roundScores,
+    roundCompetitionSnapshot,
+    competitionHoles,
+    roundSetup,
+    manualReceivedShots,
+    completedHoleIndexes,
+    activeRoundHandicap,
+    effectivePlayingHandicap,
+    userProfile.hcp,
+    userProfile.playerName
+  ]);
+
+  const resumeRoundDraft = () => {
+    const draft = roundDraftRecovery;
+    if (!draft?.courseSnapshot) return;
+
+    setOpenedCourse(draft.courseSnapshot);
+    setRoundSetup({ ...createInitialRoundSetup(), ...(draft.roundSetup || {}) });
+    setRoundScores(Array.isArray(draft.roundScores) ? draft.roundScores : []);
+    setManualReceivedShots(draft.manualReceivedShots || {});
+    setCompletedHoleIndexes(
+      Array.isArray(draft.completedHoleIndexes) ? draft.completedHoleIndexes : []
+    );
+    setRoundCompetitionSnapshot(
+      draft.state === "playing" && Array.isArray(draft.competitionHoles)
+        ? draft.competitionHoles
+        : null
+    );
+    setActiveRoundHandicap(
+      draft.state === "playing" && draft.handicapIndex !== null && draft.handicapIndex !== undefined
+        ? Number(draft.handicapIndex)
+        : null
+    );
+    setActivePlayingHandicap(
+      draft.state === "playing" && draft.playingHandicap !== null && draft.playingHandicap !== undefined
+        ? Number(draft.playingHandicap)
+        : null
+    );
+    const hasDraftHandicap =
+      draft.handicapIndex !== null &&
+      draft.handicapIndex !== undefined &&
+      Number.isFinite(Number(draft.handicapIndex));
+    if (draft.playerName || hasDraftHandicap) {
+      setUserProfile((prev) => ({
+        ...prev,
+        playerName: draft.playerName || prev.playerName,
+        hcp: hasDraftHandicap ? Number(draft.handicapIndex) : prev.hcp
+      }));
+    }
+    setShowRoundSetup(draft.state === "setup");
+    setShowRoundsHistory(false);
+    setRoundAlreadySaved(false);
+    setRoundSaveLoading(false);
+    setRoundSaveError("");
+    setRoundDraftRecovery(null);
+    setShowRoundDraftDiscardConfirm(false);
+    setAuthError("");
+    setAppReady(true);
+  };
+
+  const discardRoundDraft = () => {
+    clearRoundDraft(sessionUserId);
+    setRoundDraftRecovery(null);
+    setShowRoundDraftDiscardConfirm(false);
+  };
+
   const startRound = () => {
     const startingScores = competitionHoles.map((hole) => Number(hole.par));
+    setRoundCompetitionSnapshot(competitionHoles.map((hole) => ({ ...hole })));
     setRoundScores(startingScores);
+    setCompletedHoleIndexes([]);
+    setActiveRoundHandicap(userProfile.hcp);
+    setActivePlayingHandicap(effectivePlayingHandicap);
     setRoundAlreadySaved(false);
     setRoundSaveLoading(false);
     setRoundSaveError("");
@@ -4912,18 +5047,59 @@ function App() {
   };
 
   const closeCourse = () => {
+    let retainedDraft = null;
+    const draftState = showRoundSetup
+      ? "setup"
+      : roundScores.length > 0 && !roundAlreadySaved
+        ? "playing"
+        : null;
+
+    if (sessionUserId && openedCourse && draftState) {
+      const snapshotHoles =
+        draftState === "playing"
+          ? (roundCompetitionSnapshot || competitionHoles).map((hole) => ({ ...hole }))
+          : [];
+      const routeName = Array.from(
+        new Set(
+          (draftState === "playing" ? snapshotHoles : competitionHoles)
+            .map((hole) => String(hole.routeName || "").trim())
+            .filter(Boolean)
+        )
+      ).join(" / ");
+
+      saveRoundDraft(sessionUserId, {
+        state: draftState,
+        courseSnapshot: openedCourse,
+        roundSetup: { ...roundSetup },
+        routeName,
+        competitionHoles: snapshotHoles,
+        roundScores: draftState === "playing" ? [...roundScores] : [],
+        manualReceivedShots: draftState === "playing" ? { ...manualReceivedShots } : {},
+        completedHoleIndexes: draftState === "playing" ? [...completedHoleIndexes] : [],
+        handicapIndex: draftState === "playing" ? activeRoundHandicap : userProfile.hcp,
+        playingHandicap: effectivePlayingHandicap,
+        playerName: userProfile.playerName || ""
+      });
+      retainedDraft = loadRoundDraft(sessionUserId);
+    }
+
     setOpenedCourse(null);
     setShowRoundSetup(false);
     setActiveSheet(null);
     setSheetClosing(false);
     resetHomeSearchState();
     setRoundScores([]);
+    setRoundCompetitionSnapshot(null);
+    setCompletedHoleIndexes([]);
+    setActiveRoundHandicap(null);
+    setActivePlayingHandicap(null);
     setShowRoundsHistory(false);
     setRoundAlreadySaved(false);
     setRoundSaveLoading(false);
     setRoundSaveError("");
     setManualReceivedShots({});
     setRoundSetup(createInitialRoundSetup());
+    if (retainedDraft) setRoundDraftRecovery(retainedDraft);
   };
 
   const getReceivedShots = useCallback((playerHcp, strokeIndex) => {
@@ -5108,6 +5284,7 @@ function App() {
     const updated = [...roundScores];
     updated[index] = value;
     setRoundScores(updated);
+    setCompletedHoleIndexes((prev) => (prev.includes(index) ? prev : [...prev, index]));
     setRoundAlreadySaved(false);
     setRoundSaveError("");
   };
@@ -5254,6 +5431,8 @@ function App() {
         openedCourse
       );
       setSavedRounds((prev) => [newRound, ...prev].slice(0, MAX_SAVED_ROUNDS));
+      clearRoundDraft(sessionUserId);
+      setRoundDraftRecovery(null);
       setRoundAlreadySaved(true);
       setShowRoundsHistory(true);
     } catch (error) {
@@ -6204,6 +6383,26 @@ function App() {
     </div>
   ) : null;
 
+  const roundDraftRecoveryModal = roundDraftRecovery ? (
+    <>
+      <RoundDraftRecovery
+        draft={roundDraftRecovery}
+        onContinue={resumeRoundDraft}
+        onDiscard={() => setShowRoundDraftDiscardConfirm(true)}
+        colors={colors}
+        appFont={appFont}
+      />
+      {showRoundDraftDiscardConfirm && (
+        <RoundDraftDiscardConfirm
+          onCancel={() => setShowRoundDraftDiscardConfirm(false)}
+          onConfirm={discardRoundDraft}
+          colors={colors}
+          appFont={appFont}
+        />
+      )}
+    </>
+  ) : null;
+
   const overlayPortal =
     typeof document !== "undefined"
       ? createPortal(
@@ -6214,6 +6413,7 @@ function App() {
             {hcpEditorModal}
             {courseReportModal}
             {communityManualShotsInfoModal}
+            {roundDraftRecoveryModal}
           </>,
           document.body
         )
@@ -6609,6 +6809,7 @@ function App() {
             Esci
           </button>
         </div>
+        {roundDraftRecoveryModal}
       </div>
     );
   }
