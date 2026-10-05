@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
   AdminShell,
+  Advanced,
   buildAdminRounds,
   buildReviewItems,
   filterCatalogClubs,
@@ -91,6 +92,13 @@ test("renders a review list, its filter, detail, and empty state", () => {
   expect(screen.getByText("Nessun elemento per questo filtro.")).toBeInTheDocument();
 });
 
+test("opens review requests with the requested filter", () => {
+  const items = buildReviewItems(reviewFixtures);
+  render(<Reviews initialFilter="Richieste" items={items} loading={false} onOpenItem={jest.fn()} />);
+  expect(screen.getByText("Nuovo Club")).toBeInTheDocument();
+  expect(screen.queryByText("Club Segnalato")).not.toBeInTheDocument();
+});
+
 const usersFixtures = [
   { user_id: "user-1", player_name: "Anna Rossi", email: "anna@example.com", role: "user", joined_at: "2026-09-01T10:00:00Z", last_login_at: "2026-09-20T10:00:00Z", last_seen_at: "2026-09-21T10:00:00Z", round_count: 1, last_round_at: "2026-09-22T10:00:00Z" },
   { user_id: "user-2", player_name: "Admin Test", email: "admin@example.com", role: "admin", joined_at: "2026-09-02T10:00:00Z", last_login_at: null, last_seen_at: null, round_count: 0, last_round_at: null }
@@ -132,4 +140,27 @@ test("shows a retryable directory error instead of an empty users list", () => {
   fireEvent.click(screen.getByRole("button", { name: "Riprova" }));
   expect(onRetryUsers).toHaveBeenCalledTimes(1);
   expect(screen.queryByText("Nessun utente corrisponde ai filtri selezionati.")).not.toBeInTheDocument();
+});
+
+test("renders advanced read-only areas and their explicit empty states", () => {
+  render(<Advanced clubs={[]} loading={false} />);
+  expect(screen.getByRole("button", { name: /Verifica FIG/ })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /Cronologia completa/ })).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: /Cronologia completa/ }));
+  expect(screen.getByText("Nessuna cronologia di pubblicazione disponibile")).toBeInTheDocument();
+});
+
+test("filters source matching and presents unmatched records as da collegare", () => {
+  const clubs = [
+    { id: "club-matched", name: "Collegato", sourceType: "gesgolf", hasFigLink: true, figMatchStatus: "matched", sourcePayload: {} },
+    { id: "club-unmatched", name: "Da collegare", sourceType: "gesgolf", hasFigLink: false, figMatchStatus: "unmatched", sourcePayload: {} }
+  ];
+  render(<Advanced clubs={clubs} loading={false} />);
+  fireEvent.click(screen.getByRole("button", { name: /Fonti e matching/ }));
+  expect(screen.getAllByText("Da collegare", { selector: "strong" })).toHaveLength(2);
+  fireEvent.click(screen.getByRole("button", { name: "Da collegare" }));
+  expect(screen.getAllByText("Da collegare", { selector: "strong" })).toHaveLength(2);
+  expect(screen.queryByText("Collegato", { selector: "strong" })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "Avanzata" }));
+  expect(screen.getByRole("button", { name: /Verifica FIG/ })).toBeInTheDocument();
 });

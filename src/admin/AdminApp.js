@@ -20,6 +20,14 @@ const REVIEW_FILTERS = ["Tutti", "Segnalazioni", "Richieste", "Scorecard", "Dati
 const USER_ROLE_FILTERS = ["Tutti", "Utenti", "Admin"];
 const USER_ROUND_FILTERS = ["Tutti", "Con almeno un giro", "Senza giri"];
 const USER_SORT_OPTIONS = ["Ultima attività app (più recente)", "Iscrizione più recente", "Più giri", "Nome A–Z"];
+const ADVANCED_AREAS = [
+  ["fig", "Verifica FIG", "Stato dei collegamenti e delle modifiche FIG disponibili."],
+  ["sources", "Fonti e matching", "Provenienza catalogo e matching disponibili."],
+  ["history", "Cronologia completa", "Storico di pubblicazione e passaggi catalogo."],
+  ["archive", "Archiviati e cestino", "Elementi non più presenti nel catalogo attivo."],
+  ["conflicts", "Duplicati e conflitti", "Elementi segnalati dal modello dati corrente."],
+  ["technical", "Impostazioni tecniche dei dati", "Struttura concettuale e read-only del catalogo."]
+];
 
 const emptyAdminData = {
   loading: true,
@@ -133,13 +141,14 @@ export function buildAdminRounds(rounds, users) {
   });
 }
 
-function buildQueue(label, section, rows, getLabel) {
+function buildQueue(label, section, rows, getLabel, reviewFilter) {
   if (rows === null) {
-    return { label, section, count: "—", items: ["Dato non disponibile"] };
+    return { label, section, reviewFilter, count: "—", items: ["Dato non disponibile"] };
   }
   return {
     label,
     section,
+    reviewFilter,
     count: rows.length,
     items: rows.slice(0, 4).map(getLabel)
   };
@@ -339,6 +348,101 @@ function EmptySection({ section, description }) {
   );
 }
 
+function getImportReference(club) {
+  const payload = club.sourcePayload || {};
+  const value = payload.import_batch || payload.importBatch || payload.import_batch_id || payload.importBatchId;
+  return typeof value === "string" || typeof value === "number" ? String(value) : "—";
+}
+
+function formatFigMatchStatus(status) {
+  return String(status || "").toLowerCase() === "unmatched" ? "Da collegare" : status || "—";
+}
+
+function getSourceMatchingState(club) {
+  if (String(club.figMatchStatus || "").toLowerCase() === "unmatched") return "Da collegare";
+  if (club.hasFigLink || String(club.figMatchStatus || "").toLowerCase() === "matched") return "Collegati";
+  return null;
+}
+
+function AdvancedDataRows({ clubs, variant }) {
+  const [filter, setFilter] = useState("Tutti");
+  const rows = clubs.filter((club) => variant === "fig"
+    ? club.hasFigLink || club.figCode || club.figMatchStatus || club.figChangePending
+    : club.sourceType || club.hasFigLink || club.figMatchStatus || getImportReference(club) !== "—");
+
+  if (!rows.length) {
+    return <p className="stablr-admin-detail-empty">{variant === "fig" ? "Nessun dato FIG disponibile." : "Nessuna fonte o matching disponibile."}</p>;
+  }
+
+  const matchingCounts = rows.reduce((counts, club) => {
+    const state = getSourceMatchingState(club);
+    if (state) counts[state] += 1;
+    return counts;
+  }, { Collegati: 0, "Da collegare": 0 });
+  const filteredRows = variant === "sources" && filter !== "Tutti"
+    ? rows.filter((club) => getSourceMatchingState(club) === filter)
+    : rows;
+  const hasImportReference = filteredRows.some((club) => getImportReference(club) !== "—");
+
+  return <>
+    {variant === "sources" && <>
+      <div className="stablr-admin-filter-row stablr-admin-advanced-filters" role="group" aria-label="Filtri fonti e matching">
+        {["Tutti", "Collegati", "Da collegare"].map((item) => <button className={filter === item ? "is-active" : ""} key={item} onClick={() => setFilter(item)} type="button">{item}</button>)}
+      </div>
+      <div className="stablr-admin-advanced-summary" aria-label="Riepilogo stati matching"><span>Collegati <strong>{matchingCounts.Collegati}</strong></span><span>Da collegare <strong>{matchingCounts["Da collegare"]}</strong></span></div>
+    </>}
+    <section className="stablr-admin-advanced-data-list" aria-label={variant === "fig" ? "Dati FIG" : "Fonti e matching"}>
+    {filteredRows.map((club) => <article className={`stablr-admin-advanced-data-row${variant === "sources" && !hasImportReference ? " is-without-batch" : ""}`} key={club.id}>
+      <div><span>Club</span><strong>{club.name || "—"}</strong></div>
+      {variant === "fig" ? <>
+        <div><span>Codice FIG</span><strong>{club.figCode || "—"}</strong></div>
+        <div><span>Matching</span><strong>{formatFigMatchStatus(club.figMatchStatus)}</strong></div>
+        <div><span>Modifica FIG</span><strong>{club.figChangePending ? "Rilevata" : "—"}</strong></div>
+      </> : <>
+        <div><span>Fonte</span><strong>{club.sourceType || "—"}</strong></div>
+        <div><span>Matching FIG</span><strong>{formatFigMatchStatus(club.figMatchStatus)}</strong></div>
+        {hasImportReference && <div><span>Batch/import</span><strong>{getImportReference(club)}</strong></div>}
+      </>}
+    </article>)}
+    {!filteredRows.length && <div className="stablr-admin-list-empty">Nessun record per questo stato.</div>}
+  </section>
+  </>;
+}
+
+function AdvancedDetail({ area, clubs, onBack }) {
+  const [id, title, description] = area;
+  let content;
+  if (id === "fig") content = <AdvancedDataRows clubs={clubs} variant="fig" />;
+  else if (id === "sources") content = <AdvancedDataRows clubs={clubs} variant="sources" />;
+  else if (id === "history") content = <p className="stablr-admin-detail-empty">Nessuna cronologia di pubblicazione disponibile</p>;
+  else if (id === "archive") content = <p className="stablr-admin-detail-empty">Nessun elemento archiviato o nel cestino</p>;
+  else if (id === "conflicts") content = <p className="stablr-admin-detail-empty">Nessun duplicato o conflitto rilevato</p>;
+  else content = <div className="stablr-admin-technical-grid">
+    <article><span>Catalogo</span><strong>Club → Percorsi → Route/combinazioni → Buche</strong></article>
+    <article><span>Dati di gioco</span><strong>Par/SI → Tee/distanze → CR/Slope</strong></article>
+    <article><span>Provenienza</span><strong>Fonti e matching restano associati ai dati catalogo.</strong></article>
+    <article><span>Stato</span><strong>Gli stati indicano disponibilità e revisione dei dati.</strong></article>
+  </div>;
+
+  return <section className="stablr-admin-detail stablr-admin-advanced-detail">
+    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button onClick={onBack} type="button">Avanzata</button><span>/</span><span>{title}</span></nav>
+    <header className="stablr-admin-page-header"><div><h1>{title}</h1><p>{description}</p></div></header>
+    <section className="stablr-admin-detail-section">{content}</section>
+  </section>;
+}
+
+export function Advanced({ clubs, loading }) {
+  const [selectedArea, setSelectedArea] = useState(null);
+  if (selectedArea) return <AdvancedDetail area={selectedArea} clubs={clubs || []} onBack={() => setSelectedArea(null)} />;
+  return <section className="stablr-admin-advanced">
+    <header className="stablr-admin-page-header"><div><h1>Avanzata</h1><p>Consultazione read-only delle informazioni catalogo disponibili.</p></div></header>
+    <div className="stablr-admin-advanced-grid">
+      {ADVANCED_AREAS.map((area) => <button className="stablr-admin-advanced-card" key={area[0]} onClick={() => setSelectedArea(area)} type="button"><strong>{area[1]}</strong><span>{area[2]}</span></button>)}
+    </div>
+    {loading && <p className="stablr-admin-detail-empty">Caricamento dati catalogo…</p>}
+  </section>;
+}
+
 export function ReviewDetail({ item, onBack }) {
   const detail = item.detail;
   const isClub = item.id.startsWith("club-");
@@ -347,7 +451,7 @@ export function ReviewDetail({ item, onBack }) {
         ["Stato", detail.dataStatus || "—"],
         ["Giocabile", detail.playable ? "Sì" : "No"],
         ["Fonte", item.source],
-        ["Matching FIG", detail.figMatchStatus || "—"],
+        ["Matching FIG", formatFigMatchStatus(detail.figMatchStatus)],
         ["Percorsi", detail.courses || "—"],
         ["Ultima attività", formatActivity(item.date)]
       ]
@@ -376,8 +480,8 @@ export function ReviewDetail({ item, onBack }) {
   );
 }
 
-export function Reviews({ items, loading, onOpenItem }) {
-  const [filter, setFilter] = useState("Tutti");
+export function Reviews({ items, loading, onOpenItem, initialFilter = "Tutti" }) {
+  const [filter, setFilter] = useState(initialFilter);
   const filteredItems = filterReviewItems(items, filter);
   return (
     <section className="stablr-admin-reviews">
@@ -505,7 +609,7 @@ function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenC
                 {card.items.map((item) => <li key={item}>{item}</li>)}
               </ul>
             )}
-            <button onClick={() => onViewAll(card.section)} type="button">Vedi tutto</button>
+            <button onClick={() => onViewAll(card.section, card.reviewFilter)} type="button">Vedi tutto</button>
           </article>
         ))}
       </section>
@@ -527,7 +631,7 @@ function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenC
                   <strong>{queue.items[0] || queue.label}</strong>
                   <span>{queue.label}</span>
                 </div>
-                <button onClick={() => onViewAll(queue.section)} type="button">Apri</button>
+                <button onClick={() => onViewAll(queue.section, queue.reviewFilter)} type="button">Apri</button>
               </article>
             ))
         )}
@@ -605,7 +709,7 @@ function ClubBreadcrumb({ club, onBack, course, onBackToClub }) {
 }
 
 function ClubSummary({ club, onBack, onOpenCourse }) {
-  const sources = [club.sourceType, club.hasFigLink ? "FIG" : null, club.figMatchStatus || null].filter(Boolean);
+  const sources = [club.sourceType, club.hasFigLink ? "FIG" : null, club.figMatchStatus ? formatFigMatchStatus(club.figMatchStatus) : null].filter(Boolean);
   const alerts = [];
   if (!club.playable) alerts.push("Il club non è giocabile: non risultano configurazioni pubblicate.");
   if (club.dataStatus === "needs_review") alerts.push("Dati in revisione.");
@@ -740,8 +844,10 @@ export function AdminShell({ onSignOut }) {
   const [selectedClub, setSelectedClub] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedReview, setSelectedReview] = useState(null);
+  const [reviewInitialFilter, setReviewInitialFilter] = useState("Tutti");
   const [directoryRetryKey, setDirectoryRetryKey] = useState(0);
   const [usersSectionKey, setUsersSectionKey] = useState(0);
+  const [advancedSectionKey, setAdvancedSectionKey] = useState(0);
 
   useEffect(() => {
     if (!supabase) {
@@ -876,9 +982,10 @@ export function AdminShell({ onSignOut }) {
     buildQueue("Dati incompleti", "Club e percorsi", incompleteClubs, (club) => club.name),
     buildQueue(
       "Richieste nuovi club",
-      "Community",
+      "Revisioni",
       adminData.requests,
-      (request) => request.club_name || "Richiesta senza nome club"
+      (request) => request.club_name || "Richiesta senza nome club",
+      "Richieste"
     ),
     buildQueue(
       "Segnalazioni / conflitti",
@@ -905,7 +1012,13 @@ export function AdminShell({ onSignOut }) {
           setSelectedCourse(null);
           setSection("Club e percorsi");
         }}
-        onViewAll={setSection}
+        onViewAll={(nextSection, reviewFilter) => {
+          if (nextSection === "Revisioni") {
+            setSelectedReview(null);
+            setReviewInitialFilter(reviewFilter || "Tutti");
+          }
+          setSection(nextSection);
+        }}
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
@@ -928,6 +1041,8 @@ export function AdminShell({ onSignOut }) {
       />
     ) : section === "Revisioni" ? (
       selectedReview ? <ReviewDetail item={selectedReview} onBack={() => setSelectedReview(null)} /> : <Reviews
+        initialFilter={reviewInitialFilter}
+        key={reviewInitialFilter}
         items={reviewItems}
         loading={adminData.loading}
         onOpenItem={setSelectedReview}
@@ -943,6 +1058,8 @@ export function AdminShell({ onSignOut }) {
       />
     ) : section === "Club partner" ? (
       <EmptySection section="Club partner" description="Area futura per la gestione interna di contatti e relazioni con i club." />
+    ) : section === "Avanzata" ? (
+      <Advanced clubs={adminData.clubs} key={advancedSectionKey} loading={adminData.loading} />
     ) : (
       <EmptySection section={section} />
     );
@@ -962,8 +1079,12 @@ export function AdminShell({ onSignOut }) {
                   setSelectedClub(null);
                   setSelectedCourse(null);
                 }
-                if (item === "Revisioni") setSelectedReview(null);
+                if (item === "Revisioni") {
+                  setSelectedReview(null);
+                  setReviewInitialFilter("Tutti");
+                }
                 if (item === "Utenti e giri") setUsersSectionKey((current) => current + 1);
+                if (item === "Avanzata") setAdvancedSectionKey((current) => current + 1);
                 setSection(item);
               }}
               type="button"
