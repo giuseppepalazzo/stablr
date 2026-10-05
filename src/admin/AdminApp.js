@@ -28,11 +28,12 @@ function isTrue(value) {
   return value === true || String(value || "").toLowerCase() === "true";
 }
 
-function getClubFilter(club) {
+export function getClubFilter(club) {
   const payload = club?.source_payload || {};
+  const needsReview = String(club?.data_status || "").toLowerCase() === "needs_review";
+  if (club?.playable === false && needsReview) return "Dati incompleti";
+  if (club?.playable !== false && needsReview) return "In revisione";
   if (isTrue(payload.fig_change_pending) || isTrue(payload.fig_update_pending)) return "Modifiche FIG";
-  if (club?.playable === false) return "Dati incompleti";
-  if (String(club?.data_status || "").toLowerCase() === "needs_review") return "In revisione";
   return "Pubblicati";
 }
 
@@ -59,12 +60,12 @@ function buildQueue(label, section, rows, getLabel) {
   };
 }
 
-function filterCatalogClubs(clubs, query, filter) {
+export function filterCatalogClubs(clubs, query, filter) {
   const normalizedQuery = query.trim().toLocaleLowerCase("it");
 
   return clubs.filter((club) => {
     const matchesFilter = filter === "Tutti" || club.filter === filter;
-    const searchable = `${club.name} ${club.city} ${club.courses} ${club.figCode || ""}`.toLocaleLowerCase("it");
+    const searchable = `${club.name} ${club.city} ${club.courseNames.join(" ")} ${club.figCode || ""}`.toLocaleLowerCase("it");
     return matchesFilter && (!normalizedQuery || searchable.includes(normalizedQuery));
   });
 }
@@ -335,7 +336,79 @@ function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenC
   );
 }
 
-function ClubsAndCourses({ clubs, loading, catalogAvailable, initialQuery = "" }) {
+function ClubBreadcrumb({ club, onBack, course, onBackToClub }) {
+  return (
+    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione">
+      <button onClick={onBack} type="button">Club e percorsi</button>
+      {club && <><span>/</span><button onClick={onBackToClub} type="button">{club.name}</button></>}
+      {course && <><span>/</span><span>{course.name}</span></>}
+    </nav>
+  );
+}
+
+function ClubSummary({ club, onBack, onOpenCourse }) {
+  const sources = [club.sourceType, club.hasFigLink ? "FIG" : null, club.figMatchStatus || null].filter(Boolean);
+  const alerts = [];
+  if (!club.playable) alerts.push("Il club non è giocabile: non risultano configurazioni pubblicate.");
+  if (club.dataStatus === "needs_review") alerts.push("Dati in revisione.");
+  if (club.figChangePending) alerts.push("È presente una modifica FIG da verificare.");
+
+  return (
+    <section className="stablr-admin-detail">
+      <ClubBreadcrumb onBack={onBack} />
+      <header className="stablr-admin-page-header">
+        <div><h1>{club.name}</h1><p>{club.city}</p></div>
+        <span className={`stablr-admin-status stablr-admin-status--${club.filter.toLocaleLowerCase("it").replaceAll(" ", "-")}`}>{club.status}</span>
+      </header>
+      <div className="stablr-admin-detail-grid">
+        <article><span>Codice FIG</span><strong>{club.figCode || "—"}</strong></article>
+        <article><span>Fonti e matching</span><strong>{sources.join(" · ") || "—"}</strong></article>
+        <article><span>Ultima attività</span><strong>{club.activity}</strong></article>
+      </div>
+      <section className="stablr-admin-detail-section">
+        <h2>Percorsi</h2>
+        {club.routes.length ? club.routes.map((course) => (
+          <button className="stablr-admin-course-row" key={course.id} onClick={() => onOpenCourse(course)} type="button">
+            <span><strong>{course.name}</strong><small>{course.holesCount ? `${course.holesCount} buche` : "—"} · {course.completeness}</small></span>
+            <span className="stablr-admin-status">{course.status}</span>
+          </button>
+        )) : <p className="stablr-admin-detail-empty">Nessun percorso pubblicato disponibile.</p>}
+      </section>
+      <section className="stablr-admin-detail-section">
+        <h2>Alert</h2>
+        {alerts.length ? <ul className="stablr-admin-detail-list">{alerts.map((alert) => <li key={alert}>{alert}</li>)}</ul> : <p className="stablr-admin-detail-empty">Nessun alert disponibile.</p>}
+      </section>
+      <section className="stablr-admin-detail-section">
+        <h2>Cronologia</h2>
+        <p className="stablr-admin-detail-empty">{club.activity === "—" ? "—" : club.activity}</p>
+      </section>
+      <p className="stablr-admin-data-sequence">Club → Percorsi → Route/combinazioni → Buche → Par/SI → Tee/distanze → CR/Slope</p>
+    </section>
+  );
+}
+
+function CourseDetail({ club, course, onBack, onBackToCatalog }) {
+  const routeCombinations = club.combinations.filter((combination) =>
+    combination.frontRouteId === course.id || combination.backRouteId === course.id
+  );
+  return (
+    <section className="stablr-admin-detail">
+      <ClubBreadcrumb club={club} course={course} onBack={onBackToCatalog} onBackToClub={onBack} />
+      <header className="stablr-admin-page-header"><div><h1>{course.name}</h1><p>{club.name}</p></div><span className="stablr-admin-status">{course.status}</span></header>
+      <div className="stablr-admin-detail-grid">
+        <article><span>Struttura</span><strong>{course.holesCount ? `${course.holesCount} buche` : "—"}</strong></article>
+        <article><span>Route disponibili</span><strong>{course.isActive ? "Disponibile" : "—"}</strong></article>
+        <article><span>Combinazioni disponibili</span><strong>{routeCombinations.length || "—"}</strong></article>
+      </div>
+      <section className="stablr-admin-detail-section"><h2>Combinazioni</h2>
+        {routeCombinations.length ? <ul className="stablr-admin-detail-list">{routeCombinations.map((item) => <li key={item.id}>{item.name}</li>)}</ul> : <p className="stablr-admin-detail-empty">—</p>}
+      </section>
+      <p className="stablr-admin-data-sequence">Club → Percorsi → Route/combinazioni → Buche → Par/SI → Tee/distanze → CR/Slope</p>
+    </section>
+  );
+}
+
+function ClubsAndCourses({ clubs, loading, catalogAvailable, initialQuery = "", onOpenClub }) {
   const [query, setQuery] = useState(initialQuery);
   const [filter, setFilter] = useState("Tutti");
   const filteredClubs = filterCatalogClubs(clubs, query, filter);
@@ -375,18 +448,18 @@ function ClubsAndCourses({ clubs, loading, catalogAvailable, initialQuery = "" }
         </div>
       </section>
 
-      <section className="stablr-admin-club-list" aria-label="Club e percorsi demo">
+      <section className="stablr-admin-club-list" aria-label="Club e percorsi">
         {filteredClubs.map((club) => (
-          <article className="stablr-admin-club-row" key={club.name}>
-            <div className="stablr-admin-club-identity">
+          <button className="stablr-admin-club-row" key={club.id} onClick={() => onOpenClub(club)} type="button">
+            <span className="stablr-admin-club-identity">
               <strong>{club.name}</strong>
               <span>{club.city} · {club.courses}</span>
-            </div>
+            </span>
             <span className={`stablr-admin-status stablr-admin-status--${club.filter.toLocaleLowerCase("it").replaceAll(" ", "-")}`}>
               {club.status}
             </span>
             <span className="stablr-admin-club-activity">{club.activity}</span>
-          </article>
+          </button>
         ))}
         {!filteredClubs.length && (
           <div className="stablr-admin-list-empty">
@@ -406,6 +479,8 @@ export function AdminShell({ onSignOut }) {
   const [section, setSection] = useState("Panoramica");
   const [adminData, setAdminData] = useState(emptyAdminData);
   const [catalogQuery, setCatalogQuery] = useState("");
+  const [selectedClub, setSelectedClub] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
     if (!supabase) {
@@ -420,7 +495,7 @@ export function AdminShell({ onSignOut }) {
         const [{ data: clubs, error: clubsError }, requestsResult, reportsResult] = await Promise.all([
           supabase
             .from("clubs")
-            .select("id,name,city,data_status,source_type,source_payload,playable,created_at,updated_at,course_routes(id,is_active),route_combinations(id,is_active)")
+            .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,is_active,combination_tees(id,is_active))")
             .eq("is_active", true)
             .order("name", { ascending: true }),
           supabase
@@ -437,24 +512,52 @@ export function AdminShell({ onSignOut }) {
         if (!active) return;
 
         const normalizedClubs = (clubs || []).map((club) => {
-          const routeCount = (club.course_routes || []).filter((route) => route.is_active !== false).length;
-          const combinationCount = (club.route_combinations || []).filter(
+          const routes = (club.course_routes || []).filter((route) => route.is_active !== false).map((route) => {
+            const holes = route.route_holes || [];
+            const hasParAndSi = holes.length > 0 && holes.every((hole) => hole.par != null && hole.stroke_index != null);
+            const hasTeeData = (route.route_tees || []).some((tee) => tee.is_active !== false);
+            return {
+              id: route.id,
+              name: route.name || "—",
+              holesCount: route.holes_count,
+              isActive: route.is_active !== false,
+              completeness: hasParAndSi && hasTeeData ? "Completo" : hasParAndSi ? "Par/SI disponibili" : "Dati parziali",
+              status: route.is_active !== false ? "Attivo" : "—"
+            };
+          });
+          const combinations = (club.route_combinations || []).filter(
             (combination) => combination.is_active !== false
-          ).length;
+          ).map((combination) => ({
+            id: combination.id,
+            name: combination.name || "—",
+            frontRouteId: combination.front_route_id,
+            backRouteId: combination.back_route_id
+          }));
+          const routeCount = routes.length;
+          const combinationCount = combinations.length;
           const filter = getClubFilter(club);
           const courseLabel = `${routeCount} ${routeCount === 1 ? "percorso" : "percorsi"} · ${routeCount + combinationCount} route`;
 
           return {
             id: club.id,
             name: club.name,
-            city: club.city || "Località non disponibile",
+            city: club.city || "—",
             courses: courseLabel,
             status: getClubStatusLabel(filter),
             filter,
-            activity: `Aggiornato ${formatActivity(club.updated_at || club.created_at)}`,
+            activity: formatActivity(club.updated_at || club.created_at) === "—"
+              ? "—"
+              : `Aggiornato ${formatActivity(club.updated_at || club.created_at)}`,
             dataStatus: club.data_status,
             playable: club.playable !== false,
-            figCode: club.source_payload?.figClubId || club.source_payload?.fig_club_id || ""
+            figCode: club.fig_clubs?.source_external_id || club.source_payload?.figClubCode || club.source_payload?.fig_club_code || "",
+            hasFigLink: Boolean(club.fig_club_id),
+            sourceType: club.source_type || "",
+            figMatchStatus: club.fig_match_status || "",
+            figChangePending: isTrue(club.source_payload?.fig_change_pending) || isTrue(club.source_payload?.fig_update_pending),
+            routes,
+            combinations,
+            courseNames: [...routes.map((route) => route.name), ...combinations.map((combination) => combination.name)]
           };
         });
 
@@ -508,19 +611,30 @@ export function AdminShell({ onSignOut }) {
         clubs={adminData.clubs}
         loading={adminData.loading}
         onOpenClub={(club) => {
-          setCatalogQuery(club.name);
+          setSelectedClub(club);
+          setSelectedCourse(null);
           setSection("Club e percorsi");
         }}
         onViewAll={setSection}
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
-      <ClubsAndCourses
+      selectedCourse && selectedClub ? <CourseDetail
+        club={selectedClub}
+        course={selectedCourse}
+        onBack={() => setSelectedCourse(null)}
+        onBackToCatalog={() => { setSelectedCourse(null); setSelectedClub(null); }}
+      /> : selectedClub ? <ClubSummary
+        club={selectedClub}
+        onBack={() => setSelectedClub(null)}
+        onOpenCourse={setSelectedCourse}
+      /> : <ClubsAndCourses
         catalogAvailable={adminData.catalogAvailable}
         clubs={adminData.clubs}
         initialQuery={catalogQuery}
         key={catalogQuery || "catalog"}
         loading={adminData.loading}
+        onOpenClub={setSelectedClub}
       />
     ) : (
       <EmptySection section={section} />
@@ -536,7 +650,11 @@ export function AdminShell({ onSignOut }) {
               className={item === section ? "is-active" : ""}
               key={item}
               onClick={() => {
-                if (item === "Club e percorsi") setCatalogQuery("");
+                if (item === "Club e percorsi") {
+                  setCatalogQuery("");
+                  setSelectedClub(null);
+                  setSelectedCourse(null);
+                }
                 setSection(item);
               }}
               type="button"
