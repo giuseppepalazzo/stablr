@@ -15,12 +15,14 @@ const NAVIGATION = [
 ];
 
 const CLUB_FILTERS = ["Tutti", "Pubblicati", "In revisione", "Dati incompleti", "Modifiche FIG"];
+const REVIEW_FILTERS = ["Tutti", "Segnalazioni", "Richieste", "Scorecard", "Dati incompleti", "Import FIG", "Modifiche FIG"];
 
 const emptyAdminData = {
   loading: true,
   clubs: [],
   requests: null,
   reports: null,
+  scorecards: null,
   catalogAvailable: true
 };
 
@@ -68,6 +70,42 @@ export function filterCatalogClubs(clubs, query, filter) {
     const searchable = `${club.name} ${club.city} ${club.courseNames.join(" ")} ${club.figCode || ""}`.toLocaleLowerCase("it");
     return matchesFilter && (!normalizedQuery || searchable.includes(normalizedQuery));
   });
+}
+
+export function buildReviewItems({ clubs = [], requests = [], reports = [], scorecards = [] }) {
+  const items = [
+    ...reports.map((report) => ({
+      id: `report-${report.id}`, type: "Segnalazioni", priority: 0, title: report.clubs?.name || "Segnalazione senza club",
+      source: "Community", date: report.created_at, reason: report.message || "—", detail: report
+    })),
+    ...requests.map((request) => ({
+      id: `request-${request.id}`, type: "Richieste", priority: 1, title: request.club_name || "Richiesta senza nome club",
+      source: "Community", date: request.created_at, reason: request.status === "in_review" ? "Richiesta già in revisione" : "Nuova richiesta club", detail: request
+    })),
+    ...scorecards.map((scorecard) => ({
+      id: `scorecard-${scorecard.id}`, type: "Scorecard", priority: 2,
+      title: scorecard.clubs?.name || scorecard.fig_clubs?.name || "Scorecard senza club",
+      source: scorecard.source_type || "—", date: scorecard.updated_at || scorecard.created_at,
+      reason: scorecard.notes || "Scorecard inviata per revisione", detail: scorecard
+    })),
+    ...clubs.filter((club) => club.dataStatus === "needs_review" || club.figChangePending).map((club) => {
+      const type = club.figChangePending ? "Modifiche FIG" : !club.playable ? "Dati incompleti" : "Import FIG";
+      return {
+        id: `club-${club.id}`, type, priority: !club.playable ? 3 : 4, title: club.name,
+        source: [club.sourceType, club.figCode ? "FIG" : null].filter(Boolean).join(" · ") || "—",
+        date: club.updatedAt || club.createdAt,
+        reason: club.figChangePending ? "Modifica FIG rilevata" : !club.playable ? "Club non giocabile: dati pubblicati mancanti" : "Import FIG/GesGolf da verificare",
+        detail: club
+      };
+    })
+  ];
+  return items.sort((left, right) => right.priority === left.priority
+    ? new Date(right.date || 0) - new Date(left.date || 0)
+    : left.priority - right.priority);
+}
+
+export function filterReviewItems(items, filter) {
+  return filter === "Tutti" ? items : items.filter((item) => item.type === filter);
 }
 
 function setAdminDocumentMetadata() {
@@ -218,6 +256,64 @@ function EmptySection({ section }) {
   );
 }
 
+export function ReviewDetail({ item, onBack }) {
+  const detail = item.detail;
+  const isClub = item.id.startsWith("club-");
+  const fields = isClub
+    ? [
+        ["Stato", detail.dataStatus || "—"],
+        ["Giocabile", detail.playable ? "Sì" : "No"],
+        ["Fonte", item.source],
+        ["Matching FIG", detail.figMatchStatus || "—"],
+        ["Percorsi", detail.courses || "—"],
+        ["Ultima attività", formatActivity(item.date)]
+      ]
+    : [
+        ["Provenienza", item.source],
+        ["Stato", detail.status || detail.review_status || "—"],
+        ["Data", formatActivity(item.date)],
+        ["Club STABLR", detail.clubs?.name || "—"],
+        ["Club FIG", detail.fig_clubs?.name || "—"]
+      ];
+  const comparison = isClub
+    ? detail.hasFigLink ? `Collegamento FIG disponibile${detail.figCode ? `: ${detail.figCode}` : ""}.` : "Nessun collegamento FIG disponibile."
+    : detail.club_id ? "Collegamento a club STABLR disponibile." : "Nessun collegamento a club STABLR disponibile.";
+
+  return (
+    <section className="stablr-admin-detail">
+      <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button onClick={onBack} type="button">Revisioni</button><span>/</span><span>{item.title}</span></nav>
+      <header className="stablr-admin-page-header"><div><h1>{item.title}</h1><p>{item.reason}</p></div><span className="stablr-admin-status">{item.type}</span></header>
+      <div className="stablr-admin-detail-grid">
+        {fields.map(([label, value]) => <article key={label}><span>{label}</span><strong>{value || "—"}</strong></article>)}
+      </div>
+      <section className="stablr-admin-detail-section"><h2>Collegamento FIG</h2><p className="stablr-admin-detail-empty">{comparison}</p></section>
+      {isClub && detail.routes.length > 0 && <section className="stablr-admin-detail-section"><h2>Percorsi disponibili</h2><ul className="stablr-admin-detail-list">{detail.routes.map((route) => <li key={route.id}>{route.name} · {route.completeness}</li>)}</ul></section>}
+      {!isClub && detail.notes && <section className="stablr-admin-detail-section"><h2>Note</h2><p className="stablr-admin-detail-empty">{detail.notes}</p></section>}
+    </section>
+  );
+}
+
+export function Reviews({ items, loading, onOpenItem }) {
+  const [filter, setFilter] = useState("Tutti");
+  const filteredItems = filterReviewItems(items, filter);
+  return (
+    <section className="stablr-admin-reviews">
+      <header className="stablr-admin-page-header"><div><h1>Revisioni</h1><p>Elementi reali che richiedono verifica.</p></div></header>
+      <div className="stablr-admin-filter-row" role="group" aria-label="Filtri revisioni">
+        {REVIEW_FILTERS.map((item) => <button className={filter === item ? "is-active" : ""} key={item} onClick={() => setFilter(item)} type="button">{item}</button>)}
+      </div>
+      <section className="stablr-admin-review-list" aria-label="Coda revisioni">
+        {filteredItems.map((item) => <button className="stablr-admin-review-row" key={item.id} onClick={() => onOpenItem(item)} type="button">
+          <span className="stablr-admin-club-identity"><strong>{item.title}</strong><span>{item.source} · {item.reason}</span></span>
+          <span className="stablr-admin-status">{item.type}</span>
+          <span className="stablr-admin-club-activity">{formatActivity(item.date)}</span>
+        </button>)}
+        {!filteredItems.length && <div className="stablr-admin-list-empty">{loading ? "Caricamento revisioni…" : "Nessun elemento per questo filtro."}</div>}
+      </section>
+    </section>
+  );
+}
+
 function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenClub }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("Tutti");
@@ -357,7 +453,7 @@ function ClubSummary({ club, onBack, onOpenCourse }) {
     <section className="stablr-admin-detail">
       <ClubBreadcrumb onBack={onBack} />
       <header className="stablr-admin-page-header">
-        <div><h1>{club.name}</h1><p>{club.city}</p></div>
+        <div><h1>{club.name}</h1>{club.city !== "—" && <p>{club.city}</p>}</div>
         <span className={`stablr-admin-status stablr-admin-status--${club.filter.toLocaleLowerCase("it").replaceAll(" ", "-")}`}>{club.status}</span>
       </header>
       <div className="stablr-admin-detail-grid">
@@ -481,6 +577,7 @@ export function AdminShell({ onSignOut }) {
   const [catalogQuery, setCatalogQuery] = useState("");
   const [selectedClub, setSelectedClub] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedReview, setSelectedReview] = useState(null);
 
   useEffect(() => {
     if (!supabase) {
@@ -492,7 +589,7 @@ export function AdminShell({ onSignOut }) {
 
     const loadAdminData = async () => {
       try {
-        const [{ data: clubs, error: clubsError }, requestsResult, reportsResult] = await Promise.all([
+        const [{ data: clubs, error: clubsError }, requestsResult, reportsResult, scorecardsResult] = await Promise.all([
           supabase
             .from("clubs")
             .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,is_active,combination_tees(id,is_active))")
@@ -506,6 +603,12 @@ export function AdminShell({ onSignOut }) {
           supabase
             .from("club_reports")
             .select("id,message,status,created_at,clubs(name)")
+            .eq("status", "open")
+            .order("created_at", { ascending: false }),
+          supabase
+            .from("scorecard_submissions")
+            .select("id,club_id,fig_club_id,fig_playable_course_id,submission_type,review_status,source_type,confidence,notes,submitted_payload,created_at,updated_at,clubs(name),fig_clubs(name,source_external_id),fig_playable_courses(name,holes_count)")
+            .eq("review_status", "in_review")
             .order("created_at", { ascending: false })
         ]);
 
@@ -555,6 +658,9 @@ export function AdminShell({ onSignOut }) {
             sourceType: club.source_type || "",
             figMatchStatus: club.fig_match_status || "",
             figChangePending: isTrue(club.source_payload?.fig_change_pending) || isTrue(club.source_payload?.fig_update_pending),
+            sourcePayload: club.source_payload || {},
+            createdAt: club.created_at,
+            updatedAt: club.updated_at,
             routes,
             combinations,
             courseNames: [...routes.map((route) => route.name), ...combinations.map((combination) => combination.name)]
@@ -566,6 +672,7 @@ export function AdminShell({ onSignOut }) {
           clubs: clubsError ? [] : normalizedClubs,
           requests: requestsResult.error ? null : requestsResult.data || [],
           reports: reportsResult.error ? null : reportsResult.data || [],
+          scorecards: scorecardsResult.error ? null : scorecardsResult.data || [],
           catalogAvailable: !clubsError
         });
       } catch (error) {
@@ -604,6 +711,12 @@ export function AdminShell({ onSignOut }) {
       (report) => report.clubs?.name || report.message || "Segnalazione senza club"
     )
   ];
+  const reviewItems = buildReviewItems({
+    clubs: adminData.catalogAvailable ? adminData.clubs : [],
+    requests: adminData.requests || [],
+    reports: adminData.reports || [],
+    scorecards: adminData.scorecards || []
+  });
   const content =
     section === "Panoramica" ? (
       <Overview
@@ -636,6 +749,12 @@ export function AdminShell({ onSignOut }) {
         loading={adminData.loading}
         onOpenClub={setSelectedClub}
       />
+    ) : section === "Revisioni" ? (
+      selectedReview ? <ReviewDetail item={selectedReview} onBack={() => setSelectedReview(null)} /> : <Reviews
+        items={reviewItems}
+        loading={adminData.loading}
+        onOpenItem={setSelectedReview}
+      />
     ) : (
       <EmptySection section={section} />
     );
@@ -655,6 +774,7 @@ export function AdminShell({ onSignOut }) {
                   setSelectedClub(null);
                   setSelectedCourse(null);
                 }
+                if (item === "Revisioni") setSelectedReview(null);
                 setSection(item);
               }}
               type="button"
