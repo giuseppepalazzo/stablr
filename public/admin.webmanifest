@@ -1,0 +1,18 @@
+{
+  "id": "/admin",
+  "short_name": "STABLR Admin",
+  "name": "STABLR Admin",
+  "start_url": "/admin",
+  "scope": "/admin",
+  "display": "standalone",
+  "background_color": "#0b2a21",
+  "theme_color": "#0b2a21",
+  "icons": [
+    {
+      "src": "/stablr-admin-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

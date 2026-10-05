@@ -43,6 +43,16 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="/site.webmanifest" />
+    <script>
+      (function () {
+        if (window.location.pathname.replace(/\/+$/, "") !== "/admin") return;
+        document.title = "STABLR Admin";
+        document.documentElement.setAttribute("data-stablr-theme", "dark");
+        document.querySelector('link[rel="manifest"]').setAttribute("href", "/admin.webmanifest");
+        document.querySelector('link[rel="apple-touch-icon"]').setAttribute("href", "/stablr-admin-icon.svg");
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#0b2a21");
+      })();
+    </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

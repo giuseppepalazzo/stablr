@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="108" fill="#0b2a21"/>
+  <path d="M258 112v186" stroke="#27a82a" stroke-width="18" stroke-linecap="round"/>
+  <path d="M263 120l104 54-104 54z" fill="#27a82a"/>
+  <ellipse cx="258" cy="320" rx="66" ry="16" fill="#27a82a"/>
+  <text x="256" y="388" fill="#f4f6f3" font-family="Arial,sans-serif" font-size="61" font-weight="700" text-anchor="middle" letter-spacing="3">STABLR</text>
+  <text x="256" y="434" fill="#b9c9c0" font-family="Arial,sans-serif" font-size="34" font-weight="700" text-anchor="middle" letter-spacing="7">ADMIN</text>
+</svg>

@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import AdminApp from './admin/AdminApp';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const isAdminRoute = window.location.pathname.replace(/\/+$/, "") === "/admin";
 root.render(
   <React.StrictMode>
-    <App />
+    {isAdminRoute ? <AdminApp /> : <App />}
   </React.StrictMode>
 );
 
