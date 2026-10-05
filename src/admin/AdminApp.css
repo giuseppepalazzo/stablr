@@ -436,6 +436,114 @@ button.stablr-admin-club-row:hover {
 
 .stablr-admin-review-row:hover { background: #194939; }
 
+.stablr-admin-tabs {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.stablr-admin-tabs button,
+.stablr-admin-copy-actions button,
+.stablr-admin-user-row > button {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: #0d3554;
+  color: #9ed1fa;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.stablr-admin-tabs button.is-active { background: #0f4e7b; color: #d9ecfb; }
+.stablr-admin-user-filters { margin-top: 12px; }
+.stablr-admin-user-filters .stablr-admin-filter-row + .stablr-admin-filter-row { margin-top: 8px; }
+
+.stablr-admin-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--stablr-admin-muted);
+  font-size: 13px;
+}
+
+.stablr-admin-sort select {
+  border: 1px solid #215176;
+  border-radius: 8px;
+  padding: 7px 9px;
+  background: #0d3554;
+  color: #d9ecfb;
+  font: inherit;
+}
+
+.stablr-admin-copy-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: min(100%, 1040px);
+  margin-top: 17px;
+  color: var(--stablr-admin-muted);
+  font-size: 13px;
+}
+
+.stablr-admin-directory-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(100%, 680px);
+  margin-top: 16px;
+  border-radius: 14px;
+  padding: 15px;
+  box-sizing: border-box;
+  background: var(--stablr-admin-card);
+  color: var(--stablr-admin-text);
+  font-size: 14px;
+}
+
+.stablr-admin-directory-error button {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: #0d3554;
+  color: #9ed1fa;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.stablr-admin-copy-actions label,
+.stablr-admin-user-row > label { display: flex; align-items: center; gap: 7px; }
+.stablr-admin-copy-actions button:disabled { cursor: default; opacity: 0.5; }
+
+.stablr-admin-user-list { display: grid; gap: 9px; width: min(100%, 1180px); margin-top: 12px; }
+
+.stablr-admin-user-row {
+  display: grid;
+  grid-template-columns: auto minmax(180px, 1.4fr) auto repeat(5, minmax(105px, 0.75fr)) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 80px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: var(--stablr-admin-card);
+  color: var(--stablr-admin-muted);
+  font-size: 12px;
+}
+
+.stablr-admin-user-row > div { display: grid; gap: 4px; color: var(--stablr-admin-muted); }
+.stablr-admin-user-row strong { color: var(--stablr-admin-text); font-size: 13px; font-weight: 500; }
+.stablr-admin-user-row > span { display: grid; gap: 3px; }
+.stablr-admin-user-row > .stablr-admin-status { display: block; font-size: 12px; }
+
+.stablr-admin-hole-grid { display: grid; grid-template-columns: repeat(6, minmax(100px, 1fr)); gap: 8px; }
+.stablr-admin-hole-grid > div { display: grid; gap: 3px; border-radius: 10px; padding: 9px; background: #103528; }
+.stablr-admin-hole-grid strong { font-size: 13px; }
+.stablr-admin-hole-grid span, .stablr-admin-hole-grid small { color: var(--stablr-admin-muted); font-size: 12px; }
+
 .stablr-admin-club-row {
   display: grid;
   grid-template-columns: minmax(300px, 1.55fr) minmax(150px, 0.6fr) minmax(210px, 1fr);
@@ -462,6 +570,12 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-club-activity {
   color: var(--stablr-admin-muted);
   font-size: 13px;
+}
+
+.stablr-admin-club-identity .stablr-admin-round-player {
+  color: var(--stablr-admin-text);
+  font-size: inherit;
+  font-weight: 600;
 }
 
 .stablr-admin-status {
@@ -671,5 +785,8 @@ button.stablr-admin-club-row:hover {
   .stablr-admin-overview-catalog-header { align-items: center; }
   .stablr-admin-club-row { grid-template-columns: 1fr; gap: 10px; }
   .stablr-admin-review-row { grid-template-columns: 1fr; gap: 10px; }
+  .stablr-admin-user-row { grid-template-columns: auto 1fr; }
+  .stablr-admin-user-row > .stablr-admin-status { width: max-content; }
+  .stablr-admin-hole-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stablr-admin-detail-grid { grid-template-columns: 1fr; }
 }

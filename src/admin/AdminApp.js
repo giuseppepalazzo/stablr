@@ -8,6 +8,7 @@ const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
 const NAVIGATION = [
   "Panoramica",
   "Club e percorsi",
+  "Club partner",
   "Revisioni",
   "Community",
   "Utenti e giri",
@@ -16,6 +17,9 @@ const NAVIGATION = [
 
 const CLUB_FILTERS = ["Tutti", "Pubblicati", "In revisione", "Dati incompleti", "Modifiche FIG"];
 const REVIEW_FILTERS = ["Tutti", "Segnalazioni", "Richieste", "Scorecard", "Dati incompleti", "Import FIG", "Modifiche FIG"];
+const USER_ROLE_FILTERS = ["Tutti", "Utenti", "Admin"];
+const USER_ROUND_FILTERS = ["Tutti", "Con almeno un giro", "Senza giri"];
+const USER_SORT_OPTIONS = ["Ultima attività app (più recente)", "Iscrizione più recente", "Più giri", "Nome A–Z"];
 
 const emptyAdminData = {
   loading: true,
@@ -23,6 +27,9 @@ const emptyAdminData = {
   requests: null,
   reports: null,
   scorecards: null,
+  users: null,
+  usersError: null,
+  rounds: null,
   catalogAvailable: true
 };
 
@@ -48,6 +55,82 @@ function formatActivity(dateValue) {
   const date = new Date(dateValue);
   if (Number.isNaN(date.getTime())) return "—";
   return new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "short" }).format(date);
+}
+
+function formatDateTime(dateValue) {
+  if (!dateValue) return "—";
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat("it-IT", {
+    day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+  }).format(date);
+}
+
+function getRoundFormatLabel(roundType) {
+  return {
+    single_9: "9 buche",
+    single_18: "18 buche",
+    repeat_9: "9 buche × 2",
+    combined_9x2: "Combinazione 18"
+  }[roundType] || "—";
+}
+
+function getRoundRouteLabel(round) {
+  if (round?.route_combinations?.name) return round.route_combinations.name;
+  const names = (Array.isArray(round?.selected_routes) ? round.selected_routes : [])
+    .map((route) => route?.route_name)
+    .filter((name, index, all) => name && all.indexOf(name) === index);
+  return names.join(" / ") || "—";
+}
+
+function getRoundResultLabel(round) {
+  const values = [
+    round?.gross_total == null ? null : `Lordo ${round.gross_total}`,
+    round?.net_total == null ? null : `Netto ${round.net_total}`,
+    round?.stableford_net_total == null ? null : `STABLR ${round.stableford_net_total}`
+  ].filter(Boolean);
+  return values.join(" · ") || "—";
+}
+
+export function filterAdminUsers(users, search, roleFilter, roundFilter) {
+  const normalizedSearch = search.trim().toLocaleLowerCase("it");
+  return users.filter((user) => {
+    const matchesSearch = !normalizedSearch || `${user.player_name || ""} ${user.email || ""}`.toLocaleLowerCase("it").includes(normalizedSearch);
+    const matchesRole = roleFilter === "Tutti" || (roleFilter === "Admin" ? user.role === "admin" : user.role !== "admin");
+    const roundCount = Number(user.round_count || 0);
+    const matchesRounds = roundFilter === "Tutti" || (roundFilter === "Con almeno un giro" ? roundCount > 0 : roundCount === 0);
+    return matchesSearch && matchesRole && matchesRounds;
+  });
+}
+
+export function sortAdminUsers(users, sort) {
+  const timestamp = (value) => {
+    const parsed = new Date(value || "").getTime();
+    return Number.isNaN(parsed) ? -Infinity : parsed;
+  };
+  return [...users].sort((left, right) => {
+    if (sort === "Iscrizione più recente") return timestamp(right.joined_at) - timestamp(left.joined_at);
+    if (sort === "Più giri") return Number(right.round_count || 0) - Number(left.round_count || 0);
+    if (sort === "Nome A–Z") return (left.player_name || "").localeCompare(right.player_name || "", "it");
+    return timestamp(right.last_seen_at) - timestamp(left.last_seen_at);
+  });
+}
+
+export function buildAdminRounds(rounds, users) {
+  const usersById = new Map((users || []).map((user) => [user.user_id, user]));
+  return (rounds || []).map((round) => {
+    const user = usersById.get(round.user_id);
+    return {
+      ...round,
+      playerName: user?.player_name || "—",
+      playerEmail: user?.email || "—",
+      clubName: round.clubs?.name || "—",
+      routeName: getRoundRouteLabel(round),
+      formatLabel: getRoundFormatLabel(round.round_type),
+      resultLabel: getRoundResultLabel(round),
+      statusLabel: "—"
+    };
+  });
 }
 
 function buildQueue(label, section, rows, getLabel) {
@@ -247,11 +330,11 @@ function AdminDenied({ onSignOut }) {
   );
 }
 
-function EmptySection({ section }) {
+function EmptySection({ section, description }) {
   return (
     <section className="stablr-admin-empty-section">
       <h1>{section}</h1>
-      <p>Questa sezione sarà disponibile prossimamente.</p>
+      <p>{description || "Questa sezione sarà disponibile prossimamente."}</p>
     </section>
   );
 }
@@ -310,6 +393,85 @@ export function Reviews({ items, loading, onOpenItem }) {
         </button>)}
         {!filteredItems.length && <div className="stablr-admin-list-empty">{loading ? "Caricamento revisioni…" : "Nessun elemento per questo filtro."}</div>}
       </section>
+    </section>
+  );
+}
+
+function AdminRoundDetail({ round, onBack }) {
+  const holes = (round.round_holes || []).slice().sort((left, right) => left.round_hole_number - right.round_hole_number);
+  return (
+    <section className="stablr-admin-detail">
+      <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button onClick={onBack} type="button">Utenti e giri</button><span>/</span><span>Giro</span></nav>
+      <header className="stablr-admin-page-header"><div><h1>{round.clubName}</h1><p>{round.playerName} · {formatDateTime(round.created_at)}</p></div><span className="stablr-admin-status">{round.formatLabel}</span></header>
+      <div className="stablr-admin-detail-grid">
+        <article><span>Percorso</span><strong>{round.routeName}</strong></article>
+        <article><span>Risultato</span><strong>{round.resultLabel}</strong></article>
+        <article><span>Stato</span><strong>{round.statusLabel}</strong></article>
+      </div>
+      <section className="stablr-admin-detail-section"><h2>Buche</h2>
+        {holes.length ? <div className="stablr-admin-hole-grid">{holes.map((hole) => <div key={hole.id}><strong>{hole.round_hole_number}</strong><span>Par {hole.par ?? "—"} · SI {hole.stroke_index ?? "—"}</span><small>Colpi {hole.strokes ?? "—"} · STABLR {hole.stableford_points ?? "—"}</small></div>)}</div> : <p className="stablr-admin-detail-empty">—</p>}
+      </section>
+    </section>
+  );
+}
+
+export function UsersAndRounds({ users, rounds, loading, usersError, onRetryUsers }) {
+  const [tab, setTab] = useState("Utenti");
+  const [search, setSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("Tutti");
+  const [roundFilter, setRoundFilter] = useState("Tutti");
+  const [sort, setSort] = useState(USER_SORT_OPTIONS[0]);
+  const [selectedEmails, setSelectedEmails] = useState([]);
+  const [copyFeedback, setCopyFeedback] = useState("");
+  const [selectedRound, setSelectedRound] = useState(null);
+  const filteredUsers = sortAdminUsers(filterAdminUsers(users || [], search, roleFilter, roundFilter), sort);
+  const filteredEmails = filteredUsers.map((user) => user.email).filter(Boolean);
+  const selectedFilteredEmails = selectedEmails.filter((email) => filteredEmails.includes(email));
+
+  const copyEmails = async (emails, message) => {
+    if (!emails.length || !navigator.clipboard?.writeText) return;
+    await navigator.clipboard.writeText(emails.join(","));
+    setCopyFeedback(message);
+  };
+  const toggleEmail = (email) => setSelectedEmails((current) => current.includes(email) ? current.filter((item) => item !== email) : [...current, email]);
+  const toggleAll = () => setSelectedEmails((current) => selectedFilteredEmails.length === filteredEmails.length ? current.filter((email) => !filteredEmails.includes(email)) : [...new Set([...current, ...filteredEmails])]);
+
+  if (selectedRound) return <AdminRoundDetail round={selectedRound} onBack={() => setSelectedRound(null)} />;
+
+  return (
+    <section className="stablr-admin-users-rounds">
+      <header className="stablr-admin-page-header"><div><h1>Utenti e giri</h1><p>Directory e storico in sola lettura.</p></div></header>
+      <div className="stablr-admin-tabs" role="tablist" aria-label="Utenti e giri">
+        {["Utenti", "Giri"].map((item) => <button aria-selected={tab === item} className={tab === item ? "is-active" : ""} key={item} onClick={() => setTab(item)} role="tab" type="button">{item}</button>)}
+      </div>
+      {tab === "Utenti" ? <>
+        {usersError ? <section className="stablr-admin-directory-error" role="alert"><strong>Impossibile caricare la directory utenti</strong><button onClick={onRetryUsers} type="button">Riprova</button></section> : <>
+        <label className="stablr-admin-search"><span aria-hidden="true">⌕</span><input onChange={(event) => setSearch(event.target.value)} placeholder="Cerca nome o email" value={search} /></label>
+        <div className="stablr-admin-user-filters">
+          <div className="stablr-admin-filter-row" role="group" aria-label="Filtro ruolo utenti">{USER_ROLE_FILTERS.map((item) => <button className={roleFilter === item ? "is-active" : ""} key={item} onClick={() => setRoleFilter(item)} type="button">{item}</button>)}</div>
+          <div className="stablr-admin-filter-row" role="group" aria-label="Filtro giri utenti">{USER_ROUND_FILTERS.map((item) => <button className={roundFilter === item ? "is-active" : ""} key={item} onClick={() => setRoundFilter(item)} type="button">{item}</button>)}</div>
+        </div>
+        <label className="stablr-admin-sort">Ordina per<select aria-label="Ordina per" onChange={(event) => setSort(event.target.value)} value={sort}>{USER_SORT_OPTIONS.map((item) => <option key={item}>{item}</option>)}</select></label>
+        <div className="stablr-admin-copy-actions"><label><input checked={filteredEmails.length > 0 && selectedFilteredEmails.length === filteredEmails.length} onChange={toggleAll} type="checkbox" /> Seleziona tutti i risultati filtrati</label><button disabled={!selectedFilteredEmails.length} onClick={() => copyEmails(selectedFilteredEmails, `${selectedFilteredEmails.length} email copiate.`)} type="button">Copia {selectedFilteredEmails.length} email selezionate</button>{copyFeedback && <span>{copyFeedback}</span>}</div>
+        <section className="stablr-admin-user-list" aria-label="Directory utenti">
+          {filteredUsers.map((user) => <article className="stablr-admin-user-row" key={user.user_id}>
+            <label><input checked={selectedEmails.includes(user.email)} onChange={() => toggleEmail(user.email)} type="checkbox" /></label>
+            <div><strong>{user.player_name || "—"}</strong><span>{user.email || "—"}</span></div>
+            <span className="stablr-admin-status">{user.role === "admin" ? "Admin" : "Utente"}</span>
+            <span>Iscrizione <strong>{formatDateTime(user.joined_at)}</strong></span>
+            <span>Accesso <strong>{formatDateTime(user.last_login_at)}</strong></span>
+            <span>Attività <strong>{formatDateTime(user.last_seen_at)}</strong></span>
+            <span>Giri <strong>{user.round_count || 0}</strong></span>
+            <span>Ultimo giro <strong>{formatDateTime(user.last_round_at)}</strong></span>
+            <button aria-label={`Copia email ${user.player_name || user.email}`} onClick={() => copyEmails([user.email], "Email copiata.")} type="button">Copia email</button>
+          </article>)}
+          {!filteredUsers.length && <div className="stablr-admin-list-empty">{loading ? "Caricamento utenti…" : "Nessun utente corrisponde ai filtri selezionati."}</div>}
+        </section>
+        </>}
+      </> : <section className="stablr-admin-review-list" aria-label="Lista giri">
+        {(rounds || []).map((round) => <button className="stablr-admin-review-row" key={round.id} onClick={() => setSelectedRound(round)} type="button"><span className="stablr-admin-club-identity"><strong>{round.clubName}</strong><span><strong className="stablr-admin-round-player">{round.playerName}</strong> · {round.routeName} · {round.resultLabel} · Stato {round.statusLabel}</span></span><span className="stablr-admin-status">{round.formatLabel}</span><span className="stablr-admin-club-activity">{formatDateTime(round.created_at)}</span></button>)}
+        {!(rounds || []).length && <div className="stablr-admin-list-empty">{loading ? "Caricamento giri…" : "Nessun giro disponibile."}</div>}
+      </section>}
     </section>
   );
 }
@@ -578,6 +740,8 @@ export function AdminShell({ onSignOut }) {
   const [selectedClub, setSelectedClub] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedReview, setSelectedReview] = useState(null);
+  const [directoryRetryKey, setDirectoryRetryKey] = useState(0);
+  const [usersSectionKey, setUsersSectionKey] = useState(0);
 
   useEffect(() => {
     if (!supabase) {
@@ -589,7 +753,7 @@ export function AdminShell({ onSignOut }) {
 
     const loadAdminData = async () => {
       try {
-        const [{ data: clubs, error: clubsError }, requestsResult, reportsResult, scorecardsResult] = await Promise.all([
+        const [{ data: clubs, error: clubsError }, requestsResult, reportsResult, scorecardsResult, usersResult, roundsResult] = await Promise.all([
           supabase
             .from("clubs")
             .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,is_active,combination_tees(id,is_active))")
@@ -609,10 +773,19 @@ export function AdminShell({ onSignOut }) {
             .from("scorecard_submissions")
             .select("id,club_id,fig_club_id,fig_playable_course_id,submission_type,review_status,source_type,confidence,notes,submitted_payload,created_at,updated_at,clubs(name),fig_clubs(name,source_external_id),fig_playable_courses(name,holes_count)")
             .eq("review_status", "in_review")
+            .order("created_at", { ascending: false }),
+          supabase
+            .rpc("admin_user_directory"),
+          supabase
+            .from("rounds")
+            .select("id,user_id,club_id,route_combination_id,holes_count,total_par,round_type,selected_routes,gross_total,net_total,stableford_gross_total,stableford_net_total,estimated_hcp_after_round,created_at,updated_at,clubs(name),route_combinations(name),round_holes(id,round_hole_number,par,stroke_index,strokes,stableford_points)")
             .order("created_at", { ascending: false })
         ]);
 
         if (!active) return;
+        if (usersResult.error) {
+          console.error("Admin user directory RPC failed", usersResult.error);
+        }
 
         const normalizedClubs = (clubs || []).map((club) => {
           const routes = (club.course_routes || []).filter((route) => route.is_active !== false).map((route) => {
@@ -673,6 +846,9 @@ export function AdminShell({ onSignOut }) {
           requests: requestsResult.error ? null : requestsResult.data || [],
           reports: reportsResult.error ? null : reportsResult.data || [],
           scorecards: scorecardsResult.error ? null : scorecardsResult.data || [],
+          users: usersResult.error ? null : usersResult.data || [],
+          usersError: usersResult.error ? usersResult.error.message || "unknown" : null,
+          rounds: roundsResult.error ? null : roundsResult.data || [],
           catalogAvailable: !clubsError
         });
       } catch (error) {
@@ -687,7 +863,7 @@ export function AdminShell({ onSignOut }) {
     return () => {
       active = false;
     };
-  }, []);
+  }, [directoryRetryKey]);
 
   const reviewClubs = adminData.catalogAvailable
     ? adminData.clubs.filter((club) => club.dataStatus === "needs_review" && club.playable)
@@ -717,6 +893,7 @@ export function AdminShell({ onSignOut }) {
     reports: adminData.reports || [],
     scorecards: adminData.scorecards || []
   });
+  const adminRounds = buildAdminRounds(adminData.rounds || [], adminData.users || []);
   const content =
     section === "Panoramica" ? (
       <Overview
@@ -755,6 +932,17 @@ export function AdminShell({ onSignOut }) {
         loading={adminData.loading}
         onOpenItem={setSelectedReview}
       />
+    ) : section === "Utenti e giri" ? (
+      <UsersAndRounds
+        key={usersSectionKey}
+        loading={adminData.loading}
+        onRetryUsers={() => setDirectoryRetryKey((current) => current + 1)}
+        rounds={adminRounds}
+        users={adminData.users || []}
+        usersError={adminData.usersError}
+      />
+    ) : section === "Club partner" ? (
+      <EmptySection section="Club partner" description="Area futura per la gestione interna di contatti e relazioni con i club." />
     ) : (
       <EmptySection section={section} />
     );
@@ -775,6 +963,7 @@ export function AdminShell({ onSignOut }) {
                   setSelectedCourse(null);
                 }
                 if (item === "Revisioni") setSelectedReview(null);
+                if (item === "Utenti e giri") setUsersSectionKey((current) => current + 1);
                 setSection(item);
               }}
               type="button"

@@ -38,6 +38,7 @@ const CARD_FAVORITE_RADIUS = "20px";
 const SHEET_CLOSE_DURATION = 220;
 const LOADING_MESSAGE_DELAY_MS = 2000;
 const WELCOME_NAME_HOLD_MS = 1000;
+const LAST_SEEN_INTERVAL_MS = 15 * 60 * 1000;
 const SCORECARD_UPLOAD_BUCKET = "scorecard-submissions";
 const SCORECARD_FILE_ACCEPT =
   ".heic,.HEIC,.heif,.HEIF,.jpg,.jpeg,.png,.pdf,image/heic,image/heif,image/jpeg,image/png,application/pdf";
@@ -1000,6 +1001,7 @@ function App() {
   const [favoriteCourseIds, setFavoriteCourseIds] = useState([]);
   const previousHcpRef = useRef(null);
   const previousEstimatedHcpRef = useRef(null);
+  const lastSeenAttemptRef = useRef(0);
 
   const [theme, setTheme] = useState(() => {
     try {
@@ -1250,6 +1252,37 @@ function App() {
       }
     } catch (error) {}
   }, []);
+
+  const recordCurrentUserActivity = useCallback(async () => {
+    if (!supabase || !session?.user?.id || document.visibilityState !== "visible") return;
+    const now = Date.now();
+    if (now - lastSeenAttemptRef.current < LAST_SEEN_INTERVAL_MS) return;
+    lastSeenAttemptRef.current = now;
+
+    const { error } = await supabase.rpc("record_current_user_activity");
+    if (error) lastSeenAttemptRef.current = 0;
+  }, [session?.user?.id]);
+
+  useEffect(() => {
+    if (!session?.user?.id) {
+      lastSeenAttemptRef.current = 0;
+      return undefined;
+    }
+
+    const recordWhenVisible = () => {
+      if (document.visibilityState === "visible") recordCurrentUserActivity();
+    };
+    recordWhenVisible();
+    document.addEventListener("visibilitychange", recordWhenVisible);
+    window.addEventListener("focus", recordWhenVisible);
+    const intervalId = window.setInterval(recordWhenVisible, LAST_SEEN_INTERVAL_MS);
+
+    return () => {
+      document.removeEventListener("visibilitychange", recordWhenVisible);
+      window.removeEventListener("focus", recordWhenVisible);
+      window.clearInterval(intervalId);
+    };
+  }, [session?.user?.id, recordCurrentUserActivity]);
 
   useEffect(() => {
     if (!showDialog || dialogStep !== 1) return undefined;

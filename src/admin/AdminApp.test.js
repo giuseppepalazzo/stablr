@@ -1,12 +1,16 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
   AdminShell,
+  buildAdminRounds,
   buildReviewItems,
   filterCatalogClubs,
+  filterAdminUsers,
   filterReviewItems,
   getClubFilter,
   ReviewDetail,
-  Reviews
+  Reviews,
+  sortAdminUsers,
+  UsersAndRounds
 } from "./AdminApp";
 
 test("renders the operational overview and the catalog filter controls", () => {
@@ -85,4 +89,47 @@ test("renders a review list, its filter, detail, and empty state", () => {
 
   rerender(<Reviews items={[]} loading={false} onOpenItem={jest.fn()} />);
   expect(screen.getByText("Nessun elemento per questo filtro.")).toBeInTheDocument();
+});
+
+const usersFixtures = [
+  { user_id: "user-1", player_name: "Anna Rossi", email: "anna@example.com", role: "user", joined_at: "2026-09-01T10:00:00Z", last_login_at: "2026-09-20T10:00:00Z", last_seen_at: "2026-09-21T10:00:00Z", round_count: 1, last_round_at: "2026-09-22T10:00:00Z" },
+  { user_id: "user-2", player_name: "Admin Test", email: "admin@example.com", role: "admin", joined_at: "2026-09-02T10:00:00Z", last_login_at: null, last_seen_at: null, round_count: 0, last_round_at: null }
+];
+
+const roundsFixtures = buildAdminRounds([{
+  id: "round-1", user_id: "user-1", round_type: "single_18", created_at: "2026-09-22T10:00:00Z",
+  gross_total: 88, net_total: 70, stableford_net_total: 36, selected_routes: [{ route_name: "Percorso Blu" }],
+  clubs: { name: "Club Test" }, route_combinations: null,
+  round_holes: [{ id: "hole-1", round_hole_number: 1, par: 4, stroke_index: 5, strokes: 5, stableford_points: 2 }]
+}], usersFixtures);
+
+test("filters users and renders copy controls plus the read-only rounds detail", async () => {
+  expect(filterAdminUsers(usersFixtures, "anna", "Tutti", "Tutti")).toEqual([usersFixtures[0]]);
+  expect(filterAdminUsers(usersFixtures, "", "Admin", "Senza giri")).toEqual([usersFixtures[1]]);
+  expect(sortAdminUsers(usersFixtures, "Ultima attività app (più recente)").map((user) => user.user_id)).toEqual(["user-1", "user-2"]);
+  expect(sortAdminUsers(usersFixtures, "Più giri").map((user) => user.user_id)).toEqual(["user-1", "user-2"]);
+
+  render(<UsersAndRounds loading={false} rounds={roundsFixtures} users={usersFixtures} />);
+  expect(screen.getByText("Anna Rossi")).toBeInTheDocument();
+  expect(screen.getByLabelText("Ordina per")).toHaveValue("Ultima attività app (più recente)");
+  const writeText = jest.fn().mockResolvedValue();
+  Object.assign(navigator, { clipboard: { writeText } });
+  fireEvent.click(screen.getByLabelText("Seleziona tutti i risultati filtrati"));
+  fireEvent.click(screen.getByRole("button", { name: "Copia 2 email selezionate" }));
+  await waitFor(() => expect(writeText).toHaveBeenCalledWith("anna@example.com,admin@example.com"));
+  fireEvent.click(screen.getByRole("tab", { name: "Giri" }));
+  expect(screen.getByText("Club Test")).toBeInTheDocument();
+  fireEvent.click(screen.getByText("Club Test"));
+  expect(screen.getByText("Buche")).toBeInTheDocument();
+  expect(screen.getByText("Colpi 5 · STABLR 2")).toBeInTheDocument();
+});
+
+test("shows a retryable directory error instead of an empty users list", () => {
+  const onRetryUsers = jest.fn();
+  render(<UsersAndRounds loading={false} onRetryUsers={onRetryUsers} rounds={[]} users={[]} usersError="RPC failed" />);
+
+  expect(screen.getByRole("alert")).toHaveTextContent("Impossibile caricare la directory utenti");
+  fireEvent.click(screen.getByRole("button", { name: "Riprova" }));
+  expect(onRetryUsers).toHaveBeenCalledTimes(1);
+  expect(screen.queryByText("Nessun utente corrisponde ai filtri selezionati.")).not.toBeInTheDocument();
 });
