@@ -6,11 +6,14 @@ import CourseEditor from "./CourseEditor";
 import { applyCoursePublication, createCourseEditorService } from "./course-editor-data";
 import RouteEditor, { RouteDetail } from "./RouteEditor";
 import { applyRoutePublication, createRouteEditorService } from "./route-editor-data";
+import HoleGridEditor from "./HoleGridEditor";
+import { createHoleGridEditorService } from "./hole-grid-editor-data";
 import "./AdminApp.css";
 
 const clubEditorService = createClubEditorService(supabase);
 const courseEditorService = createCourseEditorService(supabase);
 const routeEditorService = createRouteEditorService(supabase);
+const holeGridEditorService = createHoleGridEditorService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -945,6 +948,7 @@ export function AdminShell({ onSignOut }) {
   const [editingCourse, setEditingCourse] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [editingRoute, setEditingRoute] = useState(false);
+  const [editingHoles, setEditingHoles] = useState(false);
   const clubExitGuard = useRef(null);
   const registerClubExitGuard = useCallback((guard) => { clubExitGuard.current = guard; }, []);
   const navigate = (action) => clubExitGuard.current ? clubExitGuard.current(action) : action();
@@ -971,9 +975,9 @@ export function AdminShell({ onSignOut }) {
     setSelectedRoute(refreshedClub.allCombinations.find((route) => route.id === live.id));
     setEditingRoute(false);
   };
-  const backToRouteClub = () => navigate(() => { setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); });
-  const backToRouteCourse = () => navigate(() => { setEditingRoute(false); setSelectedRoute(null); });
-  const backToRouteCatalog = () => navigate(() => { setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); setSelectedClub(null); });
+  const backToRouteClub = () => navigate(() => { setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); });
+  const backToRouteCourse = () => navigate(() => { setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); });
+  const backToRouteCatalog = () => navigate(() => { setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); setSelectedClub(null); });
 
   useEffect(() => {
     if (!supabase) {
@@ -1156,7 +1160,19 @@ export function AdminShell({ onSignOut }) {
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
-      selectedRoute && selectedClub ? (editingRoute ? <RouteEditor
+      selectedRoute && selectedClub ? (editingHoles ? <HoleGridEditor
+        club={selectedClub}
+        course={selectedCourse}
+        route={selectedRoute}
+        key={selectedRoute.id}
+        onBack={() => navigate(() => setEditingHoles(false))}
+        onBackToClub={backToRouteClub}
+        onBackToCourse={backToRouteCourse}
+        onBackToCatalog={backToRouteCatalog}
+        onPublished={() => setEditingHoles(false)}
+        registerExitGuard={registerClubExitGuard}
+        service={holeGridEditorService}
+      /> : editingRoute ? <RouteEditor
         club={selectedClub}
         course={selectedCourse}
         route={selectedRoute}
@@ -1165,6 +1181,7 @@ export function AdminShell({ onSignOut }) {
         onBackToClub={backToRouteClub}
         onBackToCourse={backToRouteCourse}
         onBackToCatalog={backToRouteCatalog}
+        onEditHoles={() => setEditingHoles(true)}
         onPublished={acceptRoutePublication}
         registerExitGuard={registerClubExitGuard}
         service={routeEditorService}
@@ -1174,6 +1191,8 @@ export function AdminShell({ onSignOut }) {
         route={selectedRoute}
         key={selectedRoute.id}
         onEdit={() => setEditingRoute(true)}
+        onManageHoles={() => setEditingHoles(true)}
+        holeService={holeGridEditorService}
         onBackToClub={backToRouteClub}
         onBackToCourse={backToRouteCourse}
         onBackToCatalog={backToRouteCatalog}
@@ -1256,6 +1275,7 @@ export function AdminShell({ onSignOut }) {
                 setEditingClub(false);
                 setEditingCourse(false);
                 setEditingRoute(false);
+                setEditingHoles(false);
                 setSelectedRoute(null);
                 if (item === "Club e percorsi") {
                   setCatalogQuery("");

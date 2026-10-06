@@ -55,10 +55,23 @@ export function RouteReadOnlyData({ club, context }) {
   </>;
 }
 
-export function RouteDetail({ club, course, route, service, onEdit, onBackToClub, onBackToCourse, onBackToCatalog }) {
+export function RouteDetail({ club, course, route, service, holeService, onManageHoles, onEdit, onBackToClub, onBackToCourse, onBackToCatalog }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
+  const [holeGrid, setHoleGrid] = useState(null);
+  const [holeError, setHoleError] = useState(false);
+  const [holeRetry, setHoleRetry] = useState(0);
+  useEffect(() => {
+    if (!holeService) return;
+    let active = true;
+    setHoleGrid(null); setHoleError(false);
+    holeService.getGrid(route.id).then((data) => { if (active) setHoleGrid(data); }).catch((failure) => {
+      console.error("Admin hole grid summary unavailable", failure);
+      if (active) setHoleError(true);
+    });
+    return () => { active = false; };
+  }, [route.id, holeService, holeRetry]);
   useEffect(() => {
     let active = true;
     setResult(null); setError("");
@@ -73,12 +86,13 @@ export function RouteDetail({ club, course, route, service, onEdit, onBackToClub
     <header className="stablr-admin-page-header"><div><h1>{route.name}</h1><p>{club.name}</p></div><span className="stablr-admin-status">{route.isActive === false ? "Disattivata" : "Attiva"}</span></header>
     {result ? <>
       <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry"><button className="stablr-admin-white-button" onClick={onEdit} type="button">Modifica dati</button>{result.draft && <span className="stablr-admin-status">Bozza in corso</span>}</div>
+      {onManageHoles && <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry"><button className="stablr-admin-white-button" onClick={onManageHoles} type="button">Gestisci buche</button>{holeGrid?.draft && <span className="stablr-admin-status">Bozza buche in corso</span>}{holeError && <><span role="alert">Impossibile caricare lo stato della bozza buche.</span><button onClick={() => setHoleRetry((value) => value + 1)} type="button">Riprova buche</button></>}</div>}
       <RouteReadOnlyData club={club} context={result.context} />
     </> : error ? <><p role="alert">{error}</p><button className="stablr-admin-white-button" onClick={() => setRetry((value) => value + 1)} type="button">Riprova</button></> : <p className="stablr-admin-detail-empty">Caricamento Route…</p>}
   </section>;
 }
 
-export default function RouteEditor({ club, course, route, service, onBack, onBackToClub, onBackToCourse, onBackToCatalog, onPublished, registerExitGuard }) {
+export default function RouteEditor({ club, course, route, service, onBack, onBackToClub, onBackToCourse, onBackToCatalog, onEditHoles, onPublished, registerExitGuard }) {
   const [draft, setDraft] = useState(null);
   const [context, setContext] = useState(null);
   const [fields, setFields] = useState({ name: "", is_active: true });
@@ -139,6 +153,10 @@ export default function RouteEditor({ club, course, route, service, onBack, onBa
     await service.abandonDraft(draft);
     setAbandonConfirmation(false); setDraft(null); registerExitGuard(null); onBack();
   });
+  const openHoleEditor = () => {
+    if (dirty) setPendingExit(() => onEditHoles);
+    else onEditHoles();
+  };
   const update = (key, value) => { setFields((current) => ({ ...current, [key]: value })); setMessage(""); };
   const normalized = normalizeRouteFields(fields);
   const valid = normalized.name.length > 0 && normalized.name.length <= 200;
@@ -151,7 +169,7 @@ export default function RouteEditor({ club, course, route, service, onBack, onBa
       <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault(); operation(save); }}>
         <label>Nome visualizzato<input disabled={busy} maxLength={200} onChange={(event) => update("name", event.target.value)} required value={fields.name} /></label>
         <label>Stato operativo<select disabled={busy} onChange={(event) => update("is_active", event.target.value === "true")} value={String(fields.is_active)}><option value="true">Attiva</option><option value="false">Disattivata</option></select></label>
-        <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length || !canPublishRoute(context, normalized)} onClick={reviewPublication} type="button">Pubblica</button><button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
+        <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length || !canPublishRoute(context, normalized)} onClick={reviewPublication} type="button">Pubblica</button><button disabled={busy} onClick={openHoleEditor} type="button">Modifica buche</button><button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
       </form>
       <RouteReadOnlyData club={club} context={context} />
       {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}

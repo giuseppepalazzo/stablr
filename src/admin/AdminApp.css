@@ -696,6 +696,16 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-editor-diff > div { display: grid; grid-template-columns: minmax(100px, 0.6fr) repeat(2, minmax(0, 1fr)); gap: 14px; padding: 10px 12px; border-radius: 8px; background: #103528; font-size: 13px; overflow-wrap: anywhere; }
 .stablr-admin-editor-diff strong { font-weight: 500; }
 
+.stablr-admin-hole-grid-scroll { overflow-x: auto; margin: 18px 0; }
+.stablr-admin-hole-grid-table { width: 100%; min-width: 820px; table-layout: fixed; border-collapse: collapse; background: var(--stablr-admin-card); font-size: 13px; }
+.stablr-admin-hole-grid-table th,
+.stablr-admin-hole-grid-table td { padding: 12px; text-align: left; border-bottom: 1px solid #32624f; overflow-wrap: anywhere; }
+.stablr-admin-hole-grid-table th { color: var(--stablr-admin-muted); font-weight: 500; }
+.stablr-admin-hole-grid-table th:nth-child(2) { width: 20%; }
+.stablr-admin-hole-grid-table th:nth-child(4),
+.stablr-admin-hole-grid-table th:nth-child(5) { width: 9%; }
+.stablr-admin-hole-grid-table input { width: 100%; box-sizing: border-box; border: 1px solid #32624f; border-radius: 8px; padding: 9px 7px; background: #103528; color: var(--stablr-admin-text); font: inherit; }
+
 .stablr-admin-status {
   width: max-content;
   max-width: 100%;

@@ -4,7 +4,7 @@ import { AdminShell } from "./AdminApp";
 
 jest.mock("../lib/supabase", () => ({ hasSupabaseConfig: true, supabase: { from: jest.fn(), rpc: jest.fn() } }));
 
-test("Route editor from Club and Percorso, saved resume, atomic confirmation, abandon and reactivation", async () => {
+test("Route and hole-grid editors from Club/Percorso, saved resume, atomic confirmation and abandon", async () => {
   const courses = ["A", "B"].map((name, i) => ({ id: `course-${i}`, name: `Percorso ${name}`, holes_count: 9,
     display_order: i, is_active: true, route_holes: [{ id: `hole-${i}`, par: 4, stroke_index: 1 }], route_tees: [] }));
   const routes = [{ id: "route-1", name: "Combinazione fixture", is_active: true },
@@ -22,6 +22,10 @@ test("Route editor from Club and Percorso, saved resume, atomic confirmation, ab
       physical_hole_number: i % 9 + 1, par: 4, stroke_index: i + 1 }))
   };
   const drafts = new Map();
+  const gridDrafts = new Map();
+  const gridContext = { ...context,
+    holes: context.holes.map((hole, i) => ({ ...hole, id: `grid-hole-${i}`, source_stroke_index: i % 9 + 1 })),
+    checks: { ...context.checks, origins_valid: true, front_holes: 9, back_holes: 9 } };
   supabase.from.mockImplementation((table) => {
     const query = { select: jest.fn(() => query), eq: jest.fn(() => query), in: jest.fn(() => query),
       order: jest.fn(() => Promise.resolve({ data: table === "clubs" ? [club] : [], error: null })) };
@@ -31,6 +35,31 @@ test("Route editor from Club and Percorso, saved resume, atomic confirmation, ab
     if (name === "admin_user_directory") return { data: [], error: null };
     if (["admin_club_get_draft", "admin_course_get_draft"].includes(name)) return { data: null, error: null };
     if (name === "admin_route_get_draft") return { data: { draft: drafts.get(params.p_route_id) || null, context }, error: null };
+    if (name === "admin_hole_grid_get_draft") return { data: { draft: gridDrafts.get(params.p_route_id) || null, context: gridContext }, error: null };
+    if (name === "admin_hole_grid_open_draft") {
+      if (!gridDrafts.has(params.p_route_id)) {
+        const snapshot = { holes: gridContext.holes.map(({ id, round_hole_number, par, stroke_index }) => ({ id, round_hole_number, par, stroke_index })) };
+        gridDrafts.set(params.p_route_id, { draft_id: params.p_route_id, live_entity_id: params.p_route_id, revision: 1, snapshot, base_snapshot: snapshot });
+      }
+      return { data: { draft: gridDrafts.get(params.p_route_id), context: gridContext }, error: null };
+    }
+    if (name === "admin_hole_grid_save_draft") {
+      const old = gridDrafts.get(params.p_draft_id);
+      const saved = { ...old, revision: old.revision + 1, snapshot: params.p_snapshot };
+      gridDrafts.set(old.live_entity_id, saved);
+      return { data: saved, error: null };
+    }
+    if (name === "admin_hole_grid_publish_draft") {
+      const draft = gridDrafts.get(params.p_draft_id);
+      gridContext.holes = gridContext.holes.map((hole) => ({ ...hole, ...draft.snapshot.holes.find((item) => item.id === hole.id) }));
+      gridDrafts.delete(draft.live_entity_id);
+      return { data: { version_id: "grid-version-fixture", route_id: draft.live_entity_id, context: gridContext }, error: null };
+    }
+    if (name === "admin_hole_grid_archive_draft") {
+      const old = gridDrafts.get(params.p_draft_id);
+      gridDrafts.delete(old.live_entity_id);
+      return { data: { ...old, workflow_status: "archived" }, error: null };
+    }
     if (name === "admin_route_open_draft") {
       const live = routes.find((route) => route.id === params.p_route_id);
       if (!drafts.has(live.id)) {
@@ -115,4 +144,39 @@ test("Route editor from Club and Percorso, saved resume, atomic confirmation, ab
   expect(screen.getByText("Attiva", { selector: "span" })).toBeInTheDocument();
   fireEvent.click(within(screen.getByRole("navigation", { name: "Percorso di navigazione" })).getByRole("button", { name: "Club e percorsi" }));
   expect(screen.getByText("Roma · 2 percorsi · 3 route")).toBeInTheDocument();
+
+  fireEvent.click(screen.getByText("Club fixture", { selector: "strong" }));
+  fireEvent.click(screen.getByRole("button", { name: "Bozza Route 18 buche" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Gestisci buche" }));
+  await screen.findByLabelText("SI/HCP buca 1");
+  fireEvent.change(screen.getByLabelText("SI/HCP buca 1"), { target: { value: "2" } });
+  fireEvent.change(screen.getByLabelText("SI/HCP buca 2"), { target: { value: "1" } });
+  fireEvent.click(within(navigation).getByRole("button", { name: "Utenti e giri" }));
+  const gridExit = await screen.findByRole("dialog", { name: "Modifiche non salvate" });
+  fireEvent.click(within(gridExit).getByRole("button", { name: "Salva bozza" }));
+  await screen.findByRole("tab", { name: "Utenti" });
+  expect(gridContext.holes[0].stroke_index).toBe(1);
+
+  fireEvent.click(within(navigation).getByRole("button", { name: "Club e percorsi" }));
+  fireEvent.click(screen.getByText("Club fixture", { selector: "strong" }));
+  fireEvent.click(screen.getByRole("button", { name: "Bozza Route 18 buche" }));
+  await screen.findByText("Bozza buche in corso");
+  fireEvent.click(screen.getByRole("button", { name: "Gestisci buche" }));
+  expect(await screen.findByLabelText("SI/HCP buca 1")).toHaveValue(2);
+  fireEvent.click(screen.getByRole("button", { name: "Pubblica", exact: true }));
+  const gridConfirmation = await screen.findByRole("dialog", { name: "Conferma pubblicazione" });
+  expect(within(gridConfirmation).getByText("Buca 1 · SI/HCP")).toBeInTheDocument();
+  fireEvent.click(within(gridConfirmation).getByRole("button", { name: "Conferma pubblicazione" }));
+  await screen.findByRole("heading", { name: "Bozza Route" });
+  await waitFor(() => expect(screen.queryByText("Bozza buche in corso")).not.toBeInTheDocument());
+  expect(gridContext.holes[0].stroke_index).toBe(2);
+
+  fireEvent.click(await screen.findByRole("button", { name: "Gestisci buche" }));
+  await screen.findByLabelText("Par buca 1");
+  fireEvent.click(screen.getByRole("button", { name: "Abbandona bozza" }));
+  const gridAbandon = await screen.findByRole("dialog", { name: "Abbandona bozza" });
+  fireEvent.click(within(gridAbandon).getByRole("button", { name: "Conferma abbandono" }));
+  await screen.findByRole("heading", { name: "Bozza Route" });
+  await waitFor(() => expect(screen.queryByText("Bozza buche in corso")).not.toBeInTheDocument());
+  expect(gridContext.holes[0].stroke_index).toBe(2);
 });

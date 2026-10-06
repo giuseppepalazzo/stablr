@@ -23,11 +23,11 @@ const makeService = () => ({
   abandonDraft: jest.fn().mockResolvedValue({ ...draft, workflow_status: "archived", revision: 2 })
 });
 
-function Harness({ service, onExit = jest.fn(), onPublished = jest.fn() }) {
+function Harness({ service, onExit = jest.fn(), onEditHoles = jest.fn(), onPublished = jest.fn() }) {
   const guard = useRef(null);
   const registerExitGuard = useCallback((current) => { guard.current = current; }, []);
   const exit = () => guard.current ? guard.current(onExit) : onExit();
-  return <><button onClick={exit}>Vai al catalogo</button><RouteEditor {...{ club, route, service, onPublished, registerExitGuard }} onBack={exit} onBackToClub={exit} onBackToCatalog={exit} /></>;
+  return <><button onClick={exit}>Vai al catalogo</button><RouteEditor {...{ club, route, service, onEditHoles, onPublished, registerExitGuard }} onBack={exit} onBackToClub={exit} onBackToCatalog={exit} /></>;
 }
 
 test("diff allowlists name/active with explicit false, ignores technical fields", () => {
@@ -53,6 +53,24 @@ test("resumes draft and exposes only name and operational state as editable", as
   expect(screen.getByText("Da collegare")).toBeInTheDocument();
   expect(screen.getByRole("table", { name: "Sequenza buche Route" })).toBeInTheDocument();
   expect(service.openDraft).toHaveBeenCalledWith(route.id);
+});
+
+test("shows Modifica buche and opens the grid for this combination after resolving unsaved Route changes", async () => {
+  const onEditHoles = jest.fn();
+  render(<Harness service={makeService()} onEditHoles={onEditHoles} />);
+  await screen.findByLabelText("Nome visualizzato");
+  fireEvent.click(screen.getByRole("button", { name: "Modifica buche" }));
+  expect(onEditHoles).toHaveBeenCalledTimes(1);
+
+  fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Bozza Route" } });
+  fireEvent.click(screen.getByRole("button", { name: "Modifica buche" }));
+  const dialog = await screen.findByRole("dialog", { name: "Modifiche non salvate" });
+  expect(onEditHoles).toHaveBeenCalledTimes(1);
+  fireEvent.click(within(dialog).getByRole("button", { name: "Resta" }));
+  expect(onEditHoles).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("button", { name: "Modifica buche" }));
+  fireEvent.click(within(await screen.findByRole("dialog", { name: "Modifiche non salvate" })).getByRole("button", { name: "Scarta" }));
+  expect(onEditHoles).toHaveBeenCalledTimes(2);
 });
 
 test("save preserves live and publish requires before/after and final confirmation", async () => {
