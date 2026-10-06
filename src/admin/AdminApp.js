@@ -598,7 +598,14 @@ function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenC
       </header>
 
       <section className="stablr-admin-queue-grid" aria-label="Coda di lavoro">
-        {queues.map((card) => (
+        {loading ? Array.from({ length: 4 }, (_, index) => (
+          <article aria-hidden="true" className="stablr-admin-metric-card stablr-admin-metric-card--skeleton" key={index}>
+            <span className="stablr-admin-skeleton-line stablr-admin-skeleton-line--label" />
+            <span className="stablr-admin-skeleton-line stablr-admin-skeleton-line--count" />
+            <span className="stablr-admin-skeleton-line" />
+            <span className="stablr-admin-skeleton-line stablr-admin-skeleton-line--short" />
+          </article>
+        )) : queues.map((card) => (
           <article className="stablr-admin-metric-card" key={card.label}>
             <div className="stablr-admin-metric-heading">
               <p>{card.label}</p>
@@ -616,7 +623,7 @@ function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenC
 
       <section className="stablr-admin-decision-section">
         <h2>Da decidere ora</h2>
-        {queues.every((queue) => Number(queue.count) <= 0) ? (
+        {loading ? <article aria-hidden="true" className="stablr-admin-empty-card stablr-admin-empty-card--skeleton"><span className="stablr-admin-skeleton-line" /><span className="stablr-admin-skeleton-line stablr-admin-skeleton-line--short" /></article> : queues.every((queue) => Number(queue.count) <= 0) ? (
           <article className="stablr-admin-empty-card">
             <strong>Nessun elemento richiede una decisione.</strong>
             <span>Le revisioni e le segnalazioni aperte compariranno qui.</span>
@@ -959,7 +966,10 @@ export function AdminShell({ onSignOut }) {
         });
       } catch (error) {
         if (active) {
-          setAdminData({ ...emptyAdminData, loading: false, catalogAvailable: false });
+          setAdminData((current) => {
+            const hasVisibleData = current.clubs.length > 0 || current.requests !== null || current.reports !== null || current.scorecards !== null;
+            return hasVisibleData ? { ...current, loading: false } : { ...emptyAdminData, loading: false, catalogAvailable: false };
+          });
         }
       }
     };

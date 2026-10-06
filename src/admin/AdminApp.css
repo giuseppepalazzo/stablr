@@ -161,6 +161,21 @@
   gap: 12px;
 }
 
+.stablr-admin-metric-card--skeleton,
+.stablr-admin-empty-card--skeleton { pointer-events: none; }
+
+.stablr-admin-skeleton-line {
+  display: block;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #285445;
+}
+
+.stablr-admin-skeleton-line--label { width: 44%; }
+.stablr-admin-skeleton-line--count { width: 20%; height: 27px; }
+.stablr-admin-skeleton-line--short { width: 62%; }
+
 .stablr-admin-metric-heading {
   display: grid;
   justify-items: start;
