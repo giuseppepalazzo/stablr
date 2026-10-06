@@ -669,6 +669,32 @@ button.stablr-admin-club-row:hover {
 
 .stablr-admin-technical-grid article { border-radius: 12px; padding: 14px; background: #103528; }
 
+.stablr-admin-club-edit-entry { margin-bottom: 16px; }
+.stablr-admin-editor-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 22px; }
+.stablr-admin-editor-fields label { display: grid; gap: 7px; color: var(--stablr-admin-muted); font-size: 13px; }
+.stablr-admin-editor-fields input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #32624f;
+  border-radius: 10px;
+  padding: 11px 12px;
+  background: var(--stablr-admin-card);
+  color: var(--stablr-admin-text);
+  font: inherit;
+}
+.stablr-admin-editor-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.stablr-admin-editor-fields > .stablr-admin-editor-actions { grid-column: 1 / -1; }
+.stablr-admin-editor-actions > button:not(.stablr-admin-white-button) { border: 0; border-radius: 10px; padding: 8px 12px; background: #0e3655; color: #9ed1fa; font: inherit; cursor: pointer; }
+.stablr-admin-editor-actions button:disabled { opacity: 0.5; cursor: default; }
+.stablr-admin-editor-error { color: #ffcebe; }
+.stablr-admin-editor-overlay { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: #041b15cc; }
+.stablr-admin-editor-dialog { width: min(100%, 740px); max-height: calc(100vh - 48px); overflow: auto; box-sizing: border-box; padding: 24px; border-radius: 16px; background: var(--stablr-admin-card); box-shadow: 0 16px 60px #00100acc; }
+.stablr-admin-editor-dialog h2 { margin: 0 0 12px; font-size: 20px; font-weight: 500; }
+.stablr-admin-editor-dialog p { color: var(--stablr-admin-muted); font-size: 14px; }
+.stablr-admin-editor-diff { display: grid; gap: 8px; margin: 18px 0; }
+.stablr-admin-editor-diff > div { display: grid; grid-template-columns: minmax(100px, 0.6fr) repeat(2, minmax(0, 1fr)); gap: 14px; padding: 10px 12px; border-radius: 8px; background: #103528; font-size: 13px; overflow-wrap: anywhere; }
+.stablr-admin-editor-diff strong { font-weight: 500; }
+
 .stablr-admin-status {
   width: max-content;
   max-width: 100%;
@@ -877,6 +903,7 @@ button.stablr-admin-club-row:hover {
   .stablr-admin-advanced-grid { grid-template-columns: 1fr; }
   .stablr-admin-advanced-data-row { grid-template-columns: 1fr; }
   .stablr-admin-technical-grid { grid-template-columns: 1fr; }
+  .stablr-admin-editor-fields { grid-template-columns: 1fr; }
   .stablr-admin-club-row { grid-template-columns: 1fr; gap: 10px; }
   .stablr-admin-review-row { grid-template-columns: 1fr; gap: 10px; }
   .stablr-admin-user-row { grid-template-columns: auto 1fr; }

@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { hasSupabaseConfig, supabase } from "../lib/supabase";
+import ClubEditor from "./ClubEditor";
+import { createClubEditorService } from "./club-editor-data";
 import "./AdminApp.css";
+
+const clubEditorService = createClubEditorService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -715,7 +719,18 @@ function ClubBreadcrumb({ club, onBack, course, onBackToClub }) {
   );
 }
 
-function ClubSummary({ club, onBack, onOpenCourse }) {
+function ClubSummary({ club, onBack, onOpenCourse, onEdit }) {
+  const [draftStatus, setDraftStatus] = useState({ loading: true, draft: null, error: false });
+  useEffect(() => {
+    let active = true;
+    clubEditorService.getDraft(club.id).then((draft) => {
+      if (active) setDraftStatus({ loading: false, draft, error: false });
+    }).catch((error) => {
+      console.error("Admin Club draft status unavailable", error);
+      if (active) setDraftStatus({ loading: false, draft: null, error: true });
+    });
+    return () => { active = false; };
+  }, [club.id]);
   const sources = [club.sourceType, club.hasFigLink ? "FIG" : null, club.figMatchStatus ? formatFigMatchStatus(club.figMatchStatus) : null].filter(Boolean);
   const alerts = [];
   if (!club.playable) alerts.push("Il club non è giocabile: non risultano configurazioni pubblicate.");
@@ -729,6 +744,10 @@ function ClubSummary({ club, onBack, onOpenCourse }) {
         <div><h1>{club.name}</h1>{club.city !== "—" && <p>{club.city}</p>}</div>
         <span className={`stablr-admin-status stablr-admin-status--${club.filter.toLocaleLowerCase("it").replaceAll(" ", "-")}`}>{club.status}</span>
       </header>
+      <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry">
+        <button className="stablr-admin-white-button" onClick={onEdit} type="button">Modifica dati</button>
+        {draftStatus.loading ? <span className="stablr-admin-detail-empty">Verifica bozza…</span> : draftStatus.draft ? <span className="stablr-admin-status">Bozza in corso</span> : draftStatus.error ? <span className="stablr-admin-detail-empty">Stato bozza non disponibile</span> : null}
+      </div>
       <div className="stablr-admin-detail-grid">
         <article><span>Codice FIG</span><strong>{club.figCode || "—"}</strong></article>
         <article><span>Fonti e matching</span><strong>{sources.join(" · ") || "—"}</strong></article>
@@ -855,6 +874,17 @@ export function AdminShell({ onSignOut }) {
   const [directoryRetryKey, setDirectoryRetryKey] = useState(0);
   const [usersSectionKey, setUsersSectionKey] = useState(0);
   const [advancedSectionKey, setAdvancedSectionKey] = useState(0);
+  const [editingClub, setEditingClub] = useState(false);
+  const clubExitGuard = useRef(null);
+  const registerClubExitGuard = useCallback((guard) => { clubExitGuard.current = guard; }, []);
+  const navigate = (action) => clubExitGuard.current ? clubExitGuard.current(action) : action();
+  const acceptClubPublication = (live) => {
+    const apply = (club) => ({ ...club, name: live.name, city: live.city || "—", updatedAt: live.updated_at,
+      activity: `Aggiornato ${formatActivity(live.updated_at)}` });
+    setAdminData((current) => ({ ...current, clubs: current.clubs.map((club) => club.id === live.id ? apply(club) : club) }));
+    setSelectedClub((club) => apply(club));
+    setEditingClub(false);
+  };
 
   useEffect(() => {
     if (!supabase) {
@@ -1032,7 +1062,13 @@ export function AdminShell({ onSignOut }) {
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
-      selectedCourse && selectedClub ? <CourseDetail
+      editingClub && selectedClub ? <ClubEditor
+        club={selectedClub}
+        onBack={() => navigate(() => setEditingClub(false))}
+        onPublished={acceptClubPublication}
+        registerExitGuard={registerClubExitGuard}
+        service={clubEditorService}
+      /> : selectedCourse && selectedClub ? <CourseDetail
         club={selectedClub}
         course={selectedCourse}
         onBack={() => setSelectedCourse(null)}
@@ -1040,6 +1076,7 @@ export function AdminShell({ onSignOut }) {
       /> : selectedClub ? <ClubSummary
         club={selectedClub}
         onBack={() => setSelectedClub(null)}
+        onEdit={() => setEditingClub(true)}
         onOpenCourse={setSelectedCourse}
       /> : <ClubsAndCourses
         catalogAvailable={adminData.catalogAvailable}
@@ -1083,7 +1120,8 @@ export function AdminShell({ onSignOut }) {
             <button
               className={item === section ? "is-active" : ""}
               key={item}
-              onClick={() => {
+              onClick={() => navigate(() => {
+                setEditingClub(false);
                 if (item === "Club e percorsi") {
                   setCatalogQuery("");
                   setSelectedClub(null);
@@ -1096,14 +1134,14 @@ export function AdminShell({ onSignOut }) {
                 if (item === "Utenti e giri") setUsersSectionKey((current) => current + 1);
                 if (item === "Avanzata") setAdvancedSectionKey((current) => current + 1);
                 setSection(item);
-              }}
+              })}
               type="button"
             >
               {item}
             </button>
           ))}
         </nav>
-        <button className="stablr-admin-signout" onClick={onSignOut} type="button">
+        <button className="stablr-admin-signout" onClick={() => navigate(onSignOut)} type="button">
           Esci
         </button>
       </aside>
