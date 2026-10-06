@@ -672,7 +672,8 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-club-edit-entry { margin-bottom: 16px; }
 .stablr-admin-editor-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 22px; }
 .stablr-admin-editor-fields label { display: grid; gap: 7px; color: var(--stablr-admin-muted); font-size: 13px; }
-.stablr-admin-editor-fields input {
+.stablr-admin-editor-fields input,
+.stablr-admin-editor-fields select {
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #32624f;
@@ -804,6 +805,9 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-course-row > span:first-child { display: grid; gap: 4px; }
 .stablr-admin-course-row strong { font-size: 14px; font-weight: 500; }
 .stablr-admin-course-row small, .stablr-admin-detail-empty { color: var(--stablr-admin-muted); font-size: 13px; }
+.stablr-admin-course-row--editable { display: grid; grid-template-columns: minmax(200px, 1fr) 110px 160px 130px; box-sizing: border-box; cursor: default; }
+.stablr-admin-course-open { display: grid; gap: 4px; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
+.stablr-admin-course-draft-status { min-width: 0; }
 .stablr-admin-detail-empty { margin: 0; }
 .stablr-admin-detail-list { display: grid; gap: 7px; margin: 0; padding-left: 18px; color: var(--stablr-admin-muted); font-size: 13px; }
 .stablr-admin-data-sequence { width: min(100%, 1040px); margin: 16px 0; color: #9ed1fa; font-size: 13px; }
@@ -904,6 +908,7 @@ button.stablr-admin-club-row:hover {
   .stablr-admin-advanced-data-row { grid-template-columns: 1fr; }
   .stablr-admin-technical-grid { grid-template-columns: 1fr; }
   .stablr-admin-editor-fields { grid-template-columns: 1fr; }
+  .stablr-admin-course-row--editable { grid-template-columns: minmax(0, 1fr) auto; }
   .stablr-admin-club-row { grid-template-columns: 1fr; gap: 10px; }
   .stablr-admin-review-row { grid-template-columns: 1fr; gap: 10px; }
   .stablr-admin-user-row { grid-template-columns: auto 1fr; }

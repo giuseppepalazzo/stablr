@@ -8,7 +8,8 @@ const draft = { draft_id: "draft-1", revision: 1, snapshot: { name: club.name, c
 const makeService = () => ({
   openDraft: jest.fn().mockResolvedValue(draft),
   saveDraft: jest.fn().mockImplementation((current, fields) => Promise.resolve({ ...current, revision: current.revision + 1, snapshot: { name: fields.name.trim(), city: fields.city?.trim() || null } })),
-  publishDraft: jest.fn().mockResolvedValue({ club: { id: club.id, name: "Nome aggiornato", city: null } })
+  publishDraft: jest.fn().mockResolvedValue({ club: { id: club.id, name: "Nome aggiornato", city: null } }),
+  abandonDraft: jest.fn().mockResolvedValue({ ...draft, workflow_status: "archived", revision: 2 })
 });
 
 function Harness({ service, onExit = jest.fn(), onPublished = jest.fn() }) {
@@ -86,6 +87,21 @@ test("discard exits without saving or removing the persisted draft", async () =>
   expect(service.saveDraft).not.toHaveBeenCalled();
 });
 
+test("abandons a saved Club draft only after confirmation and returns to summary", async () => {
+  const service = makeService();
+  const onExit = jest.fn();
+  render(<Harness onExit={onExit} service={service} />);
+  await screen.findByLabelText("Nome visualizzato");
+  fireEvent.click(screen.getByRole("button", { name: "Abbandona bozza" }));
+  const dialog = await screen.findByRole("dialog", { name: "Abbandona bozza" });
+  expect(within(dialog).getByText("Abbandonare la bozza? Le modifiche non pubblicate non saranno più riprese. Il catalogo pubblicato non cambia.")).toBeInTheDocument();
+  expect(service.abandonDraft).not.toHaveBeenCalled();
+  fireEvent.click(within(dialog).getByRole("button", { name: "Conferma abbandono" }));
+  await waitFor(() => expect(service.abandonDraft).toHaveBeenCalledWith(draft));
+  expect(onExit).toHaveBeenCalledTimes(1);
+  expect(service.publishDraft).not.toHaveBeenCalled();
+});
+
 test("a publication conflict remains visible and does not report a live update", async () => {
   const service = makeService();
   const onPublished = jest.fn();
@@ -107,4 +123,6 @@ test("editor adapter sends only name/city and the revision seen at confirmation"
   const service = createClubEditorService(client);
   await service.saveDraft(draft, { name: " Nuovo ", city: " ", fig_club_id: "forbidden" });
   expect(client.rpc).toHaveBeenCalledWith("admin_club_save_draft", { p_draft_id: draft.draft_id, p_snapshot: { name: "Nuovo", city: null }, p_expected_revision: 1 });
+  await service.abandonDraft(draft);
+  expect(client.rpc).toHaveBeenLastCalledWith("admin_catalog_archive_draft", { p_draft_id: draft.draft_id, p_entity_type: "club", p_expected_revision: 1 });
 });

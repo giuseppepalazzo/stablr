@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getClubDiff, getClubEditorError, normalizeClubFields } from "./club-editor-data";
 
-function EditorDialog({ title, children }) {
+export function EditorDialog({ title, children }) {
   const dialog = useRef(null);
   useEffect(() => {
     const previousFocus = document.activeElement;
@@ -32,6 +32,7 @@ export default function ClubEditor({ club, service, onBack, onPublished, registe
   const [message, setMessage] = useState("");
   const [pendingExit, setPendingExit] = useState(null);
   const [confirmation, setConfirmation] = useState(null);
+  const [abandonConfirmation, setAbandonConfirmation] = useState(false);
   const inFlight = useRef(false);
   const dirty = draft && JSON.stringify(normalizeClubFields(fields)) !== JSON.stringify(normalizeClubFields(draft.snapshot));
 
@@ -84,6 +85,13 @@ export default function ClubEditor({ club, service, onBack, onPublished, registe
     setConfirmation(null);
     onPublished(result.club);
   });
+  const abandonDraft = () => operation(async () => {
+    await service.abandonDraft(draft);
+    setAbandonConfirmation(false);
+    setDraft(null);
+    registerExitGuard(null);
+    onBack();
+  });
   const valid = fields.name.trim().length > 0 && fields.name.trim().length <= 200 && fields.city.trim().length <= 200;
   const changes = draft ? getClubDiff(draft.base_snapshot, fields) : [];
 
@@ -95,7 +103,7 @@ export default function ClubEditor({ club, service, onBack, onPublished, registe
         <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault(); operation(save); }}>
           <label>Nome visualizzato<input disabled={busy} maxLength={200} onChange={(event) => { setFields((current) => ({ ...current, name: event.target.value })); setMessage(""); }} required value={fields.name} /></label>
           <label>Località / città<input disabled={busy} maxLength={200} onChange={(event) => { setFields((current) => ({ ...current, city: event.target.value })); setMessage(""); }} value={fields.city} /></label>
-          <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button></div>
+          <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button><button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
         </form>
         <div className="stablr-admin-detail-grid">
           <article><span>Codice FIG · sola lettura</span><strong>{club.figCode || "—"}</strong></article>
@@ -107,7 +115,7 @@ export default function ClubEditor({ club, service, onBack, onPublished, registe
       </>}
     </>}
     {message && <p role="status">{message}</p>}
-    {error && !confirmation && !pendingExit && <p className="stablr-admin-editor-error" role="alert">{error}</p>}
+    {error && !confirmation && !pendingExit && !abandonConfirmation && <p className="stablr-admin-editor-error" role="alert">{error}</p>}
     {!loading && !draft && <button className="stablr-admin-white-button" onClick={onBack} type="button">Torna al club</button>}
     {pendingExit && <EditorDialog title="Modifiche non salvate">
       <p>Salva le modifiche nella bozza oppure scarta solo le modifiche non salvate. La bozza già salvata rimane disponibile.</p>
@@ -126,6 +134,11 @@ export default function ClubEditor({ club, service, onBack, onPublished, registe
       </div>
       {error && <p role="alert">{error}</p>}
       <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !confirmation.changes.length} onClick={confirmPublication} type="button">Conferma pubblicazione</button><button disabled={busy} onClick={() => setConfirmation(null)} type="button">Annulla</button></div>
+    </EditorDialog>}
+    {abandonConfirmation && <EditorDialog title="Abbandona bozza">
+      <p>Abbandonare la bozza? Le modifiche non pubblicate non saranno più riprese. Il catalogo pubblicato non cambia.</p>
+      {error && <p role="alert">{error}</p>}
+      <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy} onClick={abandonDraft} type="button">Conferma abbandono</button><button disabled={busy} onClick={() => { setAbandonConfirmation(false); setError(""); }} type="button">Annulla</button></div>
     </EditorDialog>}
   </section>;
 }

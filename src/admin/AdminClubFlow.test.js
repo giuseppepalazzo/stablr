@@ -39,6 +39,11 @@ test("sidebar exit saves the Club draft, resuming and publishing refreshes the s
       saved = null;
       return { data: result, error: null };
     }
+    if (name === "admin_catalog_archive_draft") {
+      const result = { ...saved, workflow_status: "archived", revision: saved.revision + 1 };
+      saved = null;
+      return { data: result, error: null };
+    }
     throw new Error(`Unexpected test RPC ${name}`);
   });
   render(<AdminShell onSignOut={jest.fn()} />);
@@ -65,5 +70,13 @@ test("sidebar exit saves the Club draft, resuming and publishing refreshes the s
   fireEvent.click(within(publishDialog).getByRole("button", { name: "Conferma pubblicazione" }));
   await screen.findByRole("heading", { name: "Club fixture" });
   expect(screen.getByText("Roma", { selector: "p" })).toBeInTheDocument();
+  await waitFor(() => expect(screen.queryByText("Bozza in corso")).not.toBeInTheDocument());
+
+  fireEvent.click(screen.getByRole("button", { name: "Modifica dati" }));
+  await screen.findByLabelText("Nome visualizzato");
+  fireEvent.click(screen.getByRole("button", { name: "Abbandona bozza" }));
+  const abandonDialog = await screen.findByRole("dialog", { name: "Abbandona bozza" });
+  fireEvent.click(within(abandonDialog).getByRole("button", { name: "Conferma abbandono" }));
+  await screen.findByRole("heading", { name: "Club fixture" });
   await waitFor(() => expect(screen.queryByText("Bozza in corso")).not.toBeInTheDocument());
 });

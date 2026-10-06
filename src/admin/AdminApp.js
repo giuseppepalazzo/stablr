@@ -2,9 +2,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { hasSupabaseConfig, supabase } from "../lib/supabase";
 import ClubEditor from "./ClubEditor";
 import { createClubEditorService } from "./club-editor-data";
+import CourseEditor from "./CourseEditor";
+import { applyCoursePublication, createCourseEditorService } from "./course-editor-data";
 import "./AdminApp.css";
 
 const clubEditorService = createClubEditorService(supabase);
+const courseEditorService = createCourseEditorService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -719,7 +722,24 @@ function ClubBreadcrumb({ club, onBack, course, onBackToClub }) {
   );
 }
 
-function ClubSummary({ club, onBack, onOpenCourse, onEdit }) {
+function CourseDraftIndicator({ courseId }) {
+  const [status, setStatus] = useState({ loading: true });
+  useEffect(() => {
+    let active = true;
+    courseEditorService.getDraft(courseId).then((draft) => {
+      if (active) setStatus({ draft });
+    }).catch((error) => {
+      console.error("Admin Percorso draft status unavailable", error);
+      if (active) setStatus({ error: true });
+    });
+    return () => { active = false; };
+  }, [courseId]);
+  return status.loading ? <span className="stablr-admin-detail-empty">Verifica bozza…</span>
+    : status.draft ? <span className="stablr-admin-status">Bozza in corso</span>
+      : status.error ? <span className="stablr-admin-detail-empty">Stato bozza non disponibile</span> : null;
+}
+
+function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit }) {
   const [draftStatus, setDraftStatus] = useState({ loading: true, draft: null, error: false });
   useEffect(() => {
     let active = true;
@@ -755,12 +775,14 @@ function ClubSummary({ club, onBack, onOpenCourse, onEdit }) {
       </div>
       <section className="stablr-admin-detail-section">
         <h2>Percorsi</h2>
-        {club.routes.length ? club.routes.map((course) => (
-          <button className="stablr-admin-course-row" key={course.id} onClick={() => onOpenCourse(course)} type="button">
-            <span><strong>{course.name}</strong><small>{course.holesCount ? `${course.holesCount} buche` : "—"} · {course.completeness}</small></span>
+        {(club.allCourses || club.routes).length ? (club.allCourses || club.routes).map((course) => (
+          <div className="stablr-admin-course-row stablr-admin-course-row--editable" key={course.id}>
+            <button className="stablr-admin-course-open" onClick={() => onOpenCourse(course)} type="button"><strong>{course.name}</strong><small>{course.holesCount ? `${course.holesCount} buche` : "—"} · {course.completeness}</small></button>
             <span className="stablr-admin-status">{course.status}</span>
-          </button>
-        )) : <p className="stablr-admin-detail-empty">Nessun percorso pubblicato disponibile.</p>}
+            <div className="stablr-admin-course-draft-status"><CourseDraftIndicator courseId={course.id} /></div>
+            <button aria-label={`Modifica percorso ${course.name}`} className="stablr-admin-white-button" onClick={() => onEditCourse(course)} type="button">Modifica dati</button>
+          </div>
+        )) : <p className="stablr-admin-detail-empty">Nessun percorso disponibile.</p>}
       </section>
       <section className="stablr-admin-detail-section">
         <h2>Alert</h2>
@@ -775,7 +797,7 @@ function ClubSummary({ club, onBack, onOpenCourse, onEdit }) {
   );
 }
 
-function CourseDetail({ club, course, onBack, onBackToCatalog }) {
+function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit }) {
   const routeCombinations = club.combinations.filter((combination) =>
     combination.frontRouteId === course.id || combination.backRouteId === course.id
   );
@@ -783,6 +805,10 @@ function CourseDetail({ club, course, onBack, onBackToCatalog }) {
     <section className="stablr-admin-detail">
       <ClubBreadcrumb club={club} course={course} onBack={onBackToCatalog} onBackToClub={onBack} />
       <header className="stablr-admin-page-header"><div><h1>{course.name}</h1><p>{club.name}</p></div><span className="stablr-admin-status">{course.status}</span></header>
+      <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry">
+        <button className="stablr-admin-white-button" onClick={onEdit} type="button">Modifica dati</button>
+        <CourseDraftIndicator courseId={course.id} />
+      </div>
       <div className="stablr-admin-detail-grid">
         <article><span>Struttura</span><strong>{course.holesCount ? `${course.holesCount} buche` : "—"}</strong></article>
         <article><span>Route disponibili</span><strong>{course.isActive ? "Disponibile" : "—"}</strong></article>
@@ -875,6 +901,7 @@ export function AdminShell({ onSignOut }) {
   const [usersSectionKey, setUsersSectionKey] = useState(0);
   const [advancedSectionKey, setAdvancedSectionKey] = useState(0);
   const [editingClub, setEditingClub] = useState(false);
+  const [editingCourse, setEditingCourse] = useState(false);
   const clubExitGuard = useRef(null);
   const registerClubExitGuard = useCallback((guard) => { clubExitGuard.current = guard; }, []);
   const navigate = (action) => clubExitGuard.current ? clubExitGuard.current(action) : action();
@@ -884,6 +911,14 @@ export function AdminShell({ onSignOut }) {
     setAdminData((current) => ({ ...current, clubs: current.clubs.map((club) => club.id === live.id ? apply(club) : club) }));
     setSelectedClub((club) => apply(club));
     setEditingClub(false);
+  };
+  const acceptCoursePublication = (live) => {
+    const apply = (club) => applyCoursePublication(club, live);
+    setAdminData((current) => ({ ...current, clubs: current.clubs.map((club) => club.id === live.club_id ? apply(club) : club) }));
+    const refreshedClub = apply(selectedClub);
+    setSelectedClub(refreshedClub);
+    setSelectedCourse(refreshedClub.allCourses.find((course) => course.id === live.id));
+    setEditingCourse(false);
   };
 
   useEffect(() => {
@@ -899,7 +934,7 @@ export function AdminShell({ onSignOut }) {
         const [{ data: clubs, error: clubsError }, requestsResult, reportsResult, scorecardsResult, usersResult, roundsResult] = await Promise.all([
           supabase
             .from("clubs")
-            .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,is_active,combination_tees(id,is_active))")
+            .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,display_order,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,is_active,combination_tees(id,is_active))")
             .eq("is_active", true)
             .order("name", { ascending: true }),
           supabase
@@ -931,7 +966,7 @@ export function AdminShell({ onSignOut }) {
         }
 
         const normalizedClubs = (clubs || []).map((club) => {
-          const routes = (club.course_routes || []).filter((route) => route.is_active !== false).map((route) => {
+          const allCourses = (club.course_routes || []).map((route) => {
             const holes = route.route_holes || [];
             const hasParAndSi = holes.length > 0 && holes.every((hole) => hole.par != null && hole.stroke_index != null);
             const hasTeeData = (route.route_tees || []).some((tee) => tee.is_active !== false);
@@ -939,11 +974,13 @@ export function AdminShell({ onSignOut }) {
               id: route.id,
               name: route.name || "—",
               holesCount: route.holes_count,
+              displayOrder: route.display_order,
               isActive: route.is_active !== false,
               completeness: hasParAndSi && hasTeeData ? "Completo" : hasParAndSi ? "Par/SI disponibili" : "Dati parziali",
-              status: route.is_active !== false ? "Attivo" : "—"
+              status: route.is_active !== false ? "Attivo" : "Disattivato"
             };
-          });
+          }).sort((left, right) => (left.displayOrder ?? 2147483648) - (right.displayOrder ?? 2147483648) || left.name.localeCompare(right.name, "it"));
+          const routes = allCourses.filter((course) => course.isActive);
           const combinations = (club.route_combinations || []).filter(
             (combination) => combination.is_active !== false
           ).map((combination) => ({
@@ -978,6 +1015,7 @@ export function AdminShell({ onSignOut }) {
             createdAt: club.created_at,
             updatedAt: club.updated_at,
             routes,
+            allCourses,
             combinations,
             courseNames: [...routes.map((route) => route.name), ...combinations.map((combination) => combination.name)]
           };
@@ -1062,7 +1100,17 @@ export function AdminShell({ onSignOut }) {
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
-      editingClub && selectedClub ? <ClubEditor
+      editingCourse && selectedCourse && selectedClub ? <CourseEditor
+        club={selectedClub}
+        course={selectedCourse}
+        key={selectedCourse.id}
+        onBack={() => navigate(() => setEditingCourse(false))}
+        onBackToClub={() => navigate(() => { setEditingCourse(false); setSelectedCourse(null); })}
+        onBackToCatalog={() => navigate(() => { setEditingCourse(false); setSelectedCourse(null); setSelectedClub(null); })}
+        onPublished={acceptCoursePublication}
+        registerExitGuard={registerClubExitGuard}
+        service={courseEditorService}
+      /> : editingClub && selectedClub ? <ClubEditor
         club={selectedClub}
         onBack={() => navigate(() => setEditingClub(false))}
         onPublished={acceptClubPublication}
@@ -1071,12 +1119,14 @@ export function AdminShell({ onSignOut }) {
       /> : selectedCourse && selectedClub ? <CourseDetail
         club={selectedClub}
         course={selectedCourse}
+        onEdit={() => setEditingCourse(true)}
         onBack={() => setSelectedCourse(null)}
         onBackToCatalog={() => { setSelectedCourse(null); setSelectedClub(null); }}
       /> : selectedClub ? <ClubSummary
         club={selectedClub}
         onBack={() => setSelectedClub(null)}
         onEdit={() => setEditingClub(true)}
+        onEditCourse={(course) => { setSelectedCourse(course); setEditingCourse(true); }}
         onOpenCourse={setSelectedCourse}
       /> : <ClubsAndCourses
         catalogAvailable={adminData.catalogAvailable}
@@ -1122,6 +1172,7 @@ export function AdminShell({ onSignOut }) {
               key={item}
               onClick={() => navigate(() => {
                 setEditingClub(false);
+                setEditingCourse(false);
                 if (item === "Club e percorsi") {
                   setCatalogQuery("");
                   setSelectedClub(null);

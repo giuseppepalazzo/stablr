@@ -34,6 +34,9 @@ export function createClubEditorService(client) {
     }),
     publishDraft: (draft) => invoke("admin_club_publish_draft", {
       p_draft_id: draft.draft_id, p_expected_revision: draft.revision
+    }),
+    abandonDraft: (draft) => invoke("admin_catalog_archive_draft", {
+      p_draft_id: draft.draft_id, p_entity_type: "club", p_expected_revision: draft.revision
     })
   };
 }
