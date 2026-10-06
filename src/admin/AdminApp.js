@@ -4,10 +4,13 @@ import ClubEditor from "./ClubEditor";
 import { createClubEditorService } from "./club-editor-data";
 import CourseEditor from "./CourseEditor";
 import { applyCoursePublication, createCourseEditorService } from "./course-editor-data";
+import RouteEditor, { RouteDetail } from "./RouteEditor";
+import { applyRoutePublication, createRouteEditorService } from "./route-editor-data";
 import "./AdminApp.css";
 
 const clubEditorService = createClubEditorService(supabase);
 const courseEditorService = createCourseEditorService(supabase);
+const routeEditorService = createRouteEditorService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -59,6 +62,12 @@ export function getClubFilter(club) {
   if (club?.playable !== false && needsReview) return "In revisione";
   if (isTrue(payload.fig_change_pending) || isTrue(payload.fig_update_pending)) return "Modifiche FIG";
   return "Pubblicati";
+}
+
+export function getClubCoursesLabel(courseCount, combinationCount) {
+  const courses = `${courseCount} ${courseCount === 1 ? "percorso" : "percorsi"}`;
+  if (combinationCount === 0) return courses;
+  return `${courses} · ${combinationCount} ${combinationCount === 1 ? "combinazione" : "combinazioni"}`;
 }
 
 function getClubStatusLabel(filter) {
@@ -739,7 +748,33 @@ function CourseDraftIndicator({ courseId }) {
       : status.error ? <span className="stablr-admin-detail-empty">Stato bozza non disponibile</span> : null;
 }
 
-function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit }) {
+function RouteDraftIndicator({ routeId }) {
+  const [status, setStatus] = useState({ loading: true });
+  useEffect(() => {
+    let active = true;
+    routeEditorService.getDraft(routeId).then((draft) => {
+      if (active) setStatus({ draft });
+    }).catch((error) => {
+      console.error("Admin Route draft status unavailable", error);
+      if (active) setStatus({ error: true });
+    });
+    return () => { active = false; };
+  }, [routeId]);
+  return status.loading ? <span className="stablr-admin-detail-empty">Verifica bozza…</span>
+    : status.draft ? <span className="stablr-admin-status">Bozza in corso</span>
+      : status.error ? <span className="stablr-admin-detail-empty">Stato bozza non disponibile</span> : null;
+}
+
+function RouteList({ routes, onOpenRoute, onEditRoute }) {
+  return routes.length ? routes.map((route) => <div className="stablr-admin-course-row stablr-admin-course-row--editable" key={route.id}>
+    <button className="stablr-admin-course-open" onClick={() => onOpenRoute(route)} type="button"><strong>{route.name}</strong><small>{route.holesCount == null ? "—" : `${route.holesCount} buche`}</small></button>
+    <span className="stablr-admin-status">{route.isActive === false ? "Disattivata" : "Attiva"}</span>
+    <div className="stablr-admin-course-draft-status"><RouteDraftIndicator routeId={route.id} /></div>
+    <button aria-label={`Modifica Route ${route.name}`} className="stablr-admin-white-button" onClick={() => onEditRoute(route)} type="button">Modifica dati</button>
+  </div>) : <p className="stablr-admin-detail-empty">Nessuna Route/combinazione disponibile.</p>;
+}
+
+function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit, onOpenRoute, onEditRoute }) {
   const [draftStatus, setDraftStatus] = useState({ loading: true, draft: null, error: false });
   useEffect(() => {
     let active = true;
@@ -784,6 +819,9 @@ function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit }) {
           </div>
         )) : <p className="stablr-admin-detail-empty">Nessun percorso disponibile.</p>}
       </section>
+      <section className="stablr-admin-detail-section"><h2>Route/combinazioni</h2>
+        <RouteList routes={club.allCombinations || club.combinations} onOpenRoute={onOpenRoute} onEditRoute={onEditRoute} />
+      </section>
       <section className="stablr-admin-detail-section">
         <h2>Alert</h2>
         {alerts.length ? <ul className="stablr-admin-detail-list">{alerts.map((alert) => <li key={alert}>{alert}</li>)}</ul> : <p className="stablr-admin-detail-empty">Nessun alert disponibile.</p>}
@@ -797,8 +835,11 @@ function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit }) {
   );
 }
 
-function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit }) {
+function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRoute, onEditRoute }) {
   const routeCombinations = club.combinations.filter((combination) =>
+    combination.frontRouteId === course.id || combination.backRouteId === course.id
+  );
+  const allRouteCombinations = (club.allCombinations || club.combinations).filter((combination) =>
     combination.frontRouteId === course.id || combination.backRouteId === course.id
   );
   return (
@@ -815,7 +856,7 @@ function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit }) {
         <article><span>Combinazioni disponibili</span><strong>{routeCombinations.length || "—"}</strong></article>
       </div>
       <section className="stablr-admin-detail-section"><h2>Combinazioni</h2>
-        {routeCombinations.length ? <ul className="stablr-admin-detail-list">{routeCombinations.map((item) => <li key={item.id}>{item.name}</li>)}</ul> : <p className="stablr-admin-detail-empty">—</p>}
+        <RouteList routes={allRouteCombinations} onOpenRoute={onOpenRoute} onEditRoute={onEditRoute} />
       </section>
       <p className="stablr-admin-data-sequence">Club → Percorsi → Route/combinazioni → Buche → Par/SI → Tee/distanze → CR/Slope</p>
     </section>
@@ -902,6 +943,8 @@ export function AdminShell({ onSignOut }) {
   const [advancedSectionKey, setAdvancedSectionKey] = useState(0);
   const [editingClub, setEditingClub] = useState(false);
   const [editingCourse, setEditingCourse] = useState(false);
+  const [selectedRoute, setSelectedRoute] = useState(null);
+  const [editingRoute, setEditingRoute] = useState(false);
   const clubExitGuard = useRef(null);
   const registerClubExitGuard = useCallback((guard) => { clubExitGuard.current = guard; }, []);
   const navigate = (action) => clubExitGuard.current ? clubExitGuard.current(action) : action();
@@ -920,6 +963,17 @@ export function AdminShell({ onSignOut }) {
     setSelectedCourse(refreshedClub.allCourses.find((course) => course.id === live.id));
     setEditingCourse(false);
   };
+  const acceptRoutePublication = (live) => {
+    const apply = (club) => applyRoutePublication(club, live);
+    setAdminData((current) => ({ ...current, clubs: current.clubs.map((club) => club.id === live.club_id ? apply(club) : club) }));
+    const refreshedClub = apply(selectedClub);
+    setSelectedClub(refreshedClub);
+    setSelectedRoute(refreshedClub.allCombinations.find((route) => route.id === live.id));
+    setEditingRoute(false);
+  };
+  const backToRouteClub = () => navigate(() => { setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); });
+  const backToRouteCourse = () => navigate(() => { setEditingRoute(false); setSelectedRoute(null); });
+  const backToRouteCatalog = () => navigate(() => { setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); setSelectedClub(null); });
 
   useEffect(() => {
     if (!supabase) {
@@ -934,7 +988,7 @@ export function AdminShell({ onSignOut }) {
         const [{ data: clubs, error: clubsError }, requestsResult, reportsResult, scorecardsResult, usersResult, roundsResult] = await Promise.all([
           supabase
             .from("clubs")
-            .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,display_order,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,is_active,combination_tees(id,is_active))")
+            .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,display_order,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,holes_count,is_active,combination_tees(id,is_active))")
             .eq("is_active", true)
             .order("name", { ascending: true }),
           supabase
@@ -981,18 +1035,19 @@ export function AdminShell({ onSignOut }) {
             };
           }).sort((left, right) => (left.displayOrder ?? 2147483648) - (right.displayOrder ?? 2147483648) || left.name.localeCompare(right.name, "it"));
           const routes = allCourses.filter((course) => course.isActive);
-          const combinations = (club.route_combinations || []).filter(
-            (combination) => combination.is_active !== false
-          ).map((combination) => ({
+          const allCombinations = (club.route_combinations || []).map((combination) => ({
             id: combination.id,
             name: combination.name || "—",
+            holesCount: combination.holes_count,
+            isActive: combination.is_active !== false,
             frontRouteId: combination.front_route_id,
             backRouteId: combination.back_route_id
           }));
+          const combinations = allCombinations.filter((combination) => combination.isActive);
           const routeCount = routes.length;
           const combinationCount = combinations.length;
           const filter = getClubFilter(club);
-          const courseLabel = `${routeCount} ${routeCount === 1 ? "percorso" : "percorsi"} · ${routeCount + combinationCount} route`;
+          const courseLabel = getClubCoursesLabel(routeCount, combinationCount);
 
           return {
             id: club.id,
@@ -1017,6 +1072,7 @@ export function AdminShell({ onSignOut }) {
             routes,
             allCourses,
             combinations,
+            allCombinations,
             courseNames: [...routes.map((route) => route.name), ...combinations.map((combination) => combination.name)]
           };
         });
@@ -1100,7 +1156,29 @@ export function AdminShell({ onSignOut }) {
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
-      editingCourse && selectedCourse && selectedClub ? <CourseEditor
+      selectedRoute && selectedClub ? (editingRoute ? <RouteEditor
+        club={selectedClub}
+        course={selectedCourse}
+        route={selectedRoute}
+        key={selectedRoute.id}
+        onBack={() => navigate(() => setEditingRoute(false))}
+        onBackToClub={backToRouteClub}
+        onBackToCourse={backToRouteCourse}
+        onBackToCatalog={backToRouteCatalog}
+        onPublished={acceptRoutePublication}
+        registerExitGuard={registerClubExitGuard}
+        service={routeEditorService}
+      /> : <RouteDetail
+        club={selectedClub}
+        course={selectedCourse}
+        route={selectedRoute}
+        key={selectedRoute.id}
+        onEdit={() => setEditingRoute(true)}
+        onBackToClub={backToRouteClub}
+        onBackToCourse={backToRouteCourse}
+        onBackToCatalog={backToRouteCatalog}
+        service={routeEditorService}
+      />) : editingCourse && selectedCourse && selectedClub ? <CourseEditor
         club={selectedClub}
         course={selectedCourse}
         key={selectedCourse.id}
@@ -1120,6 +1198,8 @@ export function AdminShell({ onSignOut }) {
         club={selectedClub}
         course={selectedCourse}
         onEdit={() => setEditingCourse(true)}
+        onOpenRoute={setSelectedRoute}
+        onEditRoute={(route) => { setSelectedRoute(route); setEditingRoute(true); }}
         onBack={() => setSelectedCourse(null)}
         onBackToCatalog={() => { setSelectedCourse(null); setSelectedClub(null); }}
       /> : selectedClub ? <ClubSummary
@@ -1128,6 +1208,8 @@ export function AdminShell({ onSignOut }) {
         onEdit={() => setEditingClub(true)}
         onEditCourse={(course) => { setSelectedCourse(course); setEditingCourse(true); }}
         onOpenCourse={setSelectedCourse}
+        onOpenRoute={setSelectedRoute}
+        onEditRoute={(route) => { setSelectedRoute(route); setEditingRoute(true); }}
       /> : <ClubsAndCourses
         catalogAvailable={adminData.catalogAvailable}
         clubs={adminData.clubs}
@@ -1173,6 +1255,8 @@ export function AdminShell({ onSignOut }) {
               onClick={() => navigate(() => {
                 setEditingClub(false);
                 setEditingCourse(false);
+                setEditingRoute(false);
+                setSelectedRoute(null);
                 if (item === "Club e percorsi") {
                   setCatalogQuery("");
                   setSelectedClub(null);

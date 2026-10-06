@@ -8,6 +8,7 @@ import {
   filterAdminUsers,
   filterReviewItems,
   getClubFilter,
+  getClubCoursesLabel,
   ReviewDetail,
   Reviews,
   sortAdminUsers,
@@ -49,6 +50,12 @@ test("keeps non-playable review clubs out of the review filter and searches rout
   expect(filterCatalogClubs([villaGiusti, playableReview], "laghi", "Tutti")).toEqual([playableReview]);
   expect(filterCatalogClubs([villaGiusti, playableReview], "", "In revisione")).toEqual([playableReview]);
   expect(filterCatalogClubs([villaGiusti, playableReview], "", "Dati incompleti")).toEqual([villaGiusti]);
+});
+
+test("summarizes only active courses and combinations without calling them routes", () => {
+  expect(getClubCoursesLabel(2, 0)).toBe("2 percorsi");
+  expect(getClubCoursesLabel(1, 1)).toBe("1 percorso · 1 combinazione");
+  expect(getClubCoursesLabel(2, 3)).toBe("2 percorsi · 3 combinazioni");
 });
 
 const reviewFixtures = {

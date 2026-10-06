@@ -808,6 +808,12 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-course-row--editable { display: grid; grid-template-columns: minmax(200px, 1fr) 110px 160px 130px; box-sizing: border-box; cursor: default; }
 .stablr-admin-course-open { display: grid; gap: 4px; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
 .stablr-admin-course-draft-status { min-width: 0; }
+.stablr-admin-route-origins { display: grid; gap: 8px; overflow-x: auto; }
+.stablr-admin-route-origins > article { display: grid; grid-template-columns: 110px minmax(160px, 1fr) 100px 110px; gap: 14px; padding: 12px; border-radius: 10px; background: #103528; font-size: 13px; min-width: 550px; box-sizing: border-box; }
+.stablr-admin-route-origins strong { font-weight: 500; }
+.stablr-admin-route-hole-table { display: grid; gap: 6px; overflow-x: auto; }
+.stablr-admin-route-hole-table > div { display: grid; grid-template-columns: 90px minmax(160px, 1fr) 100px 60px 60px; gap: 14px; padding: 9px 12px; border-radius: 8px; background: #103528; font-size: 13px; min-width: 550px; box-sizing: border-box; }
+.stablr-admin-route-hole-table strong { font-weight: 500; }
 .stablr-admin-detail-empty { margin: 0; }
 .stablr-admin-detail-list { display: grid; gap: 7px; margin: 0; padding-left: 18px; color: var(--stablr-admin-muted); font-size: 13px; }
 .stablr-admin-data-sequence { width: min(100%, 1040px); margin: 16px 0; color: #9ed1fa; font-size: 13px; }
