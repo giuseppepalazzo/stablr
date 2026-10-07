@@ -97,13 +97,12 @@ export default function ClubEditor({ club, service, onBack, onPublished, registe
 
   return <section className="stablr-admin-detail stablr-admin-club-editor">
     <nav aria-label="Percorso di navigazione" className="stablr-admin-breadcrumb"><button disabled={busy} onClick={onBack} type="button">{club.name}</button><span>/</span><span>Modifica dati</span></nav>
-    <header className="stablr-admin-page-header"><div><h1>Modifica dati club</h1><p>{club.name}</p></div>{draft && <span className="stablr-admin-status">Bozza in corso</span>}</header>
+    <header className="stablr-admin-page-header stablr-admin-editor-header"><div><h1>Modifica dati club</h1><p>{club.name}</p></div>{draft && <div className="stablr-admin-editor-header-side"><span className="stablr-admin-status">Bozza in corso</span><div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !valid} onClick={() => operation(save)} type="button">Salva bozza</button><button className="stablr-admin-publish-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button></div></div>}</header>
     {loading ? <p className="stablr-admin-detail-empty">Caricamento bozza…</p> : <>
       {draft && <>
         <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault(); operation(save); }}>
           <label>Nome visualizzato<input disabled={busy} maxLength={200} onChange={(event) => { setFields((current) => ({ ...current, name: event.target.value })); setMessage(""); }} required value={fields.name} /></label>
           <label>Località / città<input disabled={busy} maxLength={200} onChange={(event) => { setFields((current) => ({ ...current, city: event.target.value })); setMessage(""); }} value={fields.city} /></label>
-          <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button><button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
         </form>
         <div className="stablr-admin-detail-grid">
           <article><span>Codice FIG · sola lettura</span><strong>{club.figCode || "—"}</strong></article>
@@ -112,6 +111,7 @@ export default function ClubEditor({ club, service, onBack, onPublished, registe
         </div>
         <p className="stablr-admin-detail-empty">Il codice FIG identifica il collegamento alla fonte e resta in sola lettura.</p>
         {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}
+        <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
       </>}
     </>}
     {message && <p role="status">{message}</p>}

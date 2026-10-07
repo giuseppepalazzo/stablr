@@ -67,7 +67,7 @@ export default function HoleGridEditor({ club, course, route, service, onBack, o
       {course && <><button disabled={busy} onClick={onBackToCourse} type="button">{course.name}</button><span>/</span></>}
       <button disabled={busy} onClick={onBack} type="button">{route.name}</button><span>/</span><span>Gestisci buche</span>
     </nav>
-    <header className="stablr-admin-page-header"><div><h1>Gestisci buche</h1><p>{route.name} · {club.name}</p></div>{draft && <span className="stablr-admin-status">Bozza buche in corso</span>}</header>
+    <header className="stablr-admin-page-header stablr-admin-editor-header"><div><h1>Gestisci buche</h1><p>{route.name} · {club.name}</p></div>{draft && <div className="stablr-admin-editor-header-side"><span className="stablr-admin-status">Bozza buche in corso</span><div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !validation.canSave} onClick={() => operation(save)} type="button">Salva bozza</button><button className="stablr-admin-publish-button" disabled={busy || !validation.canPublish || !changes.length} onClick={reviewPublication} type="button">Pubblica</button></div></div>}</header>
     {loading ? <p className="stablr-admin-detail-empty">Caricamento bozza…</p> : draft && <>
       <div className="stablr-admin-detail-grid">
         <article><span>Buche presenti / previste</span><strong>{fields.holes.length} / {context.route.holes_count}</strong></article>
@@ -89,15 +89,11 @@ export default function HoleGridEditor({ club, course, route, service, onBack, o
         </table></div>
         {!fields.holes.length && <p className="stablr-admin-detail-empty">Nessuna buca esistente disponibile. La creazione di buche non è prevista in questo editor.</p>}
         <p className="stablr-admin-detail-empty">Numero/ordine e collegamenti origine sono in sola lettura. È disponibile un unico SI/HCP, senza campi distinti uomini/donne. Fonte, note, Tee e rating non sono modificabili.</p>
-        <div className="stablr-admin-editor-actions">
-          <button className="stablr-admin-white-button" disabled={busy || !validation.canSave} type="submit">Salva bozza</button>
-          <button className="stablr-admin-white-button" disabled={busy || !validation.canPublish || !changes.length} onClick={reviewPublication} type="button">Pubblica</button>
-          <button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button>
-        </div>
       </form>
       {validation.alerts.length > 0 && <div className="stablr-admin-editor-error" role="status">{validation.alerts.map((alert) => <p key={alert}>{alert}</p>)}</div>}
       {context.route.notes && <section className="stablr-admin-detail-section"><h2>Note combinazione · sola lettura</h2><p className="stablr-admin-detail-empty">{context.route.notes}</p></section>}
       {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}
+      <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
     </>}
     {message && <p role="status">{message}</p>}
     {error && !confirmation && !pendingExit && !abandonConfirmation && <p className="stablr-admin-editor-error" role="alert">{error}</p>}

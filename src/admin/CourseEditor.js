@@ -81,15 +81,15 @@ export default function CourseEditor({ club, course, service, onBack, onBackToCl
       <button disabled={busy} onClick={onBackToClub} type="button">{club.name}</button><span>/</span>
       <button disabled={busy} onClick={onBack} type="button">{course.name}</button><span>/</span><span>Modifica dati</span>
     </nav>
-    <header className="stablr-admin-page-header"><div><h1>Modifica dati percorso</h1><p>{course.name} · {club.name}</p></div>{hasDraftChanges && <span className="stablr-admin-status">Bozza in corso</span>}</header>
+    <header className="stablr-admin-page-header stablr-admin-editor-header"><div><h1>Modifica dati percorso</h1><p>{course.name} · {club.name}</p></div>{draft && <div className="stablr-admin-editor-header-side">{hasDraftChanges && <span className="stablr-admin-status">Bozza in corso</span>}<div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !valid} onClick={() => operation(save)} type="button">Salva bozza</button><button className="stablr-admin-publish-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button></div></div>}</header>
     {loading ? <p className="stablr-admin-detail-empty">Caricamento bozza…</p> : draft && <>
       <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault(); operation(save); }}>
         <label>Nome visualizzato<input disabled={busy} maxLength={200} onChange={(event) => update("name", event.target.value)} required value={fields.name} /></label>
         <label>Struttura<select disabled={busy || context.can_edit_structure !== true} onChange={(event) => update("holes_count", Number(event.target.value))} value={fields.holes_count}><option value={9}>9 buche</option><option value={18}>18 buche</option></select></label>
         <label>Ordine<input disabled={busy} max={2147483647} min={-2147483648} onChange={(event) => update("display_order", event.target.value)} step={1} type="number" value={fields.display_order ?? ""} /></label>
         <label>Stato operativo<select disabled={busy} onChange={(event) => update("is_active", event.target.value === "true")} value={String(fields.is_active)}><option value="true">Attivo</option><option value="false">Disattivato</option></select></label>
-        <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button>{course.hasPhysicalHoles && onEditHoles && <button disabled={busy} onClick={onEditHoles} type="button">Modifica buche</button>}<button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
       </form>
+      {course.hasPhysicalHoles && onEditHoles && <div className="stablr-admin-child-editor-action"><button className="stablr-admin-white-button" disabled={busy} onClick={onEditHoles} type="button">Modifica buche</button></div>}
       {context.can_edit_structure !== true && <p className="stablr-admin-detail-empty">Struttura in sola lettura: sono presenti dati di configurazione o dati collegati. Buche, tee, combinazioni e giri restano invariati.</p>}
       <div className="stablr-admin-detail-grid">
         <article><span>Nome FIG / originale · sola lettura</span><strong>{context.original_name || "—"}</strong></article>
@@ -100,6 +100,7 @@ export default function CourseEditor({ club, course, service, onBack, onBackToCl
       </div>
       <p className="stablr-admin-detail-empty">Nome originale, alias e note non hanno campi modificabili dedicati. I collegamenti FIG/GesGolf restano in sola lettura.</p>
       {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}
+      <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
     </>}
     {message && <p role="status">{message}</p>}
     {error && !confirmation && !pendingExit && !abandonConfirmation && <p className="stablr-admin-editor-error" role="alert">{error}</p>}

@@ -164,15 +164,16 @@ export default function RouteEditor({ club, course, route, service, onBack, onBa
 
   return <section className="stablr-admin-detail stablr-admin-route-editor">
     <RouteBreadcrumb {...{ club, course, route, onBack, onBackToClub, onBackToCourse, onBackToCatalog, busy }} editing />
-    <header className="stablr-admin-page-header"><div><h1>Modifica dati Route</h1><p>{route.name} · {club.name}</p></div>{draft && <span className="stablr-admin-status">Bozza in corso</span>}</header>
+    <header className="stablr-admin-page-header stablr-admin-editor-header"><div><h1>Modifica dati Route</h1><p>{route.name} · {club.name}</p></div>{draft && <div className="stablr-admin-editor-header-side"><span className="stablr-admin-status">Bozza in corso</span><div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !valid} onClick={() => operation(save)} type="button">Salva bozza</button><button className="stablr-admin-publish-button" disabled={busy || !valid || !changes.length || !canPublishRoute(context, normalized)} onClick={reviewPublication} type="button">Pubblica</button></div></div>}</header>
     {loading ? <p className="stablr-admin-detail-empty">Caricamento bozza…</p> : draft && <>
       <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault(); operation(save); }}>
         <label>Nome visualizzato<input disabled={busy} maxLength={200} onChange={(event) => update("name", event.target.value)} required value={fields.name} /></label>
         <label>Stato operativo<select disabled={busy} onChange={(event) => update("is_active", event.target.value === "true")} value={String(fields.is_active)}><option value="true">Attiva</option><option value="false">Disattivata</option></select></label>
-        <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length || !canPublishRoute(context, normalized)} onClick={reviewPublication} type="button">Pubblica</button><button disabled={busy} onClick={openHoleEditor} type="button">Modifica buche</button><button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
       </form>
+      <div className="stablr-admin-child-editor-action"><button className="stablr-admin-white-button" disabled={busy} onClick={openHoleEditor} type="button">Modifica buche</button></div>
       <RouteReadOnlyData club={club} context={context} />
       {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}
+      <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
     </>}
     {message && <p role="status">{message}</p>}
     {error && !confirmation && !pendingExit && !abandonConfirmation && <p className="stablr-admin-editor-error" role="alert">{error}</p>}
