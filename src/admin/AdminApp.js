@@ -10,6 +10,8 @@ import HoleGridEditor from "./HoleGridEditor";
 import { createHoleGridEditorService } from "./hole-grid-editor-data";
 import CourseHoleGridEditor from "./CourseHoleGridEditor";
 import { createCourseHoleGridEditorService } from "./course-hole-grid-editor-data";
+import { CourseTeeManager, CourseTeeSection } from "./CourseTeeEditor";
+import { createCourseTeeEditorService } from "./course-tee-editor-data";
 import "./AdminApp.css";
 
 const clubEditorService = createClubEditorService(supabase);
@@ -17,6 +19,7 @@ const courseEditorService = createCourseEditorService(supabase);
 const routeEditorService = createRouteEditorService(supabase);
 const holeGridEditorService = createHoleGridEditorService(supabase);
 const courseHoleGridEditorService = createCourseHoleGridEditorService(supabase);
+const courseTeeEditorService = createCourseTeeEditorService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -842,7 +845,7 @@ function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit, onOpenR
   );
 }
 
-function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRoute, onEditRoute }) {
+function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRoute, onEditRoute, onManageTees }) {
   const routeCombinations = club.combinations.filter((combination) =>
     combination.frontRouteId === course.id || combination.backRouteId === course.id
   );
@@ -865,6 +868,7 @@ function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRou
       <section className="stablr-admin-detail-section"><h2>Combinazioni</h2>
         <RouteList routes={allRouteCombinations} onOpenRoute={onOpenRoute} onEditRoute={onEditRoute} />
       </section>
+      <CourseTeeSection course={course} service={courseTeeEditorService} onManage={onManageTees} />
       <p className="stablr-admin-data-sequence">Club → Percorsi → Route/combinazioni → Buche → Par/SI → Tee/distanze → CR/Slope</p>
     </section>
   );
@@ -951,6 +955,7 @@ export function AdminShell({ onSignOut }) {
   const [editingClub, setEditingClub] = useState(false);
   const [editingCourse, setEditingCourse] = useState(false);
   const [editingCourseHoles, setEditingCourseHoles] = useState(false);
+  const [managingCourseTees, setManagingCourseTees] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [editingRoute, setEditingRoute] = useState(false);
   const [editingHoles, setEditingHoles] = useState(false);
@@ -1203,7 +1208,17 @@ export function AdminShell({ onSignOut }) {
         onBackToCourse={backToRouteCourse}
         onBackToCatalog={backToRouteCatalog}
         service={routeEditorService}
-      />) : editingCourseHoles && selectedCourse && selectedClub ? <CourseHoleGridEditor
+      />) : managingCourseTees && selectedCourse && selectedClub ? <CourseTeeManager
+        club={selectedClub}
+        course={selectedCourse}
+        key={selectedCourse.id}
+        service={courseTeeEditorService}
+        navigate={navigate}
+        registerExitGuard={registerClubExitGuard}
+        onBack={() => navigate(() => setManagingCourseTees(false))}
+        onBackToClub={() => navigate(() => { setManagingCourseTees(false); setEditingCourse(false); setSelectedCourse(null); })}
+        onBackToCatalog={() => navigate(() => { setManagingCourseTees(false); setEditingCourse(false); setSelectedCourse(null); setSelectedClub(null); })}
+      /> : editingCourseHoles && selectedCourse && selectedClub ? <CourseHoleGridEditor
         club={selectedClub}
         course={selectedCourse}
         key={selectedCourse.id}
@@ -1221,6 +1236,7 @@ export function AdminShell({ onSignOut }) {
         onBackToClub={() => navigate(() => { setEditingCourse(false); setSelectedCourse(null); })}
         onBackToCatalog={() => navigate(() => { setEditingCourse(false); setSelectedCourse(null); setSelectedClub(null); })}
         onEditHoles={() => navigate(() => setEditingCourseHoles(true))}
+        onManageTees={() => navigate(() => setManagingCourseTees(true))}
         onPublished={acceptCoursePublication}
         registerExitGuard={registerClubExitGuard}
         service={courseEditorService}
@@ -1234,6 +1250,7 @@ export function AdminShell({ onSignOut }) {
         club={selectedClub}
         course={selectedCourse}
         onEdit={() => setEditingCourse(true)}
+        onManageTees={() => setManagingCourseTees(true)}
         onOpenRoute={setSelectedRoute}
         onEditRoute={(route) => { setSelectedRoute(route); setEditingRoute(true); }}
         onBack={() => setSelectedCourse(null)}
@@ -1292,6 +1309,7 @@ export function AdminShell({ onSignOut }) {
                 setEditingClub(false);
                 setEditingCourse(false);
                 setEditingCourseHoles(false);
+                setManagingCourseTees(false);
                 setEditingRoute(false);
                 setEditingHoles(false);
                 setSelectedRoute(null);

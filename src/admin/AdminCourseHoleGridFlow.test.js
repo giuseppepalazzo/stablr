@@ -17,6 +17,7 @@ test("simple nine-hole course opens its own physical grid, guards metadata exit,
     order:jest.fn(()=>Promise.resolve({data:table==="clubs"?[club]:[],error:null}))}; return query;});
   supabase.rpc.mockImplementation(async(name,params)=>{
     if(name==="admin_user_directory")return {data:[],error:null};
+    if(name==="admin_course_tee_list")return {data:{course:{id:params.p_course_id},tees:[]},error:null};
     if(name==="admin_club_get_draft")return {data:null,error:null};
     if(name==="admin_course_get_draft")return {data:drafts.get(params.p_course_id)||null,error:null};
     if(name==="admin_course_open_draft") {

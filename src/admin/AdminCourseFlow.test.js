@@ -48,6 +48,7 @@ test("both course entry points, sidebar save exit, resume, publish and inactive 
       drafts.delete(old.live_entity_id);
       return { data: result, error: null };
     }
+    if (name === "admin_course_tee_list") return { data: { course: { id: params.p_course_id }, tees: [] }, error: null };
     throw new Error(`Unexpected test RPC ${name}`);
   });
 

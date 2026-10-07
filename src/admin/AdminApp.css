@@ -961,3 +961,27 @@ button.stablr-admin-club-row:hover {
   .stablr-admin-hole-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stablr-admin-detail-grid { grid-template-columns: 1fr; }
 }
+.stablr-admin-tee-list { display: grid; gap: 12px; overflow-x: auto; }
+.stablr-admin-tee-columns, .stablr-admin-tee-row { display: grid; grid-template-columns: minmax(120px, 1.4fr) minmax(85px, .9fr) minmax(115px, 1.25fr) minmax(45px, .5fr) minmax(45px, .5fr) minmax(95px, 1fr) 14px; align-items: center; gap: 14px; box-sizing: border-box; min-width: 750px; }
+.stablr-admin-tee-columns { padding: 0 14px; color: var(--stablr-admin-muted); font-size: 12px; }
+.stablr-admin-tee-row { background: rgba(0, 0, 0, .12); border: 1px solid transparent; border-radius: 12px; padding: 14px; width: 100%; color: inherit; font: inherit; text-align: left; }
+button.stablr-admin-tee-row { cursor: pointer; }
+button.stablr-admin-tee-row:hover { background: var(--stablr-admin-sidebar); border-color: var(--stablr-admin-border); }
+button.stablr-admin-tee-row:focus-visible { outline: 2px solid var(--stablr-admin-text); outline-offset: 3px; }
+.stablr-admin-tee-row > span { min-width: 0; overflow-wrap: anywhere; }
+.stablr-admin-tee-name { display: flex; align-items: center; gap: 10px; }
+.stablr-admin-tee-dot { width: 12px; height: 12px; flex: 0 0 12px; border: 1px solid rgba(255, 255, 255, .35); border-radius: 50%; }
+.stablr-admin-tee-state { display: flex; flex-wrap: wrap; gap: 6px; }
+.stablr-admin-course-child-entry { margin-bottom: 16px; }
+.stablr-admin-tee-detail-title { display: flex; align-items: center; gap: 10px; }
+.stablr-admin-tee-detail-title .stablr-admin-tee-dot { width: 14px; height: 14px; flex-basis: 14px; }
+.stablr-admin-course-structure-notice { margin-bottom: 16px; }
+.stablr-admin-tee-facts { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.4fr .65fr .65fr 1fr; gap: 12px; margin: 14px 0; }
+.stablr-admin-tee-facts div { min-width: 0; }
+.stablr-admin-tee-facts dt { color: var(--stablr-admin-muted); font-size: 12px; margin-bottom: 6px; }
+.stablr-admin-tee-facts dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 800px) {
+  .stablr-admin-tee-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stablr-admin-tee-columns { display: none; }
+  .stablr-admin-tee-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-width: 0; }
+}

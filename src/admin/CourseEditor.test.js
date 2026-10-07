@@ -65,6 +65,23 @@ test("structure cannot be edited when server reports existing configuration", as
   expect(screen.getByText(/Struttura in sola lettura/)).toBeInTheDocument();
 });
 
+test("physical holes and tee management use equivalent compact child cards after the Course fields", async () => {
+  const onEditHoles = jest.fn(), onManageTees = jest.fn();
+  render(<CourseEditor club={club} course={{ ...course, hasPhysicalHoles: true }} service={makeService()}
+    onBack={jest.fn()} onBackToClub={jest.fn()} onBackToCatalog={jest.fn()} onPublished={jest.fn()}
+    onEditHoles={onEditHoles} onManageTees={onManageTees} registerExitGuard={jest.fn()} />);
+  await screen.findByLabelText("Nome visualizzato");
+  const holes = screen.getByRole("heading", { name: "Buche" }).closest("section");
+  const tees = screen.getByRole("heading", { name: "Tee e rating" }).closest("section");
+  expect(holes).toHaveClass("stablr-admin-course-child-entry");
+  expect(tees).toHaveClass("stablr-admin-course-child-entry");
+  expect(screen.getByRole("button", { name: "Modifica buche" })).toHaveClass("stablr-admin-white-button");
+  expect(screen.getByRole("button", { name: "Gestisci tee" })).toHaveClass("stablr-admin-white-button");
+  fireEvent.click(screen.getByRole("button", { name: "Modifica buche" }));
+  fireEvent.click(screen.getByRole("button", { name: "Gestisci tee" }));
+  expect(onEditHoles).toHaveBeenCalledTimes(1); expect(onManageTees).toHaveBeenCalledTimes(1);
+});
+
 test("save leaves live unchanged and publish requires exact before/after confirmation", async () => {
   const service = makeService();
   const onPublished = jest.fn();

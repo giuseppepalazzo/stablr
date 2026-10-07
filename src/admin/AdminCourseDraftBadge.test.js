@@ -57,6 +57,7 @@ test.each([
     }
     if (name === "admin_course_open_draft") return { data: { draft, context: { can_edit_structure: false,
       original_name: null, gesgolf_name: null, source_system: "fig" } }, error: null };
+    if (name === "admin_course_tee_list") return { data: { course: { id: params.p_course_id }, tees: [] }, error: null };
     throw new Error(`Unexpected RPC: ${name}`);
   });
   const openSummary = async () => {

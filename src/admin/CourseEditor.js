@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import { formatCourseValue, getCourseDiff, getCourseEditorError, hasCourseDraftChanges, normalizeCourseFields } from "./course-editor-data";
+import { CourseHolesEntry, CourseTeeEntry } from "./CourseTeeEditor";
 
-export default function CourseEditor({ club, course, service, onBack, onBackToClub, onBackToCatalog, onEditHoles, onPublished, registerExitGuard }) {
+export default function CourseEditor({ club, course, service, onManageTees, onBack, onBackToClub, onBackToCatalog, onEditHoles, onPublished, registerExitGuard }) {
   const [draft, setDraft] = useState(null);
   const [context, setContext] = useState({});
   const [fields, setFields] = useState({ name: "", holes_count: 9, display_order: "", is_active: true });
@@ -89,8 +90,9 @@ export default function CourseEditor({ club, course, service, onBack, onBackToCl
         <label>Ordine<input disabled={busy} max={2147483647} min={-2147483648} onChange={(event) => update("display_order", event.target.value)} step={1} type="number" value={fields.display_order ?? ""} /></label>
         <label>Stato operativo<select disabled={busy} onChange={(event) => update("is_active", event.target.value === "true")} value={String(fields.is_active)}><option value="true">Attivo</option><option value="false">Disattivato</option></select></label>
       </form>
-      {course.hasPhysicalHoles && onEditHoles && <div className="stablr-admin-child-editor-action"><button className="stablr-admin-white-button" disabled={busy} onClick={onEditHoles} type="button">Modifica buche</button></div>}
-      {context.can_edit_structure !== true && <p className="stablr-admin-detail-empty">Struttura in sola lettura: sono presenti dati di configurazione o dati collegati. Buche, tee, combinazioni e giri restano invariati.</p>}
+      {course.hasPhysicalHoles && onEditHoles && <CourseHolesEntry onManage={onEditHoles} disabled={busy} />}
+      {onManageTees && <CourseTeeEntry onManage={onManageTees} disabled={busy} />}
+      {context.can_edit_structure !== true && <p className="stablr-admin-detail-empty stablr-admin-course-structure-notice">Struttura in sola lettura: sono presenti dati di configurazione o dati collegati. Buche, tee, combinazioni e giri restano invariati.</p>}
       <div className="stablr-admin-detail-grid">
         <article><span>Nome FIG / originale · sola lettura</span><strong>{context.original_name || "—"}</strong></article>
         <article><span>Fonte · sola lettura</span><strong>{context.source_system || "—"}</strong></article>
