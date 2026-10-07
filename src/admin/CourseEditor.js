@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
-import { formatCourseValue, getCourseDiff, getCourseEditorError, normalizeCourseFields } from "./course-editor-data";
+import { formatCourseValue, getCourseDiff, getCourseEditorError, hasCourseDraftChanges, normalizeCourseFields } from "./course-editor-data";
 
-export default function CourseEditor({ club, course, service, onBack, onBackToClub, onBackToCatalog, onPublished, registerExitGuard }) {
+export default function CourseEditor({ club, course, service, onBack, onBackToClub, onBackToCatalog, onEditHoles, onPublished, registerExitGuard }) {
   const [draft, setDraft] = useState(null);
   const [context, setContext] = useState({});
   const [fields, setFields] = useState({ name: "", holes_count: 9, display_order: "", is_active: true });
@@ -29,14 +29,14 @@ export default function CourseEditor({ club, course, service, onBack, onBackToCl
 
   useEffect(() => {
     registerExitGuard((action) => {
-      if (inFlight.current || confirmation) return;
+      if (inFlight.current || confirmation || abandonConfirmation || pendingExit) return;
       if (dirty) setPendingExit(() => action);
       else action();
     });
     const beforeUnload = (event) => { if (dirty) { event.preventDefault(); event.returnValue = ""; } };
     window.addEventListener("beforeunload", beforeUnload);
     return () => { registerExitGuard(null); window.removeEventListener("beforeunload", beforeUnload); };
-  }, [dirty, confirmation, registerExitGuard]);
+  }, [dirty, confirmation, abandonConfirmation, pendingExit, registerExitGuard]);
 
   const operation = async (callback) => {
     if (inFlight.current) return;
@@ -68,6 +68,7 @@ export default function CourseEditor({ club, course, service, onBack, onBackToCl
   });
   const update = (key, value) => { setFields((current) => ({ ...current, [key]: value })); setMessage(""); };
   const normalized = normalizeCourseFields(fields);
+  const hasDraftChanges = hasCourseDraftChanges(course, draft);
   const valid = normalized.name.length > 0 && normalized.name.length <= 200
     && [9, 18].includes(normalized.holes_count)
     && (normalized.display_order === null || (Number.isInteger(normalized.display_order)
@@ -80,14 +81,14 @@ export default function CourseEditor({ club, course, service, onBack, onBackToCl
       <button disabled={busy} onClick={onBackToClub} type="button">{club.name}</button><span>/</span>
       <button disabled={busy} onClick={onBack} type="button">{course.name}</button><span>/</span><span>Modifica dati</span>
     </nav>
-    <header className="stablr-admin-page-header"><div><h1>Modifica dati percorso</h1><p>{course.name} · {club.name}</p></div>{draft && <span className="stablr-admin-status">Bozza in corso</span>}</header>
+    <header className="stablr-admin-page-header"><div><h1>Modifica dati percorso</h1><p>{course.name} · {club.name}</p></div>{hasDraftChanges && <span className="stablr-admin-status">Bozza in corso</span>}</header>
     {loading ? <p className="stablr-admin-detail-empty">Caricamento bozza…</p> : draft && <>
       <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault(); operation(save); }}>
         <label>Nome visualizzato<input disabled={busy} maxLength={200} onChange={(event) => update("name", event.target.value)} required value={fields.name} /></label>
         <label>Struttura<select disabled={busy || context.can_edit_structure !== true} onChange={(event) => update("holes_count", Number(event.target.value))} value={fields.holes_count}><option value={9}>9 buche</option><option value={18}>18 buche</option></select></label>
         <label>Ordine<input disabled={busy} max={2147483647} min={-2147483648} onChange={(event) => update("display_order", event.target.value)} step={1} type="number" value={fields.display_order ?? ""} /></label>
         <label>Stato operativo<select disabled={busy} onChange={(event) => update("is_active", event.target.value === "true")} value={String(fields.is_active)}><option value="true">Attivo</option><option value="false">Disattivato</option></select></label>
-        <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button><button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
+        <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">Salva bozza</button><button className="stablr-admin-white-button" disabled={busy || !valid || !changes.length} onClick={reviewPublication} type="button">Pubblica</button>{course.hasPhysicalHoles && onEditHoles && <button disabled={busy} onClick={onEditHoles} type="button">Modifica buche</button>}<button disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>
       </form>
       {context.can_edit_structure !== true && <p className="stablr-admin-detail-empty">Struttura in sola lettura: sono presenti dati di configurazione o dati collegati. Buche, tee, combinazioni e giri restano invariati.</p>}
       <div className="stablr-admin-detail-grid">

@@ -7,6 +7,22 @@ export function normalizeCourseFields(fields) {
   };
 }
 
+// Catalog views use camelCase; SQL/RPC snapshots use the persisted snake_case
+// fields. Compare only editable values, normalizing both sides identically.
+export function hasCourseDraftChanges(course, draft) {
+  if (!draft?.snapshot) return false;
+  const readField = (camelCase, snakeCase) => Object.prototype.hasOwnProperty.call(course, camelCase)
+    ? course[camelCase] : course[snakeCase];
+  const live = normalizeCourseFields({
+    name: course.name,
+    holes_count: readField("holesCount", "holes_count"),
+    display_order: readField("displayOrder", "display_order"),
+    is_active: readField("isActive", "is_active")
+  });
+  const saved = normalizeCourseFields(draft.snapshot);
+  return Object.keys(live).some((key) => live[key] !== saved[key]);
+}
+
 export function getCourseDiff(base, fields) {
   const values = normalizeCourseFields(fields);
   return [

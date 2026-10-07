@@ -705,6 +705,8 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-hole-grid-table th:nth-child(4),
 .stablr-admin-hole-grid-table th:nth-child(5) { width: 9%; }
 .stablr-admin-hole-grid-table input { width: 100%; box-sizing: border-box; border: 1px solid #32624f; border-radius: 8px; padding: 9px 7px; background: #103528; color: var(--stablr-admin-text); font: inherit; }
+.stablr-admin-course-hole-grid-table { min-width: 600px; }
+.stablr-admin-course-hole-grid-table th:nth-child(n) { width: 25%; }
 
 .stablr-admin-status {
   width: max-content;

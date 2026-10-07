@@ -3,17 +3,20 @@ import { hasSupabaseConfig, supabase } from "../lib/supabase";
 import ClubEditor from "./ClubEditor";
 import { createClubEditorService } from "./club-editor-data";
 import CourseEditor from "./CourseEditor";
-import { applyCoursePublication, createCourseEditorService } from "./course-editor-data";
+import { applyCoursePublication, createCourseEditorService, hasCourseDraftChanges } from "./course-editor-data";
 import RouteEditor, { RouteDetail } from "./RouteEditor";
 import { applyRoutePublication, createRouteEditorService } from "./route-editor-data";
 import HoleGridEditor from "./HoleGridEditor";
 import { createHoleGridEditorService } from "./hole-grid-editor-data";
+import CourseHoleGridEditor from "./CourseHoleGridEditor";
+import { createCourseHoleGridEditorService } from "./course-hole-grid-editor-data";
 import "./AdminApp.css";
 
 const clubEditorService = createClubEditorService(supabase);
 const courseEditorService = createCourseEditorService(supabase);
 const routeEditorService = createRouteEditorService(supabase);
 const holeGridEditorService = createHoleGridEditorService(supabase);
+const courseHoleGridEditorService = createCourseHoleGridEditorService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -734,7 +737,8 @@ function ClubBreadcrumb({ club, onBack, course, onBackToClub }) {
   );
 }
 
-function CourseDraftIndicator({ courseId }) {
+function CourseDraftIndicator({ course }) {
+  const courseId = course.id;
   const [status, setStatus] = useState({ loading: true });
   useEffect(() => {
     let active = true;
@@ -747,7 +751,7 @@ function CourseDraftIndicator({ courseId }) {
     return () => { active = false; };
   }, [courseId]);
   return status.loading ? <span className="stablr-admin-detail-empty">Verifica bozza…</span>
-    : status.draft ? <span className="stablr-admin-status">Bozza in corso</span>
+    : hasCourseDraftChanges(course, status.draft) ? <span className="stablr-admin-status">Bozza in corso</span>
       : status.error ? <span className="stablr-admin-detail-empty">Stato bozza non disponibile</span> : null;
 }
 
@@ -817,7 +821,7 @@ function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit, onOpenR
           <div className="stablr-admin-course-row stablr-admin-course-row--editable" key={course.id}>
             <button className="stablr-admin-course-open" onClick={() => onOpenCourse(course)} type="button"><strong>{course.name}</strong><small>{course.holesCount ? `${course.holesCount} buche` : "—"} · {course.completeness}</small></button>
             <span className="stablr-admin-status">{course.status}</span>
-            <div className="stablr-admin-course-draft-status"><CourseDraftIndicator courseId={course.id} /></div>
+            <div className="stablr-admin-course-draft-status"><CourseDraftIndicator course={course} /></div>
             <button aria-label={`Modifica percorso ${course.name}`} className="stablr-admin-white-button" onClick={() => onEditCourse(course)} type="button">Modifica dati</button>
           </div>
         )) : <p className="stablr-admin-detail-empty">Nessun percorso disponibile.</p>}
@@ -851,7 +855,7 @@ function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRou
       <header className="stablr-admin-page-header"><div><h1>{course.name}</h1><p>{club.name}</p></div><span className="stablr-admin-status">{course.status}</span></header>
       <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry">
         <button className="stablr-admin-white-button" onClick={onEdit} type="button">Modifica dati</button>
-        <CourseDraftIndicator courseId={course.id} />
+        <CourseDraftIndicator course={course} />
       </div>
       <div className="stablr-admin-detail-grid">
         <article><span>Struttura</span><strong>{course.holesCount ? `${course.holesCount} buche` : "—"}</strong></article>
@@ -946,6 +950,7 @@ export function AdminShell({ onSignOut }) {
   const [advancedSectionKey, setAdvancedSectionKey] = useState(0);
   const [editingClub, setEditingClub] = useState(false);
   const [editingCourse, setEditingCourse] = useState(false);
+  const [editingCourseHoles, setEditingCourseHoles] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [editingRoute, setEditingRoute] = useState(false);
   const [editingHoles, setEditingHoles] = useState(false);
@@ -1032,6 +1037,7 @@ export function AdminShell({ onSignOut }) {
               id: route.id,
               name: route.name || "—",
               holesCount: route.holes_count,
+              hasPhysicalHoles: holes.length > 0,
               displayOrder: route.display_order,
               isActive: route.is_active !== false,
               completeness: hasParAndSi && hasTeeData ? "Completo" : hasParAndSi ? "Par/SI disponibili" : "Dati parziali",
@@ -1197,13 +1203,24 @@ export function AdminShell({ onSignOut }) {
         onBackToCourse={backToRouteCourse}
         onBackToCatalog={backToRouteCatalog}
         service={routeEditorService}
-      />) : editingCourse && selectedCourse && selectedClub ? <CourseEditor
+      />) : editingCourseHoles && selectedCourse && selectedClub ? <CourseHoleGridEditor
+        club={selectedClub}
+        course={selectedCourse}
+        key={selectedCourse.id}
+        onBack={() => navigate(() => setEditingCourseHoles(false))}
+        onBackToClub={() => navigate(() => { setEditingCourseHoles(false); setEditingCourse(false); setSelectedCourse(null); })}
+        onBackToCatalog={() => navigate(() => { setEditingCourseHoles(false); setEditingCourse(false); setSelectedCourse(null); setSelectedClub(null); })}
+        onPublished={() => setEditingCourseHoles(false)}
+        registerExitGuard={registerClubExitGuard}
+        service={courseHoleGridEditorService}
+      /> : editingCourse && selectedCourse && selectedClub ? <CourseEditor
         club={selectedClub}
         course={selectedCourse}
         key={selectedCourse.id}
         onBack={() => navigate(() => setEditingCourse(false))}
         onBackToClub={() => navigate(() => { setEditingCourse(false); setSelectedCourse(null); })}
         onBackToCatalog={() => navigate(() => { setEditingCourse(false); setSelectedCourse(null); setSelectedClub(null); })}
+        onEditHoles={() => navigate(() => setEditingCourseHoles(true))}
         onPublished={acceptCoursePublication}
         registerExitGuard={registerClubExitGuard}
         service={courseEditorService}
@@ -1274,6 +1291,7 @@ export function AdminShell({ onSignOut }) {
               onClick={() => navigate(() => {
                 setEditingClub(false);
                 setEditingCourse(false);
+                setEditingCourseHoles(false);
                 setEditingRoute(false);
                 setEditingHoles(false);
                 setSelectedRoute(null);

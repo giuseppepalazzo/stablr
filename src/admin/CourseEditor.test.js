@@ -35,7 +35,13 @@ test("diff is limited to four live fields, with explicit false/null/zero values"
   expect(formatCourseValue("display_order", null)).toBe("—");
 });
 
-test("resumes draft, shows source names and no editable aliases, notes or technical IDs", async () => {
+test("identical route draft does not show a misleading badge", async () => {
+  render(<Harness service={makeService()} />);
+  await screen.findByLabelText("Nome visualizzato");
+  expect(screen.queryByText("Bozza in corso")).not.toBeInTheDocument();
+});
+
+test("resumes changed draft, shows its badge, source names and no editable aliases, notes or technical IDs", async () => {
   const service = makeService();
   service.openDraft.mockResolvedValue({ draft: { ...draft, snapshot: { ...snapshot, name: "Bozza salvata" } }, context });
   render(<Harness service={service} />);
