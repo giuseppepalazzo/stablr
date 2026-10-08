@@ -106,7 +106,7 @@ test("stale source is not retried as a write and reload shows updated source che
 test("detail exposes physical holes only after explicit classification and includes link audit in foundation history", async () => {
   const item = { target_type: "structure", target_id: structure.club_id, title: "Club fixture", club_name: "Club fixture", status: "verified" };
   const detail = { club: { id: structure.club_id, name: "Club fixture" }, structures: [{ ...structure, classification: "non_classificato", review_status: "needs_review" }], configurations: [], courses: [], combinations: [], events: [], fig: null };
-  const service = { ...makeService(), detail: jest.fn().mockResolvedValue(detail) };
+  const service = { ...makeService(), detail: jest.fn().mockResolvedValue(detail), playablePreview: jest.fn().mockResolvedValue({ structure, sequence: [], saved_holes: [], source_links: [], configurations: [], reasons: [], tee_overrides: [], events: [] }) };
   const view = render(<StructureReviewDetail item={item} service={service} onBack={jest.fn()} onRoot={jest.fn()} onChanged={jest.fn()} />);
   await screen.findByRole("heading", { name: "Classificazione della struttura" });
   expect(screen.queryByRole("heading", { name: "Buche fisiche" })).not.toBeInTheDocument(); expect(service.physicalPreview).not.toHaveBeenCalled();

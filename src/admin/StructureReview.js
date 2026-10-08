@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import PhysicalCourseHoles from "./PhysicalCourseHoles";
+import PlayableConfigurations from "./PlayableConfigurations";
 import { PHYSICAL_CLASSIFICATIONS, STRUCTURE_SOURCES, filterStructureReviews, reviewStatusLabel, reviewTypeLabel, structureReviewError } from "./structure-review-data";
 import "./StructureReview.css";
 
@@ -86,6 +87,9 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   const [confirmation, setConfirmation] = useState(null);
   const [physicalEvents, setPhysicalEvents] = useState([]);
   const [physicalBusy, setPhysicalBusy] = useState(false);
+  const [playableBusy, setPlayableBusy] = useState(false);
+  const [physicalRevision, setPhysicalRevision] = useState(0);
+  const physicalChanged = useCallback(() => setPhysicalRevision((value) => value + 1), []);
   const receivePhysicalEvents = useCallback((events) => setPhysicalEvents((current) => [...new Map([...current, ...events].map((event) => [event.id, event])).values()]), []);
   const inFlight = useRef(false);
   const request = useRef(0);
@@ -127,7 +131,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   };
 
   return <section className="stablr-admin-detail stablr-admin-structure-review">
-    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || physicalBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><button disabled={busy || physicalBusy} onClick={onBack} type="button">Struttura e collegamenti</button><span>/</span><span>{item.title}</span></nav>
+    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || physicalBusy || playableBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><button disabled={busy || physicalBusy || playableBusy} onClick={onBack} type="button">Struttura e collegamenti</button><span>/</span><span>{item.title}</span></nav>
     <header className="stablr-admin-page-header"><div><h1>{item.title}</h1><p>{item.club_name} · {reviewTypeLabel(item.target_type)}</p></div><span className="stablr-admin-status">{reviewStatusLabel(item)}</span></header>
     {message && <p role="status">{message}</p>}
     {loading ? <p role="status">Caricamento evidenze…</p> : <>
@@ -136,7 +140,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
         <section className="stablr-admin-detail-section"><h2>Classificazione della struttura</h2>
           <p>La classificazione viene registrata solo nella fondazione. Buche, configurazioni, collegamenti e override non vengono creati.</p>
           {item.target_type === "hole_links" && <p className="stablr-admin-detail-empty">Classificare il club non verifica i collegamenti di questa combinazione: resterà Da revisionare finché non saranno verificati separatamente.</p>}
-          {detail.structures.length > 0 && <label className="stablr-admin-structure-selector">Struttura registrata<select disabled={busy || physicalBusy} value={selectedId} onChange={(event) => {
+          {detail.structures.length > 0 && <label className="stablr-admin-structure-selector">Struttura registrata<select disabled={busy || physicalBusy || playableBusy} value={selectedId} onChange={(event) => {
             const selected = detail.structures.find((entry) => entry.id === event.target.value);
             setSelectedId(event.target.value); setFields(fieldsFor(selected)); setError(""); setMessage("");
           }}>{detail.structures.map((entry) => <option key={entry.id} value={entry.id}>{entry.label} · {entry.classification} · {entry.review_status === "verified" ? "Verificata" : "Da revisionare"}</option>)}</select></label>}
@@ -153,7 +157,10 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
             <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !valid} type="submit">{structure ? "Rivedi classificazione" : "Crea struttura"}</button></div>
           </form>}
         </section>
-        {readonly && structure.classification !== "non_classificato" && <PhysicalCourseHoles key={structure.id} structure={structure} service={service} onEvents={receivePhysicalEvents} onBusy={setPhysicalBusy} />}
+        {readonly && structure.classification !== "non_classificato" && <>
+          <PhysicalCourseHoles key={structure.id} structure={structure} service={service} onEvents={receivePhysicalEvents} onBusy={setPhysicalBusy} onChanged={physicalChanged} />
+          <PlayableConfigurations key={`playable:${structure.id}`} structure={structure} service={service} onEvents={receivePhysicalEvents} onBusy={setPlayableBusy} refreshKey={physicalRevision} />
+        </>}
         <Evidence detail={detail} /><FoundationHistory events={[...new Map([...detail.events, ...physicalEvents].map((event) => [event.id, event])).values()].sort((left, right) => new Date(right.occurred_at) - new Date(left.occurred_at))} />
       </>}
     </>}

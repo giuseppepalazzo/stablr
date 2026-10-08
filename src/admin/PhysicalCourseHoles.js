@@ -23,7 +23,7 @@ function Grid({ rows, mapping = false }) {
   </div>;
 }
 
-export default function PhysicalCourseHoles({ structure, service, onEvents, onBusy }) {
+export default function PhysicalCourseHoles({ structure, service, onEvents, onBusy, onChanged }) {
   const [context, setContext] = useState(null);
   const [courseId, setCourseId] = useState("");
   const [loading, setLoading] = useState(true);
@@ -54,6 +54,7 @@ export default function PhysicalCourseHoles({ structure, service, onEvents, onBu
       const result = confirmation.kind === "register" ? await service.registerPhysicalHoles(confirmation.context, confirmation.note)
         : await service.verifyPhysicalCourse(confirmation.context, confirmation.note);
       apply(result); setNote(""); setConfirmation(null);
+      onChanged?.();
       setMessage(confirmation.kind === "register" ? "Buche registrate nella fondazione. Il collegamento al Percorso è Da revisionare."
         : "Collegamento fisico 1:1 verificato nella fondazione.");
     } catch (failure) {

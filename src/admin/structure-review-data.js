@@ -59,6 +59,18 @@ export function createStructureReviewService(client) {
     verifyPhysicalCourse: (context, note) => invoke("admin_catalog_physical_course_verify", {
       p_link_id: context.link.id, p_expected_revision: context.link.revision,
       p_expected_mapping: context.mapping, p_reason: note.trim(), p_confirm: true
+    }),
+    playablePreview: (structureId, linkId = null, kind = null) => invoke("admin_catalog_playable_preview", {
+      p_structure_id: structureId, p_source_link_id: linkId, p_kind: kind
+    }),
+    registerPlayable: (context, note) => invoke("admin_catalog_playable_register", {
+      p_structure_id: context.structure.id, p_source_link_id: context.source_link_id, p_kind: context.kind,
+      p_expected_baseline: context.baseline, p_reason: note.trim(), p_confirm: true
+    }),
+    verifyPlayable: (context, note) => invoke("admin_catalog_playable_verify", {
+      p_configuration_id: context.configuration.id, p_expected_revision: context.configuration.revision,
+      p_expected_baseline: context.baseline, p_expected_holes: context.saved_holes,
+      p_reason: note.trim(), p_confirm: true
     })
   };
 }
