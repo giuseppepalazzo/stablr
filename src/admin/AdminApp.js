@@ -12,6 +12,8 @@ import CourseHoleGridEditor from "./CourseHoleGridEditor";
 import { createCourseHoleGridEditorService } from "./course-hole-grid-editor-data";
 import { CourseTeeManager, CourseTeeSection } from "./CourseTeeEditor";
 import { createCourseTeeEditorService } from "./course-tee-editor-data";
+import StructureReview from "./StructureReview";
+import { createStructureReviewService } from "./structure-review-data";
 import "./AdminApp.css";
 
 const clubEditorService = createClubEditorService(supabase);
@@ -20,6 +22,7 @@ const routeEditorService = createRouteEditorService(supabase);
 const holeGridEditorService = createHoleGridEditorService(supabase);
 const courseHoleGridEditorService = createCourseHoleGridEditorService(supabase);
 const courseTeeEditorService = createCourseTeeEditorService(supabase);
+const structureReviewService = createStructureReviewService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -40,6 +43,7 @@ const USER_ROLE_FILTERS = ["Tutti", "Utenti", "Admin"];
 const USER_ROUND_FILTERS = ["Tutti", "Con almeno un giro", "Senza giri"];
 const USER_SORT_OPTIONS = ["Ultima attività app (più recente)", "Iscrizione più recente", "Più giri", "Nome A–Z"];
 const ADVANCED_AREAS = [
+  ["structure", "Struttura e collegamenti", "Revisione manuale della struttura fisica e dei collegamenti buca."],
   ["fig", "Verifica FIG", "Stato dei collegamenti e delle modifiche FIG disponibili."],
   ["sources", "Fonti e matching", "Provenienza catalogo e matching disponibili."],
   ["history", "Cronologia completa", "Storico di pubblicazione e passaggi catalogo."],
@@ -456,11 +460,12 @@ function AdvancedDetail({ area, clubs, onBack }) {
   </section>;
 }
 
-export function Advanced({ clubs, loading }) {
+export function Advanced({ clubs, loading, reviewService = structureReviewService }) {
   const [selectedArea, setSelectedArea] = useState(null);
+  if (selectedArea?.[0] === "structure") return <StructureReview service={reviewService} onRoot={() => setSelectedArea(null)} />;
   if (selectedArea) return <AdvancedDetail area={selectedArea} clubs={clubs || []} onBack={() => setSelectedArea(null)} />;
   return <section className="stablr-admin-advanced">
-    <header className="stablr-admin-page-header"><div><h1>Avanzata</h1><p>Consultazione read-only delle informazioni catalogo disponibili.</p></div></header>
+    <header className="stablr-admin-page-header"><div><h1>Avanzata</h1><p>Informazioni catalogo e revisione della struttura fisica.</p></div></header>
     <div className="stablr-admin-advanced-grid">
       {ADVANCED_AREAS.map((area) => <button className="stablr-admin-advanced-card" key={area[0]} onClick={() => setSelectedArea(area)} type="button"><strong>{area[1]}</strong><span>{area[2]}</span></button>)}
     </div>

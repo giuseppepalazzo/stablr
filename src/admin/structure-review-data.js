@@ -1,0 +1,52 @@
+export const PHYSICAL_CLASSIFICATIONS = ["non_classificato", "fisico_9", "fisico_18", "multi_9"];
+export const STRUCTURE_SOURCES = ["fig", "gesgolf", "stablr", "other"];
+export const reviewTypeLabel = (type) => type === "structure" ? "Classificazione struttura" : "Collegamento buche";
+export const reviewStatusLabel = (item) => item.status !== "verified" ? "Da revisionare"
+  : item.target_type === "structure" ? "Classificata" : "Collegamenti verificati";
+
+export function filterStructureReviews(items, status, type, search) {
+  const query = search.trim().toLocaleLowerCase("it");
+  return items.filter((item) => (status === "Tutti" || (status === "Da revisionare" ? item.status !== "verified" : item.status === "verified"))
+    && (type === "Tutti i tipi" || reviewTypeLabel(item.target_type) === type)
+    && (!query || `${item.club_name} ${item.title}`.toLocaleLowerCase("it").includes(query)));
+}
+
+export function structureReviewError(error) {
+  if (error?.code === "42501") return "Non sei autorizzato a revisionare la struttura.";
+  if (error?.code === "40001") return "La struttura è cambiata. Ricarica il dettaglio prima di confermare.";
+  if (error?.code === "23505") return "La struttura esiste già. Ricarica il dettaglio per riprenderla.";
+  if (error?.code === "55000") return "La struttura verificata è in sola lettura.";
+  return "Impossibile completare l’operazione. Riprova.";
+}
+
+export function createStructureReviewService(client) {
+  const invoke = async (name, params) => {
+    if (!client) throw new Error("Structure review client unavailable");
+    const { data, error } = await client.rpc(name, params);
+    if (error) throw error;
+    const result = Array.isArray(data) && data.length === 1 ? data[0] : data;
+    if (!result || Array.isArray(result)) throw new Error("Missing structure review response");
+    return result;
+  };
+  return {
+    list: async () => {
+      const result = await invoke("admin_catalog_structure_review_queue");
+      if (!Array.isArray(result.items)) throw new Error("Invalid structure queue");
+      return result.items;
+    },
+    detail: async (item) => {
+      const result = await invoke("admin_catalog_structure_review_detail", { p_target_type: item.target_type, p_target_id: item.target_id });
+      if (!result.club?.id || !Array.isArray(result.structures) || !Array.isArray(result.events)) throw new Error("Invalid structure evidence");
+      return result;
+    },
+    createStructure: async (clubId, fields) => invoke("admin_catalog_foundation_create_structure", {
+      p_club_id: clubId, p_label: fields.label.trim(), p_source_system: fields.source,
+      p_source_reference: fields.reference.trim(), p_reason: fields.note.trim()
+    }),
+    reviewStructure: async (structure, fields) => invoke("admin_catalog_foundation_review_structure", {
+      p_structure_id: structure.id, p_expected_revision: structure.revision, p_classification: fields.classification,
+      p_source_system: fields.source, p_source_reference: fields.reference.trim(), p_reason: fields.note.trim(),
+      p_confirm_verified: fields.classification !== "non_classificato"
+    })
+  };
+}

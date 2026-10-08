@@ -1,0 +1,18 @@
+.stablr-admin-structure-review .stablr-admin-filter-row { margin-bottom: 12px; flex-wrap: wrap; }
+.stablr-admin-structure-search, .stablr-admin-structure-selector { display: grid; gap: 8px; margin: 16px 0; color: var(--stablr-admin-muted); font-size: 13px; }
+.stablr-admin-structure-search input, .stablr-admin-structure-selector select, .stablr-admin-structure-review textarea { box-sizing: border-box; width: 100%; border: 1px solid #32624f; border-radius: 10px; padding: 10px 12px; background: #103528; color: var(--stablr-admin-text); font: inherit; }
+.stablr-admin-structure-review textarea { min-height: 90px; resize: vertical; }
+.stablr-admin-structure-row { display: grid; grid-template-columns: minmax(180px, 1.5fr) minmax(160px, 1fr) minmax(120px, .75fr) minmax(90px, .6fr) minmax(150px, 1fr); align-items: start; gap: 14px; border: 1px solid transparent; border-radius: 12px; padding: 14px; background: #103528; color: var(--stablr-admin-text); font: inherit; text-align: left; cursor: pointer; }
+.stablr-admin-structure-row:hover, .stablr-admin-structure-row:focus-visible { border-color: #558978; background: #194939; }
+.stablr-admin-structure-row > div, .stablr-admin-structure-evidence-row > div { display: grid; gap: 5px; min-width: 0; }
+.stablr-admin-structure-row span, .stablr-admin-structure-row small, .stablr-admin-structure-evidence-row span { color: var(--stablr-admin-muted); font-size: 12px; }
+.stablr-admin-structure-row strong, .stablr-admin-structure-evidence-row strong { overflow-wrap: anywhere; font-size: 13px; font-weight: 500; }
+.stablr-admin-structure-row .stablr-admin-status { justify-self: start; }
+.stablr-admin-structure-evidence { margin: 10px 0; padding: 14px; border-radius: 12px; background: #103528; }
+.stablr-admin-structure-evidence-row { display: grid; grid-template-columns: minmax(180px, 1.4fr) repeat(3, minmax(100px, 1fr)); gap: 14px; }
+.stablr-admin-structure-payload { margin-top: 12px; font-size: 13px; }
+.stablr-admin-structure-payload summary { color: #9ed1fa; cursor: pointer; }
+.stablr-admin-structure-payload pre { max-height: 360px; overflow: auto; padding: 12px; border-radius: 8px; background: #0b281e; white-space: pre-wrap; overflow-wrap: anywhere; }
+.stablr-admin-structure-review h3 { margin: 20px 0 10px; font-size: 14px; font-weight: 500; }
+@media (max-width: 1100px) { .stablr-admin-structure-row { grid-template-columns: minmax(160px, 1.3fr) repeat(2, minmax(140px, 1fr)); } }
+@media (max-width: 700px) { .stablr-admin-structure-row, .stablr-admin-structure-evidence-row { grid-template-columns: 1fr; } }
