@@ -71,6 +71,18 @@ export function createStructureReviewService(client) {
       p_configuration_id: context.configuration.id, p_expected_revision: context.configuration.revision,
       p_expected_baseline: context.baseline, p_expected_holes: context.saved_holes,
       p_reason: note.trim(), p_confirm: true
+    }),
+    physical18Preview: (structureId, linkId = null, kind = null, courseId = null, parSelection = null) => invoke("admin_catalog_physical18_preview", {
+      p_structure_id: structureId, p_source_link_id: linkId, p_kind: kind, p_course_id: courseId, p_par_selection: parSelection
+    }),
+    registerPhysical18: (context, note) => invoke("admin_catalog_physical18_register", {
+      p_structure_id: context.structure.id, p_source_link_id: context.source_link_id, p_kind: context.kind,
+      p_course_id: context.source_course_id, p_par_selection: context.par_selection,
+      p_expected_baseline: context.baseline, p_reason: note.trim(), p_confirm: true
+    }),
+    verifyPhysical18: (context, note) => invoke("admin_catalog_physical18_verify", {
+      p_configuration_id: context.configuration.id, p_expected_revision: context.configuration.revision,
+      p_expected_baseline: context.baseline, p_expected_holes: context.saved_holes, p_reason: note.trim(), p_confirm: true
     })
   };
 }

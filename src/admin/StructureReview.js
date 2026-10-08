@@ -159,7 +159,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
         </section>
         {readonly && structure.classification !== "non_classificato" && <>
           <PhysicalCourseHoles key={structure.id} structure={structure} service={service} onEvents={receivePhysicalEvents} onBusy={setPhysicalBusy} onChanged={physicalChanged} />
-          <PlayableConfigurations key={`playable:${structure.id}`} structure={structure} service={service} onEvents={receivePhysicalEvents} onBusy={setPlayableBusy} refreshKey={physicalRevision} />
+          <PlayableConfigurations key={`playable:${structure.id}`} structure={structure} service={service} physical18={structure.classification === "fisico_18"} onEvents={receivePhysicalEvents} onBusy={setPlayableBusy} refreshKey={physicalRevision} />
         </>}
         <Evidence detail={detail} /><FoundationHistory events={[...new Map([...detail.events, ...physicalEvents].map((event) => [event.id, event])).values()].sort((left, right) => new Date(right.occurred_at) - new Date(left.occurred_at))} />
       </>}

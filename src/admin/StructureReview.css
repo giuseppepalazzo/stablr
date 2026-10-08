@@ -21,6 +21,7 @@
 .stablr-admin-playable-selectors { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .stablr-admin-playable-grid, .stablr-admin-playable-tee-grid { display: grid; gap: 6px; margin: 14px 0; overflow-x: auto; }
 .stablr-admin-playable-grid > div { display: grid; grid-template-columns: 60px minmax(140px,1.5fr) 90px minmax(130px,1fr) 130px; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #103528; min-width: 650px; font-size: 13px; }
+.stablr-admin-playable-physical18 > div { grid-template-columns: 60px 100px minmax(120px,1fr) 90px minmax(150px,1.5fr) 130px; min-width: 780px; }
 .stablr-admin-playable-tee-grid > div { display: grid; grid-template-columns: repeat(3,minmax(100px,1fr)); gap: 12px; padding: 8px 12px; }
 .stablr-admin-playable-grid strong, .stablr-admin-playable-tee-grid strong { color: var(--stablr-admin-muted); font-weight: 500; }
 .stablr-admin-playable-list { display: grid; gap: 8px; }
