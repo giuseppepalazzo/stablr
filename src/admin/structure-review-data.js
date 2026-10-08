@@ -47,6 +47,18 @@ export function createStructureReviewService(client) {
       p_structure_id: structure.id, p_expected_revision: structure.revision, p_classification: fields.classification,
       p_source_system: fields.source, p_source_reference: fields.reference.trim(), p_reason: fields.note.trim(),
       p_confirm_verified: fields.classification !== "non_classificato"
+    }),
+    physicalPreview: (structureId, courseId = null) => invoke("admin_catalog_physical_course_preview", {
+      p_structure_id: structureId, p_course_id: courseId
+    }),
+    registerPhysicalHoles: (context, note) => invoke("admin_catalog_physical_course_register", {
+      p_structure_id: context.structure.id, p_course_id: context.source.course.id,
+      p_expected_structure_revision: context.structure.revision, p_expected_source: context.source,
+      p_reason: note.trim(), p_confirm: true
+    }),
+    verifyPhysicalCourse: (context, note) => invoke("admin_catalog_physical_course_verify", {
+      p_link_id: context.link.id, p_expected_revision: context.link.revision,
+      p_expected_mapping: context.mapping, p_reason: note.trim(), p_confirm: true
     })
   };
 }

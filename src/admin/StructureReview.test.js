@@ -10,7 +10,7 @@ const reviewed = { ...candidate, target_id: "club-2", title: "Club classificato"
 const makeDetail = () => ({ club, target_type: "structure", target_id: club.id, structures: [], configurations: [], events: [], fig: null,
   courses: [{ id: "route-1", name: "Nove fixture", holes_count: 9, source_system: "gesgolf", holes: [{ id: "rh-1", physical_hole_number: 10, par: 4, stroke_index: 1 }] }],
   combinations: [{ id: "combination-1", name: "Combinazione fixture", holes_count: 18, holes: [{ round_hole_number: 10, physical_hole_number: 1, exact_legacy_reference_exists: false }] }] });
-const createService = () => ({ list: jest.fn().mockResolvedValue([candidate, combination, reviewed]), detail: jest.fn().mockResolvedValue(makeDetail()), createStructure: jest.fn(), reviewStructure: jest.fn() });
+const createService = () => ({ list: jest.fn().mockResolvedValue([candidate, combination, reviewed]), detail: jest.fn().mockResolvedValue(makeDetail()), createStructure: jest.fn(), reviewStructure: jest.fn(), physicalPreview: jest.fn().mockResolvedValue({ structure: { id: "structure-1" }, courses: [], physical_holes: [], reasons: [], mapping: [], events: [] }) });
 const fillProvenance = () => {
   fireEvent.change(screen.getByLabelText("Fonte"), { target: { value: "fig" } });
   fireEvent.change(screen.getByLabelText("Riferimento alla fonte"), { target: { value: "Documento FIG fixture" } });
