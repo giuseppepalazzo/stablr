@@ -143,11 +143,14 @@ test("physical18 source registration and 1:1 verification reuse the physical con
   fireEvent.change(await screen.findByLabelText("Percorso pubblicato sorgente"), { target: { value: "course-18" } });
   const table = await screen.findByRole("table", { name: "Anteprima buche sorgente" }); expect(within(table).getAllByRole("row")).toHaveLength(19);
   expect(within(table).getByText("Buca 18")).toBeInTheDocument();
+  expect(screen.getByText(/18 buche · Totale Par: 70/)).toBeInTheDocument();
   expect(within(table).getAllByText("Riferimenti")).toHaveLength(18); // IDs are disclosed only inside closed details.
   fireEvent.change(screen.getByLabelText("Nota di registrazione"), { target: { value: "Confermo sorgente 18" } });
   fireEvent.click(screen.getByRole("button", { name: "Registra buche fisiche" })); expect(screen.getByRole("dialog")).toHaveTextContent("Verranno create 18 identità fisiche");
   expect(service.registerPhysicalHoles).not.toHaveBeenCalled(); fireEvent.click(screen.getByRole("button", { name: "Conferma registrazione" }));
   await screen.findByText("Buche registrate nella fondazione. Il collegamento al Percorso è Da revisionare.");
+  expect(screen.getByText(/18 identità fisiche registrate nella struttura · Totale Par: 70/)).toBeInTheDocument();
+  expect(screen.getByText("Da revisionare").closest("p")).toHaveTextContent("18 buche · Totale Par: 70");
   expect(within(screen.getByRole("table", { name: "Collegamento fisico uno a uno" })).getAllByRole("row")).toHaveLength(19);
   fireEvent.change(screen.getByLabelText("Nota di verifica 1:1"), { target: { value: "Confermo 18 corrispondenze" } });
   fireEvent.click(screen.getByRole("button", { name: "Verifica collegamento 1:1" })); fireEvent.click(screen.getByRole("button", { name: "Conferma collegamento" }));

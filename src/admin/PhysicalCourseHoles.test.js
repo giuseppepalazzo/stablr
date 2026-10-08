@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import PhysicalCourseHoles, { physicalSourceProblems } from "./PhysicalCourseHoles";
+import PhysicalCourseHoles, { displayedHolesTotalPar, physicalSourceProblems } from "./PhysicalCourseHoles";
 import { StructureReviewDetail } from "./StructureReview";
 import { createStructureReviewService } from "./structure-review-data";
 
@@ -36,6 +36,7 @@ test("opens empty, never chooses a course automatically, and previews real sourc
   expect(within(table).getAllByRole("row")).toHaveLength(10);
   expect(table).toHaveTextContent("source-hole-3"); expect(table).toHaveTextContent("3");
   expect(screen.getByText(/Fonte registrata: gesgolf/)).toBeInTheDocument();
+  expect(screen.getByText(/9 buche · Totale Par: 35/)).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Registra buche fisiche" })).toBeDisabled();
   expect(service.registerPhysicalHoles).not.toHaveBeenCalled();
 });
@@ -50,6 +51,8 @@ test("registration and 1:1 verification require separate notes and confirmations
   fireEvent.click(screen.getByRole("button", { name: "Registra buche fisiche" }));
   const confirm = screen.getByRole("button", { name: "Conferma registrazione" }); fireEvent.click(confirm); fireEvent.click(confirm);
   await screen.findByText("Buche registrate nella fondazione. Il collegamento al Percorso è Da revisionare.");
+  expect(screen.getByText(/9 identità fisiche registrate nella struttura · Totale Par: 35/)).toBeInTheDocument();
+  expect(screen.getByText("Da revisionare").closest("p")).toHaveTextContent("9 buche · Totale Par: 35");
   expect(service.registerPhysicalHoles).toHaveBeenCalledTimes(1);
   expect(service.registerPhysicalHoles).toHaveBeenCalledWith(preview, "Verifica sorgente manuale");
   expect(service.verifyPhysicalCourse).not.toHaveBeenCalled();
@@ -67,6 +70,13 @@ test("registration and 1:1 verification require separate notes and confirmations
   expect(screen.getByText("Verificato")).toBeInTheDocument();
   expect(screen.queryByRole("button", { name: "Registra buche fisiche" })).not.toBeInTheDocument();
   expect(screen.queryByRole("button", { name: "Verifica collegamento 1:1" })).not.toBeInTheDocument();
+});
+
+test("computes the compact total only from displayed physical/source rows", () => {
+  expect(displayedHolesTotalPar(holes)).toBe(35);
+  expect(displayedHolesTotalPar(physical, true)).toBe(35);
+  expect(displayedHolesTotalPar([{ par: 4 }, { par: null }])).toBe("—");
+  expect(displayedHolesTotalPar([])).toBe("—");
 });
 
 test.each(Object.keys(physicalSourceProblems))("explains incompatibility %s and offers no mutation", async (reason) => {
