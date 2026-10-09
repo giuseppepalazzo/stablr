@@ -27,6 +27,11 @@
 .stablr-admin-playable-list { display: grid; gap: 8px; }
 .stablr-admin-playable-list > button { display: grid; grid-template-columns: minmax(160px,1fr) 90px 140px; align-items: center; gap: 16px; text-align: left; padding: 12px; border: 1px solid #285345; border-radius: 8px; color: inherit; background: #103528; cursor: pointer; }
 .stablr-admin-playable-tees { margin: 16px 0; }
+.stablr-admin-multi9-checkbox { display: flex; align-items: center; gap: 8px; margin: 14px 0; font-size: 13px; }
+.stablr-admin-multi9-holes, .stablr-admin-multi9-sequence { display: grid; gap: 6px; overflow-x: auto; margin: 14px 0; }
+.stablr-admin-multi9-holes > div, .stablr-admin-multi9-sequence > div { display: grid; grid-template-columns: minmax(180px,1.5fr) repeat(3,minmax(100px,1fr)); gap: 12px; padding: 10px 12px; border-radius: 8px; background: #0b281e; min-width: 600px; font-size: 13px; }
+.stablr-admin-multi9-sequence > div { grid-template-columns: 60px minmax(150px,1.5fr) repeat(4,minmax(100px,1fr)); min-width: 760px; }
+.stablr-admin-multi9-holes strong, .stablr-admin-multi9-sequence strong { color: var(--stablr-admin-muted); font-weight: 500; }
 @media (max-width: 700px) { .stablr-admin-playable-selectors { grid-template-columns: 1fr; } .stablr-admin-playable-list { overflow-x: auto; } }
 @media (max-width: 700px) { .stablr-admin-physical-grid { overflow-x: auto; } .stablr-admin-physical-grid > div { min-width: 600px; } }
 @media (max-width: 1100px) { .stablr-admin-structure-row { grid-template-columns: minmax(160px, 1.3fr) repeat(2, minmax(140px, 1fr)); } }

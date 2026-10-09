@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import PhysicalCourseHoles from "./PhysicalCourseHoles";
 import PlayableConfigurations from "./PlayableConfigurations";
+import Multi9Review from "./Multi9Review";
 import { PHYSICAL_CLASSIFICATIONS, STRUCTURE_SOURCES, filterStructureReviews, reviewStatusLabel, reviewTypeLabel, structureReviewError } from "./structure-review-data";
 import "./StructureReview.css";
 
@@ -13,6 +14,7 @@ const value = (data) => data == null || data === "" ? "—" : String(data);
 const sourceLabel = (source) => source === "other" ? "Altra fonte" : source.toUpperCase();
 const eventLabels = { admin_catalog_physical_structures: "Struttura", admin_catalog_physical_holes: "Buca fisica",
   admin_catalog_physical_course_links: "Collegamento Percorso fisico",
+  admin_catalog_configuration_components: "Componente configurazione", admin_catalog_multi9_batches: "Approvazione batch multi-9",
   admin_catalog_playable_configurations: "Configurazione", admin_catalog_configuration_holes: "Collegamento buca", admin_catalog_tee_overrides: "Override tee" };
 
 function Payload({ title, payload }) {
@@ -158,8 +160,10 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
           </form>}
         </section>
         {readonly && structure.classification !== "non_classificato" && <>
-          <PhysicalCourseHoles key={structure.id} structure={structure} service={service} onEvents={receivePhysicalEvents} onBusy={setPhysicalBusy} onChanged={physicalChanged} />
-          <PlayableConfigurations key={`playable:${structure.id}`} structure={structure} service={service} physical18={structure.classification === "fisico_18"} onEvents={receivePhysicalEvents} onBusy={setPlayableBusy} refreshKey={physicalRevision} />
+          {structure.classification === "multi_9" ? <Multi9Review key={structure.id} structureId={structure.id} service={service} onEvents={receivePhysicalEvents} onBusy={setPhysicalBusy} onCompleted={() => load(structure.id)} /> : <>
+            <PhysicalCourseHoles key={structure.id} structure={structure} service={service} onEvents={receivePhysicalEvents} onBusy={setPhysicalBusy} onChanged={physicalChanged} />
+            <PlayableConfigurations key={`playable:${structure.id}`} structure={structure} service={service} physical18={structure.classification === "fisico_18"} onEvents={receivePhysicalEvents} onBusy={setPlayableBusy} refreshKey={physicalRevision} />
+          </>}
         </>}
         <Evidence detail={detail} /><FoundationHistory events={[...new Map([...detail.events, ...physicalEvents].map((event) => [event.id, event])).values()].sort((left, right) => new Date(right.occurred_at) - new Date(left.occurred_at))} />
       </>}
@@ -183,6 +187,7 @@ export default function StructureReview({ service, onRoot }) {
   const [type, setType] = useState("Tutti i tipi");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
+  const [batchBusy, setBatchBusy] = useState(false);
   const request = useRef(0);
   const load = useCallback(async () => {
     const sequence = ++request.current;
@@ -199,15 +204,16 @@ export default function StructureReview({ service, onRoot }) {
   if (selected) return <StructureReviewDetail item={(items || []).find((item) => item.target_type === selected.target_type && item.target_id === selected.target_id) || selected} key={`${selected.target_type}:${selected.target_id}`} service={service} onBack={() => setSelected(null)} onRoot={onRoot} onChanged={changed} />;
   const filtered = filterStructureReviews(items || [], status, type, search);
   return <section className="stablr-admin-detail stablr-admin-structure-review">
-    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button onClick={onRoot} type="button">Avanzata</button><span>/</span><span>Struttura e collegamenti</span></nav>
+    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={batchBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><span>Struttura e collegamenti</span></nav>
     <header className="stablr-admin-page-header"><div><h1>Struttura e collegamenti</h1><p>Revisione manuale della struttura fisica e dei collegamenti buca.</p></div></header>
+    <Multi9Review service={service} onBusy={setBatchBusy} onCompleted={load} />
     {error && <div role="alert"><p>{error}</p><button className="stablr-admin-white-button" onClick={load} type="button">Riprova</button></div>}
     {items === null ? !error && <p role="status">Caricamento coda…</p> : <>
       <div className="stablr-admin-filter-row" role="group" aria-label="Stato revisione struttura">{["Da revisionare", "Classificati / verificati", "Tutti"].map((filter) => <button className={filter === status ? "is-active" : ""} key={filter} onClick={() => setStatus(filter)} type="button">{filter}</button>)}</div>
       <div className="stablr-admin-filter-row" role="group" aria-label="Tipo revisione struttura">{["Tutti i tipi", "Classificazione struttura", "Collegamento buche"].map((filter) => <button className={filter === type ? "is-active" : ""} key={filter} onClick={() => setType(filter)} type="button">{filter}</button>)}</div>
       <label className="stablr-admin-structure-search">Cerca club o combinazione<input value={search} onChange={(event) => setSearch(event.target.value)} /></label>
       <section className="stablr-admin-advanced-data-list" aria-label="Coda struttura e collegamenti">
-        {filtered.map((item) => <button className="stablr-admin-structure-row" key={`${item.target_type}:${item.target_id}`} onClick={() => setSelected(item)} type="button">
+        {filtered.map((item) => <button className="stablr-admin-structure-row" disabled={batchBusy} key={`${item.target_type}:${item.target_id}`} onClick={() => setSelected(item)} type="button">
           <div><span>Club / combinazione</span><strong>{item.title}</strong>{item.target_type === "hole_links" && <small>{item.club_name}</small>}</div>
           <div><span>Revisione</span><strong>{reviewTypeLabel(item.target_type)}</strong></div>
           <div><span>{item.target_type === "structure" ? "Classificazione" : "Collegamenti verificati"}</span><strong>{item.target_type === "structure" ? value(item.classification) : `${item.verified_hole_count} / ${item.holes_count}`}</strong></div>

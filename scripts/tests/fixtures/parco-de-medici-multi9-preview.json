@@ -1,0 +1,1499 @@
+{
+  "captured_on": "2026-10-09",
+  "club": {
+    "id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+    "name": "Parco De' Medici",
+    "name_normalized": "parco de medici",
+    "is_active": true,
+    "source_system": "fig"
+  },
+  "routes": [
+    {
+      "id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "Bianco",
+      "holes_count": 9,
+      "total_par": 35,
+      "is_active": true,
+      "source_system": "fig",
+      "source_payload": {
+        "kind": "route",
+        "family": "base"
+      }
+    },
+    {
+      "id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "Blu",
+      "holes_count": 9,
+      "total_par": 37,
+      "is_active": true,
+      "source_system": "fig",
+      "source_payload": {
+        "kind": "route",
+        "family": "base"
+      }
+    },
+    {
+      "id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "Rosso",
+      "holes_count": 9,
+      "total_par": 35,
+      "is_active": true,
+      "source_system": "fig",
+      "source_payload": {
+        "kind": "route",
+        "family": "base"
+      }
+    },
+    {
+      "id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "9 Buche Bianco 2 Volte",
+      "holes_count": 18,
+      "total_par": 70,
+      "is_active": true,
+      "source_system": "fig",
+      "source_payload": {
+        "kind": "route",
+        "family": "repeat"
+      }
+    },
+    {
+      "id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "9 Buche Blu 2 Volte",
+      "holes_count": 18,
+      "total_par": 74,
+      "is_active": true,
+      "source_system": "fig",
+      "source_payload": {
+        "kind": "route",
+        "family": "repeat"
+      }
+    },
+    {
+      "id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "Est (Rosso x 2)",
+      "holes_count": 18,
+      "total_par": 70,
+      "is_active": true,
+      "source_system": "fig",
+      "source_payload": {
+        "kind": "route",
+        "family": "repeat"
+      }
+    }
+  ],
+  "combinations": [
+    {
+      "id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "Championship Bianco/Blu",
+      "front_route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "back_route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "holes_count": 18,
+      "total_par": 72,
+      "is_active": true,
+      "source_system": "fig"
+    },
+    {
+      "id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "Blu/Bianco (Champ. Invertito)",
+      "front_route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "back_route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "holes_count": 18,
+      "total_par": 72,
+      "is_active": true,
+      "source_system": "fig"
+    },
+    {
+      "id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "King Blu/Rosso",
+      "front_route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "back_route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "holes_count": 18,
+      "total_par": 72,
+      "is_active": true,
+      "source_system": "fig"
+    },
+    {
+      "id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "club_id": "bf5b48bf-4eff-46e8-910c-4915d359dea2",
+      "name": "Queen Bianco/Rosso",
+      "front_route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "back_route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "holes_count": 18,
+      "total_par": 70,
+      "is_active": true,
+      "source_system": "fig"
+    }
+  ],
+  "holes": [
+    {
+      "id": "9cc0573e-147d-49cc-a31d-9b7cf3a1b3ba",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 3
+    },
+    {
+      "id": "7dbad99a-dc7d-4262-a5e6-1425a1be09a2",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 7
+    },
+    {
+      "id": "c5d4eb61-e495-4ab4-af6a-1faa11c406aa",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 3,
+      "par": 5,
+      "stroke_index": 9
+    },
+    {
+      "id": "fc321a7c-1c20-4e87-bb30-018229ab320e",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 4,
+      "par": 3,
+      "stroke_index": 17
+    },
+    {
+      "id": "29a3b85e-994c-4472-abfc-6e5bec0610fe",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 5,
+      "par": 4,
+      "stroke_index": 5
+    },
+    {
+      "id": "a436132a-7dec-4c71-99d0-4a7de14b0744",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 6,
+      "par": 4,
+      "stroke_index": 13
+    },
+    {
+      "id": "41b98b8c-f46f-4125-9d0f-6edaae67b424",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 7,
+      "par": 3,
+      "stroke_index": 11
+    },
+    {
+      "id": "23f0ba84-234e-4c03-9e1d-56634a037147",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 8,
+      "par": 5,
+      "stroke_index": 15
+    },
+    {
+      "id": "be535b38-ddaf-4751-8fa1-27e1ab4c2c87",
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 1
+    },
+    {
+      "id": "f5ffe060-368d-4941-a79f-48c9703fb264",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 2
+    },
+    {
+      "id": "ad0c3c8c-c6db-4110-925c-c35a2af8fbb2",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 2,
+      "par": 5,
+      "stroke_index": 18
+    },
+    {
+      "id": "7d8a678c-971e-41b6-88da-b4738510c07d",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 3,
+      "par": 3,
+      "stroke_index": 16
+    },
+    {
+      "id": "a5f19fb5-ab70-495a-a275-4e1bd7920b53",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 4
+    },
+    {
+      "id": "6a98b952-05dd-4e87-8d5a-f5bbd51d092c",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 5,
+      "par": 5,
+      "stroke_index": 14
+    },
+    {
+      "id": "ce4a2b40-1c77-4ed8-91bb-a5da198b3e84",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 6,
+      "par": 3,
+      "stroke_index": 6
+    },
+    {
+      "id": "71d36ce7-da0f-4542-afe6-19588ca88909",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 8
+    },
+    {
+      "id": "1800efa6-3e26-48e2-96fd-9de58d792681",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 10
+    },
+    {
+      "id": "048c6896-de6f-4591-8833-6fb857176feb",
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "physical_hole_number": 9,
+      "par": 5,
+      "stroke_index": 12
+    },
+    {
+      "id": "7ec47f9f-ab7f-4f2f-a2b5-582e99394baa",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 7
+    },
+    {
+      "id": "e7292e76-dc5b-415e-857e-4ccf209dc067",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 15
+    },
+    {
+      "id": "1c41e6b8-79e6-4830-b13f-d7775ac9a3c6",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 3,
+      "par": 4,
+      "stroke_index": 17
+    },
+    {
+      "id": "2494440b-fc5c-4c0a-b69a-9fa62fde77bc",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 1
+    },
+    {
+      "id": "33774e89-eb7a-434f-9ae8-8352a9474c63",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 5,
+      "par": 3,
+      "stroke_index": 11
+    },
+    {
+      "id": "baddb964-5ba5-42cd-b128-b88418f68eff",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 6,
+      "par": 5,
+      "stroke_index": 13
+    },
+    {
+      "id": "24d39a62-32dc-4bac-b437-c8db94a01dbe",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 9
+    },
+    {
+      "id": "1f0cdd39-2b74-4b96-a978-423479feb4dc",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 5
+    },
+    {
+      "id": "6cfcfa88-b1c4-47ee-a794-bacc3a20e785",
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 3
+    },
+    {
+      "id": "09839062-82a0-4c5f-b698-49c29d7ebbed",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 3
+    },
+    {
+      "id": "caddaaae-da70-46be-afd6-caec2d9bc59e",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 7
+    },
+    {
+      "id": "939f1b08-64ce-4362-92b1-1269a7bf27e3",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 3,
+      "par": 5,
+      "stroke_index": 5
+    },
+    {
+      "id": "47223aee-f288-432e-bc65-c52186ff45e5",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 4,
+      "par": 3,
+      "stroke_index": 15
+    },
+    {
+      "id": "bfc580c6-baaf-42d5-b72f-aab1ea0f5f29",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 5,
+      "par": 4,
+      "stroke_index": 13
+    },
+    {
+      "id": "8dfe0d50-036f-4090-88f4-05f8033f3ee5",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 6,
+      "par": 4,
+      "stroke_index": 11
+    },
+    {
+      "id": "b4242fdd-59cc-47b0-9361-1649b08223ae",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 7,
+      "par": 3,
+      "stroke_index": 9
+    },
+    {
+      "id": "05eed83b-d647-4ff9-8bdf-f6c288e24e1d",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 8,
+      "par": 5,
+      "stroke_index": 17
+    },
+    {
+      "id": "8a050e31-e9d3-4ad6-be4a-a4e460ff1173",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 1
+    },
+    {
+      "id": "7a68044e-3da1-4ff9-ab07-fb7c4498c9e7",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 10,
+      "par": 4,
+      "stroke_index": 4
+    },
+    {
+      "id": "ff3c1b02-d799-4c14-b878-5be451d92414",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 11,
+      "par": 3,
+      "stroke_index": 8
+    },
+    {
+      "id": "9e364702-31d1-4d8a-b77f-64bf0949e70d",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 12,
+      "par": 5,
+      "stroke_index": 6
+    },
+    {
+      "id": "999d00d2-4b6c-48bd-a6ac-815d45f7df2e",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 13,
+      "par": 3,
+      "stroke_index": 16
+    },
+    {
+      "id": "20adb5ab-e71e-4193-b89f-c6a8d8b2a494",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 14,
+      "par": 4,
+      "stroke_index": 14
+    },
+    {
+      "id": "b9fc8a51-2d6b-49cb-9671-a6959f7d2aa3",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 15,
+      "par": 4,
+      "stroke_index": 12
+    },
+    {
+      "id": "613901ea-0a56-4ec4-8a84-d86f8fa9f466",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 16,
+      "par": 3,
+      "stroke_index": 10
+    },
+    {
+      "id": "0987a1a4-0f74-44a9-b33b-f6694dd95cff",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 17,
+      "par": 5,
+      "stroke_index": 18
+    },
+    {
+      "id": "d0696c54-40e2-4126-baec-a84f830e4fca",
+      "route_id": "82a5a4fc-4bee-4aa8-a602-5554ee3be16e",
+      "physical_hole_number": 18,
+      "par": 4,
+      "stroke_index": 2
+    },
+    {
+      "id": "000b0cc6-12b9-4abe-a5a9-579af673f1d8",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 9
+    },
+    {
+      "id": "f63f67df-ede4-4b09-8c7e-fee21a058106",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 2,
+      "par": 5,
+      "stroke_index": 17
+    },
+    {
+      "id": "3c7287fa-87cf-4011-8832-b20b6f085a93",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 3,
+      "par": 3,
+      "stroke_index": 15
+    },
+    {
+      "id": "6fbd0e14-a5a6-496e-a9ca-01123aacec18",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 1
+    },
+    {
+      "id": "c3915fa8-06a8-4e15-83b5-7f9fc12120cb",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 5,
+      "par": 5,
+      "stroke_index": 13
+    },
+    {
+      "id": "1b67f892-528f-4bd2-a76d-4098bcfdc5fe",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 6,
+      "par": 3,
+      "stroke_index": 5
+    },
+    {
+      "id": "6c24e832-1cba-4691-bd17-1a8adf5a6b2d",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 7
+    },
+    {
+      "id": "c4f1b653-7af6-4c28-aca2-70538adbce3a",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 3
+    },
+    {
+      "id": "6afafb0d-6198-4fb4-be51-6ec7ba889451",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 9,
+      "par": 5,
+      "stroke_index": 11
+    },
+    {
+      "id": "30d2bbfa-5600-47cc-8511-a74bff914472",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 10,
+      "par": 4,
+      "stroke_index": 10
+    },
+    {
+      "id": "5beb06ee-4749-4e46-8697-fde9a3e47875",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 11,
+      "par": 5,
+      "stroke_index": 18
+    },
+    {
+      "id": "c811a2d4-c96a-4a5d-8e4e-1fd102ee4998",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 12,
+      "par": 3,
+      "stroke_index": 16
+    },
+    {
+      "id": "1330ea3e-1e45-4f87-9f6d-4a23afe81af7",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 13,
+      "par": 4,
+      "stroke_index": 2
+    },
+    {
+      "id": "c3fbcccd-5033-400e-87cb-ed98e74572fc",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 14,
+      "par": 5,
+      "stroke_index": 14
+    },
+    {
+      "id": "e6d69c91-5b22-4141-8dda-2785d242a3d1",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 15,
+      "par": 3,
+      "stroke_index": 6
+    },
+    {
+      "id": "520cc5c7-b2ce-432b-bfe2-1a4bf6c23a98",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 16,
+      "par": 4,
+      "stroke_index": 8
+    },
+    {
+      "id": "de6d341d-83cd-474e-a3b9-7507a99f400a",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 17,
+      "par": 4,
+      "stroke_index": 4
+    },
+    {
+      "id": "954cd338-8cce-4224-b05f-0f1457289598",
+      "route_id": "a331d75b-df3d-41db-8d40-29decf7871c2",
+      "physical_hole_number": 18,
+      "par": 5,
+      "stroke_index": 12
+    },
+    {
+      "id": "022001aa-5251-4dd4-842b-98bb9834a435",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 7
+    },
+    {
+      "id": "45e81dc7-2d1f-48a0-a536-9402b4475dda",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 15
+    },
+    {
+      "id": "bcb3df1e-4269-46ca-be2b-d3f447bd1113",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 3,
+      "par": 4,
+      "stroke_index": 17
+    },
+    {
+      "id": "d3f2f76e-088d-4931-9393-550d8c4adb3f",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 1
+    },
+    {
+      "id": "1b90cc5e-26f0-40f1-ac8a-03bfb14d0061",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 5,
+      "par": 3,
+      "stroke_index": 11
+    },
+    {
+      "id": "1e733f04-8338-4972-8106-c9c27ef6454f",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 6,
+      "par": 5,
+      "stroke_index": 13
+    },
+    {
+      "id": "49b8cfd8-9d12-4b84-9a41-ec50dcea941f",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 9
+    },
+    {
+      "id": "bc096d5f-4fc4-4ec4-8344-1b82d8726408",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 5
+    },
+    {
+      "id": "29557ff3-b1bc-46fa-a057-6e7d3577e769",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 3
+    },
+    {
+      "id": "8257e14c-f32c-4365-841a-6eb326abb1bb",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 10,
+      "par": 4,
+      "stroke_index": 8
+    },
+    {
+      "id": "23e571c6-5730-403d-ac6e-39a8294f5c6b",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 11,
+      "par": 3,
+      "stroke_index": 16
+    },
+    {
+      "id": "8816d0d3-f681-40e5-8dd9-b44f26435795",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 12,
+      "par": 4,
+      "stroke_index": 18
+    },
+    {
+      "id": "ff2679ef-f0a3-4d84-a938-b0666712841a",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 13,
+      "par": 4,
+      "stroke_index": 2
+    },
+    {
+      "id": "5c339dbc-2e3d-46f7-9cd5-cb4fc18fa441",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 14,
+      "par": 3,
+      "stroke_index": 12
+    },
+    {
+      "id": "7605d75c-c9e2-4525-9c99-21df7723b9a4",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 15,
+      "par": 5,
+      "stroke_index": 14
+    },
+    {
+      "id": "76f0234d-23fb-46ab-9e9a-465422905d46",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 16,
+      "par": 4,
+      "stroke_index": 10
+    },
+    {
+      "id": "de7d6532-07e6-40ad-9807-56029bb85741",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 17,
+      "par": 4,
+      "stroke_index": 6
+    },
+    {
+      "id": "04e7d5c5-f030-4c41-8a42-eb126b57ce08",
+      "route_id": "212116ae-b57e-43b4-8cc9-8aa36fad3442",
+      "physical_hole_number": 18,
+      "par": 4,
+      "stroke_index": 4
+    }
+  ],
+  "slots": [
+    {
+      "id": "017b545b-91e9-499e-b6bc-7115815a89c8",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 1,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 9,
+      "source_stroke_index": 9
+    },
+    {
+      "id": "dcebd29c-a4d3-468e-be10-cdda3c0680aa",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 2,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 2,
+      "par": 5,
+      "stroke_index": 17,
+      "source_stroke_index": 17
+    },
+    {
+      "id": "6b91aa95-23ea-4d10-8f64-959ef7779799",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 3,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 3,
+      "par": 3,
+      "stroke_index": 15,
+      "source_stroke_index": 15
+    },
+    {
+      "id": "4df58163-4db5-4a0b-a1bf-8b21cdc0ec2e",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 4,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 1,
+      "source_stroke_index": 1
+    },
+    {
+      "id": "91f85fb6-bcaa-430c-baf7-41b89a743a20",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 5,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 5,
+      "par": 5,
+      "stroke_index": 13,
+      "source_stroke_index": 13
+    },
+    {
+      "id": "1491aea2-c8a8-413c-9edc-305797e846a3",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 6,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 6,
+      "par": 3,
+      "stroke_index": 5,
+      "source_stroke_index": 5
+    },
+    {
+      "id": "752003cc-6b60-44c4-95f7-cf8222ddb02a",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 7,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 7,
+      "source_stroke_index": 7
+    },
+    {
+      "id": "97a472cf-dba9-43a3-8684-4aeee00215a3",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 8,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 3,
+      "source_stroke_index": 3
+    },
+    {
+      "id": "0169feab-3578-4fe7-8b31-4c244c1f455c",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 9,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 9,
+      "par": 5,
+      "stroke_index": 11,
+      "source_stroke_index": 11
+    },
+    {
+      "id": "5250fc50-c523-4e91-8053-6d5cf9d350f9",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 10,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 8,
+      "source_stroke_index": 8
+    },
+    {
+      "id": "927d86bf-a4fc-44aa-b407-6bac341c2c12",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 11,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 16,
+      "source_stroke_index": 16
+    },
+    {
+      "id": "17625817-a454-40e1-a96f-767dfe196f1c",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 12,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 3,
+      "par": 4,
+      "stroke_index": 18,
+      "source_stroke_index": 18
+    },
+    {
+      "id": "e148da71-bad2-4a62-8273-1e381cdd8a48",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 13,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 2,
+      "source_stroke_index": 2
+    },
+    {
+      "id": "08ef781d-c3ac-49d3-b913-87df700bf670",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 14,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 5,
+      "par": 3,
+      "stroke_index": 12,
+      "source_stroke_index": 12
+    },
+    {
+      "id": "39eb6f00-2d41-4ffa-91a8-511df0e0190d",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 15,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 6,
+      "par": 5,
+      "stroke_index": 14,
+      "source_stroke_index": 14
+    },
+    {
+      "id": "56803e56-ab48-4f22-8cb3-a7a96e9600bf",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 16,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 10,
+      "source_stroke_index": 10
+    },
+    {
+      "id": "a7557b9b-295c-4e69-a6b9-9c4bf43d1467",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 17,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 6,
+      "source_stroke_index": 6
+    },
+    {
+      "id": "42ac0072-ee0d-4e5d-9449-2943acc4df99",
+      "route_combination_id": "400375c0-fba2-495f-aec4-1ab1e3d55835",
+      "round_hole_number": 18,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 4,
+      "source_stroke_index": 4
+    },
+    {
+      "id": "3434c1ed-82af-48be-8ccd-a34f1bf0a59f",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 1,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 3,
+      "source_stroke_index": 3
+    },
+    {
+      "id": "c90ed15d-ead4-4ca7-8931-6b0fa1d76af4",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 2,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 7,
+      "source_stroke_index": 7
+    },
+    {
+      "id": "17d7c055-d34a-4d00-bdf1-1467a41e40d9",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 3,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 3,
+      "par": 5,
+      "stroke_index": 5,
+      "source_stroke_index": 5
+    },
+    {
+      "id": "beecd13d-2d63-4481-87fc-1606ca2dad87",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 4,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 4,
+      "par": 3,
+      "stroke_index": 15,
+      "source_stroke_index": 15
+    },
+    {
+      "id": "76f3893b-2c8e-4458-bf1c-37ef8a74c167",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 5,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 5,
+      "par": 4,
+      "stroke_index": 13,
+      "source_stroke_index": 13
+    },
+    {
+      "id": "cfcbe5d4-8fec-4ec9-b16f-ce149e0ef340",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 6,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 6,
+      "par": 4,
+      "stroke_index": 11,
+      "source_stroke_index": 11
+    },
+    {
+      "id": "54c742d4-b592-4e46-8630-3db165a1cb40",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 7,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 7,
+      "par": 3,
+      "stroke_index": 9,
+      "source_stroke_index": 9
+    },
+    {
+      "id": "0c9eb9b0-47da-43a5-a081-ca3d320a9e48",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 8,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 8,
+      "par": 5,
+      "stroke_index": 17,
+      "source_stroke_index": 17
+    },
+    {
+      "id": "634b681b-7523-401d-8abe-6779bf3fcbc0",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 9,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 1,
+      "source_stroke_index": 1
+    },
+    {
+      "id": "5c9efc85-4522-4c26-b13a-e6a7c2182f46",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 10,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 8,
+      "source_stroke_index": 8
+    },
+    {
+      "id": "2e98a66a-5b7d-42da-a297-5534ceddc990",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 11,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 16,
+      "source_stroke_index": 16
+    },
+    {
+      "id": "810ae9c0-4fb0-4aa4-93ef-673fa66e9961",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 12,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 3,
+      "par": 4,
+      "stroke_index": 18,
+      "source_stroke_index": 18
+    },
+    {
+      "id": "0281a742-e2aa-4c57-9dd4-651f12f377ff",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 13,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 2,
+      "source_stroke_index": 2
+    },
+    {
+      "id": "6d7e2216-b382-4a54-b0d5-111fe08ab82a",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 14,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 5,
+      "par": 3,
+      "stroke_index": 12,
+      "source_stroke_index": 12
+    },
+    {
+      "id": "9dfc6691-a531-4284-a979-e46aab31a818",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 15,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 6,
+      "par": 5,
+      "stroke_index": 14,
+      "source_stroke_index": 14
+    },
+    {
+      "id": "66d908a8-5612-4f76-8f2d-436d34eb8349",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 16,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 10,
+      "source_stroke_index": 10
+    },
+    {
+      "id": "6d1f17b9-04aa-406f-b7be-3aaa9098b3a4",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 17,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 6,
+      "source_stroke_index": 6
+    },
+    {
+      "id": "e08dc14d-8c67-4ca8-87b4-1dddbe641477",
+      "route_combination_id": "6bd5341c-0d3e-4cbd-b52e-8550dee89c1e",
+      "round_hole_number": 18,
+      "route_id": "d55a477a-de27-49b4-83fc-37da6281a1b5",
+      "route_position": 2,
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 4,
+      "source_stroke_index": 4
+    },
+    {
+      "id": "87d71e49-a1b3-4190-acc3-72f6c53e5562",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 1,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 9,
+      "source_stroke_index": 9
+    },
+    {
+      "id": "c8a375d1-085b-41ce-b216-0a859e273966",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 2,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 2,
+      "par": 5,
+      "stroke_index": 17,
+      "source_stroke_index": 17
+    },
+    {
+      "id": "ed6dd735-4a8f-4933-a282-d16aae2453ac",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 3,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 3,
+      "par": 3,
+      "stroke_index": 15,
+      "source_stroke_index": 15
+    },
+    {
+      "id": "265caa3c-91df-44f9-9c20-f205d5480dfe",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 4,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 1,
+      "source_stroke_index": 1
+    },
+    {
+      "id": "1ab4ca7d-e206-4ea3-9c65-451031933539",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 5,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 5,
+      "par": 5,
+      "stroke_index": 13,
+      "source_stroke_index": 13
+    },
+    {
+      "id": "4527c51d-4b3e-41f7-ba10-373b55e575d0",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 6,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 6,
+      "par": 3,
+      "stroke_index": 5,
+      "source_stroke_index": 5
+    },
+    {
+      "id": "2190b4d0-4427-4d58-bd43-4595d0688016",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 7,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 7,
+      "source_stroke_index": 7
+    },
+    {
+      "id": "0a14dd4d-85df-4c5d-8df0-76b91d3c5434",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 8,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 3,
+      "source_stroke_index": 3
+    },
+    {
+      "id": "8f4fda6f-7271-402f-a055-a55cad23a5ad",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 9,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 1,
+      "physical_hole_number": 9,
+      "par": 5,
+      "stroke_index": 11,
+      "source_stroke_index": 11
+    },
+    {
+      "id": "6cdabd55-31f1-47cc-b659-03aa4191f673",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 10,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 4,
+      "source_stroke_index": 4
+    },
+    {
+      "id": "3fb88542-47bb-4c5d-9ac5-5a546ab0567d",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 11,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 8,
+      "source_stroke_index": 8
+    },
+    {
+      "id": "6894c544-323b-419f-9364-4e2113c6d4b3",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 12,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 3,
+      "par": 5,
+      "stroke_index": 6,
+      "source_stroke_index": 6
+    },
+    {
+      "id": "add5e121-4bb1-45f6-a1f3-e860a4984b55",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 13,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 4,
+      "par": 3,
+      "stroke_index": 16,
+      "source_stroke_index": 16
+    },
+    {
+      "id": "502e9122-13c3-4aae-afde-a544f14d640e",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 14,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 5,
+      "par": 4,
+      "stroke_index": 14,
+      "source_stroke_index": 14
+    },
+    {
+      "id": "495929c8-0e1d-4ab9-8231-74602e3d0d2f",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 15,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 6,
+      "par": 4,
+      "stroke_index": 12,
+      "source_stroke_index": 12
+    },
+    {
+      "id": "6d77c0f1-70c7-41e9-a332-b25985c496de",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 16,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 7,
+      "par": 3,
+      "stroke_index": 10,
+      "source_stroke_index": 10
+    },
+    {
+      "id": "3ba03590-f89d-448c-b31b-b030c9098d49",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 17,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 8,
+      "par": 5,
+      "stroke_index": 18,
+      "source_stroke_index": 18
+    },
+    {
+      "id": "50ee2c7f-df04-49da-9613-a80596574681",
+      "route_combination_id": "92c10ff4-9b06-450f-bd53-ea39df96d91c",
+      "round_hole_number": 18,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 2,
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 2,
+      "source_stroke_index": 2
+    },
+    {
+      "id": "d5d3a340-3075-4347-827d-178ab70c750c",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 1,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 3,
+      "source_stroke_index": 3
+    },
+    {
+      "id": "f516dd16-60cc-4397-9204-6bbec158c8c9",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 2,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 2,
+      "par": 3,
+      "stroke_index": 7,
+      "source_stroke_index": 7
+    },
+    {
+      "id": "ecf18319-8a28-40e1-bc60-9c85e666cd79",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 3,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 3,
+      "par": 5,
+      "stroke_index": 5,
+      "source_stroke_index": 5
+    },
+    {
+      "id": "18fb6103-7bee-43a8-9211-f4b0ddc5aba7",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 4,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 4,
+      "par": 3,
+      "stroke_index": 15,
+      "source_stroke_index": 15
+    },
+    {
+      "id": "23345a8d-4563-456c-b365-f957149d7133",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 5,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 5,
+      "par": 4,
+      "stroke_index": 13,
+      "source_stroke_index": 13
+    },
+    {
+      "id": "21075c39-4a9a-4e85-8d9f-041b2ee14a56",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 6,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 6,
+      "par": 4,
+      "stroke_index": 11,
+      "source_stroke_index": 11
+    },
+    {
+      "id": "303d6cec-8727-48e2-a6a9-699566762499",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 7,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 7,
+      "par": 3,
+      "stroke_index": 9,
+      "source_stroke_index": 9
+    },
+    {
+      "id": "f8c391cf-ff05-4c4c-920d-403d7a6fa5f3",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 8,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 8,
+      "par": 5,
+      "stroke_index": 17,
+      "source_stroke_index": 17
+    },
+    {
+      "id": "6d089b62-de9b-44f3-882f-52a592e9aa53",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 9,
+      "route_id": "1f412751-4607-45e5-80de-25b84d2df6b6",
+      "route_position": 1,
+      "physical_hole_number": 9,
+      "par": 4,
+      "stroke_index": 1,
+      "source_stroke_index": 1
+    },
+    {
+      "id": "7262b1a5-3098-4b46-9c16-8ef1427c1c18",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 10,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 1,
+      "par": 4,
+      "stroke_index": 10,
+      "source_stroke_index": 10
+    },
+    {
+      "id": "77134909-0a6e-4ea7-8338-f5649313c2a4",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 11,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 2,
+      "par": 5,
+      "stroke_index": 18,
+      "source_stroke_index": 18
+    },
+    {
+      "id": "04b4878c-341f-4920-b6ce-fe95b74c1ed2",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 12,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 3,
+      "par": 3,
+      "stroke_index": 16,
+      "source_stroke_index": 16
+    },
+    {
+      "id": "eb9281ea-b5d8-474d-87df-f5626232ea2b",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 13,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 4,
+      "par": 4,
+      "stroke_index": 2,
+      "source_stroke_index": 2
+    },
+    {
+      "id": "51529b0d-f997-4420-b887-e94b973a8cff",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 14,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 5,
+      "par": 5,
+      "stroke_index": 14,
+      "source_stroke_index": 14
+    },
+    {
+      "id": "c3dddf9c-73bf-4fc0-af08-2058bb4ec88a",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 15,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 6,
+      "par": 3,
+      "stroke_index": 6,
+      "source_stroke_index": 6
+    },
+    {
+      "id": "1266095a-834c-40f2-8ffe-c62ec09b0fe7",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 16,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 7,
+      "par": 4,
+      "stroke_index": 8,
+      "source_stroke_index": 8
+    },
+    {
+      "id": "10bdb032-abe4-4fbd-9c0b-6e2fd3989789",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 17,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 8,
+      "par": 4,
+      "stroke_index": 4,
+      "source_stroke_index": 4
+    },
+    {
+      "id": "04e6e207-6249-4ca9-a3e3-df876e6e01b2",
+      "route_combination_id": "b2f2358a-42cc-444c-b61a-0092f2c50238",
+      "round_hole_number": 18,
+      "route_id": "d4032b5a-b8eb-47ad-a1b6-2e31c3ab562b",
+      "route_position": 2,
+      "physical_hole_number": 9,
+      "par": 5,
+      "stroke_index": 12,
+      "source_stroke_index": 12
+    }
+  ]
+}

@@ -72,6 +72,18 @@ export function createStructureReviewService(client) {
       p_expected_baseline: context.baseline, p_expected_holes: context.saved_holes,
       p_reason: note.trim(), p_confirm: true
     }),
+    multi9Preview: (structureId) => invoke("admin_catalog_multi9_preview", { p_structure_id: structureId }),
+    multi9BatchPreview: async (structureIds = null) => {
+      const result = await invoke("admin_catalog_multi9_proposal_preview", { p_structure_ids: structureIds });
+      if (result.preview_contract !== 2 || result.discovery_scope !== "clubs_with_combinations") {
+        throw new Error("Incompatible multi9 proposal preview contract");
+      }
+      return result;
+    },
+    registerMulti9Batch: (candidates, note) => invoke("admin_catalog_multi9_batch_register", {
+      p_candidates: candidates.map((c) => ({ club_id: c.club_id, structure_id: c.structure_id, club_name: c.club_name, baseline: c.baseline })),
+      p_reason: note.trim(), p_confirm: true
+    }),
     physical18Preview: (structureId, linkId = null, kind = null, courseId = null, parSelection = null) => invoke("admin_catalog_physical18_preview", {
       p_structure_id: structureId, p_source_link_id: linkId, p_kind: kind, p_course_id: courseId, p_par_selection: parSelection
     }),
