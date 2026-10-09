@@ -5,6 +5,7 @@ import PlayableConfigurations from "./PlayableConfigurations";
 import Multi9Review from "./Multi9Review";
 import DataOrigin from "./DataOrigin";
 import TeeClassifications from "./TeeClassifications";
+import TeeEvidence from "./TeeEvidence";
 import { PHYSICAL_CLASSIFICATIONS, STRUCTURE_SOURCES, filterStructureReviews, reviewStatusLabel, reviewTypeLabel, structureReviewError } from "./structure-review-data";
 import "./StructureReview.css";
 
@@ -212,6 +213,7 @@ export default function StructureReview({ service, onRoot }) {
     <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={batchBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><span>Struttura e collegamenti</span></nav>
     <header className="stablr-admin-page-header"><div><h1>Struttura e collegamenti</h1><p>Revisione manuale della struttura fisica e dei collegamenti buca.</p></div></header>
     <Multi9Review service={service} onBusy={setBatchBusy} onCompleted={load} />
+    <TeeEvidence service={service.teeEvidence} />
     {error && <div role="alert"><p>{error}</p><button className="stablr-admin-white-button" onClick={load} type="button">Riprova</button></div>}
     {items === null ? !error && <p role="status">Caricamento coda…</p> : <>
       <div className="stablr-admin-filter-row" role="group" aria-label="Stato revisione struttura">{["Da revisionare", "Classificati / verificati", "Tutti"].map((filter) => <button className={filter === status ? "is-active" : ""} key={filter} onClick={() => setStatus(filter)} type="button">{filter}</button>)}</div>

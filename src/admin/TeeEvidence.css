@@ -1,0 +1,9 @@
+.stablr-admin-tee-evidence-list { overflow-x: auto; margin: 16px 0; }
+.stablr-admin-tee-evidence-row { display: grid; grid-template-columns: minmax(260px, 2fr) minmax(160px, 1fr) 90px 110px minmax(180px, 1fr); gap: 14px; align-items: center; width: 100%; min-width: 870px; padding: 14px; text-align: left; background: #10392f; color: #edf4ef; border: 0; border-bottom: 1px solid #31574e; font: inherit; cursor: pointer; }
+.stablr-admin-tee-evidence-row:hover { background: #184a3d; }
+.stablr-admin-tee-evidence-row span, .stablr-admin-tee-evidence-row strong, .stablr-admin-tee-evidence-row small { display: block; }
+.stablr-admin-tee-evidence-row span, .stablr-admin-tee-evidence-row small { color: #b7ccc2; font-size: 13px; margin: 5px 0; }
+.stablr-admin-tee-evidence-observation { padding: 16px; background: #123e35; border-bottom: 1px solid #31574e; }
+.stablr-admin-tee-evidence dd { margin: 5px 0 14px; overflow-wrap: anywhere; }
+.stablr-admin-tee-evidence details { margin: 16px 0; }
+.stablr-admin-tee-evidence summary { cursor: pointer; color: #9fd5ff; }
