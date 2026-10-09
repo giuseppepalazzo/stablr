@@ -1,0 +1,16 @@
+.stablr-admin-tee-classifications { margin-top: 16px; }
+.stablr-admin-tee-classification-filters { display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0; }
+.stablr-admin-tee-classification-filters label { display: grid; gap: 6px; }
+.stablr-admin-tee-classification-filters select { background: #123e35; border: 1px solid #39645b; color: #edf4ef; border-radius: 10px; padding: 10px; }
+.stablr-admin-tee-classification-list { overflow-x: auto; }
+.stablr-admin-tee-classification-row { display: grid; grid-template-columns: minmax(220px, 2fr) 65px 60px 125px 155px minmax(145px, 1fr); gap: 14px; align-items: center; min-width: 880px; width: 100%; text-align: left; padding: 14px; border: 0; border-bottom: 1px solid #31574e; color: #edf4ef; background: #10392f; font: inherit; }
+button.stablr-admin-tee-classification-row { cursor: pointer; }
+button.stablr-admin-tee-classification-row:hover { background: #184a3d; }
+.stablr-admin-tee-classification-row small { display: block; margin-top: 5px; color: #b7ccc2; }
+.stablr-admin-tee-classification-row i { display: inline-block; height: 12px; width: 12px; border-radius: 50%; border: 1px solid #91a49a; margin-right: 8px; }
+.stablr-admin-tee-classification-facts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 16px 0; }
+.stablr-admin-tee-classification-facts span, .stablr-admin-tee-classification-facts strong { display: block; overflow-wrap: anywhere; }
+.stablr-admin-tee-classification-facts span { margin-bottom: 6px; color: #b7ccc2; font-size: 13px; }
+.stablr-admin-tee-classifications details { margin: 14px 0; }
+.stablr-admin-tee-classifications summary { cursor: pointer; color: #9fd5ff; }
+@media (max-width: 800px) { .stablr-admin-tee-classification-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

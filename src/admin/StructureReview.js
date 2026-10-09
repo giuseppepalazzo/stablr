@@ -4,6 +4,7 @@ import PhysicalCourseHoles from "./PhysicalCourseHoles";
 import PlayableConfigurations from "./PlayableConfigurations";
 import Multi9Review from "./Multi9Review";
 import DataOrigin from "./DataOrigin";
+import TeeClassifications from "./TeeClassifications";
 import { PHYSICAL_CLASSIFICATIONS, STRUCTURE_SOURCES, filterStructureReviews, reviewStatusLabel, reviewTypeLabel, structureReviewError } from "./structure-review-data";
 import "./StructureReview.css";
 
@@ -91,6 +92,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   const [physicalEvents, setPhysicalEvents] = useState([]);
   const [physicalBusy, setPhysicalBusy] = useState(false);
   const [playableBusy, setPlayableBusy] = useState(false);
+  const [teeClassificationBusy, setTeeClassificationBusy] = useState(false);
   const [physicalRevision, setPhysicalRevision] = useState(0);
   const physicalChanged = useCallback(() => setPhysicalRevision((value) => value + 1), []);
   const receivePhysicalEvents = useCallback((events) => setPhysicalEvents((current) => [...new Map([...current, ...events].map((event) => [event.id, event])).values()]), []);
@@ -134,7 +136,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   };
 
   return <section className="stablr-admin-detail stablr-admin-structure-review">
-    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || physicalBusy || playableBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><button disabled={busy || physicalBusy || playableBusy} onClick={onBack} type="button">Struttura e collegamenti</button><span>/</span><span>{item.title}</span></nav>
+    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy} onClick={onBack} type="button">Struttura e collegamenti</button><span>/</span><span>{item.title}</span></nav>
     <header className="stablr-admin-page-header"><div><h1>{item.title}</h1><p>{item.club_name} · {reviewTypeLabel(item.target_type)}</p></div><span className="stablr-admin-status">{reviewStatusLabel(item)}</span></header>
     {message && <p role="status">{message}</p>}
     {loading ? <p role="status">Caricamento evidenze…</p> : <>
@@ -167,6 +169,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
           </>}
         </>}
         <DataOrigin key={detail.club.id} clubId={detail.club.id} service={service} />
+        <TeeClassifications key={`tee-classifications:${detail.club.id}`} clubId={detail.club.id} service={service.teeClassifications} onBusy={setTeeClassificationBusy} />
         <Evidence detail={detail} /><FoundationHistory events={[...new Map([...detail.events, ...physicalEvents].map((event) => [event.id, event])).values()].sort((left, right) => new Date(right.occurred_at) - new Date(left.occurred_at))} />
       </>}
     </>}
