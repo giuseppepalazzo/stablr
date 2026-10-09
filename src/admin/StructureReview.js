@@ -3,6 +3,7 @@ import { EditorDialog } from "./ClubEditor";
 import PhysicalCourseHoles from "./PhysicalCourseHoles";
 import PlayableConfigurations from "./PlayableConfigurations";
 import Multi9Review from "./Multi9Review";
+import DataOrigin from "./DataOrigin";
 import { PHYSICAL_CLASSIFICATIONS, STRUCTURE_SOURCES, filterStructureReviews, reviewStatusLabel, reviewTypeLabel, structureReviewError } from "./structure-review-data";
 import "./StructureReview.css";
 
@@ -165,6 +166,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
             <PlayableConfigurations key={`playable:${structure.id}`} structure={structure} service={service} physical18={structure.classification === "fisico_18"} onEvents={receivePhysicalEvents} onBusy={setPlayableBusy} refreshKey={physicalRevision} />
           </>}
         </>}
+        <DataOrigin key={detail.club.id} clubId={detail.club.id} service={service} />
         <Evidence detail={detail} /><FoundationHistory events={[...new Map([...detail.events, ...physicalEvents].map((event) => [event.id, event])).values()].sort((left, right) => new Date(right.occurred_at) - new Date(left.occurred_at))} />
       </>}
     </>}

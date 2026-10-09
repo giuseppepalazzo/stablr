@@ -1,3 +1,5 @@
+import { validateOriginGraph } from "./data-origin";
+
 export const PHYSICAL_CLASSIFICATIONS = ["non_classificato", "fisico_9", "fisico_18", "multi_9"];
 export const STRUCTURE_SOURCES = ["fig", "gesgolf", "stablr", "other"];
 export const reviewTypeLabel = (type) => type === "structure" ? "Classificazione struttura" : "Collegamento buche";
@@ -29,6 +31,7 @@ export function createStructureReviewService(client) {
     return result;
   };
   return {
+    originGraph: async (clubId) => validateOriginGraph(await invoke("admin_catalog_data_origin", { p_club_id: clubId }), clubId),
     list: async () => {
       const result = await invoke("admin_catalog_structure_review_queue");
       if (!Array.isArray(result.items)) throw new Error("Invalid structure queue");
