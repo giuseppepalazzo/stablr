@@ -43,6 +43,30 @@ const invalid={iss:'https://attacker.invalid',aud:'wrong',sub:'repo:fork/stablr:
   event_name:'pull_request',workflow_ref:WORKFLOW_REF.replace('tee-evidence-batch','attacker'),workflow_sha:'b'.repeat(40),sha:'b'.repeat(40),
   runner_environment:'self-hosted',run_attempt:'2',run_id:'',actor_id:'999'};
 for (const [field,value] of Object.entries(invalid)) test(`OIDC rejects invalid ${field}`,async()=>assert.rejects(()=>sign({...claims,[field]:value}).then(verify)));
+const jobContext={job_workflow_ref:WORKFLOW_REF,job_workflow_sha:revision};
+test('OIDC accepts only the exact authorized self-workflow job pair without exporting extra claims',async()=>{
+  const codes=[],diagnostic=githubVerifier({jwtVerify,keys:createLocalJWKSet({keys:[key]}),policy,now:()=>clock,onReject:code=>codes.push(code)});
+  assert.deepEqual(await diagnostic(await sign({...claims,...jobContext})),await verify(await sign()));
+  assert.deepEqual(codes,[]);
+  for(const [field,value] of Object.entries(invalid))await assert.rejects(()=>sign({...claims,...jobContext,[field]:value}).then(diagnostic));
+});
+const badJobContexts=[
+  {job_workflow_ref:WORKFLOW_REF},{job_workflow_sha:revision},
+  {...jobContext,job_workflow_ref:WORKFLOW_REF.replace('giuseppepalazzo/stablr','fork/stablr')},
+  {...jobContext,job_workflow_ref:WORKFLOW_REF.replace('tee-evidence-batch','other')},
+  {...jobContext,job_workflow_ref:WORKFLOW_REF.replace('refs/heads/main','refs/heads/other')},
+  {...jobContext,job_workflow_ref:WORKFLOW_REF.replace('refs/heads/main','refs/tags/main')},
+  {...jobContext,job_workflow_ref:WORKFLOW_REF.replace('refs/heads/main','refs/pull/1/merge')},
+  {...jobContext,job_workflow_sha:'b'.repeat(40)},
+  {...jobContext,job_workflow_sha:''},{...jobContext,job_workflow_sha:null},
+  {...jobContext,job_workflow_sha:[revision]},{...jobContext,job_workflow_ref:null},
+  {job_workflow_ref:'',job_workflow_sha:''},{job_workflow_ref:null,job_workflow_sha:null}
+];
+test('OIDC rejects partial/malformed/foreign job pairs and even a different allowlisted revision',async()=>{
+  for(const changes of badJobContexts)await assert.rejects(()=>sign({...claims,...changes}).then(verify));
+  const multiple=githubVerifier({jwtVerify,keys:createLocalJWKSet({keys:[key]}),policy:{...policy,revisions:[revision,'b'.repeat(40)]},now:()=>clock});
+  await assert.rejects(()=>sign({...claims,...jobContext,job_workflow_sha:'b'.repeat(40)}).then(multiple));
+});
 for (const field of Object.keys(claims)) test(`OIDC rejects missing ${field}`,async()=>{const p={...claims};delete p[field];await assert.rejects(()=>sign(p).then(verify));});
 test('OIDC rejects unsigned/tampered/wrong algorithm or key/header, PR target, environment and reusable context',async()=>{
   const token=await sign();await assert.rejects(()=>verify(token.slice(0,-4)+'AAAA'));
@@ -71,7 +95,8 @@ test('internal OIDC diagnostics identify rejected signed constraints without cha
     codes.length=0;await assert.rejects(()=>sign({...claims,[field]:invalid[field]}).then(diagnostic));assert.deepEqual(codes,[code]);
   }
   for(const [changes,code] of [[{job_workflow_ref:'PRIVATE_CLAIM'},'OIDC_REUSABLE_REF'],
-    [{job_workflow_sha:revision},'OIDC_REUSABLE_SHA'],[{environment:'PRIVATE_CLAIM'},'OIDC_ENVIRONMENT'],
+    [{job_workflow_sha:revision},'OIDC_REUSABLE_REF'],[{job_workflow_ref:WORKFLOW_REF},'OIDC_REUSABLE_SHA'],
+    [{...jobContext,job_workflow_sha:'b'.repeat(40)},'OIDC_REUSABLE_SHA'],[{environment:'PRIVATE_CLAIM'},'OIDC_ENVIRONMENT'],
     [{run_attempt:1},'OIDC_RUN_ATTEMPT'],[{exp:seconds+601},'OIDC_LIFETIME']]) {
     codes.length=0;await assert.rejects(()=>sign({...claims,...changes}).then(diagnostic));assert.deepEqual(codes,[code]);
   }
@@ -127,6 +152,17 @@ function fixtureService() {
   }};
   return {client,calls,stats:()=>({writes,uploads,receipts:receipts.size})};
 }
+test('broker permits preview with the exact self-workflow job pair; every other pair fails before privilege',async()=>{
+  const fixture=fixtureService(),broker=createBroker({verify,policy,serviceFactory:()=>fixture.client});
+  const response=await broker(request(await sign({...claims,...jobContext})));assert.equal(response.status,200);
+  const result=safeResult(await response.json(),'preview');assert.equal(result.counts.total,2);assert.equal(fixture.stats().writes,1);
+  let constructions=0;const denied=createBroker({verify,policy,serviceFactory:()=>{constructions++;throw new Error('Forbidden');}});
+  for(const changes of badJobContexts) {
+    const rejected=await denied(request(await sign({...claims,...changes})));assert.equal(rejected.status,403);
+    assert.equal(await rejected.text(),'{"error":"Authorization rejected"}');
+  }
+  assert.equal(constructions,0);
+});
 test('browser/anon/player and every bad OIDC claim are rejected BEFORE service construction or Storage',async()=>{
   let constructions=0;const broker=createBroker({verify,policy,serviceFactory:()=>{constructions++;throw new Error('Forbidden');}});
   for(const token of ['','browser.admin.jwt','anon','service_role',await sign({...claims,actor_id:'999'})])assert.equal((await broker(request(token))).status,403);

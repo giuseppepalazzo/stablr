@@ -6,6 +6,12 @@ export const WORKFLOW_REF = `${REPOSITORY}/.github/workflows/tee-evidence-batch.
 const id = value => typeof value === 'string' && /^[1-9][0-9]{0,19}$/.test(value);
 const uuid = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
 const sha = value => typeof value === 'string' && /^[0-9a-f]{40}$/.test(value);
+// Optional GitHub job context must identify the same explicitly authorized workflow revision.
+function permittedJobWorkflow(p, policy) {
+  if (p.job_workflow_ref === undefined && p.job_workflow_sha === undefined) return true;
+  return p.job_workflow_ref === WORKFLOW_REF && p.job_workflow_sha === p.workflow_sha
+    && policy.revisions.includes(p.job_workflow_sha);
+}
 // Diagnostic codes are fixed literals. Never forward errors, values or JWT claims.
 function verificationCode(error) {
   const claims = { iss:'OIDC_CLAIM_ISS', aud:'OIDC_CLAIM_AUD', sub:'OIDC_CLAIM_SUB',
@@ -38,8 +44,10 @@ function policyCode(p,header,policy,subjects) {
   if (!Object.hasOwn(policy.actors,p.actor_id)) return 'OIDC_ACTOR';
   if (p.head_ref) return 'OIDC_HEAD_REF';
   if (p.base_ref) return 'OIDC_BASE_REF';
-  if (p.job_workflow_ref) return 'OIDC_REUSABLE_REF';
-  if (p.job_workflow_sha) return 'OIDC_REUSABLE_SHA';
+  if (!permittedJobWorkflow(p,policy)) {
+    if (p.job_workflow_ref !== WORKFLOW_REF) return 'OIDC_REUSABLE_REF';
+    return 'OIDC_REUSABLE_SHA';
+  }
   if (p.environment !== undefined) return 'OIDC_ENVIRONMENT';
   if (typeof p.jti !== 'string' || p.jti.length < 1 || p.jti.length > 200) return 'OIDC_JTI';
   if (![p.iat,p.nbf,p.exp].every(Number.isSafeInteger)) return 'OIDC_TIME_FORMAT';
@@ -87,7 +95,7 @@ export function githubVerifier({ jwtVerify, keys, policy, now = () => new Date()
       || p.ref !== 'refs/heads/main' || p.ref_type !== 'branch' || p.event_name !== 'workflow_dispatch'
       || p.workflow_ref !== WORKFLOW_REF || !policy.revisions.includes(p.workflow_sha) || p.sha !== p.workflow_sha
       || p.runner_environment !== 'github-hosted' || p.run_attempt !== '1' || !id(p.run_id) || !id(p.actor_id)
-      || !Object.hasOwn(policy.actors,p.actor_id) || p.head_ref || p.base_ref || p.job_workflow_ref || p.job_workflow_sha
+      || !Object.hasOwn(policy.actors,p.actor_id) || p.head_ref || p.base_ref || !permittedJobWorkflow(p,policy)
       || p.environment !== undefined || typeof p.jti !== 'string' || p.jti.length < 1 || p.jti.length > 200
       || ![p.iat,p.nbf,p.exp].every(Number.isSafeInteger) || p.exp <= p.iat || p.exp-p.iat > 600 || p.nbf > p.exp) {
       report(policyCode(p,header,policy,subjects)); throw new Error('OIDC rejected');
