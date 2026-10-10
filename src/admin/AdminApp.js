@@ -460,9 +460,9 @@ function AdvancedDetail({ area, clubs, onBack }) {
   </section>;
 }
 
-export function Advanced({ clubs, loading, reviewService = structureReviewService }) {
+export function Advanced({ clubs, loading, reviewService = structureReviewService, registerExitGuard }) {
   const [selectedArea, setSelectedArea] = useState(null);
-  if (selectedArea?.[0] === "structure") return <StructureReview service={reviewService} onRoot={() => setSelectedArea(null)} />;
+  if (selectedArea?.[0] === "structure") return <StructureReview service={reviewService} onRoot={() => setSelectedArea(null)} registerExitGuard={registerExitGuard} />;
   if (selectedArea) return <AdvancedDetail area={selectedArea} clubs={clubs || []} onBack={() => setSelectedArea(null)} />;
   return <section className="stablr-admin-advanced">
     <header className="stablr-admin-page-header"><div><h1>Avanzata</h1><p>Informazioni catalogo e revisione della struttura fisica.</p></div></header>
@@ -1296,7 +1296,7 @@ export function AdminShell({ onSignOut }) {
     ) : section === "Club partner" ? (
       <EmptySection section="Club partner" description="Area futura per la gestione interna di contatti e relazioni con i club." />
     ) : section === "Avanzata" ? (
-      <Advanced clubs={adminData.clubs} key={advancedSectionKey} loading={adminData.loading} />
+      <Advanced clubs={adminData.clubs} key={advancedSectionKey} loading={adminData.loading} registerExitGuard={registerClubExitGuard} />
     ) : (
       <EmptySection section={section} />
     );

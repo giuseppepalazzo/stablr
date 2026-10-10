@@ -6,6 +6,7 @@ import Multi9Review from "./Multi9Review";
 import DataOrigin from "./DataOrigin";
 import TeeClassifications from "./TeeClassifications";
 import TeeEvidence from "./TeeEvidence";
+import PhysicalPar from "./PhysicalPar";
 import { PHYSICAL_CLASSIFICATIONS, STRUCTURE_SOURCES, filterStructureReviews, reviewStatusLabel, reviewTypeLabel, structureReviewError } from "./structure-review-data";
 import "./StructureReview.css";
 
@@ -80,7 +81,7 @@ function FoundationHistory({ events }) {
   </section>;
 }
 
-export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged }) {
+export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged, registerExitGuard }) {
   const targetType = item.target_type, targetId = item.target_id;
   const [detail, setDetail] = useState(null);
   const [selectedId, setSelectedId] = useState("");
@@ -94,6 +95,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   const [physicalBusy, setPhysicalBusy] = useState(false);
   const [playableBusy, setPlayableBusy] = useState(false);
   const [teeClassificationBusy, setTeeClassificationBusy] = useState(false);
+  const [parBusy, setParBusy] = useState(false);
   const [physicalRevision, setPhysicalRevision] = useState(0);
   const physicalChanged = useCallback(() => setPhysicalRevision((value) => value + 1), []);
   const receivePhysicalEvents = useCallback((events) => setPhysicalEvents((current) => [...new Map([...current, ...events].map((event) => [event.id, event])).values()]), []);
@@ -137,7 +139,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   };
 
   return <section className="stablr-admin-detail stablr-admin-structure-review">
-    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy} onClick={onBack} type="button">Struttura e collegamenti</button><span>/</span><span>{item.title}</span></nav>
+    <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy || parBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy || parBusy} onClick={onBack} type="button">Struttura e collegamenti</button><span>/</span><span>{item.title}</span></nav>
     <header className="stablr-admin-page-header"><div><h1>{item.title}</h1><p>{item.club_name} · {reviewTypeLabel(item.target_type)}</p></div><span className="stablr-admin-status">{reviewStatusLabel(item)}</span></header>
     {message && <p role="status">{message}</p>}
     {loading ? <p role="status">Caricamento evidenze…</p> : <>
@@ -146,7 +148,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
         <section className="stablr-admin-detail-section"><h2>Classificazione della struttura</h2>
           <p>La classificazione viene registrata solo nella fondazione. Buche, configurazioni, collegamenti e override non vengono creati.</p>
           {item.target_type === "hole_links" && <p className="stablr-admin-detail-empty">Classificare il club non verifica i collegamenti di questa combinazione: resterà Da revisionare finché non saranno verificati separatamente.</p>}
-          {detail.structures.length > 0 && <label className="stablr-admin-structure-selector">Struttura registrata<select disabled={busy || physicalBusy || playableBusy} value={selectedId} onChange={(event) => {
+          {detail.structures.length > 0 && <label className="stablr-admin-structure-selector">Struttura registrata<select disabled={busy || physicalBusy || playableBusy || parBusy} value={selectedId} onChange={(event) => {
             const selected = detail.structures.find((entry) => entry.id === event.target.value);
             setSelectedId(event.target.value); setFields(fieldsFor(selected)); setError(""); setMessage("");
           }}>{detail.structures.map((entry) => <option key={entry.id} value={entry.id}>{entry.label} · {entry.classification} · {entry.review_status === "verified" ? "Verificata" : "Da revisionare"}</option>)}</select></label>}
@@ -169,7 +171,8 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
             <PlayableConfigurations key={`playable:${structure.id}`} structure={structure} service={service} physical18={structure.classification === "fisico_18"} onEvents={receivePhysicalEvents} onBusy={setPlayableBusy} refreshKey={physicalRevision} />
           </>}
         </>}
-        <DataOrigin key={detail.club.id} clubId={detail.club.id} service={service} />
+        {service.physicalPar && <PhysicalPar key={`par:${detail.club.id}`} clubId={detail.club.id} service={service.physicalPar} onBusy={setParBusy} onChanged={physicalChanged} registerExitGuard={registerExitGuard} />}
+        <DataOrigin key={`${detail.club.id}:${physicalRevision}`} clubId={detail.club.id} service={service} />
         <TeeClassifications key={`tee-classifications:${detail.club.id}`} clubId={detail.club.id} service={service.teeClassifications} onBusy={setTeeClassificationBusy} />
         <Evidence detail={detail} /><FoundationHistory events={[...new Map([...detail.events, ...physicalEvents].map((event) => [event.id, event])).values()].sort((left, right) => new Date(right.occurred_at) - new Date(left.occurred_at))} />
       </>}
@@ -186,7 +189,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   </section>;
 }
 
-export default function StructureReview({ service, onRoot }) {
+export default function StructureReview({ service, onRoot, registerExitGuard }) {
   const [items, setItems] = useState(null);
   const [error, setError] = useState("");
   const [status, setStatus] = useState("Da revisionare");
@@ -207,7 +210,7 @@ export default function StructureReview({ service, onRoot }) {
       ? { ...item, classification: structure.classification, status: "verified" } : item));
     await load();
   };
-  if (selected) return <StructureReviewDetail item={(items || []).find((item) => item.target_type === selected.target_type && item.target_id === selected.target_id) || selected} key={`${selected.target_type}:${selected.target_id}`} service={service} onBack={() => setSelected(null)} onRoot={onRoot} onChanged={changed} />;
+  if (selected) return <StructureReviewDetail item={(items || []).find((item) => item.target_type === selected.target_type && item.target_id === selected.target_id) || selected} key={`${selected.target_type}:${selected.target_id}`} service={service} onBack={() => setSelected(null)} onRoot={onRoot} onChanged={changed} registerExitGuard={registerExitGuard} />;
   const filtered = filterStructureReviews(items || [], status, type, search);
   return <section className="stablr-admin-detail stablr-admin-structure-review">
     <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={batchBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><span>Struttura e collegamenti</span></nav>

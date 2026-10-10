@@ -1,6 +1,7 @@
 import { validateOriginGraph } from "./data-origin";
 import { createTeeClassificationService } from "./tee-classification-data";
 import { createTeeEvidenceService } from "./tee-evidence-data";
+import { createPhysicalParService } from "./physical-par-data";
 
 export const PHYSICAL_CLASSIFICATIONS = ["non_classificato", "fisico_9", "fisico_18", "multi_9"];
 export const STRUCTURE_SOURCES = ["fig", "gesgolf", "stablr", "other"];
@@ -33,6 +34,7 @@ export function createStructureReviewService(client) {
     return result;
   };
   return {
+    physicalPar: createPhysicalParService(client),
     teeEvidence: createTeeEvidenceService(client),
     teeClassifications: createTeeClassificationService(client),
     originGraph: async (clubId) => validateOriginGraph(await invoke("admin_catalog_data_origin", { p_club_id: clubId }), clubId),

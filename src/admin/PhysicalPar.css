@@ -1,0 +1,9 @@
+.stablr-admin-par-table { display: grid; gap: 8px; margin: 12px 0 16px; overflow-x: auto; }
+.stablr-admin-par-table > [role="row"] { display: grid; grid-template-columns: minmax(220px, 2fr) minmax(180px, 1.5fr) minmax(85px, 1fr) minmax(85px, 1fr); gap: 16px; align-items: center; padding: 12px; }
+.stablr-admin-par-row { width: 100%; text-align: left; background: var(--admin-card-deep, #10362c); color: inherit; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; cursor: pointer; }
+.stablr-admin-par-row:hover:not(:disabled) { border-color: rgba(255,255,255,.4); }
+.stablr-admin-par-row:disabled { opacity: .55; cursor: default; }
+.stablr-admin-par-field { display: grid; gap: 8px; max-width: 180px; margin: 16px 0; }
+.stablr-admin-physical-par textarea { display: block; width: 100%; min-height: 70px; margin: 8px 0 16px; }
+.stablr-admin-par-impact { margin-top: 16px; }
+@media (max-width: 700px) { .stablr-admin-par-table > [role="row"] { min-width: 620px; } }
