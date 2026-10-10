@@ -1,0 +1,4 @@
+# This function authenticates external GitHub OIDC itself, before privileged work.
+# Do not disable platform JWT validation for any other function.
+[functions.tee-evidence-broker]
+verify_jwt = false

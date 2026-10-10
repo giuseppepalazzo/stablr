@@ -24,3 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .tmp_gesgolf_*
+
+# Edge secrets stay local/server only.
+supabase/functions/.env
+supabase/functions/.env.*

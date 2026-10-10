@@ -1,0 +1,54 @@
+name: Tee evidence FIG batch
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Fixed operation
+        type: choice
+        required: true
+        options: [preview, confirm]
+      proposal_id:
+        description: Prepared proposal UUID (confirm only)
+        type: string
+        required: false
+      approval_sha256:
+        description: Reviewed proposal SHA-256 (confirm only)
+        type: string
+        required: false
+      note:
+        description: Explicit approval reason (confirm only; no personal or secret data)
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    if: github.repository == 'giuseppepalazzo/stablr' && github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout exact dispatch revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Node runtime
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      # No npm install/build/artifact upload; the client uses only Node built-ins.
+      - name: Protected broker request
+        env:
+          EVIDENCE_BROKER_URL: ${{ vars.EVIDENCE_BROKER_URL }}
+          EVIDENCE_OIDC_AUDIENCE: ${{ vars.EVIDENCE_OIDC_AUDIENCE }}
+          EVIDENCE_OPERATION: ${{ inputs.operation }}
+          EVIDENCE_PROPOSAL_ID: ${{ inputs.proposal_id }}
+          EVIDENCE_APPROVAL_SHA256: ${{ inputs.approval_sha256 }}
+          EVIDENCE_NOTE: ${{ inputs.note }}
+        run: node scripts/evidence/fig-tee-broker-client.mjs

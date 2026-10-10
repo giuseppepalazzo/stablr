@@ -95,6 +95,12 @@ lock per hash artefatto serializza conferme di batch diversi sulla stessa estraz
 
 ## Operazioni future (NON eseguite in questo task)
 
+Per il nuovo canale Actions senza JWT Admin statici vedere
+[`admin-catalog-tee-evidence-broker.md`](admin-catalog-tee-evidence-broker.md).
+Usa una migration incrementale separata e un broker OIDC: non cambia questa
+one-shot né i suoi grant. Le istruzioni sotto descrivono il CLI operatore legacy,
+NON credenziali da trasferire su GitHub Actions o React.
+
 1. Applicare il solo SQL nuovo una volta, dopo backup/revisione.
 2. In ambiente server/operatori protetto, con Node e dipendenze del repository,
    preparare un file nuovo (creazione esclusiva, permessi 0600):
