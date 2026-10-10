@@ -64,6 +64,7 @@ export function createHoleGridEditorService(client) {
     return draft;
   };
   return {
+    parWorkflow: true,
     getGrid: async (routeId) => requireContext(await invoke("admin_hole_grid_get_draft", { p_route_id: routeId })),
     openDraft: async (routeId) => {
       const result = requireContext(await invoke("admin_hole_grid_open_draft", { p_route_id: routeId }));

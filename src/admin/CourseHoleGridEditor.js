@@ -82,11 +82,12 @@ export default function CourseHoleGridEditor({ club, course, service, onBack, on
         <div className="stablr-admin-hole-grid-scroll"><table className="stablr-admin-hole-grid-table stablr-admin-course-hole-grid-table" aria-label="Griglia buche del Percorso">
           <thead><tr><th scope="col">Numero / ordine</th><th scope="col">Par</th><th scope="col">SI/HCP</th><th scope="col">Etichetta · sola lettura</th></tr></thead>
           <tbody>{fields.holes.map((hole) => <tr key={hole.id}><td>{hole.physical_hole_number}</td>
-            <td><input aria-label={`Par buca ${hole.physical_hole_number}`} disabled={busy} type="number" min="3" max="6" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id,"par",event.target.value)} /></td>
+            <td><input aria-label={`Par buca ${hole.physical_hole_number}`} disabled={busy || service.parWorkflow} type="number" min="3" max="6" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id,"par",event.target.value)} /></td>
             <td><input aria-label={`SI/HCP buca ${hole.physical_hole_number}`} disabled={busy} type="number" min="1" max="18" step="1" value={hole.stroke_index ?? ""} onChange={(event) => update(hole.id,"stroke_index",event.target.value)} /></td>
             <td>{context.holes.find((item) => item.id === hole.id)?.display_label || "—"}</td></tr>)}</tbody>
         </table></div>
         {!fields.holes.length && <p className="stablr-admin-detail-empty">Nessuna buca fisica disponibile.</p>}
+        {service.parWorkflow && <p>Per modificare il Par usa Avanzata → Struttura e collegamenti → Workflow Par. Qui resta disponibile la modifica SI/HCP; il Par richiede anteprima impatto e pubblicazione dedicata.</p>}
         <p className="stablr-admin-detail-empty">Numero e ordine sono in sola lettura. È disponibile un unico SI/HCP. La sequenza prevista conserva i valori reali del Percorso; se incompleti, richiede da 1 al numero di buche. Fonte, etichette, Tee e rating restano in sola lettura.</p>
       </form>
       {validation.alerts.length > 0 && <div className="stablr-admin-editor-error" role="status">{validation.alerts.map((alert) => <p key={alert}>{alert}</p>)}</div>}

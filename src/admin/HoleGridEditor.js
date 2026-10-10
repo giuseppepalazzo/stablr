@@ -82,13 +82,14 @@ export default function HoleGridEditor({ club, course, route, service, onBack, o
           <tbody>{fields.holes.map((hole) => {
             const live = context.holes.find((item) => item.id === hole.id) || {};
             return <tr key={hole.id}><td>{hole.round_hole_number}</td><td>{context.origins.find((origin) => origin.position === live.route_position)?.name || "—"}</td><td>{live.physical_hole_number ?? "—"}</td>
-              <td><input aria-label={`Par buca ${hole.round_hole_number}`} disabled={busy} type="number" min="3" max="6" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id, "par", event.target.value)} /></td>
+              <td><input aria-label={`Par buca ${hole.round_hole_number}`} disabled={busy || service.parWorkflow} type="number" min="3" max="6" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id, "par", event.target.value)} /></td>
               <td><input aria-label={`SI/HCP buca ${hole.round_hole_number}`} disabled={busy} type="number" min="1" max="18" step="1" value={hole.stroke_index ?? ""} onChange={(event) => update(hole.id, "stroke_index", event.target.value)} /></td>
               <td>{live.source_stroke_index ?? "—"}</td><td>{live.display_label || "—"}</td></tr>;
           })}</tbody>
         </table></div>
         {!fields.holes.length && <p className="stablr-admin-detail-empty">Nessuna buca esistente disponibile. La creazione di buche non è prevista in questo editor.</p>}
         <p className="stablr-admin-detail-empty">Numero/ordine e collegamenti origine sono in sola lettura. È disponibile un unico SI/HCP, senza campi distinti uomini/donne. Fonte, note, Tee e rating non sono modificabili.</p>
+        {service.parWorkflow && <p>Per modificare il Par usa Avanzata → Struttura e collegamenti → Workflow Par. Qui resta disponibile la modifica SI/HCP; un Par ereditato richiede il padre fisico oppure un override locale esplicito.</p>}
       </form>
       {validation.alerts.length > 0 && <div className="stablr-admin-editor-error" role="status">{validation.alerts.map((alert) => <p key={alert}>{alert}</p>)}</div>}
       {context.route.notes && <section className="stablr-admin-detail-section"><h2>Note combinazione · sola lettura</h2><p className="stablr-admin-detail-empty">{context.route.notes}</p></section>}

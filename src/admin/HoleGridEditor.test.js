@@ -32,6 +32,12 @@ const changeSi = () => {
   fireEvent.change(screen.getByLabelText("SI/HCP buca 1"),{target:{value:"2"}});
   fireEvent.change(screen.getByLabelText("SI/HCP buca 2"),{target:{value:"1"}});
 };
+test("combination Par cannot bypass the dedicated override workflow; SI stays editable",async()=>{
+  render(<Harness service={{...makeService(),parWorkflow:true}}/>);
+  expect(await screen.findByLabelText("Par buca 1")).toBeDisabled();
+  expect(screen.getByLabelText("SI/HCP buca 1")).not.toBeDisabled();
+  expect(screen.getByText(/un Par ereditato richiede il padre fisico/)).toBeInTheDocument();
+});
 
 test("whole-grid validation checks SI permutation, essential Par, total and real structural checks",()=>{
   expect(validateHoleGrid(context,snapshot).canPublish).toBe(true);

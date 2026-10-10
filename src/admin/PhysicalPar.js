@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import { parError, parReason } from "./physical-par-data";
 import "./PhysicalPar.css";
+import LocalPar from "./ParWorkflow";
 
 function Impact({ context }) {
   return <div className="stablr-admin-par-impact">
@@ -19,12 +20,18 @@ function Impact({ context }) {
     {!context.tees.length && <p>Nessun tee impattato con ambito risolto. Eventuali ambiti mancanti restano bloccanti.</p>}
     <h4>Override esclusi</h4>
     {!context.overrides_excluded.length ? <p>Nessun override escluso.</p> : <ul><TechnicalRows list label="Override esclusi">{context.overrides_excluded.map((o, i) => <li key={i}>{o.configuration_label} · posizione {o.position} · Par {o.par_override} invariato</li>)}</TechnicalRows></ul>}
+    {!!context.autonomous_excluded?.length && <><h4>Configurazioni autonome escluse</h4><ul><TechnicalRows list label="Configurazioni autonome escluse">{context.autonomous_excluded.map((c) => <li key={c.topology_hash}>{c.label} · Totale Par {c.total} invariato · autonomia approvata nel batch</li>)}</TechnicalRows></ul></>}
     {!!context.blockers.length && <div role="alert"><h4>Blocchi concreti</h4><ul>{context.blockers.map((b) => <li key={b}>{parReason(b)}</li>)}</ul></div>}
     <p>SI, CR/Slope, distanze, giri e snapshot storici restano invariati. Solo i riferimenti esatti ed ereditari possono essere pubblicati.</p>
   </div>;
 }
 
-export default function PhysicalPar({ clubId, service, onBusy, onChanged, registerExitGuard }) {
+export default function PhysicalPar(props) {
+  const [local, setLocal] = useState(false);
+  return local ? <LocalPar {...props} service={props.service.local} onBack={() => setLocal(false)} /> : <PhysicalParEditor {...props} onLocal={props.service.local ? () => setLocal(true) : null} />;
+}
+
+function PhysicalParEditor({ clubId, service, onBusy, onChanged, registerExitGuard, onLocal }) {
   const [list, setList] = useState(null), [context, setContext] = useState(null), [par, setPar] = useState("");
   const [proposal, setProposal] = useState(null), [dialog, setDialog] = useState(null), [note, setNote] = useState("");
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [message, setMessage] = useState("");
@@ -60,6 +67,7 @@ export default function PhysicalPar({ clubId, service, onBusy, onChanged, regist
     <h2>Propagazione sicura Par fisico</h2>
     <p>Le proposte tee richiedono una decisione Admin unica. Una bozza Par dedicata permette poi di verificare l’impatto prima di qualsiasi pubblicazione.</p>
     {!context && <div className="stablr-admin-editor-actions">
+      {onLocal && <button className="stablr-admin-white-button" disabled={busy} onClick={onLocal} type="button">Par configurazioni</button>}
       <button className="stablr-admin-white-button" disabled={busy} onClick={() => act(async () => { const p = await service.proposal(clubId); setProposal(p); setNote(""); setDialog("batch"); })} type="button">Prepara proposta tee</button>
       <button className="stablr-admin-white-button" disabled={busy} onClick={() => act(load)} type="button">{list ? "Ricarica buche fisiche" : "Apri buche fisiche verificate"}</button>
     </div>}

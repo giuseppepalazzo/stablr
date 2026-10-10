@@ -8,6 +8,7 @@ import DataOrigin from "./DataOrigin";
 import TeeClassifications from "./TeeClassifications";
 import TeeEvidence from "./TeeEvidence";
 import PhysicalPar from "./PhysicalPar";
+import { ParWorkflowBatch } from "./ParWorkflow";
 import { PHYSICAL_CLASSIFICATIONS, STRUCTURE_SOURCES, filterStructureReviews, reviewStatusLabel, reviewTypeLabel, structureReviewError } from "./structure-review-data";
 import "./StructureReview.css";
 
@@ -221,6 +222,7 @@ function StructureReviewPage({ service, onRoot, registerExitGuard }) {
     <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={batchBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><span>Struttura e collegamenti</span></nav>
     <header className="stablr-admin-page-header"><div><h1>Struttura e collegamenti</h1><p>Revisione manuale della struttura fisica e dei collegamenti buca.</p></div><ExpandAllTechnicalRows /></header>
     <Multi9Review service={service} onBusy={setBatchBusy} onCompleted={load} />
+    <ParWorkflowBatch service={service.physicalPar} onBusy={setBatchBusy} onCompleted={load} />
     <TeeEvidence service={service.teeEvidence} />
     {error && <div role="alert"><p>{error}</p><button className="stablr-admin-white-button" onClick={load} type="button">Riprova</button></div>}
     {items === null ? !error && <p role="status">Caricamento coda…</p> : <>

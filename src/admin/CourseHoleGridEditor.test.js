@@ -16,6 +16,12 @@ const makeService=()=>({openDraft:jest.fn().mockResolvedValue({draft,context}),
   saveDraft:jest.fn().mockImplementation(async(d,s)=>({...d,revision:d.revision+1,snapshot:normalizeCourseHoleGrid(s)})),
   publishDraft:jest.fn().mockResolvedValue({course_id:course.id,version_id:"version",context}),
   abandonDraft:jest.fn().mockResolvedValue({...draft,workflow_status:"archived"})});
+test("Par edits use the dedicated workflow while the SI grid remains editable",async()=>{
+  render(<Harness service={{...makeService(),parWorkflow:true}}/>);
+  expect(await screen.findByLabelText("Par buca 1")).toBeDisabled();
+  expect(screen.getByLabelText("SI/HCP buca 1")).not.toBeDisabled();
+  expect(screen.getByText(/Per modificare il Par usa Avanzata/)).toBeInTheDocument();
+});
 function Harness({service,onExit=jest.fn(),onPublished=jest.fn()}) {
   const guard=useRef(null); const registerExitGuard=useCallback(value=>{guard.current=value;},[]);
   const exit=()=>guard.current?guard.current(onExit):onExit();

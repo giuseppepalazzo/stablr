@@ -65,6 +65,7 @@ export function createCourseHoleGridEditorService(client) {
     return draft;
   };
   return {
+    parWorkflow: true,
     getGrid: async (courseId) => requireContext(await invoke("admin_course_hole_grid_get_draft",{ p_course_id: courseId })),
     openDraft: async (courseId) => {
       const result = requireContext(await invoke("admin_course_hole_grid_open_draft",{ p_course_id: courseId }));
