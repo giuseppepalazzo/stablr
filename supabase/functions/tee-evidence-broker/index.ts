@@ -7,7 +7,7 @@ import { createBroker } from './handler.mjs';
 const policy = brokerPolicy(Deno.env.toObject());
 const verify = githubVerifier({ jwtVerify, keys: createRemoteJWKSet(new URL(JWKS_URL), {
   timeoutDuration: 5000, cooldownDuration: 30000, cacheMaxAge: 300000
-}), policy });
+}), policy, onReject: code => console.warn('tee_broker_oidc_rejected',code) });
 Deno.serve(createBroker({ verify, policy, serviceFactory: () => {
   const url = Deno.env.get('SUPABASE_URL'), key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
   if (!url || !key) throw new Error('Broker unavailable');

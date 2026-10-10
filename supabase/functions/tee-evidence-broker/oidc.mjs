@@ -6,6 +6,47 @@ export const WORKFLOW_REF = `${REPOSITORY}/.github/workflows/tee-evidence-batch.
 const id = value => typeof value === 'string' && /^[1-9][0-9]{0,19}$/.test(value);
 const uuid = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
 const sha = value => typeof value === 'string' && /^[0-9a-f]{40}$/.test(value);
+// Diagnostic codes are fixed literals. Never forward errors, values or JWT claims.
+function verificationCode(error) {
+  const claims = { iss:'OIDC_CLAIM_ISS', aud:'OIDC_CLAIM_AUD', sub:'OIDC_CLAIM_SUB',
+    exp:'OIDC_CLAIM_EXP', iat:'OIDC_CLAIM_IAT', nbf:'OIDC_CLAIM_NBF', jti:'OIDC_CLAIM_JTI' };
+  if (error?.code === 'ERR_JWT_CLAIM_VALIDATION_FAILED' && Object.hasOwn(claims,error.claim)) return claims[error.claim];
+  const codes = { ERR_JWT_EXPIRED:'OIDC_EXPIRED', ERR_JWKS_TIMEOUT:'OIDC_JWKS_TIMEOUT',
+    ERR_JWKS_NO_MATCHING_KEY:'OIDC_JWKS_KEY', ERR_JWS_SIGNATURE_VERIFICATION_FAILED:'OIDC_SIGNATURE',
+    ERR_JOSE_ALG_NOT_ALLOWED:'OIDC_ALGORITHM' };
+  return Object.hasOwn(codes,error?.code) ? codes[error.code] : 'OIDC_CRYPTO_VERIFICATION';
+}
+function policyCode(p,header,policy,subjects) {
+  if (header.typ !== 'JWT') return 'OIDC_HEADER_TYP';
+  if (typeof header.kid !== 'string' || !header.kid) return 'OIDC_HEADER_KID';
+  if (p.aud !== policy.audience) return 'OIDC_AUDIENCE';
+  if (!subjects.includes(p.sub)) return 'OIDC_SUBJECT';
+  if (p.repository !== REPOSITORY) return 'OIDC_REPOSITORY';
+  if (p.repository_owner !== 'giuseppepalazzo') return 'OIDC_OWNER';
+  if (p.repository_id !== policy.repositoryId) return 'OIDC_REPOSITORY_ID';
+  if (p.repository_owner_id !== policy.ownerId) return 'OIDC_OWNER_ID';
+  if (p.ref !== 'refs/heads/main') return 'OIDC_REF';
+  if (p.ref_type !== 'branch') return 'OIDC_REF_TYPE';
+  if (p.event_name !== 'workflow_dispatch') return 'OIDC_EVENT';
+  if (p.workflow_ref !== WORKFLOW_REF) return 'OIDC_WORKFLOW_REF';
+  if (!policy.revisions.includes(p.workflow_sha)) return 'OIDC_WORKFLOW_SHA';
+  if (p.sha !== p.workflow_sha) return 'OIDC_SOURCE_SHA';
+  if (p.runner_environment !== 'github-hosted') return 'OIDC_RUNNER';
+  if (p.run_attempt !== '1') return 'OIDC_RUN_ATTEMPT';
+  if (!id(p.run_id)) return 'OIDC_RUN_ID';
+  if (!id(p.actor_id)) return 'OIDC_ACTOR_ID';
+  if (!Object.hasOwn(policy.actors,p.actor_id)) return 'OIDC_ACTOR';
+  if (p.head_ref) return 'OIDC_HEAD_REF';
+  if (p.base_ref) return 'OIDC_BASE_REF';
+  if (p.job_workflow_ref) return 'OIDC_REUSABLE_REF';
+  if (p.job_workflow_sha) return 'OIDC_REUSABLE_SHA';
+  if (p.environment !== undefined) return 'OIDC_ENVIRONMENT';
+  if (typeof p.jti !== 'string' || p.jti.length < 1 || p.jti.length > 200) return 'OIDC_JTI';
+  if (![p.iat,p.nbf,p.exp].every(Number.isSafeInteger)) return 'OIDC_TIME_FORMAT';
+  if (p.exp <= p.iat || p.exp-p.iat > 600) return 'OIDC_LIFETIME';
+  if (p.nbf > p.exp) return 'OIDC_TIME_ORDER';
+  return 'OIDC_POLICY';
+}
 export function brokerPolicy(env) {
   const audience = env.EVIDENCE_OIDC_AUDIENCE;
   const repositoryId = env.EVIDENCE_GITHUB_REPOSITORY_ID;
@@ -23,13 +64,19 @@ export function brokerPolicy(env) {
 }
 
 // jwtVerify/createRemoteJWKSet come from pinned jose, not from the request.
-export function githubVerifier({ jwtVerify, keys, policy, now = () => new Date() }) {
+const silentDiagnostic = (/** @type {string} */ _code) => {};
+export function githubVerifier({ jwtVerify, keys, policy, now = () => new Date(), onReject = silentDiagnostic }) {
+  const report = code => { try { onReject(code); } catch { /* Diagnostics cannot change authorization. */ } };
   return async token => {
-    if (typeof token !== 'string' || token.length > 16384 || token.split('.').length !== 3) throw new Error('OIDC rejected');
-    const { payload: p, protectedHeader: header } = await jwtVerify(token, keys, {
+    if (typeof token !== 'string' || token.length > 16384 || token.split('.').length !== 3) {
+      report('OIDC_TOKEN_FORMAT'); throw new Error('OIDC rejected');
+    }
+    let verified;
+    try { verified = await jwtVerify(token, keys, {
       issuer: ISSUER, audience: policy.audience, algorithms: ['RS256'], clockTolerance: 15,
       maxTokenAge: '10m', currentDate: now(), requiredClaims: ['iss','aud','sub','exp','iat','nbf','jti']
-    });
+    }); } catch (error) { report(verificationCode(error)); throw error; }
+    const { payload: p, protectedHeader: header } = verified;
     const subjects = [
       `repo:${REPOSITORY}:ref:refs/heads/main`,
       `repo:giuseppepalazzo@${policy.ownerId}/stablr@${policy.repositoryId}:ref:refs/heads/main`
@@ -42,7 +89,9 @@ export function githubVerifier({ jwtVerify, keys, policy, now = () => new Date()
       || p.runner_environment !== 'github-hosted' || p.run_attempt !== '1' || !id(p.run_id) || !id(p.actor_id)
       || !Object.hasOwn(policy.actors,p.actor_id) || p.head_ref || p.base_ref || p.job_workflow_ref || p.job_workflow_sha
       || p.environment !== undefined || typeof p.jti !== 'string' || p.jti.length < 1 || p.jti.length > 200
-      || ![p.iat,p.nbf,p.exp].every(Number.isSafeInteger) || p.exp <= p.iat || p.exp-p.iat > 600 || p.nbf > p.exp) throw new Error('OIDC rejected');
+      || ![p.iat,p.nbf,p.exp].every(Number.isSafeInteger) || p.exp <= p.iat || p.exp-p.iat > 600 || p.nbf > p.exp) {
+      report(policyCode(p,header,policy,subjects)); throw new Error('OIDC rejected');
+    }
     // No JWT/token/username is persisted. All context fields are signed and allowlisted.
     return { operatorId: policy.actors[p.actor_id], jti: p.jti, context: {
       repository: p.repository, repository_id: p.repository_id, repository_owner_id: p.repository_owner_id,

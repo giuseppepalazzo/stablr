@@ -59,6 +59,43 @@ test('configuration absent, empty or malformed fails closed',()=>{
   assert.throws(()=>brokerPolicy({...env,EVIDENCE_GITHUB_ADMIN_MAP:JSON.stringify({'789':'not-uuid'})}));
   assert.throws(()=>brokerPolicy({...env,EVIDENCE_GITHUB_ADMIN_MAP:'PRIVATE_SECRET malformed'}),e=>!e.message.includes('PRIVATE_SECRET'));
 });
+test('internal OIDC diagnostics identify rejected signed constraints without changing authorization',async()=>{
+  const codes=[];
+  const diagnostic=githubVerifier({jwtVerify,keys:createLocalJWKSet({keys:[key]}),policy,now:()=>clock,onReject:code=>codes.push(code)});
+  assert.deepEqual(await diagnostic(await sign()),await verify(await sign()));assert.deepEqual(codes,[]);
+  const expected={repository:'OIDC_REPOSITORY',repository_owner:'OIDC_OWNER',repository_id:'OIDC_REPOSITORY_ID',
+    repository_owner_id:'OIDC_OWNER_ID',ref:'OIDC_REF',ref_type:'OIDC_REF_TYPE',event_name:'OIDC_EVENT',
+    workflow_ref:'OIDC_WORKFLOW_REF',workflow_sha:'OIDC_WORKFLOW_SHA',sha:'OIDC_SOURCE_SHA',
+    runner_environment:'OIDC_RUNNER',run_attempt:'OIDC_RUN_ATTEMPT',run_id:'OIDC_RUN_ID',actor_id:'OIDC_ACTOR'};
+  for(const [field,code] of Object.entries(expected)) {
+    codes.length=0;await assert.rejects(()=>sign({...claims,[field]:invalid[field]}).then(diagnostic));assert.deepEqual(codes,[code]);
+  }
+  for(const [changes,code] of [[{job_workflow_ref:'PRIVATE_CLAIM'},'OIDC_REUSABLE_REF'],
+    [{job_workflow_sha:revision},'OIDC_REUSABLE_SHA'],[{environment:'PRIVATE_CLAIM'},'OIDC_ENVIRONMENT'],
+    [{run_attempt:1},'OIDC_RUN_ATTEMPT'],[{exp:seconds+601},'OIDC_LIFETIME']]) {
+    codes.length=0;await assert.rejects(()=>sign({...claims,...changes}).then(diagnostic));assert.deepEqual(codes,[code]);
+  }
+  codes.length=0;const missing={...claims};delete missing.nbf;
+  await assert.rejects(()=>sign(missing).then(diagnostic));assert.deepEqual(codes,['OIDC_CLAIM_NBF']);
+  codes.length=0;await assert.rejects(()=>diagnostic('PRIVATE_TOKEN'));assert.deepEqual(codes,['OIDC_TOKEN_FORMAT']);
+  for(const claim of ['nbf','PRIVATE_CLAIM','__proto__']) {
+    const error={code:'ERR_JWT_CLAIM_VALIDATION_FAILED',claim,message:'PRIVATE_SECRET',payload:claims};
+    const failed=githubVerifier({jwtVerify:async()=>{throw error;},keys:null,policy,onReject:code=>codes.push(code)});
+    codes.length=0;await assert.rejects(()=>failed('private.fixture.token'));assert.deepEqual(codes,[claim==='nbf'?'OIDC_CLAIM_NBF':'OIDC_CRYPTO_VERIFICATION']);
+  }
+  const brokenLogger=githubVerifier({jwtVerify,keys:createLocalJWKSet({keys:[key]}),policy,now:()=>clock,onReject:()=>{throw new Error('PRIVATE_SECRET');}});
+  await assert.rejects(()=>sign({...claims,run_attempt:'2'}).then(brokenLogger));await brokenLogger(await sign());
+});
+test('OIDC diagnostic remains server-only: unchanged 403 and zero privileged calls',async()=>{
+  const codes=[];let constructions=0;
+  const diagnostic=githubVerifier({jwtVerify,keys:createLocalJWKSet({keys:[key]}),policy,now:()=>clock,onReject:code=>codes.push(code)});
+  const broker=createBroker({verify:diagnostic,policy,serviceFactory:()=>{constructions++;throw new Error('Forbidden');}});
+  const token=await sign({...claims,sha:'b'.repeat(40)});
+  const response=await broker(request(token));assert.equal(response.status,403);
+  assert.equal(await response.text(),'{"error":"Authorization rejected"}');assert.deepEqual(codes,['OIDC_SOURCE_SHA']);assert.equal(constructions,0);
+  const index=await readFile(new URL('../../supabase/functions/tee-evidence-broker/index.ts',import.meta.url),'utf8');
+  assert.match(index,/onReject: code => console\.warn\('tee_broker_oidc_rejected',code\)/);
+});
 function fixtureService() {
   const objects=new Map(),preparations=new Map(),runs=new Map(),receipts=new Map(),calls=[];let writes=0,uploads=0;
   const error=code=>({data:null,error:{code,message:'PRIVATE_SECRET full manifest raw source_payload'}});
