@@ -1,3 +1,4 @@
+import TechnicalRows from "./TechnicalRows";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 
@@ -24,10 +25,10 @@ export const displayedHolesTotalPar = (rows, mapping = false) => {
   });
   return pars.every(Number.isFinite) ? pars.reduce((total, par) => total + par, 0) : "—";
 };
-function Grid({ rows, mapping = false, readable = false }) {
+function Grid({ rows, mapping = false }) {
   return <div className="stablr-admin-physical-grid" role="table" aria-label={mapping ? "Collegamento fisico uno a uno" : "Anteprima buche sorgente"}>
     <div role="row"><strong role="columnheader">Ordine</strong><strong role="columnheader">Numero sorgente</strong><strong role="columnheader">Par {mapping ? "base" : "sorgente"}</strong><strong role="columnheader">{mapping ? "Identità fisica" : "Buca sorgente"}</strong></div>
-    {rows.map((hole, index) => <div role="row" key={hole.id || hole.physical_hole_id}><span role="cell">{mapping ? hole.position : index + 1}</span><span role="cell">{mapping ? hole.physical_number : hole.physical_hole_number}</span><span role="cell">{format(mapping ? hole.base_par : hole.par)}</span><span role="cell">{readable ? <>Buca {mapping ? hole.physical_number : hole.physical_hole_number}{mapping && <small>Revisione {hole.revision}</small>}<details><summary>Riferimenti</summary>{mapping ? `${hole.physical_hole_id} · ${hole.source_hole_id}` : hole.id}</details></> : mapping ? <>{hole.physical_hole_id}<small>Sorgente: {hole.source_hole_id} · Revisione {hole.revision}</small></> : hole.id}</span></div>)}
+    <TechnicalRows label="Buche sorgente e collegamenti">{rows.map((hole, index) => <div role="row" key={hole.id || hole.physical_hole_id}><span role="cell">{mapping ? hole.position : index + 1}</span><span role="cell">{mapping ? hole.physical_number : hole.physical_hole_number}</span><span role="cell">{format(mapping ? hole.base_par : hole.par)}</span><span role="cell">Buca {mapping ? hole.physical_number : hole.physical_hole_number}{mapping && <small>Revisione {hole.revision}</small>}<details><summary>Riferimenti</summary>{mapping ? `${hole.physical_hole_id} · ${hole.source_hole_id}` : hole.id}</details></span></div>)}</TechnicalRows>
   </div>;
 }
 
@@ -75,7 +76,6 @@ export default function PhysicalCourseHoles({ structure, service, onEvents, onBu
   };
   const selected = context?.source?.course;
   const activeSource = selected?.id === courseId;
-  const readable = structure.classification === "fisico_18";
   return <section className="stablr-admin-detail-section"><h2>Buche fisiche</h2>
     {loading && <p role="status">Caricamento buche fisiche…</p>}
     {error && !confirmation && <div role="alert"><p>{error}</p><button className="stablr-admin-white-button" disabled={busy} onClick={load} type="button">Ricarica anteprima</button></div>}
@@ -83,21 +83,21 @@ export default function PhysicalCourseHoles({ structure, service, onEvents, onBu
     {context && !loading && !error && <>
       {!context.physical_holes.length ? <p>Nessuna buca fisica registrata.</p> : <>
         <p>{context.physical_holes.length} identità fisiche registrate nella struttura · Totale Par: {displayedHolesTotalPar(context.physical_holes, true)}</p>
-        <div className="stablr-admin-physical-grid" role="table" aria-label="Buche fisiche registrate"><div role="row"><strong role="columnheader">Numero fisico</strong><strong role="columnheader">Par base</strong><strong role="columnheader">Origine</strong><strong role="columnheader">Revisione</strong></div>{context.physical_holes.map((hole) => <div role="row" key={hole.id}><span role="cell">{hole.physical_number}</span><span role="cell">{format(hole.base_par)}</span><span role="cell">{readable ? <>Buca sorgente {hole.source_position}<details><summary>Provenienza</summary>{hole.source_reference}</details></> : hole.source_reference}</span><span role="cell">{hole.revision}</span></div>)}</div>
+        <div className="stablr-admin-physical-grid" role="table" aria-label="Buche fisiche registrate"><div role="row"><strong role="columnheader">Numero fisico</strong><strong role="columnheader">Par base</strong><strong role="columnheader">Origine</strong><strong role="columnheader">Revisione</strong></div><TechnicalRows label="Buche fisiche registrate">{context.physical_holes.map((hole) => <div role="row" key={hole.id}><span role="cell">{hole.physical_number}</span><span role="cell">{format(hole.base_par)}</span><span role="cell">Buca sorgente {hole.source_position ?? hole.physical_number}<details><summary>Provenienza</summary>{hole.source_reference}</details></span><span role="cell">{hole.revision}</span></div>)}</TechnicalRows></div>
       </>}
       <label className="stablr-admin-structure-selector">Percorso pubblicato sorgente<select disabled={busy} value={courseId} onChange={(event) => { setCourseId(event.target.value); setNote(""); setMessage(""); setContext(null); }}><option value="">Scegli esplicitamente il Percorso</option>{(context.courses || []).map((course) => <option key={course.id} value={course.id}>{course.name} · {course.holes_count} buche</option>)}</select></label>
       {!context.courses?.length && <p>Nessun Percorso pubblicato disponibile per questo club.</p>}
       {activeSource && <>
         <h3>Anteprima sorgente · sola lettura</h3>
         <p>{selected.name} · {selected.holes_count} buche · Totale Par: {displayedHolesTotalPar(context.source.holes)} · Fonte registrata: {selected.source_system || "—"}</p>
-        <Grid rows={context.source.holes} readable={readable} />
+        <Grid rows={context.source.holes} />
         <p className="stablr-admin-detail-empty">Provenienza della registrazione: Percorso STABLR pubblicato. Numerazione, Par e metadati importati vengono conservati nello snapshot sorgente. Il SI non viene assegnato alla buca fisica.</p>
         <details className="stablr-admin-structure-payload"><summary>Fonte e snapshot del Percorso</summary><pre>{JSON.stringify(context.source, null, 2)}</pre></details>
         {context.reasons.length > 0 && <div role="alert">{context.reasons.map((reason) => <p key={reason}>{physicalSourceProblems[reason] || "Sorgente incompatibile con la registrazione fisica."}</p>)}</div>}
         {context.link?.structure_id === structure.id && <>
           <h3>Collegamento Percorso → buche fisiche</h3>
           <p><span className="stablr-admin-status">{context.link.review_status === "verified" ? "Verificato" : "Da revisionare"}</span> · {context.mapping.length} buche · Totale Par: {displayedHolesTotalPar(context.mapping, true)} · Revisione {context.link.revision}</p>
-          <Grid rows={context.mapping} mapping readable={readable} />
+          <Grid rows={context.mapping} mapping />
           <details className="stablr-admin-structure-payload"><summary>Sorgente conservata alla registrazione</summary><pre>{JSON.stringify(context.link.source_snapshot, null, 2)}</pre></details>
         </>}
         {(context.can_register || context.can_verify) && <>
@@ -108,8 +108,8 @@ export default function PhysicalCourseHoles({ structure, service, onEvents, onBu
     </>}
     {confirmation && <EditorDialog title={confirmation.kind === "register" ? "Conferma registrazione buche fisiche" : "Conferma collegamento fisico 1:1"}>
       <p>{confirmation.context.source.course.name} → {structure.label}</p>
-      {confirmation.kind === "register" ? <><p>Verranno create {confirmation.context.source.holes.length} identità fisiche · Totale Par: {displayedHolesTotalPar(confirmation.context.source.holes)}. La corrispondenza con la sorgente sarà registrata come Da revisionare.</p><Grid rows={confirmation.context.source.holes} readable={readable} /></>
-        : <><p>{confirmation.context.mapping.length} buche · Totale Par: {displayedHolesTotalPar(confirmation.context.mapping, true)}. La corrispondenza esatta mostrata, nell’ordine registrato, sarà confermata come Verificata. Revisione attesa: {confirmation.context.link.revision}.</p><Grid rows={confirmation.context.mapping} mapping readable={readable} /></>}
+      {confirmation.kind === "register" ? <><p>Verranno create {confirmation.context.source.holes.length} identità fisiche · Totale Par: {displayedHolesTotalPar(confirmation.context.source.holes)}. La corrispondenza con la sorgente sarà registrata come Da revisionare.</p><Grid rows={confirmation.context.source.holes} /></>
+        : <><p>{confirmation.context.mapping.length} buche · Totale Par: {displayedHolesTotalPar(confirmation.context.mapping, true)}. La corrispondenza esatta mostrata, nell’ordine registrato, sarà confermata come Verificata. Revisione attesa: {confirmation.context.link.revision}.</p><Grid rows={confirmation.context.mapping} mapping /></>}
       <p>Nota: {confirmation.note}</p><p>Verranno aggiornati solo fondazione e audit. Il catalogo pubblicato resta invariato.</p>
       {error && <p role="alert">{error}</p>}
       <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy} onClick={confirm} type="button">{confirmation.kind === "register" ? "Conferma registrazione" : "Conferma collegamento"}</button><button disabled={busy} onClick={() => setConfirmation(null)} type="button">Annulla</button></div>

@@ -32,6 +32,8 @@ test("starts with explicit choices, empty state and read-only preview; never cre
   expect(screen.getByLabelText("Origine fisica verificata")).toHaveValue(""); expect(screen.getByLabelText("Tipo di configurazione")).toHaveValue("");
   expect(service.playablePreview).toHaveBeenCalledWith(structure.id, null, null);
   await choose();
+  expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(7);
+  fireEvent.click(within(screen.getByRole("table")).getByRole("button", { name: "Mostra tutto · Sequenza configurazione" }));
   expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(10);
   expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument(); expect(screen.queryByRole("textbox")).toHaveAccessibleName("Nota configurazione");
   expect(screen.getByText(/SI della configurazione conservati esattamente/)).toBeInTheDocument();
@@ -65,6 +67,7 @@ test("18 preview repeats physical nine twice and shows SI rule/parent without fl
   const service = makeService(); service.playablePreview.mockImplementation(async (sid, lid, kind) => !lid || !kind ? empty : { ...eighteen, tee_matrix: matrix, tee_overrides: [{ par_override: 6, stroke_index_override: 17 }] });
   mount(service); await choose("repeated_18");
   const table = screen.getByRole("table", { name: "Anteprima configurazione giocabile" });
+  fireEvent.click(within(table).getByRole("button", { name: "Mostra tutto · Sequenza configurazione" }));
   const rows = within(table).getAllByRole("row"); expect(rows).toHaveLength(19);
   expect(within(rows[1]).getAllByRole("cell").map((cell) => cell.textContent)).toEqual(["1", "Buca 1", "1", "4 · ereditato", "1"]);
   expect(within(rows[10]).getAllByRole("cell").map((cell) => cell.textContent)).toEqual(["10", "Buca 1", "2", "4 · ereditato", "2"]);

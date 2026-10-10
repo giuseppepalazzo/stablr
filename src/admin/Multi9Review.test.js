@@ -24,6 +24,8 @@ test("batch preparation and detailed preview never register records", async () =
   expect(screen.getAllByText(/Il riferimento Percorso \+ numero locale/).length).toBeGreaterThan(0);
   expect(screen.getAllByText(/Totale Par: 35/).length).toBeGreaterThan(0);
   const tables = screen.getAllByRole("table", { name: "Mappa Championship Bianco/Blu", hidden: true });
+  expect(within(tables[0]).getAllByRole("row", { hidden: true })).toHaveLength(7);
+  fireEvent.click(within(tables[0]).getByRole("button", { name: "Mostra tutto · Sequenza combinazione multi-9", hidden: true }));
   const rows = within(tables[0]).getAllByRole("row", { hidden: true });
   expect(rows).toHaveLength(19);
   expect(within(rows[1]).getAllByRole("cell", { hidden: true }).map((c) => c.textContent)).toEqual(["1", "Bianco", "1", "1", "3", "18"]);

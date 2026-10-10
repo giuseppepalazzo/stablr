@@ -33,6 +33,8 @@ test("opens empty, never chooses a course automatically, and previews real sourc
   expect(service.registerPhysicalHoles).not.toHaveBeenCalled(); expect(service.verifyPhysicalCourse).not.toHaveBeenCalled();
   await chooseSource();
   const table = screen.getByRole("table", { name: "Anteprima buche sorgente" });
+  expect(within(table).getAllByRole("row")).toHaveLength(7);
+  fireEvent.click(within(table).getByRole("button", { name: "Mostra tutto · Buche sorgente e collegamenti" }));
   expect(within(table).getAllByRole("row")).toHaveLength(10);
   expect(table).toHaveTextContent("source-hole-3"); expect(table).toHaveTextContent("3");
   expect(screen.getByText(/Fonte registrata: gesgolf/)).toBeInTheDocument();
@@ -125,7 +127,8 @@ test("detail exposes physical holes only after explicit classification and inclu
   render(<StructureReviewDetail item={item} service={service} onBack={jest.fn()} onRoot={jest.fn()} onChanged={jest.fn()} />);
   await screen.findByRole("heading", { name: "Buche fisiche" });
   expect(await screen.findByText("Collegamento Percorso fisico · Creazione")).toBeInTheDocument();
-  expect(screen.getByText("admin-fixture")).toBeInTheDocument();
+  expect(screen.getByText("Admin", { selector: "strong" })).toBeInTheDocument();
+  expect(screen.getByText(/"autore": "admin-fixture"/).closest("details")).not.toHaveAttribute("open");
 });
 
 test("client uses dedicated preview/register/verify RPCs and passes exact baseline, mapping and revisions", async () => {

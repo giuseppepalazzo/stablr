@@ -1,3 +1,4 @@
+import TechnicalRows, { TechnicalExpansion, ExpandAllTechnicalRows } from "./TechnicalRows";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import PhysicalCourseHoles from "./PhysicalCourseHoles";
@@ -39,24 +40,24 @@ function Evidence({ detail }) {
       <Payload title="Fonte/payload del club" payload={detail.club.source_payload} />
       <h3>Percorsi pubblicati</h3>
       {!detail.courses?.length && <p>Nessun percorso disponibile.</p>}
-      {(detail.courses || []).map((course) => <article className="stablr-admin-structure-evidence" key={course.id}>
+      <TechnicalRows label="Percorsi pubblicati">{(detail.courses || []).map((course) => <article className="stablr-admin-structure-evidence" key={course.id}>
         <div className="stablr-admin-structure-evidence-row"><div><span>Percorso</span><strong>{course.name}</strong></div><div><span>Struttura dichiarata</span><strong>{course.holes_count} buche</strong></div><div><span>Record buca</span><strong>{course.holes?.length ?? 0}</strong></div><div><span>Fonte</span><strong>{value(course.source_system)}</strong></div></div>
         <Payload title={`Dati buche · ${course.name}`} payload={course.holes?.length ? course.holes : null} />
         <Payload title={`Fonte/payload · ${course.name}`} payload={course.source_payload} />
-      </article>)}
+      </article>)}</TechnicalRows>
       <h3>Combinazioni pubblicate</h3>
       {!detail.combinations?.length && <p>Nessuna combinazione disponibile.</p>}
-      {(detail.combinations || []).map((combination) => <article className="stablr-admin-structure-evidence" key={combination.id}>
+      <TechnicalRows label="Combinazioni pubblicate">{(detail.combinations || []).map((combination) => <article className="stablr-admin-structure-evidence" key={combination.id}>
         <div className="stablr-admin-structure-evidence-row"><div><span>Combinazione</span><strong>{combination.name}</strong></div><div><span>Ambito</span><strong>{combination.holes_count} buche</strong></div><div><span>Record buca</span><strong>{combination.holes?.length ?? 0}</strong></div><div><span>Riferimenti legacy esatti mancanti</span><strong>{(combination.holes || []).filter((hole) => hole.exact_legacy_reference_exists === false).length}</strong></div></div>
         <Payload title={`Sequenza e riferimenti · ${combination.name}`} payload={combination.holes?.length ? combination.holes : null} />
         <Payload title={`Fonte/payload · ${combination.name}`} payload={combination.source_payload} />
-      </article>)}
+      </article>)}</TechnicalRows>
       <p className="stablr-admin-detail-empty">La cardinalità e i riferimenti legacy esatti non certificano un collegamento fisico verificato.</p>
     </section>
     <section className="stablr-admin-detail-section"><h2>Evidenze FIG · sola lettura</h2>
       {fig ? <>
-        <div className="stablr-admin-detail-grid"><article><span>Club FIG collegato</span><strong>{fig.name}</strong></article><article><span>Codice fonte</span><strong>{value(fig.source_external_id)}</strong></article><article><span>Importazione</span><strong>{dateLabel(fig.import_batch?.imported_at)}</strong></article></div>
-        {(fig.courses || []).map((course) => <article className="stablr-admin-structure-evidence" key={course.id}><div className="stablr-admin-structure-evidence-row"><div><span>Configurazione FIG</span><strong>{course.name}</strong></div><div><span>Buche</span><strong>{course.holes_count}</strong></div><div><span>Tipo FIG</span><strong>{value(course.course_type)}</strong></div><div><span>Par</span><strong>{value(course.total_par)}</strong></div></div><Payload title={`Composizione FIG · ${course.name}`} payload={course.course_composition} /><Payload title={`Payload FIG · ${course.name}`} payload={course.source_payload} /></article>)}
+        <div className="stablr-admin-detail-grid"><article><span>Club FIG collegato</span><strong>{fig.name}</strong></article><article><span>Codice fonte</span><details><summary>Riferimento FIG</summary>{value(fig.source_external_id)}</details></article><article><span>Importazione</span><strong>{dateLabel(fig.import_batch?.imported_at)}</strong></article></div>
+        <TechnicalRows label="Configurazioni FIG">{(fig.courses || []).map((course) => <article className="stablr-admin-structure-evidence" key={course.id}><div className="stablr-admin-structure-evidence-row"><div><span>Configurazione FIG</span><strong>{course.name}</strong></div><div><span>Buche</span><strong>{course.holes_count}</strong></div><div><span>Tipo FIG</span><strong>{value(course.course_type)}</strong></div><div><span>Par</span><strong>{value(course.total_par)}</strong></div></div><Payload title={`Composizione FIG · ${course.name}`} payload={course.course_composition} /><Payload title={`Payload FIG · ${course.name}`} payload={course.source_payload} /></article>)}</TechnicalRows>
         <Payload title="Payload club FIG" payload={fig.source_payload} /><Payload title="Batch FIG" payload={fig.import_batch} />
       </> : <p>Nessun record FIG collegato disponibile.</p>}
     </section>
@@ -65,7 +66,7 @@ function Evidence({ detail }) {
     </section>
     <section className="stablr-admin-detail-section"><h2>Collegamenti nella fondazione · sola lettura</h2>
       {!detail.configurations?.length && <p>Nessuna configurazione registrata nella fondazione.</p>}
-      {(detail.configurations || []).map((configuration) => <article className="stablr-admin-structure-evidence" key={configuration.id}><div className="stablr-admin-structure-evidence-row"><div><span>Configurazione</span><strong>{configuration.label}</strong></div><div><span>Buche previste</span><strong>{configuration.holes_count}</strong></div><div><span>Collegamenti verificati</span><strong>{(configuration.holes || []).filter((hole) => hole.review_status === "verified" && hole.physical_hole_id).length}</strong></div><div><span>Revisione</span><strong>{configuration.review_status === "verified" ? "Verificata" : "Da revisionare"}</strong></div></div><Payload title={`Identità e provenienza · ${configuration.label}`} payload={configuration} /></article>)}
+      <TechnicalRows label="Collegamenti nella fondazione">{(detail.configurations || []).map((configuration) => <article className="stablr-admin-structure-evidence" key={configuration.id}><div className="stablr-admin-structure-evidence-row"><div><span>Configurazione</span><strong>{configuration.label}</strong></div><div><span>Buche previste</span><strong>{configuration.holes_count}</strong></div><div><span>Collegamenti verificati</span><strong>{(configuration.holes || []).filter((hole) => hole.review_status === "verified" && hole.physical_hole_id).length}</strong></div><div><span>Revisione</span><strong>{configuration.review_status === "verified" ? "Verificata" : "Da revisionare"}</strong></div></div><Payload title={`Identità e provenienza · ${configuration.label}`} payload={configuration} /></article>)}</TechnicalRows>
       <p className="stablr-admin-detail-empty">Questa fase consente la classificazione della struttura. La verifica dei singoli collegamenti buca resta in sola lettura.</p>
     </section>
   </>;
@@ -74,10 +75,10 @@ function Evidence({ detail }) {
 function FoundationHistory({ events }) {
   return <section className="stablr-admin-detail-section"><h2>Storico della fondazione</h2>
     {!events.length && <p>Nessuna revisione della fondazione disponibile.</p>}
-    {events.map((event) => <article className="stablr-admin-structure-evidence" key={event.id}>
-      <div className="stablr-admin-structure-evidence-row"><div><span>Oggetto / azione</span><strong>{eventLabels[event.entity_table] || event.entity_table} · {event.operation === "INSERT" ? "Creazione" : "Revisione"}</strong></div><div><span>Data</span><strong>{dateLabel(event.occurred_at)}</strong></div><div><span>Autore</span><strong>{event.actor_id}</strong></div><div><span>Revisione</span><strong>{event.revision}</strong></div></div>
-      <Payload title="Prima" payload={event.before_snapshot} /><Payload title="Dopo" payload={event.after_snapshot} />
-    </article>)}
+    <TechnicalRows label="Storico della fondazione">{events.map((event) => <article className="stablr-admin-structure-evidence" key={event.id}>
+      <div className="stablr-admin-structure-evidence-row"><div><span>Oggetto / azione</span><strong>{eventLabels[event.entity_table] || "Elemento della fondazione"} · {event.operation === "INSERT" ? "Creazione" : "Revisione"}</strong></div><div><span>Data</span><strong>{dateLabel(event.occurred_at)}</strong></div><div><span>Autore</span><strong>Admin</strong></div><div><span>Revisione</span><strong>{event.revision}</strong></div></div>
+      <details className="stablr-admin-structure-payload"><summary>Dettagli revisione</summary><Payload title="Riferimenti tecnici audit" payload={{ autore: event.actor_id, oggetto: event.entity_table }} /><Payload title="Prima" payload={event.before_snapshot} /><Payload title="Dopo" payload={event.after_snapshot} /></details>
+    </article>)}</TechnicalRows>
   </section>;
 }
 
@@ -140,7 +141,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
 
   return <section className="stablr-admin-detail stablr-admin-structure-review">
     <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy || parBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><button disabled={busy || physicalBusy || playableBusy || teeClassificationBusy || parBusy} onClick={onBack} type="button">Struttura e collegamenti</button><span>/</span><span>{item.title}</span></nav>
-    <header className="stablr-admin-page-header"><div><h1>{item.title}</h1><p>{item.club_name} · {reviewTypeLabel(item.target_type)}</p></div><span className="stablr-admin-status">{reviewStatusLabel(item)}</span></header>
+    <header className="stablr-admin-page-header"><div><h1>{item.title}</h1><p>{item.club_name} · {reviewTypeLabel(item.target_type)}</p></div><div className="stablr-admin-technical-header-actions"><span className="stablr-admin-status">{reviewStatusLabel(item)}</span><ExpandAllTechnicalRows /></div></header>
     {message && <p role="status">{message}</p>}
     {loading ? <p role="status">Caricamento evidenze…</p> : <>
       {error && !confirmation && <div role="alert"><p>{error}</p><button className="stablr-admin-white-button" onClick={() => load(selectedId)} type="button">Ricarica dettaglio</button></div>}
@@ -153,7 +154,7 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
             setSelectedId(event.target.value); setFields(fieldsFor(selected)); setError(""); setMessage("");
           }}>{detail.structures.map((entry) => <option key={entry.id} value={entry.id}>{entry.label} · {entry.classification} · {entry.review_status === "verified" ? "Verificata" : "Da revisionare"}</option>)}</select></label>}
           {readonly ? <>
-            <div className="stablr-admin-detail-grid"><article><span>Classificazione verificata</span><strong>{structure.classification}</strong></article><article><span>Fonte</span><strong>{sourceLabel(structure.source_system)} · {structure.source_reference}</strong></article><article><span>Nota</span><strong>{structure.reason}</strong></article></div>
+            <div className="stablr-admin-detail-grid"><article><span>Classificazione verificata</span><strong>{structure.classification}</strong></article><article><span>Fonte</span><strong>{sourceLabel(structure.source_system)}</strong><details><summary>Riferimento fonte</summary>{structure.source_reference}</details></article><article><span>Nota</span><strong>{structure.reason}</strong></article></div>
             <p className="stablr-admin-detail-empty">Struttura già classificata e verificata, consultabile in sola lettura.</p>
           </> : <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault(); if (valid && !busy) setConfirmation({ structure, fields: { ...fields } }); }}>
             {!structure && <label>Nome struttura<input required maxLength={200} disabled={busy} value={fields.label} onChange={update("label")} /></label>}
@@ -189,7 +190,11 @@ export function StructureReviewDetail({ item, service, onBack, onRoot, onChanged
   </section>;
 }
 
-export default function StructureReview({ service, onRoot, registerExitGuard }) {
+export default function StructureReview(props) {
+  return <TechnicalExpansion><StructureReviewPage {...props} /></TechnicalExpansion>;
+}
+
+function StructureReviewPage({ service, onRoot, registerExitGuard }) {
   const [items, setItems] = useState(null);
   const [error, setError] = useState("");
   const [status, setStatus] = useState("Da revisionare");
@@ -214,7 +219,7 @@ export default function StructureReview({ service, onRoot, registerExitGuard }) 
   const filtered = filterStructureReviews(items || [], status, type, search);
   return <section className="stablr-admin-detail stablr-admin-structure-review">
     <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={batchBusy} onClick={onRoot} type="button">Avanzata</button><span>/</span><span>Struttura e collegamenti</span></nav>
-    <header className="stablr-admin-page-header"><div><h1>Struttura e collegamenti</h1><p>Revisione manuale della struttura fisica e dei collegamenti buca.</p></div></header>
+    <header className="stablr-admin-page-header"><div><h1>Struttura e collegamenti</h1><p>Revisione manuale della struttura fisica e dei collegamenti buca.</p></div><ExpandAllTechnicalRows /></header>
     <Multi9Review service={service} onBusy={setBatchBusy} onCompleted={load} />
     <TeeEvidence service={service.teeEvidence} />
     {error && <div role="alert"><p>{error}</p><button className="stablr-admin-white-button" onClick={load} type="button">Riprova</button></div>}

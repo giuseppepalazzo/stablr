@@ -1,3 +1,4 @@
+import TechnicalRows from "./TechnicalRows";
 import { useEffect, useRef, useState } from "react";
 import { evidenceReason } from "./tee-evidence-data";
 import "./TeeEvidence.css";
@@ -36,13 +37,13 @@ export default function TeeEvidence({ service }) {
       {!selected && list && <>
         <p>{list.total} batch registrati</p>
         <div className="stablr-admin-tee-evidence-list" aria-label="Batch evidenze tee">
-          {list.items.map((batch) => <button className="stablr-admin-tee-evidence-row" key={batch.id} type="button" disabled={busy} onClick={() => load(batch.id)}>
+          <TechnicalRows label="Batch evidenze tee">{list.items.map((batch) => <button className="stablr-admin-tee-evidence-row" key={batch.id} type="button" disabled={busy} onClick={() => load(batch.id)}>
             <div><span>Fonte / estrattore</span><strong>{batch.source.toUpperCase()}</strong><small>{batch.extractor_version}</small></div>
             <div><span>Conferma</span><strong>{date(batch.confirmed_at)}</strong></div>
             <div><span>Osservazioni</span><strong>{batch.total}</strong></div>
             <div><span>Incomplete</span><strong>{batch.incomplete}</strong></div>
             <div><span>Escluse</span><strong>{batch.excluded}</strong></div>
-          </button>)}
+          </button>)}</TechnicalRows>
           {!list.total && !error && <p>Nessun batch di evidenze registrato.</p>}
         </div>
         <Pagination offset={list.offset} count={list.items.length} total={list.total} step={50} busy={busy} onPage={(offset) => load(null, offset)} />
@@ -53,9 +54,9 @@ export default function TeeEvidence({ service }) {
         <p>{detail.batch.note}</p>
         <details><summary>Identità e versione dell’artefatto</summary><dl><dt>Documento sorgente</dt><dd>{value(detail.artifact.source_url)}</dd><dt>Versione fonte</dt><dd>{value(detail.artifact.source_version)}</dd><dt>Acquisizione</dt><dd>{date(detail.artifact.acquired_at)}</dd><dt>Pubblicazione fonte</dt><dd>{date(detail.artifact.published_at)}</dd><dt>Registrazione archivio</dt><dd>{date(detail.artifact.recorded_at)}</dd><dt>Dimensione</dt><dd>{value(detail.artifact.byte_size)} byte</dd><dt>Estrattore</dt><dd>{detail.artifact.extractor_version}</dd><dt>SHA-256</dt><dd>{detail.artifact.sha256}</dd></dl></details>
         <div className="stablr-admin-tee-evidence-list" aria-label="Osservazioni sorgente tee">
-          {detail.items.map((item) => <div key={item.observation_id}>
+          <TechnicalRows label="Osservazioni sorgente tee">{detail.items.map((item) => <div key={item.observation_id}>
             <button className="stablr-admin-tee-evidence-row" type="button" onClick={() => setExpanded(expanded === item.observation_id ? null : item.observation_id)} aria-expanded={expanded === item.observation_id}>
-              <div><span>Osservazione</span><strong>{item.evidence ? `${item.evidence.club_label} · ${item.evidence.tee_label}` : "Osservazione esclusa"}</strong><small>{item.evidence?.configuration_label || item.observation_id}</small></div>
+              <div><span>Osservazione</span><strong>{item.evidence ? `${item.evidence.club_label} · ${item.evidence.tee_label}` : "Osservazione esclusa"}</strong>{item.evidence?.configuration_label && <small>{item.evidence.configuration_label}</small>}</div>
               <div><span>Par / origine</span><strong>{value(item.evidence?.par_normalized)}</strong><small>{item.evidence?.par_origin === "comune_configurazione" ? "Comune alla configurazione" : value(item.evidence?.par_origin)}</small></div>
               <div><span>Ambito</span><strong>{value(item.evidence?.scope_normalized)}</strong></div>
               <div><span>Esito</span><strong className="stablr-admin-status">{outcome(item.outcome)}</strong></div>
@@ -70,7 +71,7 @@ export default function TeeEvidence({ service }) {
                 <p>Una prova completa non costituisce automaticamente un’attestazione certificata.</p>
               </> : <p>{evidenceReason(item.reason)}</p>}
             </article>}
-          </div>)}
+          </div>)}</TechnicalRows>
         </div>
         <Pagination offset={detail.offset} count={detail.items.length} total={detail.batch.total} step={100} busy={busy} onPage={(offset) => load(selected, offset)} />
       </>}

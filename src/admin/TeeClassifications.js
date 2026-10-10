@@ -1,3 +1,4 @@
+import TechnicalRows from "./TechnicalRows";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import { courseTeeColor } from "./course-tee-editor-data";
@@ -12,7 +13,7 @@ function DecisionFacts({ decision }) {
   if (!decision) return <p>Nessuna classificazione registrata: Sconosciuto / Sconosciuto.</p>;
   return <><Facts rows={[["Attestazione", TEE_ATTESTATIONS[decision.attestation]], ["Comportamento Par", TEE_PAR_BEHAVIORS[decision.par_behavior]],
     ["Provenienza", decision.provenance], ["Ambito dichiarato", `${decision.declared_holes_count} buche`], ["Applicabilità dichiarata", decision.declared_applicability]]} />
-    <p>Evidenza: {value(decision.evidence?.reference)} · Par attestato: {value(decision.evidence?.par_total)}</p>
+    <p>Par attestato: {value(decision.evidence?.par_total)}</p><details><summary>Evidenza</summary>{value(decision.evidence?.reference)}</details>
     {decision.derivation_rule && <p>Regola: somma dei Par effettivi della configurazione verificata, senza override tee.</p>}
     <p>Nota: {decision.note}</p></>;
 }
@@ -114,10 +115,10 @@ export default function TeeClassifications({ clubId, service, onBusy = () => {} 
       </form>}
       <h3>Storico classificazione</h3>
       {!detail.history.length && <p>Nessuna decisione registrata.</p>}
-      {detail.history.map((event) => <article className="stablr-admin-structure-evidence" key={event.id}>
+      <TechnicalRows label="Storico classificazione">{detail.history.map((event) => <article className="stablr-admin-structure-evidence" key={event.id}>
         <Facts rows={[["Revisione", event.revision], ["Data", date(event.occurred_at)], ["Autore", event.actor_current_admin ? "Admin corrente" : "Altro Admin"]]} />
         <details><summary>Prima / Dopo</summary><h4>Prima</h4><DecisionFacts decision={event.before} /><h4>Dopo</h4><DecisionFacts decision={event.after} /></details>
-      </article>)}
+      </article>)}</TechnicalRows>
     </>}
     {preview && <EditorDialog title="Conferma classificazione Par tee">
       <p>Verranno aggiornati soltanto classificazione e audit della fondazione. Par live, CR/Slope, griglie e app giocatore non cambiano.</p>

@@ -1,3 +1,4 @@
+import TechnicalRows, { TechnicalDisclosure } from "./TechnicalRows";
 import { useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import { parError, parReason } from "./physical-par-data";
@@ -8,16 +9,16 @@ function Impact({ context }) {
     <p><strong>Par fisico: {context.physical_hole.before} → {context.physical_hole.after}</strong></p>
     <div className="stablr-admin-par-table" role="table" aria-label="Impatto configurazioni">
       <div role="row">{["Configurazione", "Posizioni / occorrenze", "Totale Prima", "Totale Dopo"].map((label) => <strong role="columnheader" key={label}>{label}</strong>)}</div>
-      {context.configurations.map((c) => <div role="row" key={c.id}><span role="cell">{c.label} · {c.holes_count} buche{c.impact_role === "physical_base" && " · Base aggiornabile"}</span><span role="cell">{c.occurrences.map((h) => `${h.position} (${h.occurrence})`).join(", ")}</span><span role="cell">{c.before_total}</span><span role="cell">{c.after_total}</span></div>)}
+      <TechnicalRows label="Impatto configurazioni">{context.configurations.map((c) => <div role="row" key={c.id}><span role="cell">{c.label} · {c.holes_count} buche{c.impact_role === "physical_base" && " · Base aggiornabile"}</span><span role="cell">{c.occurrences.map((h) => `${h.position} (${h.occurrence})`).join(", ")}</span><span role="cell">{c.before_total}</span><span role="cell">{c.after_total}</span></div>)}</TechnicalRows>
     </div>
     <h4>Tee impattati</h4>
     <div className="stablr-admin-par-table" role="table" aria-label="Impatto tee">
       <div role="row">{["Tee / ambito", "Copertura", "Par Prima", "Par Dopo"].map((label) => <strong role="columnheader" key={label}>{label}</strong>)}</div>
-      {context.tees.map((t) => <div role="row" key={`${t.entity_type}:${t.tee_id}`}><span role="cell">{t.name} · {t.scope} buche</span><span role="cell">{t.eligible ? "Derivato aggiornabile" : "Bloccante / da revisionare"}</span><span role="cell">{t.before ?? "—"}</span><span role="cell">{t.after}</span></div>)}
+      <TechnicalRows label="Tee impattati">{context.tees.map((t) => <div role="row" key={`${t.entity_type}:${t.tee_id}`}><span role="cell">{t.name} · {t.scope} buche</span><span role="cell">{t.eligible ? "Derivato aggiornabile" : "Bloccante / da revisionare"}</span><span role="cell">{t.before ?? "—"}</span><span role="cell">{t.after}</span></div>)}</TechnicalRows>
     </div>
     {!context.tees.length && <p>Nessun tee impattato con ambito risolto. Eventuali ambiti mancanti restano bloccanti.</p>}
     <h4>Override esclusi</h4>
-    {!context.overrides_excluded.length ? <p>Nessun override escluso.</p> : <ul>{context.overrides_excluded.map((o, i) => <li key={i}>{o.configuration_label} · posizione {o.position} · Par {o.par_override} invariato</li>)}</ul>}
+    {!context.overrides_excluded.length ? <p>Nessun override escluso.</p> : <ul><TechnicalRows list label="Override esclusi">{context.overrides_excluded.map((o, i) => <li key={i}>{o.configuration_label} · posizione {o.position} · Par {o.par_override} invariato</li>)}</TechnicalRows></ul>}
     {!!context.blockers.length && <div role="alert"><h4>Blocchi concreti</h4><ul>{context.blockers.map((b) => <li key={b}>{parReason(b)}</li>)}</ul></div>}
     <p>SI, CR/Slope, distanze, giri e snapshot storici restano invariati. Solo i riferimenti esatti ed ereditari possono essere pubblicati.</p>
   </div>;
@@ -69,7 +70,7 @@ export default function PhysicalPar({ clubId, service, onBusy, onChanged, regist
           const next = await service.open(h.id); setContext(next); setPar(String(next.draft.par)); setMessage("");
         })}><span role="cell">{h.course_name}</span><span role="cell">Buca {h.number}</span><span role="cell">Par {h.par}</span><span role="cell">{h.review_status === "verified" ? "Apri bozza Par →" : "Da revisionare"}</span></button>)}
       </div>
-      {!!list.history.length && <><h3>Pubblicazioni Par</h3>{list.history.map((v) => <article className="stablr-admin-structure-evidence" key={v.id}><p>Par {v.before.par} → {v.after.par} · {new Date(v.published_at).toLocaleString("it-IT")} · {v.own ? "Questo Admin" : "Altro Admin"}</p><p>{v.note}</p><details><summary>Impatto pubblicato</summary><Impact context={{ ...v.diff, blockers: [] }} /></details></article>)}</>}
+      {!!list.history.length && <><h3>Pubblicazioni Par</h3><TechnicalRows label="Pubblicazioni Par">{list.history.map((v) => <article className="stablr-admin-structure-evidence" key={v.id}><p>Par {v.before.par} → {v.after.par} · {new Date(v.published_at).toLocaleString("it-IT")} · {v.own ? "Questo Admin" : "Altro Admin"}</p><p>{v.note}</p><TechnicalDisclosure summary="Impatto pubblicato"><Impact context={{ ...v.diff, blockers: [] }} /></TechnicalDisclosure></article>)}</TechnicalRows></>}
     </>}
     {context && <>
       <header className="stablr-admin-editor-header"><div><h3>{context.physical_hole.course_name} · Buca {context.physical_hole.number}</h3><span className="stablr-admin-status">Bozza Par fisico</span></div>
@@ -89,8 +90,8 @@ export default function PhysicalPar({ clubId, service, onBusy, onChanged, regist
     {dialog === "batch" && proposal && <EditorDialog title="Conferma proposta tee">
       <p>{proposal.tee_count} tee · {proposal.configuration_count} configurazioni verificate · {proposal.excluded.length} esclusi</p>
       <p>Decisione proposta: curato + derivato, somma del Par effettivo della configurazione verificata. Non è una certificazione FIG e non modifica tee live.</p>
-      <ul>{[...new Set(proposal.items.map((t) => t.configuration_label))].map((label) => <li key={label}>{label}</li>)}</ul>
-      {!!proposal.excluded.length && <details><summary>Motivi di esclusione</summary><ul>{Object.entries(proposal.excluded.reduce((counts, e) => ({ ...counts, [e.reason]: (counts[e.reason] || 0) + 1 }), {})).map(([reason, count]) => <li key={reason}>{count} · {parReason(reason)}</li>)}</ul></details>}
+      <ul><TechnicalRows list label="Configurazioni proposta tee">{[...new Set(proposal.items.map((t) => t.configuration_label))].map((label) => <li key={label}>{label}</li>)}</TechnicalRows></ul>
+      {!!proposal.excluded.length && <details><summary>Motivi di esclusione</summary><ul><TechnicalRows list label="Motivi di esclusione">{Object.entries(proposal.excluded.reduce((counts, e) => ({ ...counts, [e.reason]: (counts[e.reason] || 0) + 1 }), {})).map(([reason, count]) => <li key={reason}>{count} · {parReason(reason)}</li>)}</TechnicalRows></ul></details>}
       {!proposal.tee_count && <p>Nessuna proposta sicura disponibile. Gli esclusi restano invariati.</p>}
       <label>Nota di approvazione batch<textarea maxLength={2000} disabled={busy} value={note} onChange={(e) => setNote(e.target.value)} /></label>
       <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={busy || !note.trim() || !proposal.tee_count} onClick={() => act(async () => {

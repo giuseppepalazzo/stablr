@@ -1,3 +1,4 @@
+import TechnicalRows from "./TechnicalRows";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 
@@ -36,7 +37,7 @@ function Sequence({ context }) {
     {context.parent_label && <p>Configurazione padre: {context.parent_label}</p>}
     <div className={`stablr-admin-playable-grid${physical18 ? " stablr-admin-playable-physical18" : ""}`} role="table" aria-label="Anteprima configurazione giocabile">
       <div role="row"><strong role="columnheader">Ordine</strong>{physical18 && <strong role="columnheader">Buca sorgente</strong>}<strong role="columnheader">Buca fisica</strong><strong role="columnheader">Occorrenza</strong><strong role="columnheader">Par effettivo</strong><strong role="columnheader">SI configurazione</strong></div>
-      {context.sequence.map((hole) => <div role="row" key={hole.position}><span role="cell">{hole.position}</span>{physical18 && <span role="cell">Buca {hole.source_number}</span>}<span role="cell">{hole.physical_label || `Buca ${hole.physical_number}`}</span><span role="cell">{hole.occurrence}</span><span role="cell">{hole.effective_par ?? "—"} · {hole.par_mode === "override" ? "override esplicito" : "ereditato"}</span><span role="cell">{hole.stroke_index ?? "—"}</span></div>)}
+      <TechnicalRows label="Sequenza configurazione">{context.sequence.map((hole) => <div role="row" key={hole.position}><span role="cell">{hole.position}</span>{physical18 && <span role="cell">Buca {hole.source_number}</span>}<span role="cell">{hole.physical_label || `Buca ${hole.physical_number}`}</span><span role="cell">{hole.occurrence}</span><span role="cell">{hole.effective_par ?? "—"} · {hole.par_mode === "override" ? "override esplicito" : "ereditato"}</span><span role="cell">{hole.stroke_index ?? "—"}</span></div>)}</TechnicalRows>
     </div>
     {physical18 && <details className="stablr-admin-structure-payload"><summary>Provenienza e snapshot del Percorso sorgente</summary><pre>{JSON.stringify(context.baseline?.source, null, 2)}</pre></details>}
   </>;
@@ -49,11 +50,11 @@ function TeeEvidence({ context }) {
   return <div className="stablr-admin-playable-tees"><h3>Override tee · sola lettura</h3>
     {!present ? <p>Nessun override tee disponibile nella sorgente.</p> : <>
       <p>La sorgente contiene una matrice tee o override registrati. Restano separati dal Par ereditato e dal SI della configurazione; questa operazione non li applica, modifica o copia.</p>
-      {entries.map(([key, tee]) => <article className="stablr-admin-structure-evidence" key={key}><strong>Tee {key}</strong>
+      <TechnicalRows label="Override tee sorgente">{entries.map(([key, tee]) => <article className="stablr-admin-structure-evidence" key={key}><strong>Tee {key}</strong>
         {Array.isArray(tee?.holes) && <div className="stablr-admin-playable-tee-grid" role="table" aria-label={`Evidenze tee ${key}`}>
           <div role="row"><strong role="columnheader">Buca fisica</strong><strong role="columnheader">Par tee</strong><strong role="columnheader">SI tee per tornata</strong></div>
-          {tee.holes.map((hole, index) => <div role="row" key={index}><span role="cell">{hole.physical_hole_number ?? "—"}</span><span role="cell">{hole.par ?? "—"}</span><span role="cell">{Array.isArray(hole.stroke_indexes) ? hole.stroke_indexes.join(" / ") : "—"}</span></div>)}
-        </div>}</article>)}
+          <TechnicalRows label="Buche override tee">{tee.holes.map((hole, index) => <div role="row" key={index}><span role="cell">{hole.physical_hole_number ?? "—"}</span><span role="cell">{hole.par ?? "—"}</span><span role="cell">{Array.isArray(hole.stroke_indexes) ? hole.stroke_indexes.join(" / ") : "—"}</span></div>)}</TechnicalRows>
+        </div>}</article>)}</TechnicalRows>
       {context.tee_overrides.length > 0 && <p>{context.tee_overrides.length} override già registrati nella fondazione, conservati senza modifiche.</p>}
       <details className="stablr-admin-structure-payload"><summary>Provenienza e dati originali degli override tee</summary><pre>{JSON.stringify({ matrix, foundation: context.tee_overrides }, null, 2)}</pre></details>
     </>}

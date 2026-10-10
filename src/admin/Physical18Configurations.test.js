@@ -51,6 +51,8 @@ test("physical18 starts empty: no implicit source, interval, Par inheritance or 
 test.each([["autonomous_18", "course-18", 18, 1, 70], ["front_9", "course-front", 9, 1, 35], ["back_9", "course-back", 9, 10, 35]])("%s shows exact source mapping, Par and own SI without +9 or normalization", async (kind, cid, n, start, total) => {
   mount(); await choose(kind, cid);
   const table = screen.getByRole("table", { name: "Anteprima configurazione giocabile" });
+  expect(within(table).getAllByRole("row")).toHaveLength(7);
+  fireEvent.click(within(table).getByRole("button", { name: "Mostra tutto · Sequenza configurazione" }));
   const rows = within(table).getAllByRole("row").slice(1);
   expect(rows).toHaveLength(n);
   rows.forEach((row, i) => expect(within(row).getAllByRole("cell").map((cell) => cell.textContent)).toEqual([String(i + 1), `Buca ${i + 1}`, `Buca ${start + i}`, "1", `${pars[start + i - 1]} · ereditato`, String(indexes[start + i - 1])]));
@@ -141,7 +143,10 @@ test("physical18 source registration and 1:1 verification reuse the physical con
   const service = { physicalPreview: jest.fn().mockImplementation(async (sid, cid) => cid ? p : initial), registerPhysicalHoles: jest.fn().mockResolvedValue(mapped), verifyPhysicalCourse: jest.fn().mockResolvedValue({ ...mapped, can_verify: false, link: { ...mapped.link, review_status: "verified", revision: 2 } }) };
   render(<PhysicalCourseHoles structure={structure} service={service} onEvents={jest.fn()} onBusy={jest.fn()} />);
   fireEvent.change(await screen.findByLabelText("Percorso pubblicato sorgente"), { target: { value: "course-18" } });
-  const table = await screen.findByRole("table", { name: "Anteprima buche sorgente" }); expect(within(table).getAllByRole("row")).toHaveLength(19);
+  const table = await screen.findByRole("table", { name: "Anteprima buche sorgente" });
+  expect(within(table).getAllByRole("row")).toHaveLength(7);
+  fireEvent.click(within(table).getByRole("button", { name: "Mostra tutto · Buche sorgente e collegamenti" }));
+  expect(within(table).getAllByRole("row")).toHaveLength(19);
   expect(within(table).getByText("Buca 18")).toBeInTheDocument();
   expect(screen.getByText(/18 buche · Totale Par: 70/)).toBeInTheDocument();
   expect(within(table).getAllByText("Riferimenti")).toHaveLength(18); // IDs are disclosed only inside closed details.
@@ -151,7 +156,9 @@ test("physical18 source registration and 1:1 verification reuse the physical con
   await screen.findByText("Buche registrate nella fondazione. Il collegamento al Percorso è Da revisionare.");
   expect(screen.getByText(/18 identità fisiche registrate nella struttura · Totale Par: 70/)).toBeInTheDocument();
   expect(screen.getByText("Da revisionare").closest("p")).toHaveTextContent("18 buche · Totale Par: 70");
-  expect(within(screen.getByRole("table", { name: "Collegamento fisico uno a uno" })).getAllByRole("row")).toHaveLength(19);
+  const mappingTable = screen.getByRole("table", { name: "Collegamento fisico uno a uno" });
+  fireEvent.click(within(mappingTable).getByRole("button", { name: "Mostra tutto · Buche sorgente e collegamenti" }));
+  expect(within(mappingTable).getAllByRole("row")).toHaveLength(19);
   fireEvent.change(screen.getByLabelText("Nota di verifica 1:1"), { target: { value: "Confermo 18 corrispondenze" } });
   fireEvent.click(screen.getByRole("button", { name: "Verifica collegamento 1:1" })); fireEvent.click(screen.getByRole("button", { name: "Conferma collegamento" }));
   await screen.findByText("Collegamento fisico 1:1 verificato nella fondazione.");

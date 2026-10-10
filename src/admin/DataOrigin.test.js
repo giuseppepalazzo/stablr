@@ -75,7 +75,10 @@ test("Mare read-only explorer shows 9×2 occurrences, inherited Par and own SI, 
   const tables=screen.getAllByRole("table");expect(tables).toHaveLength(2);expect(within(tables[0]).getAllByRole("row")).toHaveLength(2);expect(within(tables[1]).getAllByRole("row")).toHaveLength(3);
   expect(tables[1]).toHaveTextContent("Ereditato");expect(screen.getAllByText("Verificato registrato").length).toBeGreaterThan(0);
   expect(screen.getByText("Non valutata")).toBeInTheDocument();expect(screen.queryByRole("button",{name:/Salva|Pubblica|Abbandona|Conferma|Modifica/})).not.toBeInTheDocument();
-  fireEvent.click(screen.getByRole("button",{name:g.configurations[1].label}));expect(screen.getAllByRole("table")).toHaveLength(1);expect(screen.getAllByRole("row")).toHaveLength(19);
+  fireEvent.click(screen.getByRole("button",{name:g.configurations[1].label}));expect(screen.getAllByRole("table")).toHaveLength(1);
+  expect(screen.getAllByRole("row")).toHaveLength(7);
+  fireEvent.click(screen.getByRole("button", { name: "Mostra tutto · Origine e valori buche" }));
+  expect(screen.getAllByRole("row")).toHaveLength(19);
   fireEvent.click(within(screen.getByRole("table")).getAllByRole("button")[0]);expect(screen.getByText("Origine della buca fisica")).toBeInTheDocument();
   fireEvent.click(screen.getByRole("button",{name:"Copertura del club"}));expect(service.originGraph).toHaveBeenCalledTimes(1);
 });
@@ -92,7 +95,9 @@ test("Parco displays two exact multi9 parents, independent SI and distinct physi
   const component=screen.getByRole("table",{name:`Componenti ${c.label}`});expect(within(component).getAllByRole("row")).toHaveLength(3);
   const a=analyseOrigin(g,{type:"configuration",id:c.id});expect(a.configurations[0].components.every(p=>p.valid)).toBe(true);expect(a.configurations[0].issues).toEqual([]);
   expect(g.physical_holes.filter(h=>h.physical_number===1)).toHaveLength(3);expect(analyseOrigin(g).uncovered_live).toHaveLength(3);
-  expect(within(screen.getByRole("table",{name:`Origine e valori ${c.label}`})).getAllByRole("row")).toHaveLength(19);
+  const holesTable = screen.getByRole("table",{name:`Origine e valori ${c.label}`});
+  fireEvent.click(within(holesTable).getByRole("button", { name: "Mostra tutto · Origine e valori buche" }));
+  expect(within(holesTable).getAllByRole("row")).toHaveLength(19);
 });
 
 test("tee normalized overrides are joined by foreign keys, raw matrices never by tee name or color",async()=>{
@@ -109,6 +114,8 @@ test("tee normalized overrides are joined by foreign keys, raw matrices never by
 test("missing/ambiguous relationships do not become no impact, even with complete cardinality",async()=>{
   const g=mare();g.physical_links=[];await start(g);select("configuration",g.configurations[0].id);
   const a=analyseOrigin(g,{type:"configuration",id:g.configurations[0].id});expect(a.configurations[0].cardinality_complete).toBe(true);expect(a.configurations[0].linkage_verified).toBe(false);expect(a.coverage_complete).toBe(false);
+  expect(screen.getAllByText("Copertura incompleta")).toHaveLength(6);
+  fireEvent.click(screen.getByRole("button", { name: "Mostra tutto · Origine e valori buche" }));
   expect(screen.getAllByText("Copertura incompleta")).toHaveLength(9);
   const emptyGraph=empty("Non classificato");expect(analyseOrigin(emptyGraph).issues).toContain("impact_not_certified");
   g.configurations=[];g.configuration_holes=[];expect(analyseOrigin(g,{type:"physical_hole",id:g.physical_holes[0].id}).issues).toContain("impact_not_certified");

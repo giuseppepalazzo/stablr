@@ -17,6 +17,30 @@ const fillProvenance = () => {
   fireEvent.change(screen.getByLabelText("Nota di revisione"), { target: { value: "Verifica manuale fixture" } });
 };
 
+test("page-wide expansion controls technical evidence/audit but never hides actionable queue or classification form", async () => {
+  const service = createService(), detail = makeDetail();
+  service.list.mockResolvedValue(Array.from({ length: 8 }, (_, i) => ({ ...candidate, target_id: `club-${i}`, club_id: `club-${i}`, title: `Club ${i}` })));
+  detail.courses = Array.from({ length: 8 }, (_, i) => ({ ...detail.courses[0], id: `route-${i}`, name: `Percorso ${i}` }));
+  detail.events = Array.from({ length: 8 }, (_, i) => ({ id: `event-${i}`, entity_table: "admin_catalog_physical_holes", operation: "INSERT", actor_id: "257b01b3-32eb-4b6d-be0b-8ce2e4afc397", revision: i + 1 }));
+  service.detail.mockResolvedValue(detail);
+  render(<StructureReview service={service} onRoot={jest.fn()} />);
+  const queue = await screen.findByRole("region", { name: "Coda struttura e collegamenti" });
+  expect(within(queue).getAllByRole("button")).toHaveLength(8);
+  fireEvent.click(within(queue).getAllByRole("button")[0]);
+  await screen.findByRole("button", { name: "Crea struttura" });
+  expect(screen.queryByText("Percorso 6", { selector: "strong" })).not.toBeInTheDocument();
+  expect(screen.getAllByText("Buca fisica · Creazione")).toHaveLength(6);
+  expect(screen.getAllByText(/"autore": "257b01b3/)[0].closest("details")).not.toHaveAttribute("open");
+  fireEvent.click(screen.getByRole("button", { name: "Espandi tutte" }));
+  expect(screen.getByText("Percorso 7", { selector: "strong" })).toBeVisible();
+  expect(screen.getAllByText("Buca fisica · Creazione")).toHaveLength(8);
+  fireEvent.click(screen.getByRole("button", { name: "Riduci tutte" }));
+  expect(screen.queryByText("Percorso 7", { selector: "strong" })).not.toBeInTheDocument();
+  expect(screen.getByLabelText("Nota di revisione")).toBeVisible();
+  expect(screen.getByRole("button", { name: "Crea struttura" })).toBeVisible();
+  expect(service.createStructure).not.toHaveBeenCalled(); expect(service.reviewStructure).not.toHaveBeenCalled();
+});
+
 test("queue defaults to pending, distinguishes issues and keeps classified records behind an explicit filter", async () => {
   const service = createService();
   render(<StructureReview service={service} onRoot={jest.fn()} />);
@@ -64,7 +88,8 @@ test("creation and classification are explicit, confirmed writes to foundation o
   fireEvent.click(screen.getByRole("button", { name: "Crea struttura" })); fireEvent.click(screen.getByRole("button", { name: "Conferma nella fondazione" }));
   await waitFor(() => expect(screen.getByRole("button", { name: "Rivedi classificazione" })).toBeInTheDocument());
   expect(service.createStructure).toHaveBeenCalledTimes(1); expect(service.reviewStructure).not.toHaveBeenCalled();
-  expect(screen.getByText("admin-fixture")).toBeInTheDocument();
+  expect(screen.getByText("Admin", { selector: "strong" })).toBeInTheDocument();
+  expect(screen.getByText(/"autore": "admin-fixture"/).closest("details")).not.toHaveAttribute("open");
   fireEvent.change(screen.getByLabelText("Classificazione fisica"), { target: { value: "fisico_9" } });
   fireEvent.click(screen.getByRole("button", { name: "Rivedi classificazione" }));
   expect(within(screen.getByRole("dialog")).getByRole("table")).toHaveTextContent("non_classificato");

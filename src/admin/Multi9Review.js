@@ -1,3 +1,4 @@
+import TechnicalRows, { TechnicalDisclosure } from "./TechnicalRows";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import { displayedHolesTotalPar } from "./PhysicalCourseHoles";
@@ -62,10 +63,10 @@ function ClubPreview({ club, selectable, selected, onSelect }) {
     {club.can_register && <p>Evidenza: {club.courses?.length || 0} Percorsi 9 completi e {club.combinations?.length || 0} combinazioni ufficiali 18 complete, con riferimenti esatti Percorso + numero locale, Par coerente e SI validi.</p>}
     {selectable && <label className="stablr-admin-multi9-checkbox"><input type="checkbox" checked={selected} onChange={onSelect} />Includi {club.club_name}</label>}
     <Problems reasons={club.reasons} />
-    <details className="stablr-admin-structure-payload"><summary>Buche fisiche e configurazioni · {club.club_name}</summary>
+    <TechnicalDisclosure className="stablr-admin-structure-payload" summary={`Buche fisiche e configurazioni · ${club.club_name}`}>
       <h3>Buche fisiche · origini esplicite</h3>
       {!saved.length && <p>Nessuna buca fisica registrata.</p>}
-      {(club.courses || []).map((course) => {
+      <TechnicalRows label="Percorsi fisici multi-9">{(club.courses || []).map((course) => {
         const holes = course.source?.holes || [];
         const count = saved.filter((h) => h.source_course_link_id === course.link?.id).length;
         return <div key={course.id}>
@@ -74,23 +75,23 @@ function ClubPreview({ club, selectable, selected, onSelect }) {
           <Problems reasons={course.reasons} />
           <div role="table" aria-label={`Buche fisiche ${course.name}`} className="stablr-admin-multi9-holes">
             <div role="row"><strong role="columnheader">Origine</strong><strong role="columnheader">Numero locale</strong><strong role="columnheader">Par base</strong><strong role="columnheader">SI configurazione 9</strong></div>
-            {holes.map((h) => <div role="row" key={h.id}><span role="cell">{course.name}</span><span role="cell">{h.physical_hole_number}</span><span role="cell">{h.par ?? "—"}</span><span role="cell">{h.stroke_index ?? "—"}</span></div>)}
+            <TechnicalRows label="Buche fisiche multi-9">{holes.map((h) => <div role="row" key={h.id}><span role="cell">{course.name}</span><span role="cell">{h.physical_hole_number}</span><span role="cell">{h.par ?? "—"}</span><span role="cell">{h.stroke_index ?? "—"}</span></div>)}</TechnicalRows>
           </div>
         </div>;
-      })}
+      })}</TechnicalRows>
       <h3>Combinazioni ufficiali · 18 derivate</h3>
-      {(club.combinations || []).map((combination) => <div key={combination.id}>
+      <TechnicalRows label="Combinazioni ufficiali multi-9">{(club.combinations || []).map((combination) => <div key={combination.id}>
         <h3>{combination.name}</h3>
         <p>{combination.sequence.length} buche · Totale Par: {displayedHolesTotalPar(combination.sequence.map((h) => ({ par: h.effective_par })))} · Par ereditato · SI conservato dalla combinazione live</p>
         <Problems reasons={combination.reasons} />
         <div role="table" aria-label={`Mappa ${combination.name}`} className="stablr-admin-multi9-sequence">
           <div role="row">{["Ordine", "Percorso fisico", "Numero locale", "Occorrenza", "Par ereditato", "SI configurazione"].map((title) => <strong role="columnheader" key={title}>{title}</strong>)}</div>
-          {combination.sequence.map((h) => <div role="row" key={h.legacy_combination_hole_id}><span role="cell">{h.position}</span><span role="cell">{h.course_name}</span><span role="cell">{h.physical_number}</span><span role="cell">{h.occurrence}</span><span role="cell">{h.effective_par}</span><span role="cell">{h.stroke_index}</span></div>)}
+          <TechnicalRows label="Sequenza combinazione multi-9">{combination.sequence.map((h) => <div role="row" key={h.legacy_combination_hole_id}><span role="cell">{h.position}</span><span role="cell">{h.course_name}</span><span role="cell">{h.physical_number}</span><span role="cell">{h.occurrence}</span><span role="cell">{h.effective_par}</span><span role="cell">{h.stroke_index}</span></div>)}</TechnicalRows>
         </div>
-      </div>)}
-      {!!registered.length && <><h3>Configurazioni registrate</h3>{registered.map((c) => <p key={c.id}>{c.label} · <span className="stablr-admin-status">{c.review_status === "verified" ? "Verificata" : "Da revisionare"}</span> · Revisione {c.revision}</p>)}</>}
-    </details>
-    {!!club.excluded?.length && <details className="stablr-admin-structure-payload"><summary>Configurazioni escluse · {club.excluded.length}</summary><ul>{club.excluded.map((c) => <li key={c.id}>{c.name}: {multi9Problem(c.reason)}</li>)}</ul></details>}
+      </div>)}</TechnicalRows>
+      {!!registered.length && <><h3>Configurazioni registrate</h3><TechnicalRows label="Configurazioni multi-9 registrate">{registered.map((c) => <p key={c.id}>{c.label} · <span className="stablr-admin-status">{c.review_status === "verified" ? "Verificata" : "Da revisionare"}</span> · Revisione {c.revision}</p>)}</TechnicalRows></>}
+    </TechnicalDisclosure>
+    {!!club.excluded?.length && <TechnicalDisclosure className="stablr-admin-structure-payload" summary={`Configurazioni escluse · ${club.excluded.length}`}><ul><TechnicalRows list label="Configurazioni escluse">{club.excluded.map((c) => <li key={c.id}>{c.name}: {multi9Problem(c.reason)}</li>)}</TechnicalRows></ul></TechnicalDisclosure>}
   </article>;
 }
 
@@ -137,8 +138,8 @@ export default function Multi9Review({ service, structureId = null, onBusy, onCo
     {loading && <p role="status">Preparazione anteprima · sola lettura…</p>}
     {error && !confirmation && <p role="alert">{error}</p>}
     {result && <div role="status"><p>Approvazione completata: {result.registered.length} club registrati e verificati · {result.excluded.length} esclusi. Catalogo pubblicato invariato.</p>
-      {result.registered.map((club) => <p key={club.structure_id}>{club.club_name}: {club.configurations.length} configurazioni verificate.</p>)}
-      {result.excluded.map((club, index) => <p key={`${clubKey(club)}:${index}`}>{club.club_name || "Club escluso"}: {multi9Problem(club.reason)}</p>)}
+      <TechnicalRows label="Club registrati">{result.registered.map((club) => <p key={club.structure_id}>{club.club_name}: {club.configurations.length} configurazioni verificate.</p>)}</TechnicalRows>
+      <TechnicalRows label="Club esclusi">{result.excluded.map((club, index) => <p key={`${clubKey(club)}:${index}`}>{club.club_name || "Club escluso"}: {multi9Problem(club.reason)}</p>)}</TechnicalRows>
     </div>}
     {preview && !loading && !error && <>
       <p>{candidates.length} club selezionati · {configurations} configurazioni · {preview.excluded.length} club esclusi</p>
@@ -146,7 +147,7 @@ export default function Multi9Review({ service, structureId = null, onBusy, onCo
       {preview.candidates.length > 50 && <p>Massimo 50 club per conferma. Tutti i candidati ed esclusi sono visibili; gli altri club possono essere approvati nel batch successivo.</p>}
       {preview.candidates.length > 0 && <label className="stablr-admin-multi9-checkbox"><input type="checkbox" disabled={busy} checked={preview.candidates.slice(0, 50).every((c) => selected.includes(clubKey(c)))} onChange={(e) => setSelected(e.target.checked ? preview.candidates.slice(0, 50).map(clubKey) : [])} />{preview.candidates.length > 50 ? "Seleziona i primi 50 club idonei" : "Seleziona tutti i club idonei"}</label>}
       {preview.candidates.map((club) => <ClubPreview key={clubKey(club)} club={club} selectable={!busy} selected={selected.includes(clubKey(club))} onSelect={() => setSelected((current) => current.includes(clubKey(club)) ? current.filter((id) => id !== clubKey(club)) : current.length < 50 ? [...current, clubKey(club)] : current)} />)}
-      {preview.excluded.length > 0 && <><h3>Club esclusi dalla proposta</h3>{preview.excluded.map((club) => <ClubPreview key={clubKey(club)} club={club} />)}</>}
+      {preview.excluded.length > 0 && <><h3>Club esclusi dalla proposta</h3><TechnicalRows label="Club esclusi dalla proposta">{preview.excluded.map((club) => <ClubPreview key={clubKey(club)} club={club} />)}</TechnicalRows></>}
       {preview.candidates.length > 0 && <>
         <label className="stablr-admin-structure-selector">Nota di approvazione batch<textarea value={note} onChange={(e) => setNote(e.target.value)} disabled={busy} required /></label>
         <button className="stablr-admin-white-button" disabled={busy || !note.trim() || !candidates.length} onClick={() => setConfirmation({ candidates, note: note.trim() })} type="button">Approva batch nella fondazione</button>

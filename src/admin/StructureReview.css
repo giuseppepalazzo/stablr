@@ -36,3 +36,32 @@
 @media (max-width: 700px) { .stablr-admin-physical-grid { overflow-x: auto; } .stablr-admin-physical-grid > div { min-width: 600px; } }
 @media (max-width: 1100px) { .stablr-admin-structure-row { grid-template-columns: minmax(160px, 1.3fr) repeat(2, minmax(140px, 1fr)); } }
 @media (max-width: 700px) { .stablr-admin-structure-row, .stablr-admin-structure-evidence-row { grid-template-columns: 1fr; } }
+
+/* Scoped to this flow, including its inline technical dialogs. */
+.stablr-admin-structure-review .stablr-admin-technical-header-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 12px; }
+.stablr-admin-structure-review .stablr-admin-technical-global { flex-shrink: 0; }
+.stablr-admin-structure-review .stablr-admin-technical-toggle { display: block; justify-self: start; width: auto; min-width: 0; margin: 8px 0; padding: 7px 10px; border: 1px solid #386052; border-radius: 8px; background: transparent; color: #e5efea; font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+.stablr-admin-structure-review .stablr-admin-technical-toggle span { color: var(--stablr-admin-muted); }
+.stablr-admin-structure-review .stablr-admin-technical-toggle:hover { background: #163c30; }
+.stablr-admin-structure-review .stablr-admin-technical-list-control { list-style: none; }
+.stablr-admin-structure-review details summary { cursor: pointer; color: #9ed1fa; }
+.stablr-admin-structure-review .stablr-admin-physical-grid [role="cell"] details { display: inline-block; margin-left: 8px; vertical-align: top; font-size: 12px; }
+.stablr-admin-structure-review .stablr-admin-physical-grid [role="cell"] details[open] { display: block; margin-left: 0; }
+.stablr-admin-structure-review .stablr-admin-structure-evidence { margin: 4px 0; padding: 9px 12px; border-bottom: 1px solid #285345; border-radius: 6px; }
+.stablr-admin-structure-review .stablr-admin-structure-evidence-row { gap: 10px; }
+.stablr-admin-structure-review .stablr-admin-structure-evidence-row > div { gap: 3px; }
+.stablr-admin-structure-review .stablr-admin-structure-evidence p { margin: 7px 0; font-size: 13px; }
+.stablr-admin-structure-review .stablr-admin-structure-evidence :is(.stablr-admin-origin-facts, .stablr-admin-tee-classification-facts) { gap: 10px; margin: 8px 0; }
+.stablr-admin-structure-review .stablr-admin-structure-evidence .stablr-admin-structure-payload { margin: 7px 0; font-size: 13px; }
+.stablr-admin-structure-review :is(.stablr-admin-physical-grid, .stablr-admin-playable-grid, .stablr-admin-playable-tee-grid, .stablr-admin-multi9-holes, .stablr-admin-multi9-sequence, .stablr-admin-origin-holes, .stablr-admin-origin-components, .stablr-admin-par-table) { gap: 3px; }
+.stablr-admin-structure-review :is(.stablr-admin-physical-grid, .stablr-admin-playable-grid, .stablr-admin-playable-tee-grid, .stablr-admin-multi9-holes, .stablr-admin-multi9-sequence, .stablr-admin-origin-holes, .stablr-admin-origin-components, .stablr-admin-par-table) > [role="row"] { padding: 8px 12px; border-radius: 5px; }
+.stablr-admin-structure-review .stablr-admin-tee-evidence-row { padding: 9px 12px; gap: 10px; }
+.stablr-admin-structure-review .stablr-admin-tee-evidence-row :is(span, small) { margin: 3px 0; font-size: 12px; }
+.stablr-admin-structure-review :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) { box-sizing: border-box; width: 100%; background: #0d241e; color: #edf4ef; border: 1px solid #386052; border-radius: 9px; padding: 9px 12px; font: inherit; color-scheme: dark; }
+.stablr-admin-structure-review :is(option, optgroup) { background: #0d241e; color: #edf4ef; }
+.stablr-admin-structure-review textarea { min-height: 80px; resize: vertical; }
+.stablr-admin-structure-review input[type="checkbox"] { appearance: none; flex-shrink: 0; width: 17px; height: 17px; border: 1px solid #71988a; border-radius: 4px; background: #0d241e; }
+.stablr-admin-structure-review input[type="checkbox"]:checked { background: #9ed1fa; box-shadow: inset 0 0 0 3px #0d241e; }
+.stablr-admin-structure-review :is(input, select, textarea, .stablr-admin-technical-toggle):focus-visible { outline: 2px solid #9ed1fa; outline-offset: 3px; }
+.stablr-admin-structure-review :is(input, select, textarea):disabled { opacity: .6; cursor: not-allowed; }
+@media (max-width: 700px) { .stablr-admin-structure-review .stablr-admin-page-header { flex-wrap: wrap; gap: 12px; } }
