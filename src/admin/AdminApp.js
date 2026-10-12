@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { hasSupabaseConfig, supabase } from "../lib/supabase";
 import ClubEditor from "./ClubEditor";
+import NewClubEditor, { NewClubDrafts } from "./NewClubEditor";
+import { createNewClubDraftService } from "./new-club-draft-data";
 import { createClubEditorService } from "./club-editor-data";
 import CourseEditor from "./CourseEditor";
 import { applyCoursePublication, createCourseEditorService, hasCourseDraftChanges } from "./course-editor-data";
@@ -17,6 +19,7 @@ import { createStructureReviewService } from "./structure-review-data";
 import "./AdminApp.css";
 
 const clubEditorService = createClubEditorService(supabase);
+const newClubDraftService = createNewClubDraftService(supabase);
 const courseEditorService = createCourseEditorService(supabase);
 const routeEditorService = createRouteEditorService(supabase);
 const holeGridEditorService = createHoleGridEditorService(supabase);
@@ -610,7 +613,7 @@ export function UsersAndRounds({ users, rounds, loading, usersError, onRetryUser
   );
 }
 
-function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenClub }) {
+function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenClub, onNewClub }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("Tutti");
   const previewClubs = filterCatalogClubs(clubs, query, filter).slice(0, 4);
@@ -622,7 +625,7 @@ function Overview({ queues, clubs, loading, catalogAvailable, onViewAll, onOpenC
           <h1>Panoramica</h1>
           <p>Le attività che richiedono una decisione.</p>
         </div>
-        <button className="stablr-admin-white-button" type="button" disabled>
+        <button className="stablr-admin-white-button" type="button" onClick={onNewClub}>
           + Nuovo club
         </button>
       </header>
@@ -879,7 +882,7 @@ function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRou
   );
 }
 
-function ClubsAndCourses({ clubs, loading, catalogAvailable, initialQuery = "", onOpenClub }) {
+function ClubsAndCourses({ clubs, loading, catalogAvailable, initialQuery = "", onOpenClub, onNewClub, onOpenNewDraft, adminUserId }) {
   const [query, setQuery] = useState(initialQuery);
   const [filter, setFilter] = useState("Tutti");
   const filteredClubs = filterCatalogClubs(clubs, query, filter);
@@ -891,10 +894,12 @@ function ClubsAndCourses({ clubs, loading, catalogAvailable, initialQuery = "", 
           <h1>Club e percorsi</h1>
           <p>Ricerca prima del catalogo completo.</p>
         </div>
-        <button className="stablr-admin-white-button" type="button" disabled>
+        <button className="stablr-admin-white-button" type="button" onClick={onNewClub}>
           + Nuovo club
         </button>
       </header>
+
+      <NewClubDrafts service={newClubDraftService} ownerId={adminUserId} onOpenDraft={onOpenNewDraft} />
 
       <section className="stablr-admin-club-controls" aria-label="Ricerca e filtri">
         <label className="stablr-admin-search">
@@ -946,7 +951,7 @@ function ClubsAndCourses({ clubs, loading, catalogAvailable, initialQuery = "", 
   );
 }
 
-export function AdminShell({ onSignOut }) {
+export function AdminShell({ onSignOut, adminUserId = null }) {
   const [section, setSection] = useState("Panoramica");
   const [adminData, setAdminData] = useState(emptyAdminData);
   const [catalogQuery, setCatalogQuery] = useState("");
@@ -958,6 +963,7 @@ export function AdminShell({ onSignOut }) {
   const [usersSectionKey, setUsersSectionKey] = useState(0);
   const [advancedSectionKey, setAdvancedSectionKey] = useState(0);
   const [editingClub, setEditingClub] = useState(false);
+  const [newClubTarget, setNewClubTarget] = useState(null);
   const [editingCourse, setEditingCourse] = useState(false);
   const [editingCourseHoles, setEditingCourseHoles] = useState(false);
   const [managingCourseTees, setManagingCourseTees] = useState(false);
@@ -967,6 +973,10 @@ export function AdminShell({ onSignOut }) {
   const clubExitGuard = useRef(null);
   const registerClubExitGuard = useCallback((guard) => { clubExitGuard.current = guard; }, []);
   const navigate = (action) => clubExitGuard.current ? clubExitGuard.current(action) : action();
+  const openNewClub = (draftId = null) => navigate(() => {
+    setSelectedClub(null);setSelectedCourse(null);setSelectedRoute(null);
+    setNewClubTarget({ draftId });setSection("Club e percorsi");
+  });
   const acceptClubPublication = (live) => {
     const apply = (club) => ({ ...club, name: live.name, city: live.city || "—", updatedAt: live.updated_at,
       activity: `Aggiornato ${formatActivity(live.updated_at)}` });
@@ -1161,6 +1171,7 @@ export function AdminShell({ onSignOut }) {
         catalogAvailable={adminData.catalogAvailable}
         clubs={adminData.clubs}
         loading={adminData.loading}
+        onNewClub={() => openNewClub()}
         onOpenClub={(club) => {
           setSelectedClub(club);
           setSelectedCourse(null);
@@ -1176,7 +1187,14 @@ export function AdminShell({ onSignOut }) {
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
-      selectedRoute && selectedClub ? (editingHoles ? <HoleGridEditor
+      newClubTarget ? <NewClubEditor
+        key={newClubTarget.draftId || "new-club"}
+        draftId={newClubTarget.draftId}
+        ownerId={adminUserId}
+        service={newClubDraftService}
+        registerExitGuard={registerClubExitGuard}
+        onBack={() => navigate(() => setNewClubTarget(null))}
+      /> : selectedRoute && selectedClub ? (editingHoles ? <HoleGridEditor
         club={selectedClub}
         course={selectedCourse}
         route={selectedRoute}
@@ -1275,6 +1293,9 @@ export function AdminShell({ onSignOut }) {
         key={catalogQuery || "catalog"}
         loading={adminData.loading}
         onOpenClub={setSelectedClub}
+        adminUserId={adminUserId}
+        onNewClub={() => openNewClub()}
+        onOpenNewDraft={openNewClub}
       />
     ) : section === "Revisioni" ? (
       selectedReview ? <ReviewDetail item={selectedReview} onBack={() => setSelectedReview(null)} /> : <Reviews
@@ -1311,6 +1332,7 @@ export function AdminShell({ onSignOut }) {
               className={item === section ? "is-active" : ""}
               key={item}
               onClick={() => navigate(() => {
+                setNewClubTarget(null);
                 setEditingClub(false);
                 setEditingCourse(false);
                 setEditingCourseHoles(false);
@@ -1449,5 +1471,5 @@ export default function AdminApp() {
     return <AdminDenied onSignOut={signOut} />;
   }
 
-  return <AdminShell onSignOut={signOut} />;
+  return <AdminShell onSignOut={signOut} adminUserId={sessionUserId} />;
 }
