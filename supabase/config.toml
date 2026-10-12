@@ -2,3 +2,7 @@
 # Do not disable platform JWT validation for any other function.
 [functions.tee-evidence-broker]
 verify_jwt = false
+
+# Validates either a real Admin session or the dedicated strict GitHub OIDC policy.
+[functions.fig-governance]
+verify_jwt = false

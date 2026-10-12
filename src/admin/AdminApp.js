@@ -16,6 +16,8 @@ import { createCourseHoleGridEditorService } from "./course-hole-grid-editor-dat
 import { CourseTeeManager, CourseTeeSection } from "./CourseTeeEditor";
 import { createCourseTeeEditorService } from "./course-tee-editor-data";
 import StructureReview from "./StructureReview";
+import FigGovernance from "./FigGovernance";
+import { createFigGovernanceService } from "./fig-governance-data";
 import { createStructureReviewService } from "./structure-review-data";
 import "./AdminApp.css";
 
@@ -27,6 +29,7 @@ const holeGridEditorService = createHoleGridEditorService(supabase);
 const courseHoleGridEditorService = createCourseHoleGridEditorService(supabase);
 const courseTeeEditorService = createCourseTeeEditorService(supabase);
 const structureReviewService = createStructureReviewService(supabase);
+const figGovernanceService = createFigGovernanceService(supabase);
 
 const ADMIN_MANIFEST_PATH = "/admin.webmanifest";
 const ADMIN_ICON_PATH = "/stablr-admin-icon.svg";
@@ -501,9 +504,10 @@ function AdvancedDetail({ area, clubs, onBack }) {
   </section>;
 }
 
-export function Advanced({ clubs, loading, reviewService = structureReviewService, registerExitGuard }) {
+export function Advanced({ clubs, loading, reviewService = structureReviewService, figService = figGovernanceService, onOpenClubDraft, registerExitGuard }) {
   const [selectedArea, setSelectedArea] = useState(null);
   if (selectedArea?.[0] === "structure") return <StructureReview service={reviewService} onRoot={() => setSelectedArea(null)} registerExitGuard={registerExitGuard} />;
+  if (selectedArea?.[0] === "fig") return <FigGovernance service={figService} onBack={() => setSelectedArea(null)} onOpenDraft={onOpenClubDraft} />;
   if (selectedArea) return <AdvancedDetail area={selectedArea} clubs={clubs || []} onBack={() => setSelectedArea(null)} />;
   return <section className="stablr-admin-advanced">
     <header className="stablr-admin-page-header"><div><h1>Avanzata</h1><p>Informazioni catalogo e revisione della struttura fisica.</p></div></header>
@@ -1302,7 +1306,8 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
     ) : section === "Club partner" ? (
       <EmptySection section="Club partner" description="Area futura per la gestione interna di contatti e relazioni con i club." />
     ) : section === "Avanzata" ? (
-      <Advanced clubs={adminData.clubs} key={advancedSectionKey} loading={adminData.loading} registerExitGuard={registerClubExitGuard} />
+      <Advanced clubs={adminData.clubs} key={advancedSectionKey} loading={adminData.loading} registerExitGuard={registerClubExitGuard}
+        onOpenClubDraft={(clubId) => navigate(() => { const club = adminData.clubs.find(item => item.id === clubId);if (!club) return;setSection("Club e percorsi");setNewClubTarget(null);setSelectedCourse(null);setSelectedRoute(null);setSelectedClub(club);setEditingClub(true); })} />
     ) : (
       <EmptySection section={section} />
     );

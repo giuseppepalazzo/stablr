@@ -988,3 +988,6 @@ button.stablr-admin-tee-row:focus-visible { outline: 2px solid var(--stablr-admi
   .stablr-admin-tee-columns { display: none; }
   .stablr-admin-tee-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-width: 0; }
 }
+.stablr-admin-fig-queue { display: grid; gap: 8px; margin-top: 14px; }
+.stablr-admin-fig-comparison { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 18px 0; }
+.stablr-admin-fig-comparison p { overflow-wrap: anywhere; }

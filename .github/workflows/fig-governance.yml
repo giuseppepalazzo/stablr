@@ -1,0 +1,28 @@
+name: FIG governance (read-only source)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * 1'
+permissions:
+  contents: read
+jobs:
+  check:
+    if: github.repository == 'giuseppepalazzo/stablr' && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Request protected FIG check
+        env:
+          FIGCHECK_BROKER_URL: ${{ vars.FIGCHECK_BROKER_URL }}
+          FIGCHECK_OIDC_AUDIENCE: ${{ vars.FIGCHECK_OIDC_AUDIENCE }}
+        run: node scripts/fig/governance-client.mjs
