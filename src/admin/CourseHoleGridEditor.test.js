@@ -21,6 +21,8 @@ test("Par edits use the dedicated workflow while the SI grid remains editable",a
   expect(await screen.findByLabelText("Par buca 1")).toBeDisabled();
   expect(screen.getByLabelText("SI/HCP buca 1")).not.toBeDisabled();
   expect(screen.getByText(/Per modificare il Par usa Avanzata/)).toBeInTheDocument();
+  expect(screen.getByLabelText("Par buca 1")).toHaveAttribute("min","3");
+  expect(screen.getByLabelText("Par buca 1")).toHaveAttribute("max","5");
 });
 function Harness({service,onExit=jest.fn(),onPublished=jest.fn()}) {
   const guard=useRef(null); const registerExitGuard=useCallback(value=>{guard.current=value;},[]);
@@ -62,6 +64,15 @@ test("9/18 validation follows real SI sets, rejects incompatible/duplicate/missi
   const fields18={holes:all18.map(n=>({id:`h-${n}`,physical_hole_number:n,par:4,stroke_index:n}))};
   expect(validateCourseHoleGrid(context18,fields18).canPublish).toBe(true);
   fields18.holes[17].stroke_index=9; expect(validateCourseHoleGrid(context18,fields18).canPublish).toBe(false);
+});
+
+test("course grid rejects newly changed Par 6 but preserves an unchanged historical Par",()=>{
+  const changed=normalizeCourseHoleGrid(snapshot);changed.holes[0].par=6;
+  expect(validateCourseHoleGrid(context,changed).canSave).toBe(false);
+  const historical={...context,course:{...context.course,total_par:36},holes:changed.holes};
+  expect(validateCourseHoleGrid(historical,changed)).toMatchObject({canSave:true,canPublish:true});
+  const fresh=normalizeCourseHoleGrid(changed);fresh.holes[0].par=5;fresh.holes[1].par=4;
+  expect(validateCourseHoleGrid(historical,fresh)).toMatchObject({canSave:true,canPublish:true});
 });
 
 test("diff uses physical identity and only Par/SI even when input order changes",()=>{

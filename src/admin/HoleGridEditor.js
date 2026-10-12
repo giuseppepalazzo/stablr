@@ -82,7 +82,7 @@ export default function HoleGridEditor({ club, course, route, service, onBack, o
           <tbody>{fields.holes.map((hole) => {
             const live = context.holes.find((item) => item.id === hole.id) || {};
             return <tr key={hole.id}><td>{hole.round_hole_number}</td><td>{context.origins.find((origin) => origin.position === live.route_position)?.name || "—"}</td><td>{live.physical_hole_number ?? "—"}</td>
-              <td><input aria-label={`Par buca ${hole.round_hole_number}`} disabled={busy || service.parWorkflow} type="number" min="3" max="6" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id, "par", event.target.value)} /></td>
+              <td><input aria-label={`Par buca ${hole.round_hole_number}`} disabled={busy || service.parWorkflow} type="number" min="3" max="5" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id, "par", event.target.value)} /></td>
               <td><input aria-label={`SI/HCP buca ${hole.round_hole_number}`} disabled={busy} type="number" min="1" max="18" step="1" value={hole.stroke_index ?? ""} onChange={(event) => update(hole.id, "stroke_index", event.target.value)} /></td>
               <td>{live.source_stroke_index ?? "—"}</td><td>{live.display_label || "—"}</td></tr>;
           })}</tbody>

@@ -20,7 +20,9 @@ export function validateHoleGrid(context, snapshot) {
   const holes = normalizeHoleGrid(snapshot).holes;
   const checks = context?.checks || {};
   const expected = context?.route?.holes_count;
-  const parValid = holes.every((hole) => hole.par == null || (Number.isInteger(hole.par) && hole.par >= 3 && hole.par <= 6));
+  const parValid = holes.every((hole) => hole.par == null ||
+    (Number.isInteger(hole.par) && ((hole.par >= 3 && hole.par <= 5) ||
+      context?.holes?.some((live) => live.id === hole.id && live.par != null && Number(live.par) === hole.par))));
   const siValid = holes.every((hole) => hole.stroke_index == null || (Number.isInteger(hole.stroke_index) && hole.stroke_index >= 1 && hole.stroke_index <= 18));
   const totalPar = holes.reduce((sum, hole) => sum + (hole.par || 0), 0);
   const missing = Array.from({ length: expected || 0 }, (_, i) => i + 1).filter((n) => !holes.some((hole) => hole.round_hole_number === n));
@@ -32,7 +34,7 @@ export function validateHoleGrid(context, snapshot) {
   if (expected !== 18 || holes.length !== 18 || missing.length || duplicateNumbers || checks.origins_valid !== true ||
     checks.actual_holes !== 18 || checks.duplicate_physical_holes !== 0 || checks.invalid_origin_holes !== 0 ||
     checks.front_holes !== 9 || checks.back_holes !== 9) alerts.push("La sequenza delle buche è incompleta o incoerente. Numeri e collegamenti origine restano in sola lettura.");
-  if (!parValid || holes.some((hole) => hole.par == null)) alerts.push("Compila il Par di ogni buca con un intero da 3 a 6.");
+  if (!parValid || holes.some((hole) => hole.par == null)) alerts.push("Compila il Par di ogni buca; per le modifiche sono ammessi solo 3, 4 o 5.");
   if (!siValid || si.length !== 18 || duplicateSi || missingSi.length) alerts.push("Gli SI/HCP devono contenere tutti gli interi da 1 a 18, ciascuno una sola volta.");
   if (context?.route?.total_par != null && totalPar !== context.route.total_par) alerts.push("Il Totale Par deve corrispondere al totale già registrato per la combinazione.");
   return { canSave: parValid && siValid, canPublish: alerts.length === 0, totalPar, duplicateSi, missingSi, alerts };

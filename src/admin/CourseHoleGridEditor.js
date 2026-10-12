@@ -82,7 +82,7 @@ export default function CourseHoleGridEditor({ club, course, service, onBack, on
         <div className="stablr-admin-hole-grid-scroll"><table className="stablr-admin-hole-grid-table stablr-admin-course-hole-grid-table" aria-label="Griglia buche del Percorso">
           <thead><tr><th scope="col">Numero / ordine</th><th scope="col">Par</th><th scope="col">SI/HCP</th><th scope="col">Etichetta · sola lettura</th></tr></thead>
           <tbody>{fields.holes.map((hole) => <tr key={hole.id}><td>{hole.physical_hole_number}</td>
-            <td><input aria-label={`Par buca ${hole.physical_hole_number}`} disabled={busy || service.parWorkflow} type="number" min="3" max="6" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id,"par",event.target.value)} /></td>
+            <td><input aria-label={`Par buca ${hole.physical_hole_number}`} disabled={busy || service.parWorkflow} type="number" min="3" max="5" step="1" value={hole.par ?? ""} onChange={(event) => update(hole.id,"par",event.target.value)} /></td>
             <td><input aria-label={`SI/HCP buca ${hole.physical_hole_number}`} disabled={busy} type="number" min="1" max="18" step="1" value={hole.stroke_index ?? ""} onChange={(event) => update(hole.id,"stroke_index",event.target.value)} /></td>
             <td>{context.holes.find((item) => item.id === hole.id)?.display_label || "—"}</td></tr>)}</tbody>
         </table></div>

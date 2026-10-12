@@ -38,7 +38,7 @@ function PhysicalParEditor({ clubId, service, onBusy, onChanged, registerExitGua
   const [pendingExit, setPendingExit] = useState(null);
   const inFlight = useRef(false);
   const dirty = !!context && Number(par) !== context.draft.par;
-  const valid = Number.isInteger(Number(par)) && Number(par) >= 3 && Number(par) <= 6;
+  const valid = Number.isInteger(Number(par)) && Number(par) >= 3 && Number(par) <= 5;
   useEffect(() => { onBusy?.(busy || dirty || !!dialog); return () => onBusy?.(false); }, [busy, dirty, dialog, onBusy]);
   useEffect(() => {
     const prevent = (e) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } };
@@ -83,10 +83,11 @@ function PhysicalParEditor({ clubId, service, onBusy, onChanged, registerExitGua
     {context && <>
       <header className="stablr-admin-editor-header"><div><h3>{context.physical_hole.course_name} · Buca {context.physical_hole.number}</h3><span className="stablr-admin-status">Bozza Par fisico</span></div>
         <div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !valid || context.base_changed} onClick={() => act(save)} type="button">Salva bozza</button>
-          <button className="stablr-admin-publish-button" disabled={busy || !valid || context.base_changed} onClick={() => act(async () => { await save(); setNote(""); setDialog("publish"); })} type="button">Anteprima impatto</button></div>
+          <button className="stablr-admin-publish-button" disabled={busy || dirty || !valid || context.base_changed} onClick={() => { setNote(""); setDialog("publish"); }} type="button">Anteprima impatto</button>
+          {dirty && <span role="status">Salva la bozza per aggiornare l’anteprima.</span>}</div>
       </header>
       {context.base_changed && <p role="alert">La base della bozza è cambiata. Nessuna ripresa o pubblicazione automatica: abbandona esplicitamente e riapri.</p>}
-      <label className="stablr-admin-par-field">Nuovo Par fisico<input type="number" min="3" max="6" step="1" disabled={busy} value={par} onChange={(e) => { setPar(e.target.value); setMessage(""); }} /></label>
+      <label className="stablr-admin-par-field">Nuovo Par fisico<input type="number" min="3" max="5" step="1" disabled={busy} value={par} onChange={(e) => { setPar(e.target.value); setMessage(""); }} /></label>
       {dirty && <p>Modifiche non salvate</p>}
       <Impact context={context} />
       <button className="stablr-admin-abandon-button" disabled={busy} onClick={() => { if (dirty) { setPendingExit(() => () => setContext(null)); setDialog("exit"); } else setContext(null); }} type="button">Torna alle buche fisiche</button>

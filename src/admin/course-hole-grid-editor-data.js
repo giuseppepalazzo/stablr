@@ -23,7 +23,9 @@ export function validateCourseHoleGrid(context,snapshot) {
   const numbers = holes.map((hole) => hole.physical_hole_number);
   const missingNumbers = Array.from({ length: expected || 0 },(_,i) => i+1).filter((n) => !numbers.includes(n));
   const duplicateNumbers = numbers.length - new Set(numbers).size;
-  const parValid = holes.every((h) => h.par == null || (Number.isInteger(h.par) && h.par >= 3 && h.par <= 6));
+  const parValid = holes.every((h) => h.par == null ||
+    (Number.isInteger(h.par) && ((h.par >= 3 && h.par <= 5) ||
+      context?.holes?.some((live) => live.id === h.id && live.par != null && Number(live.par) === h.par))));
   const siValid = holes.every((h) => h.stroke_index == null || (Number.isInteger(h.stroke_index) && h.stroke_index >= 1 && h.stroke_index <= 18));
   const si = holes.map((h) => h.stroke_index).filter((n) => n != null).sort((a,b) => a-b);
   const duplicateSi = si.length - new Set(si).size;
@@ -33,7 +35,7 @@ export function validateCourseHoleGrid(context,snapshot) {
   if (![9,18].includes(expected) || holes.length !== expected || missingNumbers.length || duplicateNumbers ||
     numbers.some((n) => !Number.isInteger(n) || n < 1 || n > expected) || context?.checks?.actual_holes !== expected ||
     context?.checks?.duplicate_numbers !== 0 || context?.checks?.invalid_numbers !== 0) alerts.push("La griglia ha buche mancanti, duplicate o un ordine incoerente. Numero e ordine sono in sola lettura.");
-  if (!parValid || holes.some((h) => h.par == null)) alerts.push("Compila il Par di ogni buca con un intero da 3 a 6.");
+  if (!parValid || holes.some((h) => h.par == null)) alerts.push("Compila il Par di ogni buca; per le modifiche sono ammessi solo 3, 4 o 5.");
   if (!siValid || sequence.length !== expected || new Set(sequence).size !== expected || JSON.stringify(si) !== JSON.stringify(sequence)) alerts.push("Gli SI/HCP devono corrispondere alla sequenza prevista per il Percorso, senza valori mancanti o duplicati.");
   if (context?.course?.total_par != null && totalPar !== context.course.total_par) alerts.push("Il Totale Par deve corrispondere al totale già registrato per il Percorso.");
   return { canSave: parValid && siValid, canPublish: alerts.length === 0, alerts, totalPar, duplicateSi, missingSi, duplicateNumbers, missingNumbers };

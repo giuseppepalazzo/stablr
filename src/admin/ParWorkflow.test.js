@@ -11,6 +11,10 @@ const makeService = (initial = context) => ({
   publish: jest.fn().mockResolvedValue({ published: true }), abandon: jest.fn().mockResolvedValue({ archived: true })
 });
 const open = async () => fireEvent.click(await screen.findByRole("row", { name: /Buca 1/ }));
+const saveForPreview = async () => {
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));
+  await waitFor(() => expect(screen.getByRole("button", { name: "Anteprima impatto" })).toBeEnabled());
+};
 test("global preview has no mutation until a single explicit approval and note", async () => {
   const service = { workflowPreview: jest.fn().mockResolvedValue({ target_count: 1, tee_count: 0, excluded_count: 1, clubs: [{ club_id: "club-1", label: "Club", targets: [target], excluded: [{ reasons: ["incomplete_configuration_grid"] }], tee_proposal: { tee_count: 0, excluded: [] } }] }), workflowConfirm: jest.fn().mockResolvedValue({ confirmed: [{ club_id: "club-1" }], excluded: [] }) };
   render(<ParWorkflowBatch service={service} />); fireEvent.click(screen.getByRole("button", { name: "Prepara batch Par" }));
@@ -23,12 +27,16 @@ test("global preview has no mutation until a single explicit approval and note",
 });
 test("autonomous local publication saves a dedicated draft, previews totals and requires final note", async () => {
   const service = makeService(); render(<LocalPar clubId="club-1" service={service} />); await open();
-  fireEvent.change(await screen.findByLabelText("Nuovo Par locale"), { target: { value: "5" } }); fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
+  fireEvent.change(await screen.findByLabelText("Nuovo Par locale"), { target: { value: "5" } });
+  expect(screen.getByRole("button", { name: "Anteprima impatto" })).toBeDisabled();expect(screen.getByText("Salva la bozza per aggiornare l’anteprima.")).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));expect(service.save).not.toHaveBeenCalled();expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  await saveForPreview();fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
   const dialog = await screen.findByRole("dialog"); expect(within(dialog).getByText(/Totale configurazione: 35 → 36/)).toBeInTheDocument(); expect(service.publish).not.toHaveBeenCalled();
   const confirm = within(dialog).getByRole("button", { name: "Conferma pubblicazione" }); expect(confirm).toBeDisabled();
   fireEvent.change(within(dialog).getByLabelText("Nota di pubblicazione"), { target: { value: "Pubblicazione motivata" } }); fireEvent.click(confirm);
   expect(await screen.findByText(/Par pubblicato atomicamente/)).toBeInTheDocument(); expect(screen.queryByText("Bozza Par locale")).not.toBeInTheDocument();
   expect(service.save).toHaveBeenCalledWith(context.draft, "5", false);
+  expect(service.save).toHaveBeenCalledTimes(1);
 });
 test("inherited independent configuration requires explicit Create local override", async () => {
   const initial = { ...context, mode: "override", requires_override: true, parent: { course_name: "Fisico 18", hole_number: 1, base_par: 4 }, blockers: ["explicit_local_override_required"] }, service = makeService(initial);
@@ -36,6 +44,7 @@ test("inherited independent configuration requires explicit Create local overrid
   fireEvent.change(await screen.findByLabelText("Nuovo Par locale"), { target: { value: "5" } });
   expect(screen.getByText(/Origine fisica: Fisico 18/)).toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", { name: "Crea override locale" }));
+  await saveForPreview();
   fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" })); await screen.findByRole("dialog");
   expect(service.save).toHaveBeenCalledWith(initial.draft, "5", true); expect(service.publish).not.toHaveBeenCalled();
 });
@@ -61,4 +70,11 @@ test("RPC contract sends exact target, revision, flag, hash and note without gen
   await s.local.open("course", "route-1", "hole-1"); expect(client.rpc).toHaveBeenLastCalledWith("admin_catalog_local_par_open", { p_type: "course", p_target: "route-1", p_hole: "hole-1" });
   await s.local.save(context.draft, "5", true); expect(client.rpc).toHaveBeenLastCalledWith("admin_catalog_local_par_save", { p_draft: "draft-1", p_revision: 1, p_par: 5, p_override: true });
   await s.local.publish(context, " Note "); expect(client.rpc).toHaveBeenLastCalledWith("admin_catalog_local_par_publish", { p_draft: "draft-1", p_revision: 1, p_expected_hash: "hash", p_note: "Note", p_confirm: true });
+});
+
+test("local Par controls reject new 6, missing and fractional values",async()=>{
+  const service=makeService();render(<LocalPar clubId="club-1" service={service}/>);await open();
+  const input=await screen.findByLabelText("Nuovo Par locale");expect(input).toHaveAttribute("min","3");expect(input).toHaveAttribute("max","5");expect(input).toHaveAttribute("step","1");
+  for(const value of ["6","2","4.5",""]){fireEvent.change(input,{target:{value}});expect(screen.getByRole("button",{name:"Salva bozza"})).toBeDisabled();expect(screen.getByRole("button",{name:"Anteprima impatto"})).toBeDisabled();}
+  expect(service.save).not.toHaveBeenCalled();
 });

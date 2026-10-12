@@ -39,7 +39,7 @@ export default function LocalPar({ clubId, service, onBack, registerExitGuard, o
   const [override, setOverride] = useState(false), [busy, setBusy] = useState(false), [dialog, setDialog] = useState(null), [note, setNote] = useState("");
   const [error, setError] = useState(""), [message, setMessage] = useState(""), [pendingExit, setPendingExit] = useState(null);
   const flight = useRef(false), dirty = !!context && (Number(par) !== context.draft.par || override !== context.draft.create_override);
-  const valid = par !== "" && Number.isInteger(Number(par)) && Number(par) >= 3 && Number(par) <= 6;
+  const valid = par !== "" && Number.isInteger(Number(par)) && Number(par) >= 3 && Number(par) <= 5;
   const act = async (fn) => { if (flight.current) return; flight.current = true; setBusy(true); setError(""); try { await fn(); } catch (e) { console.error("Admin local Par failed", e?.code || "request_failed"); setError(parError(e)); } finally { flight.current = false; setBusy(false); } };
   const load = async () => setList(await service.list(clubId));
   useEffect(() => { let active = true; service.list(clubId).then((x) => { if (active) setList(x); }).catch((e) => { if (active) setError(parError(e)); }); return () => { active = false; }; }, [service, clubId]);
@@ -72,9 +72,9 @@ export default function LocalPar({ clubId, service, onBack, registerExitGuard, o
       <button className="stablr-admin-abandon-button" disabled={busy} onClick={onBack} type="button">Torna al Par fisico</button>
     </>}
     {context && <>
-      <header className="stablr-admin-editor-header"><div><h3>{context.target.label} · Buca {context.hole.number}</h3><span className="stablr-admin-status">Bozza Par locale</span></div><div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !valid || context.base_changed} onClick={() => act(save)} type="button">Salva bozza</button><button className="stablr-admin-publish-button" disabled={busy || !valid || context.base_changed} onClick={() => act(async () => { await save(); setNote(""); setDialog("publish"); })} type="button">Anteprima impatto</button></div></header>
+      <header className="stablr-admin-editor-header"><div><h3>{context.target.label} · Buca {context.hole.number}</h3><span className="stablr-admin-status">Bozza Par locale</span></div><div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !valid || context.base_changed} onClick={() => act(save)} type="button">Salva bozza</button><button className="stablr-admin-publish-button" disabled={busy || dirty || !valid || context.base_changed} onClick={() => { setNote(""); setDialog("publish"); }} type="button">Anteprima impatto</button>{dirty && <span role="status">Salva la bozza per aggiornare l’anteprima.</span>}</div></header>
       {context.base_changed && <p role="alert">La base è cambiata: nessun rebase automatico. Abbandona esplicitamente la bozza e riapri.</p>}
-      <label className="stablr-admin-par-field">Nuovo Par locale<input type="number" min="3" max="6" value={par} disabled={busy} onChange={(e) => setPar(e.target.value)} /></label>
+      <label className="stablr-admin-par-field">Nuovo Par locale<input type="number" min="3" max="5" step="1" value={par} disabled={busy} onChange={(e) => setPar(e.target.value)} /></label>
       {context.requires_override && <button className="stablr-admin-white-button" type="button" disabled={busy || override || context.base_changed} onClick={() => setOverride(true)}>{override ? "Override locale richiesto" : "Crea override locale"}</button>}
       {dirty && <p>Modifiche non salvate</p>}{impact}
       <button className="stablr-admin-abandon-button" type="button" disabled={busy} onClick={() => exit(() => setContext(null))}>Torna alle configurazioni</button>

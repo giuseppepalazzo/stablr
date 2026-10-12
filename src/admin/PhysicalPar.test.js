@@ -16,6 +16,10 @@ const service = () => ({ list: jest.fn().mockResolvedValue({ holes: [hole], hist
   save: jest.fn().mockImplementation(async (_draft, value) => context(Number(value))), publish: jest.fn().mockResolvedValue({ version_id: "version-1", par: 5, configuration_count: 2, tee_count: 1 }),
   abandon: jest.fn().mockResolvedValue({ archived: true }) });
 const open = async () => { fireEvent.click(screen.getByRole("button", { name: "Apri buche fisiche verificate" })); fireEvent.click(await screen.findByRole("row", { name: /Percorso Mare Buca 1/ })); await screen.findByLabelText("Nuovo Par fisico"); };
+const saveForPreview = async () => {
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));
+  await waitFor(() => expect(screen.getByRole("button", { name: "Anteprima impatto" })).toBeEnabled());
+};
 
 test("one read-only proposal, exact aggregate review, mandatory note and one explicit batch decision", async () => {
   const s = service(); render(<PhysicalPar clubId="club-1" service={s} />);
@@ -39,7 +43,14 @@ test("empty safe batch never offers a fabricated confirmation or edits exclusion
 test("dedicated draft → save → impact/diff → explicit publication → closed draft and refreshed history", async () => {
   const s = service(); render(<PhysicalPar clubId="club-1" service={s} />); await open();
   fireEvent.change(screen.getByLabelText("Nuovo Par fisico"), { target: { value: "5" } }); expect(s.publish).not.toHaveBeenCalled();
+  expect(screen.getByRole("button", { name: "Anteprima impatto" })).toBeDisabled();
+  expect(screen.getByText("Salva la bozza per aggiornare l’anteprima.")).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();expect(s.save).not.toHaveBeenCalled();
+  await saveForPreview();
   fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" })); const dialog = await screen.findByRole("dialog");
+  expect(s.save).toHaveBeenCalledTimes(1);
+  expect(screen.queryByText("Salva la bozza per aggiornare l’anteprima.")).not.toBeInTheDocument();
   expect(dialog).toHaveTextContent("Par fisico: 4 → 5"); expect(within(dialog).getByRole("table", { name: "Impatto configurazioni" })).toHaveTextContent("72");
   expect(dialog).toHaveTextContent("10 (2)"); expect(dialog).toHaveTextContent("SI, CR/Slope, distanze, giri e snapshot storici restano invariati");
   expect(within(dialog).getByRole("button", { name: "Conferma pubblicazione" })).toBeDisabled();
@@ -50,7 +61,7 @@ test("dedicated draft → save → impact/diff → explicit publication → clos
 test("unknown tee, uncovered club, overlapping drafts and explicit overrides are visible; no publication", async () => {
   const s = service(); s.save.mockResolvedValue(context(5, { can_publish: false, blockers: ["tee_unknown_review_obsolete_or_override", "incomplete_club_coverage", "overlapping_live_draft"],
     tees: [{ ...context(5).tees[0], eligible: false }], overrides_excluded: [{ configuration_label: "Override verificato", position: 1, par_override: 4 }] }));
-  render(<PhysicalPar clubId="club-1" service={s} />); await open(); fireEvent.change(screen.getByLabelText("Nuovo Par fisico"), { target: { value: "5" } }); fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
+  render(<PhysicalPar clubId="club-1" service={s} />); await open(); fireEvent.change(screen.getByLabelText("Nuovo Par fisico"), { target: { value: "5" } }); await saveForPreview();fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
   const dialog = await screen.findByRole("dialog"); expect(dialog).toHaveTextContent("Copertura del club incompleta"); expect(dialog).toHaveTextContent("bozza catalogo con modifiche reali sui target impattati"); expect(dialog).toHaveTextContent("Bloccante / da revisionare"); expect(dialog).toHaveTextContent("Par 4 invariato");
   fireEvent.change(screen.getByLabelText("Nota di pubblicazione"), { target: { value: "Cannot bypass" } }); expect(within(dialog).getByRole("button", { name: "Conferma pubblicazione" })).toBeDisabled(); expect(s.publish).not.toHaveBeenCalled();
 });
@@ -78,6 +89,7 @@ test("publication server failure retains draft and confirmation, with no raw err
   s.publish.mockRejectedValue({ code: "40001", message: "PRIVATE_PAYLOAD_DO_NOT_LOG" });
   render(<PhysicalPar clubId="club-1" service={s} />); await open();
   fireEvent.change(screen.getByLabelText("Nuovo Par fisico"), { target: { value: "5" } });
+  await saveForPreview();
   fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
   const dialog = await screen.findByRole("dialog");
   fireEvent.change(screen.getByLabelText("Nota di pubblicazione"), { target: { value: "Explicit failed confirmation" } });
@@ -105,7 +117,7 @@ test("Mare 5→4 preview shows source base9, derived18 and eight impacted tees; 
   render(<PhysicalPar clubId="club-1" service={s} />);await open();
   expect(screen.getByRole("button", { name: "Torna alle buche fisiche" })).toHaveClass("stablr-admin-abandon-button");
   expect(screen.getByRole("button", { name: "Abbandona bozza" })).toHaveClass("stablr-admin-abandon-button");
-  fireEvent.change(screen.getByLabelText("Nuovo Par fisico"), { target: { value: "4" } });fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
+  fireEvent.change(screen.getByLabelText("Nuovo Par fisico"), { target: { value: "4" } });await saveForPreview();fireEvent.click(screen.getByRole("button", { name: "Anteprima impatto" }));
   const dialog = await screen.findByRole("dialog"), configurations = within(dialog).getByRole("table", { name: "Impatto configurazioni" });
   expect(dialog).toHaveTextContent("Par fisico: 5 → 4");expect(configurations).toHaveTextContent("Percorso 9 · 9 buche · Base aggiornabile");
   expect(within(configurations).getAllByRole("row")[1]).toHaveTextContent("35");expect(within(configurations).getAllByRole("row")[1]).toHaveTextContent("34");
@@ -116,4 +128,12 @@ test("Mare 5→4 preview shows source base9, derived18 and eight impacted tees; 
   fireEvent.click(within(teeTable).getByRole("button", { name: "Mostra tutto · Tee impattati" }));
   expect(within(teeTable).getAllByRole("row")).toHaveLength(9);
   expect(dialog).toHaveTextContent("SI, CR/Slope, distanze, giri e snapshot storici restano invariati");expect(s.publish).not.toHaveBeenCalled();
+});
+
+test("new physical Par is limited to 3, 4 or 5, including native number controls", async () => {
+  const s = service();render(<PhysicalPar clubId="club-1" service={s} />);await open();
+  const input=screen.getByLabelText("Nuovo Par fisico");
+  expect(input).toHaveAttribute("min","3");expect(input).toHaveAttribute("max","5");expect(input).toHaveAttribute("step","1");
+  for(const value of ["6","2","4.5"]){fireEvent.change(input,{target:{value}});expect(screen.getByRole("button",{name:"Salva bozza"})).toBeDisabled();expect(screen.getByRole("button",{name:"Anteprima impatto"})).toBeDisabled();}
+  expect(s.save).not.toHaveBeenCalled();
 });

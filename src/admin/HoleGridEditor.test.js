@@ -37,6 +37,8 @@ test("combination Par cannot bypass the dedicated override workflow; SI stays ed
   expect(await screen.findByLabelText("Par buca 1")).toBeDisabled();
   expect(screen.getByLabelText("SI/HCP buca 1")).not.toBeDisabled();
   expect(screen.getByText(/un Par ereditato richiede il padre fisico/)).toBeInTheDocument();
+  expect(screen.getByLabelText("Par buca 1")).toHaveAttribute("min","3");
+  expect(screen.getByLabelText("Par buca 1")).toHaveAttribute("max","5");
 });
 
 test("whole-grid validation checks SI permutation, essential Par, total and real structural checks",()=>{
@@ -49,6 +51,15 @@ test("whole-grid validation checks SI permutation, essential Par, total and real
   expect(validateHoleGrid({ ...context,checks:{...context.checks,invalid_origin_holes:1}},snapshot).canPublish).toBe(false);
   expect(validateHoleGrid(context,{holes:snapshot.holes.slice(0,17)}).canPublish).toBe(false);
   expect(validateHoleGrid({ ...context,route:{...context.route,total_par:null}},snapshot).canPublish).toBe(true);
+});
+
+test("combination grid limits changed Par to 3–5 without rejecting historical Par 6",()=>{
+  const changed=normalizeHoleGrid(snapshot);changed.holes[0].par=6;
+  expect(validateHoleGrid(context,changed).canSave).toBe(false);
+  const historical={...context,route:{...context.route,total_par:74},holes:changed.holes};
+  expect(validateHoleGrid(historical,changed)).toMatchObject({canSave:true,canPublish:true});
+  const fresh=normalizeHoleGrid(changed);fresh.holes[1].par=6;
+  expect(validateHoleGrid(historical,fresh).canSave).toBe(false);
 });
 
 test("diff matches rows by immutable identity and includes only changed Par/SI",()=>{

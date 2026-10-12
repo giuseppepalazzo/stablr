@@ -217,6 +217,53 @@ test('Par workflow: isolated approvals, local publication and explicit override'
     await t.test('per-club approval rolls back changed club but preserves valid clubs',async()=>{
       await rollback(async()=>{const c=(await ownerQuery("insert into public.clubs(name,name_normalized,created_by) values('Other local','otherlocal',$1) returning *",[admin])).rows[0];const r=await createCourse(c,'Other nine',Array(9).fill(4),[1,2,3,4,5,6,7,8,9]);const p=await preview();await ownerQuery('update public.route_holes set par=5 where route_id=$1 and physical_hole_number=1',[r.id]);const result=await confirm(p,'Partial safe approval');assert.ok(result.excluded.some(x=>x.club_id===c.id));assert.ok(result.confirmed.some(x=>x.club_id===autonomousClub.id));assert.equal((await ownerQuery('select count(*) n from public.admin_catalog_par_targets where club_id=$1',[c.id])).rows[0].n,0);});
     });
+    await t.test('incremental 3–5 validation rejects new/saved Par 6; keeps historical Par and SI-only publication',async()=>{
+      await rollback(async()=>{
+        // Saved pre-migration drafts must not bypass the new publication rule.
+        let pd=await par('open',[hole.id]);pd=await par('save',[pd.draft.id,pd.draft.revision,6]);
+        const target=(await local('list',[autonomousClub.id])).targets[0];
+        let ld=await local('open',['course',autonomous.id,target.holes[0].id]);ld=await local('save',[ld.draft.id,ld.draft.revision,6,false]);
+        const before=await dump();await db.exec('reset role');
+        // Keep the incremental script inside this fixture's outer rollback.
+        await db.exec((await read('admin-catalog-par-values.sql')).replace(/^begin;$/m,'').replace(/^commit;$/m,''));await role();assert.deepEqual(await dump(),before);
+        await failure(()=>par('save',[pd.draft.id,pd.draft.revision,6]),'22023');
+        await failure(()=>par('publish',[pd.draft.id,pd.draft.revision,pd.baseline_hash,'New 6 denied',true]),'22023');
+        await failure(()=>local('save',[ld.draft.id,ld.draft.revision,6,false]),'22023');
+        await failure(()=>local('publish',[ld.draft.id,ld.draft.revision,ld.baseline_hash,'New local 6 denied',true]),'22023');
+        assert.deepEqual(await dump(),before);
+        for(const value of [3,4,5]){
+          pd=await par('save',[pd.draft.id,pd.draft.revision,value]);
+          ld=await local('save',[ld.draft.id,ld.draft.revision,value,false]);
+        }
+        assert.equal(pd.can_publish,true);assert.equal(ld.can_publish,true);
+        await par('publish',[pd.draft.id,pd.draft.revision,pd.baseline_hash,'Allowed physical 5',true]);
+        await local('publish',[ld.draft.id,ld.draft.revision,ld.baseline_hash,'Allowed local 5',true]);
+        // Historical live 6 is not changed or rejected when only SI changes.
+        const historical=await createCourse(autonomousClub,'Historical Par',[6,4,4,4,4,4,4,4,4],[1,2,3,4,5,6,7,8,9]);
+        let grid=await rpc('admin_course_hole_grid_open_draft',[historical.id]);
+        const values=grid.draft.snapshot.holes.map((h,i)=>({...h,stroke_index:i===0?2:i===1?1:h.stroke_index}));
+        const invalid=values.map((h,i)=>({...h,par:i===1?6:h.par}));
+        await failure(()=>rpc('admin_course_hole_grid_save_draft',[grid.draft.draft_id,{holes:invalid},grid.draft.revision]),'22023');
+        grid.draft=await rpc('admin_course_hole_grid_save_draft',[grid.draft.draft_id,{holes:values},grid.draft.revision]);
+        await rpc('admin_course_hole_grid_publish_draft',[grid.draft.draft_id,grid.draft.revision]);
+        assert.equal((await ownerQuery('select par from public.route_holes where route_id=$1 and physical_hole_number=1',[historical.id])).rows[0].par,6);
+        assert.equal((await ownerQuery('select total_par from public.course_routes where id=$1',[historical.id])).rows[0].total_par,38);
+        // The same validation applies to combinations and accepts a captured
+        // historical value by exact row identity, never by number or position.
+        for(const name of ['admin_course_hole_grid_validate_snapshot','admin_hole_grid_validate_snapshot']){
+          const key=name.includes('course')?'physical_hole_number':'round_hole_number';
+          const base={holes:[{id:randomUUID(),[key]:1,par:6,stroke_index:1},{id:randomUUID(),[key]:2,par:4,stroke_index:2}]};
+          await ownerQuery('select public.'+name+'($1::jsonb,$2::jsonb)',[base,base]);
+          const change={holes:base.holes.map((h,i)=>({...h,par:i===1?6:h.par}))};
+          await failure(()=>ownerQuery('select public.'+name+'($1::jsonb,$2::jsonb)',[change,base]),'22023');
+          for(const allowed of [3,4,5])await ownerQuery('select public.'+name+'($1::jsonb,$2::jsonb)',[{holes:base.holes.map((h,i)=>({...h,par:i===0?allowed:h.par}))},base]);
+        }
+        for(const [r,u] of [['anon',''],['authenticated',player],['service_role',admin]]){
+          await role(r,u);await failure(()=>par('save',[pd.draft.id,pd.draft.revision,5]),'42501');await failure(()=>local('save',[ld.draft.id,ld.draft.revision,5,false]),'42501');
+        }
+        await role();
+      });
+    });
   } finally {await db.close();}
 });
 
