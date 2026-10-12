@@ -52,6 +52,11 @@ Se FIG non fornisce località, la proposta conserva quella curata anziché cance
 4. Dopo commit/push autorizzati separatamente, impostare le **variabili pubbliche**
    GitHub `FIGCHECK_BROKER_URL=https://sziakyhacffwvirhzboy.supabase.co/functions/v1/fig-governance`
    e `FIGCHECK_OIDC_AUDIENCE=stablr:fig-governance:production`.
+   Lo schedule è disabilitato di default: il job settimanale parte **soltanto** se
+   la variabile pubblica `FIGCHECK_WEEKLY_ENABLED` vale esattamente `true`.
+   Lasciarla assente oppure impostarla a `false` impedisce anche checkout, letture
+   FIG e chiamate al broker. `workflow_dispatch` resta disponibile indipendentemente
+   dal gate. Per sospendere nuovamente lo schedule impostare la variabile a `false`.
    Nessun secret Supabase in Actions. Workflow esatto `fig-governance.yml`, main,
    schedule lunedì **05:17 UTC** o dispatch, runner GitHub-hosted, primo tentativo,
    actor mappato e SHA autorizzato. Lo SHA deve essere esplicitamente aggiornato

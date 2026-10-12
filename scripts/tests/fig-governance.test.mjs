@@ -5,6 +5,21 @@ import { extract, fetchPhotograph, FIG_URL } from '../../supabase/functions/fig-
 import { handler } from '../../supabase/functions/fig-governance/handler.mjs';
 import { policy, verifier, ISSUER, WORKFLOW } from '../../supabase/functions/fig-governance/oidc.mjs';
 import { run } from '../fig/governance-client.mjs';
+test('weekly job gate defaults closed before any steps; manual dispatch remains available',async()=>{
+  const workflow=await readFile(new URL('../../.github/workflows/fig-governance.yml',import.meta.url),'utf8');
+  assert.match(workflow,/workflow_dispatch:/);assert.match(workflow,/schedule:/);
+  const condition=workflow.match(/^    if: (.+)$/m)?.[1];assert.ok(condition);
+  assert.ok(workflow.indexOf('    if:')<workflow.indexOf('    steps:'));
+  const evaluate=(event,gate,overrides={})=>{
+    const github={repository:'giuseppepalazzo/stablr',ref:'refs/heads/main',event_name:event,run_attempt:1,...overrides};
+    return Function('github','vars',`return (${condition})`)(github,{FIGCHECK_WEEKLY_ENABLED:gate});
+  };
+  for(const gate of [undefined,'','false','TRUE','1',true])assert.equal(evaluate('schedule',gate),false);
+  assert.equal(evaluate('schedule','true'),true);
+  for(const gate of [undefined,'false','true'])assert.equal(evaluate('workflow_dispatch',gate),true);
+  for(const event of ['push','pull_request','pull_request_target'])assert.equal(evaluate(event,'true'),false);
+  for(const event of ['schedule','workflow_dispatch'])for(const overrides of [{repository:'fork/stablr'},{ref:'refs/heads/other'},{run_attempt:2}])assert.equal(evaluate(event,'true',overrides),false);
+});
 const html = (par=35) => `<table><tr><th>Circolo</th><th>Percorso</th><th>PAR</th><th>CR</th><th>Slope</th></tr><tr>${['TEST CLUB','9 Buche',par,34.2,120,...Array(12).fill('')].map(v=>`<td>${v}</td>`).join('')}</tr></table>`;
 test('public source photographs use observations, not name-derived FIG identity; no row-order removals',async()=>{
   const a=await extract(html()),b=await extract(html().replace('TEST CLUB','TEST  CLUB'));

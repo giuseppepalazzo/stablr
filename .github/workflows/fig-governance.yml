@@ -7,7 +7,7 @@ permissions:
   contents: read
 jobs:
   check:
-    if: github.repository == 'giuseppepalazzo/stablr' && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.run_attempt == 1
+    if: github.repository == 'giuseppepalazzo/stablr' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && vars.FIGCHECK_WEEKLY_ENABLED == 'true')) && github.run_attempt == 1
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
