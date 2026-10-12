@@ -102,3 +102,139 @@ test("missing identity and RPC/query failures never become empty success", async
   client.query.order.mockResolvedValue({ data: null, error: { code: "42501" } });
   await expect(service.listDrafts(ownerId)).rejects.toEqual({ code: "42501" });
 });
+
+const fig = { id: "fig-fixture", name: "Club FIG", city: "Roma", source_system: "fig", source_external_id: "fig-club-fixture" };
+function figClient({ linked = [], prior = [], source = fig, error = null } = {}) {
+  const queries = [];
+  const client = { rpc: jest.fn().mockImplementation(async (name, params) => ({ data: {
+    ...draft, snapshot: params.p_snapshot, revision: name.includes("save") ? 2 : 1
+  }, error: null })), from: jest.fn((table) => {
+    const query = { table, filters: [],
+      select: jest.fn(() => query),
+      eq: jest.fn((key, value) => { query.filters.push([key, value]);return query; }),
+      is: jest.fn(() => query), in: jest.fn(() => query), contains: jest.fn(() => query), ilike: jest.fn(() => query),
+      order: jest.fn(() => query), limit: jest.fn(() => query),
+      single: jest.fn(async () => ({ data: source, error })),
+      maybeSingle: jest.fn(async () => ({ data: source ? { id: source.id } : null, error })),
+      then: (resolve) => Promise.resolve({ data: table === "clubs" ? linked : table === "fig_clubs" ? [source] : prior, error }).then(resolve)
+    };
+    queries.push(query);return query;
+  }) };
+  return { client, queries };
+}
+
+test("search reads only minimal DB FIG fields by literal name/city/reference and deduplicates results", async () => {
+  const { client, queries } = figClient();
+  const service = createNewClubDraftService(client);
+  expect(await service.searchFigClubs("  Roma_%  ", ownerId)).toEqual([{ ...fig, existingClubs: [] }]);
+  expect(queries).toHaveLength(7);
+  for (const [index, field] of ["name", "city", "source_external_id"].entries()) {
+    expect(queries[index].select).toHaveBeenCalledWith("id,name,city,source_system,source_external_id");
+    expect(queries[index].eq).toHaveBeenCalledWith("source_system", "fig");
+    expect(queries[index].ilike).toHaveBeenCalledWith(field, "%Roma\\_\\%%");
+  }
+  expect(client.rpc).not.toHaveBeenCalled();
+  client.from.mockClear();
+  expect(await service.searchFigClubs(" ", ownerId)).toEqual([]);
+  expect(client.from).not.toHaveBeenCalled();
+});
+
+test("explicit FIG confirmation rereads the record and creates only a null-live draft with reduced provenance", async () => {
+  const { client, queries } = figClient();
+  const opened = await createNewClubDraftService(client).openDraft(null, ownerId, fig.id);
+  expect(queries[0].eq).toHaveBeenCalledWith("id", fig.id);
+  expect(queries[1].in).toHaveBeenCalledWith("fig_club_id", [fig.id]);
+  expect(opened.snapshot).toEqual({ name: fig.name, city: fig.city, fig_code: fig.source_external_id, fig_source: fig });
+  expect(client.rpc).toHaveBeenCalledWith("admin_catalog_create_draft", expect.objectContaining({
+    p_live_entity_id: null, p_snapshot: opened.snapshot, p_parent_draft_id: null
+  }));
+  expect(client.rpc).toHaveBeenCalledTimes(1);
+  expect(opened.snapshot.fig_club_id).toBeUndefined();
+});
+
+test("a FIG-linked live Club (including inactive) blocks creation and returns its exact identity", async () => {
+  const existing = { id: "club-existing", name: "Club esistente", is_active: false, fig_club_id: fig.id };
+  const { client } = figClient({ linked: [existing] });
+  await expect(createNewClubDraftService(client).openDraft(null, ownerId, fig.id)).rejects.toMatchObject({ code: "FIG_CLUB_EXISTS", club: existing });
+  expect(client.rpc).not.toHaveBeenCalled();
+});
+
+test("confirmation resumes a prior owned FIG draft rather than creating a duplicate", async () => {
+  const prior = { ...draft, snapshot: { name: "Bozza curata", city: null, fig_code: fig.source_external_id, fig_source: fig } };
+  const { client, queries } = figClient({ prior: [prior] });
+  expect(await createNewClubDraftService(client).openDraft(null, ownerId, fig.id)).toEqual(prior);
+  expect(queries[5].contains).toHaveBeenCalledWith("snapshot", { fig_source: { id: fig.id } });
+  expect(client.rpc).not.toHaveBeenCalled();
+});
+
+test("save allows prefilled values to change but preserves selected FIG source without accepting live fields", async () => {
+  const figDraft = { ...draft, snapshot: { name: fig.name, city: fig.city, fig_code: fig.source_external_id, fig_source: fig } };
+  const { client } = figClient({ source: null });
+  const saved = await createNewClubDraftService(client).saveDraft(figDraft, {
+    name: "Nome curato", city: "Milano", fig_code: " Codice curato ", fig_source: { id: "forged" }, fig_club_id: "forbidden"
+  }, ownerId);
+  expect(saved.snapshot).toEqual({ name: "Nome curato", city: "Milano", fig_code: "Codice curato", fig_source: fig });
+  expect(client.rpc).toHaveBeenCalledWith("admin_catalog_save_draft", expect.objectContaining({ p_snapshot: saved.snapshot, p_expected_revision: 1 }));
+});
+
+test("manual exact FIG reference and a newly linked resumed FIG draft cannot bypass existing-Club detection", async () => {
+  const existing = { id: "club-existing", name: "Club esistente", fig_club_id: fig.id };
+  const { client } = figClient({ linked: [existing] });
+  const service = createNewClubDraftService(client);
+  await expect(service.saveDraft(draft, { name: "Club manuale", fig_code: fig.source_external_id }, ownerId)).rejects.toMatchObject({ code: "FIG_CLUB_EXISTS" });
+  expect(client.rpc).not.toHaveBeenCalled();
+  const figDraft = { ...draft, snapshot: { name: fig.name, city: null, fig_source: fig, fig_code: fig.source_external_id } };
+  const resumed = figClient({ source: figDraft, linked: [existing] });
+  await expect(createNewClubDraftService(resumed.client).openDraft(draft.draft_id, ownerId)).rejects.toMatchObject({ code: "FIG_CLUB_EXISTS" });
+  expect(resumed.client.rpc).not.toHaveBeenCalled();
+});
+
+test("FIG read errors, ambiguous links and malformed sources fail closed before any draft mutation", async () => {
+  for (const options of [{ error: { code: "42501" } }, { linked: [{ id: "1", fig_club_id: fig.id }, { id: "2", fig_club_id: fig.id }] }, { source: { ...fig, source_payload: { secret: "not-allowed" } } }]) {
+    const { client } = figClient(options);
+    await expect(createNewClubDraftService(client).openDraft(null, ownerId, fig.id)).rejects.toBeDefined();
+    expect(client.rpc).not.toHaveBeenCalled();
+  }
+});
+
+const mareFig = { id: "mare-fig-fixture", name: "Mare Di Roma", city: null, source_system: "fig", source_external_id: "fig-club-mare-di-roma" };
+test.each([
+  { fig_club_id: mareFig.id, fig_match_status: "matched" },
+  { source_system: "fig", source_external_id: mareFig.source_external_id },
+  { fig_payload_code: mareFig.source_external_id },
+  { fig_payload_legacy_code: mareFig.source_external_id }
+])("Mare di Roma is already present from exact stored FIG identity: %j", async (identity) => {
+  const existing = { id: "mare-live-fixture", name: "Nome STABLR curato", ...identity };
+  const { client, queries } = figClient({ source: mareFig, linked: [existing] });
+  const service = createNewClubDraftService(client);
+  const results = await service.searchFigClubs("Mare di Roma", ownerId);
+  expect(results).toEqual([{ ...mareFig, existingClubs: [existing] }]);
+  expect(queries[3].in).toHaveBeenCalledWith("fig_club_id", [mareFig.id]);
+  expect(queries[4].eq).toHaveBeenCalledWith("source_system", "fig");
+  expect(queries[4].in).toHaveBeenCalledWith("source_external_id", [mareFig.source_external_id]);
+  expect(queries[5].in).toHaveBeenCalledWith("source_payload->>figClubCode", [mareFig.source_external_id]);
+  expect(queries[6].in).toHaveBeenCalledWith("source_payload->>fig_club_code", [mareFig.source_external_id]);
+  expect(queries[3].select.mock.calls[0][0]).not.toMatch(/(?:^|,)source_payload(?:,|$)/);
+  await expect(service.openDraft(null, ownerId, mareFig.id)).rejects.toMatchObject({ code: "FIG_CLUB_EXISTS", club: existing });
+  expect(client.rpc).not.toHaveBeenCalled();
+});
+
+test("identical names, matching status alone and IDs from non-FIG sources do not establish a FIG link", async () => {
+  const { client } = figClient({ source: mareFig, linked: [
+    { id: "unrelated", name: mareFig.name, fig_match_status: "matched", source_system: "gesgolf", source_external_id: mareFig.source_external_id }
+  ] });
+  expect(await createNewClubDraftService(client).searchFigClubs("Mare di Roma", ownerId)).toEqual([{ ...mareFig, existingClubs: [] }]);
+  expect(client.rpc).not.toHaveBeenCalled();
+});
+
+test("failure to check exact links never exposes a FIG result as eligible", async () => {
+  const { client } = figClient();
+  const from = client.from.getMockImplementation();
+  client.from.mockImplementation((table) => {
+    const query = from(table);
+    if (table === "clubs") query.then = (resolve) => Promise.resolve({ data: null, error: { code: "42501" } }).then(resolve);
+    return query;
+  });
+  await expect(createNewClubDraftService(client).searchFigClubs("Mare", ownerId)).rejects.toEqual({ code: "42501" });
+  expect(client.rpc).not.toHaveBeenCalled();
+});

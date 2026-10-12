@@ -685,6 +685,9 @@ button.stablr-admin-club-row:hover {
 }
 .stablr-admin-editor-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .stablr-admin-editor-fields > .stablr-admin-editor-actions { grid-column: 1 / -1; }
+
+.stablr-admin-new-club-fig-results { display: grid; gap: 8px; margin: 12px 0; }
+.stablr-admin-new-club-fig-results [aria-checked="true"] { outline: 2px solid var(--stablr-admin-blue, #76b9ec); outline-offset: -2px; }
 .stablr-admin-editor-actions > button:not(.stablr-admin-white-button) { border: 0; border-radius: 10px; padding: 8px 12px; background: #0e3655; color: #9ed1fa; font: inherit; cursor: pointer; }
 .stablr-admin-editor-actions button:disabled { opacity: 0.5; cursor: default; }
 .stablr-admin-editor-header { align-items: flex-start; }

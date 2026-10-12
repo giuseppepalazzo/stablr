@@ -17,7 +17,7 @@ function Harness({ service, draftId = null, onExit = jest.fn() }) {
   return <><button onClick={exit}>Vai al catalogo</button><NewClubEditor draftId={draftId} ownerId={ownerId} service={service} onBack={exit} registerExitGuard={registerExitGuard} /></>;
 }
 
-test("StrictMode opens one private draft; requires name and never offers publication or FIG editing", async () => {
+test("StrictMode opens one private draft; requires name and offers only a private optional FIG reference", async () => {
   const service = makeService();
   render(<StrictMode><Harness service={service} /></StrictMode>);
   expect(await screen.findByLabelText("Nome visualizzato")).toBeRequired();
@@ -28,11 +28,12 @@ test("StrictMode opens one private draft; requires name and never offers publica
   expect(screen.getByText("Non visibile · non giocabile")).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Salva bozza" })).toBeDisabled();
   expect(screen.queryByRole("button", { name: /Pubblica/ })).not.toBeInTheDocument();
-  expect(screen.getAllByRole("textbox")).toHaveLength(2);
+  expect(screen.getAllByRole("textbox")).toHaveLength(3);
+  expect(screen.getByLabelText("Codice / riferimento FIG (facoltativo)")).not.toBeRequired();
   fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Nuovo Club" } });
   fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));
   await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
-  expect(service.saveDraft).toHaveBeenCalledWith(draft, { name: "Nuovo Club", city: "" }, ownerId);
+  expect(service.saveDraft).toHaveBeenCalledWith(draft, { name: "Nuovo Club", city: "", fig_code: "" }, ownerId);
   expect(screen.queryByText("Modifiche non salvate")).not.toBeInTheDocument();
 });
 

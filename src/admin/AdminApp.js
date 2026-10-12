@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { hasSupabaseConfig, supabase } from "../lib/supabase";
 import ClubEditor from "./ClubEditor";
-import NewClubEditor, { NewClubDrafts } from "./NewClubEditor";
+import { NewClubDrafts } from "./NewClubEditor";
+import NewClubCreation from "./NewClubCreation";
 import { createNewClubDraftService } from "./new-club-draft-data";
 import { createClubEditorService } from "./club-editor-data";
 import CourseEditor from "./CourseEditor";
@@ -104,6 +105,43 @@ function formatDateTime(dateValue) {
   return new Intl.DateTimeFormat("it-IT", {
     day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
   }).format(date);
+}
+
+// Reuse the catalog's existing normalization for an exact FIG-linked club,
+// including a club outside the currently loaded active catalog.
+function normalizeCatalogClub(club) {
+  const allCourses = (club.course_routes || []).map((route) => {
+    const holes = route.route_holes || [];
+    const hasParAndSi = holes.length > 0 && holes.every((hole) => hole.par != null && hole.stroke_index != null);
+    const hasTeeData = (route.route_tees || []).some((tee) => tee.is_active !== false);
+    return {
+      id: route.id, name: route.name || "—", holesCount: route.holes_count,
+      hasPhysicalHoles: holes.length > 0, displayOrder: route.display_order,
+      isActive: route.is_active !== false,
+      completeness: hasParAndSi && hasTeeData ? "Completo" : hasParAndSi ? "Par/SI disponibili" : "Dati parziali",
+      status: route.is_active !== false ? "Attivo" : "Disattivato"
+    };
+  }).sort((left, right) => (left.displayOrder ?? 2147483648) - (right.displayOrder ?? 2147483648) || left.name.localeCompare(right.name, "it"));
+  const routes = allCourses.filter((course) => course.isActive);
+  const allCombinations = (club.route_combinations || []).map((combination) => ({
+    id: combination.id, name: combination.name || "—", holesCount: combination.holes_count,
+    isActive: combination.is_active !== false, frontRouteId: combination.front_route_id, backRouteId: combination.back_route_id
+  }));
+  const combinations = allCombinations.filter((combination) => combination.isActive);
+  const filter = getClubFilter(club);
+  return {
+    id: club.id, name: club.name, city: club.city || "—",
+    courses: getClubCoursesLabel(routes.length, combinations.length),
+    status: getClubStatusLabel(filter), filter,
+    activity: formatActivity(club.updated_at || club.created_at) === "—" ? "—" : `Aggiornato ${formatActivity(club.updated_at || club.created_at)}`,
+    dataStatus: club.data_status, playable: club.playable !== false,
+    figCode: club.fig_clubs?.source_external_id || club.source_payload?.figClubCode || club.source_payload?.fig_club_code || "",
+    hasFigLink: Boolean(club.fig_club_id), sourceType: club.source_type || "", figMatchStatus: club.fig_match_status || "",
+    figChangePending: isTrue(club.source_payload?.fig_change_pending) || isTrue(club.source_payload?.fig_update_pending),
+    sourcePayload: club.source_payload || {}, createdAt: club.created_at, updatedAt: club.updated_at,
+    routes, allCourses, combinations, allCombinations,
+    courseNames: [...routes.map((route) => route.name), ...combinations.map((combination) => combination.name)]
+  };
 }
 
 function getRoundFormatLabel(roundType) {
@@ -1048,64 +1086,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
           console.error("Admin user directory RPC failed", usersResult.error);
         }
 
-        const normalizedClubs = (clubs || []).map((club) => {
-          const allCourses = (club.course_routes || []).map((route) => {
-            const holes = route.route_holes || [];
-            const hasParAndSi = holes.length > 0 && holes.every((hole) => hole.par != null && hole.stroke_index != null);
-            const hasTeeData = (route.route_tees || []).some((tee) => tee.is_active !== false);
-            return {
-              id: route.id,
-              name: route.name || "—",
-              holesCount: route.holes_count,
-              hasPhysicalHoles: holes.length > 0,
-              displayOrder: route.display_order,
-              isActive: route.is_active !== false,
-              completeness: hasParAndSi && hasTeeData ? "Completo" : hasParAndSi ? "Par/SI disponibili" : "Dati parziali",
-              status: route.is_active !== false ? "Attivo" : "Disattivato"
-            };
-          }).sort((left, right) => (left.displayOrder ?? 2147483648) - (right.displayOrder ?? 2147483648) || left.name.localeCompare(right.name, "it"));
-          const routes = allCourses.filter((course) => course.isActive);
-          const allCombinations = (club.route_combinations || []).map((combination) => ({
-            id: combination.id,
-            name: combination.name || "—",
-            holesCount: combination.holes_count,
-            isActive: combination.is_active !== false,
-            frontRouteId: combination.front_route_id,
-            backRouteId: combination.back_route_id
-          }));
-          const combinations = allCombinations.filter((combination) => combination.isActive);
-          const routeCount = routes.length;
-          const combinationCount = combinations.length;
-          const filter = getClubFilter(club);
-          const courseLabel = getClubCoursesLabel(routeCount, combinationCount);
-
-          return {
-            id: club.id,
-            name: club.name,
-            city: club.city || "—",
-            courses: courseLabel,
-            status: getClubStatusLabel(filter),
-            filter,
-            activity: formatActivity(club.updated_at || club.created_at) === "—"
-              ? "—"
-              : `Aggiornato ${formatActivity(club.updated_at || club.created_at)}`,
-            dataStatus: club.data_status,
-            playable: club.playable !== false,
-            figCode: club.fig_clubs?.source_external_id || club.source_payload?.figClubCode || club.source_payload?.fig_club_code || "",
-            hasFigLink: Boolean(club.fig_club_id),
-            sourceType: club.source_type || "",
-            figMatchStatus: club.fig_match_status || "",
-            figChangePending: isTrue(club.source_payload?.fig_change_pending) || isTrue(club.source_payload?.fig_update_pending),
-            sourcePayload: club.source_payload || {},
-            createdAt: club.created_at,
-            updatedAt: club.updated_at,
-            routes,
-            allCourses,
-            combinations,
-            allCombinations,
-            courseNames: [...routes.map((route) => route.name), ...combinations.map((combination) => combination.name)]
-          };
-        });
+        const normalizedClubs = (clubs || []).map(normalizeCatalogClub);
 
         setAdminData({
           loading: false,
@@ -1187,13 +1168,17 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
         queues={queues}
       />
     ) : section === "Club e percorsi" ? (
-      newClubTarget ? <NewClubEditor
+      newClubTarget ? <NewClubCreation
         key={newClubTarget.draftId || "new-club"}
         draftId={newClubTarget.draftId}
         ownerId={adminUserId}
         service={newClubDraftService}
         registerExitGuard={registerClubExitGuard}
         onBack={() => navigate(() => setNewClubTarget(null))}
+        onOpenExisting={(club) => navigate(() => {
+          setNewClubTarget(null);setEditingClub(false);setSelectedCourse(null);setSelectedRoute(null);
+          setSelectedClub(adminData.clubs.find((current) => current.id === club.id) || normalizeCatalogClub(club));
+        })}
       /> : selectedRoute && selectedClub ? (editingHoles ? <HoleGridEditor
         club={selectedClub}
         course={selectedCourse}

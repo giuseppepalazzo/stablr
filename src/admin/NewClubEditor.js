@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
-import { normalizeClubFields } from "./club-editor-data";
+import { normalizeNewClubFields } from "./new-club-draft-data";
 
 const getDraftError = (error) => error?.code === "40001"
   ? "La bozza è cambiata. Torna al catalogo e riaprila prima di salvare."
+  : error?.code === "FIG_CLUB_EXISTS" ? "Questo record FIG è già collegato a un club STABLR. Non viene creata o aggiornata una seconda bozza."
+  : error?.code === "FIG_LINK_AMBIGUOUS" ? "Questo record FIG ha più collegamenti STABLR. La creazione è bloccata."
   : error?.code === "42501" ? "Non sei autorizzato a modificare questa bozza."
     : "Impossibile completare l’operazione. Riprova.";
 
@@ -31,27 +33,30 @@ export function NewClubDrafts({ service, ownerId, onOpenDraft }) {
   </section>;
 }
 
-export default function NewClubEditor({ draftId, ownerId, service, onBack, registerExitGuard }) {
-  const [draft, setDraft] = useState(null), [fields, setFields] = useState({ name: "", city: "" });
+const editableFields = (snapshot) => ({ name: snapshot.name, city: snapshot.city || "", fig_code: snapshot.fig_code || "" });
+
+export default function NewClubEditor({ draftId, figClubId = null, ownerId, service, onBack, onOpenExisting, registerExitGuard }) {
+  const [draft, setDraft] = useState(null), [fields, setFields] = useState({ name: "", city: "", fig_code: "" });
+  const [existingClub, setExistingClub] = useState(null);
   const [loading, setLoading] = useState(true), [busy, setBusy] = useState(false);
   const [error, setError] = useState(""), [message, setMessage] = useState("");
   const [pendingExit, setPendingExit] = useState(null), [abandonConfirmation, setAbandonConfirmation] = useState(false);
   const inFlight = useRef(false), opening = useRef(null);
-  const dirty = !!draft && JSON.stringify(normalizeClubFields(fields)) !== JSON.stringify(normalizeClubFields(draft.snapshot));
-  const valid = fields.name.trim().length > 0 && fields.name.trim().length <= 200 && fields.city.trim().length <= 200;
+  const dirty = !!draft && JSON.stringify(normalizeNewClubFields(fields)) !== JSON.stringify(normalizeNewClubFields(draft.snapshot));
+  const valid = fields.name.trim().length > 0 && fields.name.trim().length <= 200 && fields.city.trim().length <= 200 && fields.fig_code.trim().length <= 200;
   useEffect(() => {
     let active = true;
     // React StrictMode replays effects. Reuse the same creation request so a
     // single explicit + Nuovo club click creates exactly one private draft.
-    if (!opening.current) opening.current = service.openDraft(draftId, ownerId);
+    if (!opening.current) opening.current = figClubId ? service.openDraft(draftId, ownerId, figClubId) : service.openDraft(draftId, ownerId);
     opening.current.then((opened) => {
-      if (active) { setDraft(opened); setFields({ name: opened.snapshot.name, city: opened.snapshot.city || "" }); }
+      if (active) { setDraft(opened); setFields(editableFields(opened.snapshot)); }
     }).catch((failure) => {
       console.error("Admin new Club draft open failed", failure?.code || "request_failed");
-      if (active) setError(getDraftError(failure));
+      if (active) { setError(getDraftError(failure));setExistingClub(failure.club || null); }
     }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [draftId, ownerId, service]);
+  }, [draftId, figClubId, ownerId, service]);
   useEffect(() => {
     registerExitGuard((action) => {
       if (inFlight.current || loading || pendingExit || abandonConfirmation) return;
@@ -63,14 +68,14 @@ export default function NewClubEditor({ draftId, ownerId, service, onBack, regis
   }, [dirty, loading, pendingExit, abandonConfirmation, registerExitGuard]);
   const operation = async (callback) => {
     if (inFlight.current) return;
-    inFlight.current = true;setBusy(true);setError("");setMessage("");
+    inFlight.current = true;setBusy(true);setError("");setMessage("");setExistingClub(null);
     try { await callback(); }
-    catch (failure) { console.error("Admin new Club draft operation failed", failure?.code || "request_failed");setError(getDraftError(failure)); }
+    catch (failure) { console.error("Admin new Club draft operation failed", failure?.code || "request_failed");setError(getDraftError(failure));setExistingClub(failure.club || null); }
     finally { inFlight.current = false;setBusy(false); }
   };
   const save = async () => {
     const saved = await service.saveDraft(draft, fields, ownerId);
-    setDraft(saved);setFields({ name: saved.snapshot.name, city: saved.snapshot.city || "" });
+    setDraft(saved);setFields(editableFields(saved.snapshot));
     setMessage("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
   };
   return <section className="stablr-admin-detail stablr-admin-club-editor">
@@ -81,13 +86,16 @@ export default function NewClubEditor({ draftId, ownerId, service, onBack, regis
       <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault();if (valid) operation(save); }}>
         <label>Nome visualizzato<input required disabled={busy} maxLength={200} value={fields.name} onChange={(event) => { setFields((current) => ({ ...current, name: event.target.value }));setMessage(""); }} /></label>
         <label>Località / città<input disabled={busy} maxLength={200} value={fields.city} onChange={(event) => { setFields((current) => ({ ...current, city: event.target.value }));setMessage(""); }} /></label>
+        <label>Codice / riferimento FIG (facoltativo)<input disabled={busy} maxLength={200} value={fields.fig_code} onChange={(event) => { setFields((current) => ({ ...current, fig_code: event.target.value }));setMessage(""); }} /></label>
       </form>
-      <div className="stablr-admin-detail-grid"><article><span>Codice FIG · sola lettura</span><strong>—</strong></article><article><span>Pubblicazione</span><strong>Non ancora pubblicabile</strong></article><article><span>Visibilità giocatore</span><strong>Non visibile · non giocabile</strong></article></div>
-      <p className="stablr-admin-detail-empty">Il codice FIG identifica un collegamento alla fonte e non è modificabile in questa bozza. Il nuovo club richiederà almeno un Percorso configurato e pubblicabile; la gestione dei Percorsi sarà disponibile in una fase successiva.</p>
+      {draft.snapshot.fig_source && <section className="stablr-admin-detail-section" aria-label="Fonte FIG selezionata"><h2>Fonte FIG selezionata</h2><div className="stablr-admin-detail-grid"><article><span>Record FIG</span><strong>{draft.snapshot.fig_source.name}</strong></article><article><span>Località sorgente</span><strong>{draft.snapshot.fig_source.city || "—"}</strong></article><article><span>Riferimento sorgente</span><strong>{draft.snapshot.fig_source.source_external_id}</strong></article></div><p className="stablr-admin-detail-empty">Provenienza FIG conservata nella bozza. Nessun matching definitivo.</p></section>}
+      <div className="stablr-admin-detail-grid"><article><span>Origine bozza</span><strong>{draft.snapshot.fig_source ? "FIG" : "Manuale"}</strong></article><article><span>Pubblicazione</span><strong>Non ancora pubblicabile</strong></article><article><span>Visibilità giocatore</span><strong>Non visibile · non giocabile</strong></article></div>
+      <p className="stablr-admin-detail-empty">Il riferimento FIG è un dato della bozza, non un collegamento definitivo. Il nuovo club richiederà almeno un Percorso configurato e pubblicabile; la gestione dei Percorsi sarà disponibile in una fase successiva.</p>
       {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}
       <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy} type="button" onClick={() => { setError("");setAbandonConfirmation(true); }}>Abbandona bozza</button></div>
     </>}
     {message && <p role="status">{message}</p>}{error && !pendingExit && !abandonConfirmation && <p className="stablr-admin-editor-error" role="alert">{error}</p>}
+    {existingClub && <button className="stablr-admin-white-button" type="button" disabled={busy} onClick={() => onOpenExisting(existingClub)}>Apri club esistente · {existingClub.name}</button>}
     {!loading && !draft && <button className="stablr-admin-white-button" type="button" onClick={onBack}>Torna al catalogo</button>}
     {pendingExit && <EditorDialog title="Modifiche non salvate"><p>Salva le modifiche nella bozza oppure scarta solo le modifiche non salvate. La bozza già salvata rimane disponibile.</p>{error && <p role="alert">{error}</p>}<div className="stablr-admin-editor-actions">
       <button className="stablr-admin-white-button" disabled={busy || !valid} type="button" onClick={() => operation(async () => { await save();const exit = pendingExit;setPendingExit(null);exit(); })}>Salva bozza</button>
