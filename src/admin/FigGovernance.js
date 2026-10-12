@@ -66,7 +66,7 @@ export default function FigGovernance({ service, onBack, onOpenDraft }) {
       {selected.decision?<p>Decisione: {actions[selected.decision.action]} · {selected.decision.note} · {date(selected.decision.created_at)}</p>:<div className="stablr-admin-editor-actions">
         {Object.entries(actions).map(([action,label])=><button className={action==='draft'?'stablr-admin-white-button':'stablr-admin-abandon-button'} key={action} type="button" disabled={busy||(action==='draft'&&!selected.can_draft)} onClick={()=>setConfirm(action)}>{label}</button>)}
       </div>}
-      {!selected.can_draft&&<p className="stablr-admin-detail-empty">Proposta in bozza non disponibile senza un collegamento verificato e campi Club supportati. Un nuovo club del catalogo FIG può essere selezionato da Club e percorsi → Nuovo club → Crea da FIG.</p>}
+      {!selected.can_draft&&<p className="stablr-admin-detail-empty stablr-admin-fig-draft-unavailable">Proposta in bozza non disponibile senza un collegamento verificato e campi Club supportati. Un nuovo club del catalogo FIG può essere selezionato da Club e percorsi → Nuovo club → Crea da FIG.</p>}
       <button className="stablr-admin-abandon-button" type="button" disabled={busy} onClick={()=>setSelected(null)}>Chiudi</button>
     </EditorDialog>}
     {confirm&&<EditorDialog title={`Conferma: ${actions[confirm]}`}>

@@ -14,6 +14,7 @@ test('manual server check; unidentified observation cannot be attributed or draf
  await screen.findByText('Coda FIG · 2');fireEvent.click(screen.getByRole('button',{name:'Verifica FIG ora'}));await waitFor(()=>expect(s.check).toHaveBeenCalledTimes(1));
  fireEvent.click(screen.getByRole('button',{name:/FIG osservazione/}));const detail=screen.getByRole('dialog');
  expect(within(detail).getByRole('button',{name:'Apri proposta in bozza'})).toBeDisabled();expect(within(detail).queryByText('STABLR curato')).not.toBeInTheDocument();
+ expect(within(detail).getByText(/Proposta in bozza non disponibile/)).toHaveClass('stablr-admin-fig-draft-unavailable');
  fireEvent.click(within(detail).getByRole('button',{name:'Ignora modifica'}));expect(s.decide).not.toHaveBeenCalled();
  const dialogs=screen.getAllByRole('dialog');const confirmation=dialogs[1];expect(within(confirmation).getByRole('button',{name:'Conferma decisione'})).toBeDisabled();
  fireEvent.change(within(confirmation).getByLabelText('Nota obbligatoria'),{target:{value:'Osservazione senza identità'}});

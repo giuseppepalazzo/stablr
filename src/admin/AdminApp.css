@@ -854,6 +854,7 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-route-hole-table > div { display: grid; grid-template-columns: 90px minmax(160px, 1fr) 100px 60px 60px; gap: 14px; padding: 9px 12px; border-radius: 8px; background: #103528; font-size: 13px; min-width: 550px; box-sizing: border-box; }
 .stablr-admin-route-hole-table strong { font-weight: 500; }
 .stablr-admin-detail-empty { margin: 0; }
+.stablr-admin-fig-draft-unavailable { margin: 16px 0 12px; }
 .stablr-admin-detail-list { display: grid; gap: 7px; margin: 0; padding-left: 18px; color: var(--stablr-admin-muted); font-size: 13px; }
 .stablr-admin-data-sequence { width: min(100%, 1040px); margin: 16px 0; color: #9ed1fa; font-size: 13px; }
 
