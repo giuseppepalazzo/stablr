@@ -47,6 +47,25 @@ function setup({ linked = false, liveVisible = true, linkKind = "fk" } = {}) {
   supabase.rpc.mockImplementation(async (name, params) => {
     if (name === "admin_user_directory") return { data: [], error: null };
     if (name === "admin_club_get_draft") return { data: null, error: null };
+    if (name === "admin_new_club_courses") return { data: drafts.filter((row) => row.parent_draft_id === params.p_club_draft_id && row.workflow_status === "draft"), error: null };
+    if (name === "admin_new_club_course_save") {
+      const current = params.p_draft_id ? drafts.find((row) => row.draft_id === params.p_draft_id) : null;
+      if (params.p_draft_id && (!current || current.revision !== params.p_expected_revision)) return { data: null, error: { code: "40001" } };
+      const saved = current ? { ...current, revision: current.revision + 1, snapshot: params.p_snapshot } : {
+        draft_id: `draft-${drafts.length + 1}`, entity_type: "route", live_entity_id: null,
+        parent_draft_id: params.p_club_draft_id, base_version_id: null, base_snapshot: null,
+        schema_version: 1, revision: 1, snapshot: params.p_snapshot, created_by: ownerId, workflow_status: "draft"
+      };
+      drafts = current ? drafts.map((row) => row.draft_id === current.draft_id ? saved : row) : [...drafts, saved];
+      return { data: saved, error: null };
+    }
+    if (name === "admin_new_club_course_archive") {
+      const child = drafts.find((row) => row.draft_id === params.p_draft_id && row.parent_draft_id === params.p_club_draft_id);
+      if (!child || child.revision !== params.p_expected_revision) return { data: null, error: { code: "40001" } };
+      const archived = { ...child, revision: child.revision + 1, workflow_status: "archived" };
+      drafts = drafts.map((row) => row.draft_id === child.draft_id ? archived : row);
+      return { data: archived, error: null };
+    }
     if (name === "admin_catalog_create_draft") {
       const created = {
         draft_id: `draft-${drafts.length + 1}`, entity_type: params.p_entity_type,
@@ -196,4 +215,34 @@ test("Overview CTA opens the same private editor and a saved empty draft remains
   await waitFor(() => expect(screen.getByLabelText("Nome visualizzato")).toHaveValue(""));
   expect(getDrafts()).toHaveLength(1);
   expect(screen.getByRole("button", { name: "Salva bozza" })).toBeDisabled();
+});
+
+test("Admin shell persists child courses under the new Club, resumes after remount and archives only the child", async () => {
+  const { club, getDrafts } = setup(), liveBefore = JSON.stringify(club);
+  let view = render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
+  fireEvent.click(screen.getByRole("button", { name: "+ Nuovo club" }));fireEvent.click(screen.getByRole("button", { name: /Crea manualmente/ }));
+  fireEvent.change(await screen.findByLabelText("Nome visualizzato"), { target: { value: "Club con Percorsi" } });
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
+  await waitFor(() => expect(screen.getByRole("button", { name: "Aggiungi percorso" })).toBeEnabled());
+  fireEvent.click(screen.getByRole("button", { name: "Aggiungi percorso" }));
+  fireEvent.change(screen.getByLabelText("Nome percorso"), { target: { value: "Nove privato" } });
+  fireEvent.change(screen.getByLabelText("Struttura percorso"), { target: { value: "9" } });
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza percorso" }));await screen.findByText("Nove privato");
+  const parent = getDrafts().find((row) => row.entity_type === "club"), child = getDrafts().find((row) => row.entity_type === "route");
+  expect(child.parent_draft_id).toBe(parent.draft_id);expect(child.live_entity_id).toBeNull();
+  view.unmount();view = render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
+  fireEvent.click(within(screen.getByRole("navigation", { name: "Navigazione amministrazione" })).getByRole("button", { name: "Club e percorsi" }));
+  fireEvent.click(await screen.findByRole("button", { name: /Club con Percorsi.*Riprendi bozza/ }));
+  fireEvent.click(await screen.findByRole("button", { name: "Modifica percorso Nove privato" }));
+  fireEvent.change(screen.getByLabelText("Nome percorso"), { target: { value: "Nove rinominato" } });
+  fireEvent.change(screen.getByLabelText("Ordine percorso"), { target: { value: "7" } });
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza percorso" }));await screen.findByText("Nove rinominato");
+  expect(getDrafts().find((row) => row.draft_id === child.draft_id).snapshot).toEqual({ name: "Nove rinominato", holes_count: 9, display_order: 7 });
+  fireEvent.click(screen.getByRole("button", { name: "Abbandona percorso Nove rinominato" }));
+  fireEvent.click(screen.getByRole("button", { name: "Conferma abbandono percorso" }));
+  await waitFor(() => expect(screen.queryByText("Nove rinominato")).not.toBeInTheDocument());
+  expect(getDrafts().find((row) => row.draft_id === child.draft_id).workflow_status).toBe("archived");
+  expect(getDrafts().find((row) => row.draft_id === parent.draft_id).workflow_status).toBe("draft");
+  expect(JSON.stringify(club)).toBe(liveBefore);expect(supabase.rpc.mock.calls.some(([name]) => name.includes("publish"))).toBe(false);
+  view.unmount();
 });

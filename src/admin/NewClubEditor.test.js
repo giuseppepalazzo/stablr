@@ -8,6 +8,7 @@ const makeService = () => ({
   openDraft: jest.fn().mockResolvedValue(draft),
   saveDraft: jest.fn().mockImplementation((current, fields) => Promise.resolve({ ...current, revision: current.revision + 1, snapshot: { name: fields.name.trim(), city: fields.city.trim() || null } })),
   abandonDraft: jest.fn().mockResolvedValue({ ...draft, workflow_status: "archived" }),
+  listCourseDrafts: jest.fn().mockResolvedValue([]),
   listDrafts: jest.fn().mockResolvedValue([])
 });
 function Harness({ service, draftId = null, onExit = jest.fn() }) {

@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import { normalizeNewClubFields } from "./new-club-draft-data";
+import NewClubCourses from "./NewClubCourses";
 
 const getDraftError = (error) => error?.code === "40001"
   ? "La bozza è cambiata. Torna al catalogo e riaprila prima di salvare."
@@ -41,6 +42,9 @@ export default function NewClubEditor({ draftId, figClubId = null, ownerId, serv
   const [loading, setLoading] = useState(true), [busy, setBusy] = useState(false);
   const [error, setError] = useState(""), [message, setMessage] = useState("");
   const [pendingExit, setPendingExit] = useState(null), [abandonConfirmation, setAbandonConfirmation] = useState(false);
+  const [courseEditing, setCourseEditing] = useState(false);
+  const courseExitGuard = useRef(null);
+  const registerCourseExitGuard = useCallback((guard) => { courseExitGuard.current = guard; }, []);
   const inFlight = useRef(false), opening = useRef(null);
   const dirty = !!draft && JSON.stringify(normalizeNewClubFields(fields)) !== JSON.stringify(normalizeNewClubFields(draft.snapshot));
   const valid = fields.name.trim().length > 0 && fields.name.trim().length <= 200 && fields.city.trim().length <= 200 && fields.fig_code.trim().length <= 200;
@@ -60,7 +64,8 @@ export default function NewClubEditor({ draftId, figClubId = null, ownerId, serv
   useEffect(() => {
     registerExitGuard((action) => {
       if (inFlight.current || loading || pendingExit || abandonConfirmation) return;
-      if (dirty) setPendingExit(() => action);else action();
+      const continueExit = () => { if (dirty) setPendingExit(() => action);else action(); };
+      if (courseExitGuard.current) courseExitGuard.current(continueExit);else continueExit();
     });
     const beforeUnload = (event) => { if (dirty) { event.preventDefault();event.returnValue = ""; } };
     window.addEventListener("beforeunload", beforeUnload);
@@ -80,7 +85,7 @@ export default function NewClubEditor({ draftId, figClubId = null, ownerId, serv
   };
   return <section className="stablr-admin-detail stablr-admin-club-editor">
     <nav className="stablr-admin-breadcrumb" aria-label="Percorso di navigazione"><button disabled={busy || loading} type="button" onClick={onBack}>Club e percorsi</button><span>/</span><span>Nuovo club</span></nav>
-    <header className="stablr-admin-page-header stablr-admin-editor-header"><div><h1>Nuovo club</h1><p>Bozza privata Admin, non presente nel catalogo pubblicato.</p></div>{draft && <div className="stablr-admin-editor-header-side"><span className="stablr-admin-status">Bozza nuovo club</span><div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || !valid} type="button" onClick={() => operation(save)}>Salva bozza</button></div></div>}</header>
+    <header className="stablr-admin-page-header stablr-admin-editor-header"><div><h1>Nuovo club</h1><p>Bozza privata Admin, non presente nel catalogo pubblicato.</p></div>{draft && <div className="stablr-admin-editor-header-side"><span className="stablr-admin-status">Bozza nuovo club</span><div className="stablr-admin-editor-header-actions"><button className="stablr-admin-draft-save-button" disabled={busy || courseEditing || !valid} type="button" onClick={() => operation(save)}>Salva bozza</button></div></div>}</header>
     {loading && <p role="status">Caricamento bozza…</p>}
     {draft && <>
       <form className="stablr-admin-editor-fields" onSubmit={(event) => { event.preventDefault();if (valid) operation(save); }}>
@@ -90,9 +95,10 @@ export default function NewClubEditor({ draftId, figClubId = null, ownerId, serv
       </form>
       {draft.snapshot.fig_source && <section className="stablr-admin-detail-section" aria-label="Fonte FIG selezionata"><h2>Fonte FIG selezionata</h2><div className="stablr-admin-detail-grid"><article><span>Record FIG</span><strong>{draft.snapshot.fig_source.name}</strong></article><article><span>Località sorgente</span><strong>{draft.snapshot.fig_source.city || "—"}</strong></article><article><span>Riferimento sorgente</span><strong>{draft.snapshot.fig_source.source_external_id}</strong></article></div><p className="stablr-admin-detail-empty">Provenienza FIG conservata nella bozza. Nessun matching definitivo.</p></section>}
       <div className="stablr-admin-detail-grid"><article><span>Origine bozza</span><strong>{draft.snapshot.fig_source ? "FIG" : "Manuale"}</strong></article><article><span>Pubblicazione</span><strong>Non ancora pubblicabile</strong></article><article><span>Visibilità giocatore</span><strong>Non visibile · non giocabile</strong></article></div>
-      <p className="stablr-admin-detail-empty">Il riferimento FIG è un dato della bozza, non un collegamento definitivo. Il nuovo club richiederà almeno un Percorso configurato e pubblicabile; la gestione dei Percorsi sarà disponibile in una fase successiva.</p>
+      <p className="stablr-admin-detail-empty">Il riferimento FIG è un dato della bozza, non un collegamento definitivo. Il nuovo club richiederà almeno un Percorso completo e giocabile prima della pubblicazione.</p>
+      <NewClubCourses parent={draft} ownerId={ownerId} service={service} disabled={busy} registerExitGuard={registerCourseExitGuard} onEditingChange={setCourseEditing} />
       {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}
-      <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy} type="button" onClick={() => { setError("");setAbandonConfirmation(true); }}>Abbandona bozza</button></div>
+      <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy || courseEditing} type="button" onClick={() => { setError("");setAbandonConfirmation(true); }}>Abbandona bozza</button></div>
     </>}
     {message && <p role="status">{message}</p>}{error && !pendingExit && !abandonConfirmation && <p className="stablr-admin-editor-error" role="alert">{error}</p>}
     {existingClub && <button className="stablr-admin-white-button" type="button" disabled={busy} onClick={() => onOpenExisting(existingClub)}>Apri club esistente · {existingClub.name}</button>}

@@ -855,6 +855,16 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-route-hole-table strong { font-weight: 500; }
 .stablr-admin-detail-empty { margin: 0; }
 .stablr-admin-fig-draft-unavailable { margin: 16px 0 12px; }
+.stablr-admin-new-courses-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.stablr-admin-new-courses-header h2 { margin-bottom: 0; }
+.stablr-admin-new-courses-header + p { margin: 12px 0; }
+.stablr-admin-new-courses-list { display: grid; gap: 8px; margin-top: 16px; }
+.stablr-admin-new-course-row { display: grid; grid-template-columns: minmax(180px, 1fr) 90px 80px 170px 280px; gap: 16px; align-items: center; background: #103528; border-radius: 10px; padding: 12px 14px; }
+.stablr-admin-new-course-row > div:not(.stablr-admin-editor-actions) { display: grid; gap: 6px; min-width: 0; }
+.stablr-admin-new-course-row span { color: var(--stablr-admin-muted); font-size: 12px; }
+.stablr-admin-new-course-row strong { font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }
+@media (max-width: 1100px) { .stablr-admin-new-course-row { grid-template-columns: minmax(160px, 1fr) 90px 80px 170px; } .stablr-admin-new-course-row > .stablr-admin-editor-actions { grid-column: 1 / -1; } }
+@media (max-width: 700px) { .stablr-admin-new-course-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .stablr-admin-detail-list { display: grid; gap: 7px; margin: 0; padding-left: 18px; color: var(--stablr-admin-muted); font-size: 13px; }
 .stablr-admin-data-sequence { width: min(100%, 1040px); margin: 16px 0; color: #9ed1fa; font-size: 13px; }
 

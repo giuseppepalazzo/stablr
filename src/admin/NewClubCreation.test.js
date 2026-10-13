@@ -6,6 +6,7 @@ const ownerId = "admin-fixture";
 const fig = { id: "fig-fixture", name: "Club FIG", city: "Roma", source_system: "fig", source_external_id: "fig-club-fixture" };
 const draft = { draft_id: "draft-fixture", snapshot: { name: fig.name, city: fig.city, fig_code: fig.source_external_id, fig_source: fig }, revision: 1 };
 const makeService = () => ({
+  listCourseDrafts: jest.fn().mockResolvedValue([]),
   searchFigClubs: jest.fn().mockResolvedValue([fig]), openDraft: jest.fn().mockResolvedValue(draft),
   saveDraft: jest.fn().mockImplementation(async (current, fields) => ({ ...current, revision: current.revision + 1, snapshot: { ...current.snapshot, ...fields } })),
   abandonDraft: jest.fn().mockResolvedValue({ ...draft, workflow_status: "archived" })
