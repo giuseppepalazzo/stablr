@@ -1,3 +1,5 @@
+import { createNewClubHolesService } from "./new-club-holes-data";
+
 export function normalizeNewCourseFields(fields) {
   return { name: String(fields.name || "").trim(),
     holes_count: fields.holes_count === "" ? null : Number(fields.holes_count),
@@ -11,6 +13,7 @@ export function isNewCourseValid(fields) {
 }
 
 export function createNewClubCourseService(client) {
+  const holes = createNewClubHolesService(client);
   const requireParent = (parent, ownerId) => {
     if (!client || !ownerId || !parent?.draft_id || parent.created_by !== ownerId ||
       parent.entity_type !== "club" || parent.live_entity_id !== null || parent.workflow_status !== "draft") {
@@ -37,11 +40,21 @@ export function createNewClubCourseService(client) {
   };
   const row = (value) => Array.isArray(value) && value.length === 1 ? value[0] : value;
   return {
+    ...holes,
     async listCourseDrafts(parent, ownerId) {
       requireParent(parent, ownerId);
       const data = await invoke("admin_new_club_courses", { p_club_draft_id: parent.draft_id });
       if (!Array.isArray(data)) throw new Error("Invalid private Percorso list");
-      return data.map((child) => requireChild(child, parent, ownerId));
+      const courses = data.map((child) => requireChild(child, parent, ownerId));
+      if (!courses.length) return courses;
+      const summaries = await holes.getCourseGridSummaries(parent, ownerId);
+      if (summaries.some((summary) => !courses.some((course) => course.draft_id === summary.course_draft_id))) {
+        throw new Error("Private grid summary target mismatch");
+      }
+      return courses.map((child) => {
+        const summary = summaries.find((item) => item.course_draft_id === child.draft_id);
+        return summary ? { ...child, hole_grid: summary } : child;
+      });
     },
     async saveCourseDraft(parent, child, fields, ownerId) {
       requireParent(parent, ownerId);

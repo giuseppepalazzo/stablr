@@ -5,7 +5,7 @@ const child = { draft_id: "child", created_by: owner, entity_type: "route", pare
   live_entity_id: null, base_version_id: null, base_snapshot: null, schema_version: 1, workflow_status: "draft", revision: 1,
   snapshot: { name: "Percorso", holes_count: 9, display_order: 0 } };
 test("uses only the dedicated null-live child workflow RPCs with exact parent, owner and revision", async () => {
-  const client = { rpc: jest.fn().mockResolvedValue({ data: [child], error: null }) };
+  const client = { rpc: jest.fn().mockImplementation(async (name) => ({ data: name === "admin_new_course_holes_summaries" ? [] : [child], error: null })) };
   const service = createNewClubCourseService(client);
   expect(await service.listCourseDrafts(parent, owner)).toEqual([child]);
   expect(await service.saveCourseDraft(parent, null, { name: " Percorso ", holes_count: "9", display_order: "0", tee: "ignored" }, owner)).toEqual(child);

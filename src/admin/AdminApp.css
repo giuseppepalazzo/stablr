@@ -859,7 +859,22 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-new-courses-header h2 { margin-bottom: 0; }
 .stablr-admin-new-courses-header + p { margin: 12px 0; }
 .stablr-admin-new-courses-list { display: grid; gap: 8px; margin-top: 16px; }
-.stablr-admin-new-course-row { display: grid; grid-template-columns: minmax(180px, 1fr) 90px 80px 170px 280px; gap: 16px; align-items: center; background: #103528; border-radius: 10px; padding: 12px 14px; }
+.stablr-admin-new-course-row { display: grid; grid-template-columns: minmax(160px, 1fr) 90px 70px 160px minmax(280px, 1.4fr); gap: 16px; align-items: center; background: #103528; border-radius: 10px; padding: 12px 14px; }
+.stablr-admin-new-holes-summary { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px 0 12px; }
+.stablr-admin-new-holes-scroll { overflow-x: auto; margin: 16px 0; }
+.stablr-admin-new-holes-table { width: 100%; border-collapse: collapse; text-align: left; }
+.stablr-admin-new-holes-table th, .stablr-admin-new-holes-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.stablr-admin-new-holes-input-control { display: inline-grid; grid-template-columns: 28px 90px 28px; align-items: stretch; }
+.stablr-admin-new-holes-input-control button { border: 1px solid rgba(255,255,255,.2); background: #103528; color: var(--stablr-admin-text); font: inherit; font-size: 18px; line-height: 1; cursor: pointer; }
+.stablr-admin-new-holes-input-control button:first-child { border-radius: 8px 0 0 8px; }
+.stablr-admin-new-holes-input-control button:last-child { border-radius: 0 8px 8px 0; }
+.stablr-admin-new-holes-input-control button:disabled { cursor: default; opacity: .5; }
+.stablr-admin-new-holes-table input { box-sizing: border-box; width: 90px; padding: 8px; background: #0b241c; color: var(--stablr-admin-text); border: 1px solid rgba(255,255,255,.2); border-radius: 0; font: inherit; appearance: textfield; }
+.stablr-admin-new-holes-table input::-webkit-inner-spin-button,
+.stablr-admin-new-holes-table input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.stablr-admin-new-holes-table input:focus-visible { outline: 2px solid #9ed1fa; outline-offset: 2px; }
+.stablr-admin-new-holes-return-button { margin-top: 14px; }
+.stablr-admin-new-holes-dialog-actions { gap: 16px; margin-top: 16px; }
 .stablr-admin-new-course-row > div:not(.stablr-admin-editor-actions) { display: grid; gap: 6px; min-width: 0; }
 .stablr-admin-new-course-row span { color: var(--stablr-admin-muted); font-size: 12px; }
 .stablr-admin-new-course-row strong { font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { supabase } from "../lib/supabase";
 import { AdminShell } from "./AdminApp";
+import { validateNewClubHoles } from "./new-club-holes-data";
 
 jest.mock("../lib/supabase", () => ({
   hasSupabaseConfig: true,
@@ -47,7 +48,30 @@ function setup({ linked = false, liveVisible = true, linkKind = "fk" } = {}) {
   supabase.rpc.mockImplementation(async (name, params) => {
     if (name === "admin_user_directory") return { data: [], error: null };
     if (name === "admin_club_get_draft") return { data: null, error: null };
-    if (name === "admin_new_club_courses") return { data: drafts.filter((row) => row.parent_draft_id === params.p_club_draft_id && row.workflow_status === "draft"), error: null };
+    if (name === "admin_new_club_courses") return { data: drafts.filter((row) => row.entity_type === "route" && row.parent_draft_id === params.p_club_draft_id && row.workflow_status === "draft"), error: null };
+    if (name === "admin_new_course_holes_summaries") return { data: drafts.filter((row) => row.entity_type === "new_course_holes_grid" && row.workflow_status === "draft"
+      && drafts.some((course) => course.draft_id === row.parent_draft_id && course.parent_draft_id === params.p_club_draft_id)).map((row) => {
+        const checks = validateNewClubHoles(row.snapshot);
+        return { course_draft_id: row.parent_draft_id, grid_draft_id: row.draft_id, configured: checks.configured, total_par: checks.totalPar };
+      }), error: null };
+    if (name === "admin_new_course_holes_open") {
+      const course = drafts.find((row) => row.draft_id === params.p_course_draft_id);
+      let grid = drafts.find((row) => row.entity_type === "new_course_holes_grid" && row.parent_draft_id === course.draft_id && row.workflow_status === "draft");
+      if (!grid) {
+        grid = { draft_id: `draft-${drafts.length + 1}`, entity_type: "new_course_holes_grid", parent_draft_id: course.draft_id, live_entity_id: null,
+          base_version_id: null, base_snapshot: null, created_by: ownerId, schema_version: 1, workflow_status: "draft", revision: 1,
+          snapshot: { holes_count: course.snapshot.holes_count, holes: Array.from({ length: course.snapshot.holes_count }, (_, i) => ({ physical_hole_number: i + 1, par: null, stroke_index: null })) } };
+        drafts = [...drafts, grid];
+      }
+      return { data: { course, draft: grid, configured: validateNewClubHoles(grid.snapshot).configured }, error: null };
+    }
+    if (["admin_new_course_holes_save", "admin_new_course_holes_archive"].includes(name)) {
+      const grid = drafts.find((row) => row.draft_id === params.p_draft_id);
+      if (!grid || grid.revision !== params.p_expected_revision) return { data: null, error: { code: "40001" } };
+      const saved = { ...grid, revision: grid.revision + 1, ...(name.endsWith("archive") ? { workflow_status: "archived" } : { snapshot: params.p_snapshot }) };
+      drafts = drafts.map((row) => row.draft_id === grid.draft_id ? saved : row);
+      return { data: saved, error: null };
+    }
     if (name === "admin_new_club_course_save") {
       const current = params.p_draft_id ? drafts.find((row) => row.draft_id === params.p_draft_id) : null;
       if (params.p_draft_id && (!current || current.revision !== params.p_expected_revision)) return { data: null, error: { code: "40001" } };
@@ -245,4 +269,35 @@ test("Admin shell persists child courses under the new Club, resumes after remou
   expect(getDrafts().find((row) => row.draft_id === parent.draft_id).workflow_status).toBe("draft");
   expect(JSON.stringify(club)).toBe(liveBefore);expect(supabase.rpc.mock.calls.some(([name]) => name.includes("publish"))).toBe(false);
   view.unmount();
+});
+
+test("Admin private Club flow persists valid holes and configured status through exact RPC contracts and a full remount", async () => {
+  const { club, getDrafts } = setup(), original = JSON.stringify(club);
+  let view = render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
+  fireEvent.click(screen.getByRole("button", { name: "+ Nuovo club" }));fireEvent.click(screen.getByRole("button", { name: /Crea manualmente/ }));
+  fireEvent.change(await screen.findByLabelText("Nome visualizzato"), { target: { value: "Club con buche private" } });
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
+  fireEvent.click(screen.getByRole("button", { name: "Aggiungi percorso" }));
+  fireEvent.change(screen.getByLabelText("Nome percorso"), { target: { value: "Nove privato" } });
+  fireEvent.change(screen.getByLabelText("Struttura percorso"), { target: { value: "9" } });
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza percorso" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Configura buche Nove privato" }));await screen.findByLabelText("Buca 1 Par");
+  for (let n = 1; n <= 9; n++) {
+    fireEvent.change(screen.getByLabelText(`Buca ${n} Par`), { target: { value: "4" } });
+    fireEvent.change(screen.getByLabelText(`Buca ${n} SI/HCP`), { target: { value: String(n) } });
+  }
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza buche" }));await screen.findByText("Bozza buche salvata. Buche configurate.");
+  const grid = getDrafts().find((row) => row.entity_type === "new_course_holes_grid");
+  expect(grid.live_entity_id).toBeNull();expect(grid.snapshot.holes).toHaveLength(9);
+  view.unmount();view = render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
+  fireEvent.click(within(screen.getByRole("navigation", { name: "Navigazione amministrazione" })).getByRole("button", { name: "Club e percorsi" }));
+  fireEvent.click(await screen.findByRole("button", { name: /Club con buche private.*Riprendi bozza/ }));
+  await screen.findByText("Buche configurate · privato");
+  fireEvent.click(screen.getByRole("button", { name: "Configura buche Nove privato" }));
+  await screen.findByText("Totale Par: 36");expect(screen.getByLabelText("Buca 9 SI/HCP")).toHaveValue(9);
+  fireEvent.click(screen.getByRole("button", { name: "Abbandona bozza buche" }));fireEvent.click(screen.getByRole("button", { name: "Conferma abbandono buche" }));
+  await screen.findByText("Bozza privata · incompleto");
+  expect(getDrafts().find((row) => row.draft_id === grid.draft_id).workflow_status).toBe("archived");
+  expect(getDrafts().find((row) => row.entity_type === "route").workflow_status).toBe("draft");
+  expect(JSON.stringify(club)).toBe(original);expect(supabase.rpc.mock.calls.some(([name]) => name.includes("publish"))).toBe(false);view.unmount();
 });
