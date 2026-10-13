@@ -49,6 +49,30 @@ function setup({ linked = false, liveVisible = true, linkKind = "fk" } = {}) {
     if (name === "admin_user_directory") return { data: [], error: null };
     if (name === "admin_club_get_draft") return { data: null, error: null };
     if (name === "admin_new_club_courses") return { data: drafts.filter((row) => row.entity_type === "route" && row.parent_draft_id === params.p_club_draft_id && row.workflow_status === "draft"), error: null };
+    if (name === "admin_new_course_tees") {
+      const course = drafts.find(row => row.draft_id === params.p_course_draft_id);
+      const grid = drafts.find(row => row.parent_draft_id === course.draft_id && row.entity_type === "new_course_holes_grid" && row.workflow_status === "draft");
+      const checks = grid ? validateNewClubHoles(grid.snapshot) : { configured: false };
+      return { data: { context: { course_draft_id: course.draft_id, course_name: course.snapshot.name, course_revision: course.revision,
+        holes_count: course.snapshot.holes_count, grid_draft_id: grid?.draft_id || null, grid_revision: grid?.revision || null,
+        configured: checks.configured, par_total: checks.configured ? checks.totalPar : null },
+        tees: drafts.filter(row => row.parent_draft_id === course.draft_id && row.entity_type === "new_course_tee" && row.workflow_status === "draft") }, error: null };
+    }
+    if (name === "admin_new_course_tee_save") {
+      const course = drafts.find(row => row.draft_id === params.p_course_draft_id);
+      const grid = drafts.find(row => row.draft_id === params.p_grid_draft_id);
+      const current = drafts.find(row => row.draft_id === params.p_draft_id);
+      if (course.revision !== params.p_course_revision || grid?.revision !== params.p_grid_revision || (current && current.revision !== params.p_expected_revision)) return { data: null, error: { code: "40001" } };
+      const saved = { ...(current || { draft_id: `draft-${drafts.length + 1}`, entity_type: "new_course_tee", parent_draft_id: course.draft_id, created_by: ownerId,
+        live_entity_id: null, base_snapshot: null, base_version_id: null, schema_version: 1, workflow_status: "draft" }), revision: (current?.revision || 0) + 1, snapshot: params.p_snapshot };
+      drafts = [...drafts.filter(row => row.draft_id !== saved.draft_id), saved];return { data: saved, error: null };
+    }
+    if (name === "admin_new_course_tee_archive") {
+      const current = drafts.find(row => row.draft_id === params.p_draft_id && row.parent_draft_id === params.p_course_draft_id);
+      if (!current || current.revision !== params.p_expected_revision) return { data: null, error: { code: "40001" } };
+      const archived = { ...current, revision: current.revision + 1, workflow_status: "archived" };
+      drafts = drafts.map(row => row.draft_id === current.draft_id ? archived : row);return { data: archived, error: null };
+    }
     if (name === "admin_new_course_holes_summaries") return { data: drafts.filter((row) => row.entity_type === "new_course_holes_grid" && row.workflow_status === "draft"
       && drafts.some((course) => course.draft_id === row.parent_draft_id && course.parent_draft_id === params.p_club_draft_id)).map((row) => {
         const checks = validateNewClubHoles(row.snapshot);
@@ -295,6 +319,22 @@ test("Admin private Club flow persists valid holes and configured status through
   await screen.findByText("Buche configurate · privato");
   fireEvent.click(screen.getByRole("button", { name: "Configura buche Nove privato" }));
   await screen.findByText("Totale Par: 36");expect(screen.getByLabelText("Buca 9 SI/HCP")).toHaveValue(9);
+  fireEvent.click(screen.getByRole("button", { name: "Torna al Percorso" }));
+  fireEvent.click(screen.getByRole("button", { name: "Gestisci tee Nove privato" }));await screen.findByRole("button", { name: "Aggiungi tee" });
+  fireEvent.click(screen.getByRole("button", { name: "Aggiungi tee" }));
+  fireEvent.change(screen.getByLabelText("Nome tee"), { target: { value: "Giallo privato" } });
+  fireEvent.change(screen.getByLabelText("Categoria del rating"), { target: { value: "men" } });
+  fireEvent.change(screen.getByLabelText("Course Rating"), { target: { value: "35.4" } });
+  fireEvent.change(screen.getByLabelText("Slope Rating"), { target: { value: "120" } });
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza tee" }));await screen.findByRole("button", { name: "Modifica tee Giallo privato Uomini" });
+  const tee = getDrafts().find(row => row.entity_type === "new_course_tee");expect(tee.live_entity_id).toBeNull();expect(tee.snapshot.par_total).toBeUndefined();
+  view.unmount();view = render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
+  fireEvent.click(within(screen.getByRole("navigation", { name: "Navigazione amministrazione" })).getByRole("button", { name: "Club e percorsi" }));
+  fireEvent.click(await screen.findByRole("button", { name: /Club con buche private.*Riprendi bozza/ }));
+  fireEvent.click(await screen.findByRole("button", { name: "Gestisci tee Nove privato" }));await screen.findByRole("button", { name: "Modifica tee Giallo privato Uomini" });
+  fireEvent.click(screen.getByRole("button", { name: "Abbandona tee Giallo privato Uomini" }));fireEvent.click(screen.getByRole("button", { name: "Conferma abbandono tee" }));
+  await screen.findByText("Nessun tee privato.");expect(getDrafts().find(row => row.draft_id === tee.draft_id).workflow_status).toBe("archived");
+  fireEvent.click(screen.getByRole("button", { name: "Torna al Percorso" }));fireEvent.click(screen.getByRole("button", { name: "Configura buche Nove privato" }));await screen.findByLabelText("Buca 1 Par");
   fireEvent.click(screen.getByRole("button", { name: "Abbandona bozza buche" }));fireEvent.click(screen.getByRole("button", { name: "Conferma abbandono buche" }));
   await screen.findByText("Bozza privata · incompleto");
   expect(getDrafts().find((row) => row.draft_id === grid.draft_id).workflow_status).toBe("archived");

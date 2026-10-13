@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import { isNewCourseValid, normalizeNewCourseFields } from "./new-club-course-data";
 import NewClubCourseHoles from "./NewClubCourseHoles";
+import NewClubCourseTees from "./NewClubCourseTees";
 import { validateNewClubHoles } from "./new-club-holes-data";
 
 const failureMessage = (error) => ["40001", "55P03"].includes(error?.code)
@@ -15,6 +16,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [loadError, setLoadError] = useState("");
   const [pendingExit, setPendingExit] = useState(null), [abandon, setAbandon] = useState(null);
   const [holeTarget, setHoleTarget] = useState(null);
+  const [teeTarget, setTeeTarget] = useState(null);
   const holeExitGuard = useRef(null);
   const registerHoleExitGuard = useCallback((guard) => { holeExitGuard.current = guard; }, []);
   const inFlight = useRef(false);
@@ -29,14 +31,14 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
     // The parent revision/name may change independently of the child list.
   }, [parent.draft_id, ownerId, service, retry]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    onEditingChange(!!editing || !!abandon || !!holeTarget);
+    onEditingChange(!!editing || !!abandon || !!holeTarget || !!teeTarget);
     return () => onEditingChange(false);
-  }, [editing, abandon, holeTarget, onEditingChange]);
+  }, [editing, abandon, holeTarget, teeTarget, onEditingChange]);
   const close = () => { setEditing(null);setFields(null);setError(""); };
   useEffect(() => {
     registerExitGuard((action) => {
       if (inFlight.current || pendingExit || abandon) return;
-      if (holeExitGuard.current) { holeExitGuard.current(() => { setHoleTarget(null);action(); });return; }
+      if (holeExitGuard.current) { holeExitGuard.current(() => { setHoleTarget(null);setTeeTarget(null);action(); });return; }
       if (dirty) setPendingExit(() => action);
       else { setEditing(null);setFields(null);action(); }
     });
@@ -69,7 +71,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
   return <section className="stablr-admin-detail-section" aria-label="Percorsi della bozza">
     <div className="stablr-admin-new-courses-header"><h2>Percorsi della bozza</h2><button className="stablr-admin-white-button" type="button" disabled={disabled || loading || !!loadError || busy}
       onClick={() => { setError("");setEditing({ isNew: true, draft: null });setFields({ name: "", holes_count: "", display_order: 0 }); }}>Aggiungi percorso</button></div>
-    <p className="stablr-admin-detail-empty">Club e Percorsi sono privati e non pubblicabili. Configura le buche di ciascun Percorso; tee e rating saranno disponibili nel passaggio successivo.</p>
+    <p className="stablr-admin-detail-empty">Club e Percorsi sono privati e non pubblicabili. Configura le buche di ciascun Percorso, poi aggiungi i tee e rating privati.</p>
     {loading && <p role="status">Caricamento Percorsi…</p>}
     {loadError && <div role="alert"><p>{loadError}</p><button className="stablr-admin-abandon-button" type="button" onClick={() => setRetry((value) => value + 1)}>Riprova Percorsi</button></div>}
     {!loading && !loadError && (!courses.length ? <p className="stablr-admin-detail-empty">Nessun Percorso nella bozza.</p> : <div className="stablr-admin-new-courses-list">
@@ -78,6 +80,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
         <div><span>Ordine</span><strong>{child.snapshot.display_order}</strong></div><div><span>Stato</span><strong>{child.hole_grid?.configured ? "Buche configurate · privato" : "Bozza privata · incompleto"}</strong></div>
         <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={disabled || busy} type="button" aria-label={`Modifica percorso ${child.snapshot.name}`} onClick={() => { setError("");setEditing({ isNew: false, draft: child });setFields({ ...child.snapshot }); }}>Modifica dati</button>
           <button className="stablr-admin-white-button" disabled={disabled || busy} type="button" aria-label={`Configura buche ${child.snapshot.name}`} onClick={() => setHoleTarget(child)}>Configura buche</button>
+          {child.hole_grid?.configured && <button className="stablr-admin-white-button" disabled={disabled || busy} type="button" aria-label={`Gestisci tee ${child.snapshot.name}`} onClick={() => setTeeTarget(child)}>Gestisci tee</button>}
           <button className="stablr-admin-abandon-button" disabled={disabled || busy} type="button" aria-label={`Abbandona percorso ${child.snapshot.name}`} onClick={() => { setError("");setAbandon(child); }}>Abbandona percorso</button></div>
       </article>)}
     </div>)}
@@ -93,7 +96,9 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
         {editing.draft?.hole_grid && <p className="stablr-admin-detail-empty">Per cambiare struttura 9/18, abbandona prima la bozza buche.</p>}
         <div className="stablr-admin-editor-actions"><button className="stablr-admin-draft-save-button" type="submit" disabled={busy || !!pendingExit || !isNewCourseValid(fields)}>Salva bozza percorso</button><button className="stablr-admin-abandon-button" type="button" disabled={busy || !!pendingExit} onClick={() => leave()}>Torna al Club</button></div>
       </form>
-      {!editing.isNew && <div className="stablr-admin-abandon-zone"><button className="stablr-admin-white-button" type="button" disabled={busy || !!pendingExit} onClick={() => { const course = editing.draft;leave(() => { close();setHoleTarget(course); }); }}>Configura buche</button></div>}
+      {!editing.isNew && <div className="stablr-admin-abandon-zone stablr-admin-editor-actions"><button className="stablr-admin-white-button" type="button" disabled={busy || !!pendingExit} onClick={() => { const course = editing.draft;leave(() => { close();setHoleTarget(course); }); }}>Configura buche</button>
+        {editing.draft.hole_grid?.configured && <button className="stablr-admin-white-button" type="button" disabled={busy || !!pendingExit} onClick={() => { const course = editing.draft;leave(() => { close();setTeeTarget(course); }); }}>Gestisci tee</button>}
+      </div>}
     </EditorDialog>}
     {pendingExit && <EditorDialog title="Modifiche percorso non salvate"><p>Salva la bozza del Percorso oppure scarta solo le modifiche non salvate.</p>{error && <p role="alert">{error}</p>}<div className="stablr-admin-editor-actions">
       <button className="stablr-admin-white-button" type="button" disabled={busy || !isNewCourseValid(fields)} onClick={() => operation(async () => { await save();const exit = pendingExit;setPendingExit(null);exit(); })}>Salva bozza</button>
@@ -102,5 +107,6 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
     </div></EditorDialog>}
     {abandon && <EditorDialog title="Abbandona percorso"><p>Abbandonare il Percorso «{abandon.snapshot.name}»? La bozza non sarà più ripresa. Il catalogo pubblicato non cambia.</p>{error && <p role="alert">{error}</p>}<div className="stablr-admin-editor-actions"><button className="stablr-admin-danger-button" disabled={busy} type="button" onClick={() => operation(async () => { await service.abandonCourseDraft(parent, abandon, ownerId);setCourses((rows) => rows.filter((row) => row.draft_id !== abandon.draft_id));setAbandon(null); })}>Conferma abbandono percorso</button><button type="button" disabled={busy} onClick={() => { setAbandon(null);setError(""); }}>Annulla</button></div></EditorDialog>}
     {holeTarget && <NewClubCourseHoles target={holeTarget} ownerId={ownerId} service={service} registerExitGuard={registerHoleExitGuard} onBack={() => setHoleTarget(null)} onGridChange={onGridChange} />}
+    {teeTarget && <NewClubCourseTees course={teeTarget} ownerId={ownerId} service={service} registerExitGuard={registerHoleExitGuard} onBack={() => setTeeTarget(null)} />}
   </section>;
 }

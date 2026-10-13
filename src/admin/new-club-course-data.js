@@ -1,4 +1,5 @@
 import { createNewClubHolesService } from "./new-club-holes-data";
+import { createNewClubTeesService } from "./new-club-tees-data";
 
 export function normalizeNewCourseFields(fields) {
   return { name: String(fields.name || "").trim(),
@@ -41,6 +42,7 @@ export function createNewClubCourseService(client) {
   const row = (value) => Array.isArray(value) && value.length === 1 ? value[0] : value;
   return {
     ...holes,
+    ...createNewClubTeesService(client),
     async listCourseDrafts(parent, ownerId) {
       requireParent(parent, ownerId);
       const data = await invoke("admin_new_club_courses", { p_club_draft_id: parent.draft_id });

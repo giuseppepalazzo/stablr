@@ -875,6 +875,10 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-new-holes-table input:focus-visible { outline: 2px solid #9ed1fa; outline-offset: 2px; }
 .stablr-admin-new-holes-return-button { margin-top: 14px; }
 .stablr-admin-new-holes-dialog-actions { gap: 16px; margin-top: 16px; }
+.stablr-admin-new-tees-scroll { overflow-x: auto; margin: 16px 0; }
+.stablr-admin-new-tees-table { width: 100%; min-width: 660px; border-collapse: collapse; text-align: left; font-size: 13px; }
+.stablr-admin-new-tees-table th, .stablr-admin-new-tees-table td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.stablr-admin-new-tees-table thead th { color: var(--stablr-admin-muted); font-weight: 500; }
 .stablr-admin-new-course-row > div:not(.stablr-admin-editor-actions) { display: grid; gap: 6px; min-width: 0; }
 .stablr-admin-new-course-row span { color: var(--stablr-admin-muted); font-size: 12px; }
 .stablr-admin-new-course-row strong { font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }

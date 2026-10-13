@@ -1,0 +1,28 @@
+import { createNewClubTeesService, hasDuplicateNewTee, isNewTeeValid, normalizeNewTeeFields } from "./new-club-tees-data";
+const owner = "admin", course = { draft_id: "course", entity_type: "route", created_by: owner, live_entity_id: null, parent_draft_id: "club", workflow_status: "draft" };
+const fields = { name: "Giallo", tee_color: "giallo", rating_category: "men", course_rating: 70.2, slope_rating: 120, display_order: 0, is_active: true };
+const tee = { draft_id: "tee", entity_type: "new_course_tee", parent_draft_id: "course", live_entity_id: null, created_by: owner, workflow_status: "draft", schema_version: 1, revision: 1, snapshot: fields };
+const context = { course_draft_id: "course", course_revision: 2, holes_count: 9, grid_draft_id: "grid", grid_revision: 3, configured: true, par_total: 36 };
+test("private tee fields enforce numeric CR, integer Slope 55..155 and category/scope identity", () => {
+  expect(isNewTeeValid(fields)).toBe(true);
+  expect(normalizeNewTeeFields({ ...fields, name: " Giallo ", course_rating: "70.2", slope_rating: "120", par_total: 999 })).toEqual(fields);
+  for (const update of [{ name: " " }, { slope_rating: 54 }, { slope_rating: 156 }, { slope_rating: 55.5 }, { course_rating: "bad" }, { course_rating: Infinity }, { display_order: 0.5 }, { rating_category: "all" }]) expect(isNewTeeValid({ ...fields, ...update })).toBe(false);
+  expect(isNewTeeValid({ ...fields, course_rating: null, slope_rating: null })).toBe(true);
+  expect(hasDuplicateNewTee([tee], { ...fields, name: " GIALLO " })).toBe(true);
+  expect(hasDuplicateNewTee([tee], { ...fields, rating_category: "women" })).toBe(false);
+  expect(hasDuplicateNewTee([tee], fields, "tee")).toBe(false);
+});
+test("private tee RPC contracts carry exact course/grid/tee revisions and never publish", async () => {
+  const client = { rpc: jest.fn().mockResolvedValue({ data: { context, tees: [tee] }, error: null }) }, service = createNewClubTeesService(client);
+  expect(await service.listCourseTeeDrafts(course, owner)).toEqual({ context, tees: [tee] });
+  client.rpc.mockResolvedValue({ data: tee, error: null });await service.saveCourseTeeDraft(course, context, null, fields, owner);
+  expect(client.rpc).toHaveBeenLastCalledWith("admin_new_course_tee_save", { p_course_draft_id: "course", p_snapshot: fields, p_course_revision: 2, p_grid_draft_id: "grid", p_grid_revision: 3, p_draft_id: null, p_expected_revision: null });
+  await service.saveCourseTeeDraft(course, context, tee, fields, owner);expect(client.rpc).toHaveBeenLastCalledWith("admin_new_course_tee_save", expect.objectContaining({ p_draft_id: "tee", p_expected_revision: 1 }));
+  client.rpc.mockResolvedValue({ data: { ...tee, workflow_status: "archived", revision: 2 }, error: null });await service.abandonCourseTeeDraft(course, tee, owner);
+  expect(client.rpc).toHaveBeenLastCalledWith("admin_new_course_tee_archive", { p_course_draft_id: "course", p_draft_id: "tee", p_expected_revision: 1 });
+  await expect(service.listCourseTeeDrafts(course, "other")).rejects.toThrow("Owned private");
+  await expect(service.saveCourseTeeDraft(course, { ...context, configured: false }, tee, fields, owner)).rejects.toThrow("Valid grid");
+  client.rpc.mockResolvedValue({ data: { context, tees: [{ ...tee, live_entity_id: "live" }] }, error: null });await expect(service.listCourseTeeDrafts(course, owner)).rejects.toThrow("Invalid private");
+  client.rpc.mockResolvedValue({ data: null, error: { code: "40001" } });await expect(service.listCourseTeeDrafts(course, owner)).rejects.toEqual({ code: "40001" });
+  expect(service.publishDraft).toBeUndefined();
+});

@@ -102,7 +102,7 @@ export default function NewClubCourseHoles({ target, ownerId, service, registerE
           </tr>)}
         </tbody></table></div>
         {fieldError && <p className="stablr-admin-detail-empty" role="status">{fieldError}</p>}
-        <p className="stablr-admin-detail-empty">Anche con buche configurate, Club e Percorso restano privati e non pubblicabili. Tee e rating non sono ancora configurati.</p>
+        <p className="stablr-admin-detail-empty">Anche con buche configurate, Club e Percorso restano privati e non pubblicabili. Tee e rating si gestiscono separatamente nel Percorso.</p>
         {dirty && <p>Modifiche buche non salvate</p>}
         {message && <p role="status">{message}</p>}
         <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy || !!pendingExit || abandon} type="button" onClick={() => { setError("");setAbandon(true); }}>Abbandona bozza buche</button></div>
