@@ -8,7 +8,7 @@ const failureMessage = failure => failure?.code === "23505" ? "Un tee con questo
     : failure?.code === "42501" ? "Non sei autorizzato a gestire questi tee."
       : "Impossibile completare l’operazione sui tee. Riprova.";
 
-export default function NewClubCourseTees({ course, ownerId, service, registerExitGuard, onBack }) {
+export default function NewClubCourseTees({ course, ownerId, service, registerExitGuard, onBack, scope = "newClub" }) {
   const [context, setContext] = useState(null), [tees, setTees] = useState([]), [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null), [fields, setFields] = useState(null), [busy, setBusy] = useState(false);
   const [error, setError] = useState(""), [loadError, setLoadError] = useState(""), [retry, setRetry] = useState(0);
@@ -49,7 +49,7 @@ export default function NewClubCourseTees({ course, ownerId, service, registerEx
   const blocked = busy || !!pendingExit || !!abandon;
   return <>
     <EditorDialog title={`Tee e rating · ${context?.course_name || course.snapshot.name}`}>
-      <p>Tee privati del Percorso. Club, buche e tee restano privati fino alla pubblicazione del Club.</p>
+      <p>{scope === "existingClub" ? "Tee privati del nuovo Percorso. Buche e tee restano privati fino alla pubblicazione del Percorso." : "Tee privati del Percorso. Club, buche e tee restano privati fino alla pubblicazione del Club."}</p>
       {loading && <p role="status">Caricamento tee…</p>}
       {loadError && <div role="alert"><p>{loadError}</p><button className="stablr-admin-abandon-button" type="button" onClick={() => setRetry(value => value + 1)}>Riprova tee</button></div>}
       {error && !editing && !pendingExit && !abandon && <p role="alert">{error}</p>}

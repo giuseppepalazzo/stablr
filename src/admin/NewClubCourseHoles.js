@@ -7,7 +7,7 @@ const messageFor = (error) => ["40001", "55P03"].includes(error?.code)
   : error?.code === "42501" ? "Non sei autorizzato a modificare questa griglia."
     : "Impossibile completare l’operazione sulle buche. Riprova.";
 
-export default function NewClubCourseHoles({ target, ownerId, service, registerExitGuard, onBack, onGridChange }) {
+export default function NewClubCourseHoles({ target, ownerId, service, registerExitGuard, onBack, onGridChange, scope = "newClub" }) {
   const [course, setCourse] = useState(target), [draft, setDraft] = useState(null), [snapshot, setSnapshot] = useState(null);
   const [loading, setLoading] = useState(true), [busy, setBusy] = useState(false), [retry, setRetry] = useState(0);
   const [error, setError] = useState(""), [message, setMessage] = useState("");
@@ -102,7 +102,7 @@ export default function NewClubCourseHoles({ target, ownerId, service, registerE
           </tr>)}
         </tbody></table></div>
         {fieldError && <p className="stablr-admin-detail-empty" role="status">{fieldError}</p>}
-        <p className="stablr-admin-detail-empty">Anche con buche configurate, Club e Percorso restano privati fino alla pubblicazione del Club. Tee e rating si gestiscono separatamente nel Percorso.</p>
+        <p className="stablr-admin-detail-empty">{scope === "existingClub" ? "Anche con buche configurate, il nuovo Percorso resta privato fino alla sua pubblicazione. Tee e rating si gestiscono separatamente nel Percorso." : "Anche con buche configurate, Club e Percorso restano privati fino alla pubblicazione del Club. Tee e rating si gestiscono separatamente nel Percorso."}</p>
         {dirty && <p>Modifiche buche non salvate</p>}
         {message && <p role="status">{message}</p>}
         <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy || !!pendingExit || abandon} type="button" onClick={() => { setError("");setAbandon(true); }}>Abbandona bozza buche</button></div>

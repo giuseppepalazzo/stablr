@@ -857,6 +857,7 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-fig-draft-unavailable { margin: 16px 0 12px; }
 .stablr-admin-new-courses-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .stablr-admin-new-courses-header h2 { margin-bottom: 0; }
+.stablr-admin-club-courses-header { margin-bottom: 14px; }
 .stablr-admin-new-courses-header + p { margin: 12px 0; }
 .stablr-admin-new-courses-list { display: grid; gap: 8px; margin-top: 16px; }
 .stablr-admin-new-course-row { display: grid; grid-template-columns: minmax(160px, 1fr) 90px 70px 160px minmax(280px, 1.4fr); gap: 16px; align-items: center; background: #103528; border-radius: 10px; padding: 12px 14px; }

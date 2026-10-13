@@ -10,7 +10,7 @@ const failureMessage = (error) => ["40001", "55P03"].includes(error?.code)
   : error?.code === "42501" ? "Non sei autorizzato a modificare questa bozza."
     : "Impossibile completare l’operazione sui Percorsi. Riprova.";
 
-export default function NewClubCourses({ parent, ownerId, service, disabled, registerExitGuard, onEditingChange }) {
+export default function NewClubCourses({ parent, ownerId, service, disabled, registerExitGuard, onEditingChange, scope = "newClub", onPreviewPublication }) {
   const [courses, setCourses] = useState([]), [loading, setLoading] = useState(true), [retry, setRetry] = useState(0);
   const [editing, setEditing] = useState(null), [fields, setFields] = useState(null);
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [loadError, setLoadError] = useState("");
@@ -29,7 +29,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
     }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
     // The parent revision/name may change independently of the child list.
-  }, [parent.draft_id, ownerId, service, retry]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [parent.draft_id, parent.club_id, ownerId, service, retry]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     onEditingChange(!!editing || !!abandon || !!holeTarget || !!teeTarget);
     return () => onEditingChange(false);
@@ -71,7 +71,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
   return <section className="stablr-admin-detail-section" aria-label="Percorsi della bozza">
     <div className="stablr-admin-new-courses-header"><h2>Percorsi della bozza</h2><button className="stablr-admin-white-button" type="button" disabled={disabled || loading || !!loadError || busy}
       onClick={() => { setError("");setEditing({ isNew: true, draft: null });setFields({ name: "", holes_count: "", display_order: 0 }); }}>Aggiungi percorso</button></div>
-    <p className="stablr-admin-detail-empty">Club e Percorsi restano privati fino alla pubblicazione del Club. Configura le buche di ciascun Percorso, poi aggiungi i tee e rating privati.</p>
+    <p className="stablr-admin-detail-empty">{scope === "existingClub" ? "I nuovi Percorsi restano privati fino alla loro pubblicazione. Il Club e i Percorsi esistenti non vengono modificati." : "Club e Percorsi restano privati fino alla pubblicazione del Club. Configura le buche di ciascun Percorso, poi aggiungi i tee e rating privati."}</p>
     {loading && <p role="status">Caricamento Percorsi…</p>}
     {loadError && <div role="alert"><p>{loadError}</p><button className="stablr-admin-abandon-button" type="button" onClick={() => setRetry((value) => value + 1)}>Riprova Percorsi</button></div>}
     {!loading && !loadError && (!courses.length ? <p className="stablr-admin-detail-empty">Nessun Percorso nella bozza.</p> : <div className="stablr-admin-new-courses-list">
@@ -81,6 +81,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
         <div className="stablr-admin-editor-actions"><button className="stablr-admin-white-button" disabled={disabled || busy} type="button" aria-label={`Modifica percorso ${child.snapshot.name}`} onClick={() => { setError("");setEditing({ isNew: false, draft: child });setFields({ ...child.snapshot }); }}>Modifica dati</button>
           <button className="stablr-admin-white-button" disabled={disabled || busy} type="button" aria-label={`Configura buche ${child.snapshot.name}`} onClick={() => setHoleTarget(child)}>Configura buche</button>
           {child.hole_grid?.configured && <button className="stablr-admin-white-button" disabled={disabled || busy} type="button" aria-label={`Gestisci tee ${child.snapshot.name}`} onClick={() => setTeeTarget(child)}>Gestisci tee</button>}
+          {onPreviewPublication && <button className="stablr-admin-white-button" disabled={disabled || busy || !!editing || !!holeTarget || !!teeTarget} type="button" aria-label={`Anteprima pubblicazione ${child.snapshot.name}`} onClick={() => onPreviewPublication(child)}>Anteprima pubblicazione</button>}
           <button className="stablr-admin-abandon-button" disabled={disabled || busy} type="button" aria-label={`Abbandona percorso ${child.snapshot.name}`} onClick={() => { setError("");setAbandon(child); }}>Abbandona percorso</button></div>
       </article>)}
     </div>)}
@@ -106,7 +107,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
       <button type="button" disabled={busy} onClick={() => { setPendingExit(null);setError(""); }}>Resta</button>
     </div></EditorDialog>}
     {abandon && <EditorDialog title="Abbandona percorso"><p>Abbandonare il Percorso «{abandon.snapshot.name}»? La bozza non sarà più ripresa. Il catalogo pubblicato non cambia.</p>{error && <p role="alert">{error}</p>}<div className="stablr-admin-editor-actions"><button className="stablr-admin-danger-button" disabled={busy} type="button" onClick={() => operation(async () => { await service.abandonCourseDraft(parent, abandon, ownerId);setCourses((rows) => rows.filter((row) => row.draft_id !== abandon.draft_id));setAbandon(null); })}>Conferma abbandono percorso</button><button type="button" disabled={busy} onClick={() => { setAbandon(null);setError(""); }}>Annulla</button></div></EditorDialog>}
-    {holeTarget && <NewClubCourseHoles target={holeTarget} ownerId={ownerId} service={service} registerExitGuard={registerHoleExitGuard} onBack={() => setHoleTarget(null)} onGridChange={onGridChange} />}
-    {teeTarget && <NewClubCourseTees course={teeTarget} ownerId={ownerId} service={service} registerExitGuard={registerHoleExitGuard} onBack={() => setTeeTarget(null)} />}
+    {holeTarget && <NewClubCourseHoles target={holeTarget} ownerId={ownerId} service={service} registerExitGuard={registerHoleExitGuard} onBack={() => setHoleTarget(null)} onGridChange={onGridChange} scope={scope} />}
+    {teeTarget && <NewClubCourseTees course={teeTarget} ownerId={ownerId} service={service} registerExitGuard={registerHoleExitGuard} onBack={() => setTeeTarget(null)} scope={scope} />}
   </section>;
 }
