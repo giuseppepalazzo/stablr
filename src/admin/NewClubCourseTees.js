@@ -49,7 +49,7 @@ export default function NewClubCourseTees({ course, ownerId, service, registerEx
   const blocked = busy || !!pendingExit || !!abandon;
   return <>
     <EditorDialog title={`Tee e rating · ${context?.course_name || course.snapshot.name}`}>
-      <p>Tee privati del Percorso. Club, buche e tee restano privati e non pubblicabili.</p>
+      <p>Tee privati del Percorso. Club, buche e tee restano privati fino alla pubblicazione del Club.</p>
       {loading && <p role="status">Caricamento tee…</p>}
       {loadError && <div role="alert"><p>{loadError}</p><button className="stablr-admin-abandon-button" type="button" onClick={() => setRetry(value => value + 1)}>Riprova tee</button></div>}
       {error && !editing && !pendingExit && !abandon && <p role="alert">{error}</p>}
@@ -74,7 +74,7 @@ export default function NewClubCourseTees({ course, ownerId, service, registerEx
           <label>Nome tee<input required maxLength={200} disabled={blocked} value={fields.name} onChange={event => update("name", event.target.value)} /></label>
           <label>Colore tee<input maxLength={100} disabled={blocked} value={fields.tee_color || ""} onChange={event => update("tee_color", event.target.value)} /></label>
           <label>Categoria del rating<select disabled={blocked} value={fields.rating_category} onChange={event => update("rating_category", event.target.value)}><option value="unspecified">Non specificata</option><option value="men">Uomini</option><option value="women">Donne</option></select></label>
-          <label>Course Rating<input type="number" step="any" disabled={blocked} value={fields.course_rating ?? ""} onChange={event => update("course_rating", event.target.value)} /></label>
+          <label>Course Rating<input type="text" inputMode="decimal" disabled={blocked} value={fields.course_rating ?? ""} onChange={event => update("course_rating", event.target.value)} /></label>
           <label>Slope Rating<input type="number" min={55} max={155} step={1} disabled={blocked} value={fields.slope_rating ?? ""} onChange={event => update("slope_rating", event.target.value)} /></label>
           <label>Ordine tee<input required type="number" min={-2147483648} max={2147483647} step={1} disabled={blocked} value={fields.display_order} onChange={event => update("display_order", event.target.value)} /></label>
           <label>Stato operativo<select disabled={blocked} value={fields.is_active ? "active" : "inactive"} onChange={event => update("is_active", event.target.value === "active")}><option value="active">Attivo</option><option value="inactive">Disattivato</option></select></label>

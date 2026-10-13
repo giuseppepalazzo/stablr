@@ -1179,6 +1179,11 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
         service={newClubDraftService}
         registerExitGuard={registerClubExitGuard}
         onBack={() => navigate(() => setNewClubTarget(null))}
+        onPublished={result => {
+          const club = normalizeCatalogClub(result.club);
+          setAdminData(current => ({ ...current, clubs: [...current.clubs.filter(item => item.id !== club.id), club].sort((a, b) => a.name.localeCompare(b.name, "it")) }));
+          setNewClubTarget(null);setSelectedClub(club);setSelectedCourse(null);setSelectedRoute(null);setEditingClub(false);
+        }}
         onOpenExisting={(club) => navigate(() => {
           setNewClubTarget(null);setEditingClub(false);setSelectedCourse(null);setSelectedRoute(null);
           setSelectedClub(adminData.clubs.find((current) => current.id === club.id) || normalizeCatalogClub(club));

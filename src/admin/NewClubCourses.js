@@ -71,7 +71,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
   return <section className="stablr-admin-detail-section" aria-label="Percorsi della bozza">
     <div className="stablr-admin-new-courses-header"><h2>Percorsi della bozza</h2><button className="stablr-admin-white-button" type="button" disabled={disabled || loading || !!loadError || busy}
       onClick={() => { setError("");setEditing({ isNew: true, draft: null });setFields({ name: "", holes_count: "", display_order: 0 }); }}>Aggiungi percorso</button></div>
-    <p className="stablr-admin-detail-empty">Club e Percorsi sono privati e non pubblicabili. Configura le buche di ciascun Percorso, poi aggiungi i tee e rating privati.</p>
+    <p className="stablr-admin-detail-empty">Club e Percorsi restano privati fino alla pubblicazione del Club. Configura le buche di ciascun Percorso, poi aggiungi i tee e rating privati.</p>
     {loading && <p role="status">Caricamento Percorsi…</p>}
     {loadError && <div role="alert"><p>{loadError}</p><button className="stablr-admin-abandon-button" type="button" onClick={() => setRetry((value) => value + 1)}>Riprova Percorsi</button></div>}
     {!loading && !loadError && (!courses.length ? <p className="stablr-admin-detail-empty">Nessun Percorso nella bozza.</p> : <div className="stablr-admin-new-courses-list">
@@ -85,7 +85,7 @@ export default function NewClubCourses({ parent, ownerId, service, disabled, reg
       </article>)}
     </div>)}
     {editing && <EditorDialog title={editing.isNew ? "Aggiungi percorso" : "Modifica percorso"}>
-      <p>Bozza privata del Club · Percorso incompleto e non pubblicabile.</p>
+      <p>Bozza privata del Club · Percorso non ancora presente nel catalogo.</p>
       <form onSubmit={(event) => { event.preventDefault();if (isNewCourseValid(fields) && !pendingExit) operation(save); }}>
         <div className="stablr-admin-editor-fields">
           <label>Nome percorso<input required maxLength={200} disabled={busy || !!pendingExit} value={fields.name} onChange={(event) => setFields((value) => ({ ...value, name: event.target.value }))} /></label>

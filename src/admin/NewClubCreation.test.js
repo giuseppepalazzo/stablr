@@ -1,11 +1,13 @@
 import { StrictMode, useCallback, useRef } from "react";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import NewClubCreation from "./NewClubCreation";
+import { emptyPublicationPreview } from "./__fixtures__/new-club-publication";
 
 const ownerId = "admin-fixture";
 const fig = { id: "fig-fixture", name: "Club FIG", city: "Roma", source_system: "fig", source_external_id: "fig-club-fixture" };
 const draft = { draft_id: "draft-fixture", snapshot: { name: fig.name, city: fig.city, fig_code: fig.source_external_id, fig_source: fig }, revision: 1 };
 const makeService = () => ({
+  previewClubPublication: jest.fn().mockImplementation(async current => emptyPublicationPreview(current)),
   listCourseDrafts: jest.fn().mockResolvedValue([]),
   searchFigClubs: jest.fn().mockResolvedValue([fig]), openDraft: jest.fn().mockResolvedValue(draft),
   saveDraft: jest.fn().mockImplementation(async (current, fields) => ({ ...current, revision: current.revision + 1, snapshot: { ...current.snapshot, ...fields } })),
@@ -76,7 +78,7 @@ test("resumed FIG drafts preserve origin while editable values, save/exit guard 
   expect(onExit).not.toHaveBeenCalled();
   fireEvent.click(within(dialog).getByRole("button", { name: "Resta" }));
   fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));
-  await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
+  await screen.findByText("Bozza salvata. Il Club resta privato fino alla conferma di pubblicazione.");
   expect(screen.getByRole("region", { name: "Fonte FIG selezionata" })).toHaveTextContent(fig.source_external_id);
   expect(screen.getByLabelText("Codice / riferimento FIG (facoltativo)")).toHaveValue("Riferimento curato");
   fireEvent.click(screen.getByRole("button", { name: "Abbandona bozza" }));

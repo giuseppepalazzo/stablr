@@ -1,6 +1,7 @@
 import { createCatalogWorkflow } from "./catalog-workflow";
 import { normalizeClubFields } from "./club-editor-data";
 import { createNewClubCourseService } from "./new-club-course-data";
+import { createNewClubPublicationService } from "./new-club-publication-data";
 
 const FIG_FIELDS = "id,name,city,source_system,source_external_id";
 const LINKED_CLUB_FIELDS = "id,name,city,data_status,source_type,source_system,source_external_id,fig_club_id,fig_match_status,fig_payload_code:source_payload->>figClubCode,fig_payload_legacy_code:source_payload->>fig_club_code,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,display_order,is_active,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,holes_count,is_active)";
@@ -90,6 +91,7 @@ export function createNewClubDraftService(client) {
   };
   return {
     ...createNewClubCourseService(client),
+    ...createNewClubPublicationService(client),
     async searchFigClubs(text, ownerId) {
       requireOwner(ownerId);
       const term = String(text || "").trim().slice(0, 200);

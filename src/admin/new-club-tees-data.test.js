@@ -26,3 +26,15 @@ test("private tee RPC contracts carry exact course/grid/tee revisions and never 
   client.rpc.mockResolvedValue({ data: null, error: { code: "40001" } });await expect(service.listCourseTeeDrafts(course, owner)).rejects.toEqual({ code: "40001" });
   expect(service.publishDraft).toBeUndefined();
 });
+test("invalid persisted Slope does not prevent reading or correcting the owned draft", async () => {
+  const invalid = { ...tee, snapshot: { ...fields, course_rating: 113, slope_rating: 36 } };
+  const client = { rpc: jest.fn().mockResolvedValue({ data: { context, tees: [invalid] }, error: null }) };
+  const service = createNewClubTeesService(client);
+  expect((await service.listCourseTeeDrafts(course, owner)).tees).toEqual([invalid]);
+  await expect(service.saveCourseTeeDraft(course, context, invalid, invalid.snapshot, owner)).rejects.toThrow("Valid grid and tee");
+  expect(client.rpc).toHaveBeenCalledTimes(1);
+  const corrected = { ...fields, course_rating: 36, slope_rating: 113 };
+  client.rpc.mockResolvedValue({ data: { ...tee, revision: 2, snapshot: corrected }, error: null });
+  await service.saveCourseTeeDraft(course, context, invalid, { ...corrected, course_rating: "36,0" }, owner);
+  expect(client.rpc).toHaveBeenLastCalledWith("admin_new_course_tee_save", expect.objectContaining({ p_snapshot: corrected, p_draft_id: tee.draft_id, p_expected_revision: 1 }));
+});

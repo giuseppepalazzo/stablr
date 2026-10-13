@@ -1,6 +1,7 @@
 import { useCallback, useRef } from "react";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import NewClubEditor from "./NewClubEditor";
+import { emptyPublicationPreview } from "./__fixtures__/new-club-publication";
 const owner = "admin-fixture";
 const parent = { draft_id: "club-draft", created_by: owner, revision: 1, snapshot: { name: "Club privato", city: null } };
 const initialChild = { draft_id: "course-draft", revision: 1, snapshot: { name: "Percorso salvato", holes_count: 9, display_order: 2 } };
@@ -8,6 +9,7 @@ function serviceFor(rows = [], fig = false) {
   let stored = rows;
   const opened = { ...parent, snapshot: { ...parent.snapshot, ...(fig ? { fig_source: { name: "Fonte FIG", source_external_id: "fig-test" } } : {}) } };
   return {
+    previewClubPublication: jest.fn().mockImplementation(async current => emptyPublicationPreview(current)),
     openDraft: jest.fn().mockResolvedValue(opened),
     listCourseDrafts: jest.fn().mockImplementation(async () => stored),
     saveDraft: jest.fn().mockImplementation(async (current, fields) => ({ ...current, revision: current.revision + 1, snapshot: { ...current.snapshot, ...fields } })),

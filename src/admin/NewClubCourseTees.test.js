@@ -1,13 +1,15 @@
 import { useCallback, useRef } from "react";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import NewClubEditor from "./NewClubEditor";
+import { emptyPublicationPreview } from "./__fixtures__/new-club-publication";
 import { normalizeNewTeeFields } from "./new-club-tees-data";
 const owner = "admin", parent = { draft_id: "club", created_by: owner, revision: 1, snapshot: { name: "Club privato", city: null } };
-function fixture(count = 9, configured = true) {
-  let tees = [], par = count * 4;
+function fixture(count = 9, configured = true, initialTees = []) {
+  let tees = initialTees, par = count * 4;
   const course = { draft_id: "course", entity_type: "route", live_entity_id: null, created_by: owner, workflow_status: "draft", parent_draft_id: "club", revision: 1,
     snapshot: { name: "Percorso privato", holes_count: count, display_order: 0 }, ...(configured ? { hole_grid: { configured: true, grid_draft_id: "grid", total_par: par } } : {}) };
   const service = {
+    previewClubPublication: jest.fn().mockImplementation(async current => emptyPublicationPreview(current)),
     openDraft: jest.fn().mockResolvedValue(parent), saveDraft: jest.fn(), abandonDraft: jest.fn(),
     listCourseDrafts: jest.fn().mockResolvedValue([course]),
     listCourseTeeDrafts: jest.fn().mockImplementation(async () => ({ context: { course_draft_id: "course", course_name: course.snapshot.name, course_revision: 1,
@@ -30,6 +32,23 @@ const add = () => fireEvent.click(screen.getByRole("button", { name: "Aggiungi t
 const fill = (name = "Giallo", category = "men") => {
   for (const [label, value] of [["Nome tee", name], ["Colore tee", "giallo"], ["Categoria del rating", category], ["Course Rating", "70.2"], ["Slope Rating", "120"]]) fireEvent.change(screen.getByLabelText(label), { target: { value } });
 };
+test("saved invalid ratings remain editable and correction with decimal comma enables saving", async () => {
+  const invalid = { draft_id: "tee-invalid", revision: 2, snapshot: { name: "Giallo", tee_color: "giallo", rating_category: "men", course_rating: 113, slope_rating: 36, display_order: 0, is_active: true } };
+  const f = fixture(9, true, [invalid]);render(<Harness service={f.service}/>);await open();
+  fireEvent.click(screen.getByRole("button", { name: "Modifica tee Giallo Uomini" }));
+  expect(screen.getByLabelText("Course Rating")).toBeEnabled();expect(screen.getByLabelText("Slope Rating")).toBeEnabled();
+  expect(screen.getByRole("button", { name: "Salva bozza tee" })).toBeDisabled();
+  fireEvent.change(screen.getByLabelText("Course Rating"), { target: { value: "36,0" } });
+  fireEvent.change(screen.getByLabelText("Slope Rating"), { target: { value: "113.5" } });
+  expect(screen.getByRole("button", { name: "Salva bozza tee" })).toBeDisabled();
+  fireEvent.change(screen.getByLabelText("Slope Rating"), { target: { value: "113" } });
+  expect(screen.getByRole("button", { name: "Salva bozza tee" })).toBeEnabled();
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza tee" }));
+  await screen.findByRole("button", { name: "Modifica tee Giallo Uomini" });
+  expect(f.tees()[0].snapshot).toEqual({ ...invalid.snapshot, course_rating: 36, slope_rating: 113 });
+  expect(f.service.saveCourseTeeDraft).toHaveBeenCalledWith(f.course, expect.objectContaining({ holes_count: 9, par_total: 36 }), invalid,
+    expect.objectContaining({ course_rating: "36,0", slope_rating: "113" }), owner);
+});
 test.each([9, 18])("private %i tees create, resume, rename/order, calculated Par and confirmed abandonment", async count => {
   const f = fixture(count);let view = render(<Harness service={f.service}/>);await open();
   expect(screen.getByText(`Totale Par: ${count * 4}`)).toBeInTheDocument();add();
@@ -41,7 +60,7 @@ test.each([9, 18])("private %i tees create, resume, rename/order, calculated Par
   expect(screen.queryByRole("button", { name: "Pubblica" })).not.toBeInTheDocument();
   view.unmount();f.changePar(count * 4 - 1);view = render(<Harness service={f.service}/>);await open();
   expect(screen.getByText(`Totale Par: ${count * 4 - 1}`)).toBeInTheDocument();
-  fireEvent.click(screen.getByRole("button", { name: "Modifica tee Giallo Uomini" }));expect(screen.getByLabelText("Course Rating")).toHaveValue(70.2);
+  fireEvent.click(screen.getByRole("button", { name: "Modifica tee Giallo Uomini" }));expect(screen.getByLabelText("Course Rating")).toHaveValue("70.2");
   fireEvent.change(screen.getByLabelText("Nome tee"), { target: { value: "Bianco" } });fireEvent.change(screen.getByLabelText("Ordine tee"), { target: { value: "-2" } });
   fireEvent.change(screen.getByLabelText("Stato operativo"), { target: { value: "inactive" } });fireEvent.click(screen.getByRole("button", { name: "Salva bozza tee" }));
   await screen.findByRole("button", { name: "Modifica tee Bianco Uomini" });

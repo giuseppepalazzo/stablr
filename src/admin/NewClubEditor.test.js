@@ -1,10 +1,12 @@
 import { StrictMode, useCallback, useRef } from "react";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import NewClubEditor, { NewClubDrafts } from "./NewClubEditor";
+import { emptyPublicationPreview } from "./__fixtures__/new-club-publication";
 
 const ownerId = "admin-fixture";
 const draft = { draft_id: "new-draft-fixture", revision: 1, snapshot: { name: "", city: null } };
 const makeService = () => ({
+  previewClubPublication: jest.fn().mockImplementation(async current => emptyPublicationPreview(current)),
   openDraft: jest.fn().mockResolvedValue(draft),
   saveDraft: jest.fn().mockImplementation((current, fields) => Promise.resolve({ ...current, revision: current.revision + 1, snapshot: { name: fields.name.trim(), city: fields.city.trim() || null } })),
   abandonDraft: jest.fn().mockResolvedValue({ ...draft, workflow_status: "archived" }),
@@ -33,7 +35,7 @@ test("StrictMode opens one private draft; requires name and offers only a privat
   expect(screen.getByLabelText("Codice / riferimento FIG (facoltativo)")).not.toBeRequired();
   fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Nuovo Club" } });
   fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));
-  await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
+  await screen.findByText("Bozza salvata. Il Club resta privato fino alla conferma di pubblicazione.");
   expect(service.saveDraft).toHaveBeenCalledWith(draft, { name: "Nuovo Club", city: "", fig_code: "" }, ownerId);
   expect(screen.queryByText("Modifiche non salvate")).not.toBeInTheDocument();
 });

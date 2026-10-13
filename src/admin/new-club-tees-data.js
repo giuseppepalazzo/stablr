@@ -1,8 +1,9 @@
 const numberOrNull = value => value == null || value === "" ? null : Number(value);
+const decimalOrNull = value => value == null || value === "" ? null : Number(String(value).trim().replace(",", "."));
 export const ratingCategoryLabel = category => ({ men: "Uomini", women: "Donne", unspecified: "Non specificata" }[category] || "—");
 export function normalizeNewTeeFields(fields) {
   return { name: String(fields.name || "").trim(), tee_color: String(fields.tee_color || "").trim() || null,
-    rating_category: fields.rating_category, course_rating: numberOrNull(fields.course_rating),
+    rating_category: fields.rating_category, course_rating: decimalOrNull(fields.course_rating),
     slope_rating: numberOrNull(fields.slope_rating), is_active: fields.is_active, display_order: numberOrNull(fields.display_order) };
 }
 export function isNewTeeValid(fields) {
@@ -30,11 +31,13 @@ export function createNewClubTeesService(client) {
     if (!owner || course?.entity_type !== "route" || course.created_by !== owner || course.live_entity_id !== null
       || course.workflow_status !== "draft" || !course.parent_draft_id) throw new Error("Owned private course required");
   };
-  const requireTee = (tee, course, owner, status = "draft") => {
+  const requireTee = (tee, course, owner, status = "draft", requireValidRatings = false) => {
     if (!tee?.draft_id || tee.entity_type !== "new_course_tee" || tee.parent_draft_id !== course.draft_id
       || tee.created_by !== owner || tee.live_entity_id !== null || tee.base_snapshot != null || tee.base_version_id != null
       || tee.base_live_updated_at != null || tee.schema_version !== 1 || tee.workflow_status !== status
-      || !Number.isInteger(tee.revision) || tee.revision < 1 || !isNewTeeValid(tee.snapshot || {})
+      || !Number.isInteger(tee.revision) || tee.revision < 1
+      || !isNewTeeValid(requireValidRatings ? tee.snapshot || {} : { ...tee.snapshot, course_rating: null, slope_rating: null })
+      || [tee.snapshot?.course_rating, tee.snapshot?.slope_rating].some(value => value != null && (typeof value !== "number" || !Number.isFinite(value)))
       || Object.keys(tee.snapshot).some(key => !["name", "tee_color", "rating_category", "course_rating", "slope_rating", "is_active", "display_order"].includes(key))) {
       throw new Error("Invalid private tee draft");
     }
@@ -57,7 +60,7 @@ export function createNewClubTeesService(client) {
       const saved = requireTee(row(await invoke("admin_new_course_tee_save", { p_course_draft_id: course.draft_id,
         p_snapshot: normalizeNewTeeFields(fields), p_course_revision: context.course_revision,
         p_grid_draft_id: context.grid_draft_id, p_grid_revision: context.grid_revision,
-        p_draft_id: tee?.draft_id || null, p_expected_revision: tee?.revision || null })), course, owner);
+        p_draft_id: tee?.draft_id || null, p_expected_revision: tee?.revision || null })), course, owner, "draft", true);
       if (tee && saved.draft_id !== tee.draft_id) throw new Error("Private tee target mismatch");
       return saved;
     },

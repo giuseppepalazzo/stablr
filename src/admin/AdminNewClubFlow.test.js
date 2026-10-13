@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { supabase } from "../lib/supabase";
 import { AdminShell } from "./AdminApp";
 import { validateNewClubHoles } from "./new-club-holes-data";
+import { emptyPublicationPreview } from "./__fixtures__/new-club-publication";
 
 jest.mock("../lib/supabase", () => ({
   hasSupabaseConfig: true,
@@ -10,8 +11,17 @@ jest.mock("../lib/supabase", () => ({
 
 const ownerId = "admin-fixture";
 const fig = { id: "fig-fixture", name: "Club FIG", city: "Roma", source_system: "fig", source_external_id: "fig-club-fixture" };
-function setup({ linked = false, liveVisible = true, linkKind = "fk" } = {}) {
+function setup({ linked = false, liveVisible = true, linkKind = "fk", readyDraft = false } = {}) {
   let drafts = [];
+  if (readyDraft) {
+    const base = { created_by: ownerId, live_entity_id: null, base_snapshot: null, base_version_id: null, schema_version: 1, workflow_status: "draft", revision: 1 };
+    drafts = [
+      { ...base, draft_id: "ready-club", entity_type: "club", parent_draft_id: null, snapshot: { name: "Nuovo club pubblicato", city: "Roma" } },
+      { ...base, draft_id: "ready-course", entity_type: "route", parent_draft_id: "ready-club", snapshot: { name: "Nove completo", holes_count: 9, display_order: 0 } },
+      { ...base, draft_id: "ready-grid", entity_type: "new_course_holes_grid", parent_draft_id: "ready-course", snapshot: { holes_count: 9, holes: Array.from({ length: 9 }, (_, i) => ({ physical_hole_number: i + 1, par: 4, stroke_index: i + 1 })) } },
+      { ...base, draft_id: "ready-tee", entity_type: "new_course_tee", parent_draft_id: "ready-course", snapshot: { name: "Giallo", tee_color: "giallo", rating_category: "men", course_rating: 35.4, slope_rating: 120, is_active: true, display_order: 0 } }
+    ];
+  }
   const club = {
     id: "published-club", name: "Club pubblicato", city: "Roma", playable: true, is_active: true,
     data_status: "ready", source_type: "stablr", source_payload: linked && linkKind === "payload" ? { figClubCode: fig.source_external_id } : {},
@@ -46,8 +56,26 @@ function setup({ linked = false, liveVisible = true, linkKind = "fk" } = {}) {
     return query;
   });
   supabase.rpc.mockImplementation(async (name, params) => {
+    if (name === "admin_new_club_preview") {
+      const root = drafts.find(row => row.draft_id === params.p_draft_id), empty = emptyPublicationPreview(root);
+      if (!readyDraft) return { data: empty, error: null };
+      const course = drafts.find(row => row.draft_id === "ready-course"), grid = drafts.find(row => row.draft_id === "ready-grid"), tee = drafts.find(row => row.draft_id === "ready-tee");
+      return { data: { ...empty, can_publish: true, blockers: [], counts: { courses: 1, holes: 9, tees: 1 },
+        checklist: Object.fromEntries(Object.keys(empty.checklist).map(key => [key, true])),
+        courses: [{ draft_id: course.draft_id, revision: course.revision, fields: course.snapshot, grid_draft_id: grid.draft_id, grid_revision: grid.revision,
+          holes: grid.snapshot.holes, total_par: 36, configured: true, blockers: [], tees: [{ draft_id: tee.draft_id, revision: tee.revision, fields: tee.snapshot, holes_count: 9, par_total: 36 }] }] }, error: null };
+    }
+    if (name === "admin_new_club_publish") {
+      const root = drafts.find(row => row.draft_id === params.p_draft_id), course = drafts.find(row => row.draft_id === "ready-course"), grid = drafts.find(row => row.draft_id === "ready-grid");
+      drafts = drafts.map(row => row.draft_id === root.draft_id ? { ...row, workflow_status: "published", revision: row.revision + 1 } : { ...row, workflow_status: "archived", revision: row.revision + 1 });
+      return { data: { draft_id: root.draft_id, publication_id: "receipt", version_id: "version", counts: { courses: 1, holes: 9, tees: 1 },
+        club: { id: "new-live-club", name: root.snapshot.name, city: root.snapshot.city, data_status: "verified", source_type: "stablr", playable: true,
+          created_at: "2026-10-13T12:00:00Z", updated_at: "2026-10-13T12:00:00Z", route_combinations: [],
+          course_routes: [{ id: "new-live-course", ...course.snapshot, total_par: 36, is_active: true, route_holes: grid.snapshot.holes, route_tees: [{ id: "new-live-tee", is_active: true }] }] } }, error: null };
+    }
     if (name === "admin_user_directory") return { data: [], error: null };
     if (name === "admin_club_get_draft") return { data: null, error: null };
+    if (name === "admin_course_get_draft") return { data: null, error: null };
     if (name === "admin_new_club_courses") return { data: drafts.filter((row) => row.entity_type === "route" && row.parent_draft_id === params.p_club_draft_id && row.workflow_status === "draft"), error: null };
     if (name === "admin_new_course_tees") {
       const course = drafts.find(row => row.draft_id === params.p_course_draft_id);
@@ -199,7 +227,7 @@ test("FIG confirmation creates a private reduced draft, editable values save and
   fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Club FIG curato" } });
   fireEvent.change(screen.getByLabelText("Località / città"), { target: { value: "Milano" } });
   fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));
-  await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
+  await screen.findByText("Bozza salvata. Il Club resta privato fino alla conferma di pubblicazione.");
   const nav = screen.getByRole("navigation", { name: "Navigazione amministrazione" });
   fireEvent.click(within(nav).getByRole("button", { name: "Club e percorsi" }));
   fireEvent.click(await screen.findByRole("button", { name: /Club FIG curato.*Riprendi bozza/ }));
@@ -270,7 +298,7 @@ test("Admin shell persists child courses under the new Club, resumes after remou
   let view = render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
   fireEvent.click(screen.getByRole("button", { name: "+ Nuovo club" }));fireEvent.click(screen.getByRole("button", { name: /Crea manualmente/ }));
   fireEvent.change(await screen.findByLabelText("Nome visualizzato"), { target: { value: "Club con Percorsi" } });
-  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));await screen.findByText("Bozza salvata. Il Club resta privato fino alla conferma di pubblicazione.");
   await waitFor(() => expect(screen.getByRole("button", { name: "Aggiungi percorso" })).toBeEnabled());
   fireEvent.click(screen.getByRole("button", { name: "Aggiungi percorso" }));
   fireEvent.change(screen.getByLabelText("Nome percorso"), { target: { value: "Nove privato" } });
@@ -300,7 +328,7 @@ test("Admin private Club flow persists valid holes and configured status through
   let view = render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
   fireEvent.click(screen.getByRole("button", { name: "+ Nuovo club" }));fireEvent.click(screen.getByRole("button", { name: /Crea manualmente/ }));
   fireEvent.change(await screen.findByLabelText("Nome visualizzato"), { target: { value: "Club con buche private" } });
-  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));await screen.findByText("Bozza salvata. Il nuovo club non è ancora pubblicabile.");
+  fireEvent.click(screen.getByRole("button", { name: "Salva bozza" }));await screen.findByText("Bozza salvata. Il Club resta privato fino alla conferma di pubblicazione.");
   fireEvent.click(screen.getByRole("button", { name: "Aggiungi percorso" }));
   fireEvent.change(screen.getByLabelText("Nome percorso"), { target: { value: "Nove privato" } });
   fireEvent.change(screen.getByLabelText("Struttura percorso"), { target: { value: "9" } });
@@ -340,4 +368,18 @@ test("Admin private Club flow persists valid holes and configured status through
   expect(getDrafts().find((row) => row.draft_id === grid.draft_id).workflow_status).toBe("archived");
   expect(getDrafts().find((row) => row.entity_type === "route").workflow_status).toBe("draft");
   expect(JSON.stringify(club)).toBe(original);expect(supabase.rpc.mock.calls.some(([name]) => name.includes("publish"))).toBe(false);view.unmount();
+});
+
+test("confirmed fixture publication closes private draft and opens the actual new Club summary in Admin", async () => {
+  const { club, getDrafts } = setup({ readyDraft: true }), existing = JSON.stringify(club);
+  render(<AdminShell adminUserId={ownerId} onSignOut={jest.fn()} />);
+  fireEvent.click(within(screen.getByRole("navigation", { name: "Navigazione amministrazione" })).getByRole("button", { name: "Club e percorsi" }));
+  fireEvent.click(await screen.findByRole("button", { name: /Nuovo club pubblicato.*Riprendi bozza/ }));await screen.findByText("Pronto per la conferma");
+  fireEvent.click(screen.getByRole("button", { name: "Anteprima pubblicazione" }));expect(supabase.rpc.mock.calls.some(([name]) => name === "admin_new_club_publish")).toBe(false);
+  fireEvent.click(screen.getByRole("button", { name: "Pubblica Club" }));fireEvent.change(screen.getByLabelText("Motivazione breve"), { target: { value: "Verifica fixture completa" } });
+  fireEvent.click(screen.getByRole("button", { name: "Conferma pubblicazione Club" }));await screen.findByRole("heading", { name: "Nuovo club pubblicato" });
+  expect(screen.getByText("Nove completo")).toBeInTheDocument();expect(screen.queryByText("Bozza nuovo club")).not.toBeInTheDocument();
+  expect(getDrafts().find(row => row.draft_id === "ready-club").workflow_status).toBe("published");expect(JSON.stringify(club)).toBe(existing);
+  fireEvent.click(within(screen.getByRole("navigation", { name: "Navigazione amministrazione" })).getByRole("button", { name: "Club e percorsi" }));
+  expect(await screen.findByRole("button", { name: /Nuovo club pubblicato.*1 percorso/ })).toBeInTheDocument();
 });

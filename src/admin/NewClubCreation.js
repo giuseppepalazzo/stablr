@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import NewClubEditor from "./NewClubEditor";
 import { EditorDialog } from "./ClubEditor";
 
-export default function NewClubCreation({ draftId, ownerId, service, onBack, onOpenExisting, registerExitGuard }) {
+export default function NewClubCreation({ draftId, ownerId, service, onBack, onOpenExisting, onPublished, registerExitGuard }) {
   const [step, setStep] = useState(draftId ? "editor" : "choice");
   const [query, setQuery] = useState(""), [results, setResults] = useState(null);
   const [selected, setSelected] = useState(null), [confirmed, setConfirmed] = useState(null);
@@ -10,7 +10,7 @@ export default function NewClubCreation({ draftId, ownerId, service, onBack, onO
   const searching = useRef(false), mounted = useRef(true), searchGeneration = useRef(0);
   useEffect(() => { mounted.current = true;return () => { mounted.current = false; }; }, []);
   if (step === "editor") return <NewClubEditor draftId={draftId} figClubId={confirmed?.id || null}
-    ownerId={ownerId} service={service} onBack={onBack} onOpenExisting={onOpenExisting} registerExitGuard={registerExitGuard} />;
+    ownerId={ownerId} service={service} onBack={onBack} onOpenExisting={onOpenExisting} onPublished={onPublished} registerExitGuard={registerExitGuard} />;
   const canCreate = !!selected && !selected.existingClubs?.length;
 
   const search = async (event) => {

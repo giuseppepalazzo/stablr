@@ -1,6 +1,7 @@
 import { StrictMode, useCallback, useRef } from "react";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import NewClubEditor from "./NewClubEditor";
+import { emptyPublicationPreview } from "./__fixtures__/new-club-publication";
 import { normalizeNewClubHoles, validateNewClubHoles } from "./new-club-holes-data";
 const owner = "admin-fixture";
 const parent = { draft_id: "club", created_by: owner, revision: 1, snapshot: { name: "Club privato", city: null } };
@@ -9,6 +10,7 @@ function fixture(count = 9) {
     workflow_status: "draft", revision: 1, snapshot: { name: "Percorso privato", holes_count: count, display_order: 0 } };
   let active = null;const archived = [];
   const service = {
+    previewClubPublication: jest.fn().mockImplementation(async current => emptyPublicationPreview(current)),
     openDraft: jest.fn().mockResolvedValue(parent), abandonDraft: jest.fn(),
     saveDraft: jest.fn().mockImplementation(async (value, fields) => ({ ...value, snapshot: { ...fields } })),
     listCourseDrafts: jest.fn().mockImplementation(async () => [{ ...course, ...(active ? { hole_grid: { grid_draft_id: active.draft_id, configured: validateNewClubHoles(active.snapshot).configured } } : {}) }]),
