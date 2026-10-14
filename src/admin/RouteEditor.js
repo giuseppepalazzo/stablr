@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
+import { CourseTeeEntry, CourseTeeSection } from "./CourseTeeEditor";
 import { canPublishRoute, formatRouteValue, getRouteDiff, getRouteEditorError, normalizeRouteFields } from "./route-editor-data";
 
 function RouteBreadcrumb({ club, course, route, onBack, onBackToClub, onBackToCourse, onBackToCatalog, editing, busy }) {
@@ -55,7 +56,7 @@ export function RouteReadOnlyData({ club, context }) {
   </>;
 }
 
-export function RouteDetail({ club, course, route, service, holeService, onManageHoles, onEdit, onBackToClub, onBackToCourse, onBackToCatalog }) {
+export function RouteDetail({ club, course, route, service, holeService, teeService, onManageTees, onManageHoles, onEdit, onBackToClub, onBackToCourse, onBackToCatalog }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
@@ -87,12 +88,13 @@ export function RouteDetail({ club, course, route, service, holeService, onManag
     {result ? <>
       <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry"><button className="stablr-admin-white-button" onClick={onEdit} type="button">Modifica dati</button>{result.draft && <span className="stablr-admin-status">Bozza in corso</span>}</div>
       {onManageHoles && <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry"><button className="stablr-admin-white-button" onClick={onManageHoles} type="button">Gestisci buche</button>{holeGrid?.draft && <span className="stablr-admin-status">Bozza buche in corso</span>}{holeError && <><span role="alert">Impossibile caricare lo stato della bozza buche.</span><button onClick={() => setHoleRetry((value) => value + 1)} type="button">Riprova buche</button></>}</div>}
+      {teeService && <CourseTeeSection course={route} service={teeService} onManage={onManageTees} kind="combination" />}
       <RouteReadOnlyData club={club} context={result.context} />
     </> : error ? <><p role="alert">{error}</p><button className="stablr-admin-white-button" onClick={() => setRetry((value) => value + 1)} type="button">Riprova</button></> : <p className="stablr-admin-detail-empty">Caricamento Route…</p>}
   </section>;
 }
 
-export default function RouteEditor({ club, course, route, service, onBack, onBackToClub, onBackToCourse, onBackToCatalog, onEditHoles, onPublished, registerExitGuard }) {
+export default function RouteEditor({ club, course, route, service, onBack, onBackToClub, onBackToCourse, onBackToCatalog, onEditHoles, onManageTees, onPublished, registerExitGuard }) {
   const [draft, setDraft] = useState(null);
   const [context, setContext] = useState(null);
   const [fields, setFields] = useState({ name: "", is_active: true });
@@ -171,6 +173,7 @@ export default function RouteEditor({ club, course, route, service, onBack, onBa
         <label>Stato operativo<select disabled={busy} onChange={(event) => update("is_active", event.target.value === "true")} value={String(fields.is_active)}><option value="true">Attiva</option><option value="false">Disattivata</option></select></label>
       </form>
       <div className="stablr-admin-child-editor-action"><button className="stablr-admin-white-button" disabled={busy} onClick={openHoleEditor} type="button">Modifica buche</button></div>
+      {onManageTees && <CourseTeeEntry disabled={busy} onManage={() => { if (dirty) setPendingExit(() => onManageTees);else onManageTees(); }} />}
       <RouteReadOnlyData club={club} context={context} />
       {dirty && <p className="stablr-admin-detail-empty">Modifiche non salvate</p>}
       <div className="stablr-admin-abandon-zone"><button className="stablr-admin-abandon-button" disabled={busy} onClick={() => { setError(""); setAbandonConfirmation(true); }} type="button">Abbandona bozza</button></div>

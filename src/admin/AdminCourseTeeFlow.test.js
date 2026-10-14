@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { supabase } from "../lib/supabase";
 import { AdminShell } from "./AdminApp";
+import { courseTeeDiff } from "./course-tee-editor-data";
 jest.mock("../lib/supabase", () => ({ hasSupabaseConfig: true, supabase: { from: jest.fn(), rpc: jest.fn() } }));
 
 test("Admin course detail → tee list → tee editor publishes only selected course tee; exit returns to same course", async () => {
@@ -25,6 +26,9 @@ test("Admin course detail → tee list → tee editor publishes only selected co
       return { data: { draft, context: { tee, course } }, error: null };
     }
     if (name === "admin_course_tee_save_draft") { draft = { ...draft, revision: draft.revision + 1, snapshot: params.p_snapshot }; return { data: draft, error: null }; }
+    if (name === "admin_course_tee_preview_draft") return { data: { draft_id: draft.draft_id, revision: draft.revision, can_publish: true, blockers: [],
+      foundation_impact: { may_block_par: false, configurations: [], coverage: "incomplete", baselines_updated: false },
+      diff: Object.fromEntries(courseTeeDiff({ ...tee, ...draft.base_snapshot }, draft.snapshot).map(row => [row.key, { before: row.before, after: row.after }])) }, error: null };
     if (name === "admin_course_tee_publish_draft") {
       expect(params).toEqual({ p_draft_id: draft.draft_id, p_expected_revision: draft.revision }); Object.assign(tee, draft.snapshot); draft = null;
       return { data: { version_id: "tee-version", context: { tee, course } }, error: null };

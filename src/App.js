@@ -7,6 +7,8 @@ import {
   normalizeWhitespace
 } from "./lib/course-utils";
 import { isFigCatalogClubAwaitingPlayableData } from "./lib/club-availability";
+import { getTeeOptionsForHolesCount, getSelectedTeeForHolesCount, hasTeeRatings, numericTeeRating } from "./lib/tee-selection";
+import TeeScopeNotice from "./components/TeeScopeNotice";
 import { RoundsHistoryEmptyState } from "./components/RoundsHistoryEmptyState";
 import { RoundHistoryCard, RoundHistoryDetail } from "./components/RoundsHistory";
 import "./components/RoundsHistory.css";
@@ -346,27 +348,8 @@ function shouldDefaultRoundToNineHoles(course) {
   return inferPhysicalCourseHoleCount(course) === 9;
 }
 
-function getTeeOptionsForHolesCount(tees, preferredHolesCount = null) {
-  const teeList = Array.isArray(tees) ? tees : [];
-  const numericPreferredHolesCount = Number(preferredHolesCount);
-
-  if (!Number.isFinite(numericPreferredHolesCount)) {
-    return teeList;
-  }
-
-  const matchedTees = teeList.filter((tee) => Number(tee?.holesCount) === numericPreferredHolesCount);
-  return matchedTees.length ? matchedTees : teeList;
-}
-
 function getExactTeeOptionsForHolesCount(tees, preferredHolesCount = null) {
-  const teeList = Array.isArray(tees) ? tees : [];
-  const numericPreferredHolesCount = Number(preferredHolesCount);
-
-  if (!Number.isFinite(numericPreferredHolesCount)) {
-    return teeList;
-  }
-
-  return teeList.filter((tee) => Number(tee?.holesCount) === numericPreferredHolesCount);
+  return getTeeOptionsForHolesCount(tees, preferredHolesCount);
 }
 
 function getDefaultTeeId(tees, preferredHolesCount = null) {
@@ -4574,9 +4557,9 @@ function App() {
       const selectedCombination = (openedCourse?.routeCombinations || []).find(
         (combination) => combination.id === combinationId
       );
-      const firstTeeId = selectedCombination?.tees?.[0]?.id || null;
+      const firstTeeId = getSelectedTeeForHolesCount(selectedCombination?.tees, roundSetup.totalCompetitionHoles, roundSetup.selectedCombinationTeeId)?.id || null;
 
-      if (firstTeeId && !roundSetup.selectedCombinationTeeId) {
+      if (firstTeeId !== roundSetup.selectedCombinationTeeId) {
         setRoundSetup((prev) => ({
           ...prev,
           selectedCombinationTeeId: firstTeeId
@@ -4587,9 +4570,9 @@ function App() {
 
     if (routeId) {
       const selectedRoute = (openedCourse?.routes || []).find((route) => route.id === routeId);
-      const firstTeeId = selectedRoute?.tees?.[0]?.id || null;
+      const firstTeeId = getSelectedTeeForHolesCount(selectedRoute?.tees, roundSetup.totalCompetitionHoles, roundSetup.selectedRouteTeeId)?.id || null;
 
-      if (firstTeeId && !roundSetup.selectedRouteTeeId) {
+      if (firstTeeId !== roundSetup.selectedRouteTeeId) {
         setRoundSetup((prev) => ({
           ...prev,
           selectedRouteTeeId: firstTeeId
@@ -4602,7 +4585,8 @@ function App() {
     roundSetup.selectedRouteId,
     roundSetup.selectedCombinationId,
     roundSetup.selectedRouteTeeId,
-    roundSetup.selectedCombinationTeeId
+    roundSetup.selectedCombinationTeeId,
+    roundSetup.totalCompetitionHoles
   ]);
 
   useEffect(() => {
@@ -4777,11 +4761,7 @@ function App() {
       routes.find((route) => route.id === setup.selectedRouteId) || routes[0] || null;
     const secondaryRoute =
       routes.find((route) => route.id === setup.secondaryRouteId) || null;
-    const selectedRouteTeeOptions = Array.isArray(selectedRoute?.tees) ? selectedRoute.tees : [];
-    const selectedRouteTee =
-      selectedRouteTeeOptions.find((tee) => tee.id === setup.selectedRouteTeeId) ||
-      selectedRouteTeeOptions[0] ||
-      null;
+    const selectedRouteTee = getSelectedTeeForHolesCount(selectedRoute?.tees, setup.totalCompetitionHoles, setup.selectedRouteTeeId);
     const routeCombinations = Array.isArray(course?.routeCombinations)
       ? course.routeCombinations
       : [];
@@ -4892,13 +4872,9 @@ function App() {
     const selectedCombination =
       routeCombinations.find((combination) => combination.id === roundSetup.selectedCombinationId) ||
       findOfficialCombinationByRoutes(openedCourse, selectedRoute, selectedSecondaryRoute);
-    const teeOptions = selectedCombination
-      ? selectedCombination.tees || []
-      : selectedRoute?.tees || [];
-
-    return selectedCombination
-      ? teeOptions.find((tee) => tee.id === roundSetup.selectedCombinationTeeId) || teeOptions[0] || null
-      : teeOptions.find((tee) => tee.id === roundSetup.selectedRouteTeeId) || teeOptions[0] || null;
+    return Number(roundSetup.totalCompetitionHoles) === 18 && selectedCombination
+      ? getSelectedTeeForHolesCount(selectedCombination.tees, roundSetup.totalCompetitionHoles, roundSetup.selectedCombinationTeeId)
+      : getSelectedTeeForHolesCount(selectedRoute?.tees, roundSetup.totalCompetitionHoles, roundSetup.selectedRouteTeeId);
   }, [openedCourse, roundSetup, findOfficialCombinationByRoutes]);
 
   const effectivePlayingHandicap = useMemo(() => {
@@ -4925,7 +4901,7 @@ function App() {
       findOfficialCombinationByRoutes(openedCourse, selectedRoute, selectedSecondaryRoute);
     const selectedTee = selectedRoundTee;
 
-    if (!selectedTee) return roundedIndex;
+    if (!hasTeeRatings(selectedTee)) return roundedIndex;
 
     const shouldUseRoundParTotal =
       !selectedCombination &&
@@ -5410,12 +5386,8 @@ function App() {
         ? {
             tee_label: getTeeDisplayName(selectedRoundTee),
             tee_color: selectedRoundTee.teeColor || getTeeDisplayName(selectedRoundTee),
-            course_rating: Number.isFinite(Number(selectedRoundTee.courseRating))
-              ? Number(selectedRoundTee.courseRating)
-              : null,
-            slope_rating: Number.isFinite(Number(selectedRoundTee.slopeRating))
-              ? Number(selectedRoundTee.slopeRating)
-              : null,
+            course_rating: numericTeeRating(selectedRoundTee.courseRating),
+            slope_rating: numericTeeRating(selectedRoundTee.slopeRating),
             par_total: Number(roundSetupTotalPar || selectedRoundTee.parTotal || 0) || null
           }
         : null;
@@ -7961,7 +7933,7 @@ function App() {
       Number(selectedPrimaryRoute?.holesCount) === 9
         ? Number(roundSetupTotalPar || 0)
         : Number(selectedTee?.parTotal || roundSetupTotalPar || 0);
-    const previewPlayingHandicap = selectedTee
+    const previewPlayingHandicap = hasTeeRatings(selectedTee)
       ? calculatePlayingHandicap(
           userProfile.hcp,
           selectedTee.courseRating,
@@ -9397,14 +9369,15 @@ function App() {
               <span>Tee</span>
               {renderColorDot(getTeeColor(getTeeDisplayName(selectedTee)), 11)}
                 <span>{getTeeDisplayName(selectedTee)}</span>
-                {Number.isFinite(Number(selectedTee.courseRating)) && (
+                {numericTeeRating(selectedTee.courseRating) !== null && (
                   <span>· CR {Number(selectedTee.courseRating).toFixed(1)}</span>
               )}
-              {Number.isFinite(Number(selectedTee.slopeRating)) && (
+              {numericTeeRating(selectedTee.slopeRating) !== null && (
                 <span>· Slope {Number(selectedTee.slopeRating)}</span>
                 )}
               </div>
             )}
+          <TeeScopeNotice holesCount={roundSetup.totalCompetitionHoles} options={teeOptions} selectedTee={selectedTee} color={colors.subtext} appFont={appFont} />
           {selectedTeeEstimatedSourceLabel && (
             <div
               style={{

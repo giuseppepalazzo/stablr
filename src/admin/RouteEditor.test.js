@@ -23,11 +23,11 @@ const makeService = () => ({
   abandonDraft: jest.fn().mockResolvedValue({ ...draft, workflow_status: "archived", revision: 2 })
 });
 
-function Harness({ service, onExit = jest.fn(), onEditHoles = jest.fn(), onPublished = jest.fn() }) {
+function Harness({ service, onExit = jest.fn(), onEditHoles = jest.fn(), onManageTees, onPublished = jest.fn() }) {
   const guard = useRef(null);
   const registerExitGuard = useCallback((current) => { guard.current = current; }, []);
   const exit = () => guard.current ? guard.current(onExit) : onExit();
-  return <><button onClick={exit}>Vai al catalogo</button><RouteEditor {...{ club, route, service, onEditHoles, onPublished, registerExitGuard }} onBack={exit} onBackToClub={exit} onBackToCatalog={exit} /></>;
+  return <><button onClick={exit}>Vai al catalogo</button><RouteEditor {...{ club, route, service, onEditHoles, onManageTees, onPublished, registerExitGuard }} onBack={exit} onBackToClub={exit} onBackToCatalog={exit} /></>;
 }
 
 test("diff allowlists name/active with explicit false, ignores technical fields", () => {
@@ -71,6 +71,16 @@ test("shows Modifica buche and opens the grid for this combination after resolvi
   fireEvent.click(screen.getByRole("button", { name: "Modifica buche" }));
   fireEvent.click(within(await screen.findByRole("dialog", { name: "Modifiche non salvate" })).getByRole("button", { name: "Scarta" }));
   expect(onEditHoles).toHaveBeenCalledTimes(2);
+});
+
+test("Gestisci tee is white, after general fields, and protects unsaved combination changes", async () => {
+  const onManageTees = jest.fn(), service = makeService(); render(<Harness service={service} onManageTees={onManageTees} />);
+  await screen.findByLabelText("Nome visualizzato");const button = screen.getByRole("button", { name: "Gestisci tee" });
+  expect(button).toHaveClass("stablr-admin-white-button");
+  fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Non salvato" } });fireEvent.click(button);
+  expect(onManageTees).not.toHaveBeenCalled();const dialog = await screen.findByRole("dialog", { name: "Modifiche non salvate" });
+  fireEvent.click(within(dialog).getByRole("button", { name: "Salva bozza" }));await waitFor(() => expect(onManageTees).toHaveBeenCalledTimes(1));
+  expect(service.saveDraft).toHaveBeenCalledWith(draft, expect.objectContaining({ name: "Non salvato" }));expect(service.publishDraft).not.toHaveBeenCalled();
 });
 
 test("save preserves live and publish requires before/after and final confirmation", async () => {

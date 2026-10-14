@@ -16,7 +16,7 @@ import { createHoleGridEditorService } from "./hole-grid-editor-data";
 import CourseHoleGridEditor from "./CourseHoleGridEditor";
 import { createCourseHoleGridEditorService } from "./course-hole-grid-editor-data";
 import { CourseTeeManager, CourseTeeSection } from "./CourseTeeEditor";
-import { createCourseTeeEditorService } from "./course-tee-editor-data";
+import { createCourseTeeEditorService, createCombinationTeeEditorService } from "./course-tee-editor-data";
 import StructureReview from "./StructureReview";
 import FigGovernance from "./FigGovernance";
 import { createFigGovernanceService } from "./fig-governance-data";
@@ -31,6 +31,7 @@ const routeEditorService = createRouteEditorService(supabase);
 const holeGridEditorService = createHoleGridEditorService(supabase);
 const courseHoleGridEditorService = createCourseHoleGridEditorService(supabase);
 const courseTeeEditorService = createCourseTeeEditorService(supabase);
+const combinationTeeEditorService = createCombinationTeeEditorService(supabase);
 const structureReviewService = createStructureReviewService(supabase);
 const figGovernanceService = createFigGovernanceService(supabase);
 
@@ -1013,6 +1014,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
   const [editingCourse, setEditingCourse] = useState(false);
   const [editingCourseHoles, setEditingCourseHoles] = useState(false);
   const [managingCourseTees, setManagingCourseTees] = useState(false);
+  const [managingCombinationTees, setManagingCombinationTees] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [editingRoute, setEditingRoute] = useState(false);
   const [editingHoles, setEditingHoles] = useState(false);
@@ -1058,9 +1060,9 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
     setSelectedRoute(refreshedClub.allCombinations.find((route) => route.id === live.id));
     setEditingRoute(false);
   };
-  const backToRouteClub = () => navigate(() => { setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); });
-  const backToRouteCourse = () => navigate(() => { setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); });
-  const backToRouteCatalog = () => navigate(() => { setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); setSelectedClub(null); });
+  const backToRouteClub = () => navigate(() => { setManagingCombinationTees(false); setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); });
+  const backToRouteCourse = () => navigate(() => { setManagingCombinationTees(false); setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); });
+  const backToRouteCatalog = () => navigate(() => { setManagingCombinationTees(false); setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); setSelectedClub(null); });
 
   useEffect(() => {
     if (!supabase) {
@@ -1207,7 +1209,12 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
       /> : newCourses && selectedClub ? <ExistingClubCourses club={selectedClub} ownerId={adminUserId}
         service={existingClubCourseService} registerExitGuard={registerClubExitGuard}
         onBack={() => navigate(() => setNewCourses(false))} onPublished={acceptNewCoursePublication} />
-      : selectedRoute && selectedClub ? (editingHoles ? <HoleGridEditor
+      : selectedRoute && selectedClub ? (managingCombinationTees ? <CourseTeeManager
+        club={selectedClub} course={selectedRoute} key={selectedRoute.id} kind="combination"
+        service={combinationTeeEditorService} navigate={navigate} registerExitGuard={registerClubExitGuard}
+        onBack={() => navigate(() => setManagingCombinationTees(false))}
+        onBackToClub={backToRouteClub} onBackToCatalog={backToRouteCatalog}
+      /> : editingHoles ? <HoleGridEditor
         club={selectedClub}
         course={selectedCourse}
         route={selectedRoute}
@@ -1229,6 +1236,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
         onBackToCourse={backToRouteCourse}
         onBackToCatalog={backToRouteCatalog}
         onEditHoles={() => setEditingHoles(true)}
+        onManageTees={() => setManagingCombinationTees(true)}
         onPublished={acceptRoutePublication}
         registerExitGuard={registerClubExitGuard}
         service={routeEditorService}
@@ -1239,6 +1247,8 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
         key={selectedRoute.id}
         onEdit={() => setEditingRoute(true)}
         onManageHoles={() => setEditingHoles(true)}
+        onManageTees={() => setManagingCombinationTees(true)}
+        teeService={combinationTeeEditorService}
         holeService={holeGridEditorService}
         onBackToClub={backToRouteClub}
         onBackToCourse={backToRouteCourse}
@@ -1353,6 +1363,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
                 setEditingCourse(false);
                 setEditingCourseHoles(false);
                 setManagingCourseTees(false);
+                setManagingCombinationTees(false);
                 setEditingRoute(false);
                 setEditingHoles(false);
                 setSelectedRoute(null);

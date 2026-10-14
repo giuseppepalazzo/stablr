@@ -87,6 +87,7 @@ test("Route and hole-grid editors from Club/Percorso, saved resume, atomic confi
       return { data: { ...old, workflow_status: "archived", revision: old.revision + 1 }, error: null };
     }
     if (name === "admin_course_tee_list") return { data: { course: { id: params.p_course_id }, tees: [] }, error: null };
+    if (name === "admin_combination_tee_list") return { data: { combination: { id: params.p_combination_id }, tees: [], new_drafts: [] }, error: null };
     throw new Error(`Unexpected test RPC ${name}`);
   });
 
