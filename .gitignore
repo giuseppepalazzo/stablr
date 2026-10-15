@@ -28,3 +28,10 @@ yarn-error.log*
 # Edge secrets stay local/server only.
 supabase/functions/.env
 supabase/functions/.env.*
+
+# Database backups / offline decryption identities never belong in Git.
+*.dump
+*.tar.age
+*.verified.json
+backup-age*.key
+__pycache__/

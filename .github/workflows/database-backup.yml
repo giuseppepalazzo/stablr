@@ -1,0 +1,50 @@
+name: Database backup (encrypted R2)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '43 3 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stablr-database-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    if: github.repository == 'giuseppepalazzo/stablr' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    container: postgres:18-bookworm
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - name: Install backup tools (no application dependencies)
+        run: |
+          apt-get update -qq
+          apt-get install -y --no-install-recommends age python3 python3-venv ca-certificates
+          python3 -m venv /tmp/backup-venv
+          /tmp/backup-venv/bin/pip install --disable-pip-version-check boto3==1.40.57
+      - name: Test backup safety locally (no remote access)
+        run: python3 -m unittest discover -s scripts/backup/tests -v
+      - name: Smoke test with real PostgreSQL and age (synthetic isolated DB)
+        run: runuser -u postgres -- python3 -m unittest discover -s scripts/backup/tests -p test_native_restore.py -v
+      - name: Export, encrypt, upload and verify
+        env:
+          BACKUP_DATABASE_URL: ${{ secrets.BACKUP_DATABASE_URL }}
+          BACKUP_AGE_RECIPIENT: ${{ secrets.BACKUP_AGE_RECIPIENT }}
+          BACKUP_R2_ENDPOINT: ${{ secrets.BACKUP_R2_ENDPOINT }}
+          BACKUP_R2_BUCKET: ${{ secrets.BACKUP_R2_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.BACKUP_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.BACKUP_R2_SECRET_ACCESS_KEY }}
+          AWS_EC2_METADATA_DISABLED: 'true'
+          # Configure the bucket lifecycle FIRST, then acknowledge in GitHub.
+          BACKUP_RETENTION_10_DAYS_CONFIGURED: ${{ vars.BACKUP_RETENTION_10_DAYS_CONFIGURED }}
+        run: /tmp/backup-venv/bin/python scripts/backup/database_backup.py backup
+      - name: Report failure without sensitive output
+        if: failure()
+        run: echo '::error::Backup failed. Do not run a migration until a verified backup succeeds. Enable GitHub Actions failure notifications.'
