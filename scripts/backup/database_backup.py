@@ -43,7 +43,40 @@ ERROR_CODES = {
     'R2_INTEGRITY_FAILED', 'R2_REQUEST_FAILED', 'UNEXPECTED_ERROR',
     'CONFIG_MISSING_SECRETS', 'CONFIG_RETENTION_NOT_CONFIRMED',
     'CONFIG_R2_ENDPOINT_INVALID', 'CONFIG_DATABASE_URL_INVALID',
+    'R2_NOT_IMPLEMENTED', 'R2_INVALID_ARGUMENT', 'R2_INVALID_REQUEST',
+    'R2_BAD_DIGEST', 'R2_MISSING_CONTENT_LENGTH', 'R2_ENTITY_TOO_LARGE',
+    'R2_CLOCK_SKEW',
 }
+
+# Only canonical protocol codes may reach logs. Never echo arbitrary server
+# strings even when they look like an identifier: they could contain secrets.
+S3_ERROR_CODES = {
+    'AccessDenied', 'Unauthorized', 'InvalidAccessKeyId', 'SignatureDoesNotMatch',
+    'NoSuchBucket', 'NoSuchKey', 'PreconditionFailed', 'ConditionalRequestConflict',
+    'RequestTimeout', 'RequestTimeoutException', 'NotImplemented',
+    'InvalidArgument', 'InvalidRequest', 'InvalidBucketName',
+    'AuthorizationHeaderMalformed', 'AuthorizationQueryParametersError',
+    'BadDigest', 'InvalidDigest', 'XAmzContentSHA256Mismatch',
+    'MissingContentLength', 'IncompleteBody', 'EntityTooLarge', 'EntityTooSmall',
+    'InvalidToken', 'ExpiredToken', 'RequestTimeTooSkewed', 'RequestExpired',
+    'PermanentRedirect', 'TemporaryRedirect', 'MethodNotAllowed', 'InternalError',
+    'ServiceUnavailable', 'SlowDown', 'TooManyRequests', 'InvalidHostHeader',
+}
+
+
+def s3_diagnostic(error):
+    response = getattr(error, 'response', None)
+    if not isinstance(response, dict):
+        return ''
+    details = response.get('Error')
+    code = details.get('Code') if isinstance(details, dict) else None
+    if not isinstance(code, str) or code not in S3_ERROR_CODES:
+        code = 'Other'
+    metadata = response.get('ResponseMetadata')
+    status = metadata.get('HTTPStatusCode') if isinstance(metadata, dict) else None
+    if type(status) is not int or not 100 <= status <= 599:
+        status = 'Unavailable'
+    return f' s3_code={code} http_status={status}'
 
 
 def tool_error_code(tool, stderr):
@@ -87,6 +120,11 @@ def error_code(error):
             'SignatureDoesNotMatch': 'R2_SIGNATURE_INVALID', 'NoSuchBucket': 'R2_BUCKET_NOT_FOUND',
             'NoSuchKey': 'R2_OBJECT_NOT_FOUND', 'PreconditionFailed': 'R2_PRECONDITION_FAILED',
             'RequestTimeout': 'R2_TIMEOUT', 'RequestTimeoutException': 'R2_TIMEOUT',
+            'NotImplemented': 'R2_NOT_IMPLEMENTED', 'InvalidArgument': 'R2_INVALID_ARGUMENT',
+            'InvalidRequest': 'R2_INVALID_REQUEST', 'BadDigest': 'R2_BAD_DIGEST',
+            'InvalidDigest': 'R2_BAD_DIGEST', 'XAmzContentSHA256Mismatch': 'R2_BAD_DIGEST',
+            'MissingContentLength': 'R2_MISSING_CONTENT_LENGTH', 'EntityTooLarge': 'R2_ENTITY_TOO_LARGE',
+            'RequestTimeTooSkewed': 'R2_CLOCK_SKEW', 'RequestExpired': 'R2_CLOCK_SKEW',
         }.get(code, 'R2_REQUEST_FAILED')
     return {
         'EndpointConnectionError': 'R2_CONNECTION_FAILED', 'ConnectTimeoutError': 'R2_TIMEOUT',
@@ -104,7 +142,7 @@ def phase(name):
         yield
     except Exception as error:
         code = error_code(error)
-        print(f'BACKUP phase={name} status=failed code={code}', flush=True)
+        print(f'BACKUP phase={name} status=failed code={code}' + s3_diagnostic(error), flush=True)
         if isinstance(error, BackupError):
             raise
         raise BackupError(f'Phase {name} failed ({code}).', code) from None
@@ -299,6 +337,7 @@ def upload_verified(client, bucket, key, encrypted):
     with phase('r2_upload'):
         with encrypted.open('rb') as body:
             client.put_object(Bucket=bucket, Key=key, Body=body, IfNoneMatch='*',
+                              ContentLength=encrypted.stat().st_size,
                               ContentType='application/octet-stream', Metadata={'sha256': digest})
     with phase('r2_verification'):
         response = client.get_object(Bucket=bucket, Key=key)
@@ -315,8 +354,18 @@ def upload_verified(client, bucket, key, encrypted):
                           'verified_at': datetime.now(timezone.utc).isoformat()}).encode()
     with phase('r2_receipt'):
         client.put_object(Bucket=bucket, Key=key + '.verified.json', Body=receipt,
-                          IfNoneMatch='*', ContentType='application/json')
+                          ContentLength=len(receipt), IfNoneMatch='*', ContentType='application/json')
     return digest
+
+
+def r2_client(endpoint):
+    import boto3
+    from botocore.config import Config
+    return boto3.client('s3', endpoint_url=endpoint, region_name='auto',
+                        config=Config(retries={'max_attempts': 3, 'mode': 'standard'},
+                                      connect_timeout=30, read_timeout=120,
+                                      request_checksum_calculation='when_required',
+                                      response_checksum_validation='when_required'))
 
 
 def backup():
@@ -332,13 +381,7 @@ def backup():
             raise BackupError('Invalid R2 HTTPS endpoint.', 'CONFIG_R2_ENDPOINT_INVALID')
         env = db_env(os.environ['BACKUP_DATABASE_URL'])
     with phase('r2_client'):
-        import boto3
-        from botocore.config import Config
-        client = boto3.client('s3', endpoint_url=endpoint, region_name='auto',
-                              config=Config(retries={'max_attempts': 3, 'mode': 'standard'},
-                                            connect_timeout=30, read_timeout=120,
-                                            request_checksum_calculation='when_required',
-                                            response_checksum_validation='when_required'))
+        client = r2_client(endpoint)
     with tempfile.TemporaryDirectory(prefix='stablr-backup-') as private:
         folder = Path(private)
         manifest = collect(folder, env)

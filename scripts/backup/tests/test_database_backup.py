@@ -47,6 +47,8 @@ class Store:
         if args['IfNoneMatch'] != '*' or args['Key'] in self.objects:
             raise RuntimeError('Precondition failed')
         body = args['Body'].read() if hasattr(args['Body'], 'read') else args['Body']
+        if args['ContentLength'] != len(body):
+            raise AssertionError('Incorrect explicit request length')
         self.objects[args['Key']] = (body, args.get('Metadata', {}))
 
     def get_object(self, **args):
@@ -413,6 +415,48 @@ class BackupTests(unittest.TestCase):
             self.assertEqual(caught.exception.code, 'AGE_RECIPIENT_INVALID')
             self.assertIn('phase=encryption status=failed', output.getvalue())
             self.assertNotIn('secret invalid recipient', output.getvalue())
+
+    def test_s3_protocol_error_and_http_status_are_logged_without_response_contents(self):
+        class ClientError(Exception):
+            def __init__(self, code, status):
+                super().__init__('private exception URL https://private-host secret-key')
+                self.response = {
+                    'Error': {'Code': code, 'Message': 'private raw payload secret-key', 'Resource': 'private-object'},
+                    'ResponseMetadata': {'HTTPStatusCode': status, 'RequestId': 'private-request',
+                                         'HTTPHeaders': {'authorization': 'secret-key', 'location': 'https://private-host'}},
+                }
+
+        for s3_code, status, mapped in [
+            ('NotImplemented', 501, 'R2_NOT_IMPLEMENTED'),
+            ('InvalidArgument', 400, 'R2_INVALID_ARGUMENT'),
+            ('InvalidRequest', 400, 'R2_INVALID_REQUEST'),
+            ('BadDigest', 400, 'R2_BAD_DIGEST'),
+            ('MissingContentLength', 411, 'R2_MISSING_CONTENT_LENGTH'),
+            ('EntityTooLarge', 413, 'R2_ENTITY_TOO_LARGE'),
+            ('RequestTimeTooSkewed', 403, 'R2_CLOCK_SKEW'),
+            ('PreconditionFailed', 412, 'R2_PRECONDITION_FAILED'),
+            ('AuthorizationHeaderMalformed', 400, 'R2_REQUEST_FAILED'),
+        ]:
+            with self.subTest(s3_code=s3_code), contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError):
+                    with backup.phase('r2_upload'):
+                        raise ClientError(s3_code, status)
+            self.assertIn('code=' + mapped + ' s3_code=' + s3_code + ' http_status=' + str(status), output.getvalue())
+            for forbidden in ['private', 'secret-key', 'authorization', 'https://', 'raw payload']:
+                self.assertNotIn(forbidden, output.getvalue())
+
+        for code, status in [('secret-key', '400 secret-key'), (['secret-key'], True), (None, 999), ('secret\n::warning::key', -1)]:
+            with self.subTest(code=code), contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError):
+                    with backup.phase('r2_upload'):
+                        raise ClientError(code, status)
+            self.assertIn('s3_code=Other http_status=Unavailable', output.getvalue())
+            self.assertNotIn('secret', output.getvalue())
+            self.assertNotIn('::warning::', output.getvalue())
+
+    def test_sdk_suite_runs_with_installed_boto3_in_workflow(self):
+        workflow = (MODULE.parents[2] / '.github/workflows/database-backup.yml').read_text()
+        self.assertIn('/tmp/backup-venv/bin/python -m unittest discover -s scripts/backup/tests -v', workflow)
 
     def test_unexpected_errors_in_each_phase_never_echo_sensitive_content(self):
         for name in sorted(backup.PHASES):

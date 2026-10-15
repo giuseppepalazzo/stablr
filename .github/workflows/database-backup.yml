@@ -30,7 +30,7 @@ jobs:
           python3 -m venv /tmp/backup-venv
           /tmp/backup-venv/bin/pip install --disable-pip-version-check boto3==1.40.57
       - name: Test backup safety locally (no remote access)
-        run: python3 -m unittest discover -s scripts/backup/tests -v
+        run: /tmp/backup-venv/bin/python -m unittest discover -s scripts/backup/tests -v
       - name: Smoke test with real PostgreSQL and age (synthetic isolated DB)
         run: runuser -u postgres -- python3 -m unittest discover -s scripts/backup/tests -p test_native_restore.py -v
       - name: Export, encrypt, upload and verify

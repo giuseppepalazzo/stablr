@@ -142,6 +142,12 @@ Ogni fase stampa solo `BACKUP phase=<fase> status=started|ok|failed` e, in caso
 di errore, un codice in allowlist. Distinzione fra `postgres_connection`,
 `database_export`, `archive_verification`, `roles_export`, `encryption`,
 `r2_client`, `r2_upload`, `r2_verification`, `r2_receipt` e `configuration`.
+Per gli errori S3 sono aggiunti `s3_code` (solo codici canonici in allowlist) e
+`http_status` (intero 100–599). Codici arbitrari diventano `Other`; stato assente
+o non valido diventa `Unavailable`. Mai stampare `Error.Message`, header,
+request ID, body XML/JSON, endpoint o credenziali. Il vecchio
+`R2_REQUEST_FAILED` da solo non distingue una richiesta incompatibile da altri
+errori S3: non dimostra quale feature o configurazione abbia causato il rifiuto.
 Mai abilitare `set -x`, stampare l'ambiente, stderr grezzo PostgreSQL/age o
 eccezioni SDK complete. La chiusura delle pipe gestisce anche `BrokenPipeError`
 senza sostituire la causa originale con un errore generico. I tool PostgreSQL
@@ -160,6 +166,25 @@ configurata dal job.
 | `R2_ACCESS_DENIED`, `R2_CREDENTIALS_INVALID`, `R2_SIGNATURE_INVALID` | Verificare le credenziali R2 limitate al bucket e i permessi Object Read & Write. |
 | `R2_BUCKET_NOT_FOUND`, `R2_CONNECTION_FAILED`, `R2_TLS_FAILED` | Verificare bucket ed endpoint account R2 HTTPS. |
 | `R2_INTEGRITY_FAILED`, errore in `r2_receipt` | Backup non verificato: nessuna ricevuta di successo. Non procedere alla migration. |
+| `R2_NOT_IMPLEMENTED` / `NotImplemented` / HTTP 501 | Feature rifiutata dal servizio: verificare compatibilità della richiesta e dell'endpoint; mai rimuovere la precondizione anti-sovrascrittura per aggirare l'errore. |
+| `R2_INVALID_ARGUMENT`, `R2_INVALID_REQUEST` / HTTP 400 | Richiesta/argomento non accettati; non attribuire automaticamente il problema alle chiavi. |
+| `R2_MISSING_CONTENT_LENGTH`, `R2_BAD_DIGEST` | Framing o integrità del corpo rifiutati; lunghezza esplicita per archivio e ricevuta, nessuna rinuncia al controllo SHA-256. |
+| `R2_CLOCK_SKEW` / HTTP 403 | Verificare l'orologio del runner prima di cambiare credenziali. |
+
+`PutObject` usa un corpo di lunghezza nota (`ContentLength` esplicito),
+`IfNoneMatch='*'` e soli metadata SHA-256. Nessun ACL, SSE KMS o object-lock
+header S3 viene aggiunto dall'applicazione. La configurazione SDK mantiene
+`request_checksum_calculation='when_required'`: niente checksum opzionali
+automatici/trailer `aws-chunked`. Non è introdotto alcun retry senza
+precondizione: un HTTP 412 resta un rifiuto e non produce ricevute aggiuntive.
+SHA-256 e metadata sono confrontati dopo rilettura integrale da R2, come prima.
+
+Il test `test_r2_sdk_request.py` usa il vero boto3 ma credenziali/dati sintetici:
+intercetta le richieste firmate **prima della rete**, verifica header e framing,
+round-trip SHA-256 e rifiuto della sovrascrittura. Il workflow esegue la suite
+nel virtualenv con boto3 installato, prima di ricevere i Secrets. In locale il
+test viene saltato se boto3 non è disponibile; non installare né contattare
+servizi per eseguire i normali test unitari.
 
 I log dei run precedenti con il solo messaggio generico **non permettono di
 ricostruire quale servizio abbia fallito**. Un nuovo run con questa versione
