@@ -45,6 +45,10 @@ class R2SdkRequestTest(unittest.TestCase):
             self.assertFalse(headers.get('x-amz-content-sha256', '').startswith('STREAMING-'))
             if request.method == 'PUT':
                 self.assertEqual(headers['if-none-match'], '*')
+                self.assertNotIn('content-encoding', headers)
+                self.assertTrue(headers['authorization'].startswith('AWS4-HMAC-SHA256 '))
+                self.assertNotIn('x-amz-security-token', headers)
+                self.assertIn('/fixture-bucket/', request.url)
                 body = request.body.read() if hasattr(request.body, 'read') else request.body
                 self.assertEqual(int(headers['content-length']), len(body))
                 if request.url in objects:
@@ -58,7 +62,8 @@ class R2SdkRequestTest(unittest.TestCase):
             return AWSResponse(request.url, 200,
                                {'content-length': str(len(ciphertext)), 'x-amz-meta-sha256': digest}, Raw(ciphertext))
 
-        env = {'AWS_ACCESS_KEY_ID': 'synthetic-key', 'AWS_SECRET_ACCESS_KEY': 'synthetic-secret',
+        env = {'AWS_ACCESS_KEY_ID': 'a' * 32, 'AWS_SECRET_ACCESS_KEY': 'b' * 64,
+               'AWS_SESSION_TOKEN': 'synthetic-unrelated-session-token',
                'AWS_EC2_METADATA_DISABLED': 'true'}
         with patch.dict(os.environ, env, clear=True), patch.object(boto3, 'DEFAULT_SESSION', None):
             client = backup.r2_client('https://r2.example.invalid')

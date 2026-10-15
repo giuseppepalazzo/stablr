@@ -46,6 +46,7 @@ ERROR_CODES = {
     'R2_NOT_IMPLEMENTED', 'R2_INVALID_ARGUMENT', 'R2_INVALID_REQUEST',
     'R2_BAD_DIGEST', 'R2_MISSING_CONTENT_LENGTH', 'R2_ENTITY_TOO_LARGE',
     'R2_CLOCK_SKEW',
+    'CONFIG_R2_ACCESS_KEY_INVALID', 'CONFIG_R2_SECRET_KEY_INVALID',
 }
 
 # Only canonical protocol codes may reach logs. Never echo arbitrary server
@@ -64,6 +65,30 @@ S3_ERROR_CODES = {
 }
 
 
+def s3_reason(details):
+    """Reduce a provider message to a fixed cause; never return its contents."""
+    if not isinstance(details, dict) or not isinstance(details.get('Message'), str):
+        return 'Unclassified'
+    message = details['Message'].lower()
+    if 'credential access key' in message and ('length' in message or 'invalid' in message):
+        return 'AccessKeyFormat'
+    if 'jurisdiction' in message:
+        return 'JurisdictionEndpoint'
+    if 'aws-chunked' in message or 'content-encoding' in message:
+        return 'ContentEncoding'
+    if 'x-amz-trailer' in message or 'checksum' in message:
+        return 'Checksum'
+    if 'x-amz-content-sha256' in message:
+        return 'PayloadSignature'
+    if 'if-none-match' in message:
+        return 'ConditionalWrite'
+    if 'content-length' in message or 'content length' in message:
+        return 'ContentLength'
+    if 'authorization' in message or 'credential scope' in message:
+        return 'Authorization'
+    return 'Unclassified'
+
+
 def s3_diagnostic(error):
     response = getattr(error, 'response', None)
     if not isinstance(response, dict):
@@ -76,7 +101,7 @@ def s3_diagnostic(error):
     status = metadata.get('HTTPStatusCode') if isinstance(metadata, dict) else None
     if type(status) is not int or not 100 <= status <= 599:
         status = 'Unavailable'
-    return f' s3_code={code} http_status={status}'
+    return f' s3_code={code} http_status={status} s3_reason={s3_reason(details)}'
 
 
 def tool_error_code(tool, stderr):
@@ -359,10 +384,23 @@ def upload_verified(client, bucket, key, encrypted):
 
 
 def r2_client(endpoint):
+    # R2 S3 credentials are the token ID (32 hex) and hashed token value
+    # (64 hex), NOT the Cloudflare bearer token/account ID. Never transform
+    # tokens or silently exchange swapped fields; report configuration errors.
+    access_key = os.environ.get('AWS_ACCESS_KEY_ID', '')
+    secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+    account = (urlsplit(endpoint).hostname or '').split('.')[0]
+    if not re.fullmatch(r'[a-fA-F0-9]{32}', access_key) or access_key.lower() == account.lower():
+        raise BackupError('Use the R2 S3 Access Key ID, not a Cloudflare API bearer token.', 'CONFIG_R2_ACCESS_KEY_INVALID')
+    if not re.fullmatch(r'[a-fA-F0-9]{64}', secret_key):
+        raise BackupError('Use the R2 S3 Secret Access Key paired with the Access Key ID.', 'CONFIG_R2_SECRET_KEY_INVALID')
     import boto3
     from botocore.config import Config
     return boto3.client('s3', endpoint_url=endpoint, region_name='auto',
+                        aws_access_key_id=access_key, aws_secret_access_key=secret_key,
+                        aws_session_token=None,
                         config=Config(retries={'max_attempts': 3, 'mode': 'standard'},
+                                      signature_version='s3v4', s3={'addressing_style': 'path'},
                                       connect_timeout=30, read_timeout=120,
                                       request_checksum_calculation='when_required',
                                       response_checksum_validation='when_required'))
@@ -377,7 +415,7 @@ def backup():
         if os.environ.get('BACKUP_RETENTION_10_DAYS_CONFIGURED') != 'true':
             raise BackupError('Configure the R2 10-day lifecycle and acknowledge it before backup.', 'CONFIG_RETENTION_NOT_CONFIRMED')
         endpoint = os.environ['BACKUP_R2_ENDPOINT']
-        if not re.fullmatch(r'https://[a-f0-9]{32}\.r2\.cloudflarestorage\.com', endpoint):
+        if not re.fullmatch(r'https://[a-f0-9]{32}(?:\.(?:eu|us|fedramp))?\.r2\.cloudflarestorage\.com', endpoint):
             raise BackupError('Invalid R2 HTTPS endpoint.', 'CONFIG_R2_ENDPOINT_INVALID')
         env = db_env(os.environ['BACKUP_DATABASE_URL'])
     with phase('r2_client'):

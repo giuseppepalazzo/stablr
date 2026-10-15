@@ -22,10 +22,10 @@ originale/main; nessun trigger PR, nessun artifact GitHub, nessuna modifica SQL.
    | --- | --- |
    | `BACKUP_DATABASE_URL` | URI PostgreSQL da Supabase Connect, **direct oppure session pooler porta 5432**, utente con lettura completa di schema/dati/Auth; password URL-encoded. Non REST URL, anon/service key o transaction pooler 6543. Preferire session pooler IPv4 sul Free. |
    | `BACKUP_AGE_RECIPIENT` | Solo destinatario pubblico `age1...` |
-   | `BACKUP_R2_ENDPOINT` | `https://<account-id-32-hex>.r2.cloudflarestorage.com` |
+   | `BACKUP_R2_ENDPOINT` | Endpoint S3 del bucket: `https://<account-id-32-hex>.r2.cloudflarestorage.com`; per bucket giurisdizionali usare esattamente `.eu.r2…`, `.us.r2…` o `.fedramp.r2…` indicato da Cloudflare. |
    | `BACKUP_R2_BUCKET` | Nome bucket privato dedicato |
-   | `BACKUP_R2_ACCESS_KEY_ID` | Credenziale S3 limitata al bucket |
-   | `BACKUP_R2_SECRET_ACCESS_KEY` | Segreto S3 limitato al bucket |
+   | `BACKUP_R2_ACCESS_KEY_ID` | **Access Key ID S3** R2: 32 caratteri esadecimali, non bearer API token, Account ID o Secret Access Key. |
+   | `BACKUP_R2_SECRET_ACCESS_KEY` | **Secret Access Key S3** R2 abbinata: 64 caratteri esadecimali. Non il token API originale. |
 
    Dopo aver verificato nel dashboard R2 la lifecycle, impostare la **variabile
    pubblica** `BACKUP_RETENTION_10_DAYS_CONFIGURED=true`. Default mancante = blocco.
@@ -143,7 +143,11 @@ di errore, un codice in allowlist. Distinzione fra `postgres_connection`,
 `database_export`, `archive_verification`, `roles_export`, `encryption`,
 `r2_client`, `r2_upload`, `r2_verification`, `r2_receipt` e `configuration`.
 Per gli errori S3 sono aggiunti `s3_code` (solo codici canonici in allowlist) e
-`http_status` (intero 100–599). Codici arbitrari diventano `Other`; stato assente
+`http_status` (intero 100–599). `s3_reason` classifica il messaggio soltanto in
+cause fisse: `AccessKeyFormat`, `JurisdictionEndpoint`, `ContentEncoding`,
+`Checksum`, `PayloadSignature`, `ConditionalWrite`, `ContentLength`,
+`Authorization` oppure `Unclassified`; mai il messaggio originale o i suoi valori.
+Codici arbitrari diventano `Other`; stato assente
 o non valido diventa `Unavailable`. Mai stampare `Error.Message`, header,
 request ID, body XML/JSON, endpoint o credenziali. Il vecchio
 `R2_REQUEST_FAILED` da solo non distingue una richiesta incompatibile da altri
@@ -170,6 +174,17 @@ configurata dal job.
 | `R2_INVALID_ARGUMENT`, `R2_INVALID_REQUEST` / HTTP 400 | Richiesta/argomento non accettati; non attribuire automaticamente il problema alle chiavi. |
 | `R2_MISSING_CONTENT_LENGTH`, `R2_BAD_DIGEST` | Framing o integrità del corpo rifiutati; lunghezza esplicita per archivio e ricevuta, nessuna rinuncia al controllo SHA-256. |
 | `R2_CLOCK_SKEW` / HTTP 403 | Verificare l'orologio del runner prima di cambiare credenziali. |
+| `CONFIG_R2_ACCESS_KEY_INVALID`, `CONFIG_R2_SECRET_KEY_INVALID` | Nei GitHub Secrets usare la coppia S3 R2, non il bearer API token né l'Account ID. Il formato viene verificato **prima di connessione/export PostgreSQL**, senza stampare valori o trasformare token. |
+
+Un `InvalidArgument` HTTP 400 **non identifica da solo il parametro sbagliato**:
+può riguardare anche autenticazione/endpoint, non soltanto `PutObject` o il corpo.
+La prova offline con boto3 1.40.57/botocore 1.40.76 conferma che il codice genera
+lunghezza corretta, nessun `Content-Encoding`, `aws-chunked`, trailer o checksum
+CRC automatico, mantenendo la precondizione. Non viene quindi introdotta una
+modifica cieca agli header né rimossa la protezione per aggirare il 400.
+Firma SigV4 e addressing path-style sono espliciti; vengono usate soltanto le
+due credenziali S3 previste, senza ereditare un eventuale session token AWS estraneo.
+I formati validi non provano da soli che la coppia abbia accesso al bucket.
 
 `PutObject` usa un corpo di lunghezza nota (`ContentLength` esplicito),
 `IfNoneMatch='*'` e soli metadata SHA-256. Nessun ACL, SSE KMS o object-lock

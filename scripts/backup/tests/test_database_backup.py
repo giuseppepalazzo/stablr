@@ -458,6 +458,66 @@ class BackupTests(unittest.TestCase):
         workflow = (MODULE.parents[2] / '.github/workflows/database-backup.yml').read_text()
         self.assertIn('/tmp/backup-venv/bin/python -m unittest discover -s scripts/backup/tests -v', workflow)
 
+    def test_r2_credentials_validated_without_logging_or_transforming_values(self):
+        for access, secret, expected in [
+            ('token-not-an-s3-key', 'b' * 64, 'CONFIG_R2_ACCESS_KEY_INVALID'),
+            ('b' * 64, 'a' * 32, 'CONFIG_R2_ACCESS_KEY_INVALID'),
+            ('a' * 32 + '\n', 'b' * 64, 'CONFIG_R2_ACCESS_KEY_INVALID'),
+            ('a' * 32, 'a' * 32, 'CONFIG_R2_SECRET_KEY_INVALID'),
+            ('a' * 32, 'bearer-token-not-the-secret', 'CONFIG_R2_SECRET_KEY_INVALID'),
+        ]:
+            with self.subTest(expected=expected), patch.dict(os.environ, {'AWS_ACCESS_KEY_ID': access, 'AWS_SECRET_ACCESS_KEY': secret}, clear=True), contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError) as caught:
+                    with backup.phase('r2_client'):
+                        backup.r2_client('https://r2.example.invalid')
+            self.assertEqual(caught.exception.code, expected)
+            for value in (access, secret):
+                self.assertNotIn(value, str(caught.exception) + output.getvalue())
+        with patch.dict(os.environ, {'AWS_ACCESS_KEY_ID': 'a' * 32, 'AWS_SECRET_ACCESS_KEY': 'b' * 64}, clear=True):
+            with self.assertRaises(backup.BackupError) as caught:
+                backup.r2_client('https://' + 'a' * 32 + '.eu.r2.cloudflarestorage.com')
+        self.assertEqual(caught.exception.code, 'CONFIG_R2_ACCESS_KEY_INVALID')
+
+    def test_r2_jurisdiction_endpoints_accepted_but_arbitrary_hosts_refused(self):
+        env = {name: 'test' for name in ('BACKUP_DATABASE_URL', 'BACKUP_AGE_RECIPIENT', 'BACKUP_R2_BUCKET', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY')}
+        env['BACKUP_RETENTION_10_DAYS_CONFIGURED'] = 'true'
+        for jurisdiction in ('', '.eu', '.us', '.fedramp'):
+            endpoint = 'https://' + 'a' * 32 + jurisdiction + '.r2.cloudflarestorage.com'
+            with self.subTest(jurisdiction=jurisdiction), patch.dict(os.environ, {**env, 'BACKUP_R2_ENDPOINT': endpoint}, clear=True), patch.object(backup, 'db_env', side_effect=backup.BackupError('Reached database check.')):
+                with self.assertRaisesRegex(backup.BackupError, 'Reached database check'):
+                    backup.backup()
+        for endpoint in ('https://r2.example.invalid', 'https://' + 'a' * 32 + '.r2.cloudflarestorage.com/extra',
+                         'https://' + 'a' * 32 + '.other.r2.cloudflarestorage.com'):
+            with self.subTest(endpoint=endpoint), patch.dict(os.environ, {**env, 'BACKUP_R2_ENDPOINT': endpoint}, clear=True), patch.object(backup, 'db_env') as connection:
+                with self.assertRaises(backup.BackupError) as caught:
+                    backup.backup()
+            self.assertEqual(caught.exception.code, 'CONFIG_R2_ENDPOINT_INVALID')
+            connection.assert_not_called()
+
+    def test_s3_invalid_argument_reason_reduced_to_constants_not_raw_messages(self):
+        messages = [
+            ('Invalid Argument: Credential access key has length 40, should be 32', 'AccessKeyFormat'),
+            ('Invalid bucket jurisdiction for this endpoint', 'JurisdictionEndpoint'),
+            ('Unsupported Content-Encoding: aws-chunked', 'ContentEncoding'),
+            ('Unsupported x-amz-trailer checksum', 'Checksum'),
+            ('Invalid x-amz-content-sha256', 'PayloadSignature'),
+            ('Unsupported If-None-Match', 'ConditionalWrite'),
+            ('Invalid Content-Length', 'ContentLength'),
+            ('Invalid Argument: Authorization', 'Authorization'),
+            ('unexpected secret response', 'Unclassified'),
+        ]
+        for message, reason in messages:
+            error = Exception('private secret exception')
+            error.response = {'Error': {'Code': 'InvalidArgument', 'Message': message + ' secret-key https://private-host'},
+                              'ResponseMetadata': {'HTTPStatusCode': 400}}
+            with self.subTest(reason=reason), contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError):
+                    with backup.phase('r2_upload'):
+                        raise error
+            self.assertIn('s3_reason=' + reason, output.getvalue())
+            self.assertNotIn('secret', output.getvalue())
+            self.assertNotIn('https://', output.getvalue())
+
     def test_unexpected_errors_in_each_phase_never_echo_sensitive_content(self):
         for name in sorted(backup.PHASES):
             with self.subTest(phase=name), contextlib.redirect_stdout(io.StringIO()) as output:
