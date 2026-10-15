@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from urllib.parse import unquote, urlsplit, parse_qs
 from uuid import uuid4
@@ -21,16 +22,106 @@ from uuid import uuid4
 class BackupError(Exception):
     """Only fixed, non-sensitive messages may leave this module."""
 
+    def __init__(self, message, code='BACKUP_FAILED'):
+        super().__init__(message)
+        self.code = code
+
+
+PHASES = {'configuration', 'postgres_connection', 'database_export',
+          'archive_verification', 'roles_export', 'encryption',
+          'r2_client', 'r2_upload', 'r2_verification', 'r2_receipt'}
+ERROR_CODES = {
+    'BACKUP_FAILED', 'TOOL_NOT_FOUND', 'TOOL_TIMEOUT', 'TOOL_FAILED',
+    'PG_AUTH_FAILED', 'PG_DNS_FAILED', 'PG_NETWORK_UNREACHABLE',
+    'PG_CONNECTION_REFUSED', 'PG_CONNECTION_TIMEOUT', 'PG_CONNECTION_CLOSED',
+    'PG_SSL_FAILED', 'PG_POOLER_REJECTED', 'PG_PERMISSION_DENIED',
+    'PG_VERSION_MISMATCH', 'PG_SNAPSHOT_FAILED', 'PG_INVENTORY_FAILED',
+    'ENCRYPTION_FAILED', 'AGE_RECIPIENT_INVALID', 'ARCHIVE_COVERAGE_FAILED',
+    'R2_ACCESS_DENIED', 'R2_CREDENTIALS_INVALID', 'R2_SIGNATURE_INVALID',
+    'R2_BUCKET_NOT_FOUND', 'R2_OBJECT_NOT_FOUND', 'R2_PRECONDITION_FAILED',
+    'R2_TIMEOUT', 'R2_CONNECTION_FAILED', 'R2_TLS_FAILED',
+    'R2_INTEGRITY_FAILED', 'R2_REQUEST_FAILED', 'UNEXPECTED_ERROR',
+    'CONFIG_MISSING_SECRETS', 'CONFIG_RETENTION_NOT_CONFIRMED',
+    'CONFIG_R2_ENDPOINT_INVALID', 'CONFIG_DATABASE_URL_INVALID',
+}
+
+
+def tool_error_code(tool, stderr):
+    """Match known diagnostics privately; return constants, never server text."""
+    text = stderr.lower() if isinstance(stderr, str) else ''
+    if Path(tool).name in ('psql', 'pg_dump', 'pg_dumpall', 'pg_restore'):
+        rules = (
+            ('PG_AUTH_FAILED', ('password authentication failed', 'no password supplied', 'no pg_hba.conf entry')),
+            ('PG_DNS_FAILED', ('could not translate host name', 'name or service not known', 'nodename nor servname', 'temporary failure in name resolution')),
+            ('PG_NETWORK_UNREACHABLE', ('network is unreachable', 'no route to host', 'cannot assign requested address')),
+            ('PG_CONNECTION_REFUSED', ('connection refused',)),
+            ('PG_CONNECTION_TIMEOUT', ('timeout expired', 'connection timed out')),
+            ('PG_CONNECTION_CLOSED', ('server closed the connection unexpectedly',)),
+            ('PG_SSL_FAILED', ('certificate verify failed', 'ssl error', 'server does not support ssl', 'root certificate file')),
+            ('PG_POOLER_REJECTED', ('tenant or user not found', 'max client connections reached')),
+            ('PG_PERMISSION_DENIED', ('permission denied', 'must be superuser', 'must have privileges')),
+            ('PG_VERSION_MISMATCH', ('server version mismatch',)),
+            ('PG_SNAPSHOT_FAILED', ('invalid snapshot identifier', 'cannot import a snapshot')),
+        )
+        for code, fragments in rules:
+            if any(fragment in text for fragment in fragments):
+                return code
+    if Path(tool).name == 'age' and any(fragment in text for fragment in ('invalid recipient', 'malformed recipient', 'bad checksum')):
+        return 'AGE_RECIPIENT_INVALID'
+    return 'TOOL_FAILED'
+
+
+def error_code(error):
+    code = getattr(error, 'code', None)
+    if isinstance(code, str) and code in ERROR_CODES:
+        return code
+    # botocore ClientError responses can contain URLs/request IDs/body content.
+    # Read only a known status and map it to a hardcoded diagnostic.
+    response = getattr(error, 'response', None)
+    if isinstance(response, dict):
+        code = response.get('Error', {}).get('Code') if isinstance(response.get('Error'), dict) else None
+        if not isinstance(code, str):
+            return 'R2_REQUEST_FAILED'
+        return {
+            'AccessDenied': 'R2_ACCESS_DENIED', 'InvalidAccessKeyId': 'R2_CREDENTIALS_INVALID',
+            'SignatureDoesNotMatch': 'R2_SIGNATURE_INVALID', 'NoSuchBucket': 'R2_BUCKET_NOT_FOUND',
+            'NoSuchKey': 'R2_OBJECT_NOT_FOUND', 'PreconditionFailed': 'R2_PRECONDITION_FAILED',
+            'RequestTimeout': 'R2_TIMEOUT', 'RequestTimeoutException': 'R2_TIMEOUT',
+        }.get(code, 'R2_REQUEST_FAILED')
+    return {
+        'EndpointConnectionError': 'R2_CONNECTION_FAILED', 'ConnectTimeoutError': 'R2_TIMEOUT',
+        'ReadTimeoutError': 'R2_TIMEOUT', 'SSLError': 'R2_TLS_FAILED',
+        'NoCredentialsError': 'R2_CREDENTIALS_INVALID', 'PartialCredentialsError': 'R2_CREDENTIALS_INVALID',
+    }.get(type(error).__name__, 'UNEXPECTED_ERROR')
+
+
+@contextmanager
+def phase(name):
+    if name not in PHASES:
+        raise BackupError('Invalid diagnostic phase.')
+    print(f'BACKUP phase={name} status=started', flush=True)
+    try:
+        yield
+    except Exception as error:
+        code = error_code(error)
+        print(f'BACKUP phase={name} status=failed code={code}', flush=True)
+        if isinstance(error, BackupError):
+            raise
+        raise BackupError(f'Phase {name} failed ({code}).', code) from None
+    print(f'BACKUP phase={name} status=ok', flush=True)
+
 
 def run(args, env=None, text=None):
     try:
         result = subprocess.run(args, env=env, input=text, text=True,
                                 capture_output=True, timeout=1800)
-    except (OSError, subprocess.TimeoutExpired):
-        raise BackupError('Tool unavailable or timed out.') from None
+    except subprocess.TimeoutExpired:
+        raise BackupError('Tool timed out.', 'TOOL_TIMEOUT') from None
+    except OSError:
+        raise BackupError('Tool unavailable.', 'TOOL_NOT_FOUND') from None
     if result.returncode:
         # pg_dump errors can contain row values/connection details: never relay.
-        raise BackupError('Tool failed; no sensitive stderr has been logged.')
+        raise BackupError('Tool failed; no sensitive stderr has been logged.', tool_error_code(args[0], result.stderr))
     return result.stdout
 
 
@@ -55,7 +146,7 @@ def db_env(url, restore=False):
         elif port == 6543 or parse_qs(parsed.query).get('sslmode', ['require'])[0] not in ('require', 'verify-ca', 'verify-full'):
             raise ValueError()
     except ValueError:
-        raise BackupError('Invalid connection: backup needs TLS/direct or session pooler; restore needs loopback stablr_restore_* .') from None
+        raise BackupError('Invalid connection: backup needs TLS/direct or session pooler; restore needs loopback stablr_restore_* .', 'CONFIG_DATABASE_URL_INVALID') from None
     # Drop inherited PG service/options which might redirect the connection.
     env = {k: v for k, v in os.environ.items() if not k.startswith('PG') and not k.startswith('BACKUP_')}
     env.update(PGHOST=parsed.hostname, PGPORT=str(port), PGDATABASE=database,
@@ -90,31 +181,46 @@ class Snapshot:
         self.env = env
 
     def __enter__(self):
-        self.errors = tempfile.TemporaryFile()
-        self.process = subprocess.Popen(['psql', '-X', '-qAt', '-v', 'ON_ERROR_STOP=1'],
-                                        env=self.env, stdin=subprocess.PIPE,
-                                        stdout=subprocess.PIPE, stderr=self.errors, text=True)
-        try:
-            self.process.stdin.write(INVENTORY_SQL)
-            self.process.stdin.flush()
-            line = self.process.stdout.readline()
-            self.inventory = json.loads(line)
-        except Exception:
-            self.__exit__(None, None, None)
-            raise BackupError('Read-only inventory/Auth coverage failed.') from None
+        with phase('postgres_connection'):
+            self.errors = tempfile.TemporaryFile()
+            self.process = None
+            try:
+                self.process = subprocess.Popen(['psql', '-X', '-qAt', '-w', '-v', 'ON_ERROR_STOP=1'],
+                                                env=self.env, stdin=subprocess.PIPE,
+                                                stdout=subprocess.PIPE, stderr=self.errors, text=True)
+                self.process.stdin.write(INVENTORY_SQL)
+                self.process.stdin.flush()
+                line = self.process.stdout.readline()
+                self.inventory = json.loads(line)
+            except Exception as error:
+                self.errors.seek(0)
+                code = tool_error_code('psql', self.errors.read(16384).decode('utf-8', errors='replace'))
+                if isinstance(error, FileNotFoundError):
+                    code = 'TOOL_NOT_FOUND'
+                elif code == 'TOOL_FAILED':
+                    code = 'PG_INVENTORY_FAILED'
+                self.__exit__(None, None, None)
+                raise BackupError('Read-only inventory/Auth coverage failed.', code) from None
         return self.inventory
 
     def __exit__(self, *_):
-        if self.process.poll() is None:
+        process = self.process
+        if process is not None and process.poll() is None:
             try:
-                self.process.stdin.write('ROLLBACK;\n\\q\n')
-                self.process.stdin.flush()
-                self.process.wait(timeout=10)
+                process.stdin.write('ROLLBACK;\n\\q\n')
+                process.stdin.flush()
+                process.wait(timeout=10)
             except (OSError, subprocess.TimeoutExpired):
-                self.process.kill()
-                self.process.wait()
-        self.process.stdin.close()
-        self.process.stdout.close()
+                if process.poll() is None:
+                    process.kill()
+                process.wait()
+        if process is not None:
+            for stream in (process.stdin, process.stdout):
+                try:
+                    stream.close()
+                except OSError:
+                    # Closing a failed buffered pipe must never hide the cause.
+                    pass
         self.errors.close()
 
 
@@ -134,7 +240,7 @@ def verify_coverage(inventory, toc):
                 missing.append(oid)
     auth = {t['name'] for t in inventory['tables'] if t['schema'] == 'auth' and not t['extension_owned']}
     if missing or not {'users', 'identities'}.issubset(auth):
-        raise BackupError('Archive coverage incomplete; upload refused.')
+        raise BackupError('Archive coverage incomplete; upload refused.', 'ARCHIVE_COVERAGE_FAILED')
     return {'local_tables': len([t for t in inventory['tables'] if not t['extension_owned'] and t['kind'] != 'f']),
             'auth_tables': len(auth),
             'excluded_foreign_tables': len([t for t in inventory['tables'] if t['kind'] == 'f'])}
@@ -143,18 +249,21 @@ def verify_coverage(inventory, toc):
 def collect(folder, env):
     dump = folder / 'database.dump'
     with Snapshot(env) as inventory:
-        client = run(['pg_dump', '--version'])
-        major = int(re.search(r'(\d+)\.', client).group(1))
-        if major < inventory['server_version_num'] // 10000:
-            raise BackupError('PostgreSQL client older than source server.')
-        run(['pg_dump', '--format=custom', '--compress=6', '--lock-wait-timeout=60s',
-             '--snapshot=' + inventory['snapshot'], '--file=' + str(dump)], env)
-        # Exercise all compressed data streams without connecting/restoring SQL.
-        run(['pg_restore', '--file=' + os.devnull, str(dump)])
-        toc = run(['pg_restore', '--list', str(dump)])
-        coverage = verify_coverage(inventory, toc)
-        # Globals are separate: role passwords intentionally excluded.
-        roles = run(['pg_dumpall', '--roles-only', '--no-role-passwords'], env)
+        with phase('database_export'):
+            client = run(['pg_dump', '--version'])
+            major = int(re.search(r'(\d+)\.', client).group(1))
+            if major < inventory['server_version_num'] // 10000:
+                raise BackupError('PostgreSQL client older than source server.', 'PG_VERSION_MISMATCH')
+            run(['pg_dump', '-w', '--format=custom', '--compress=6', '--lock-wait-timeout=60s',
+                 '--snapshot=' + inventory['snapshot'], '--file=' + str(dump)], env)
+        with phase('archive_verification'):
+            # Exercise all compressed streams without connecting/restoring SQL.
+            run(['pg_restore', '--file=' + os.devnull, str(dump)])
+            toc = run(['pg_restore', '--list', str(dump)])
+            coverage = verify_coverage(inventory, toc)
+        with phase('roles_export'):
+            # Globals are separate: role passwords intentionally excluded.
+            roles = run(['pg_dumpall', '-w', '--roles-only', '--no-role-passwords'], env)
     (folder / 'roles.sql').write_text(roles)
     (folder / 'archive.list').write_text(toc)
     inventory.pop('snapshot')
@@ -170,60 +279,66 @@ def collect(folder, env):
 
 
 def encrypt(folder, recipient):
-    if not re.fullmatch(r'age1[0-9a-z]+', recipient):
-        raise BackupError('A native age public recipient is required.')
-    bundle = folder / 'bundle.tar'
-    with tarfile.open(bundle, 'w') as archive:
-        for name in ('database.dump', 'roles.sql', 'archive.list', 'manifest.json'):
-            archive.add(folder / name, arcname=name)
-    encrypted = folder / 'backup.tar.age'
-    run(['age', '--recipient', recipient, '--output', str(encrypted), str(bundle)])
-    if not encrypted.is_file() or encrypted.stat().st_size == 0:
-        raise BackupError('Encryption failed; upload refused.')
+    with phase('encryption'):
+        if not re.fullmatch(r'age1[0-9a-z]+', recipient):
+            raise BackupError('A native age public recipient is required.', 'AGE_RECIPIENT_INVALID')
+        bundle = folder / 'bundle.tar'
+        with tarfile.open(bundle, 'w') as archive:
+            for name in ('database.dump', 'roles.sql', 'archive.list', 'manifest.json'):
+                archive.add(folder / name, arcname=name)
+        encrypted = folder / 'backup.tar.age'
+        run(['age', '--recipient', recipient, '--output', str(encrypted), str(bundle)])
+        if not encrypted.is_file() or encrypted.stat().st_size == 0:
+            raise BackupError('Encryption failed; upload refused.', 'ENCRYPTION_FAILED')
     return encrypted
 
 
 def upload_verified(client, bucket, key, encrypted):
     digest = sha256(encrypted)
     # Unique key + atomic precondition: no overwrite, including on a race.
-    with encrypted.open('rb') as body:
-        client.put_object(Bucket=bucket, Key=key, Body=body, IfNoneMatch='*',
-                          ContentType='application/octet-stream', Metadata={'sha256': digest})
-    response = client.get_object(Bucket=bucket, Key=key)
-    observed = hashlib.sha256()
-    try:
-        for block in iter(lambda: response['Body'].read(1024 * 1024), b''):
-            observed.update(block)
-    finally:
-        response['Body'].close()
-    if observed.hexdigest() != digest or response.get('Metadata', {}).get('sha256') != digest:
-        raise BackupError('R2 read-back integrity failed. Backup is not verified.')
+    with phase('r2_upload'):
+        with encrypted.open('rb') as body:
+            client.put_object(Bucket=bucket, Key=key, Body=body, IfNoneMatch='*',
+                              ContentType='application/octet-stream', Metadata={'sha256': digest})
+    with phase('r2_verification'):
+        response = client.get_object(Bucket=bucket, Key=key)
+        observed = hashlib.sha256()
+        try:
+            for block in iter(lambda: response['Body'].read(1024 * 1024), b''):
+                observed.update(block)
+        finally:
+            response['Body'].close()
+        if observed.hexdigest() != digest or response.get('Metadata', {}).get('sha256') != digest:
+            raise BackupError('R2 read-back integrity failed. Backup is not verified.', 'R2_INTEGRITY_FAILED')
     # Success receipt written ONLY after read-back. It contains no DB inventory.
     receipt = json.dumps({'format': 1, 'sha256': digest, 'bytes': encrypted.stat().st_size,
                           'verified_at': datetime.now(timezone.utc).isoformat()}).encode()
-    client.put_object(Bucket=bucket, Key=key + '.verified.json', Body=receipt,
-                      IfNoneMatch='*', ContentType='application/json')
+    with phase('r2_receipt'):
+        client.put_object(Bucket=bucket, Key=key + '.verified.json', Body=receipt,
+                          IfNoneMatch='*', ContentType='application/json')
     return digest
 
 
 def backup():
     names = ('BACKUP_DATABASE_URL', 'BACKUP_AGE_RECIPIENT', 'BACKUP_R2_ENDPOINT',
              'BACKUP_R2_BUCKET', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY')
-    if any(not os.environ.get(name) for name in names):
-        raise BackupError('Required GitHub Secrets missing.')
-    if os.environ.get('BACKUP_RETENTION_10_DAYS_CONFIGURED') != 'true':
-        raise BackupError('Configure the R2 10-day lifecycle and acknowledge it before backup.')
-    endpoint = os.environ['BACKUP_R2_ENDPOINT']
-    if not re.fullmatch(r'https://[a-f0-9]{32}\.r2\.cloudflarestorage\.com', endpoint):
-        raise BackupError('Invalid R2 HTTPS endpoint.')
-    env = db_env(os.environ['BACKUP_DATABASE_URL'])
-    import boto3
-    from botocore.config import Config
-    client = boto3.client('s3', endpoint_url=endpoint, region_name='auto',
-                          config=Config(retries={'max_attempts': 3, 'mode': 'standard'},
-                                        connect_timeout=30, read_timeout=120,
-                                        request_checksum_calculation='when_required',
-                                        response_checksum_validation='when_required'))
+    with phase('configuration'):
+        if any(not os.environ.get(name) for name in names):
+            raise BackupError('Required GitHub Secrets missing.', 'CONFIG_MISSING_SECRETS')
+        if os.environ.get('BACKUP_RETENTION_10_DAYS_CONFIGURED') != 'true':
+            raise BackupError('Configure the R2 10-day lifecycle and acknowledge it before backup.', 'CONFIG_RETENTION_NOT_CONFIRMED')
+        endpoint = os.environ['BACKUP_R2_ENDPOINT']
+        if not re.fullmatch(r'https://[a-f0-9]{32}\.r2\.cloudflarestorage\.com', endpoint):
+            raise BackupError('Invalid R2 HTTPS endpoint.', 'CONFIG_R2_ENDPOINT_INVALID')
+        env = db_env(os.environ['BACKUP_DATABASE_URL'])
+    with phase('r2_client'):
+        import boto3
+        from botocore.config import Config
+        client = boto3.client('s3', endpoint_url=endpoint, region_name='auto',
+                              config=Config(retries={'max_attempts': 3, 'mode': 'standard'},
+                                            connect_timeout=30, read_timeout=120,
+                                            request_checksum_calculation='when_required',
+                                            response_checksum_validation='when_required'))
     with tempfile.TemporaryDirectory(prefix='stablr-backup-') as private:
         folder = Path(private)
         manifest = collect(folder, env)

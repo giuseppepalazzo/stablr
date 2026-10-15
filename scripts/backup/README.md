@@ -136,6 +136,38 @@ recupero operativo. Una prova a schema fixture non certifica Supabase reale.
 
 ## Limiti e manutenzione
 
+### Diagnostica sicura del job
+
+Ogni fase stampa solo `BACKUP phase=<fase> status=started|ok|failed` e, in caso
+di errore, un codice in allowlist. Distinzione fra `postgres_connection`,
+`database_export`, `archive_verification`, `roles_export`, `encryption`,
+`r2_client`, `r2_upload`, `r2_verification`, `r2_receipt` e `configuration`.
+Mai abilitare `set -x`, stampare l'ambiente, stderr grezzo PostgreSQL/age o
+eccezioni SDK complete. La chiusura delle pipe gestisce anche `BrokenPipeError`
+senza sostituire la causa originale con un errore generico. I tool PostgreSQL
+non chiedono password interattivamente: usano esclusivamente la credenziale
+configurata dal job.
+
+| Codice | Configurazione/controllo pertinente |
+| --- | --- |
+| `PG_AUTH_FAILED` | Verificare la password e l'URI URL-encoded in `BACKUP_DATABASE_URL`; niente reset automatico. |
+| `PG_DNS_FAILED`, `PG_NETWORK_UNREACHABLE`, `PG_CONNECTION_TIMEOUT`, `PG_CONNECTION_REFUSED` | Verificare host/rete. Se l'endpoint diretto è solo IPv6 e il runner non lo raggiunge, usare la URI **Session pooler** IPv4 del dashboard Supabase, porta **5432** e relativo username; mai transaction pooler 6543. Nessun fallback automatico. |
+| `PG_POOLER_REJECTED` | Verificare host e username esatti della URI session pooler, progetto e limiti connessioni. |
+| `PG_SSL_FAILED` | Verificare TLS/certificati; non disabilitare SSL per aggirare il problema. |
+| `PG_PERMISSION_DENIED` | Credenziale senza copertura sufficiente: verificare l'accesso ad Auth/catalogo/ruoli. Nessuna esclusione automatica di dati. |
+| `PG_INVENTORY_FAILED`, `PG_SNAPSHOT_FAILED`, `ARCHIVE_COVERAGE_FAILED` | Inventario/snapshot/copertura non validi: nessun upload, non eseguire migration. |
+| `AGE_RECIPIENT_INVALID` | Verificare il destinatario **pubblico** `BACKUP_AGE_RECIPIENT`, non usare la chiave privata. |
+| `R2_ACCESS_DENIED`, `R2_CREDENTIALS_INVALID`, `R2_SIGNATURE_INVALID` | Verificare le credenziali R2 limitate al bucket e i permessi Object Read & Write. |
+| `R2_BUCKET_NOT_FOUND`, `R2_CONNECTION_FAILED`, `R2_TLS_FAILED` | Verificare bucket ed endpoint account R2 HTTPS. |
+| `R2_INTEGRITY_FAILED`, errore in `r2_receipt` | Backup non verificato: nessuna ricevuta di successo. Non procedere alla migration. |
+
+I log dei run precedenti con il solo messaggio generico **non permettono di
+ricostruire quale servizio abbia fallito**. Un nuovo run con questa versione
+identifica fase e motivo filtrato; non attribuire retroattivamente l'errore a
+password, IPv6 o R2 senza questa evidenza.
+
+### Copertura operativa
+
 - **Non inclusi**: byte Storage (step successivo), secrets Edge/JWT/API, provider
   OAuth, SMTP, configurazioni dashboard, deploy Edge, DNS, password dei ruoli DB.
 - Backup logico giornaliero, **non PITR**: possibile perdita fino a un giorno

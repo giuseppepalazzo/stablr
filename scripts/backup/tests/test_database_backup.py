@@ -163,7 +163,7 @@ class BackupTests(unittest.TestCase):
             self.assertEqual(store.objects['database/fixture.tar.age'][0], b'age-encrypted-fixture')
             self.assertEqual(json.loads(store.objects['database/fixture.tar.age.verified.json'][0])['sha256'], digest)
             self.assertNotIn(b'private fixture', repr(store.objects).encode())
-            with self.assertRaises(RuntimeError):
+            with self.assertRaises(backup.BackupError):
                 backup.upload_verified(store, 'bucket', 'database/fixture.tar.age', encrypted)
 
     def test_failed_encryption_cannot_return_file_for_upload(self):
@@ -309,6 +309,120 @@ class BackupTests(unittest.TestCase):
         self.assertNotIn('BACKUP_RETENTION_30_DAYS_CONFIGURED', workflow)
         self.assertIn('dopo **10 giorni**', documentation)
         self.assertIn('BACKUP_RETENTION_10_DAYS_CONFIGURED=true', documentation)
+
+    def test_failed_postgres_connection_cleanup_preserves_reason_without_secrets(self):
+        for reason, code in [
+            ('password authentication failed', 'PG_AUTH_FAILED'),
+            ('could not translate host name', 'PG_DNS_FAILED'),
+            ('Network is unreachable', 'PG_NETWORK_UNREACHABLE'),
+            ('connection timed out', 'PG_CONNECTION_TIMEOUT'),
+            ('SSL error', 'PG_SSL_FAILED'),
+            ('Tenant or user not found', 'PG_POOLER_REJECTED'),
+            ('permission denied', 'PG_PERMISSION_DENIED'),
+        ]:
+            with self.subTest(code=code):
+                process = MagicMock()
+                process.stdout.readline.return_value = ''
+                process.poll.return_value = None
+                # Reproduce the original failure: EOF, then flush AND close fail.
+                process.stdin.flush.side_effect = [None, BrokenPipeError()]
+                process.stdin.close.side_effect = BrokenPipeError()
+                errors = io.BytesIO((reason + ': password-secret private-host user@example.invalid').encode())
+                with patch.object(backup.tempfile, 'TemporaryFile', return_value=errors), patch.object(backup.subprocess, 'Popen', return_value=process), contextlib.redirect_stdout(io.StringIO()) as output:
+                    with self.assertRaises(backup.BackupError) as caught:
+                        with backup.Snapshot({}):
+                            self.fail('A failed connection cannot yield a snapshot')
+                self.assertEqual(caught.exception.code, code)
+                self.assertIn('phase=postgres_connection status=failed code=' + code, output.getvalue())
+                for secret in ('password-secret', 'private-host', 'user@example.invalid'):
+                    self.assertNotIn(secret, output.getvalue() + str(caught.exception))
+                process.kill.assert_called_once()
+                self.assertTrue(errors.closed)
+
+    def test_postgres_tool_errors_classified_without_echoing_stderr(self):
+        for reason, code in [('permission denied for table private', 'PG_PERMISSION_DENIED'),
+                             ('aborting because of server version mismatch', 'PG_VERSION_MISMATCH'),
+                             ('invalid snapshot identifier', 'PG_SNAPSHOT_FAILED'),
+                             ('connection refused', 'PG_CONNECTION_REFUSED')]:
+            result = MagicMock(returncode=1, stderr=reason + ' password-secret raw-record', stdout='private')
+            with self.subTest(code=code), patch.object(backup.subprocess, 'run', return_value=result), contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError) as caught:
+                    with backup.phase('database_export'):
+                        backup.run(['pg_dump'])
+            self.assertEqual(caught.exception.code, code)
+            self.assertIn('phase=database_export status=failed code=' + code, output.getvalue())
+            self.assertNotIn('password-secret', output.getvalue() + str(caught.exception))
+            self.assertNotIn('raw-record', output.getvalue() + str(caught.exception))
+
+    def test_missing_psql_and_tool_timeout_have_safe_codes(self):
+        with patch.object(backup.subprocess, 'Popen', side_effect=FileNotFoundError('secret path')), contextlib.redirect_stdout(io.StringIO()) as output:
+            with self.assertRaises(backup.BackupError) as caught:
+                with backup.Snapshot({}):
+                    pass
+        self.assertEqual(caught.exception.code, 'TOOL_NOT_FOUND')
+        self.assertNotIn('secret path', output.getvalue())
+        with patch.object(backup.subprocess, 'run', side_effect=backup.subprocess.TimeoutExpired('secret command', 1)):
+            with self.assertRaises(backup.BackupError) as caught:
+                backup.run(['pg_dump'])
+        self.assertEqual(caught.exception.code, 'TOOL_TIMEOUT')
+        self.assertNotIn('secret command', str(caught.exception))
+
+    def test_r2_codes_allowlisted_and_no_receipt_after_failed_upload_or_readback(self):
+        class ClientError(Exception):
+            def __init__(self, code):
+                super().__init__('secret raw SDK error')
+                self.response = {'Error': {'Code': code, 'Message': 'secret raw payload'}, 'ResponseMetadata': {'RequestId': 'private request'}}
+
+        with tempfile.TemporaryDirectory() as root:
+            encrypted = Path(root) / 'cipher.age'
+            encrypted.write_bytes(b'encrypted fixture')
+            for remote_code, expected in [('AccessDenied', 'R2_ACCESS_DENIED'),
+                                          ('InvalidAccessKeyId', 'R2_CREDENTIALS_INVALID'),
+                                          ('SignatureDoesNotMatch', 'R2_SIGNATURE_INVALID'),
+                                          ('NoSuchBucket', 'R2_BUCKET_NOT_FOUND'),
+                                          ('PreconditionFailed', 'R2_PRECONDITION_FAILED'),
+                                          ('RequestTimeout', 'R2_TIMEOUT'),
+                                          ('secret unknown code', 'R2_REQUEST_FAILED')]:
+                for method, phase in [('put_object', 'r2_upload'), ('get_object', 'r2_verification')]:
+                    client = MagicMock()
+                    getattr(client, method).side_effect = ClientError(remote_code)
+                    with self.subTest(code=remote_code, phase=phase), contextlib.redirect_stdout(io.StringIO()) as output:
+                        with self.assertRaises(backup.BackupError) as caught:
+                            backup.upload_verified(client, 'private bucket', 'private key', encrypted)
+                    self.assertEqual(caught.exception.code, expected)
+                    self.assertIn('phase=' + phase + ' status=failed code=' + expected, output.getvalue())
+                    self.assertEqual(client.put_object.call_count, 1)
+                    for forbidden in ['secret', 'private bucket', 'private key', 'raw payload', 'private request']:
+                        self.assertNotIn(forbidden, output.getvalue() + str(caught.exception))
+
+    def test_r2_receipt_failure_and_encryption_failure_are_separate_phases(self):
+        with tempfile.TemporaryDirectory() as root:
+            encrypted = Path(root) / 'cipher.age'
+            encrypted.write_bytes(b'cipher')
+            client = MagicMock()
+            client.put_object.side_effect = [None, RuntimeError('secret receipt failure')]
+            client.get_object.return_value = {'Body': io.BytesIO(b'cipher'), 'Metadata': {'sha256': backup.sha256(encrypted)}}
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError):
+                    backup.upload_verified(client, 'bucket', 'key', encrypted)
+            self.assertIn('phase=r2_receipt status=failed', output.getvalue())
+            self.assertNotIn('secret receipt failure', output.getvalue())
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError) as caught:
+                    backup.encrypt(Path(root), 'secret invalid recipient')
+            self.assertEqual(caught.exception.code, 'AGE_RECIPIENT_INVALID')
+            self.assertIn('phase=encryption status=failed', output.getvalue())
+            self.assertNotIn('secret invalid recipient', output.getvalue())
+
+    def test_unexpected_errors_in_each_phase_never_echo_sensitive_content(self):
+        for name in sorted(backup.PHASES):
+            with self.subTest(phase=name), contextlib.redirect_stdout(io.StringIO()) as output:
+                with self.assertRaises(backup.BackupError) as caught:
+                    with backup.phase(name):
+                        raise ValueError('private raw dump password-secret https://private-host')
+            self.assertIn('phase=' + name + ' status=failed code=UNEXPECTED_ERROR', output.getvalue())
+            for secret in ['private', 'raw dump', 'password-secret', 'https://']:
+                self.assertNotIn(secret, output.getvalue() + str(caught.exception))
 
 
 if __name__ == '__main__':
