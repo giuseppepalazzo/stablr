@@ -100,6 +100,12 @@ Ordine ricostruibile dai documenti, non una roadmap con scadenze:
 
 Le evoluzioni successive previste dal Framework includono scorecard upload completo, coinvolgimento diretto dei club, quality dashboard e governance continuativa.
 
+### Roadmap Admin V1 — Task 14 (pianificata)
+
+**Manuale operativo STABLR — Guida all'utilizzo completo della UX Admin e alle procedure di backup, verifica, ripristino, sicurezza e gestione emergenze.**
+
+Da sviluppare dopo la **Task 13 — Backup completo e prova di ripristino**, quando Admin e sistema di backup saranno definitivi. Il manuale non viene realizzato in questa fase.
+
 ## 10. Next recommended task
 
 Il prossimo task tecnico naturale e' verificare nell'app pubblica come viene mostrato `Villa Giusti`, club FIG attivo ma non giocabile e senza route pubblicate. Il controllo deve essere diagnostico: cercare il club, osservare ricerca/card/dettaglio e decidere separatamente se progettare lo stato pubblico `Percorso in verifica`, senza modificare automaticamente la UX.
