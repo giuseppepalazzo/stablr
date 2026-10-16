@@ -2,8 +2,9 @@ name: Supabase Keep Alive
 
 on:
   schedule:
-    # Supabase Free projects need regular user database activity.
-    - cron: "17 5,17 * * *"
+    # Daily UTC gate only; database activity runs every five continuous days.
+    # Do not use */5 in day-of-month: it resets at each month boundary.
+    - cron: "17 5 * * *"
   workflow_dispatch:
 
 jobs:
@@ -12,7 +13,24 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - name: Check five-day interval
+        id: interval
+        shell: bash
+        env:
+          RUN_EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          UTC_DAY=$(( $(date -u +%s) / 86400 ))
+
+          if [[ "${RUN_EVENT_NAME}" == "workflow_dispatch" ]] || (( UTC_DAY % 5 == 0 )); then
+            echo "run=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "run=false" >> "${GITHUB_OUTPUT}"
+            echo "Five-day interval not due; no Supabase request."
+          fi
+
       - name: Generate read-only database activity
+        if: steps.interval.outputs.run == 'true'
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}

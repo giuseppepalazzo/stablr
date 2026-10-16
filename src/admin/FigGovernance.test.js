@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import FigGovernance from './FigGovernance';
+import {StrictMode} from 'react';
+import { act,fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import FigGovernance,{FIG_STATUS_POLL_MS,FIG_STATUS_POLL_LIMIT_MS} from './FigGovernance';
 import { createFigGovernanceService } from './fig-governance-data';
 const unknown={id:'unknown',kind:'new',needs_identity:true,can_draft:false,origin:'public',created_at:'2026-10-12T10:00:00Z',before:null,after:{name:'FIG osservazione',course:'9 Buche',par:35,ratings:Array(14).fill(null)},curated:null,decision:null};
 const linked={id:'linked',kind:'changed',needs_identity:false,can_draft:true,origin:'catalog',created_at:'2026-10-12T10:00:00Z',before:{name:'Prima',city:null},after:{name:'Dopo',city:'Roma'},curated:{name:'Curato',city:null},decision:null};
@@ -50,4 +51,31 @@ test('service does not expose service credentials or generic writes; errors prop
  expect(client.rpc).toHaveBeenNthCalledWith(1,'admin_fig_overview',{p_offset:50,p_show_resolved:true});expect(client.functions.invoke).toHaveBeenCalledWith('fig-governance',{body:{operation:'check',request_id:'request'}});
  expect(client.rpc).toHaveBeenNthCalledWith(2,'admin_fig_decide',{p_difference_id:'difference',p_action:'ignore',p_note:'note'});
  client.rpc.mockResolvedValue({error:{code:'42501'}});await expect(s.overview()).rejects.toEqual({code:'42501'});
+});
+
+test('running status polling stops in background and after the bounded window; explicit refresh remains available',async()=>{
+ jest.useFakeTimers();const original=Object.getOwnPropertyDescriptor(document,'visibilityState');let visibility='visible';
+ Object.defineProperty(document,'visibilityState',{configurable:true,get:()=>visibility});
+ try {
+  const now=Date.now(),s=service();s.overview.mockImplementation(async()=>({...data,last_check:{id:'run',status:'running',started_at:new Date(now).toISOString()}}));
+  render(<StrictMode><FigGovernance service={s} onBack={jest.fn()}/></StrictMode>);await act(async()=>{});expect(s.overview).toHaveBeenCalledTimes(1);
+  await act(async()=>{jest.advanceTimersByTime(FIG_STATUS_POLL_MS);});expect(s.overview).toHaveBeenCalledTimes(2);
+  visibility='hidden';fireEvent(document,new Event('visibilitychange'));
+  await act(async()=>{jest.advanceTimersByTime(FIG_STATUS_POLL_LIMIT_MS);});expect(s.overview).toHaveBeenCalledTimes(2);
+  visibility='visible';fireEvent(document,new Event('visibilitychange'));await act(async()=>{});
+  expect(screen.getByText(/Aggiornamento automatico sospeso/)).toBeInTheDocument();
+  await act(async()=>{jest.advanceTimersByTime(FIG_STATUS_POLL_LIMIT_MS*2);});expect(s.overview).toHaveBeenCalledTimes(2);
+  fireEvent.click(screen.getByRole('button',{name:'Aggiorna stato'}));await act(async()=>{});expect(s.overview).toHaveBeenCalledTimes(3);expect(s.check).not.toHaveBeenCalled();
+ } finally {jest.useRealTimers();if(original)Object.defineProperty(document,'visibilityState',original);else delete document.visibilityState;}
+});
+
+test('old running check does not start endless polling and failed reads are not automatically retried',async()=>{
+ jest.useFakeTimers();const log=jest.spyOn(console,'error').mockImplementation(()=>{});
+ try {
+  const s=service();s.overview.mockResolvedValue({...data,last_check:{status:'running',started_at:new Date(Date.now()-FIG_STATUS_POLL_LIMIT_MS-1).toISOString()}});
+  const view=render(<FigGovernance service={s} onBack={jest.fn()}/>);await act(async()=>{});
+  await act(async()=>{jest.advanceTimersByTime(FIG_STATUS_POLL_LIMIT_MS*3);});expect(s.overview).toHaveBeenCalledTimes(1);view.unmount();
+  const failed=service();failed.overview.mockRejectedValue({code:'PGRST202'});render(<FigGovernance service={failed} onBack={jest.fn()}/>);await act(async()=>{});
+  await act(async()=>{jest.advanceTimersByTime(FIG_STATUS_POLL_LIMIT_MS*3);});expect(failed.overview).toHaveBeenCalledTimes(1);
+ } finally {log.mockRestore();jest.useRealTimers();}
 });

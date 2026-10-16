@@ -40,7 +40,7 @@ export function formatCourseValue(key, value) {
 }
 
 export function getCourseEditorError(error) {
-  if (error?.code === "40001") return "La bozza o i dati del percorso sono cambiati. Riapri l’editor per verificare la base; la pubblicazione è stata bloccata.";
+  if (["40001","PT409"].includes(error?.code)) return "La bozza o i dati del percorso sono cambiati. Riapri l’editor per verificare la base; la pubblicazione è stata bloccata.";
   if (error?.code === "42501") return "Non sei autorizzato a modificare questa bozza.";
   if (error?.code === "23514") return "La struttura del percorso ha dati collegati e non può essere modificata. Nessun dato è stato pubblicato.";
   return "Impossibile completare l’operazione. Riprova.";

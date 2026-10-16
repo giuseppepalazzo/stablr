@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { EditorDialog } from './ClubEditor';
+import {sharePendingRequest} from '../lib/pending-request';
+export const FIG_STATUS_POLL_MS=30000;
+export const FIG_STATUS_POLL_LIMIT_MS=10*60*1000;
 const types = {new:'Nuova osservazione FIG',changed:'Modifica FIG',missing:'Non più presente',unmatched:'Senza collegamento verificato',conflict:'Conflitto',divergence:'Divergenza editoriale'};
 const actions = {draft:'Apri proposta in bozza',ignore:'Ignora modifica',not_corresponding:'Non corrisponde'};
 const date = value => value ? new Date(value).toLocaleString('it-IT') : '—';
@@ -14,14 +17,28 @@ export default function FigGovernance({ service, onBack, onOpenDraft }) {
   const [data,setData]=useState(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[loading,setLoading]=useState(true);
   const [offset,setOffset]=useState(0),[resolved,setResolved]=useState(false),[selected,setSelected]=useState(null),[confirm,setConfirm]=useState(null),[note,setNote]=useState('');
   const mounted=useRef(false),generation=useRef(0),pending=useRef(false),requestId=useRef(null);
+  const reads=useRef(new Map()),pollWindow=useRef(null);
+  const [visible,setVisible]=useState(document.visibilityState==='visible'),[pollExpired,setPollExpired]=useState(false);
   const load=useCallback(async()=>{
     const current=++generation.current;setLoading(true);setError('');
-    try {const result=await service.overview(offset,resolved);if(mounted.current&&current===generation.current)setData(result);}
+    try {const result=await sharePendingRequest(reads.current,`${offset}:${resolved}`,()=>service.overview(offset,resolved));if(mounted.current&&current===generation.current)setData(result);}
     catch(e){console.error('FIG governance read failed',e?.code||'request_failed');if(mounted.current&&current===generation.current)setError('Impossibile caricare Verifica FIG. Riprova.');}
     finally {if(mounted.current&&current===generation.current)setLoading(false);}
   },[service,offset,resolved]);
   useEffect(()=>{mounted.current=true;load();return()=>{mounted.current=false;};},[load]);
-  useEffect(()=>{if(data?.last_check?.status!=='running')return;const timer=setTimeout(load,5000);return()=>clearTimeout(timer);},[data,load]);
+  useEffect(()=>{const changed=()=>setVisible(document.visibilityState==='visible');document.addEventListener('visibilitychange',changed);return()=>document.removeEventListener('visibilitychange',changed);},[]);
+  useEffect(()=>{
+    const check=data?.last_check;
+    if(check?.status!=='running'){pollWindow.current=null;setPollExpired(false);return;}
+    const key=check.id||check.started_at||'running';
+    if(pollWindow.current?.key!==key){const start=Date.parse(check.started_at);pollWindow.current={key,start:Number.isFinite(start)?Math.min(start,Date.now()):Date.now(),attempts:0};}
+    const pollState=pollWindow.current;
+    if(Date.now()-pollState.start>=FIG_STATUS_POLL_LIMIT_MS||pollState.attempts>=20){setPollExpired(true);return;}
+    setPollExpired(false);
+    if(!visible||loading||error)return;
+    const timer=setTimeout(()=>{if(document.visibilityState==='visible'){pollState.attempts++;load();}},FIG_STATUS_POLL_MS);
+    return()=>clearTimeout(timer);
+  },[data,load,visible,loading,error]);
   const check=async()=>{
     if(pending.current)return;pending.current=true;setBusy(true);setError('');
     requestId.current ||= crypto.randomUUID();
@@ -40,6 +57,7 @@ export default function FigGovernance({ service, onBack, onOpenDraft }) {
     <nav className="stablr-admin-breadcrumb"><button type="button" onClick={onBack}>Avanzata</button><span>/</span><span>Verifica FIG</span></nav>
     <header className="stablr-admin-page-header"><div><h1>Verifica FIG</h1><p>Controllo di governance. Nessun aggiornamento automatico STABLR.</p></div><button className="stablr-admin-white-button" type="button" disabled={busy||(data?.last_check?.status==='running'&&Date.now()-new Date(data.last_check.started_at).getTime()<600000)} onClick={check}>{busy?'Controllo in corso…':'Verifica FIG ora'}</button></header>
     {error&&!selected&&!confirm&&<p role="alert">{error} <button className="stablr-admin-abandon-button" type="button" onClick={load}>Riprova lettura</button></p>}
+    {pollExpired&&<p role="status">Aggiornamento automatico sospeso: il controllo risulta ancora in corso. <button className="stablr-admin-abandon-button" type="button" disabled={loading} onClick={load}>Aggiorna stato</button></p>}
     {!data&&loading?<p role="status">Caricamento controlli FIG…</p>:data&&<>
       <section className="stablr-admin-detail-section"><div className="stablr-admin-technical-grid">
         <article><span>Ultimo controllo</span><strong>{date(data.last_check?.started_at)}</strong></article>

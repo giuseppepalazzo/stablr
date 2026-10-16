@@ -6,6 +6,7 @@ import NewClubCreation from "./NewClubCreation";
 import ExistingClubCourses from "./ExistingClubCourses";
 import NewCombinations from "./NewCombinations";
 import { createNewCombinationService } from "./new-combination-data";
+import {sharePendingRequest} from "../lib/pending-request";
 import { createExistingClubCourseService } from "./existing-club-course-data";
 import { createNewClubDraftService } from "./new-club-draft-data";
 import { createClubEditorService } from "./club-editor-data";
@@ -1023,6 +1024,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
   const [editingRoute, setEditingRoute] = useState(false);
   const [editingHoles, setEditingHoles] = useState(false);
   const clubExitGuard = useRef(null);
+  const adminRequests=useRef(new Map());
   const registerClubExitGuard = useCallback((guard) => { clubExitGuard.current = guard; }, []);
   const navigate = (action) => clubExitGuard.current ? clubExitGuard.current(action) : action();
   const openNewClub = (draftId = null) => navigate(() => {
@@ -1089,7 +1091,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
 
     const loadAdminData = async () => {
       try {
-        const [{ data: clubs, error: clubsError }, requestsResult, reportsResult, scorecardsResult, usersResult, roundsResult] = await Promise.all([
+        const [{ data: clubs, error: clubsError }, requestsResult, reportsResult, scorecardsResult, usersResult, roundsResult] = await sharePendingRequest(adminRequests.current,directoryRetryKey,()=>Promise.all([
           supabase
             .from("clubs")
             .select("id,name,city,data_status,source_type,source_payload,fig_club_id,fig_match_status,fig_match_confidence,playable,created_at,updated_at,fig_clubs(source_external_id),course_routes(id,name,holes_count,display_order,is_active,updated_at,route_holes(id,par,stroke_index),route_tees(id,is_active)),route_combinations(id,name,front_route_id,back_route_id,holes_count,is_active,combination_tees(id,is_active))")
@@ -1116,7 +1118,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
             .from("rounds")
             .select("id,user_id,club_id,route_combination_id,holes_count,total_par,round_type,selected_routes,gross_total,net_total,stableford_gross_total,stableford_net_total,estimated_hcp_after_round,created_at,updated_at,clubs(name),route_combinations(name),round_holes(id,round_hole_number,par,stroke_index,strokes,stableford_points)")
             .order("created_at", { ascending: false })
-        ]);
+        ]));
 
         if (!active) return;
         if (usersResult.error) {

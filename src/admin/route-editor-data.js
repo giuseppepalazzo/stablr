@@ -16,7 +16,7 @@ export function formatRouteValue(key, value) {
 }
 
 export function getRouteEditorError(error) {
-  if (error?.code === "40001") return "La bozza, la Route o i dati collegati sono cambiati. Riapri l’editor per verificare la base; la pubblicazione è stata bloccata.";
+  if (["40001","PT409"].includes(error?.code)) return "La bozza, la Route o i dati collegati sono cambiati. Riapri l’editor per verificare la base; la pubblicazione è stata bloccata.";
   if (error?.code === "40P01") return "Operazione in conflitto con un altro aggiornamento. Riprova; nessun dato è stato pubblicato.";
   if (error?.code === "42501") return "Non sei autorizzato a modificare questa bozza.";
   if (error?.code === "23514") return "La Route presenta dati delle buche o percorsi origine non coerenti. Nessun dato è stato pubblicato.";

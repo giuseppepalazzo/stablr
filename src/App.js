@@ -11,6 +11,7 @@ import { getTeeOptionsForHolesCount, getSelectedTeeForHolesCount, hasTeeRatings,
 import TeeScopeNotice from "./components/TeeScopeNotice";
 import { loadTeeSiContracts, resolveTeeSi } from "./lib/tee-si";
 import { getRouteDistanceOccurrence, loadTeeDistanceContracts, readLegacyTeeDistance, resolveTeeDistance } from "./lib/tee-distances";
+import {sharePendingRequest} from "./lib/pending-request";
 import { RoundsHistoryEmptyState } from "./components/RoundsHistoryEmptyState";
 import { RoundHistoryCard, RoundHistoryDetail } from "./components/RoundsHistory";
 import "./components/RoundsHistory.css";
@@ -991,6 +992,7 @@ function App() {
   const previousHcpRef = useRef(null);
   const previousEstimatedHcpRef = useRef(null);
   const lastSeenAttemptRef = useRef(0);
+  const catalogRequests = useRef(new Map());
 
   const [theme, setTheme] = useState(() => {
     try {
@@ -1248,8 +1250,9 @@ function App() {
     if (now - lastSeenAttemptRef.current < LAST_SEEN_INTERVAL_MS) return;
     lastSeenAttemptRef.current = now;
 
-    const { error } = await supabase.rpc("record_current_user_activity");
-    if (error) lastSeenAttemptRef.current = 0;
+    // Keep the 15-minute attempt limit even on a missing RPC/network error.
+    // Otherwise every focus/visibility event immediately retries a failing call.
+    await supabase.rpc("record_current_user_activity");
   }, [session?.user?.id]);
 
   useEffect(() => {
@@ -1409,7 +1412,7 @@ function App() {
     };
   }, []);
 
-  const loadCourses = useCallback(async () => {
+  const loadCourses = useCallback(() => sharePendingRequest(catalogRequests.current, sessionUserId, async () => {
     if (!supabase) return [];
 
     const { data, error } = await supabase
@@ -1652,7 +1655,7 @@ function App() {
 
     setSavedCourses(normalizedCourses);
     return normalizedCourses;
-  }, []);
+  }), [sessionUserId]);
 
   const normalizePlaceholderClubRecord = useCallback((club) => {
     if (!club?.id) return null;
@@ -1821,27 +1824,27 @@ function App() {
   );
 
   const loadFavorites = useCallback(async () => {
-    if (!supabase || !session?.user) return [];
+    if (!supabase || !sessionUserId) return [];
 
     const { data, error } = await supabase
       .from("favorite_clubs")
       .select("club_id")
-      .eq("user_id", session.user.id);
+      .eq("user_id", sessionUserId);
 
     if (error) throw error;
 
     const ids = (data || []).map((item) => item.club_id);
     setFavoriteCourseIds(ids);
     return ids;
-  }, [session]);
+  }, [sessionUserId]);
 
   const loadRounds = useCallback(async (coursesOverride = []) => {
-    if (!supabase || !session?.user) return [];
+    if (!supabase || !sessionUserId) return [];
 
     const { data, error } = await supabase
       .from("rounds")
       .select("*, round_holes(*)")
-      .eq("user_id", session.user.id)
+      .eq("user_id", sessionUserId)
       .order("created_at", { ascending: false });
 
     if (error) throw error;
@@ -1855,10 +1858,10 @@ function App() {
 
     setSavedRounds(nextRounds);
     return nextRounds;
-  }, [session]);
+  }, [sessionUserId]);
 
   const loadProfile = useCallback(async () => {
-    if (!supabase || !session?.user) return null;
+    if (!supabase || !sessionUserId) return null;
 
     setProfileLoading(true);
     setProfileResolved(false);
@@ -1866,7 +1869,7 @@ function App() {
     const { data, error } = await supabase
       .from("profiles")
       .select("*")
-      .eq("id", session.user.id)
+      .eq("id", sessionUserId)
       .maybeSingle();
 
     if (error) throw error;
@@ -1895,11 +1898,7 @@ function App() {
     setProfileLoading(false);
     setProfileResolved(true);
     return data;
-  }, [session]);
-
-  const migrateLocalCoursesIfNeeded = useCallback(async () => {
-    return undefined;
-  }, []);
+  }, [sessionUserId]);
 
   useEffect(() => {
     if (!sessionUserId) {
@@ -1927,14 +1926,15 @@ function App() {
       setLoadingWelcomeReady(false);
 
       try {
-        const initialCourses = await loadCourses();
-        await migrateLocalCoursesIfNeeded();
         const courses = await loadCourses();
+        if (cancelled) return;
         await loadFavorites();
+        if (cancelled) return;
         const profile = await loadProfile();
+        if (cancelled) return;
 
         if (profile) {
-          await loadRounds(courses.length ? courses : initialCourses);
+          await loadRounds(courses);
         } else {
           setSavedRounds([]);
         }
@@ -1975,7 +1975,7 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, [sessionUserId, loadCourses, loadFavorites, loadProfile, loadRounds, migrateLocalCoursesIfNeeded]);
+  }, [sessionUserId, loadCourses, loadFavorites, loadProfile, loadRounds]);
 
   const coursesWithFavorites = useMemo(
     () =>
