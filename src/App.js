@@ -9,6 +9,7 @@ import {
 import { isFigCatalogClubAwaitingPlayableData } from "./lib/club-availability";
 import { getTeeOptionsForHolesCount, getSelectedTeeForHolesCount, hasTeeRatings, numericTeeRating } from "./lib/tee-selection";
 import TeeScopeNotice from "./components/TeeScopeNotice";
+import { loadTeeSiContracts, resolveTeeSi } from "./lib/tee-si";
 import { RoundsHistoryEmptyState } from "./components/RoundsHistoryEmptyState";
 import { RoundHistoryCard, RoundHistoryDetail } from "./components/RoundsHistory";
 import "./components/RoundsHistory.css";
@@ -1461,6 +1462,10 @@ function App() {
       "route_combination_id",
       combinationIds
     );
+    const [routeSi, combinationSi] = await Promise.all([
+      loadTeeSiContracts(supabase, "route_tee", routeTeesData.map(tee => tee.id)),
+      loadTeeSiContracts(supabase, "combination_tee", combinationTeesData.map(tee => tee.id))
+    ]);
 
     const routeTeesByRouteId = new Map();
     (routeTeesData || []).forEach((tee) => {
@@ -1506,6 +1511,8 @@ function App() {
               .filter((tee) => tee.is_active !== false)
               .map((tee) => ({
                 id: tee.id,
+                teeKind: "route_tee",
+                siContract: routeSi.get(tee.id) ?? null,
                 teeName: tee.tee_name,
                 teeColor: tee.tee_color,
                 gender: tee.gender,
@@ -1571,6 +1578,8 @@ function App() {
               .filter((tee) => tee.is_active !== false)
               .map((tee) => ({
                 id: tee.id,
+                teeKind: "combination_tee",
+                siContract: combinationSi.get(tee.id) ?? null,
                 teeName: tee.tee_name,
                 teeColor: tee.tee_color,
                 gender: tee.gender,
@@ -4613,7 +4622,7 @@ function App() {
     setStartHolePage(nextPage);
   }, [showRoundSetup, roundSetup.startHole, roundSetup.totalCompetitionHoles]);
 
-  const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole, selectedTee = null) => {
+  const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole, selectedTee = null, ignoreManagedTeeSi = false) => {
     const courseHoleCount = Number(route?.holesCount || 0);
     const start = Number(startHole || 1);
 
@@ -4644,8 +4653,10 @@ function App() {
         sourceStrokeIndex !== null
           ? Math.min(18, sourceStrokeIndex + 1)
           : sourceStrokeIndex;
-      const effectiveStrokeIndex =
-        teeSpecificHoleData?.strokeIndex || repeatedSingleNineStrokeIndex;
+      const si = resolveTeeSi(ignoreManagedTeeSi ? null : selectedTee, {
+        parentId: route.id, holesCount: totalCompetitionHoles, liveHoleId: baseHole.id,
+        occurrence: roundNumber, standardSi: repeatedSingleNineStrokeIndex
+      }, teeSpecificHoleData?.strokeIndex || repeatedSingleNineStrokeIndex);
       const effectivePar = teeSpecificHoleData?.par || baseHole.par;
 
       return {
@@ -4656,7 +4667,8 @@ function App() {
         courseHoleNumber: baseHole.hole,
         physicalHoleNumber: officialPhysicalHoleNumber,
         par: effectivePar,
-        strokeIndex: effectiveStrokeIndex,
+        strokeIndex: si.strokeIndex,
+        teeSiError: si.error,
         sourceStrokeIndex,
         teeSpecificStrokeIndex: teeSpecificHoleData?.strokeIndex || null,
         distanceM: teeSpecificHoleData?.distanceM || null,
@@ -4730,12 +4742,16 @@ function App() {
     return [...frontSequence, ...backSequence];
   }, [getAdaptedCombinedStrokeIndex, usesNineHoleStrokeIndexScale]);
 
-  const buildOfficialCombinationSequence = useCallback((combination, routes) => {
+  const buildOfficialCombinationSequence = useCallback((combination, routes, selectedTee = null, ignoreManagedTeeSi = false) => {
     const routeMap = new Map((Array.isArray(routes) ? routes : []).map((route) => [route.id, route]));
 
     return (Array.isArray(combination?.holes) ? combination.holes : []).map((hole) => {
       const relatedRoute = routeMap.get(hole.routeId);
       const routePosition = Number(hole.routePosition || 1);
+      const si = resolveTeeSi(ignoreManagedTeeSi ? null : selectedTee, {
+        parentId: combination.id, holesCount: combination.holesCount,
+        liveHoleId: hole.id, occurrence: null, standardSi: hole.strokeIndex
+      }, hole.strokeIndex);
 
       return {
         competitionHoleNumber: hole.roundHoleNumber,
@@ -4745,7 +4761,8 @@ function App() {
         courseHoleNumber: hole.physicalHoleNumber,
         physicalHoleNumber: hole.physicalHoleNumber,
         par: hole.par,
-        strokeIndex: hole.strokeIndex,
+        strokeIndex: si.strokeIndex,
+        teeSiError: si.error,
         sourceStrokeIndex: hole.sourceStrokeIndex,
         roundNumber: routePosition,
         totalRounds: 2,
@@ -4780,7 +4797,9 @@ function App() {
     if (Number(setup.totalCompetitionHoles) === 18 && officialCombination) {
       if (selectionMode === "official_combination_18") {
         return rotateCompetitionSequence(
-          buildOfficialCombinationSequence(officialCombination, routes),
+          buildOfficialCombinationSequence(officialCombination, routes,
+            getSelectedTeeForHolesCount(officialCombination.tees, setup.totalCompetitionHoles, setup.selectedCombinationTeeId),
+            setup.ignoreManagedTeeSi === true),
           Number(setup.startHole || 1)
         );
       }
@@ -4810,7 +4829,8 @@ function App() {
           selectedRoute,
           Number(setup.totalCompetitionHoles),
           Number(setup.startHole),
-          selectedRouteTee
+          selectedRouteTee,
+          setup.ignoreManagedTeeSi === true
         );
       }
 
@@ -4823,7 +4843,8 @@ function App() {
           selectedRoute,
           Number(setup.totalCompetitionHoles),
           Number(setup.startHole),
-          selectedRouteTee
+          selectedRouteTee,
+          setup.ignoreManagedTeeSi === true
         );
       }
     }
@@ -4834,7 +4855,8 @@ function App() {
       selectedRoute,
       Number(setup.totalCompetitionHoles),
       Number(setup.startHole),
-      selectedRouteTee
+      selectedRouteTee,
+      setup.ignoreManagedTeeSi === true
     );
   }, [
     buildManualCombinationSequence,
@@ -5042,6 +5064,7 @@ function App() {
   };
 
   const startRound = () => {
+    if (competitionHoles.some(hole => hole.teeSiError)) return;
     const startingScores = competitionHoles.map((hole) => Number(hole.par));
     setRoundCompetitionSnapshot(competitionHoles.map((hole) => ({ ...hole })));
     setRoundScores(startingScores);
@@ -5521,6 +5544,7 @@ function App() {
         relatedCourse,
         {
           ...createInitialRoundSetup(),
+          ignoreManagedTeeSi: true,
           totalCompetitionHoles: Number(round.totalCompetitionHoles || 18),
           startHole: Number(round.startHole || 1),
           selectedRouteId: relatedCourse.primaryRouteId || relatedCourse.routes?.[0]?.id || null
@@ -8022,7 +8046,8 @@ function App() {
       );
     const showSelectedTeeCard = Boolean(selectedTee) && teeOptions.length > 0 && !showTeeOptions;
     const showTeeCardOptions = teeOptions.length > 1 && (!selectedTee || showTeeOptions);
-    const canStartRound = Boolean(roundSetup.totalCompetitionHoles) && competitionHoles.length > 0;
+    const teeSiInvalid = competitionHoles.some(hole => hole.teeSiError);
+    const canStartRound = Boolean(roundSetup.totalCompetitionHoles) && competitionHoles.length > 0 && !teeSiInvalid;
     const showManualBuilderDirectly =
       Number(roundSetup.totalCompetitionHoles) === 18 &&
       nineHoleRoutes.length > 1 &&
@@ -9378,6 +9403,7 @@ function App() {
               </div>
             )}
           <TeeScopeNotice holesCount={roundSetup.totalCompetitionHoles} options={teeOptions} selectedTee={selectedTee} color={colors.subtext} appFont={appFont} />
+          {teeSiInvalid && <p role="alert">Override SI del tee non valido o non aggiornato. Impossibile avviare il giro con questo tee: occorre una verifica Admin.</p>}
           {selectedTeeEstimatedSourceLabel && (
             <div
               style={{

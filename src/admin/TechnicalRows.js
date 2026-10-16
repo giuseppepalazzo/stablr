@@ -29,10 +29,10 @@ export function TechnicalDisclosure({ summary, children, className }) {
 
 // Only wrap technical collections: operational cards and alerts remain visible.
 // Fragments preserve the existing table rows, column grids and data order.
-export default function TechnicalRows({ children, label, list = false }) {
+export default function TechnicalRows({ children, label, list = false, controlClassName = "" }) {
   const [expanded, toggle] = useExpansion();
   const rows = Children.toArray(children);
-  const control = <button className="stablr-admin-technical-toggle" type="button" aria-label={`${expanded ? "Riduci" : "Mostra tutto"} · ${label}`} aria-expanded={expanded} onClick={toggle}>{expanded ? "Riduci" : "Mostra tutto"}<span> · {expanded ? rows.length : 6} di {rows.length}</span></button>;
+  const control = <button className={`stablr-admin-technical-toggle ${controlClassName}`.trim()} type="button" aria-label={`${expanded ? "Riduci" : "Mostra tutto"} · ${label}`} aria-expanded={expanded} onClick={toggle}>{expanded ? "Riduci" : "Mostra tutto"}<span> · {expanded ? rows.length : 6} di {rows.length}</span></button>;
   return <>
     {expanded ? rows : rows.slice(0, 6)}
     {rows.length > 6 && (list ? <li className="stablr-admin-technical-list-control" role="none">{control}</li> : control)}

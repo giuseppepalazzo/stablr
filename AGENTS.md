@@ -69,3 +69,19 @@ L'obiettivo è quindi simmetrico:
 - Qualità, integrità dei dati e sicurezza hanno comunque priorità sul risparmio di utilizzo.
 
 Queste istruzioni devono applicarsi all'intero repository Stablr.
+
+## Convenzioni UX obbligatorie — Admin STABLR
+
+- **Pulsanti:** utilizzare sempre componenti e stili del design system Admin.
+  Vietati controlli nativi non stilizzati. Mantenere una gerarchia coerente tra
+  azioni primarie, secondarie, annullamento e azioni distruttive, con dimensioni,
+  padding, spaziature, focus e stati disabilitati uniformi.
+- **Input numerici:** rispettare i limiti e la scala reali sia con tastiera sia
+  con freccette. Nelle scale cicliche implementare il loop massimo/minimo in
+  entrambi i sensi, includendo eventuali scale non consecutive. Non applicare il
+  loop ai valori non ciclici. Valori fuori scala non possono essere confermati
+  né salvati; eventuali prefissi incompleti durante la digitazione vanno risolti
+  o scartati prima della conferma e all'uscita dal campo.
+- **Modali e anteprime:** riutilizzare controlli, espansioni, conferme e
+  annullamenti coerenti con la UX Admin. Distinguere sempre warning confermabili
+  da violazioni bloccanti; una conferma non deve aggirare i vincoli server/DB.

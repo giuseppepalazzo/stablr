@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { EditorDialog } from "./ClubEditor";
 import TechnicalRows from "./TechnicalRows";
+import TeeSiEditor from "./TeeSiEditor";
 import { courseTeeColor, courseTeeDiff, courseTeeDraftFields, courseTeePreviewChanges, courseTeeError, formatCourseTeeValue, normalizeCourseTeeFields, validCourseTeeFields } from "./course-tee-editor-data";
 
 function TeeFoundationImpact({ impact }) {
@@ -82,9 +83,11 @@ export function CourseHolesEntry({ onManage, disabled }) {
 
 export function CourseTeeManager({ club, course, service, onBack, onBackToClub, onBackToCatalog, navigate, registerExitGuard, kind = "course" }) {
   const state = useCourseTees(course.id, service);
-  const [selected, setSelected] = useState(null), [editing, setEditing] = useState(false);
+  const [selected, setSelected] = useState(null), [editing, setEditing] = useState(false), [editingSi, setEditingSi] = useState(false);
   const tees = state.result?.tees || [];
   const backToList = () => navigate(() => { setSelected(null); setEditing(false); state.retry(); });
+  if (editingSi) return <TeeSiEditor tee={selected} kind={kind} registerExitGuard={registerExitGuard}
+    onBack={() => navigate(() => setEditingSi(false))} />;
   if (editing) return <CourseTeeEditor key={selected.id} club={club} course={course} tee={selected} service={service} kind={kind}
     onBack={selected.is_new ? backToList : () => navigate(() => { setEditing(false); state.retry(); })}
     onBackToList={backToList} onBackToCourse={onBack} onBackToClub={onBackToClub} onBackToCatalog={onBackToCatalog}
@@ -101,6 +104,7 @@ export function CourseTeeManager({ club, course, service, onBack, onBackToClub, 
     {selected ? <>
       <button className="stablr-admin-white-button" onClick={() => setEditing(true)} type="button">Modifica dati</button>
       <CourseTeeFacts tee={selected} kind={kind} />
+      <section className="stablr-admin-detail-section"><h2>Override SI</h2><button className="stablr-admin-white-button" type="button" onClick={() => setEditingSi(true)}>Gestisci override SI</button></section>
       <p className="stablr-admin-detail-empty">Ambito, Par, fonti e distanze sono in sola lettura.</p>
     </> : <ListState state={state} kind={kind}>
       <div className="stablr-admin-child-editor-action"><button className="stablr-admin-white-button" type="button" onClick={() => { setSelected({ id: `new:${course.id}`, is_new: true, tee_name: "Nuovo tee" });setEditing(true); }}>+ Nuovo tee</button></div>
