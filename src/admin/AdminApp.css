@@ -685,6 +685,26 @@ button.stablr-admin-club-row:hover {
 }
 .stablr-admin-editor-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .stablr-admin-editor-fields > .stablr-admin-editor-actions { grid-column: 1 / -1; }
+.stablr-admin-new-combination .stablr-admin-new-tees-table input {
+  width: 80px; padding: 8px; border: 1px solid #32624f; border-radius: 8px;
+  background: var(--stablr-admin-card); color: var(--stablr-admin-text); font: inherit;
+}
+.stablr-admin-new-combination input:focus-visible,
+.stablr-admin-new-combination select:focus-visible { outline: 2px solid #9ed1fa; outline-offset: 2px; }
+.stablr-admin-new-combination fieldset { border: 1px solid #32624f; border-radius: 12px; min-width: 0; }
+.stablr-admin-new-combination .stablr-admin-new-holes-input-control input { width: 100%; border-radius: 0; appearance: textfield; }
+.stablr-admin-new-combination .stablr-admin-new-holes-input-control input::-webkit-inner-spin-button,
+.stablr-admin-new-combination .stablr-admin-new-holes-input-control input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.stablr-admin-new-combination button:focus-visible { outline: 2px solid #9ed1fa; outline-offset: 3px; }
+.stablr-admin-new-combination .stablr-admin-technical-toggle { display: inline-flex; flex-wrap: wrap; gap: 5px; width: fit-content; text-align: left; }
+.stablr-admin-new-combination .stablr-admin-technical-toggle span { color: var(--stablr-admin-muted); }
+.stablr-admin-new-combination .stablr-admin-technical-toggle:hover { background: #163c30; }
+.stablr-admin-new-combination .stablr-admin-editor-dialog .stablr-admin-editor-header-actions > button { min-height: 38px; padding: 8px 14px; border-radius: 12px; font: inherit; font-size: 14px; cursor: pointer; }
+.stablr-admin-new-combination .stablr-admin-editor-dialog .stablr-admin-danger-button { border: 1px solid #a65d54; background: #492820; color: #ffcebe; }
+.stablr-admin-new-combination .stablr-admin-editor-dialog button:disabled { opacity: .48; cursor: default; }
+.stablr-admin-new-combination .stablr-admin-new-combination-blocker { margin: 12px 0; padding: 12px; border: 1px solid #a65d54; border-radius: 10px; background: #492820; color: #ffcebe; }
+.stablr-admin-new-combination .stablr-admin-new-combination-blocker p { color: #ffcebe; }
+.stablr-admin-new-combination .stablr-admin-new-combination-info { margin: 12px 0; padding: 0 12px; border: 1px solid #32624f; border-radius: 10px; background: #103528; }
 
 .stablr-admin-new-club-fig-results { display: grid; gap: 8px; margin: 12px 0; }
 .stablr-admin-new-club-fig-results [aria-checked="true"] { outline: 2px solid var(--stablr-admin-blue, #76b9ec); outline-offset: -2px; }

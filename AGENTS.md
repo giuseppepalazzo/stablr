@@ -85,3 +85,15 @@ Queste istruzioni devono applicarsi all'intero repository Stablr.
 - **Modali e anteprime:** riutilizzare controlli, espansioni, conferme e
   annullamenti coerenti con la UX Admin. Distinguere sempre warning confermabili
   da violazioni bloccanti; una conferma non deve aggirare i vincoli server/DB.
+- **Riuso preventivo:** prima di introdurre UI in ogni task, individuare e
+  riutilizzare controlli numerici, pulsanti, modali ed espansioni già conformi
+  nei flussi esistenti. Non ricreare frecce native o controlli non stilizzati:
+  nelle scale cicliche usare il controllo con pulsanti espliciti e la logica
+  condivisa, sia per il mouse sia per la tastiera. Un valore manuale rifiutato
+  deve avere feedback chiaro, mai essere convertito silenziosamente.
+- **Verifica prima della consegna:** controllare le schermate e le modali
+  introdotte/modificate, comprese espansioni, conferme, annullamenti, stati
+  disabilitati, focus e limiti numerici. Aggiungere test mirati per i bordi della
+  scala, mouse/tastiera, input manuale non valido e controlli di espansione.
+  Nessuna consegna con controlli nativi non stilizzati o gerarchie incoerenti;
+  distinguere visivamente informazioni e blocchi senza indebolire le validazioni.

@@ -4,6 +4,8 @@ import ClubEditor from "./ClubEditor";
 import { NewClubDrafts } from "./NewClubEditor";
 import NewClubCreation from "./NewClubCreation";
 import ExistingClubCourses from "./ExistingClubCourses";
+import NewCombinations from "./NewCombinations";
+import { createNewCombinationService } from "./new-combination-data";
 import { createExistingClubCourseService } from "./existing-club-course-data";
 import { createNewClubDraftService } from "./new-club-draft-data";
 import { createClubEditorService } from "./club-editor-data";
@@ -26,6 +28,7 @@ import "./AdminApp.css";
 const clubEditorService = createClubEditorService(supabase);
 const newClubDraftService = createNewClubDraftService(supabase);
 const existingClubCourseService = createExistingClubCourseService(supabase);
+const newCombinationService = createNewCombinationService(supabase);
 const courseEditorService = createCourseEditorService(supabase);
 const routeEditorService = createRouteEditorService(supabase);
 const holeGridEditorService = createHoleGridEditorService(supabase);
@@ -838,7 +841,7 @@ function RouteList({ routes, onOpenRoute, onEditRoute }) {
   </div>) : <p className="stablr-admin-detail-empty">Nessuna Route/combinazione disponibile.</p>;
 }
 
-function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit, onOpenRoute, onEditRoute, onNewCourse }) {
+function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit, onOpenRoute, onEditRoute, onNewCourse, onNewCombination }) {
   const [draftStatus, setDraftStatus] = useState({ loading: true, draft: null, error: false });
   useEffect(() => {
     let active = true;
@@ -883,7 +886,7 @@ function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit, onOpenR
           </div>
         )) : <p className="stablr-admin-detail-empty">Nessun percorso disponibile.</p>}
       </section>
-      <section className="stablr-admin-detail-section"><h2>Route/combinazioni</h2>
+      <section className="stablr-admin-detail-section"><div className="stablr-admin-new-courses-header stablr-admin-club-courses-header"><h2>Route/combinazioni</h2><button className="stablr-admin-white-button" type="button" onClick={onNewCombination}>Aggiungi combinazione</button></div>
         <RouteList routes={club.allCombinations || club.combinations} onOpenRoute={onOpenRoute} onEditRoute={onEditRoute} />
       </section>
       <section className="stablr-admin-detail-section">
@@ -1011,6 +1014,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
   const [editingClub, setEditingClub] = useState(false);
   const [newClubTarget, setNewClubTarget] = useState(null);
   const [newCourses, setNewCourses] = useState(false);
+  const [newCombinations, setNewCombinations] = useState(false);
   const [editingCourse, setEditingCourse] = useState(false);
   const [editingCourseHoles, setEditingCourseHoles] = useState(false);
   const [managingCourseTees, setManagingCourseTees] = useState(false);
@@ -1059,6 +1063,17 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
     setSelectedClub(refreshedClub);
     setSelectedRoute(refreshedClub.allCombinations.find((route) => route.id === live.id));
     setEditingRoute(false);
+  };
+  const acceptNewCombinationPublication = ({ combination: live }) => {
+    const apply = club => {
+      const added = normalizeCatalogClub({ id: club.id, name: club.name, route_combinations: [live] }).allCombinations[0];
+      const allCombinations = [...(club.allCombinations || club.combinations), added];
+      const combinations = allCombinations.filter(route => route.isActive !== false);
+      return { ...club, allCombinations, combinations, courses: getClubCoursesLabel(club.routes.length, combinations.length),
+        courseNames: [...club.routes.map(course => course.name), ...combinations.map(route => route.name)] };
+    };
+    setAdminData(current => ({ ...current, clubs: current.clubs.map(club => club.id === live.club_id ? apply(club) : club) }));
+    setSelectedClub(current => apply(current));setNewCombinations(false);setSelectedCourse(null);setSelectedRoute(null);
   };
   const backToRouteClub = () => navigate(() => { setManagingCombinationTees(false); setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); setSelectedCourse(null); });
   const backToRouteCourse = () => navigate(() => { setManagingCombinationTees(false); setEditingHoles(false); setEditingRoute(false); setSelectedRoute(null); });
@@ -1206,7 +1221,10 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
           setNewClubTarget(null);setEditingClub(false);setSelectedCourse(null);setSelectedRoute(null);
           setSelectedClub(adminData.clubs.find((current) => current.id === club.id) || normalizeCatalogClub(club));
         })}
-      /> : newCourses && selectedClub ? <ExistingClubCourses club={selectedClub} ownerId={adminUserId}
+      /> : newCombinations && selectedClub ? <NewCombinations club={selectedClub} ownerId={adminUserId}
+        service={newCombinationService} registerExitGuard={registerClubExitGuard}
+        onBack={() => setNewCombinations(false)} onPublished={acceptNewCombinationPublication} />
+      : newCourses && selectedClub ? <ExistingClubCourses club={selectedClub} ownerId={adminUserId}
         service={existingClubCourseService} registerExitGuard={registerClubExitGuard}
         onBack={() => navigate(() => setNewCourses(false))} onPublished={acceptNewCoursePublication} />
       : selectedRoute && selectedClub ? (managingCombinationTees ? <CourseTeeManager
@@ -1304,6 +1322,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
       /> : selectedClub ? <ClubSummary
         club={selectedClub}
         onNewCourse={() => navigate(() => setNewCourses(true))}
+        onNewCombination={() => navigate(() => setNewCombinations(true))}
         onBack={() => setSelectedClub(null)}
         onEdit={() => setEditingClub(true)}
         onEditCourse={(course) => { setSelectedCourse(course); setEditingCourse(true); }}
@@ -1359,6 +1378,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
               onClick={() => navigate(() => {
                 setNewClubTarget(null);
                 setNewCourses(false);
+                setNewCombinations(false);
                 setEditingClub(false);
                 setEditingCourse(false);
                 setEditingCourseHoles(false);
