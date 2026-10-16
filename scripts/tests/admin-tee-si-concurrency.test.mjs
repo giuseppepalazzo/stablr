@@ -6,9 +6,11 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {createServer} from 'node:net';
-import {setupSi,call,role,admin,other} from './helpers/tee-si-fixture.mjs';
+import {setupSi,call as callSi,role,admin,other,rpc,sql} from './helpers/tee-si-fixture.mjs';
 const enabled=!!process.env.STABLR_PG_BIN&&!!process.env.STABLR_PG_MODULE;
-test('native tee SI: two Admin sessions, source phantoms, atomic rollback',{skip:!enabled},async t=>{
+for(const metric of ['si','distances'])test(`native tee ${metric}: two Admin sessions, source phantoms, atomic rollback`,{skip:!enabled},async t=>{
+  const call=metric==='si'?callSi:(db,tee,action,d=null,snapshot=null,hash=null,note=null)=>rpc(db,'admin_tee_distances',[
+    tee.route_id?'route_tee':'combination_tee',tee.id,action,d?.draft_id??null,d?.revision??null,snapshot,hash,note]);
   const pg=await import(process.env.STABLR_PG_MODULE),Client=pg.Client||pg.default?.Client;
   const root=await mkdtemp(join(tmpdir(),'stablr-si-pg-')),data=join(root,'data'),bin=process.env.STABLR_PG_BIN;
   const run=(name,args)=>{const r=spawnSync(join(bin,name),args,{encoding:'utf8',timeout:30000});if(r.status!==0)throw new Error(`Local ${name}: ${r.stderr}`);};
@@ -19,9 +21,13 @@ test('native tee SI: two Admin sessions, source phantoms, atomic rollback',{skip
   try {
     run('pg_ctl',['start','-D',data,'-l',join(root,'postgres.log'),'-o',`-p ${port} -h 127.0.0.1 -k ${root}`,'-w']);started=true;
     const opts={host:'127.0.0.1',port,user:'postgres',database:'postgres'};a=new Client(opts);b=new Client(opts);await a.connect();await b.connect();
-    const da=wrap(a),db=wrap(b),{tee,combination}=await setupSi(da);await role(db,'authenticated',other);
+    const da=wrap(a),db=wrap(b),{tee,combination}=await setupSi(da);
+    await a.query('reset role');await da.exec(await sql('admin-tee-distances'));await role(da);
+    await role(db,'authenticated',other);
     const first=await call(da,tee,'open'),second=await call(db,tee,'open');
-    const fields={mode:'managed',holes:first.draft.snapshot.holes.map((h,i)=>({...h,si:i===0?first.context.holes[1].standard_si:i===1?first.context.holes[0].standard_si:null}))};
+    const fields={mode:'managed',holes:first.draft.snapshot.holes.map((h,i)=>metric==='si'
+      ? {...h,si:i===0?first.context.holes[1].standard_si:i===1?first.context.holes[0].standard_si:null}
+      : {...h,distance_m:300+i})};
     let d=(await call(da,tee,'save',first.draft,fields)).draft;
     const otherDraft=(await call(db,tee,'save',second.draft,fields)).draft;
     let preview=await call(da,tee,'preview',d);

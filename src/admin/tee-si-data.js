@@ -47,19 +47,21 @@ export function teeSiValidation(fields, context) {
   }
   return { blockers, warnings, effective };
 }
-export function createTeeSiService(client) {
+export function createTeeGridService(client, metric = "si") {
+  const rpc = metric === "distances" ? "admin_tee_distances" : "admin_tee_si";
   return async (kind, teeId, action, params = {}) => {
-    const { data, error } = await client.rpc("admin_tee_si", { p_kind: kind, p_tee_id: teeId, p_action: action, ...params });
+    const { data, error } = await client.rpc(rpc, { p_kind: kind, p_tee_id: teeId, p_action: action, ...params });
     if (error) throw error;
     if (!data || (!data.context && !data.draft && !data.version_id)) throw new Error("Invalid SI response");
     return data;
   };
 }
+export const createTeeSiService = client => createTeeGridService(client);
 export const teeSiService = createTeeSiService(supabase);
-export function teeSiError(error) {
+export function teeSiError(error, metric = "si") {
   if (error?.code === "40001") return "La bozza o la base sono cambiate. Riapri l’editor; nessun dato è stato pubblicato.";
   if (error?.code === "55P03") return "Dati temporaneamente occupati. Riprova: nessuna pubblicazione parziale.";
   if (error?.code === "42501") return "Operazione non autorizzata per questa bozza.";
-  if (["22023", "23514"].includes(error?.code)) return "Verifica collegamenti, SI e conferma: nessun dato è stato pubblicato.";
-  return "Impossibile caricare o salvare gli override SI. Riprova.";
+  if (["22023", "23514"].includes(error?.code)) return `Verifica collegamenti, ${metric === "distances" ? "distanze" : "SI"} e conferma: nessun dato è stato pubblicato.`;
+  return `Impossibile caricare o salvare ${metric === "distances" ? "le distanze tee" : "gli override SI"}. Riprova.`;
 }

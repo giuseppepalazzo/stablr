@@ -1,3 +1,4 @@
+import { loadTeeGridContracts } from "./tee-grid-loader";
 // New exact-ID contract takes precedence only after an explicit publication.
 // Legacy matrices are never matched or migrated here.
 export function resolveTeeSi(tee, { parentId, holesCount, liveHoleId, occurrence, standardSi }, legacySi) {
@@ -28,20 +29,5 @@ export function resolveTeeSi(tee, { parentId, holesCount, liveHoleId, occurrence
 }
 
 export async function loadTeeSiContracts(client, kind, ids) {
-  const result = new Map(), unique = [...new Set(ids.filter(Boolean))];
-  for (let offset = 0; offset < unique.length; offset += 50) {
-    for (let page = 0; ; page += 1000) {
-      const { data, error } = await client.from("catalog_tee_si").select("tee_kind,tee_id,contract")
-        .eq("tee_kind", kind).in("tee_id", unique.slice(offset, offset + 50)).range(page, page + 999);
-      if (error) {
-        // Atomic migration not yet deployed: no new publisher can have run.
-        // Permission/network/invalid-contract errors must NOT become a fallback.
-        if (["42P01", "PGRST205"].includes(error.code)) return new Map();
-        throw error;
-      }
-      for (const row of data || []) result.set(row.tee_id, row.contract);
-      if ((data || []).length < 1000) break;
-    }
-  }
-  return result;
+  return loadTeeGridContracts(client,kind,ids,"si");
 }

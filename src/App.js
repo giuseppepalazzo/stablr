@@ -10,6 +10,7 @@ import { isFigCatalogClubAwaitingPlayableData } from "./lib/club-availability";
 import { getTeeOptionsForHolesCount, getSelectedTeeForHolesCount, hasTeeRatings, numericTeeRating } from "./lib/tee-selection";
 import TeeScopeNotice from "./components/TeeScopeNotice";
 import { loadTeeSiContracts, resolveTeeSi } from "./lib/tee-si";
+import { getRouteDistanceOccurrence, loadTeeDistanceContracts, readLegacyTeeDistance, resolveTeeDistance } from "./lib/tee-distances";
 import { RoundsHistoryEmptyState } from "./components/RoundsHistoryEmptyState";
 import { RoundHistoryCard, RoundHistoryDetail } from "./components/RoundsHistory";
 import "./components/RoundsHistory.css";
@@ -120,7 +121,7 @@ function getTeeSpecificHoleMatrixKey(tee) {
   return rawParts[0].replace(/\s+/g, "_");
 }
 
-function getTeeSpecificHoleData(route, tee, physicalHoleNumber, roundNumber) {
+function getTeeSpecificHoleData(route, tee, physicalHoleNumber, roundNumber, distanceOccurrence = roundNumber) {
   const matrix = route?.sourcePayload?.tee_specific_hole_matrix;
   if (!matrix || !tee) return null;
 
@@ -150,11 +151,15 @@ function getTeeSpecificHoleData(route, tee, physicalHoleNumber, roundNumber) {
     ? holeData.stroke_indexes
     : [];
   const distances = Array.isArray(holeData.distances_m) ? holeData.distances_m : [];
+  const distanceOccurrenceIndex = Math.max(
+    0,
+    Math.min(1, Math.max(occurrenceIndexFromPhysicalHole, Number(distanceOccurrence || 1) - 1))
+  );
 
   return {
     par: Number(holeData.par || 0) || null,
     strokeIndex: Number(strokeIndexes[occurrenceIndex] || 0) || null,
-    distanceM: Number(distances[occurrenceIndex] || distances[0] || 0) || null,
+    distanceM: readLegacyTeeDistance(distances, distanceOccurrenceIndex),
     source: matrix.source || "tee_specific_hole_matrix"
   };
 }
@@ -1462,9 +1467,11 @@ function App() {
       "route_combination_id",
       combinationIds
     );
-    const [routeSi, combinationSi] = await Promise.all([
+    const [routeSi, combinationSi,routeDistances,combinationDistances] = await Promise.all([
       loadTeeSiContracts(supabase, "route_tee", routeTeesData.map(tee => tee.id)),
-      loadTeeSiContracts(supabase, "combination_tee", combinationTeesData.map(tee => tee.id))
+      loadTeeSiContracts(supabase, "combination_tee", combinationTeesData.map(tee => tee.id)),
+      loadTeeDistanceContracts(supabase,"route_tee",routeTeesData.map(tee=>tee.id)),
+      loadTeeDistanceContracts(supabase,"combination_tee",combinationTeesData.map(tee=>tee.id))
     ]);
 
     const routeTeesByRouteId = new Map();
@@ -1513,6 +1520,7 @@ function App() {
                 id: tee.id,
                 teeKind: "route_tee",
                 siContract: routeSi.get(tee.id) ?? null,
+                distanceContract: routeDistances.get(tee.id) ?? null,
                 teeName: tee.tee_name,
                 teeColor: tee.tee_color,
                 gender: tee.gender,
@@ -1580,6 +1588,7 @@ function App() {
                 id: tee.id,
                 teeKind: "combination_tee",
                 siContract: combinationSi.get(tee.id) ?? null,
+                distanceContract: combinationDistances.get(tee.id) ?? null,
                 teeName: tee.tee_name,
                 teeColor: tee.tee_color,
                 gender: tee.gender,
@@ -4622,7 +4631,7 @@ function App() {
     setStartHolePage(nextPage);
   }, [showRoundSetup, roundSetup.startHole, roundSetup.totalCompetitionHoles]);
 
-  const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole, selectedTee = null, ignoreManagedTeeSi = false) => {
+  const buildSingleRouteCompetitionSequence = useCallback((route, totalCompetitionHoles, startHole, selectedTee = null, ignoreManagedTeeSi = false, ignoreManagedTeeDistances = false) => {
     const courseHoleCount = Number(route?.holesCount || 0);
     const start = Number(startHole || 1);
 
@@ -4633,6 +4642,7 @@ function App() {
       const baseHole = route.holes[relativeIndex];
       const competitionHoleNumber = index + 1;
       const roundNumber = Math.floor(index / courseHoleCount) + 1;
+      const distanceOccurrence = getRouteDistanceOccurrence(courseHoleCount, totalCompetitionHoles, start, index);
       const totalRounds = totalCompetitionHoles / courseHoleCount;
       const physicalHoleSequence = Array.isArray(route?.sourcePayload?.physical_hole_sequence)
         ? route.sourcePayload.physical_hole_sequence
@@ -4644,7 +4654,8 @@ function App() {
         route,
         selectedTee,
         officialPhysicalHoleNumber,
-        roundNumber
+        roundNumber,
+        distanceOccurrence
       );
       const repeatedSingleNineStrokeIndex =
         totalRounds === 2 &&
@@ -4658,6 +4669,9 @@ function App() {
         occurrence: roundNumber, standardSi: repeatedSingleNineStrokeIndex
       }, teeSpecificHoleData?.strokeIndex || repeatedSingleNineStrokeIndex);
       const effectivePar = teeSpecificHoleData?.par || baseHole.par;
+      const distance = resolveTeeDistance(ignoreManagedTeeDistances ? null : selectedTee, {
+        parentId:route.id,holesCount:totalCompetitionHoles,liveHoleId:baseHole.id,occurrence:distanceOccurrence
+      },teeSpecificHoleData?.distanceM ?? null);
 
       return {
         competitionHoleNumber,
@@ -4671,7 +4685,8 @@ function App() {
         teeSiError: si.error,
         sourceStrokeIndex,
         teeSpecificStrokeIndex: teeSpecificHoleData?.strokeIndex || null,
-        distanceM: teeSpecificHoleData?.distanceM || null,
+        distanceM: distance.distanceM,
+        teeDistanceError: distance.error,
         roundNumber,
         totalRounds,
         segmentLabel:
@@ -4742,7 +4757,7 @@ function App() {
     return [...frontSequence, ...backSequence];
   }, [getAdaptedCombinedStrokeIndex, usesNineHoleStrokeIndexScale]);
 
-  const buildOfficialCombinationSequence = useCallback((combination, routes, selectedTee = null, ignoreManagedTeeSi = false) => {
+  const buildOfficialCombinationSequence = useCallback((combination, routes, selectedTee = null, ignoreManagedTeeSi = false, ignoreManagedTeeDistances = false) => {
     const routeMap = new Map((Array.isArray(routes) ? routes : []).map((route) => [route.id, route]));
 
     return (Array.isArray(combination?.holes) ? combination.holes : []).map((hole) => {
@@ -4752,6 +4767,9 @@ function App() {
         parentId: combination.id, holesCount: combination.holesCount,
         liveHoleId: hole.id, occurrence: null, standardSi: hole.strokeIndex
       }, hole.strokeIndex);
+      const distance=resolveTeeDistance(ignoreManagedTeeDistances ? null : selectedTee,{
+        parentId:combination.id,holesCount:combination.holesCount,liveHoleId:hole.id,occurrence:null
+      },null);
 
       return {
         competitionHoleNumber: hole.roundHoleNumber,
@@ -4764,6 +4782,8 @@ function App() {
         strokeIndex: si.strokeIndex,
         teeSiError: si.error,
         sourceStrokeIndex: hole.sourceStrokeIndex,
+        distanceM:distance.distanceM,
+        teeDistanceError:distance.error,
         roundNumber: routePosition,
         totalRounds: 2,
         segmentLabel: routePosition === 1 ? "Prime nove" : "Seconde nove",
@@ -4799,7 +4819,7 @@ function App() {
         return rotateCompetitionSequence(
           buildOfficialCombinationSequence(officialCombination, routes,
             getSelectedTeeForHolesCount(officialCombination.tees, setup.totalCompetitionHoles, setup.selectedCombinationTeeId),
-            setup.ignoreManagedTeeSi === true),
+            setup.ignoreManagedTeeSi === true,setup.ignoreManagedTeeDistances === true),
           Number(setup.startHole || 1)
         );
       }
@@ -4830,7 +4850,7 @@ function App() {
           Number(setup.totalCompetitionHoles),
           Number(setup.startHole),
           selectedRouteTee,
-          setup.ignoreManagedTeeSi === true
+          setup.ignoreManagedTeeSi === true,setup.ignoreManagedTeeDistances === true
         );
       }
 
@@ -4844,7 +4864,7 @@ function App() {
           Number(setup.totalCompetitionHoles),
           Number(setup.startHole),
           selectedRouteTee,
-          setup.ignoreManagedTeeSi === true
+          setup.ignoreManagedTeeSi === true,setup.ignoreManagedTeeDistances === true
         );
       }
     }
@@ -4856,7 +4876,7 @@ function App() {
       Number(setup.totalCompetitionHoles),
       Number(setup.startHole),
       selectedRouteTee,
-      setup.ignoreManagedTeeSi === true
+      setup.ignoreManagedTeeSi === true,setup.ignoreManagedTeeDistances === true
     );
   }, [
     buildManualCombinationSequence,
@@ -5545,6 +5565,7 @@ function App() {
         {
           ...createInitialRoundSetup(),
           ignoreManagedTeeSi: true,
+          ignoreManagedTeeDistances: true,
           totalCompetitionHoles: Number(round.totalCompetitionHoles || 18),
           startHole: Number(round.startHole || 1),
           selectedRouteId: relatedCourse.primaryRouteId || relatedCourse.routes?.[0]?.id || null
@@ -9404,6 +9425,8 @@ function App() {
             )}
           <TeeScopeNotice holesCount={roundSetup.totalCompetitionHoles} options={teeOptions} selectedTee={selectedTee} color={colors.subtext} appFont={appFont} />
           {teeSiInvalid && <p role="alert">Override SI del tee non valido o non aggiornato. Impossibile avviare il giro con questo tee: occorre una verifica Admin.</p>}
+          <p style={{color:colors.subtext,fontSize:"13px"}}>Totale distanze: {competitionHoles.length>0 && competitionHoles.every(h=>h.distanceM!=null) ? `${competitionHoles.reduce((sum,h)=>sum+h.distanceM,0)} m` : "— (dati incompleti)"}</p>
+          {competitionHoles.some(hole=>hole.teeDistanceError) && <p role="status">Distanze del tee non disponibili: collegamenti da verificare. Nessun rating o calcolo di gioco viene sostituito.</p>}
           {selectedTeeEstimatedSourceLabel && (
             <div
               style={{
@@ -10259,6 +10282,7 @@ function App() {
                       }}
                     >
                       ⛳️ {hole.physicalHoleNumber || hole.courseHoleNumber}
+                      <div>Distanza: {hole.distanceM==null ? "—" : `${hole.distanceM} m`}</div>
                     </div>
                   </div>
 
