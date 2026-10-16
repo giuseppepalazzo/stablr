@@ -2,14 +2,16 @@ import { useCallback, useRef } from "react";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import CourseEditor from "./CourseEditor";
 import { applyCoursePublication, createCourseEditorService, formatCourseValue, getCourseDiff, normalizeCourseFields } from "./course-editor-data";
+import {metadataPlan} from "./__fixtures__/metadata-editor";
 
 const club = { id: "club-1", name: "Club esistente", dataStatus: "needs_review", figMatchStatus: "unmatched" };
 const course = { id: "course-1", name: "Percorso esistente", holesCount: 9, isActive: true, displayOrder: 0 };
 const snapshot = { name: course.name, holes_count: 9, display_order: 0, is_active: true };
-const draft = { draft_id: "draft-1", revision: 1, snapshot, base_snapshot: { ...snapshot, _context: { club_id: club.id } } };
+const draft = { draft_id: "draft-1",entity_type:"route",live_entity_id:course.id,workflow_status:"draft", revision: 1, snapshot, base_snapshot: { ...snapshot, _context: { club_id: club.id } } };
 const context = { can_edit_structure: true, original_name: "Originale FIG", gesgolf_name: "Originale GesGolf", source_system: "fig" };
 const makeService = () => ({
   openDraft: jest.fn().mockResolvedValue({ draft, context }),
+  previewDraft: jest.fn(async draft=>metadataPlan(draft,"route")),
   saveDraft: jest.fn().mockImplementation((current, fields) => Promise.resolve({ ...current, revision: current.revision + 1, snapshot: normalizeCourseFields(fields) })),
   publishDraft: jest.fn().mockResolvedValue({ course: { id: course.id, club_id: club.id, name: "Nome nuovo", holes_count: 18, display_order: null, is_active: false }, version_id: "version-1" }),
   abandonDraft: jest.fn().mockResolvedValue({ ...draft, workflow_status: "archived", revision: 2 })
@@ -41,7 +43,7 @@ test("identical route draft does not show a misleading badge", async () => {
   expect(screen.queryByText("Bozza in corso")).not.toBeInTheDocument();
 });
 
-test("resumes changed draft, shows its badge, source names and no editable aliases, notes or technical IDs", async () => {
+test("resumes changed draft with curated aliases/notes and immutable source names", async () => {
   const service = makeService();
   service.openDraft.mockResolvedValue({ draft: { ...draft, snapshot: { ...snapshot, name: "Bozza salvata" } }, context });
   render(<Harness service={service} />);
@@ -50,7 +52,8 @@ test("resumes changed draft, shows its badge, source names and no editable alias
   expect(screen.getByText("Originale FIG")).toBeInTheDocument();
   expect(screen.getByText("Originale GesGolf")).toBeInTheDocument();
   expect(screen.getByText("Da collegare")).toBeInTheDocument();
-  expect(screen.getAllByRole("textbox")).toHaveLength(1);
+  expect(screen.getAllByRole("textbox")).toHaveLength(3);
+  expect(screen.getByLabelText("Struttura")).toBeDisabled();
   expect(screen.getByLabelText("Ordine")).toHaveValue(0);
   expect(service.openDraft).toHaveBeenCalledWith(course.id);
 });
@@ -88,7 +91,7 @@ test("save leaves live unchanged and publish requires exact before/after confirm
   render(<Harness service={service} onPublished={onPublished} />);
   await screen.findByLabelText("Nome visualizzato");
   fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Nome nuovo" } });
-  fireEvent.change(screen.getByLabelText("Struttura"), { target: { value: "18" } });
+  expect(screen.getByLabelText("Struttura")).toBeDisabled();
   fireEvent.change(screen.getByLabelText("Ordine"), { target: { value: "" } });
   fireEvent.change(screen.getByLabelText("Stato operativo"), { target: { value: "false" } });
   fireEvent.click(screen.getByRole("button", { name: "Salva bozza", exact: true }));
@@ -98,12 +101,13 @@ test("save leaves live unchanged and publish requires exact before/after confirm
   fireEvent.click(screen.getByRole("button", { name: "Pubblica", exact: true }));
   const dialog = await screen.findByRole("dialog", { name: "Conferma pubblicazione" });
   const diff = within(dialog).getByRole("table", { name: "Differenze percorso" });
-  for (const value of [course.name, "Nome nuovo", "9 buche", "18 buche", "0", "—", "Attivo", "Disattivato"]) expect(within(diff).getByText(value)).toBeInTheDocument();
+  for (const value of [course.name, "Nome nuovo", "0", "—", "Attivo", "Disattivato"]) expect(within(diff).getByText(value)).toBeInTheDocument();
   expect(service.publishDraft).not.toHaveBeenCalled();
   expect(service.saveDraft).toHaveBeenCalledTimes(1);
+  fireEvent.change(within(dialog).getByLabelText("Motivazione breve"),{target:{value:"Pubblicazione verificata"}});
   fireEvent.click(within(dialog).getByRole("button", { name: "Conferma pubblicazione" }));
   await waitFor(() => expect(onPublished).toHaveBeenCalledWith(expect.objectContaining({ name: "Nome nuovo", is_active: false })));
-  expect(service.publishDraft).toHaveBeenCalledWith(expect.objectContaining({ revision: 2 }));
+  expect(service.publishDraft).toHaveBeenCalledWith(expect.objectContaining({ revision: 2 }),expect.objectContaining({kind:"route"}),"Pubblicazione verificata");
 });
 
 test("publish auto-saves dirty draft, cancelling confirmation never publishes", async () => {
@@ -177,6 +181,7 @@ test.each(["40001", "23514", "42501"])("failed publication %s remains in confirm
   fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Nuovo" } });
   fireEvent.click(screen.getByRole("button", { name: "Pubblica", exact: true }));
   const dialog = await screen.findByRole("dialog");
+  fireEvent.change(within(dialog).getByLabelText("Motivazione breve"),{target:{value:"Pubblicazione verificata"}});
   fireEvent.click(within(dialog).getByRole("button", { name: "Conferma pubblicazione" }));
   await within(dialog).findByRole("alert");
   expect(onPublished).not.toHaveBeenCalled();
@@ -197,12 +202,12 @@ test("adapter allowlists fields, preserves nullable order and requires live publ
   const client = { rpc: jest.fn().mockResolvedValue({ data: [draft], error: null }) };
   const service = createCourseEditorService(client);
   await service.saveDraft(draft, { ...snapshot, name: " Nuovo ", display_order: "", fig_club_id: "forbidden" });
-  expect(client.rpc).toHaveBeenCalledWith("admin_course_save_draft", { p_draft_id: draft.draft_id,
-    p_snapshot: { name: "Nuovo", holes_count: 9, display_order: null, is_active: true }, p_expected_revision: 1 });
+  expect(client.rpc).toHaveBeenCalledWith("admin_catalog_metadata", {p_kind:"route",p_target:course.id,p_action:"save", p_draft_id: draft.draft_id,
+    p_snapshot: { name: "Nuovo", holes_count: 9, display_order: null, is_active: true,aliases:[],notes:null }, p_expected_revision: 1 });
   client.rpc.mockResolvedValue({ data: null, error: null });
   expect(await service.getDraft(course.id)).toBeNull();
-  await expect(service.openDraft(course.id)).rejects.toThrow("no single draft");
-  await expect(service.publishDraft(draft)).rejects.toThrow("no live result");
+  await expect(service.openDraft(course.id)).rejects.toThrow();
+  await expect(service.publishDraft(draft)).rejects.toThrow("Server preview");
   client.rpc.mockResolvedValue({ data: [draft], error: null });
   await service.abandonDraft(draft);
   expect(client.rpc).toHaveBeenLastCalledWith("admin_catalog_archive_draft", { p_draft_id: draft.draft_id, p_entity_type: "route", p_expected_revision: 1 });

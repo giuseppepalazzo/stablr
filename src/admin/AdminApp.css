@@ -705,6 +705,20 @@ button.stablr-admin-club-row:hover {
 .stablr-admin-new-combination .stablr-admin-new-combination-blocker { margin: 12px 0; padding: 12px; border: 1px solid #a65d54; border-radius: 10px; background: #492820; color: #ffcebe; }
 .stablr-admin-new-combination .stablr-admin-new-combination-blocker p { color: #ffcebe; }
 .stablr-admin-new-combination .stablr-admin-new-combination-info { margin: 12px 0; padding: 0 12px; border: 1px solid #32624f; border-radius: 10px; background: #103528; }
+.stablr-admin-metadata-editor .stablr-admin-editor-fields textarea {
+  width: 100%; box-sizing: border-box; min-height: 85px; padding: 11px 12px;
+  border: 1px solid #32624f; border-radius: 10px; background: var(--stablr-admin-card); color: var(--stablr-admin-text); font: inherit; resize: vertical;
+}
+.stablr-admin-metadata-editor :is(input,select,textarea) { color-scheme: dark; }
+.stablr-admin-metadata-editor :is(input,select,textarea,button):focus-visible,
+.stablr-admin-catalog-metadata button:focus-visible { outline: 2px solid #9ed1fa; outline-offset: 3px; }
+.stablr-admin-metadata-editor .stablr-admin-editor-dialog .stablr-admin-danger-button { border: 1px solid #a65d54; border-radius: 12px; padding: 8px 14px; background: #492820; color: #ffcebe; font: inherit; cursor: pointer; }
+.stablr-admin-metadata-editor .stablr-admin-editor-dialog button:disabled { opacity: .48; cursor: default; }
+.stablr-admin-metadata-editor .stablr-admin-technical-toggle,
+.stablr-admin-catalog-metadata .stablr-admin-technical-toggle { display: inline-flex; gap: 5px; width: fit-content; text-align: left; }
+.stablr-admin-metadata-info { padding: 12px; border: 1px solid #32624f; border-radius: 10px; background: #103528; }
+.stablr-admin-metadata-editor .stablr-admin-metadata-warning { padding: 12px; border: 1px solid #8e7950; border-radius: 10px; background: #332b1d; color: #f1dca8; }
+.stablr-admin-metadata-history-row { display: grid; gap: 10px; padding: 12px 0; border-bottom: 1px solid #32624f; }
 
 .stablr-admin-new-club-fig-results { display: grid; gap: 8px; margin: 12px 0; }
 .stablr-admin-new-club-fig-results [aria-checked="true"] { outline: 2px solid var(--stablr-admin-blue, #76b9ec); outline-offset: -2px; }

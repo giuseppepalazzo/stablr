@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { supabase } from "../lib/supabase";
 import { AdminShell } from "./AdminApp";
 import { hasCourseDraftChanges } from "./course-editor-data";
+import { metadataMockRequest } from "./__fixtures__/metadata-editor";
 
 jest.mock("../lib/supabase", () => ({ hasSupabaseConfig: true, supabase: { from: jest.fn(), rpc: jest.fn() } }));
 
@@ -49,6 +50,9 @@ test.each([
     return query;
   });
   supabase.rpc.mockImplementation(async (name,params) => {
+    const request = metadataMockRequest(name, params, id => id === course.id ? draft : null);
+    if (request.reply) return request.reply;
+    name = request.name; params = request.params;
     if (name === "admin_user_directory") return { data: [], error: null };
     if (name === "admin_club_get_draft") return { data: null, error: null };
     if (name === "admin_course_get_draft") {

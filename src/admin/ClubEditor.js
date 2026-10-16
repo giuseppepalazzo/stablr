@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { getClubDiff, getClubEditorError, normalizeClubFields } from "./club-editor-data";
 
-export function EditorDialog({ title, children }) {
+export function EditorDialog({ title, children, formControls = false }) {
   const dialog = useRef(null);
   useEffect(() => {
     const previousFocus = document.activeElement;
-    dialog.current?.querySelector("button")?.focus();
+    const selector = formControls ? "button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled)" : "button:not(:disabled)";
+    dialog.current?.querySelector(selector)?.focus();
     const trapFocus = (event) => {
       if (event.key !== "Tab") return;
-      const buttons = [...dialog.current.querySelectorAll("button:not(:disabled)")];
+      const buttons = [...dialog.current.querySelectorAll(selector)];
       if (!buttons.length) return;
       const next = event.shiftKey ? buttons[buttons.length - 1] : buttons[0];
       if (document.activeElement === (event.shiftKey ? buttons[0] : buttons[buttons.length - 1])) {
@@ -19,7 +20,7 @@ export function EditorDialog({ title, children }) {
     const element = dialog.current;
     element.addEventListener("keydown", trapFocus);
     return () => { element.removeEventListener("keydown", trapFocus); previousFocus?.focus(); };
-  }, []);
+  }, [formControls]);
   return <div className="stablr-admin-editor-overlay"><section aria-label={title} aria-modal="true" className="stablr-admin-editor-dialog" ref={dialog} role="dialog"><h2>{title}</h2>{children}</section></div>;
 }
 

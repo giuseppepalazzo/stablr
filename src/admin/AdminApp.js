@@ -6,7 +6,9 @@ import NewClubCreation from "./NewClubCreation";
 import ExistingClubCourses from "./ExistingClubCourses";
 import NewCombinations from "./NewCombinations";
 import { createNewCombinationService } from "./new-combination-data";
+import {loadCatalogMetadata,publishedCombinationOrder} from "../lib/catalog-metadata";
 import {sharePendingRequest} from "../lib/pending-request";
+import {CatalogMetadataHistory} from "./CatalogMetadata";
 import { createExistingClubCourseService } from "./existing-club-course-data";
 import { createNewClubDraftService } from "./new-club-draft-data";
 import { createClubEditorService } from "./club-editor-data";
@@ -120,7 +122,7 @@ function formatDateTime(dateValue) {
 
 // Reuse the catalog's existing normalization for an exact FIG-linked club,
 // including a club outside the currently loaded active catalog.
-function normalizeCatalogClub(club) {
+function normalizeCatalogClub(club,metadata) {
   const allCourses = (club.course_routes || []).map((route) => {
     const holes = route.route_holes || [];
     const hasParAndSi = holes.length > 0 && holes.every((hole) => hole.par != null && hole.stroke_index != null);
@@ -128,7 +130,7 @@ function normalizeCatalogClub(club) {
     return {
       id: route.id, name: route.name || "—", holesCount: route.holes_count,
       hasPhysicalHoles: holes.length > 0, displayOrder: route.display_order,
-      isActive: route.is_active !== false,
+      isActive: route.is_active !== false,aliases:metadata?.courses.get(route.id)?.aliases||[],notes:metadata?.courses.get(route.id)?.notes||null,
       completeness: hasParAndSi && hasTeeData ? "Completo" : hasParAndSi ? "Par/SI disponibili" : "Dati parziali",
       status: route.is_active !== false ? "Attivo" : "Disattivato"
     };
@@ -136,8 +138,10 @@ function normalizeCatalogClub(club) {
   const routes = allCourses.filter((course) => course.isActive);
   const allCombinations = (club.route_combinations || []).map((combination) => ({
     id: combination.id, name: combination.name || "—", holesCount: combination.holes_count,
-    isActive: combination.is_active !== false, frontRouteId: combination.front_route_id, backRouteId: combination.back_route_id
-  }));
+    isActive: combination.is_active !== false, frontRouteId: combination.front_route_id, backRouteId: combination.back_route_id,
+    aliases:metadata?.combinations.get(combination.id)?.aliases||[],notes:metadata?.combinations.get(combination.id)?.notes||null,
+    displayOrder:publishedCombinationOrder(metadata?.combinations.get(combination.id),combination.source_payload?.display_order)
+  })).sort((a,b)=>(a.displayOrder??2147483648)-(b.displayOrder??2147483648)||a.name.localeCompare(b.name,"it"));
   const combinations = allCombinations.filter((combination) => combination.isActive);
   const filter = getClubFilter(club);
   return {
@@ -903,7 +907,7 @@ function ClubSummary({ club, onBack, onOpenCourse, onEditCourse, onEdit, onOpenR
   );
 }
 
-function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRoute, onEditRoute, onManageTees }) {
+function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRoute, onEditRoute, onManageTees, publicationSucceeded }) {
   const routeCombinations = club.combinations.filter((combination) =>
     combination.frontRouteId === course.id || combination.backRouteId === course.id
   );
@@ -914,6 +918,7 @@ function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRou
     <section className="stablr-admin-detail">
       <ClubBreadcrumb club={club} course={course} onBack={onBackToCatalog} onBackToClub={onBack} />
       <header className="stablr-admin-page-header"><div><h1>{course.name}</h1><p>{club.name}</p></div><span className="stablr-admin-status">{course.status}</span></header>
+      {publicationSucceeded&&<p role="status">Pubblicazione metadati completata.</p>}
       <div className="stablr-admin-editor-actions stablr-admin-club-edit-entry">
         <button className="stablr-admin-white-button" onClick={onEdit} type="button">Modifica dati</button>
         <CourseDraftIndicator course={course} />
@@ -927,6 +932,7 @@ function CourseDetail({ club, course, onBack, onBackToCatalog, onEdit, onOpenRou
         <RouteList routes={allRouteCombinations} onOpenRoute={onOpenRoute} onEditRoute={onEditRoute} />
       </section>
       <CourseTeeSection course={course} service={courseTeeEditorService} onManage={onManageTees} />
+      <CatalogMetadataHistory target={course.id} service={courseEditorService} onRestored={onEdit}/>
       <p className="stablr-admin-data-sequence">Club → Percorsi → Route/combinazioni → Buche → Par/SI → Tee/distanze → CR/Slope</p>
     </section>
   );
@@ -1023,6 +1029,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [editingRoute, setEditingRoute] = useState(false);
   const [editingHoles, setEditingHoles] = useState(false);
+  const [metadataPublication,setMetadataPublication]=useState(null);
   const clubExitGuard = useRef(null);
   const adminRequests=useRef(new Map());
   const registerClubExitGuard = useCallback((guard) => { clubExitGuard.current = guard; }, []);
@@ -1039,6 +1046,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
     setEditingClub(false);
   };
   const acceptCoursePublication = (live) => {
+    setMetadataPublication({kind:"route",id:live.id});
     const apply = (club) => applyCoursePublication(club, live);
     setAdminData((current) => ({ ...current, clubs: current.clubs.map((club) => club.id === live.club_id ? apply(club) : club) }));
     const refreshedClub = apply(selectedClub);
@@ -1059,6 +1067,7 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
     setSelectedClub(current => apply(current));setNewCourses(false);setSelectedCourse(null);
   };
   const acceptRoutePublication = (live) => {
+    setMetadataPublication({kind:"route_combination",id:live.id});
     const apply = (club) => applyRoutePublication(club, live);
     setAdminData((current) => ({ ...current, clubs: current.clubs.map((club) => club.id === live.club_id ? apply(club) : club) }));
     const refreshedClub = apply(selectedClub);
@@ -1125,7 +1134,10 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
           console.error("Admin user directory RPC failed", usersResult.error);
         }
 
-        const normalizedClubs = (clubs || []).map(normalizeCatalogClub);
+        const metadata=clubsError?null:await loadCatalogMetadata(supabase,(clubs||[]).flatMap(club=>(club.course_routes||[]).map(route=>route.id)),
+          (clubs||[]).flatMap(club=>(club.route_combinations||[]).map(route=>route.id)));
+        if(!active)return;
+        const normalizedClubs = (clubs || []).map(club=>normalizeCatalogClub(club,metadata));
 
         setAdminData({
           loading: false,
@@ -1265,7 +1277,8 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
         course={selectedCourse}
         route={selectedRoute}
         key={selectedRoute.id}
-        onEdit={() => setEditingRoute(true)}
+        onEdit={() => {setMetadataPublication(null);setEditingRoute(true);}}
+        publicationSucceeded={metadataPublication?.kind==="route_combination"&&metadataPublication.id===selectedRoute.id}
         onManageHoles={() => setEditingHoles(true)}
         onManageTees={() => setManagingCombinationTees(true)}
         teeService={combinationTeeEditorService}
@@ -1315,7 +1328,8 @@ export function AdminShell({ onSignOut, adminUserId = null }) {
       /> : selectedCourse && selectedClub ? <CourseDetail
         club={selectedClub}
         course={selectedCourse}
-        onEdit={() => setEditingCourse(true)}
+        onEdit={() => {setMetadataPublication(null);setEditingCourse(true);}}
+        publicationSucceeded={metadataPublication?.kind==="route"&&metadataPublication.id===selectedCourse.id}
         onManageTees={() => setManagingCourseTees(true)}
         onOpenRoute={setSelectedRoute}
         onEditRoute={(route) => { setSelectedRoute(route); setEditingRoute(true); }}

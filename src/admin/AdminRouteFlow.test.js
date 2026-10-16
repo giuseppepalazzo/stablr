@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { supabase } from "../lib/supabase";
 import { AdminShell } from "./AdminApp";
+import { metadataMockRequest } from "./__fixtures__/metadata-editor";
 
 jest.mock("../lib/supabase", () => ({ hasSupabaseConfig: true, supabase: { from: jest.fn(), rpc: jest.fn() } }));
 
@@ -32,6 +33,9 @@ test("Route and hole-grid editors from Club/Percorso, saved resume, atomic confi
     return query;
   });
   supabase.rpc.mockImplementation(async (name, params) => {
+    const request = metadataMockRequest(name, params, id => drafts.get(id));
+    if (request.reply) return request.reply;
+    name = request.name; params = request.params;
     if (name === "admin_user_directory") return { data: [], error: null };
     if (["admin_club_get_draft", "admin_course_get_draft"].includes(name)) return { data: null, error: null };
     if (name === "admin_route_get_draft") return { data: { draft: drafts.get(params.p_route_id) || null, context }, error: null };
@@ -64,7 +68,7 @@ test("Route and hole-grid editors from Club/Percorso, saved resume, atomic confi
       const live = routes.find((route) => route.id === params.p_route_id);
       if (!drafts.has(live.id)) {
         const snapshot = { name: live.name, is_active: live.is_active };
-        drafts.set(live.id, { draft_id: live.id, live_entity_id: live.id, revision: 1, snapshot, base_snapshot: snapshot });
+        drafts.set(live.id, { draft_id: live.id, live_entity_id: live.id, entity_type: "route_combination", workflow_status: "draft", revision: 1, snapshot, base_snapshot: snapshot });
       }
       return { data: { draft: drafts.get(live.id), context }, error: null };
     }
@@ -116,8 +120,10 @@ test("Route and hole-grid editors from Club/Percorso, saved resume, atomic confi
   const confirmation = await screen.findByRole("dialog", { name: "Conferma pubblicazione" });
   expect(within(confirmation).getByText("Combinazione fixture")).toBeInTheDocument();
   expect(within(confirmation).getByText("Bozza Route")).toBeInTheDocument();
+  fireEvent.change(within(confirmation).getByLabelText("Motivazione breve"), { target: { value: "Verifica editoriale" } });
   fireEvent.click(within(confirmation).getByRole("button", { name: "Conferma pubblicazione" }));
   await screen.findByRole("heading", { name: "Bozza Route" });
+  expect(screen.getByText("Pubblicazione metadati completata.")).toBeInTheDocument();
   await screen.findByText("18 / 18");
   expect(screen.getByText("Disattivata", { selector: "span" })).toBeInTheDocument();
   await waitFor(() => expect(screen.queryByText("Bozza in corso")).not.toBeInTheDocument());
@@ -141,6 +147,7 @@ test("Route and hole-grid editors from Club/Percorso, saved resume, atomic confi
   fireEvent.change(screen.getByLabelText("Stato operativo"), { target: { value: "true" } });
   fireEvent.click(screen.getByRole("button", { name: "Pubblica", exact: true }));
   const reactivate = await screen.findByRole("dialog", { name: "Conferma pubblicazione" });
+  fireEvent.change(within(reactivate).getByLabelText("Motivazione breve"), { target: { value: "Verifica editoriale" } });
   fireEvent.click(within(reactivate).getByRole("button", { name: "Conferma pubblicazione" }));
   await screen.findByRole("heading", { name: "Combinazione inattiva" });
   expect(screen.getByText("Attiva", { selector: "span" })).toBeInTheDocument();

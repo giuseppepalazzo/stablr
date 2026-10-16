@@ -11,6 +11,7 @@ import { getTeeOptionsForHolesCount, getSelectedTeeForHolesCount, hasTeeRatings,
 import TeeScopeNotice from "./components/TeeScopeNotice";
 import { loadTeeSiContracts, resolveTeeSi } from "./lib/tee-si";
 import { getRouteDistanceOccurrence, loadTeeDistanceContracts, readLegacyTeeDistance, resolveTeeDistance } from "./lib/tee-distances";
+import {loadCatalogMetadata,publishedCombinationOrder} from "./lib/catalog-metadata";
 import {sharePendingRequest} from "./lib/pending-request";
 import { RoundsHistoryEmptyState } from "./components/RoundsHistoryEmptyState";
 import { RoundHistoryCard, RoundHistoryDetail } from "./components/RoundsHistory";
@@ -1470,11 +1471,12 @@ function App() {
       "route_combination_id",
       combinationIds
     );
-    const [routeSi, combinationSi,routeDistances,combinationDistances] = await Promise.all([
+    const [routeSi, combinationSi,routeDistances,combinationDistances,catalogMetadata] = await Promise.all([
       loadTeeSiContracts(supabase, "route_tee", routeTeesData.map(tee => tee.id)),
       loadTeeSiContracts(supabase, "combination_tee", combinationTeesData.map(tee => tee.id)),
       loadTeeDistanceContracts(supabase,"route_tee",routeTeesData.map(tee=>tee.id)),
-      loadTeeDistanceContracts(supabase,"combination_tee",combinationTeesData.map(tee=>tee.id))
+      loadTeeDistanceContracts(supabase,"combination_tee",combinationTeesData.map(tee=>tee.id)),
+      loadCatalogMetadata(supabase,routeIds,combinationIds)
     ]);
 
     const routeTeesByRouteId = new Map();
@@ -1579,7 +1581,7 @@ function App() {
             backRouteId: combination.back_route_id,
             frontRouteName: frontRoute?.name || "Prime nove",
             backRouteName: backRoute?.name || "Seconde nove",
-            displayOrder: Number(combination.source_payload?.display_order || 0) || null,
+            displayOrder: publishedCombinationOrder(catalogMetadata.combinations.get(combination.id),combination.source_payload?.display_order),
             holesCount: combination.holes_count,
             totalPar:
               Number(combination.total_par || 0) ||

@@ -2,11 +2,12 @@ import { useCallback, useRef } from "react";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import RouteEditor, { RouteDetail } from "./RouteEditor";
 import { applyRoutePublication, canPublishRoute, createRouteEditorService, getRouteDiff, normalizeRouteFields } from "./route-editor-data";
+import {metadataPlan} from "./__fixtures__/metadata-editor";
 
 const club = { id: "club-1", name: "Club fixture", dataStatus: "needs_review", figMatchStatus: "unmatched" };
 const route = { id: "combination-1", name: "Combinazione fixture", isActive: true, holesCount: 18 };
 const snapshot = { name: route.name, is_active: true };
-const draft = { draft_id: "draft-1", revision: 1, snapshot, base_snapshot: { ...snapshot, _context: {} } };
+const draft = { draft_id: "draft-1",entity_type:"route_combination",live_entity_id:route.id,workflow_status:"draft", revision: 1, snapshot, base_snapshot: { ...snapshot, _context: {} } };
 const context = {
   route: { holes_count: 18, total_par: 72, order: 0, source_system: "fig", notes: "Nota fonte fixture" },
   origins: [{ position: 1, name: "Percorso A", holes_count: 9, is_active: true }, { position: 2, name: "Percorso B", holes_count: 9, is_active: true }],
@@ -17,6 +18,7 @@ const context = {
 };
 const makeService = () => ({
   openDraft: jest.fn().mockResolvedValue({ draft, context }),
+  previewDraft: jest.fn(async draft=>metadataPlan(draft,"route_combination")),
   getRoute: jest.fn().mockResolvedValue({ draft: null, context }),
   saveDraft: jest.fn().mockImplementation((current, fields) => Promise.resolve({ ...current, revision: current.revision + 1, snapshot: normalizeRouteFields(fields) })),
   publishDraft: jest.fn().mockResolvedValue({ version_id: "version-1", route: { id: route.id, club_id: club.id, name: "Nome nuovo", is_active: false } }),
@@ -34,7 +36,8 @@ test("diff allowlists name/active with explicit false, ignores technical fields"
   expect(getRouteDiff(snapshot, { ...snapshot, name: ` ${route.name} ` })).toEqual([]);
   expect(getRouteDiff(snapshot, { name: "Nuovo", is_active: false, holes_count: 9, display_order: 5 })).toEqual([
     { key: "name", label: "Nome visualizzato", before: route.name, after: "Nuovo" },
-    { key: "is_active", label: "Stato operativo", before: true, after: false }
+    { key: "is_active", label: "Stato operativo", before: true, after: false },
+    {key:"display_order",label:"Ordine",before:null,after:5}
   ]);
 });
 
@@ -45,10 +48,10 @@ test("resumes draft and exposes only name and operational state as editable", as
   await waitFor(() => expect(screen.getByLabelText("Nome visualizzato")).toHaveValue("Bozza salvata"));
   expect(screen.getByLabelText("Stato operativo")).toHaveValue("false");
   expect(screen.getByText("Bozza in corso")).toBeInTheDocument();
-  expect(screen.getAllByRole("textbox")).toHaveLength(1);
+  expect(screen.getAllByRole("textbox")).toHaveLength(3);
   expect(screen.getAllByRole("combobox")).toHaveLength(1);
   expect(screen.queryByLabelText("Ordine")).not.toBeInTheDocument();
-  expect(screen.getByText("Ordine · sola lettura")).toBeInTheDocument();
+  expect(screen.getByText("Ordine della fonte · sola lettura")).toBeInTheDocument();
   expect(screen.getByText("Nota fonte fixture")).toBeInTheDocument();
   expect(screen.getByText("Da collegare")).toBeInTheDocument();
   expect(screen.getByRole("table", { name: "Sequenza buche Route" })).toBeInTheDocument();
@@ -98,9 +101,10 @@ test("save preserves live and publish requires before/after and final confirmati
   for (const value of [route.name, "Nome nuovo", "Attiva", "Disattivata"]) expect(within(diff).getByText(value)).toBeInTheDocument();
   expect(service.publishDraft).not.toHaveBeenCalled();
   expect(service.saveDraft).toHaveBeenCalledTimes(1);
+  fireEvent.change(within(dialog).getByLabelText("Motivazione breve"),{target:{value:"Pubblicazione verificata"}});
   fireEvent.click(within(dialog).getByRole("button", { name: "Conferma pubblicazione" }));
   await waitFor(() => expect(onPublished).toHaveBeenCalledWith(expect.objectContaining({ name: "Nome nuovo", is_active: false })));
-  expect(service.publishDraft).toHaveBeenCalledWith(expect.objectContaining({ revision: 2 }));
+  expect(service.publishDraft).toHaveBeenCalledWith(expect.objectContaining({ revision: 2 }),expect.objectContaining({kind:"route_combination"}),"Pubblicazione verificata");
 });
 
 test("dirty publication saves first; cancelling confirmation leaves saved draft", async () => {
@@ -192,6 +196,7 @@ test.each(["40001", "23514", "42501"])("publication error %s keeps draft and rep
   fireEvent.change(screen.getByLabelText("Nome visualizzato"), { target: { value: "Nuovo" } });
   fireEvent.click(screen.getByRole("button", { name: "Pubblica", exact: true }));
   const dialog = await screen.findByRole("dialog");
+  fireEvent.change(within(dialog).getByLabelText("Motivazione breve"),{target:{value:"Pubblicazione verificata"}});
   fireEvent.click(within(dialog).getByRole("button", { name: "Conferma pubblicazione" }));
   await within(dialog).findByRole("alert"); expect(onPublished).not.toHaveBeenCalled();
   expect(screen.getByText("Bozza in corso")).toBeInTheDocument(); logged.mockRestore();
@@ -201,13 +206,13 @@ test("adapter sends only allowed fields and type route_combination to existing a
   const client = { rpc: jest.fn().mockResolvedValue({ data: [draft], error: null }) };
   const service = createRouteEditorService(client);
   await service.saveDraft(draft, { name: " Nuovo ", is_active: false, source_payload: {}, front_route_id: "forbidden" });
-  expect(client.rpc).toHaveBeenCalledWith("admin_route_save_draft", { p_draft_id: draft.draft_id, p_snapshot: { name: "Nuovo", is_active: false }, p_expected_revision: 1 });
+  expect(client.rpc).toHaveBeenCalledWith("admin_catalog_metadata", {p_kind:"route_combination",p_target:route.id,p_action:"save", p_draft_id: draft.draft_id, p_snapshot: { name: "Nuovo", is_active: false,display_order:null,aliases:[],notes:null }, p_expected_revision: 1 });
   client.rpc.mockResolvedValue({ data: { ...draft, workflow_status: "archived" }, error: null });
   await service.abandonDraft(draft);
   expect(client.rpc).toHaveBeenLastCalledWith("admin_catalog_archive_draft", { p_draft_id: draft.draft_id, p_entity_type: "route_combination", p_expected_revision: 1 });
   client.rpc.mockResolvedValue({ data: null, error: null });
   await expect(service.getRoute(route.id)).rejects.toThrow("no context");
-  await expect(service.publishDraft(draft)).rejects.toThrow("no live result");
+  await expect(service.publishDraft(draft)).rejects.toThrow("Server preview");
 });
 
 test("publication keeps inactive combination reachable and updates only active counts", () => {

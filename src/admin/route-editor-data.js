@@ -1,12 +1,12 @@
+import {createCatalogMetadataService,getMetadataRequestError,metadataDiff,normalizeEditorialFields} from "./catalog-metadata-data";
+
 export function normalizeRouteFields(fields) {
-  return { name: String(fields.name || "").trim(), is_active: fields.is_active === true };
+  return { name: String(fields.name || "").trim(), is_active: fields.is_active === true,
+    display_order:fields.display_order===""||fields.display_order==null?null:Number(fields.display_order),...normalizeEditorialFields(fields) };
 }
 
 export function getRouteDiff(base, fields) {
-  const values = normalizeRouteFields(fields);
-  return [["name", "Nome visualizzato"], ["is_active", "Stato operativo"]]
-    .map(([key, label]) => ({ key, label, before: base[key], after: values[key] }))
-    .filter((change) => change.before !== change.after);
+  return metadataDiff(normalizeRouteFields(base),normalizeRouteFields(fields));
 }
 
 export function formatRouteValue(key, value) {
@@ -16,6 +16,7 @@ export function formatRouteValue(key, value) {
 }
 
 export function getRouteEditorError(error) {
+  const requestError=getMetadataRequestError(error);if(requestError)return requestError;
   if (["40001","PT409"].includes(error?.code)) return "La bozza, la Route o i dati collegati sono cambiati. Riapri l’editor per verificare la base; la pubblicazione è stata bloccata.";
   if (error?.code === "40P01") return "Operazione in conflitto con un altro aggiornamento. Riprova; nessun dato è stato pubblicato.";
   if (error?.code === "42501") return "Non sei autorizzato a modificare questa bozza.";
@@ -28,6 +29,7 @@ export function canPublishRoute(context, fields) {
 }
 
 export function createRouteEditorService(client) {
+  const metadata=createCatalogMetadataService(client,"route_combination");
   const invoke = async (name, parameters) => {
     if (!client) throw new Error("Route editor client unavailable");
     const { data, error } = await client.rpc(name, parameters);
@@ -46,24 +48,10 @@ export function createRouteEditorService(client) {
     return result;
   };
   return {
+    ...metadata,
     getRoute,
     getDraft: async (routeId) => (await getRoute(routeId)).draft || null,
-    openDraft: async (routeId) => {
-      const result = await invoke("admin_route_open_draft", { p_route_id: routeId });
-      requireDraft(result?.draft);
-      if (!result.context?.checks) throw new Error("Route editor returned no context");
-      return result;
-    },
-    saveDraft: async (draft, fields) => requireDraft(await invoke("admin_route_save_draft", {
-      p_draft_id: draft.draft_id, p_snapshot: normalizeRouteFields(fields), p_expected_revision: draft.revision
-    })),
-    publishDraft: async (draft) => {
-      const result = await invoke("admin_route_publish_draft", {
-        p_draft_id: draft.draft_id, p_expected_revision: draft.revision
-      });
-      if (!result?.route?.id || !result.version_id) throw new Error("Route publication returned no live result");
-      return result;
-    },
+    saveDraft: (draft,fields) => metadata.saveMetadataDraft(draft,normalizeRouteFields(fields)),
     abandonDraft: async (draft) => {
       const result = requireDraft(await invoke("admin_catalog_archive_draft", {
         p_draft_id: draft.draft_id, p_entity_type: "route_combination", p_expected_revision: draft.revision
@@ -76,8 +64,8 @@ export function createRouteEditorService(client) {
 
 export function applyRoutePublication(club, live) {
   const allCombinations = (club.allCombinations || club.combinations).map((route) => route.id === live.id
-    ? { ...route, name: live.name, isActive: live.is_active, status: live.is_active ? "Attiva" : "Disattivata" }
-    : route);
+    ? { ...route, name: live.name, isActive: live.is_active, status: live.is_active ? "Attiva" : "Disattivata",aliases:live.aliases??route.aliases??[],notes:live.notes??null,displayOrder:live.display_order??null }
+    : route).sort((a,b)=>(a.displayOrder??2147483648)-(b.displayOrder??2147483648)||a.name.localeCompare(b.name,"it"));
   const combinations = allCombinations.filter((route) => route.isActive !== false);
   const routes = club.routes;
   return { ...club, allCombinations, combinations,

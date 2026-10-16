@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { supabase } from "../lib/supabase";
 import { AdminShell } from "./AdminApp";
+import { metadataMockRequest } from "./__fixtures__/metadata-editor";
 
 jest.mock("../lib/supabase", () => ({ hasSupabaseConfig: true, supabase: { from: jest.fn(), rpc: jest.fn() } }));
 
@@ -18,6 +19,9 @@ test("both course entry points, sidebar save exit, resume, publish and inactive 
     return query;
   });
   supabase.rpc.mockImplementation(async (name, params) => {
+    const request = metadataMockRequest(name, params, id => drafts.get(id));
+    if (request.reply) return request.reply;
+    name = request.name; params = request.params;
     if (name === "admin_user_directory") return { data: [], error: null };
     if (name === "admin_club_get_draft") return { data: null, error: null };
     if (name === "admin_course_get_draft") return { data: drafts.get(params.p_course_id) || null, error: null };
@@ -25,7 +29,7 @@ test("both course entry points, sidebar save exit, resume, publish and inactive 
       const live = club.course_routes.find((item) => item.id === params.p_course_id);
       if (!drafts.has(live.id)) {
         const snapshot = { name: live.name, holes_count: live.holes_count, display_order: live.display_order, is_active: live.is_active };
-        drafts.set(live.id, { draft_id: live.id, live_entity_id: live.id, revision: 1, snapshot, base_snapshot: snapshot });
+        drafts.set(live.id, { draft_id: live.id, live_entity_id: live.id, entity_type: "route", workflow_status: "draft", revision: 1, snapshot, base_snapshot: snapshot });
       }
       return { data: { draft: drafts.get(live.id), context: { can_edit_structure: false } }, error: null };
     }
@@ -79,8 +83,10 @@ test("both course entry points, sidebar save exit, resume, publish and inactive 
   fireEvent.click(screen.getByRole("button", { name: "Pubblica", exact: true }));
   let dialog = await screen.findByRole("dialog", { name: "Conferma pubblicazione" });
   expect(within(dialog).getByText("Disattivato")).toBeInTheDocument();
+  fireEvent.change(within(dialog).getByLabelText("Motivazione breve"), { target: { value: "Verifica editoriale" } });
   fireEvent.click(within(dialog).getByRole("button", { name: "Conferma pubblicazione" }));
   await screen.findByRole("heading", { name: "Bozza percorso" });
+  expect(screen.getByText("Pubblicazione metadati completata.")).toBeInTheDocument();
   await waitFor(() => expect(screen.queryByText("Bozza in corso")).not.toBeInTheDocument());
 
   fireEvent.click(screen.getByRole("button", { name: "Club fixture", exact: true }));
@@ -90,6 +96,7 @@ test("both course entry points, sidebar save exit, resume, publish and inactive 
   fireEvent.change(screen.getByLabelText("Stato operativo"), { target: { value: "true" } });
   fireEvent.click(screen.getByRole("button", { name: "Pubblica", exact: true }));
   dialog = await screen.findByRole("dialog", { name: "Conferma pubblicazione" });
+  fireEvent.change(within(dialog).getByLabelText("Motivazione breve"), { target: { value: "Verifica editoriale" } });
   fireEvent.click(within(dialog).getByRole("button", { name: "Conferma pubblicazione" }));
   await screen.findByRole("heading", { name: "Percorso disattivato" });
   expect(screen.getByText("Attivo", { selector: "span" })).toBeInTheDocument();
